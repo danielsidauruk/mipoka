@@ -109,242 +109,7 @@ class _MobilePenggunaDaftarPengajuanKegiatanState extends State<MobilePenggunaDa
                       ),
                     ),
 
-                    const SizedBox(height: 4.0),
-
-                    // Table(
-                    //   border: TableBorder.all(color: Colors.white),
-                    //   columnWidths: {
-                    //     0: FixedColumnWidth(40.0),
-                    //     // 1: FixedColumnWidth(50.0),
-                    //     // 2: FixedColumnWidth(50.0),
-                    //   },
-                    //   children: [
-                    //     TableRow(
-                    //         children: [
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text(
-                    //               'No.',
-                    //               style: TextStyle(fontWeight: FontWeight.bold),
-                    //             ),
-                    //           ),
-                    //
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text(
-                    //               'Tanggal Mengirim Usulan Kegiatan',
-                    //               style: TextStyle(fontWeight: FontWeight.bold),
-                    //             ),
-                    //           ),
-                    //
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text(
-                    //               'Nama Pengusul',
-                    //               style: TextStyle(fontWeight: FontWeight.bold),
-                    //             ),
-                    //           ),
-                    //
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text(
-                    //               'Nama Kegiatan',
-                    //               style: TextStyle(fontWeight: FontWeight.bold),
-                    //             ),
-                    //           ),
-                    //
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text(
-                    //               'Usulan Kegiatan',
-                    //               style: TextStyle(fontWeight: FontWeight.bold),
-                    //             ),
-                    //           ),
-                    //
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text(
-                    //               'Validasi Pembina',
-                    //               style: TextStyle(fontWeight: FontWeight.bold),
-                    //             ),
-                    //           ),
-                    //
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text(
-                    //               'Status',
-                    //               style: TextStyle(fontWeight: FontWeight.bold),
-                    //             ),
-                    //           ),
-                    //
-                    //         ]
-                    //     ),
-                    //     TableRow(
-                    //         children: [
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //         ]
-                    //     ),
-                    //
-                    //     TableRow(
-                    //         children: [
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //         ]
-                    //     ),
-                    //
-                    //     TableRow(
-                    //         children: [
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //         ]
-                    //     ),
-                    //
-                    //     TableRow(
-                    //         children: [
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //         ]
-                    //     ),
-                    //
-                    //     TableRow(
-                    //         children: [
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Cell 1'),
-                    //           ),
-                    //         ]
-                    //     ),
-                    //   ],
-                    // ),
+                    const SizedBox(height: 8.0),
 
                     Expanded(
                       child: SingleChildScrollView(
@@ -366,24 +131,24 @@ class _MobilePenggunaDaftarPengajuanKegiatanState extends State<MobilePenggunaDa
                                 label: Text('Tanggal Mengirim Usulan Kegiatan'),
                               ),
                               DataColumn(
-                                label: Text('City'),
+                                label: Text('Nama Pengusul'),
                               ),
                               DataColumn(
-                                label: Text('Country'),
+                                label: Text('Nama Kegiatan'),
                               ),
                               DataColumn(
-                                label: Text('Salary'),
+                                label: Text('Usulan Kegiatan'),
                               ),
                               DataColumn(
-                                label: Text('Position'),
+                                label: Text('Validasi Pembina'),
                               ),
                               DataColumn(
-                                label: Text('Department'),
+                                label: Text('Status'),
                               ),
                             ],
+
                             rows: List<DataRow>.generate(
-                              100,
-                                  (int index) => DataRow(
+                              12, (int index) => DataRow(
                                 cells: <DataCell>[
                                   DataCell(Text('${index + 1}')),
                                   DataCell(Text('Age $index')),
