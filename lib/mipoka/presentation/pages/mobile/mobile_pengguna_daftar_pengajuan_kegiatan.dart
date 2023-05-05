@@ -117,6 +117,7 @@ class _MobilePenggunaDaftarPengajuanKegiatanState extends State<MobilePenggunaDa
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: DataTable(
+                            columnSpacing: 40,
                             border: TableBorder.all(color: Colors.white),
                             //   columnWidths: {
                             //     0: FixedColumnWidth(40.0),
@@ -125,48 +126,109 @@ class _MobilePenggunaDaftarPengajuanKegiatanState extends State<MobilePenggunaDa
                             //   },
                             columns: const [
                               DataColumn(
-                                label: Text('No.'),
+                                label: Text(
+                                  'No.',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                               DataColumn(
-                                label: Text('Tanggal Mengirim Usulan Kegiatan'),
+                                label: Text(
+                                  'Tanggal Mengirim\nUsulan Kegiatan',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                               DataColumn(
-                                label: Text('Nama Pengusul'),
+                                label: Text(
+                                  'Nama Pengusul',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                               DataColumn(
-                                label: Text('Nama Kegiatan'),
+                                label: Text(
+                                  'Nama Kegiatan',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                               DataColumn(
-                                label: Text('Usulan Kegiatan'),
+                                label: Text(
+                                  'Usulan Kegiatan',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                               DataColumn(
-                                label: Text('Validasi Pembina'),
+                                label: Text(
+                                  'Validasi Pembina',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                               DataColumn(
-                                label: Text('Status'),
+                                label: Text(
+                                  'Status',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ],
 
-                            rows: List<DataRow>.generate(
-                              12, (int index) => DataRow(
-                                cells: <DataCell>[
-                                  DataCell(Text('${index + 1}')),
-                                  DataCell(Text('Age $index')),
+                            rows: List<DataRow>.generate(12, (int index) {
+                              return DataRow(
+                                cells: [
+                                  DataCell(
+                                    Text(
+                                      '${index + 1}',
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  DataCell(
+                                    Text(
+                                      'Age $index',
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
                                   DataCell(Text('City $index')),
                                   DataCell(Text('Country $index')),
                                   DataCell(Text('Salary $index')),
                                   DataCell(Text('Position $index')),
                                   DataCell(Text('Department $index')),
                                 ],
-                              ),
-                            ),
+                              );
+                            }),
                           ),
                         ),
                       ),
                     ),
-
-
                   ],
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 8.0),
+
+            Align(
+              alignment: Alignment.centerRight,
+              child: InkWell(
+                onTap: () {},
+                child: Container(
+                  height: 30,
+                  width: 200,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: const Text(
+                    'Ajukan Kegiatan',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ),
