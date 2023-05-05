@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/utils.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_penggunaan_beranda_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/web/web_pengguna_beranda_page.dart';
 import 'mipoka/presentation/pages/mobile/mobile_pengguna_login_page.dart';
 
@@ -50,8 +51,15 @@ class MyApp extends StatelessWidget {
       navigatorObservers: [routeObserver],
       onGenerateRoute: (RouteSettings settings) {
         switch (settings.name) {
+          // web route
           case webPenggunaBerandaRoute:
             return MaterialPageRoute(builder: (_) => const WebPenggunaBerandaPage());
+
+
+          // mobile route
+
+          case mobilePenggunaBerandaRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePenggunaBerandaPage());
         }
       },
     );

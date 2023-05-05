@@ -7,13 +7,6 @@ class WebPenggunaBerandaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-            color: Colors.grey,
-          ),
-          onPressed: () {},
-        ),
         centerTitle: false,
         backgroundColor: Colors.transparent,
         elevation: 0.0,
