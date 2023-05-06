@@ -95,6 +95,7 @@ class _MobilePenggunaDaftarPengajuanKegiatanState extends State<MobilePenggunaDa
                           Icons.arrow_drop_down,
                           color: Colors.white,
                         ),
+                        isExpanded: true,
                         underline: const Center(),
                         onChanged: (String? value) {
                           setState(() => dropDownValue = value!);
