@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
@@ -61,12 +62,12 @@ class MobilePenggunaPengajuanUsulanKegiatan2LK extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      buildTitle('Data Peserta Kegiatan'),
+                      buildTitle('Data Peserta Kegiatan (Luar Kota)'),
 
                       const SizedBox(height: 4.0),
 
                       InkWell(
-                        onTap: () {},
+                        onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2LKDataPeserta),
                         child: Container(
                           padding: const EdgeInsets.all(8.0),
                           width: double.infinity,
@@ -204,7 +205,9 @@ class MobilePenggunaPengajuanUsulanKegiatan2LK extends StatelessWidget {
                       const SizedBox(height: 4.0),
 
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatan);
+                        },
                         child: Container(
                           padding: const EdgeInsets.all(8.0),
                           width: double.infinity,
@@ -247,82 +250,88 @@ class MobilePenggunaPengajuanUsulanKegiatan2LK extends StatelessWidget {
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey),
                           ),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: DataTable(
-                                columnSpacing: 40,
-                                border: TableBorder.all(color: Colors.white),
-                                columns: const [
-                                  DataColumn(
-                                    label: Text(
-                                      'No.',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Nama Biaya',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Qty',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Harga Satuan',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Total',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Keterangan',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: DataTable(
+                                      columnSpacing: 40,
+                                      border: TableBorder.all(color: Colors.white),
+                                      columns: const [
+                                        DataColumn(
+                                          label: Text(
+                                            'No.',
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          label: Text(
+                                            'Nama Biaya',
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          label: Text(
+                                            'Qty',
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          label: Text(
+                                            'Harga Satuan',
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          label: Text(
+                                            'Total',
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          label: Text(
+                                            'Keterangan',
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ],
 
-                                rows: List.generate(12, (int index) {
-                                  return DataRow(
-                                    cells: [
-                                      DataCell(
-                                        Text(
-                                          '${index + 1}',
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Text(
-                                          'Age $index sahjksadfkjh ajdshkjahdf hdjkashjkhad ajkdshfkja fadfk ah',
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                      DataCell(Text('City $index')),
-                                      DataCell(Text('Country $index')),
-                                      DataCell(Text('Salary $index')),
-                                      DataCell(Text('Position $index')),
-                                    ],
-                                  );
-                                }),
+                                      rows: List.generate(12, (int index) {
+                                        return DataRow(
+                                          cells: [
+                                            DataCell(
+                                              Text(
+                                                '${index + 1}',
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Text(
+                                                'Age $index sahjksadfkjh ajdshkjahdf hdjkashjkhad ajkdshfkja fadfk ah',
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                            DataCell(Text('City $index')),
+                                            DataCell(Text('Country $index')),
+                                            DataCell(Text('Salary $index')),
+                                            DataCell(Text('Position $index')),
+                                          ],
+                                        );
+                                      }),
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
                       ),

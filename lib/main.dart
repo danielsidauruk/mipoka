@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/utils.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/mobilePenggunaPengajuanUsulanKegiatan1.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/mobilePenggunaPengajuanUsulanKegiatan2lk.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_pengguna_pengajuan_usulan_kegiatan_1.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_pengguna_pengajuan_usulan_kegiatan_2_biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_pengguna_pengajuan_usulan_kegiatan_2_dk.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_pengguna_pengajuan_usulan_kegiatan_2_lk.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_pengguna_daftar_pengajuan_kegiatan.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_pengguna_pengajuan_usulan_kegiatan_2_lk_data_peserta.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_penggunaan_beranda_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/web/web_pengguna_beranda_page.dart';
 import 'mipoka/presentation/pages/mobile/mobile_pengguna_login_page.dart';
@@ -69,6 +72,12 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan1());
           case mobilePenggunaPengajuanUsulanKegiatan2LKRoute:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan2LK());
+          case mobilePenggunaPengajuanUsulanKegiatan2DKRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan2DK());
+          case mobilePenggunaPengajuanUsulanKegiatan2LKDataPeserta:
+            return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan2LKDataPeserta());
+          case mobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatan:
+            return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatan());
         }
       },
     );

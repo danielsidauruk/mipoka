@@ -696,7 +696,11 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                       const SizedBox(height: 8.0),
 
                       Button(
-                        navigation: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2LKRoute),
+                        navigation: () {
+                          tempatKegiatan == false ?
+                          Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2DKRoute) :
+                          Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2LKRoute);
+                        },
                         text: 'Berikutnya',
                       )
                     ],
