@@ -123,11 +123,6 @@ class _MobilePenggunaDaftarPengajuanKegiatanState extends State<MobilePenggunaDa
                           child: DataTable(
                             columnSpacing: 40,
                             border: TableBorder.all(color: Colors.white),
-                            //   columnWidths: {
-                            //     0: FixedColumnWidth(40.0),
-                            //     // 1: FixedColumnWidth(50.0),
-                            //     // 2: FixedColumnWidth(50.0),
-                            //   },
                             columns: const [
                               DataColumn(
                                 label: Text(

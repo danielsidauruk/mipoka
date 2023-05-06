@@ -5,3 +5,4 @@ const webPenggunaBerandaRoute = '/webPenggunaBerandaRoute';
 const mobilePenggunaBerandaRoute = '/mobilePenggunaBerandaRoute';
 const mobilePenggunaDaftarPengajuanKegiatanRoute = '/mobileDaftarPengajuanKegiatanRoute';
 const mobilePenggunaPengajuanUsulanKegiatan1Route = '/mobilePenggunaPengajuanUsulanKegiatan1Route';
+const mobilePenggunaPengajuanUsulanKegiatan2LKRoute = '/mobilePenggunaPengajuanUsulanKegiatan2LKRoute';

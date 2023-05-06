@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
+import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
 
@@ -580,7 +581,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                           Expanded(
                             child: jenisPartisipan == false ?
                             buildTitle('Tim') :
-                            buildTitle('Perorangan'),
+                            buildTitle('Orang'),
                           ),
                         ],
                       ),
@@ -695,7 +696,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                       const SizedBox(height: 8.0),
 
                       Button(
-                        navigation: () {},
+                        navigation: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2LKRoute),
                         text: 'Berikutnya',
                       )
                     ],
@@ -704,15 +705,6 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
               ],
           ),
         ),
-      ),
-    );
-  }
-
-  Text buildTitle(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-        fontSize: 16,
       ),
     );
   }
