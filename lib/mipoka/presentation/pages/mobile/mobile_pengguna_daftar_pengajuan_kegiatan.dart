@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
 
 class MobilePenggunaDaftarPengajuanKegiatan extends StatefulWidget {
-  const MobilePenggunaDaftarPengajuanKegiatan({Key? key}) : super(key: key);
+  const MobilePenggunaDaftarPengajuanKegiatan({super.key});
 
   @override
   State<MobilePenggunaDaftarPengajuanKegiatan> createState() => _MobilePenggunaDaftarPengajuanKegiatanState();
@@ -214,7 +215,7 @@ class _MobilePenggunaDaftarPengajuanKegiatanState extends State<MobilePenggunaDa
             Align(
               alignment: Alignment.centerRight,
               child: InkWell(
-                onTap: () {},
+                onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan1Route),
                 child: Container(
                   height: 30,
                   width: 200,

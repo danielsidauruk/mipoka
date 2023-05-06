@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/utils.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/mobilePenggunaPengajuanUsulanKegiatan1.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_pengguna_daftar_pengajuan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_penggunaan_beranda_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/web/web_pengguna_beranda_page.dart';
@@ -61,8 +62,10 @@ class MyApp extends StatelessWidget {
 
           case mobilePenggunaBerandaRoute:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaBerandaPage());
-          case mobileDaftarPengajuanKegiatanRoute:
+          case mobilePenggunaDaftarPengajuanKegiatanRoute:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaDaftarPengajuanKegiatan());
+          case mobilePenggunaPengajuanUsulanKegiatan1Route:
+            return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan1());
         }
       },
     );

@@ -108,7 +108,7 @@ class MobilePenggunaDrawerWidget extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              onTap: () => Navigator.pushNamed(context, mobileDaftarPengajuanKegiatanRoute),
+                              onTap: () => Navigator.pushNamed(context, mobilePenggunaDaftarPengajuanKegiatanRoute),
                             ),
 
                             ListTile(

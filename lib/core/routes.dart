@@ -3,4 +3,5 @@ const webPenggunaBerandaRoute = '/webPenggunaBerandaRoute';
 
 // mobile routes - pengguna
 const mobilePenggunaBerandaRoute = '/mobilePenggunaBerandaRoute';
-const mobileDaftarPengajuanKegiatanRoute = '/mobileDaftarPengajuanKegiatanRoute';
+const mobilePenggunaDaftarPengajuanKegiatanRoute = '/mobileDaftarPengajuanKegiatanRoute';
+const mobilePenggunaPengajuanUsulanKegiatan1Route = '/mobilePenggunaPengajuanUsulanKegiatan1Route';
