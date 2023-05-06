@@ -19,7 +19,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State extends State<MobilePenggunaP
   bool tempatKegiatan = false;
   bool jenisPartisipan = false;
   final _controller = rich_text.QuillController.basic();
-  List _controllerToString = [];
+  final _controllerToString = [];
 
   @override
   Widget build(BuildContext context) {
@@ -115,21 +115,23 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State extends State<MobilePenggunaP
                         controller: _controller,
                         scrollController: ScrollController(),
                         focusNode: FocusNode(),
-                        autoFocus: true,
+                        autoFocus: false,
                         readOnly: false,
-                        placeholder: 'Enter text...',
                         expands: true,
-                        padding: EdgeInsets.all(8.0),
-                        scrollable: true, // Tambahkan parameter scrollable dengan nilai true
+                        padding: const EdgeInsets.all(8.0),
+                        scrollable: true,
                       ),
                     ),
+
                     rich_text.QuillToolbar.basic(
                       controller: _controller,
-                      toolbarIconSize: 24.0,
+                      toolbarIconSize: 20.0,
                       showBoldButton: true,
                       showItalicButton: true,
                       showUnderLineButton: true,
                       showColorButton: true,
+                      showFontFamily: false,
+
                     ),
 
                     InkWell(
@@ -138,7 +140,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State extends State<MobilePenggunaP
                         _controllerToString.addAll(deltaList);
                         print(_controllerToString);
                       },
-                      child: Text('Print Controller'),
+                      child: const Text('Print Controller'),
                     ),
 
                   ],
