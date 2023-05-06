@@ -3,6 +3,8 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
 
+import '../../widgets/button.dart';
+
 class MobilePenggunaDaftarPengajuanKegiatan extends StatefulWidget {
   const MobilePenggunaDaftarPengajuanKegiatan({super.key});
 
@@ -212,27 +214,12 @@ class _MobilePenggunaDaftarPengajuanKegiatanState extends State<MobilePenggunaDa
 
             const SizedBox(height: 8.0),
 
-            Align(
-              alignment: Alignment.centerRight,
-              child: InkWell(
-                onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan1Route),
-                child: Container(
-                  height: 30,
-                  width: 200,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: const Text(
-                    'Ajukan Kegiatan',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+            Button(
+              navigation: () => Navigator.pushNamed(
+                context,
+                mobilePenggunaPengajuanUsulanKegiatan1Route,
               ),
+              text: 'Ajukan Kegiatan',
             ),
           ],
         ),

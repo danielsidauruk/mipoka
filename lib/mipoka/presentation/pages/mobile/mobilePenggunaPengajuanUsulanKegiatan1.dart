@@ -4,6 +4,8 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
 
+import '../../widgets/button.dart';
+
 class MobilePenggunaPengajuanUsulanKegiatan1 extends StatefulWidget {
   const MobilePenggunaPengajuanUsulanKegiatan1({super.key});
 
@@ -22,6 +24,9 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
   TimeOfDay? selectedWaktuMulaiKegiatan;
   TimeOfDay? selectedWaktuSelesaiKegiatan;
   bool tempatKegiatan = false;
+  DateTime? selectedTanggalKeberangkatan;
+  DateTime? selectedTanggalKepulangan;
+  bool jenisPartisipan = false;
 
   @override
   Widget build(BuildContext context) {
@@ -453,7 +458,246 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                         ),
                       ),
 
+                      const SizedBox(height: 8.0),
 
+                      tempatKegiatan != false ?
+                      SizedBox(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            buildTitle('Tanggal Keberangkatan'),
+
+                            const SizedBox(height: 4.0),
+
+                            Container(
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.all(8.0),
+                              // height: 35,
+                              constraints: const BoxConstraints(minHeight: 35.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.0),
+                                border: Border.all(color: Colors.white),
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1000),
+                                    lastDate: DateTime(2100),
+                                  ).then((value) {
+                                    if (value != null) {
+                                      setState(() => selectedTanggalKeberangkatan = value);
+                                    }
+                                  });
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      selectedTanggalKeberangkatan != null
+                                          ? DateFormat('dd / MM / yyyy').format(selectedTanggalKeberangkatan!)
+                                          : '',
+                                    ),
+
+                                    const Icon(
+                                      Icons.calendar_month_sharp,
+                                      size: 20,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(height: 8.0),
+
+                            buildTitle('Tanggal Kepulangan'),
+
+                            const SizedBox(height: 4.0),
+
+                            Container(
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.all(8.0),
+                              // height: 35,
+                              constraints: const BoxConstraints(minHeight: 35.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.0),
+                                border: Border.all(color: Colors.white),
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1000),
+                                    lastDate: DateTime(2100),
+                                  ).then((value) {
+                                    if (value != null) {
+                                      setState(() => selectedTanggalKepulangan = value);
+                                    }
+                                  });
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      selectedTanggalKepulangan != null
+                                          ? DateFormat('dd / MM / yyyy').format(selectedTanggalKepulangan!)
+                                          : '',
+                                    ),
+
+                                    const Icon(
+                                      Icons.calendar_month_sharp,
+                                      size: 20,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ) :
+
+                      const Center(),
+
+                      const SizedBox(height: 8.0),
+
+                      Row(
+                        children: [
+                          buildTitle('Jumlah Parsitipan'),
+
+                          const SizedBox(width: 4.0),
+
+                          Switch(
+                            value: jenisPartisipan,
+                            onChanged: (bool newValue) {
+                              setState(() => jenisPartisipan = newValue);
+                            },
+                          ),
+
+                          const SizedBox(width: 4.0),
+
+                          Expanded(
+                            child: jenisPartisipan == false ?
+                            buildTitle('Tim') :
+                            buildTitle('Perorangan'),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 4.0),
+
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(8.0),
+                        constraints: const BoxConstraints(minHeight: 35.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          border: Border.all(color: Colors.white),
+                        ),
+                        child: TextField(
+                          maxLines: null,
+                          onChanged: (query) {},
+                          style: const TextStyle(),
+                          decoration: null,
+                        ),
+                      ),
+
+                      const SizedBox(height: 8.0),
+
+                      buildTitle('Target Kegiatan'),
+
+                      const SizedBox(height: 4.0),
+
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(8.0),
+                        constraints: const BoxConstraints(minHeight: 35.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          border: Border.all(color: Colors.white),
+                        ),
+                        child: TextField(
+                          maxLines: null,
+                          onChanged: (query) {},
+                          style: const TextStyle(),
+                          decoration: null,
+                        ),
+                      ),
+
+                      const SizedBox(height: 8.0),
+
+                      buildTitle('Total Pendanaan'),
+
+                      const SizedBox(height: 4.0),
+
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(8.0),
+                        constraints: const BoxConstraints(minHeight: 35.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          border: Border.all(color: Colors.white),
+                        ),
+                        child: TextField(
+                          maxLines: null,
+                          onChanged: (query) {},
+                          style: const TextStyle(),
+                          decoration: null,
+                        ),
+                      ),
+
+                      const SizedBox(height: 8.0),
+
+                      buildTitle('Keterangan'),
+
+                      const SizedBox(height: 4.0),
+
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(8.0),
+                        constraints: const BoxConstraints(minHeight: 35.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          border: Border.all(color: Colors.white),
+                        ),
+                        child: TextField(
+                          maxLines: null,
+                          onChanged: (query) {},
+                          style: const TextStyle(),
+                          decoration: null,
+                        ),
+                      ),
+
+                      const SizedBox(height: 8.0),
+
+                      buildTitle('Tanda Tangan Ormawa'),
+
+                      const SizedBox(height: 4.0),
+
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(8.0),
+                        constraints: const BoxConstraints(minHeight: 35.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          border: Border.all(color: Colors.white),
+                        ),
+                        child: const Align(
+                          alignment: Alignment.centerRight,
+                          child: Icon(
+                            Icons.upload,
+                            size: 20,
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 8.0),
+
+                      Button(
+                        navigation: () {},
+                        text: 'Berikutnya',
+                      )
                     ],
                   ),
                 ),
