@@ -347,7 +347,7 @@ class MobilePenggunaPengajuanUsulanKegiatan2LK extends StatelessWidget {
                           const SizedBox(width: 8.0),
 
                           Button(
-                            navigation: () {},
+                            navigation: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan3Route),
                             text: 'Berikutnya',
                           ),
                         ],

@@ -10,3 +10,4 @@ const mobilePenggunaPengajuanUsulanKegiatan2DKRoute = '/mobilePenggunaPengajuanU
 const mobilePenggunaPengajuanUsulanKegiatan2LKDataPesertaRoute = '/mobilePenggunaPengajuanUsulanKegiatan2LKDataPesertaRoute';
 const mobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaRoute = '/mobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaRoute';
 const mobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatanRoute = '/mobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatanRoute';
+const mobilePenggunaPengajuanUsulanKegiatan3Route = '/mobilePenggunaPengajuanUsulanKegiatan3Route';
