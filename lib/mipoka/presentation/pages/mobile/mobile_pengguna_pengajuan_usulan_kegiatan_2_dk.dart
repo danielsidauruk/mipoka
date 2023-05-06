@@ -3,6 +3,8 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
 
+import '../../../../core/routes.dart';
+
 class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
   const MobilePenggunaPengajuanUsulanKegiatan2DK({super.key});
 
@@ -66,7 +68,7 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
                     const SizedBox(height: 4.0),
 
                     InkWell(
-                      onTap: () {},
+                      onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaRoute),
                       child: Container(
                         padding: const EdgeInsets.all(8.0),
                         width: double.infinity,
@@ -188,7 +190,7 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
                     const SizedBox(height: 4.0),
 
                     InkWell(
-                      onTap: () {},
+                      onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatanRoute),
                       child: Container(
                         padding: const EdgeInsets.all(8.0),
                         width: double.infinity,

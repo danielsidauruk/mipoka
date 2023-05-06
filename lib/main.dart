@@ -4,6 +4,7 @@ import 'package:mipoka/core/utils.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_pengguna_pengajuan_usulan_kegiatan_1.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_pengguna_pengajuan_usulan_kegiatan_2_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_pengguna_pengajuan_usulan_kegiatan_2_dk.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_pengguna_pengajuan_usulan_kegiatan_2_dk_data_peserta.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_pengguna_pengajuan_usulan_kegiatan_2_lk.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_pengguna_daftar_pengajuan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_pengguna_pengajuan_usulan_kegiatan_2_lk_data_peserta.dart';
@@ -72,11 +73,13 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan1());
           case mobilePenggunaPengajuanUsulanKegiatan2LKRoute:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan2LK());
+          case mobilePenggunaPengajuanUsulanKegiatan2LKDataPesertaRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan2LKDataPeserta());
           case mobilePenggunaPengajuanUsulanKegiatan2DKRoute:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan2DK());
-          case mobilePenggunaPengajuanUsulanKegiatan2LKDataPeserta:
-            return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan2LKDataPeserta());
-          case mobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatan:
+          case mobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan2DKDataPeserta());
+          case mobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatanRoute:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatan());
         }
       },

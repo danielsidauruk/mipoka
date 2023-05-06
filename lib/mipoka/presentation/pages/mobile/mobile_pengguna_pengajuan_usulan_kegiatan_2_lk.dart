@@ -67,7 +67,7 @@ class MobilePenggunaPengajuanUsulanKegiatan2LK extends StatelessWidget {
                       const SizedBox(height: 4.0),
 
                       InkWell(
-                        onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2LKDataPeserta),
+                        onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2LKDataPesertaRoute),
                         child: Container(
                           padding: const EdgeInsets.all(8.0),
                           width: double.infinity,
@@ -205,9 +205,7 @@ class MobilePenggunaPengajuanUsulanKegiatan2LK extends StatelessWidget {
                       const SizedBox(height: 4.0),
 
                       InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatan);
-                        },
+                        onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatanRoute),
                         child: Container(
                           padding: const EdgeInsets.all(8.0),
                           width: double.infinity,

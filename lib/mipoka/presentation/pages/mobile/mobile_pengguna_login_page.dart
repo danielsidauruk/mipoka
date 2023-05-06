@@ -19,7 +19,7 @@ class _MobilePenggunaLoginPageState extends State<MobilePenggunaLoginPage> {
         centerTitle: false,
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        title: Text(
+        title: const Text(
             'MIPOKA',
           style: TextStyle(
             fontWeight: FontWeight.bold,
