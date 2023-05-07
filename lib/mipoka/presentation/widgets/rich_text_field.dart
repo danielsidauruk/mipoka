@@ -23,9 +23,15 @@ class RichTextField extends StatelessWidget {
           ),
           Container(
             padding: const EdgeInsets.all(8.0),
-            child: QuillEditor.basic(
+            child: QuillEditor(
               controller: controller,
+              focusNode: FocusNode(),
               readOnly: false,
+              expands: false,
+              padding: EdgeInsets.zero,
+              scrollController: ScrollController(),
+              scrollable: true,
+              autoFocus: false,
             ),
           ),
         ],
