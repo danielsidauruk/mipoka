@@ -3,6 +3,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/rich_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/field_spacer.dart';
 
@@ -42,17 +43,8 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Pengajuan - Kegiatan - Usulan Kegiatan',
-                      style: mobileTitle,
-                    ),
-                  ),
-                ],
-              ),
+
+              const MobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
 
               const FieldSpacer(),
 

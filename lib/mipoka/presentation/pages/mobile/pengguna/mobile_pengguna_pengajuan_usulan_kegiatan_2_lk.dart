@@ -3,7 +3,9 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mobile_title.dart';
 
 class MobilePenggunaPengajuanUsulanKegiatan2LK extends StatelessWidget {
   const MobilePenggunaPengajuanUsulanKegiatan2LK({Key? key}) : super(key: key);
@@ -20,19 +22,10 @@ class MobilePenggunaPengajuanUsulanKegiatan2LK extends StatelessWidget {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Pengajuan - Kegiatan - Usulan Kegiatan',
-                      style: mobileTitle,
-                    ),
-                  ),
-                ],
-              ),
 
-              const SizedBox(height: 8.0),
+              const MobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
+
+              const FieldSpacer(),
 
               Expanded(
                 child: Container(

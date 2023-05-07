@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
-
-import '../../../../core/routes.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mobile_title.dart';
 
 class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
   const MobilePenggunaPengajuanUsulanKegiatan2DK({super.key});
@@ -21,17 +22,8 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    'Pengajuan - Kegiatan - Usulan Kegiatan',
-                    style: mobileTitle,
-                  ),
-                ),
-              ],
-            ),
+
+            const MobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
 
             const SizedBox(height: 8.0),
 
@@ -47,7 +39,7 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
                   children: [
                     buildTitle('Data Peserta Kegiatan (Dalam Kota)'),
 
-                    const SizedBox(height: 4.0),
+                    const FieldSpacer(),
 
                     InkWell(
                       onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaRoute),
@@ -86,7 +78,7 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(height: 8.0),
+                    const FieldSpacer(),
 
                     Expanded(
                       child: Container(
@@ -165,11 +157,11 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(height: 8.0),
+                    const FieldSpacer(),
 
                     buildTitle('Rincian Biaya Kegiatan'),
 
-                    const SizedBox(height: 4.0),
+                    const FieldSpacer(),
 
                     InkWell(
                       onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatanRoute),
@@ -208,7 +200,7 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(height: 8.0),
+                    const FieldSpacer(),
 
                     Expanded(
                       child: Container(
@@ -301,7 +293,7 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(height: 8.0),
+                    const FieldSpacer(),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,

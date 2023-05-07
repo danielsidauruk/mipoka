@@ -3,6 +3,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mobile_title.dart';
 
 class MobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatan extends StatelessWidget {
   const MobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatan({super.key});
@@ -10,6 +11,7 @@ class MobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatan extends StatelessWidge
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: const MipokaAppBar(),
 
       drawer: const MobilePenggunaDrawerWidget(),
@@ -20,17 +22,8 @@ class MobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatan extends StatelessWidge
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Pengajuan - Kegiatan - Usulan Kegiatan',
-                      style: mobileTitle,
-                    ),
-                  ),
-                ],
-              ),
+
+              const MobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
 
               const SizedBox(height: 8.0),
 

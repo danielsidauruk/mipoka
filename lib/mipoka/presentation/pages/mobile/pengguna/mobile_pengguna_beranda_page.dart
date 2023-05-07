@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mobile_title.dart';
 
 class MobilePenggunaBerandaPage extends StatefulWidget {
   const MobilePenggunaBerandaPage({super.key});
@@ -24,17 +25,10 @@ class _MobilePenggunaBerandaPageState extends State<MobilePenggunaBerandaPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'Berita Kemahasiswaan',
-                  style: mobileTitle,
-                ),
-              ],
-            ),
 
-            const SizedBox(height: 4.0),
+            const MobileTitle(text: 'Berita Kemahasiswaan'),
+
+            const FieldSpacer(),
 
             Expanded(
               child: Container(
