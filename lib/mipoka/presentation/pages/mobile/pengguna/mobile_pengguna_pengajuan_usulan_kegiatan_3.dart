@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/widgets/button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
@@ -18,7 +20,7 @@ class MobilePenggunaPengajuanUsulanKegiatan3 extends StatefulWidget {
 class _MobilePenggunaPengajuanUsulanKegiatan3State
     extends State<MobilePenggunaPengajuanUsulanKegiatan3> {
   bool tempatKegiatan = false;
-  bool jenisPartisipan = false;
+  bool tertibAcara = false;
 
   final QuillController _latarBelakangController = QuillController.basic();
   final QuillController _tujuanKegiatanController = QuillController.basic();
@@ -100,13 +102,161 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
 
                     const FieldSpacer(),
 
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+
+                        buildTitle('Tertib Acara'),
+
+                        Switch(
+                          value: tertibAcara,
+                          onChanged: (bool newValue) {
+                            setState(() => tertibAcara = newValue);
+                          },
+                        ),
+
+                        Expanded(
+                          child: tertibAcara == false ?
+                          buildTitle('Tidak') :
+                          buildTitle('Ya'),
+                        ),
+                      ],
+                    ),
+                    tertibAcara != false ?
                     InkWell(
-                      onTap: () {
-                        print(_latarBelakangController.document.toPlainText());
-                      },
-                      child: const Text('Print Controller'),
+                      onTap: () {},
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(8.0),
+                        constraints: const BoxConstraints(minHeight: 35.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          border: Border.all(color: Colors.white),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Text(
+                              'Detail',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ) :
+                    const Center(),
+
+                    const FieldSpacer(),
+
+                    buildTitle('Perlengkapan dan Peralatan (jika ada)'),
+                    buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
+                    RichTextField(controller: _perlengkapanDanPeralatanController),
+
+                    const FieldSpacer(),
+
+                    buildTitle('Penutup'),
+                    RichTextField(controller: _penutupController),
+
+                    const FieldSpacer(),
+
+                    buildTitle('Lampiran - Lampiran'),
+
+                    const FieldSpacer(),
+
+                    buildTitle('Postingan Kegiatan'),
+                    buildDescription('Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(8.0),
+                      constraints: const BoxConstraints(minHeight: 35.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        border: Border.all(color: Colors.white),
+                      ),
+                      child: const Align(
+                        alignment: Alignment.centerRight,
+                        child: Icon(
+                          Icons.upload,
+                          size: 20,
+                        ),
+                      ),
                     ),
 
+                    const FieldSpacer(),
+
+                    buildTitle('Surat Undangan Kegiatan'),
+                    buildDescription('Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(8.0),
+                      constraints: const BoxConstraints(minHeight: 35.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        border: Border.all(color: Colors.white),
+                      ),
+                      child: const Align(
+                        alignment: Alignment.centerRight,
+                        child: Icon(
+                          Icons.upload,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+
+                    const FieldSpacer(),
+
+                    buildTitle('Linimasa Kegiatan'),
+                    buildDescription('Unggah foto linimasa kegiatan yang akan dilaksanakan.'),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(8.0),
+                      constraints: const BoxConstraints(minHeight: 35.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        border: Border.all(color: Colors.white),
+                      ),
+                      child: const Align(
+                        alignment: Alignment.centerRight,
+                        child: Icon(
+                          Icons.upload,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+
+                    const FieldSpacer(),
+
+                    buildTitle('Linimasa Kegiatan'),
+                    buildDescription('Unggah foto linimasa kegiatan yang akan dilaksanakan.'),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(8.0),
+                      constraints: const BoxConstraints(minHeight: 35.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        border: Border.all(color: Colors.white),
+                      ),
+                      child: const Align(
+                        alignment: Alignment.centerRight,
+                        child: Icon(
+                          Icons.upload,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+
+                    const FieldSpacer(),
+                    
+                    CustomButton(
+                      navigation: () {
+                        Navigator.pushNamed(context, mobilePenggunaDaftarPengajuanKegiatanRoute);
+                      },
+                      text: 'Kirim',
+                    ),
                   ],
                 ),
               ),
@@ -120,8 +270,6 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
   Column buildDescription(String text) {
     return Column(
       children: [
-        const SizedBox(height: 2.0),
-
         Text(
           text,
           style: const TextStyle(color: Colors.grey),

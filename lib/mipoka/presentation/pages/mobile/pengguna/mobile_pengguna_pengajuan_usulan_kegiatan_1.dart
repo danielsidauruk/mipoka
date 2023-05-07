@@ -64,7 +64,6 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                 ContentBox(
                   children: [
                     buildTitle('Nama Ormawa'),
-                    titleSpacer(),
                     CustomDropdownButton(
                       value: ormawaDropDownValue,
                       items: listNamaOrmawa,
@@ -76,7 +75,6 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                     const FieldSpacer(),
 
                     buildTitle('Pembiayaan'),
-                    titleSpacer(),
                     CustomDropdownButton(
                       value: pembiayaanDropDownValue,
                       items: listPembiayaan,
@@ -88,7 +86,6 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                     const FieldSpacer(),
 
                     buildTitle('Nama Kegiatan'),
-                    titleSpacer(),
                     CustomTextField(controller: _namaKegiatanController),
 
                     Row(
@@ -123,14 +120,11 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                     const FieldSpacer(),
 
                     buildTitle('Deskripsi Kegiatan'),
-                    titleSpacer(),
                     CustomTextField(controller: _deskripsiKegiatanController),
-
 
                     const FieldSpacer(),
 
                     buildTitle('Tanggal Mulai Kegiatan'),
-                    titleSpacer(),
                     DatePickerField(
                       selectedDate: tanggalMulaiKegiatan,
                       onDateSelected: (value) {
@@ -143,7 +137,6 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                     const FieldSpacer(),
 
                     buildTitle('Tanggal Selesai Kegiatan'),
-                    titleSpacer(),
                     DatePickerField(
                       selectedDate: tanggalSelesaiKegiatan,
                       onDateSelected: (value) {
@@ -156,7 +149,6 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                     const FieldSpacer(),
 
                     buildTitle('Waktu Mulai Kegiatan'),
-                    titleSpacer(),
                     TimePickerField(
                       selectedTime: waktuMulaiKegiatan,
                       onTimeSelected: (TimeOfDay time) {
@@ -167,7 +159,6 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                     const FieldSpacer(),
 
                     buildTitle('Waktu Selesai Kegiatan'),
-                    titleSpacer(),
                     TimePickerField(
                       selectedTime: waktuSelesaiKegiatan,
                       onTimeSelected: (TimeOfDay time) {
@@ -197,7 +188,6 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                         ),
                       ],
                     ),
-                    titleSpacer(),
                     CustomTextField(controller: _tempatKegiatanController),
 
                     const FieldSpacer(),
@@ -208,7 +198,6 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           buildTitle('Tanggal Keberangkatan'),
-                          titleSpacer(),
                           DatePickerField(
                             selectedDate: tanggalKeberangkatan,
                             onDateSelected: (value) {
@@ -221,7 +210,6 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                           const FieldSpacer(),
 
                           buildTitle('Tanggal Kepulangan'),
-                          titleSpacer(),
                           DatePickerField(
                             selectedDate: tanggalKepulangan,
                             onDateSelected: (value) {
@@ -236,6 +224,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                     const Center(),
 
                     const FieldSpacer(),
+
                     Row(
                       children: [
                         buildTitle('Jumlah Parsitipan'),
@@ -258,31 +247,26 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                         ),
                       ],
                     ),
-                    titleSpacer(),
                     CustomTextField(controller: _jumlahParsitipanController),
 
                     const FieldSpacer(),
 
                     buildTitle('Target Kegiatan'),
-                    titleSpacer(),
                     CustomTextField(controller: _targetKegiatanController),
 
                     const FieldSpacer(),
 
                     buildTitle('Total Pendanaan'),
-                    titleSpacer(),
                     CustomTextField(controller: _totalPendanaanController),
 
                     const FieldSpacer(),
 
                     buildTitle('Keterangan'),
-                    titleSpacer(),
                     CustomTextField(controller: _keteranganController),
 
                     const FieldSpacer(),
 
                     buildTitle('Tanda Tangan Ormawa'),
-                    titleSpacer(),
                     Container(
                       alignment: Alignment.center,
                       padding: const EdgeInsets.all(8.0),
@@ -318,6 +302,4 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
       ),
     );
   }
-
-  SizedBox titleSpacer() => const SizedBox(height: 4.0);
 }
