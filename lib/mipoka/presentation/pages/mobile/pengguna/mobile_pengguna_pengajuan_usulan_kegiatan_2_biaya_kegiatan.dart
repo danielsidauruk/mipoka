@@ -1,12 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/content_box.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_textfield.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mobile_title.dart';
 
-class MobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatan extends StatelessWidget {
+class MobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatan extends StatefulWidget {
   const MobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatan({super.key});
+
+  @override
+  State<MobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatan> createState() => _MobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatanState();
+}
+
+class _MobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatanState extends State<MobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatan> {
+  final TextEditingController _namaBiayaKegiatanController = TextEditingController();
+  final TextEditingController _qtyController = TextEditingController();
+  final TextEditingController _hargaSatuanController = TextEditingController();
+  final TextEditingController _totalController = TextEditingController();
+  final TextEditingController _keteranganController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _qtyController.addListener(_updateTotal);
+    _hargaSatuanController.addListener(_updateTotal);
+  }
+
+  void _updateTotal() {
+    final qty = int.tryParse(_qtyController.text) ?? 0;
+    final hargaSatuan = int.tryParse(_hargaSatuanController.text) ?? 0;
+    final total = qty * hargaSatuan;
+
+    _totalController.text = total.toString();
+  }
+
+  @override
+  void dispose() {
+    _qtyController.dispose();
+    _hargaSatuanController.dispose();
+    _totalController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,147 +63,59 @@ class MobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatan extends StatelessWidge
 
               const MobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
 
-              const SizedBox(height: 8.0),
+              const FieldSpacer(),
 
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white),
-                ),
+              ContentBox(
+                children: [
+                  Text(
+                    'Biaya Kegiatan',
+                    style: mobileSubTitle,
+                  ),
 
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Biaya Kegiatan',
-                      style: mobileSubTitle,
-                    ),
+                  const FieldSpacer(),
 
-                    const SizedBox(height: 8.0),
+                  buildTitle('Nama Biaya Kegiatan'),
+                  CustomTextField(controller: _namaBiayaKegiatanController),
 
-                    buildTitle('Nama Biaya Kegiatan'),
+                  const FieldSpacer(),
 
-                    const SizedBox(height: 4.0),
+                  buildTitle('Qty'),
+                  CustomTextField(
+                    controller: _qtyController,
+                    textInputType: TextInputType.number,
+                  ),
 
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: TextField(
-                        maxLines: null,
-                        onChanged: (query) {},
-                        style: const TextStyle(),
-                        decoration: null,
-                      ),
-                    ),
+                  const FieldSpacer(),
 
-                    const SizedBox(height: 8.0),
+                  buildTitle('Harga Satuan'),
+                  CustomTextField(
+                    controller: _hargaSatuanController,
+                    textInputType: TextInputType.number,
+                  ),
 
-                    buildTitle('Qty'),
+                  const FieldSpacer(),
 
-                    const SizedBox(height: 4.0),
+                  buildTitle('Total'),
+                  CustomTextField(
+                    controller: _totalController,
+                    textInputType: TextInputType.number,
+                  ),
 
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: TextField(
-                        keyboardType: TextInputType.number,
-                        maxLines: null,
-                        onChanged: (query) {},
-                        style: const TextStyle(),
-                        decoration: null,
-                      ),
-                    ),
+                  const FieldSpacer(),
 
-                    const SizedBox(height: 8.0),
+                  buildTitle('Keterangan'),
 
-                    buildTitle('Harga Satuan'),
+                  CustomTextField(controller: _keteranganController),
 
-                    const SizedBox(height: 4.0),
+                  const FieldSpacer(),
 
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: TextField(
-                        keyboardType: TextInputType.number,
-                        maxLines: null,
-                        onChanged: (query) {},
-                        style: const TextStyle(),
-                        decoration: null,
-                      ),
-                    ),
-
-                    const SizedBox(height: 8.0),
-
-                    buildTitle('Total'),
-
-                    const SizedBox(height: 4.0),
-
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: TextField(
-                        keyboardType: TextInputType.number,
-                        maxLines: null,
-                        onChanged: (query) {},
-                        style: const TextStyle(),
-                        decoration: null,
-                      ),
-                    ),
-
-                    const SizedBox(height: 8.0),
-
-                    buildTitle('Keterangan'),
-
-                    const SizedBox(height: 4.0),
-
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: TextField(
-                        maxLines: null,
-                        onChanged: (query) {},
-                        style: const TextStyle(),
-                        decoration: null,
-                      ),
-                    ),
-
-                    const SizedBox(height: 8.0),
-
-                    Button(
-                      navigation: () {
-                        Navigator.pop(context);
-                      },
-                      text: 'Tambahkan',
-                    ),
-
-                  ],
-                ),
+                  CustomButton(
+                    navigation: () {
+                      Navigator.pop(context);
+                    },
+                    text: 'Tambahkan',
+                  ),
+                ],
               ),
             ],
           ),

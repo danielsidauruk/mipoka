@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/content_box.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_textfield.dart';
+import 'package:mipoka/mipoka/presentation/widgets/date_picker_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
@@ -15,12 +18,18 @@ class MobilePenggunaPengajuanUsulanKegiatan2LKDataPeserta extends StatefulWidget
 }
 
 class _MobilePenggunaPengajuanUsulanKegiatan2LKDataPesertaState extends State<MobilePenggunaPengajuanUsulanKegiatan2LKDataPeserta> {
-
   DateTime? tanggalLahir;
+  final TextEditingController _nipNipController = TextEditingController();
+  final TextEditingController _namaLengkapController = TextEditingController();
+  final TextEditingController _nikController = TextEditingController();
+  final TextEditingController _tempatLahirController = TextEditingController();
+  final TextEditingController _peranController = TextEditingController();
+  final TextEditingController _dasarPengirimanController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: const MipokaAppBar(),
 
       drawer: const MobilePenggunaDrawerWidget(),
@@ -36,209 +45,67 @@ class _MobilePenggunaPengajuanUsulanKegiatan2LKDataPesertaState extends State<Mo
 
               const FieldSpacer(),
 
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Data Peserta',
-                      style: mobileSubTitle,
-                    ),
+              ContentBox(
+                children: [
+                  Text(
+                    'Data Peserta',
+                    style: mobileSubTitle,
+                  ),
 
-                    const SizedBox(height: 8.0),
+                  const FieldSpacer(),
 
-                    buildTitle('NIM/NIP'),
+                  buildTitle('NIM/NIP'),
+                  CustomTextField(
+                    controller: _nipNipController,
+                    textInputType: TextInputType.number,
+                  ),
 
-                    const SizedBox(height: 4.0),
+                  const FieldSpacer(),
 
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: TextField(
-                        maxLines: null,
-                        onChanged: (query) {},
-                        style: const TextStyle(),
-                        decoration: null,
-                      ),
-                    ),
+                  buildTitle('Nama Lengkap'),
+                  CustomTextField(controller: _namaLengkapController),
 
-                    const SizedBox(height: 8.0),
+                  const FieldSpacer(),
 
-                    buildTitle('Nama Lengkap'),
+                  buildTitle('NIK'),
+                  CustomTextField(controller: _nikController),
 
-                    const SizedBox(height: 4.0),
+                  const FieldSpacer(),
 
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: TextField(
-                        maxLines: null,
-                        onChanged: (query) {},
-                        style: const TextStyle(),
-                        decoration: null,
-                      ),
-                    ),
+                  buildTitle('Tempat Lahir'),
+                  CustomTextField(controller: _tempatLahirController),
 
-                    const SizedBox(height: 8.0),
+                  const FieldSpacer(),
 
-                    buildTitle('NIK'),
+                  buildTitle('Tanggal Lahir'),
+                  DatePickerField(
+                    selectedDate: tanggalLahir,
+                    onDateSelected: (value) {
+                      setState(() {
+                        tanggalLahir = value;
+                      });
+                    },
+                  ),
 
-                    const SizedBox(height: 4.0),
+                  const FieldSpacer(),
 
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: TextField(
-                        maxLines: null,
-                        onChanged: (query) {},
-                        style: const TextStyle(),
-                        decoration: null,
-                      ),
-                    ),
+                  buildTitle('Peran'),
+                  CustomTextField(controller: _peranController),
 
-                    const SizedBox(height: 8.0),
+                  const FieldSpacer(),
 
-                    buildTitle('Tempat Lahir'),
+                  buildTitle('Dasar Pengiriman'),
+                  CustomTextField(controller: _dasarPengirimanController),
 
-                    const SizedBox(height: 4.0),
+                  const FieldSpacer(),
 
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: TextField(
-                        maxLines: null,
-                        onChanged: (query) {},
-                        style: const TextStyle(),
-                        decoration: null,
-                      ),
-                    ),
-
-                    const SizedBox(height: 8.0),
-
-                    buildTitle('Tanggal Lahir'),
-
-                    const SizedBox(height: 4.0),
-
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      // height: 35,
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1000),
-                            lastDate: DateTime(2100),
-                          ).then((value) {
-                            if (value != null) {
-                              setState(() => tanggalLahir = value);
-                            }
-                          });
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              tanggalLahir != null
-                                  ? DateFormat('dd / MM / yyyy').format(tanggalLahir!)
-                                  : '',
-                            ),
-
-                            const Icon(
-                              Icons.calendar_month_sharp,
-                              size: 20,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 8.0),
-
-                    buildTitle('Peran'),
-
-                    const SizedBox(height: 4.0),
-
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: TextField(
-                        maxLines: null,
-                        onChanged: (query) {},
-                        style: const TextStyle(),
-                        decoration: null,
-                      ),
-                    ),
-
-                    const SizedBox(height: 8.0),
-
-                    buildTitle('Dasar Pengiriman'),
-
-                    const SizedBox(height: 4.0),
-
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: TextField(
-                        maxLines: null,
-                        onChanged: (query) {},
-                        style: const TextStyle(),
-                        decoration: null,
-                      ),
-                    ),
-
-                    const SizedBox(height: 8.0),
-
-                    Button(
-                      navigation: () {
-                        Navigator.pop(context);
-                      },
-                      text: 'Tambahkan Peserta',
-                    ),
-
-                  ],
-                ),
+                  CustomButton(
+                    navigation: () {
+                      Navigator.pop(context);
+                    },
+                    text: 'Tambahkan Peserta',
+                  ),
+                ],
               ),
             ],
           ),

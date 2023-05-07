@@ -298,14 +298,14 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Button(
+                        CustomButton(
                           navigation: () => Navigator.pop(context),
                           text: 'Sebelumnya',
                         ),
 
                         const SizedBox(width: 8.0),
 
-                        Button(
+                        CustomButton(
                           navigation: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan3Route),
                           text: 'Berikutnya',
                         ),

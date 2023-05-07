@@ -12,11 +12,17 @@ TextStyle mobileSubTitle = const TextStyle(
   fontSize: 20,
 );
 
-Text buildTitle(String title) {
-  return Text(
-    title,
-    style: const TextStyle(
-      fontSize: 16,
-    ),
+Column buildTitle(String title) {
+  return Column(
+    children: [
+      Text(
+        title,
+        style: const TextStyle(
+          fontSize: 16,
+        ),
+      ),
+
+      const SizedBox(height: 4.0),
+    ],
   );
 }

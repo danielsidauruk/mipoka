@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Button extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   final VoidCallback navigation;
   final String text;
 
-  const Button({
+  const CustomButton({
     required this.navigation,
     required this.text,
     super.key,

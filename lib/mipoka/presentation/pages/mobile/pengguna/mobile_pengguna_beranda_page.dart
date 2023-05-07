@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mipoka/mipoka/presentation/widgets/content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
@@ -31,54 +32,47 @@ class _MobilePenggunaBerandaPageState extends State<MobilePenggunaBerandaPage> {
             const FieldSpacer(),
 
             Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(8.0),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white),
-                ),
-                child: Column(
-                  children: [
-                    const Placeholder(
-                      fallbackHeight: 170,
+              child: ContentBox(
+                children: [
+                  const Placeholder(
+                    fallbackHeight: 170,
+                  ),
+
+                  const SizedBox(height: 8.0),
+
+                  Expanded(
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: [
+                        buildBeritaTile(),
+
+                        const SizedBox(height: 4.0),
+
+                        buildBeritaTile(),
+
+                        const SizedBox(height: 4.0),
+
+                        buildBeritaTile(),
+
+                        const SizedBox(height: 4.0),
+
+                        buildBeritaTile(),
+
+                        const SizedBox(height: 4.0),
+
+                        buildBeritaTile(),
+
+                        const SizedBox(height: 4.0),
+
+                        buildBeritaTile(),
+
+                        const SizedBox(height: 4.0),
+
+                        buildBeritaTile(),
+                      ],
                     ),
-
-                    const SizedBox(height: 8.0),
-
-                    Expanded(
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: [
-                          buildBeritaTile(),
-
-                          const SizedBox(height: 4.0),
-
-                          buildBeritaTile(),
-
-                          const SizedBox(height: 4.0),
-
-                          buildBeritaTile(),
-
-                          const SizedBox(height: 4.0),
-
-                          buildBeritaTile(),
-
-                          const SizedBox(height: 4.0),
-
-                          buildBeritaTile(),
-
-                          const SizedBox(height: 4.0),
-
-                          buildBeritaTile(),
-
-                          const SizedBox(height: 4.0),
-
-                          buildBeritaTile(),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

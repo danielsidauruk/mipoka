@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/content_box.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_textfield.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mobile_title.dart';
 
 class MobilePenggunaPengajuanUsulanKegiatan2DKDataPeserta extends StatefulWidget {
-  const MobilePenggunaPengajuanUsulanKegiatan2DKDataPeserta({Key? key}) : super(key: key);
+  const MobilePenggunaPengajuanUsulanKegiatan2DKDataPeserta({super.key});
 
   @override
   State<MobilePenggunaPengajuanUsulanKegiatan2DKDataPeserta> createState() => _MobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaState();
 }
 
 class _MobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaState extends State<MobilePenggunaPengajuanUsulanKegiatan2DKDataPeserta> {
-
-  DateTime? tanggalLahir;
+  final TextEditingController _nipNipController = TextEditingController();
+  final TextEditingController _namaLengkapController = TextEditingController();
+  final TextEditingController _peranController = TextEditingController();
+  final TextEditingController _dasarPengirimanController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,118 +39,45 @@ class _MobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaState extends State<Mo
 
               const FieldSpacer(),
 
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Data Peserta',
-                      style: mobileSubTitle,
-                    ),
+              ContentBox(
+                children: [
+                  Text(
+                    'Data Peserta',
+                    style: mobileSubTitle,
+                  ),
 
-                    const FieldSpacer(),
+                  const FieldSpacer(),
 
-                    buildTitle('NIM/NIP'),
+                  buildTitle('NIM/NIP'),
+                  CustomTextField(
+                    controller: _nipNipController,
+                    textInputType: TextInputType.number,
+                  ),
 
-                    const SizedBox(height: 4.0),
+                  const FieldSpacer(),
 
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: TextField(
-                        maxLines: null,
-                        onChanged: (query) {},
-                        style: const TextStyle(),
-                        decoration: null,
-                      ),
-                    ),
+                  buildTitle('Nama Lengkap'),
+                  CustomTextField(controller: _namaLengkapController),
 
-                    const FieldSpacer(),
+                  const FieldSpacer(),
 
-                    buildTitle('Nama Lengkap'),
+                  buildTitle('Peran'),
+                  CustomTextField(controller: _peranController),
 
-                    const SizedBox(height: 4.0),
+                  const FieldSpacer(),
 
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: TextField(
-                        maxLines: null,
-                        onChanged: (query) {},
-                        style: const TextStyle(),
-                        decoration: null,
-                      ),
-                    ),
+                  buildTitle('Dasar Pengiriman'),
+                  CustomTextField(controller: _dasarPengirimanController),
 
-                    const FieldSpacer(),
+                  const FieldSpacer(),
 
-                    buildTitle('Peran'),
-
-                    const SizedBox(height: 4.0),
-
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: TextField(
-                        maxLines: null,
-                        onChanged: (query) {},
-                        style: const TextStyle(),
-                        decoration: null,
-                      ),
-                    ),
-
-                    const FieldSpacer(),
-
-                    buildTitle('Dasar Pengiriman'),
-
-                    const SizedBox(height: 4.0),
-
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: TextField(
-                        maxLines: null,
-                        onChanged: (query) {},
-                        style: const TextStyle(),
-                        decoration: null,
-                      ),
-                    ),
-
-                    const FieldSpacer(),
-
-                    Button(
-                      navigation: () {
-                        Navigator.pop(context);
-                      },
-                      text: 'Tambahkan Peserta',
-                    ),
-                  ],
-                ),
+                  CustomButton(
+                    navigation: () {
+                      Navigator.pop(context);
+                    },
+                    text: 'Tambahkan Peserta',
+                  ),
+                ],
               ),
             ],
           ),
