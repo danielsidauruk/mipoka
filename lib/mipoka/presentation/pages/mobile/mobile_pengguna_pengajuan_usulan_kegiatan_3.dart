@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/rich_text_field.dart';
+import 'package:mipoka/mipoka/presentation/widgets/field_spacer.dart';
 
 class MobilePenggunaPengajuanUsulanKegiatan3 extends StatefulWidget {
   const MobilePenggunaPengajuanUsulanKegiatan3({Key? key}) : super(key: key);
@@ -30,27 +32,10 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        title: const Text(
-          'MIPOKA',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-          ),
-        ),
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(1.0),
-          child: Divider(
-            height: 1.0,
-            thickness: 0.5,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      appBar: const MipokaAppBar(),
+
       drawer: const MobilePenggunaDrawerWidget(),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -68,7 +53,9 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
                   ),
                 ],
               ),
-              spacingPerField(),
+
+              const FieldSpacer(),
+
               Container(
                 padding: const EdgeInsets.all(8.0),
                 width: double.infinity,
@@ -83,42 +70,43 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
                     buildDescription('Berisi latar belakang kegiatan diusulkan'),
                     RichTextField(controller: _latarBelakangController),
 
-                    spacingPerField(),
+                    const FieldSpacer(),
                     
                     buildTitle('Tujuan Kegiatan'),
                     buildDescription('Berisi tujuan kegiatan diusulkan'),
                     RichTextField(controller: _tujuanKegiatanController),
 
-                    spacingPerField(),
+                    const FieldSpacer(),
 
                     buildTitle('Manfaat Kegiatan'),
                     buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
                     RichTextField(controller: _manfaatKegiatanController),
 
-                    spacingPerField(),
+                    const FieldSpacer(),
 
                     buildTitle('Bentuk Pelaksanaan Kegiatan'),
                     buildDescription('Berisi bentuk kegiatan diusulkan. Misalnya: Webinar, Seminar Onsite, Lomba, Bakti Sosial, dll'),
                     RichTextField(controller: _bentukPelaksanaanKegiatanController),
 
-                    spacingPerField(),
+                    const FieldSpacer(),
 
                     buildTitle('Target Pencapaian Kegiatan'),
                     buildDescription('Bagian ini berisi target yang akan dicapai. Mis: Lolos babak final, meraih juara 1,2,3 dst'),
                     RichTextField(controller: _targetPencapaianKegiatanController),
 
-                    spacingPerField(),
+                    const FieldSpacer(),
 
                     buildTitle('Waktu dan Tempat Pelaksanaan'),
                     buildDescription('Rincikan dengan jelas'),
                     RichTextField(controller: _waktuDanTempatPelaksanaanKegiatanController),
 
-                    spacingPerField(),
+                    const FieldSpacer(),
 
                     buildTitle('Rencana Anggaran Kegiatan'),
                     buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
                     RichTextField(controller: _rencanaAnggaranKegiatanController),
 
+                    const FieldSpacer(),
 
                     InkWell(
                       onTap: () {
@@ -136,8 +124,6 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
       ),
     );
   }
-
-  SizedBox spacingPerField() => const SizedBox(height: 8.0);
 
   Column buildDescription(String text) {
     return Column(

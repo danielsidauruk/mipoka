@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
 
 import '../../widgets/button.dart';
 
@@ -20,26 +21,7 @@ class _MobilePenggunaDaftarPengajuanKegiatanState extends State<MobilePenggunaDa
     String dropDownValue = dropdownItem[0];
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        title: const Text(
-          'MIPOKA',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-          ),
-        ),
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(1.0),
-          child: Divider(
-            height: 1.0,
-            thickness: 0.5,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      appBar: const MipokaAppBar(),
 
       drawer: const MobilePenggunaDrawerWidget(),
 

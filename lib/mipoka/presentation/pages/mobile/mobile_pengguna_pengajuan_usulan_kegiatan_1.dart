@@ -3,9 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/widgets/button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
-
-import '../../widgets/button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
 
 class MobilePenggunaPengajuanUsulanKegiatan1 extends StatefulWidget {
   const MobilePenggunaPengajuanUsulanKegiatan1({super.key});
@@ -20,38 +20,19 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
   String pembiayaanDropDownValue = listPembiayaan[0];
   bool bentukKegiatanValue = false;
   String bentukKegiatanDropDownValue = listBentukKegiatan[0];
-  DateTime? selectedTanggalMulaiKegiatan;
-  DateTime? selectedTanggalSelesaiKegiatan;
-  TimeOfDay? selectedWaktuMulaiKegiatan;
-  TimeOfDay? selectedWaktuSelesaiKegiatan;
+  DateTime? tanggalMulaiKegiatan;
+  DateTime? tanggalSelesaiKegiatan;
+  TimeOfDay? waktuMulaiKegiatan;
+  TimeOfDay? waktuSelesaiKegiatan;
   bool tempatKegiatan = false;
-  DateTime? selectedTanggalKeberangkatan;
-  DateTime? selectedTanggalKepulangan;
+  DateTime? tanggalKeberangkatan;
+  DateTime? tanggalKepulangan;
   bool jenisPartisipan = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        title: const Text(
-          'MIPOKA',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-          ),
-        ),
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(1.0),
-          child: Divider(
-            height: 1.0,
-            thickness: 0.5,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      appBar: const MipokaAppBar(),
 
       drawer: const MobilePenggunaDrawerWidget(),
 
@@ -264,7 +245,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                               lastDate: DateTime(2100),
                             ).then((value) {
                               if (value != null) {
-                                setState(() => selectedTanggalMulaiKegiatan = value);
+                                setState(() => tanggalMulaiKegiatan = value);
                               }
                             });
                           },
@@ -272,8 +253,8 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                selectedTanggalMulaiKegiatan != null
-                                    ? DateFormat('dd / MM / yyyy').format(selectedTanggalMulaiKegiatan!)
+                                tanggalMulaiKegiatan != null
+                                    ? DateFormat('dd / MM / yyyy').format(tanggalMulaiKegiatan!)
                                     : '',
                               ),
 
@@ -310,7 +291,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                               lastDate: DateTime(2100),
                             ).then((value) {
                               if (value != null) {
-                                setState(() => selectedTanggalSelesaiKegiatan = value);
+                                setState(() => tanggalSelesaiKegiatan = value);
                               }
                             });
                           },
@@ -318,8 +299,8 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                selectedTanggalSelesaiKegiatan != null
-                                    ? DateFormat('dd / MM / yyyy').format(selectedTanggalSelesaiKegiatan!)
+                                tanggalSelesaiKegiatan != null
+                                    ? DateFormat('dd / MM / yyyy').format(tanggalSelesaiKegiatan!)
                                     : '',
                               ),
 
@@ -345,7 +326,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                             initialTime: TimeOfDay.now(),
                           ).then((value) {
                             if (value != null) {
-                              setState(() => selectedWaktuMulaiKegiatan = value);
+                              setState(() => waktuMulaiKegiatan = value);
                             }
                           });
                         },
@@ -361,8 +342,8 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                selectedWaktuMulaiKegiatan != null
-                                    ? '${selectedWaktuMulaiKegiatan!.hour.toString().padLeft(2, '0')} : ${selectedWaktuMulaiKegiatan!.minute.toString().padLeft(2, '0')}'
+                                waktuMulaiKegiatan != null
+                                    ? '${waktuMulaiKegiatan!.hour.toString().padLeft(2, '0')} : ${waktuMulaiKegiatan!.minute.toString().padLeft(2, '0')}'
                                     : '',
                               ),
 
@@ -388,7 +369,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                             initialTime: TimeOfDay.now(),
                           ).then((value) {
                             if (value != null) {
-                              setState(() => selectedWaktuSelesaiKegiatan = value);
+                              setState(() => waktuSelesaiKegiatan = value);
                             }
                           });
                         },
@@ -404,8 +385,8 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                selectedWaktuSelesaiKegiatan != null
-                                    ? '${selectedWaktuSelesaiKegiatan!.hour.toString().padLeft(2, '0')} : ${selectedWaktuSelesaiKegiatan!.minute.toString().padLeft(2, '0')}'
+                                waktuSelesaiKegiatan != null
+                                    ? '${waktuSelesaiKegiatan!.hour.toString().padLeft(2, '0')} : ${waktuSelesaiKegiatan!.minute.toString().padLeft(2, '0')}'
                                     : '',
                               ),
 
@@ -488,7 +469,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                                     lastDate: DateTime(2100),
                                   ).then((value) {
                                     if (value != null) {
-                                      setState(() => selectedTanggalKeberangkatan = value);
+                                      setState(() => tanggalKeberangkatan = value);
                                     }
                                   });
                                 },
@@ -496,8 +477,8 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      selectedTanggalKeberangkatan != null
-                                          ? DateFormat('dd / MM / yyyy').format(selectedTanggalKeberangkatan!)
+                                      tanggalKeberangkatan != null
+                                          ? DateFormat('dd / MM / yyyy').format(tanggalKeberangkatan!)
                                           : '',
                                     ),
 
@@ -534,7 +515,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                                     lastDate: DateTime(2100),
                                   ).then((value) {
                                     if (value != null) {
-                                      setState(() => selectedTanggalKepulangan = value);
+                                      setState(() => tanggalKepulangan = value);
                                     }
                                   });
                                 },
@@ -542,8 +523,8 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      selectedTanggalKepulangan != null
-                                          ? DateFormat('dd / MM / yyyy').format(selectedTanggalKepulangan!)
+                                      tanggalKepulangan != null
+                                          ? DateFormat('dd / MM / yyyy').format(tanggalKepulangan!)
                                           : '',
                                     ),
 
