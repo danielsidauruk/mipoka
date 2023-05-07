@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:mipoka/core/constanst.dart';
-import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
-import 'package:flutter_quill/flutter_quill.dart' as rich_text;
-
+import 'package:flutter_quill/flutter_quill.dart' hide Text;
 
 class MobilePenggunaPengajuanUsulanKegiatan3 extends StatefulWidget {
-  const MobilePenggunaPengajuanUsulanKegiatan3({super.key});
+  const MobilePenggunaPengajuanUsulanKegiatan3({Key? key}) : super(key: key);
 
   @override
-  State<MobilePenggunaPengajuanUsulanKegiatan3> createState() => _MobilePenggunaPengajuanUsulanKegiatan3State();
+  State<MobilePenggunaPengajuanUsulanKegiatan3> createState() =>
+      _MobilePenggunaPengajuanUsulanKegiatan3State();
 }
 
-class _MobilePenggunaPengajuanUsulanKegiatan3State extends State<MobilePenggunaPengajuanUsulanKegiatan3> {
-
+class _MobilePenggunaPengajuanUsulanKegiatan3State
+    extends State<MobilePenggunaPengajuanUsulanKegiatan3> {
   bool tempatKegiatan = false;
   bool jenisPartisipan = false;
-  final _controller = rich_text.QuillController.basic();
-  final _controllerToString = [];
+
+  final QuillController _latarBelakangController = QuillController.basic();
+  final QuillController _tujuanKegiatanController = QuillController.basic();
+  final QuillController _manfaatKegiatanController = QuillController.basic();
+  final QuillController _bentukPelaksanaanKegiatanController = QuillController.basic();
+  final QuillController _targetPencapaianKegiatanController = QuillController.basic();
+  final QuillController _waktuDanTempatPelaksanaanKegiatanController = QuillController.basic();
+  final QuillController _rencanaAnggaranKegiatanController = QuillController.basic();
+  final QuillController _perlengkapanDanPeralatanController = QuillController.basic();
+  final QuillController _penutupController = QuillController.basic();
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +49,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State extends State<MobilePenggunaP
           ),
         ),
       ),
-
       drawer: const MobilePenggunaDrawerWidget(),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -64,9 +67,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State extends State<MobilePenggunaP
                   ),
                 ],
               ),
-
               const SizedBox(height: 8.0),
-
               Container(
                 padding: const EdgeInsets.all(8.0),
                 width: double.infinity,
@@ -76,69 +77,73 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State extends State<MobilePenggunaP
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    buildTitle('Nama Ormawa'),
+
+                    buildTitle('Latar Belakang'),
 
                     const SizedBox(height: 2.0),
-                    
+
                     buildDescription('Berisi latar belakang kegiatan diusulkan'),
 
                     const SizedBox(height: 4.0),
 
                     Container(
                       alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5.0),
                         border: Border.all(color: Colors.white),
                       ),
-                      child: TextField(
-                        maxLines: null,
-                        onChanged: (query) {},
-                        style: const TextStyle(),
-                        decoration: null,
+                      child: Column(
+                        children: [
+                          QuillToolbar.basic(
+                            controller: _latarBelakangController,
+                            axis: Axis.horizontal,
+                            multiRowsDisplay: false,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(8.0),
+                            child: QuillEditor.basic(
+                              controller: _latarBelakangController,
+                              readOnly: false,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
 
-                    const SizedBox(height: 4.0),
+                    const SizedBox(height: 8.0),
 
                     Container(
                       alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      height: 400,
-                      // constraints: const BoxConstraints(minHeight: 35.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5.0),
                         border: Border.all(color: Colors.white),
                       ),
-                      child: rich_text.QuillEditor(
-                        controller: _controller,
-                        scrollController: ScrollController(),
-                        focusNode: FocusNode(),
-                        autoFocus: false,
-                        readOnly: false,
-                        expands: true,
-                        padding: const EdgeInsets.all(8.0),
-                        scrollable: true,
+                      child: Column(
+                        children: [
+                          QuillToolbar.basic(
+                            controller: _tujuanKegiatanController,
+                            axis: Axis.horizontal,
+                            multiRowsDisplay: false,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(8.0),
+                            child: QuillEditor.basic(
+                              controller: _tujuanKegiatanController,
+                              readOnly: false,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
 
-                    rich_text.QuillToolbar.basic(
-                      controller: _controller,
-                      toolbarIconSize: 20.0,
-                      showBoldButton: true,
-                      showItalicButton: true,
-                      showUnderLineButton: true,
-                      showColorButton: true,
-                      showFontFamily: false,
-
-                    ),
+                    const SizedBox(height: 4.0,),
 
                     InkWell(
                       onTap: () {
-                        List<Map<String, dynamic>> deltaList = _controller.document.toDelta().map((op) => op.toJson()).toList();
+                        List<Map<String, dynamic>> deltaList = _latarBelakangController.document.toDelta().map((op) => op.toJson()).toList();
                         _controllerToString.addAll(deltaList);
                         print(_controllerToString);
+                        print(_latarBelakangController.document.toPlainText());
                       },
                       child: const Text('Print Controller'),
                     ),
@@ -146,7 +151,6 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State extends State<MobilePenggunaP
                   ],
                 ),
               ),
-
             ],
           ),
         ),
