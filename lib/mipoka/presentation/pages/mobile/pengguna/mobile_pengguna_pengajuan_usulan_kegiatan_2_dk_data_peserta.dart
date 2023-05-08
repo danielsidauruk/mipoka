@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/widgets/button.dart';
-import 'package:mipoka/mipoka/presentation/widgets/content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_textfield.dart';
-import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/field_spacer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
-import 'package:mipoka/mipoka/presentation/widgets/mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
 class MobilePenggunaPengajuanUsulanKegiatan2DKDataPeserta extends StatefulWidget {
   const MobilePenggunaPengajuanUsulanKegiatan2DKDataPeserta({super.key});
@@ -26,7 +26,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaState extends State<Mo
     return Scaffold(
       appBar: const MipokaAppBar(),
 
-      drawer: const MobilePenggunaDrawerWidget(),
+      drawer: const MobileCustomPenggunaDrawerWidget(),
 
       body: SingleChildScrollView(
         child: Padding(
@@ -35,18 +35,18 @@ class _MobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaState extends State<Mo
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
 
-              const MobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
+              const CustomMobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
 
-              const FieldSpacer(),
+              const CustomFieldSpacer(),
 
-              ContentBox(
+              CustomContentBox(
                 children: [
                   Text(
                     'Data Peserta',
                     style: mobileSubTitle,
                   ),
 
-                  const FieldSpacer(),
+                  const CustomFieldSpacer(),
 
                   buildTitle('NIM/NIP'),
                   CustomTextField(
@@ -54,22 +54,22 @@ class _MobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaState extends State<Mo
                     textInputType: TextInputType.number,
                   ),
 
-                  const FieldSpacer(),
+                  const CustomFieldSpacer(),
 
                   buildTitle('Nama Lengkap'),
                   CustomTextField(controller: _namaLengkapController),
 
-                  const FieldSpacer(),
+                  const CustomFieldSpacer(),
 
                   buildTitle('Peran'),
                   CustomTextField(controller: _peranController),
 
-                  const FieldSpacer(),
+                  const CustomFieldSpacer(),
 
                   buildTitle('Dasar Pengiriman'),
                   CustomTextField(controller: _dasarPengirimanController),
 
-                  const FieldSpacer(),
+                  const CustomFieldSpacer(),
 
                   CustomButton(
                     navigation: () {

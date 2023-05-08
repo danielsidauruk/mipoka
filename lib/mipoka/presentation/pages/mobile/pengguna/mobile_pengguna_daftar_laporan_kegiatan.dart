@@ -10,14 +10,14 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
-class MobilePenggunaDaftarPengajuanKegiatan extends StatefulWidget {
-  const MobilePenggunaDaftarPengajuanKegiatan({super.key});
+class MobilePenggunaDaftarLaporanKegiatan extends StatefulWidget {
+  const MobilePenggunaDaftarLaporanKegiatan({super.key});
 
   @override
-  State<MobilePenggunaDaftarPengajuanKegiatan> createState() => _MobilePenggunaDaftarPengajuanKegiatanState();
+  State<MobilePenggunaDaftarLaporanKegiatan> createState() => _MobilePenggunaDaftarLaporanKegiatanState();
 }
 
-class _MobilePenggunaDaftarPengajuanKegiatanState extends State<MobilePenggunaDaftarPengajuanKegiatan> {
+class _MobilePenggunaDaftarLaporanKegiatanState extends State<MobilePenggunaDaftarLaporanKegiatan> {
   @override
   Widget build(BuildContext context) {
     String dropDownValue = dropdownItem[0];
@@ -33,7 +33,7 @@ class _MobilePenggunaDaftarPengajuanKegiatanState extends State<MobilePenggunaDa
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
 
-            const CustomMobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
+            const CustomMobileTitle(text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
 
             const CustomFieldSpacer(),
 

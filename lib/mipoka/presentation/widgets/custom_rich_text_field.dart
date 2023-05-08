@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
-class RichTextField extends StatelessWidget {
+class CustomRichTextField extends StatelessWidget {
   final QuillController controller;
 
-  const RichTextField({super.key, required this.controller});
+  const CustomRichTextField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mipoka/mipoka/presentation/widgets/content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/field_spacer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
-import 'package:mipoka/mipoka/presentation/widgets/mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
 class MobilePenggunaBerandaPage extends StatefulWidget {
   const MobilePenggunaBerandaPage({super.key});
@@ -19,7 +19,7 @@ class _MobilePenggunaBerandaPageState extends State<MobilePenggunaBerandaPage> {
     return Scaffold(
       appBar: const MipokaAppBar(),
 
-      drawer: const MobilePenggunaDrawerWidget(),
+      drawer: const MobileCustomPenggunaDrawerWidget(),
 
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -27,12 +27,12 @@ class _MobilePenggunaBerandaPageState extends State<MobilePenggunaBerandaPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
 
-            const MobileTitle(text: 'Berita Kemahasiswaan'),
+            const CustomMobileTitle(text: 'Berita Kemahasiswaan'),
 
-            const FieldSpacer(),
+            const CustomFieldSpacer(),
 
             Expanded(
-              child: ContentBox(
+              child: CustomContentBox(
                 children: [
                   const Placeholder(
                     fallbackHeight: 170,

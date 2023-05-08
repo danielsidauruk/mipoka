@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/widgets/button.dart';
-import 'package:mipoka/mipoka/presentation/widgets/content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/field_spacer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
-import 'package:mipoka/mipoka/presentation/widgets/mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
 // => Fixed ContentBox
 
@@ -18,7 +19,7 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
     return Scaffold(
       appBar: const MipokaAppBar(),
 
-      drawer: const MobilePenggunaDrawerWidget(),
+      drawer: const MobileCustomPenggunaDrawerWidget(),
 
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -26,55 +27,21 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
 
-            const MobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
+            const CustomMobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
 
             const SizedBox(height: 8.0),
 
             Expanded(
-              child: ContentBox(
+              child: CustomContentBox(
                 children: [
                   buildTitle('Data Peserta Kegiatan (Dalam Kota)'),
 
-                  const FieldSpacer(),
-
-                  InkWell(
-                    onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaRoute),
-                    child: Container(
-                      padding: const EdgeInsets.all(8.0),
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                      constraints: const BoxConstraints(minHeight: 30.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      child: Row(
-                        children: const [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Icon(
-                              Icons.add,
-                              size: 20,
-                              color: Colors.black,
-                            ),
-                          ),
-
-                          Expanded(
-                            child: Text(
-                              'Data Partisipan',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  CustomAddButton(
+                    buttonText: 'Data Partisipan',
+                    onPressed: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaRoute),
                   ),
 
-                  const FieldSpacer(),
+                  const CustomFieldSpacer(),
 
                   Expanded(
                     child: Container(
@@ -153,50 +120,16 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
                     ),
                   ),
 
-                  const FieldSpacer(),
+                  const CustomFieldSpacer(),
 
                   buildTitle('Rincian Biaya Kegiatan'),
 
-                  const FieldSpacer(),
-
-                  InkWell(
-                    onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatanRoute),
-                    child: Container(
-                      padding: const EdgeInsets.all(8.0),
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                      constraints: const BoxConstraints(minHeight: 30.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      child: Row(
-                        children: const [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Icon(
-                              Icons.add,
-                              size: 20,
-                              color: Colors.black,
-                            ),
-                          ),
-
-                          Expanded(
-                            child: Text(
-                              'Biaya Kegiatan',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  CustomAddButton(
+                    buttonText: 'Biaya Kegiatan',
+                    onPressed: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatanRoute),
                   ),
 
-                  const FieldSpacer(),
+                  const CustomFieldSpacer(),
 
                   Expanded(
                     child: Container(
@@ -289,7 +222,7 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
                     ),
                   ),
 
-                  const FieldSpacer(),
+                  const CustomFieldSpacer(),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,

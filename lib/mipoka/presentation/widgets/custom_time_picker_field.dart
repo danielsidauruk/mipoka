@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-class TimePickerField extends StatefulWidget {
+class CustomTimePickerField extends StatefulWidget {
   final TimeOfDay? selectedTime;
   final void Function(TimeOfDay) onTimeSelected;
 
-  const TimePickerField({
+  const CustomTimePickerField({
     super.key,
     this.selectedTime,
     required this.onTimeSelected,
   });
 
   @override
-  State<TimePickerField> createState() => _TimePickerFieldState();
+  State<CustomTimePickerField> createState() => _CustomTimePickerFieldState();
 }
 
-class _TimePickerFieldState extends State<TimePickerField> {
+class _CustomTimePickerFieldState extends State<CustomTimePickerField> {
   TimeOfDay? timeOfDays;
 
   @override

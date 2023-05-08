@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class MobileTitle extends StatelessWidget {
+class CustomMobileTitle extends StatelessWidget {
   final String text;
-  const MobileTitle({
+  const CustomMobileTitle({
     super.key,
     required this.text
   });

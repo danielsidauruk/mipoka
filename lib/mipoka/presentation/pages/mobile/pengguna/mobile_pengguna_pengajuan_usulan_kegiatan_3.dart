@@ -2,14 +2,14 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/widgets/button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
-import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
-import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
-import 'package:mipoka/mipoka/presentation/widgets/mobile_title.dart';
-import 'package:mipoka/mipoka/presentation/widgets/rich_text_field.dart';
-import 'package:mipoka/mipoka/presentation/widgets/field_spacer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_rich_text_field.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 
 class MobilePenggunaPengajuanUsulanKegiatan3 extends StatefulWidget {
   const MobilePenggunaPengajuanUsulanKegiatan3({Key? key}) : super(key: key);
@@ -59,7 +59,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
     return Scaffold(
       appBar: const MipokaAppBar(),
 
-      drawer: const MobilePenggunaDrawerWidget(),
+      drawer: const MobileCustomPenggunaDrawerWidget(),
 
       body: SingleChildScrollView(
         child: Padding(
@@ -68,9 +68,9 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
 
-              const MobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
+              const CustomMobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
 
-              const FieldSpacer(),
+              const CustomFieldSpacer(),
 
               Container(
                 padding: const EdgeInsets.all(8.0),
@@ -84,45 +84,45 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
 
                     buildTitle('Latar Belakang'),
                     buildDescription('Berisi latar belakang kegiatan diusulkan'),
-                    RichTextField(controller: _latarBelakangController),
+                    CustomRichTextField(controller: _latarBelakangController),
 
-                    const FieldSpacer(),
+                    const CustomFieldSpacer(),
                     
                     buildTitle('Tujuan Kegiatan'),
                     buildDescription('Berisi tujuan kegiatan diusulkan'),
-                    RichTextField(controller: _tujuanKegiatanController),
+                    CustomRichTextField(controller: _tujuanKegiatanController),
 
-                    const FieldSpacer(),
+                    const CustomFieldSpacer(),
 
                     buildTitle('Manfaat Kegiatan'),
                     buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
-                    RichTextField(controller: _manfaatKegiatanController),
+                    CustomRichTextField(controller: _manfaatKegiatanController),
 
-                    const FieldSpacer(),
+                    const CustomFieldSpacer(),
 
                     buildTitle('Bentuk Pelaksanaan Kegiatan'),
                     buildDescription('Berisi bentuk kegiatan diusulkan. Misalnya: Webinar, Seminar Onsite, Lomba, Bakti Sosial, dll'),
-                    RichTextField(controller: _bentukPelaksanaanKegiatanController),
+                    CustomRichTextField(controller: _bentukPelaksanaanKegiatanController),
 
-                    const FieldSpacer(),
+                    const CustomFieldSpacer(),
 
                     buildTitle('Target Pencapaian Kegiatan'),
                     buildDescription('Bagian ini berisi target yang akan dicapai. Mis: Lolos babak final, meraih juara 1,2,3 dst'),
-                    RichTextField(controller: _targetPencapaianKegiatanController),
+                    CustomRichTextField(controller: _targetPencapaianKegiatanController),
 
-                    const FieldSpacer(),
+                    const CustomFieldSpacer(),
 
                     buildTitle('Waktu dan Tempat Pelaksanaan'),
                     buildDescription('Rincikan dengan jelas'),
-                    RichTextField(controller: _waktuDanTempatPelaksanaanKegiatanController),
+                    CustomRichTextField(controller: _waktuDanTempatPelaksanaanKegiatanController),
 
-                    const FieldSpacer(),
+                    const CustomFieldSpacer(),
 
                     buildTitle('Rencana Anggaran Kegiatan'),
                     buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
-                    RichTextField(controller: _rencanaAnggaranKegiatanController),
+                    CustomRichTextField(controller: _rencanaAnggaranKegiatanController),
 
-                    const FieldSpacer(),
+                    const CustomFieldSpacer(),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -146,7 +146,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
                     ),
                     tertibAcara != false ?
                     InkWell(
-                      onTap: () {},
+                      onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan3TertibAcaraRoute),
                       child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.all(8.0),
@@ -172,46 +172,46 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
                     ) :
                     const Center(),
 
-                    const FieldSpacer(),
+                    const CustomFieldSpacer(),
 
                     buildTitle('Perlengkapan dan Peralatan (jika ada)'),
                     buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
-                    RichTextField(controller: _perlengkapanDanPeralatanController),
+                    CustomRichTextField(controller: _perlengkapanDanPeralatanController),
 
-                    const FieldSpacer(),
+                    const CustomFieldSpacer(),
 
                     buildTitle('Penutup'),
-                    RichTextField(controller: _penutupController),
+                    CustomRichTextField(controller: _penutupController),
 
-                    const FieldSpacer(),
+                    const CustomFieldSpacer(),
 
                     buildTitle('Lampiran - Lampiran'),
 
-                    const FieldSpacer(),
+                    const CustomFieldSpacer(),
 
                     buildTitle('Postingan Kegiatan'),
                     buildDescription('Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
                     CustomFilePickerButton(onTap: () => openFilePicker('postingKegiatanButton')),
 
-                    const FieldSpacer(),
+                    const CustomFieldSpacer(),
 
                     buildTitle('Surat Undangan Kegiatan'),
                     buildDescription('Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
                     CustomFilePickerButton(onTap: () => openFilePicker('suratUndanganKegiatanButton')),
 
-                    const FieldSpacer(),
+                    const CustomFieldSpacer(),
 
                     buildTitle('Linimasa Kegiatan'),
                     buildDescription('Unggah foto linimasa kegiatan yang akan dilaksanakan.'),
                     CustomFilePickerButton(onTap: () => openFilePicker('linimasaKegiatanButton')),
 
-                    const FieldSpacer(),
+                    const CustomFieldSpacer(),
 
                     buildTitle('Tempat Kegiatan'),
                     buildDescription('Unggah foto tempat kegiatan yang akan dilaksanakan.'),
                     CustomFilePickerButton(onTap: () => openFilePicker('tempatKegiatanButton')),
 
-                    const FieldSpacer(),
+                    const CustomFieldSpacer(),
                     
                     CustomButton(
                       navigation: () {

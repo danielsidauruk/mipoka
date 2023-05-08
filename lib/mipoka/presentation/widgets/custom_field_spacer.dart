@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class FieldSpacer extends StatelessWidget {
+class CustomFieldSpacer extends StatelessWidget {
   final double spacerHeight;
 
-  const FieldSpacer({
+  const CustomFieldSpacer({
     super.key,
     this.spacerHeight = 8.0,
   });

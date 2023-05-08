@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ContentBox extends StatelessWidget {
+class CustomContentBox extends StatelessWidget {
   final List<Widget> children;
 
-  const ContentBox({super.key, required this.children});
+  const CustomContentBox({super.key, required this.children});
 
   @override
   Widget build(BuildContext context) {

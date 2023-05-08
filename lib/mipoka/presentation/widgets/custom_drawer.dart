@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 
-class MobilePenggunaDrawerWidget extends StatelessWidget {
-  const MobilePenggunaDrawerWidget({Key? key}) : super(key: key);
+class MobileCustomPenggunaDrawerWidget extends StatelessWidget {
+  const MobileCustomPenggunaDrawerWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
