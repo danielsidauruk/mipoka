@@ -11,6 +11,7 @@ import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_beranda_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_3.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_3_tertib_acara.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_3_tertib_acara_tambah.dart';
 import 'package:mipoka/mipoka/presentation/pages/web/web_pengguna_beranda_page.dart';
 import 'mipoka/presentation/pages/mobile/mobile_pengguna_login_page.dart';
 
@@ -87,6 +88,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan3());
           case mobilePenggunaPengajuanUsulanKegiatan3TertibAcaraRoute:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan3TertibAcara());
+          case mobilePenggunaPengajuanUsulanKegiatan3TertibAcaraTambahRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan3TertibAcaraTambah());
         }
       },
     );

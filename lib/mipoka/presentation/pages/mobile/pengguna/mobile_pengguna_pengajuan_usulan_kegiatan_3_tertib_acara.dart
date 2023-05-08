@@ -27,7 +27,7 @@ class MobilePenggunaPengajuanUsulanKegiatan3TertibAcara extends StatelessWidget 
 
             const CustomMobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
 
-            const SizedBox(height: 8.0),
+            const CustomFieldSpacer(),
 
             Expanded(
               child: CustomContentBox(
@@ -38,7 +38,7 @@ class MobilePenggunaPengajuanUsulanKegiatan3TertibAcara extends StatelessWidget 
 
                   CustomAddButton(
                     buttonText: 'Tertib Acara',
-                    onPressed: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaRoute),
+                    onPressed: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan3TertibAcaraTambahRoute),
                   ),
 
                   const CustomFieldSpacer(),
