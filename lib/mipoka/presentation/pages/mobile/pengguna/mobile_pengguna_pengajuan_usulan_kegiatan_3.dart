@@ -38,7 +38,8 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
 
     if (result != null) {
       PlatformFile file = result.files.first;
-      print('Path: ${file.path}');
+      print(file.toString());
+      // print('Path: ${file.path}');
       print('File name: ${file.name}');
       print('File size: ${file.size}');
       print('File extension: ${file.extension}');
@@ -47,7 +48,6 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
       print('method error');
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
