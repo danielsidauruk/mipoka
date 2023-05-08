@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
@@ -32,6 +33,22 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
   final QuillController _perlengkapanDanPeralatanController = QuillController.basic();
   final QuillController _penutupController = QuillController.basic();
 
+  Future<void> openFilePicker(BuildContext context) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      PlatformFile file = result.files.first;
+      print('Path: ${file.path}');
+      print('File name: ${file.name}');
+      print('File size: ${file.size}');
+      print('File extension: ${file.extension}');
+
+    } else {
+      print('method error');
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +76,11 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
+                    ElevatedButton(
+                      onPressed: () => openFilePicker(context),
+                      child: Text('Pilih File'),
+                    ),
 
                     buildTitle('Latar Belakang'),
                     buildDescription('Berisi latar belakang kegiatan diusulkan'),

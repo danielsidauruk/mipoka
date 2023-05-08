@@ -15,6 +15,7 @@ dependencies:
   intl: ^0.17.0
   flutter_quill: ^7.1.14
   syncfusion_flutter_signaturepad: ^21.2.3
+  file_picker: ^5.2.11
 
 dev_dependencies:
   flutter_test:
