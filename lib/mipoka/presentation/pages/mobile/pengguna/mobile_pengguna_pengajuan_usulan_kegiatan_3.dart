@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
 import 'package:mipoka/mipoka/presentation/widgets/drawer.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
@@ -33,19 +34,23 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
   final QuillController _perlengkapanDanPeralatanController = QuillController.basic();
   final QuillController _penutupController = QuillController.basic();
 
-  Future<void> openFilePicker(BuildContext context) async {
+  Map<String, String?> filePaths = {};
+
+  Future<void> openFilePicker(String buttonName) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
       PlatformFile file = result.files.first;
-      print(file.toString());
-      // print('Path: ${file.path}');
+      print('Path: ${file.path}');
       print('File name: ${file.name}');
       print('File size: ${file.size}');
       print('File extension: ${file.extension}');
 
+      setState(() {
+        filePaths[buttonName] = file.path;
+      });
     } else {
-      print('method error');
+      print('Method error');
     }
   }
 
@@ -76,11 +81,6 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
-                    ElevatedButton(
-                      onPressed: () => openFilePicker(context),
-                      child: Text('Pilih File'),
-                    ),
 
                     buildTitle('Latar Belakang'),
                     buildDescription('Berisi latar belakang kegiatan diusulkan'),
@@ -191,85 +191,25 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
 
                     buildTitle('Postingan Kegiatan'),
                     buildDescription('Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: const Align(
-                        alignment: Alignment.centerRight,
-                        child: Icon(
-                          Icons.upload,
-                          size: 20,
-                        ),
-                      ),
-                    ),
+                    CustomFilePickerButton(onTap: () => openFilePicker('postingKegiatanButton')),
 
                     const FieldSpacer(),
 
                     buildTitle('Surat Undangan Kegiatan'),
                     buildDescription('Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: const Align(
-                        alignment: Alignment.centerRight,
-                        child: Icon(
-                          Icons.upload,
-                          size: 20,
-                        ),
-                      ),
-                    ),
+                    CustomFilePickerButton(onTap: () => openFilePicker('suratUndanganKegiatanButton')),
 
                     const FieldSpacer(),
 
                     buildTitle('Linimasa Kegiatan'),
                     buildDescription('Unggah foto linimasa kegiatan yang akan dilaksanakan.'),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: const Align(
-                        alignment: Alignment.centerRight,
-                        child: Icon(
-                          Icons.upload,
-                          size: 20,
-                        ),
-                      ),
-                    ),
+                    CustomFilePickerButton(onTap: () => openFilePicker('linimasaKegiatanButton')),
 
                     const FieldSpacer(),
 
-                    buildTitle('Linimasa Kegiatan'),
-                    buildDescription('Unggah foto linimasa kegiatan yang akan dilaksanakan.'),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: const Align(
-                        alignment: Alignment.centerRight,
-                        child: Icon(
-                          Icons.upload,
-                          size: 20,
-                        ),
-                      ),
-                    ),
+                    buildTitle('Tempat Kegiatan'),
+                    buildDescription('Unggah foto tempat kegiatan yang akan dilaksanakan.'),
+                    CustomFilePickerButton(onTap: () => openFilePicker('tempatKegiatanButton')),
 
                     const FieldSpacer(),
                     
