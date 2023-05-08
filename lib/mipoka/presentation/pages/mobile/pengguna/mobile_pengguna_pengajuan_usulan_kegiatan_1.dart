@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'dart:ui' as ui;
 import 'package:mipoka/mipoka/presentation/widgets/button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
@@ -12,6 +13,7 @@ import 'package:mipoka/mipoka/presentation/widgets/field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/time_picker_field.dart';
+import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 
 class MobilePenggunaPengajuanUsulanKegiatan1 extends StatefulWidget {
   const MobilePenggunaPengajuanUsulanKegiatan1({super.key});
@@ -42,6 +44,40 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
   final TextEditingController _targetKegiatanController = TextEditingController();
   final TextEditingController _totalPendanaanController = TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
+
+  final GlobalKey<SfSignaturePadState> signatureGlobalKey = GlobalKey();
+
+  bool tandaTangan = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _handleClearButtonPressed() {
+    signatureGlobalKey.currentState!.clear();
+  }
+
+  // void _handleSaveButtonPressed() async {
+  //   final data =
+  //   await signatureGlobalKey.currentState!.toImage(pixelRatio: 3.0);
+  //   final bytes = await data.toByteData(format: ui.ImageByteFormat.png);
+  //   await Navigator.of(context).push(
+  //     MaterialPageRoute(
+  //       builder: (BuildContext context) {
+  //         return Scaffold(
+  //           appBar: AppBar(),
+  //           body: Center(
+  //             child: Container(
+  //               color: Colors.grey[300],
+  //               child: Image.memory(bytes!.buffer.asUint8List()),
+  //             ),
+  //           ),
+  //         );
+  //       },
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -267,19 +303,80 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                     const FieldSpacer(),
 
                     buildTitle('Tanda Tangan Ormawa'),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: const Align(
-                        alignment: Alignment.centerRight,
-                        child: Icon(
-                          Icons.upload,
-                          size: 20,
+                    InkWell(
+                      onTap: (){},
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          border: Border.all(color: Colors.white),
+                        ),
+                        child: Column(
+                          children: [
+                            tandaTangan != true ?
+                            InkWell(
+                              onTap: () {
+                                setState(() => tandaTangan = !tandaTangan);
+                              },
+                              child: const Text(
+                                'Tekan untuk tanda tangan',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ) :
+                            const Center(),
+
+                            tandaTangan == true ?
+                            Column(
+                              children: [
+
+                                const FieldSpacer(spacerHeight: 4.0),
+
+                                SfSignaturePad(
+                                  key: signatureGlobalKey,
+                                  backgroundColor: Colors.white,
+                                  strokeColor: Colors.black,
+                                  minimumStrokeWidth: 1.0,
+                                  maximumStrokeWidth: 4.0,
+                                ),
+
+                                const FieldSpacer(),
+
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        setState(() => tandaTangan = !tandaTangan);
+                                      },
+                                      child: const Text(
+                                        'Tutup',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ),
+
+                                    InkWell(
+                                      onTap: _handleClearButtonPressed,
+                                      child: const Text(
+                                        'Clear',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ) :
+                            const Center(),
+                          ],
                         ),
                       ),
                     ),
