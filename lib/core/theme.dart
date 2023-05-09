@@ -26,3 +26,16 @@ Column buildTitle(String title) {
     ],
   );
 }
+
+Column buildDescription(String text) {
+  return Column(
+    children: [
+      Text(
+        text,
+        style: const TextStyle(color: Colors.grey),
+      ),
+
+      const SizedBox(height: 4.0),
+    ],
+  );
+}

@@ -35,10 +35,10 @@ class MobilePenggunaPengajuanLaporanKegiatan2 extends StatelessWidget {
               child: CustomContentBox(
                 children: [
                   buildTitle('Data Peserta Kegiatan'),
-
+                  
                   CustomAddButton(
-                    buttonText: 'Data Partisipan',
-                    onPressed: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaRoute),
+                    buttonText: 'Import Peserta',
+                    onPressed: () => Navigator.pushNamed(context, mobilePenggunaPengajuanLaporanKegiatan2ImportKegiatanRoute),
                   ),
 
                   const CustomFieldSpacer(),
@@ -97,20 +97,35 @@ class MobilePenggunaPengajuanLaporanKegiatan2 extends StatelessWidget {
                               return DataRow(
                                 cells: [
                                   DataCell(
-                                    Text(
-                                      '${index + 1}',
-                                      textAlign: TextAlign.center,
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text('${index + 1}',),
                                     ),
                                   ),
                                   DataCell(
-                                    Text(
-                                      'Age $index',
-                                      textAlign: TextAlign.center,
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text('NIM/NIP ${index + 1}',),
                                     ),
                                   ),
-                                  DataCell(Text('City $index')),
-                                  DataCell(Text('Country $index')),
-                                  DataCell(Text('Salary $index')),
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text('Nama Lengkap ${index + 1}',),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text('Peran ${index + 1}',),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text('Dasar Pengiriman ${index + 1}',),
+                                    ),
+                                  ),
                                 ],
                               );
                             }),
@@ -122,11 +137,11 @@ class MobilePenggunaPengajuanLaporanKegiatan2 extends StatelessWidget {
 
                   const CustomFieldSpacer(),
 
-                  buildTitle('Rincian Biaya Kegiatan'),
+                  buildTitle('Realisasi Biaya Kegiatan'),
 
                   CustomAddButton(
                     buttonText: 'Biaya Kegiatan',
-                    onPressed: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatanRoute),
+                    onPressed: () => Navigator.pushNamed(context, mobilePenggunaPengajuanLaporanKegiatan2BiayaKegiatanRoute),
                   ),
 
                   const CustomFieldSpacer(),
@@ -162,10 +177,12 @@ class MobilePenggunaPengajuanLaporanKegiatan2 extends StatelessWidget {
                                       ),
                                     ),
                                     DataColumn(
-                                      label: Text(
-                                        'Qty',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
+                                      label: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Qty',
+                                          style: TextStyle(fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                     ),
                                     DataColumn(
@@ -177,14 +194,21 @@ class MobilePenggunaPengajuanLaporanKegiatan2 extends StatelessWidget {
                                     ),
                                     DataColumn(
                                       label: Text(
-                                        'Total',
+                                        'Usulan Anggaran',
                                         style: TextStyle(fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
-                                        'Keterangan',
+                                        'Realisasi Anggaran',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Selisih',
                                         style: TextStyle(fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
@@ -195,21 +219,47 @@ class MobilePenggunaPengajuanLaporanKegiatan2 extends StatelessWidget {
                                     return DataRow(
                                       cells: [
                                         DataCell(
-                                          Text(
-                                            '${index + 1}',
-                                            textAlign: TextAlign.center,
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text('${index + 1}'),
                                           ),
                                         ),
                                         DataCell(
-                                          Text(
-                                            'Age $index sahjksadfkjh ajdshkjahdf hdjkashjkhad ajkdshfkja fadfk ah',
-                                            textAlign: TextAlign.center,
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text('Biaya $index'),
                                           ),
                                         ),
-                                        DataCell(Text('City $index')),
-                                        DataCell(Text('Country $index')),
-                                        DataCell(Text('Salary $index')),
-                                        DataCell(Text('Position $index')),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text('Qty $index'),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text('Harga Satuan $index'),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text('Usulan Anggaran $index'),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text('Realisasi Anggaran $index'),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text('Selisih $index'),
+                                          ),
+                                        ),
                                       ],
                                     );
                                   }),

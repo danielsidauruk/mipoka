@@ -4,6 +4,8 @@ import 'package:mipoka/core/utils.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_laporan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_laporan_kegiatan_1.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_laporan_kegiatan_2.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_laporan_kegiatan_2_biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_laporan_kegiatan_2_import_peserta.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_1.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_2_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_2_dk.dart';
@@ -100,6 +102,10 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanLaporanKegiatan1());
           case mobilePenggunaPengajuanLaporanKegiatan2Route:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanLaporanKegiatan2());
+          case mobilePenggunaPengajuanLaporanKegiatan2BiayaKegiatanRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanLaporanKegiatan2BiayaKegiatan());
+          case mobilePenggunaPengajuanLaporanKegiatan2ImportKegiatanRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanLaporanKegiatan2ImportPeserta());
         }
       },
     );

@@ -1,7 +1,7 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/Method/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
@@ -12,7 +12,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_rich_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 
 class MobilePenggunaPengajuanUsulanKegiatan3 extends StatefulWidget {
-  const MobilePenggunaPengajuanUsulanKegiatan3({Key? key}) : super(key: key);
+  const MobilePenggunaPengajuanUsulanKegiatan3({super.key});
 
   @override
   State<MobilePenggunaPengajuanUsulanKegiatan3> createState() =>
@@ -33,26 +33,6 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
   final QuillController _rencanaAnggaranKegiatanController = QuillController.basic();
   final QuillController _perlengkapanDanPeralatanController = QuillController.basic();
   final QuillController _penutupController = QuillController.basic();
-
-  Map<String, String?> filePaths = {};
-
-  Future<void> openFilePicker(String buttonName) async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-
-    if (result != null) {
-      PlatformFile file = result.files.first;
-      print('Path: ${file.path}');
-      print('File name: ${file.name}');
-      print('File size: ${file.size}');
-      print('File extension: ${file.extension}');
-
-      setState(() {
-        filePaths[buttonName] = file.path;
-      });
-    } else {
-      print('Method error');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -191,25 +171,25 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
 
                     buildTitle('Postingan Kegiatan'),
                     buildDescription('Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
-                    CustomFilePickerButton(onTap: () => openFilePicker('postingKegiatanButton')),
+                    CustomFilePickerButton(onTap: () => FileUploader.selectAndUploadFile('postingKegiatanButton')),
 
                     const CustomFieldSpacer(),
 
                     buildTitle('Surat Undangan Kegiatan'),
                     buildDescription('Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
-                    CustomFilePickerButton(onTap: () => openFilePicker('suratUndanganKegiatanButton')),
+                    CustomFilePickerButton(onTap: () => FileUploader.selectAndUploadFile('suratUndanganKegiatanButton')),
 
                     const CustomFieldSpacer(),
 
                     buildTitle('Linimasa Kegiatan'),
                     buildDescription('Unggah foto linimasa kegiatan yang akan dilaksanakan.'),
-                    CustomFilePickerButton(onTap: () => openFilePicker('linimasaKegiatanButton')),
+                    CustomFilePickerButton(onTap: () => FileUploader.selectAndUploadFile('linimasaKegiatanButton')),
 
                     const CustomFieldSpacer(),
 
                     buildTitle('Tempat Kegiatan'),
                     buildDescription('Unggah foto tempat kegiatan yang akan dilaksanakan.'),
-                    CustomFilePickerButton(onTap: () => openFilePicker('tempatKegiatanButton')),
+                    CustomFilePickerButton(onTap: () => FileUploader.selectAndUploadFile('tempatKegiatanButton')),
 
                     const CustomFieldSpacer(),
                     
@@ -226,19 +206,6 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
           ),
         ),
       ),
-    );
-  }
-
-  Column buildDescription(String text) {
-    return Column(
-      children: [
-        Text(
-          text,
-          style: const TextStyle(color: Colors.grey),
-        ),
-
-        const SizedBox(height: 4.0),
-      ],
     );
   }
 }
