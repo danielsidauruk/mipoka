@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/Method/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_check_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_date_picker_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
@@ -26,7 +25,6 @@ class MobilePenggunaPengajuanSaranaDanPrasarana extends StatefulWidget {
 
 class _MobilePenggunaPengajuanSaranaDanPrasaranaState
     extends State<MobilePenggunaPengajuanSaranaDanPrasarana> {
-
   String namaOrmawaValue = listNamaOrmawa[0];
   String gedungValue = listGedung[0];
   String ruangValue = listGedung[0];
@@ -34,6 +32,14 @@ class _MobilePenggunaPengajuanSaranaDanPrasaranaState
   DateTime? tanggalSelesaiKegiatan;
   TimeOfDay? waktuMulaiKegiatan;
   TimeOfDay? waktuSelesaiKegiatan;
+  bool isChecked = false;
+
+  final TextEditingController _proyektorLcdController = TextEditingController();
+  final TextEditingController _laptopController = TextEditingController();
+  final TextEditingController _mikrofonController = TextEditingController();
+  final TextEditingController _speakerController = TextEditingController();
+  final TextEditingController _tvController = TextEditingController();
+  final TextEditingController _lampuController = TextEditingController();
 
   final QuillController _kegiatanController = QuillController.basic();
   final QuillController _lainController = QuillController.basic();
@@ -42,9 +48,7 @@ class _MobilePenggunaPengajuanSaranaDanPrasaranaState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaAppBar(),
-
       drawer: const MobileCustomPenggunaDrawerWidget(),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -58,7 +62,6 @@ class _MobilePenggunaPengajuanSaranaDanPrasaranaState
 
               CustomContentBox(
                 children: [
-
                   buildTitle('Nama Ormawa'),
                   CustomDropdownButton(
                     items: listNamaOrmawa,
@@ -91,7 +94,7 @@ class _MobilePenggunaPengajuanSaranaDanPrasaranaState
                       });
                     },
                   ),
-                  
+
                   const CustomFieldSpacer(),
 
                   buildTitle('Gedung'),
@@ -127,35 +130,81 @@ class _MobilePenggunaPengajuanSaranaDanPrasaranaState
                   const CustomFieldSpacer(),
 
                   buildTitle('Waktu Selesai Kegiatan'),
-                  CustomTimePickerField(
-                    selectedTime: waktuSelesaiKegiatan,
-                    onTimeSelected: (TimeOfDay time) {
-                      waktuSelesaiKegiatan = time;
-                    },
-                  ),
-
-                  const CustomFieldSpacer(),
-
-                  buildTitle('Kegiatan'),
                   CustomRichTextField(controller: _kegiatanController),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Perlengkapan yang dibutuhkan'),
 
+                  const SizedBox(height: 4.0),
+
+                  CustomCheckBox(
+                    title: 'Proyektor/LCD',
+                    controller: _proyektorLcdController,
+                  ),
+
+                  const SizedBox(height: 4.0),
+
+                  CustomCheckBox(
+                    title: 'Laptop',
+                    controller: _laptopController,
+                  ),
+
+                  const SizedBox(height: 4.0),
+
+                  CustomCheckBox(
+                    title: 'Mikrofon',
+                    controller: _mikrofonController,
+                  ),
+
+                  const SizedBox(height: 4.0),
+
+                  CustomCheckBox(
+                    title: 'Speaker',
+                    controller: _speakerController,
+                  ),
+
+                  const SizedBox(height: 4.0),
+
+                  CustomCheckBox(
+                    title: 'TV',
+                    controller: _tvController,
+                  ),
+
+                  const SizedBox(height: 4.0),
+
+                  CustomCheckBox(
+                    title: 'Lampu',
+                    controller: _lampuController,
+                  ),
+
                   const CustomFieldSpacer(),
 
                   buildTitle('Lain - lain'),
                   CustomRichTextField(controller: _lainController),
 
-                  CustomButton(
-                    navigation: () {
-                      Navigator.pushNamed(context, mobilePenggunaDaftarPengajuanKegiatanRoute);
-                    },
-                    text: 'Kirim',
+                  const CustomFieldSpacer(),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomButton(
+                        navigation: () => Navigator.pop(context),
+                        text: 'Batal',
+                      ),
+
+                      const SizedBox(width: 8.0),
+
+                      CustomButton(
+                        navigation: () {
+                          Navigator.pushNamed(context, mobilePenggunaDaftarPengajuanKegiatanRoute);
+                        },
+                        text: 'Kirim',
+                      ),
+                    ],
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),
