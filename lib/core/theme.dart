@@ -8,7 +8,8 @@ TextStyle mobileLoginTitle = const TextStyle(
 );
 
 TextStyle mobileSubTitle = const TextStyle(
-  fontWeight: FontWeight.w500,
+  // fontWeight: FontWeight.w500,
+  fontWeight: FontWeight.bold,
   fontSize: 20,
 );
 

@@ -25,3 +25,4 @@ const mobilePenggunaDaftarPengajuanSaranaDanPrasaranaRoute = '/mobilePenggunaDaf
 const mobilePenggunaPengajuanSaranaDanPrasaranaRoute = '/mobilePenggunaDaftarPengajuanSaranaDanPrasarana1Route';
 
 const mobilePenggunaMPTRoute = '/mobilePenggunaMPTRoute';
+const mobilePenggunaMPTUnggahBuktiRoute = '/mobilePenggunaMPTUnggahBuktiRoute';

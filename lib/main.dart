@@ -4,6 +4,7 @@ import 'package:mipoka/core/utils.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_laporan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_sarana_dan_prasarana.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_mpt.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_mpt_unggah_bukti.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_laporan_kegiatan_1.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_laporan_kegiatan_2.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_laporan_kegiatan_2_biaya_kegiatan.dart';
@@ -119,6 +120,8 @@ class MyApp extends StatelessWidget {
 
           case mobilePenggunaMPTRoute:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaMPT());
+          case mobilePenggunaMPTUnggahBuktiRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePenggunaMPTUnggahBukti());
         }
       },
     );
