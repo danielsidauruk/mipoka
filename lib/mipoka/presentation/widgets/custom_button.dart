@@ -7,8 +7,8 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     required this.navigation,
     required this.text,
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class CustomButton extends StatelessWidget {
           onTap: navigation,
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24),
-            height: 30,
+            constraints: const BoxConstraints(minHeight: 35.0),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -31,6 +31,7 @@ class CustomButton extends StatelessWidget {
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
+              textAlign: TextAlign.center,
             ),
           ),
         ),
