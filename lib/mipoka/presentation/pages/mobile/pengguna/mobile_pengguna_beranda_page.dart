@@ -21,18 +21,18 @@ class _MobilePenggunaBerandaPageState extends State<MobilePenggunaBerandaPage> {
 
       drawer: const MobileCustomPenggunaDrawerWidget(),
 
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
 
-            const CustomMobileTitle(text: 'Berita Kemahasiswaan'),
+              const CustomMobileTitle(text: 'Berita Kemahasiswaan'),
 
-            const CustomFieldSpacer(),
+              const CustomFieldSpacer(),
 
-            Expanded(
-              child: CustomContentBox(
+              CustomContentBox(
                 children: [
                   const Placeholder(
                     fallbackHeight: 170,
@@ -40,42 +40,41 @@ class _MobilePenggunaBerandaPageState extends State<MobilePenggunaBerandaPage> {
 
                   const SizedBox(height: 8.0),
 
-                  Expanded(
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: [
-                        buildBeritaTile(),
+                  ListView(
+                    physics: const ScrollPhysics(),
+                    shrinkWrap: true,
+                    children: [
+                      buildBeritaTile(),
 
-                        const SizedBox(height: 4.0),
+                      const SizedBox(height: 4.0),
 
-                        buildBeritaTile(),
+                      buildBeritaTile(),
 
-                        const SizedBox(height: 4.0),
+                      const SizedBox(height: 4.0),
 
-                        buildBeritaTile(),
+                      buildBeritaTile(),
 
-                        const SizedBox(height: 4.0),
+                      const SizedBox(height: 4.0),
 
-                        buildBeritaTile(),
+                      buildBeritaTile(),
 
-                        const SizedBox(height: 4.0),
+                      const SizedBox(height: 4.0),
 
-                        buildBeritaTile(),
+                      buildBeritaTile(),
 
-                        const SizedBox(height: 4.0),
+                      const SizedBox(height: 4.0),
 
-                        buildBeritaTile(),
+                      buildBeritaTile(),
 
-                        const SizedBox(height: 4.0),
+                      const SizedBox(height: 4.0),
 
-                        buildBeritaTile(),
-                      ],
-                    ),
+                      buildBeritaTile(),
+                    ],
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

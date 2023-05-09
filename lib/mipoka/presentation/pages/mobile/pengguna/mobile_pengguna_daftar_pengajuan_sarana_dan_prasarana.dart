@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
@@ -41,15 +40,7 @@ class _MobilePenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<Mobile
               child: CustomContentBox(
                 children: [
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children:[
-                      Text(
-                        'Status',
-                        style: mobileSubTitle,
-                      ),
-                    ],
-                  ),
+                  customBoxTitle('Status'),
 
                   const SizedBox(height: 4.0),
 

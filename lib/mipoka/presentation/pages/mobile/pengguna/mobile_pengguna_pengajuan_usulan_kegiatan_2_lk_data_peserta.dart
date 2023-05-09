@@ -46,10 +46,8 @@ class _MobilePenggunaPengajuanUsulanKegiatan2LKDataPesertaState extends State<Mo
 
               CustomContentBox(
                 children: [
-                  Text(
-                    'Data Peserta',
-                    style: mobileSubTitle,
-                  ),
+
+                  customBoxTitle('Data Peserta'),
 
                   const CustomFieldSpacer(),
 

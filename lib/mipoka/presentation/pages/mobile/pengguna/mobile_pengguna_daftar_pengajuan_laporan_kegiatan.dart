@@ -40,15 +40,8 @@ class _MobilePenggunaDaftarLaporanKegiatanState extends State<MobilePenggunaDaft
             Expanded(
               child: CustomContentBox(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children:[
-                      Text(
-                        'Status',
-                        style: mobileSubTitle,
-                      ),
-                    ],
-                  ),
+
+                  customBoxTitle('Status'),
 
                   const SizedBox(height: 4.0),
 

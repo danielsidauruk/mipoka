@@ -7,11 +7,20 @@ TextStyle mobileLoginTitle = const TextStyle(
   fontSize: 24
 );
 
-TextStyle mobileSubTitle = const TextStyle(
-  // fontWeight: FontWeight.w500,
-  fontWeight: FontWeight.bold,
-  fontSize: 20,
-);
+Row customBoxTitle(String title) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Text(
+        title,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
+      ),
+    ],
+  );
+}
 
 Column buildTitle(String title) {
   return Column(

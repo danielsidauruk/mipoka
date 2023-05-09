@@ -67,10 +67,8 @@ class _MobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatanState extends State<Mo
 
               CustomContentBox(
                 children: [
-                  Text(
-                    'Biaya Kegiatan',
-                    style: mobileSubTitle,
-                  ),
+
+                  customBoxTitle('Biaya Kegiatan'),
 
                   const CustomFieldSpacer(),
 

@@ -44,7 +44,8 @@ class _MobilePenggunaPengajuanUsulanKegiatan3TertibAcaraTambahState extends Stat
 
               CustomContentBox(
                 children: [
-                  buildTitle('Tertib Acara'),
+
+                  customBoxTitle('Tambah Tertib Acara'),
 
                   const CustomFieldSpacer(),
 

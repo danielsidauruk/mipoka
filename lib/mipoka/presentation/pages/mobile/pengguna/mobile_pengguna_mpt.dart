@@ -34,15 +34,8 @@ class MobilePenggunaMPT extends StatelessWidget {
             Expanded(
               child: CustomContentBox(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children:[
-                      Text(
-                        'Kegiatan yang Sudah Diklaim',
-                        style: mobileSubTitle,
-                      ),
-                    ],
-                  ),
+
+                  customBoxTitle('Kegiatan yang Sudah Diklaim'),
 
                   const CustomFieldSpacer(),
 
@@ -140,17 +133,7 @@ class MobilePenggunaMPT extends StatelessWidget {
 
                   const CustomFieldSpacer(spacerHeight: 12),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children:[
-                      Expanded(
-                        child: Text(
-                          'Kegiatan yang Belum Sudah Diklaim',
-                          style: mobileSubTitle,
-                        ),
-                      ),
-                    ],
-                  ),
+                  customBoxTitle('Kegiatan yang Belum Diklaim'),
 
                   const CustomFieldSpacer(),
 
