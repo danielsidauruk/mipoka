@@ -80,14 +80,14 @@ class _MobilePenggunaDaftarLaporanKegiatanState extends State<MobilePenggunaDaft
                             ),
                             DataColumn(
                               label: Text(
-                                'Tanggal Mengirim\nUsulan Kegiatan',
+                                'Tanggal Mengirim Laporan Kegiatan',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
                             ),
                             DataColumn(
                               label: Text(
-                                'Nama Pengusul',
+                                'Nama Pelapor',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
@@ -101,7 +101,7 @@ class _MobilePenggunaDaftarLaporanKegiatanState extends State<MobilePenggunaDaft
                             ),
                             DataColumn(
                               label: Text(
-                                'Usulan Kegiatan',
+                                'Laporan Kegiatan',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
@@ -159,9 +159,9 @@ class _MobilePenggunaDaftarLaporanKegiatanState extends State<MobilePenggunaDaft
             CustomButton(
               navigation: () => Navigator.pushNamed(
                 context,
-                mobilePenggunaPengajuanUsulanKegiatan1Route,
+                mobilePenggunaPengajuanLaporanKegiatan1Route,
               ),
-              text: 'Ajukan Kegiatan',
+              text: 'Laporkan Kegiatan',
             ),
           ],
         ),

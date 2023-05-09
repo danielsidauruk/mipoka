@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/utils.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_laporan_kegiatan.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_laporan_kegiatan_1.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_laporan_kegiatan_2.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_1.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_2_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_2_dk.dart';
@@ -90,6 +93,13 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan3TertibAcara());
           case mobilePenggunaPengajuanUsulanKegiatan3TertibAcaraTambahRoute:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan3TertibAcaraTambah());
+
+          case mobilePenggunaDaftarLaporanKegiatanRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePenggunaDaftarLaporanKegiatan());
+          case mobilePenggunaPengajuanLaporanKegiatan1Route:
+            return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanLaporanKegiatan1());
+          case mobilePenggunaPengajuanLaporanKegiatan2Route:
+            return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanLaporanKegiatan2());
         }
       },
     );

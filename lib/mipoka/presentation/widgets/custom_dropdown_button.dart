@@ -30,6 +30,7 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
     return Container(
       width: double.infinity,
       height: 35,
+      // constraints: const BoxConstraints(minHeight: 35.0),
       padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
