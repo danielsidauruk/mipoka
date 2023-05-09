@@ -285,7 +285,7 @@ class MobilePenggunaPengajuanLaporanKegiatan2 extends StatelessWidget {
                       const SizedBox(width: 8.0),
 
                       CustomButton(
-                        navigation: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan3Route),
+                        navigation: () => Navigator.pushNamed(context, mobilePenggunaPengajuanLaporanKegiatan3Route),
                         text: 'Berikutnya',
                       ),
                     ],
