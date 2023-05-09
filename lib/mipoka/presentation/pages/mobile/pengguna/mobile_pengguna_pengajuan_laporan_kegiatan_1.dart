@@ -31,50 +31,52 @@ class _MobilePenggunaPengajuanLaporanKegiatan1State extends State<MobilePengguna
 
       drawer: const MobileCustomPenggunaDrawerWidget(),
 
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
 
-            const CustomMobileTitle(text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
+              const CustomMobileTitle(text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
 
-            const CustomFieldSpacer(),
+              const CustomFieldSpacer(),
 
-            CustomContentBox(
-              children: [
+              CustomContentBox(
+                children: [
 
-                buildTitle('Nama Ormawa'),
-                buildTitle('Mikroskil Esport'),
+                  buildTitle('Nama Ormawa'),
+                  buildTitle('Mikroskil Esport'),
 
-                const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                buildTitle('Nama Kegiatan'),
-                CustomDropdownButton(
-                  items: namaKegiatanItem,
-                  value: namaKegiatanValue,
-                  onChanged: (String? value) {
-                    setState(() => namaKegiatanValue = value!);
-                  },
-                ),
-
-                const CustomFieldSpacer(),
-                
-                buildTitle('Pencapaian'),
-                CustomRichTextField(controller: _pencapaianController),
-
-                const CustomFieldSpacer(),
-
-                CustomButton(
-                  navigation: () => Navigator.pushNamed(
-                    context,
-                    mobilePenggunaPengajuanLaporanKegiatan2Route,
+                  buildTitle('Nama Kegiatan'),
+                  CustomDropdownButton(
+                    items: namaKegiatanItem,
+                    value: namaKegiatanValue,
+                    onChanged: (String? value) {
+                      setState(() => namaKegiatanValue = value!);
+                    },
                   ),
-                  text: 'Berikutnya',
-                ),
-              ],
-            ),
-          ],
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Pencapaian'),
+                  CustomRichTextField(controller: _pencapaianController),
+
+                  const CustomFieldSpacer(),
+
+                  CustomButton(
+                    navigation: () => Navigator.pushNamed(
+                      context,
+                      mobilePenggunaPengajuanLaporanKegiatan2Route,
+                    ),
+                    text: 'Berikutnya',
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

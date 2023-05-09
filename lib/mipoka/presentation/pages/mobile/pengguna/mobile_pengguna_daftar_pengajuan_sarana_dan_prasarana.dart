@@ -252,19 +252,27 @@ class _MobilePenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<Mobile
 
                   const CustomFieldSpacer(),
 
+                  // CustomButton(
+                  //   navigation: () => Navigator.pushNamed(
+                  //     context,
+                  //     mobilePenggunaPengajuanUsulanKegiatan1Route,
+                  //   ),
+                  //   text: 'Ajukan Peminjaman Sarana dan Prasarana',
+                  // ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       InkWell(
                         onTap: () => Navigator.pushNamed(
                           context,
-                          mobilePenggunaPengajuanUsulanKegiatan1Route,
+                          mobilePenggunaPengajuanSaranaDanPrasaranaRoute,
                         ),
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24),
                           constraints: BoxConstraints(
                             minHeight: 35.0,
-                            maxWidth: MediaQuery.of(context).size.width * 0.8,
+                            maxWidth: MediaQuery.of(context).size.width * 0.6,
                           ),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
@@ -284,8 +292,6 @@ class _MobilePenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<Mobile
                       ),
                     ],
                   ),
-
-
                 ],
               ),
             ),

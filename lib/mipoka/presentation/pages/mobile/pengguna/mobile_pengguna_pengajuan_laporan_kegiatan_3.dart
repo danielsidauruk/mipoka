@@ -95,7 +95,9 @@ class _MobilePenggunaPengajuanLaporanKegiatan3State
 
                       buildTitle('Postingan Kegiatan'),
                       buildDescription('Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
-                      CustomFilePickerButton(onTap: () => FileUploader.selectAndUploadFile('postingLaporanKegiatanButton')),
+                      CustomFilePickerButton(
+                        onTap: () => FileUploader.selectAndUploadFile('postingLaporanKegiatanButton'),
+                      ),
 
                       const CustomFieldSpacer(),
 

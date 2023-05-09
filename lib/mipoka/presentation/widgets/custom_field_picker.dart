@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 class CustomFilePickerButton extends StatelessWidget {
   final VoidCallback onTap;
+  final String text;
 
-  const CustomFilePickerButton({super.key, required this.onTap});
+  const CustomFilePickerButton({
+    super.key,
+    required this.onTap,
+    this.text = '',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +22,19 @@ class CustomFilePickerButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(5.0),
           border: Border.all(color: Colors.white),
         ),
-        child: const Align(
-          alignment: Alignment.centerRight,
-          child: Icon(
-            Icons.upload,
-            size: 20,
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              text,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+
+            const Icon(
+              Icons.upload,
+              size: 20,
+            ),
+          ],
         ),
       ),
     );

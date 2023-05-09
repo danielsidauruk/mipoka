@@ -30,7 +30,7 @@ class _MobilePenggunaDaftarLaporanKegiatanState extends State<MobilePenggunaDaft
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
 
             const CustomMobileTitle(text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
@@ -126,22 +126,61 @@ class _MobilePenggunaDaftarLaporanKegiatanState extends State<MobilePenggunaDaft
                             return DataRow(
                               cells: [
                                 DataCell(
-                                  Text(
-                                    '${index + 1}',
-                                    textAlign: TextAlign.center,
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      '${index + 1}',
+                                    ),
                                   ),
                                 ),
                                 DataCell(
-                                  Text(
-                                    'Age $index',
-                                    textAlign: TextAlign.center,
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      '${index + 1} Mei 2023',
+                                    ),
                                   ),
                                 ),
-                                DataCell(Text('City $index')),
-                                DataCell(Text('Country $index')),
-                                DataCell(Text('Salary $index')),
-                                DataCell(Text('Position $index')),
-                                DataCell(Text('Department $index')),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Mahasiswa ${index + 1}',
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Kegiatan ${index + 1}',
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'File Laporan ${index + 1}',
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Validasi ${index + 1}',
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Status ${index + 1}',
+                                    ),
+                                  ),
+                                ),
                               ],
                             );
                           }),

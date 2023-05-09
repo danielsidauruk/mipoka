@@ -3,6 +3,7 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/Method/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
@@ -52,156 +53,154 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
 
               const CustomFieldSpacer(),
 
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+              CustomContentBox(
+                children: [
 
-                    buildTitle('Latar Belakang'),
-                    buildDescription('Berisi latar belakang kegiatan diusulkan'),
-                    CustomRichTextField(controller: _latarBelakangController),
+                  buildTitle('Latar Belakang'),
+                  buildDescription('Berisi latar belakang kegiatan diusulkan'),
+                  CustomRichTextField(controller: _latarBelakangController),
 
-                    const CustomFieldSpacer(),
-                    
-                    buildTitle('Tujuan Kegiatan'),
-                    buildDescription('Berisi tujuan kegiatan diusulkan'),
-                    CustomRichTextField(controller: _tujuanKegiatanController),
+                  const CustomFieldSpacer(),
 
-                    const CustomFieldSpacer(),
+                  buildTitle('Tujuan Kegiatan'),
+                  buildDescription('Berisi tujuan kegiatan diusulkan'),
+                  CustomRichTextField(controller: _tujuanKegiatanController),
 
-                    buildTitle('Manfaat Kegiatan'),
-                    buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
-                    CustomRichTextField(controller: _manfaatKegiatanController),
+                  const CustomFieldSpacer(),
 
-                    const CustomFieldSpacer(),
+                  buildTitle('Manfaat Kegiatan'),
+                  buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
+                  CustomRichTextField(controller: _manfaatKegiatanController),
 
-                    buildTitle('Bentuk Pelaksanaan Kegiatan'),
-                    buildDescription('Berisi bentuk kegiatan diusulkan. Misalnya: Webinar, Seminar Onsite, Lomba, Bakti Sosial, dll'),
-                    CustomRichTextField(controller: _bentukPelaksanaanKegiatanController),
+                  const CustomFieldSpacer(),
 
-                    const CustomFieldSpacer(),
+                  buildTitle('Bentuk Pelaksanaan Kegiatan'),
+                  buildDescription('Berisi bentuk kegiatan diusulkan. Misalnya: Webinar, Seminar Onsite, Lomba, Bakti Sosial, dll'),
+                  CustomRichTextField(controller: _bentukPelaksanaanKegiatanController),
 
-                    buildTitle('Target Pencapaian Kegiatan'),
-                    buildDescription('Bagian ini berisi target yang akan dicapai. Mis: Lolos babak final, meraih juara 1,2,3 dst'),
-                    CustomRichTextField(controller: _targetPencapaianKegiatanController),
+                  const CustomFieldSpacer(),
 
-                    const CustomFieldSpacer(),
+                  buildTitle('Target Pencapaian Kegiatan'),
+                  buildDescription('Bagian ini berisi target yang akan dicapai. Mis: Lolos babak final, meraih juara 1,2,3 dst'),
+                  CustomRichTextField(controller: _targetPencapaianKegiatanController),
 
-                    buildTitle('Waktu dan Tempat Pelaksanaan'),
-                    buildDescription('Rincikan dengan jelas'),
-                    CustomRichTextField(controller: _waktuDanTempatPelaksanaanKegiatanController),
+                  const CustomFieldSpacer(),
 
-                    const CustomFieldSpacer(),
+                  buildTitle('Waktu dan Tempat Pelaksanaan'),
+                  buildDescription('Rincikan dengan jelas'),
+                  CustomRichTextField(controller: _waktuDanTempatPelaksanaanKegiatanController),
 
-                    buildTitle('Rencana Anggaran Kegiatan'),
-                    buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
-                    CustomRichTextField(controller: _rencanaAnggaranKegiatanController),
+                  const CustomFieldSpacer(),
 
-                    const CustomFieldSpacer(),
+                  buildTitle('Rencana Anggaran Kegiatan'),
+                  buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
+                  CustomRichTextField(controller: _rencanaAnggaranKegiatanController),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Tertib Acara'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
 
-                        Switch(
-                          value: tertibAcara,
-                          onChanged: (bool newValue) {
-                            setState(() => tertibAcara = newValue);
-                          },
-                        ),
+                      buildTitle('Tertib Acara'),
 
-                        Expanded(
-                          child: tertibAcara == false ?
-                          buildTitle('Tidak') :
-                          buildTitle('Ya'),
-                        ),
-                      ],
-                    ),
-                    tertibAcara != false ?
-                    InkWell(
-                      onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan3TertibAcaraRoute),
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.all(8.0),
-                        constraints: const BoxConstraints(minHeight: 35.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.0),
-                          border: Border.all(color: Colors.white),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
-                              'Detail',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              size: 20,
-                            ),
-                          ],
-                        ),
+                      Switch(
+                        value: tertibAcara,
+                        onChanged: (bool newValue) {
+                          setState(() => tertibAcara = newValue);
+                        },
                       ),
-                    ) :
-                    const Center(),
 
-                    const CustomFieldSpacer(),
-
-                    buildTitle('Perlengkapan dan Peralatan (jika ada)'),
-                    buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
-                    CustomRichTextField(controller: _perlengkapanDanPeralatanController),
-
-                    const CustomFieldSpacer(),
-
-                    buildTitle('Penutup'),
-                    CustomRichTextField(controller: _penutupController),
-
-                    const CustomFieldSpacer(),
-
-                    buildTitle('Lampiran - Lampiran'),
-
-                    const CustomFieldSpacer(),
-
-                    buildTitle('Postingan Kegiatan'),
-                    buildDescription('Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
-                    CustomFilePickerButton(onTap: () => FileUploader.selectAndUploadFile('postingKegiatanButton')),
-
-                    const CustomFieldSpacer(),
-
-                    buildTitle('Surat Undangan Kegiatan'),
-                    buildDescription('Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
-                    CustomFilePickerButton(onTap: () => FileUploader.selectAndUploadFile('suratUndanganKegiatanButton')),
-
-                    const CustomFieldSpacer(),
-
-                    buildTitle('Linimasa Kegiatan'),
-                    buildDescription('Unggah foto linimasa kegiatan yang akan dilaksanakan.'),
-                    CustomFilePickerButton(onTap: () => FileUploader.selectAndUploadFile('linimasaKegiatanButton')),
-
-                    const CustomFieldSpacer(),
-
-                    buildTitle('Tempat Kegiatan'),
-                    buildDescription('Unggah foto tempat kegiatan yang akan dilaksanakan.'),
-                    CustomFilePickerButton(onTap: () => FileUploader.selectAndUploadFile('tempatKegiatanButton')),
-
-                    const CustomFieldSpacer(),
-                    
-                    CustomButton(
-                      navigation: () {
-                        Navigator.pushNamed(context, mobilePenggunaDaftarPengajuanKegiatanRoute);
-                      },
-                      text: 'Kirim',
+                      Expanded(
+                        child: tertibAcara == false ?
+                        buildTitle('Tidak') :
+                        buildTitle('Ya'),
+                      ),
+                    ],
+                  ),
+                  tertibAcara != false ?
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan3TertibAcaraRoute),
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(8.0),
+                      constraints: const BoxConstraints(minHeight: 35.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        border: Border.all(color: Colors.white),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          Text(
+                            'Detail',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            size: 20,
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
+                  ) :
+                  const Center(),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Perlengkapan dan Peralatan (jika ada)'),
+                  buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
+                  CustomRichTextField(controller: _perlengkapanDanPeralatanController),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Penutup'),
+                  CustomRichTextField(controller: _penutupController),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Lampiran - Lampiran'),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Postingan Kegiatan'),
+                  buildDescription('Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
+                  CustomFilePickerButton(onTap: () => FileUploader.selectAndUploadFile('postingKegiatanButton')),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Postingan Kegiatan'),
+                  buildDescription('Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
+                  CustomFilePickerButton(onTap: () => FileUploader.selectAndUploadFile('postingKegiatanButton')),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Surat Undangan Kegiatan'),
+                  buildDescription('Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
+                  CustomFilePickerButton(onTap: () => FileUploader.selectAndUploadFile('suratUndanganKegiatanButton')),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Linimasa Kegiatan'),
+                  buildDescription('Unggah foto linimasa kegiatan yang akan dilaksanakan.'),
+                  CustomFilePickerButton(onTap: () => FileUploader.selectAndUploadFile('linimasaKegiatanButton')),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Tempat Kegiatan'),
+                  buildDescription('Unggah foto tempat kegiatan yang akan dilaksanakan.'),
+                  CustomFilePickerButton(onTap: () => FileUploader.selectAndUploadFile('tempatKegiatanButton')),
+
+                  const CustomFieldSpacer(),
+
+                  CustomButton(
+                    navigation: () {
+                      Navigator.pushNamed(context, mobilePenggunaDaftarPengajuanKegiatanRoute);
+                    },
+                    text: 'Kirim',
+                  ),
+                ],
+              )
             ],
           ),
         ),

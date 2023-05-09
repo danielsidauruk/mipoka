@@ -17,6 +17,10 @@ class FileUploader {
 
       // Panggil fungsi untuk mengunggah file ke database lokal atau database remote
       await uploadFileToDatabase(file);
+
+      // Membuat map yang berisi informasi file
+      // String fileInfo = '${file.name} - ${file.size}';
+      // return fileInfo;
     } else {
       print('Method error');
     }

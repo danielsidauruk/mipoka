@@ -3,11 +3,13 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/utils.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_laporan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_sarana_dan_prasarana.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_mpt.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_laporan_kegiatan_1.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_laporan_kegiatan_2.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_laporan_kegiatan_2_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_laporan_kegiatan_2_import_peserta.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_laporan_kegiatan_3.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_sarana_dan_prasarana.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_1.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_2_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_2_dk.dart';
@@ -74,7 +76,6 @@ class MyApp extends StatelessWidget {
 
 
           // mobile route
-
           case mobilePenggunaBerandaRoute:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaBerandaPage());
           case mobilePenggunaDaftarPengajuanKegiatanRoute:
@@ -110,8 +111,14 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanLaporanKegiatan2ImportPeserta());
           case mobilePenggunaPengajuanLaporanKegiatan3Route:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanLaporanKegiatan3());
+
           case mobilePenggunaDaftarPengajuanSaranaDanPrasaranaRoute:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaDaftarPengajuanSaranaDanPrasarana());
+          case mobilePenggunaPengajuanSaranaDanPrasaranaRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePenggunaPengajuanSaranaDanPrasarana());
+
+          case mobilePenggunaMPTRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePenggunaMPT());
         }
       },
     );
