@@ -262,26 +262,30 @@ class _MobilePenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<Mobile
                         ),
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24),
-                          constraints: const BoxConstraints(minHeight: 35.0),
+                          constraints: BoxConstraints(
+                            minHeight: 35.0,
+                            maxWidth: MediaQuery.of(context).size.width * 0.8,
+                          ),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
-                          child: Expanded(
-                            child: const Text(
-                              'Ajukan Peminjaman Sarana dan Prasarana',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
+                          child: const Text(
+                            'Ajukan Peminjaman Sarana dan Prasarana',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
                             ),
+                            textAlign: TextAlign.center,
+                            softWrap: true,
                           ),
                         ),
                       ),
                     ],
                   ),
+
+
                 ],
               ),
             ),
