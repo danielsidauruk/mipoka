@@ -8,6 +8,8 @@ const mobileGantiPasswordPageRoute = '/mobileGantiPasswordPageRoute';
 
 // mobile routes - pengguna
 const mobilePenggunaBerandaRoute = '/mobilePenggunaBerandaRoute';
+const mobilePenggunaBerandaDetailPageRoute = '/mobilePenggunaBerandaDetailPageRoute';
+
 const mobilePenggunaDaftarPengajuanKegiatanRoute = '/mobileDaftarPengajuanKegiatanRoute';
 const mobilePenggunaPengajuanUsulanKegiatan1Route = '/mobilePenggunaPengajuanUsulanKegiatan1Route';
 const mobilePenggunaPengajuanUsulanKegiatan2LKRoute = '/mobilePenggunaPengajuanUsulanKegiatan2LKRoute';

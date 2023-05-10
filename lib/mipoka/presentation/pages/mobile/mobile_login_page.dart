@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 
-class MobilePenggunaLoginPage extends StatefulWidget {
-  const MobilePenggunaLoginPage({super.key});
+class MobileLoginPage extends StatefulWidget {
+  const MobileLoginPage({super.key});
 
   @override
-  State<MobilePenggunaLoginPage> createState() => _MobilePenggunaLoginPageState();
+  State<MobileLoginPage> createState() => _MobileLoginPageState();
 }
 
-class _MobilePenggunaLoginPageState extends State<MobilePenggunaLoginPage> {
+class _MobileLoginPageState extends State<MobileLoginPage> {
   @override
   Widget build(BuildContext context) {
     bool darkMode = false;

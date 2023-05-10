@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/utils.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_ganti_password_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_laporan_kegiatan.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_sarana_dan_prasarana.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_mpt.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_mpt_unggah_bukti.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_beranda_detail_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_laporan_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_sarana_dan_prasarana_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_mpt_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_mpt_unggah_bukti_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_ormawa_ukm_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_laporan_kegiatan_1.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_laporan_kegiatan_2.dart';
@@ -18,7 +19,7 @@ import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_2_dk.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_2_dk_data_peserta.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_2_lk.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_usulan_kegiatan.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_usulan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_2_lk_data_peserta.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_beranda_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_3.dart';
@@ -26,7 +27,7 @@ import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_pengajuan_usulan_kegiatan_3_tertib_acara_tambah.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_prestasi_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/web/web_pengguna_beranda_page.dart';
-import 'mipoka/presentation/pages/mobile/mobile_pengguna_login_page.dart';
+import 'mipoka/presentation/pages/mobile/mobile_login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -69,7 +70,7 @@ class MyApp extends StatelessWidget {
 
       home:
       // WebLoginPage(),
-      const MobilePenggunaLoginPage(),
+      const MobileLoginPage(),
 
       navigatorObservers: [routeObserver],
       onGenerateRoute: (RouteSettings settings) {
@@ -80,13 +81,16 @@ class MyApp extends StatelessWidget {
 
           // mobile route
           case mobileLoginPageRoute:
-            return MaterialPageRoute(builder: (_) => const MobilePenggunaLoginPage());
+            return MaterialPageRoute(builder: (_) => const MobileLoginPage());
           case mobileGantiPasswordPageRoute:
             return MaterialPageRoute(builder: (_) => const MobileGantiPasswordPage());
 
           // mobile - pengguna  route
           case mobilePenggunaBerandaRoute:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaBerandaPage());
+          case mobilePenggunaBerandaDetailPageRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePenggunaBerandaDetailPage());
+
           case mobilePenggunaDaftarPengajuanKegiatanRoute:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaDaftarPengajuanKegiatan());
           case mobilePenggunaPengajuanUsulanKegiatan1Route:

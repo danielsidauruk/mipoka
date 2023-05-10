@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -80,36 +81,39 @@ class _MobilePenggunaBerandaPageState extends State<MobilePenggunaBerandaPage> {
     );
   }
 
-  Container buildBeritaTile() {
-    return Container(
-      height: 80,
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.white)
-      ),
-      padding: const EdgeInsets.all(4.0),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Container(
-              width: 80,
-              height: 80,
-              color: Colors.grey,
+  InkWell buildBeritaTile() {
+    return InkWell(
+      onTap: () => Navigator.pushNamed(context, mobilePenggunaBerandaDetailPageRoute),
+      child: Container(
+        height: 80,
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.white)
+        ),
+        padding: const EdgeInsets.all(4.0),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Container(
+                width: 80,
+                height: 80,
+                color: Colors.grey,
+              ),
             ),
-          ),
 
-          const SizedBox(width: 4.0),
+            const SizedBox(width: 4.0),
 
-          const Expanded(
-            flex: 3,
-            child: Text(
-              'Lorem ipsum dolor sit amet, consectetur '
-                  'adipiscing elit, sed do eiusmod tempor incididunt '
-                  'ut labore et dolore ',
-              style: TextStyle(fontWeight: FontWeight.bold),
+            const Expanded(
+              flex: 3,
+              child: Text(
+                'Lorem ipsum dolor sit amet, consectetur '
+                    'adipiscing elit, sed do eiusmod tempor incididunt '
+                    'ut labore et dolore ',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
