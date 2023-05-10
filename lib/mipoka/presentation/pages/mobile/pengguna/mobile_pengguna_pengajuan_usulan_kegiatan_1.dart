@@ -333,7 +333,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                             Column(
                               children: [
 
-                                const CustomFieldSpacer(spacerHeight: 4.0),
+                                const CustomFieldSpacer(height: 4.0),
 
                                 SfSignaturePad(
                                   key: signatureGlobalKey,

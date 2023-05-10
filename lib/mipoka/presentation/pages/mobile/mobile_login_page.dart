@@ -116,7 +116,7 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                        onPressed: (){},
+                        onPressed: () => Navigator.pushNamed(context, mobileLupaPasswordPageRoute),
                         child: Text(
                           'Forget Password?',
                           style: Theme.of(context)

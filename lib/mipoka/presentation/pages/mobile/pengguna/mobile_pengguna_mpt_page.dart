@@ -127,7 +127,7 @@ class MobilePenggunaMPT extends StatelessWidget {
                     ),
                   ),
 
-                  const CustomFieldSpacer(spacerHeight: 12),
+                  const CustomFieldSpacer(height: 12),
 
                   customBoxTitle('Kegiatan yang Belum Diklaim'),
 

@@ -5,6 +5,9 @@ const webPenggunaBerandaRoute = '/webPenggunaBerandaRoute';
 // mobile
 const mobileLoginPageRoute = '/mobileLoginPageRoute';
 const mobileGantiPasswordPageRoute = '/mobileGantiPasswordPageRoute';
+const mobileLupaPasswordPageRoute = '/mobileLupaPasswordPageRoute';
+
+const mobileNotifikasiPageRoute = '/mobileNotifikasiPageRoute';
 
 // mobile routes - pengguna
 const mobilePenggunaBerandaRoute = '/mobilePenggunaBerandaRoute';

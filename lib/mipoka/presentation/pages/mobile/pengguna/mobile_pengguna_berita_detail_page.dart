@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -36,17 +35,12 @@ class _MobilePenggunaBerandaDetailPageState extends State<MobilePenggunaBerandaD
               CustomContentBox(
                 children: [
 
-                  const Text(
-                    'MENJADI ACARA PERDANA! SEMINAR PASAR MODAL UKM'
-                        'MIKROSKIL INVESTMENT CLUB SUKSES TERSELENGGARAKAN'
-                        'BERSAMA PENGUKUHAN KSPM',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+                  buildDetailBeritaTitle('MENJADI ACARA PERDANA! SEMINAR PASAR MODAL UKM'
+                      'MIKROSKIL INVESTMENT CLUB SUKSES TERSELENGGARAKAN'
+                      'BERSAMA PENGUKUHAN KSPM',
                   ),
 
-                  const CustomFieldSpacer(spacerHeight: 4),
+                  const CustomFieldSpacer(height: 4),
 
                   const Text(
                     'Diterbitkan: 14 April 2023 | Oleh: Andrew Husada',
@@ -86,37 +80,14 @@ class _MobilePenggunaBerandaDetailPageState extends State<MobilePenggunaBerandaD
     );
   }
 
-  Container buildBeritaTile() {
-    return Container(
-      height: 80,
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.white)
-      ),
-      padding: const EdgeInsets.all(4.0),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Container(
-              width: 80,
-              height: 80,
-              color: Colors.grey,
-            ),
-          ),
-
-          const SizedBox(width: 4.0),
-
-          const Expanded(
-            flex: 3,
-            child: Text(
-              'Lorem ipsum dolor sit amet, consectetur '
-                  'adipiscing elit, sed do eiusmod tempor incididunt '
-                  'ut labore et dolore ',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
+  Text buildDetailBeritaTitle(String text) {
+    return Text(
+      text,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 20,
       ),
     );
   }
+
 }

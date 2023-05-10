@@ -77,7 +77,7 @@ class _MobilePenggunaOrmawaUKMPageState extends State<MobilePenggunaOrmawaUKMPag
                   const CustomFieldSpacer(),
 
                   customBoxTitle('Pembina'),
-                  const CustomFieldSpacer(spacerHeight: 4.0),
+                  const CustomFieldSpacer(height: 4.0),
 
                   buildTitle(
                     'Dosen',
@@ -88,7 +88,7 @@ class _MobilePenggunaOrmawaUKMPageState extends State<MobilePenggunaOrmawaUKMPag
                   const CustomFieldSpacer(),
 
                   customBoxTitle('Pengurus Inti'),
-                  const CustomFieldSpacer(spacerHeight: 4.0),
+                  const CustomFieldSpacer(height: 4.0),
 
                   buildTitle(
                     'Ketua UKM',
@@ -96,7 +96,7 @@ class _MobilePenggunaOrmawaUKMPageState extends State<MobilePenggunaOrmawaUKMPag
                   ),
                   Text('Stefani Gisella'),
 
-                  const CustomFieldSpacer(spacerHeight: 4.0),
+                  const CustomFieldSpacer(height: 4.0),
 
                   buildTitle(
                     'Wakil Ketua UKM',
@@ -104,7 +104,7 @@ class _MobilePenggunaOrmawaUKMPageState extends State<MobilePenggunaOrmawaUKMPag
                   ),
                   Text('Jhonsen Antoni Jingga'),
 
-                  const CustomFieldSpacer(spacerHeight: 4.0),
+                  const CustomFieldSpacer(height: 4.0),
 
                   buildTitle(
                     'Sekretaris UKM',
@@ -112,7 +112,7 @@ class _MobilePenggunaOrmawaUKMPageState extends State<MobilePenggunaOrmawaUKMPag
                   ),
                   Text('Adventus Totti Mariano Simbolon'),
 
-                  const CustomFieldSpacer(spacerHeight: 4.0),
+                  const CustomFieldSpacer(height: 4.0),
 
                   buildTitle(
                     'Bendahara UKM',

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/utils.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_ganti_password_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_beranda_detail_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_lupa_password_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_notifikasi_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_berita_detail_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_laporan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_sarana_dan_prasarana_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_mpt_page.dart';
@@ -90,6 +92,10 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const MobilePenggunaBerandaPage());
           case mobilePenggunaBerandaDetailPageRoute:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaBerandaDetailPage());
+          case mobileLupaPasswordPageRoute:
+            return MaterialPageRoute(builder: (_) => const MobileLupaPasswordPage());
+          case mobileNotifikasiPageRoute:
+            return MaterialPageRoute(builder: (_) => const MobileNotifikasiPage());
 
           case mobilePenggunaDaftarPengajuanKegiatanRoute:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaDaftarPengajuanKegiatan());

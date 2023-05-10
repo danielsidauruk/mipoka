@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CustomFieldSpacer extends StatelessWidget {
-  final double spacerHeight;
+  final double height;
 
   const CustomFieldSpacer({
     super.key,
-    this.spacerHeight = 8.0,
+    this.height = 8.0,
   });
 
   @override
-  Widget build(BuildContext context) => SizedBox(height: spacerHeight);
+  Widget build(BuildContext context) => SizedBox(height: height);
 }

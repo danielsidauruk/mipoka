@@ -38,7 +38,7 @@ class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaD
                 textAlign: TextAlign.center,
               ),
 
-              const CustomFieldSpacer(spacerHeight: 24),
+              const CustomFieldSpacer(height: 24),
 
               InkWell(
                 onTap: () => Navigator.pushNamed(context, mobileGantiPasswordPageRoute),
@@ -147,7 +147,7 @@ class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaD
                               ),
 
                               IconButton(
-                                onPressed: () {} ,
+                                onPressed: () => Navigator.pushNamed(context, mobileNotifikasiPageRoute),
                                 icon: const Icon(Icons.notifications),
                               ),
 
