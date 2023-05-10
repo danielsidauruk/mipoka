@@ -167,7 +167,7 @@ class MobileCustomPenggunaDrawerWidget extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () {},
+                          onTap: () => Navigator.pushNamed(context, mobilePenggunaOrmawaUKMPageRoute),
                         ),
                       ],
                     ),

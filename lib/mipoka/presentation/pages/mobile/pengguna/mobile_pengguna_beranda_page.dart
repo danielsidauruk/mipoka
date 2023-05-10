@@ -38,7 +38,7 @@ class _MobilePenggunaBerandaPageState extends State<MobilePenggunaBerandaPage> {
                     fallbackHeight: 170,
                   ),
 
-                  const SizedBox(height: 8.0),
+                  const CustomFieldSpacer(),
 
                   ListView(
                     physics: const ScrollPhysics(),

@@ -26,3 +26,5 @@ const mobilePenggunaPengajuanSaranaDanPrasaranaRoute = '/mobilePenggunaDaftarPen
 
 const mobilePenggunaMPTRoute = '/mobilePenggunaMPTRoute';
 const mobilePenggunaMPTUnggahBuktiRoute = '/mobilePenggunaMPTUnggahBuktiRoute';
+
+const mobilePenggunaOrmawaUKMPageRoute = '/mobilePenggunaOrmawaUKMPageRoute';

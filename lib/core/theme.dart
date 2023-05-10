@@ -22,7 +22,7 @@ Row customBoxTitle(String title) {
   );
 }
 
-Column buildTitle(String title) {
+Column buildTitle(String title, {double titlePadding = 4}) {
   return Column(
     children: [
       Text(
@@ -32,7 +32,7 @@ Column buildTitle(String title) {
         ),
       ),
 
-      const SizedBox(height: 4.0),
+      SizedBox(height: titlePadding),
     ],
   );
 }
