@@ -11,15 +11,16 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 
-class MobileLupaPasswordPage extends StatefulWidget {
-  const MobileLupaPasswordPage({super.key});
+class MobilePasswordBaruPage extends StatefulWidget {
+  const MobilePasswordBaruPage({super.key});
 
   @override
-  State<MobileLupaPasswordPage> createState() => _MobileLupaPasswordPageState();
+  State<MobilePasswordBaruPage> createState() => _MobilePasswordBaruPageState();
 }
 
-class _MobileLupaPasswordPageState extends State<MobileLupaPasswordPage> {
-  final TextEditingController _emailController = TextEditingController();
+class _MobilePasswordBaruPageState extends State<MobilePasswordBaruPage> {
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _password1Controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +35,17 @@ class _MobileLupaPasswordPageState extends State<MobileLupaPasswordPage> {
           padding: const EdgeInsets.all(16.0),
           child: CustomContentBox(
             children: [
-              customBoxTitle('Lupa Password'),
-              buildDescription('Link untuk pembaruan kata sandi akan dikirim ke e-mail yang anda tulis.'),
+              customBoxTitle('Password Baru'),
 
               const CustomFieldSpacer(),
 
-              buildTitle('Email'),
-              CustomTextField(controller: _emailController),
+              buildTitle('Masukkan Password Baru'),
+              CustomTextField(controller: _passwordController),
+
+              const CustomFieldSpacer(),
+
+              buildTitle('Ulangi Password'),
+              CustomTextField(controller: _password1Controller),
 
               const CustomFieldSpacer(),
 
@@ -55,7 +60,7 @@ class _MobileLupaPasswordPageState extends State<MobileLupaPasswordPage> {
                   const SizedBox(width: 8.0),
 
                   CustomButton(
-                    navigation: () => Navigator.pushNamed(context, mobilePasswordBaruPageRoute),
+                    navigation: () => Navigator.pushNamed(context, mobileLoginPageRoute),
                     text: 'Kirim',
                   ),
                 ],

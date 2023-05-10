@@ -4,6 +4,7 @@ import 'package:mipoka/core/utils.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_ganti_password_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_lupa_password_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_notifikasi_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_password_baru_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_berita_detail_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_laporan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_sarana_dan_prasarana_page.dart';
@@ -94,6 +95,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const MobilePenggunaBerandaDetailPage());
           case mobileLupaPasswordPageRoute:
             return MaterialPageRoute(builder: (_) => const MobileLupaPasswordPage());
+          case mobilePasswordBaruPageRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePasswordBaruPage());
           case mobileNotifikasiPageRoute:
             return MaterialPageRoute(builder: (_) => const MobileNotifikasiPage());
 
