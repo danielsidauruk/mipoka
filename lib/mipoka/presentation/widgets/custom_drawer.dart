@@ -14,49 +14,45 @@ class MobileCustomPenggunaDrawerWidget extends StatefulWidget {
 class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaDrawerWidget> {
   final TextEditingController _queryController = TextEditingController();
 
-  // void _showAlertDialog(BuildContext context) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: Row(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           children: [
-  //             customBoxTitle('Akun'),
-  //           ],
-  //         ),
-  //         content: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           crossAxisAlignment: CrossAxisAlignment.center,
-  //           children: [
-  //             Text(
-  //               'Daniel Hamonangan Sidauruk (191112857)',
-  //               style: TextStyle(
-  //                 fontWeight: FontWeight.bold,
-  //                 fontSize: 22,
-  //               ),
-  //               textAlign: TextAlign.center,
-  //             ),
-  //
-  //             const CustomFieldSpacer(),
-  //
-  //             Text(
-  //               'Ganti Password',
-  //             ),
-  //           ],
-  //         ),
-  //         actions: [
-  //           TextButton(
-  //             child: Text('Close'),
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
+  void _showAlertDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              customBoxTitle('Akun'),
+            ],
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Daniel Hamonangan Sidauruk (191112857)',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+                textAlign: TextAlign.center,
+              ),
+
+              const CustomFieldSpacer(spacerHeight: 24),
+
+              InkWell(
+                onTap: () => Navigator.pushNamed(context, mobileGantiPasswordPageRoute),
+                child: Text(
+                  'Ganti Password',
+                  style: TextStyle(color: Colors.lightBlue),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +125,8 @@ class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaD
 
                               Expanded(
                                 child: InkWell(
-                                  // onTap: () => _showAlertDialog(context),
+                                  onTap: () => _showAlertDialog(context),
+                                  // onTap: () => Navigator.pushNamed(context, mobileAkunPageRoute),
                                   child: Text(
                                     'Daniel Hamonangan Sidauruk (191112857)',
                                     style: TextStyle(fontWeight: FontWeight.bold),

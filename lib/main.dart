@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/utils.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_akun_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_ganti_password_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_laporan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_sarana_dan_prasarana.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_mpt.dart';
@@ -81,8 +81,8 @@ class MyApp extends StatelessWidget {
           // mobile route
           case mobileLoginPageRoute:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaLoginPage());
-          case mobileAkunPageRoute:
-            return MaterialPageRoute(builder: (_) => const MobileAkunPage());
+          case mobileGantiPasswordPageRoute:
+            return MaterialPageRoute(builder: (_) => const MobileGantiPasswordPage());
 
           // mobile - pengguna  route
           case mobilePenggunaBerandaRoute:

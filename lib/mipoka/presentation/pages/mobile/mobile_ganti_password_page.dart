@@ -10,15 +10,17 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 
-class MobileAkunPage extends StatefulWidget {
-  const MobileAkunPage({super.key});
+class MobileGantiPasswordPage extends StatefulWidget {
+  const MobileGantiPasswordPage({super.key});
 
   @override
-  State<MobileAkunPage> createState() => _MobileAkunPageState();
+  State<MobileGantiPasswordPage> createState() => _MobileGantiPasswordPageState();
 }
 
-class _MobileAkunPageState extends State<MobileAkunPage> {
-  final TextEditingController _keteranganController = TextEditingController();
+class _MobileGantiPasswordPageState extends State<MobileGantiPasswordPage> {
+  TextEditingController _kataSandiLamaController = TextEditingController();
+  TextEditingController _kataSandiBaruController = TextEditingController();
+  TextEditingController _kataSandiBaru2Controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,44 +37,30 @@ class _MobileAkunPageState extends State<MobileAkunPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
 
+              const CustomMobileTitle(text: 'Ganti Password'),
+
+              const CustomFieldSpacer(),
+
               CustomContentBox(
                 children: [
-
-                  const CustomMobileTitle(text: 'Akun'),
-
-                  const CustomFieldSpacer(),
-
-                  const CustomMobileTitle(text: 'Daniel Hamonangan Sidauruk (191112857'),
-
-                  buildTitle('Unggah File'),
-                  CustomFilePickerButton(
-                    onTap: () => FileUploader.selectAndUploadFile('importMPT'),
-                  ),
+                  buildTitle('Masukkan Kata Sandi Lama'),
+                  CustomTextField(controller: _kataSandiLamaController),
 
                   const CustomFieldSpacer(),
 
-                  buildTitle('Keterangan'),
-                  CustomTextField(controller: _keteranganController),
+                  buildTitle('Masukkan Kata Sandi Baru'),
+                  CustomTextField(controller: _kataSandiBaruController),
 
                   const CustomFieldSpacer(),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      CustomButton(
-                        navigation: () => Navigator.pop(context),
-                        text: 'Batal',
-                      ),
+                  buildTitle('Ulangi Kata Sandi Baru'),
+                  CustomTextField(controller: _kataSandiBaru2Controller),
 
-                      const SizedBox(width: 8.0),
-
-                      CustomButton(
-                        navigation: () {
-                          Navigator.pop(context);
-                        },
-                        text: 'Tambah',
-                      ),
-                    ],
+                  const CustomFieldSpacer(),
+                  
+                  CustomButton(
+                    navigation: () => Navigator.pop(context),
+                    text: 'Ganti Password',
                   ),
                 ],
               ),

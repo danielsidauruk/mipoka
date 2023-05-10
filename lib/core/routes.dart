@@ -4,7 +4,7 @@ const webPenggunaBerandaRoute = '/webPenggunaBerandaRoute';
 
 // mobile
 const mobileLoginPageRoute = '/mobileLoginPageRoute';
-const mobileAkunPageRoute = '/mobileAkunPageRoute';
+const mobileGantiPasswordPageRoute = '/mobileGantiPasswordPageRoute';
 
 // mobile routes - pengguna
 const mobilePenggunaBerandaRoute = '/mobilePenggunaBerandaRoute';
