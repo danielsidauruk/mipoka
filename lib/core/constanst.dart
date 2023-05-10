@@ -11,3 +11,5 @@ const namaKegiatanItem = [
   'Chou Starlight Tournament',
   'Lancelot Starlight Tournament - MEL Mar 2023',
 ];
+
+const tingkatList = ['Desa/Kelurahan', 'Kecamatan', 'Kabupaten/Kota', 'Provinsi', 'Nasional', 'Internasional'];

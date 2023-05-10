@@ -1,9 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 
-class MobileCustomPenggunaDrawerWidget extends StatelessWidget {
-  const MobileCustomPenggunaDrawerWidget({Key? key}) : super(key: key);
+class MobileCustomPenggunaDrawerWidget extends StatefulWidget {
+  const MobileCustomPenggunaDrawerWidget({super.key});
+
+  @override
+  State<MobileCustomPenggunaDrawerWidget> createState() => _MobileCustomPenggunaDrawerWidgetState();
+}
+
+class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaDrawerWidget> {
+  final TextEditingController _queryController = TextEditingController();
+
+  // void _showAlertDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: Row(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           children: [
+  //             customBoxTitle('Akun'),
+  //           ],
+  //         ),
+  //         content: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           crossAxisAlignment: CrossAxisAlignment.center,
+  //           children: [
+  //             Text(
+  //               'Daniel Hamonangan Sidauruk (191112857)',
+  //               style: TextStyle(
+  //                 fontWeight: FontWeight.bold,
+  //                 fontSize: 22,
+  //               ),
+  //               textAlign: TextAlign.center,
+  //             ),
+  //
+  //             const CustomFieldSpacer(),
+  //
+  //             Text(
+  //               'Ganti Password',
+  //             ),
+  //           ],
+  //         ),
+  //         actions: [
+  //           TextButton(
+  //             child: Text('Close'),
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             },
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -25,23 +78,9 @@ class MobileCustomPenggunaDrawerWidget extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Container(
-                alignment: Alignment.center,
-                margin: const EdgeInsets.symmetric(vertical: 8.0),
-                padding: const EdgeInsets.all(8.0),
-                height: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.white),
-                ),
-                child: TextField(
-                  onChanged: (query) {},
-                  style: const TextStyle(),
-                  decoration: null,
-                ),
-              ),
+              CustomTextField(controller: _queryController),
 
-              const SizedBox(height: 8.0),
+              const CustomFieldSpacer(),
 
               const Divider(
                 color: Colors.grey,
@@ -68,9 +107,64 @@ class MobileCustomPenggunaDrawerWidget extends StatelessWidget {
                 thickness: 1,
               ),
 
+              const CustomFieldSpacer(),
+
               Expanded(
                 child: ListView(
                   children: [
+
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              // Icon(Icons.person),
+
+                              // SizedBox(width: 8.0),
+
+                              Expanded(
+                                child: InkWell(
+                                  // onTap: () => _showAlertDialog(context),
+                                  child: Text(
+                                    'Daniel Hamonangan Sidauruk (191112857)',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          const CustomFieldSpacer(),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              IconButton(
+                                onPressed: () {} ,
+                                icon: const Icon(Icons.message),
+                              ),
+
+                              IconButton(
+                                onPressed: () {} ,
+                                icon: const Icon(Icons.notifications),
+                              ),
+
+                              
+                              IconButton(
+                                onPressed: () => Navigator.pushNamed(context, mobileLoginPageRoute),
+                                icon: const Icon(Icons.exit_to_app),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+
                     ListTile(
                       title: const Text(
                         'Beranda',
@@ -180,7 +274,7 @@ class MobileCustomPenggunaDrawerWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () => Navigator.pushNamed(context, mobilePenggunaPrestasiPageRoute),
                     ),
                   ],
                 ),

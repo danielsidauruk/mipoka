@@ -1,5 +1,10 @@
+
 // web routes - pengguna
 const webPenggunaBerandaRoute = '/webPenggunaBerandaRoute';
+
+// mobile
+const mobileLoginPageRoute = '/mobileLoginPageRoute';
+const mobileAkunPageRoute = '/mobileAkunPageRoute';
 
 // mobile routes - pengguna
 const mobilePenggunaBerandaRoute = '/mobilePenggunaBerandaRoute';
@@ -28,3 +33,5 @@ const mobilePenggunaMPTRoute = '/mobilePenggunaMPTRoute';
 const mobilePenggunaMPTUnggahBuktiRoute = '/mobilePenggunaMPTUnggahBuktiRoute';
 
 const mobilePenggunaOrmawaUKMPageRoute = '/mobilePenggunaOrmawaUKMPageRoute';
+
+const mobilePenggunaPrestasiPageRoute = '/mobilePenggunaPrestasiPageRoute';
