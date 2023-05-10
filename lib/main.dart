@@ -5,6 +5,8 @@ import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_ganti_password_pa
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_lupa_password_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_notifikasi_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_password_baru_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/mobile_pemeriksa_daftar_pengajuan_laporan_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/mobile_pemeriksa_daftar_pengajuan_usulan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_berita_detail_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_laporan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_sarana_dan_prasarana_page.dart';
@@ -149,6 +151,14 @@ class MyApp extends StatelessWidget {
 
           case mobilePenggunaPrestasiPageRoute:
             return MaterialPageRoute(builder: (_) => const MobilePenggunaPrestasiPage());
+
+
+          // mobile - pemeriksa
+          case mobilePemeriksaDaftarUsulanKegiatanPageRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePemeriksaDaftarPengajuanKegiatan());
+
+          case mobilePemeriksaDaftarLaporanKegiatanPageRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePemeriksaDaftarLaporanKegiatan());
         }
       },
     );

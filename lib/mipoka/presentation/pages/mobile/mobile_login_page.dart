@@ -83,33 +83,14 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                     ),
                   ),
 
-                  InkWell(
-                    onTap: () => Navigator.pushNamed(context, mobilePenggunaBerandaRoute),
-                    child: Container(
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.symmetric(vertical: 8.0),
-                      padding: const EdgeInsets.all(8.0),
-                      height: 60,
-                      width: 450,
-                      decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(color: Theme.of(context).accentColor)),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            'Sign in',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
+                  // buildCustomContainer(
+                  //   onTap: () => Navigator.pushNamed(context, mobilePenggunaBerandaRoute),
+                  //   text: 'Sign In',
+                  // ),
 
-                          Icon(Icons.arrow_forward_ios),
-                        ],
-                      ),
-                    ),
+                  buildCustomContainer(
+                    onTap: () => Navigator.pushNamed(context, mobilePemeriksaDaftarUsulanKegiatanPageRoute),
+                    text: 'Sign In',
                   ),
 
                   Row(
@@ -173,4 +154,36 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
       ),
     );
   }
+
+  Widget buildCustomContainer({required VoidCallback onTap, required String text}) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        alignment: Alignment.center,
+        margin: const EdgeInsets.symmetric(vertical: 8.0),
+        padding: const EdgeInsets.all(8.0),
+        height: 60,
+        width: 450,
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(color: Theme.of(context).accentColor),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              text,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+            Icon(Icons.arrow_forward_ios),
+          ],
+        ),
+      ),
+    );
+  }
+
 }

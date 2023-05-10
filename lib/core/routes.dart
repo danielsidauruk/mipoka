@@ -40,3 +40,8 @@ const mobilePenggunaMPTUnggahBuktiRoute = '/mobilePenggunaMPTUnggahBuktiRoute';
 const mobilePenggunaOrmawaUKMPageRoute = '/mobilePenggunaOrmawaUKMPageRoute';
 
 const mobilePenggunaPrestasiPageRoute = '/mobilePenggunaPrestasiPageRoute';
+
+// mobile routes - pemeriksa
+const mobilePemeriksaDaftarLaporanKegiatanPageRoute = '/mobilePemeriksaDaftarLaporanKegiatanRoute';
+
+const mobilePemeriksaDaftarUsulanKegiatanPageRoute = '/mobilePemeriksaDaftarUsulanKegiatanRoute';
