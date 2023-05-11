@@ -44,6 +44,8 @@ class _CustomCommentWidgetState extends State<CustomCommentWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  const SizedBox(width: 6.0),
+
                   InkWell(
                     child: const Icon(
                       Icons.check_outlined,

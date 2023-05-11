@@ -47,6 +47,8 @@ class _MobilePemeriksaPengajuanUsulanKegiatan1PageState extends State<MobilePeme
   final TextEditingController _commentWaktuMulaiKegiatanController = TextEditingController();
   final TextEditingController _commentWaktuSelesaiKegiatanController = TextEditingController();
   final TextEditingController _commentTempatKegiatanController = TextEditingController();
+  final TextEditingController _commentTanggalKeberangkatanController = TextEditingController();
+  final TextEditingController _commentTanggalKepulanganController = TextEditingController();
   final TextEditingController _commentJumlahParsitipanController = TextEditingController();
   final TextEditingController _commentTargetKegiatanController = TextEditingController();
   final TextEditingController _commentTotalPendanaanController = TextEditingController();
@@ -158,213 +160,78 @@ class _MobilePemeriksaPengajuanUsulanKegiatan1PageState extends State<MobilePeme
 
                     const CustomFieldSpacer(),
 
-                    buildTitle('Waktu Mulai Kegiatan'),
-                    CustomTimePickerField(
-                      selectedTime: waktuMulaiKegiatan,
-                      onTimeSelected: (TimeOfDay time) {
-                        waktuMulaiKegiatan = time;
-                      },
+                    CustomCommentWidget(
+                      title: 'Tempat Kegiatan',
+                      mainText: 'Luar Kota, Planet Mars',
+                      controller: _commentTempatKegiatanController,
                     ),
 
                     const CustomFieldSpacer(),
 
-                    buildTitle('Waktu Selesai Kegiatan'),
-                    CustomTimePickerField(
-                      selectedTime: waktuSelesaiKegiatan,
-                      onTimeSelected: (TimeOfDay time) {
-                        waktuSelesaiKegiatan = time;
-                      },
+                    CustomCommentWidget(
+                      title: 'Tanggal Keberangkatan',
+                      mainText: '10/05/2023',
+                      controller: _commentTanggalKeberangkatanController,
                     ),
-
-                    Row(
-                      children: [
-                        buildTitle('Tempat Kegiatan Kegiatan'),
-
-                        const SizedBox(width: 4.0),
-
-                        Switch(
-                          value: tempatKegiatan,
-                          onChanged: (bool newValue) {
-                            setState(() => tempatKegiatan = newValue);
-                          },
-                        ),
-
-                        const SizedBox(width: 4.0),
-
-                        Expanded(
-                          child: tempatKegiatan == false ?
-                          buildTitle('Dalam Kota') :
-                          buildTitle('Luar Kota'),
-                        ),
-                      ],
-                    ),
-                    CustomTextField(controller: _commentTempatKegiatanController),
 
                     const CustomFieldSpacer(),
 
-                    tempatKegiatan != false ?
-                    SizedBox(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          buildTitle('Tanggal Keberangkatan'),
-                          CustomDatePickerField(
-                            selectedDate: tanggalKeberangkatan,
-                            onDateSelected: (value) {
-                              setState(() {
-                                tanggalKeberangkatan = value;
-                              });
-                            },
-                          ),
+                    CustomCommentWidget(
+                      title: 'Tanggal Kepulangan',
+                      mainText: '13/05/2023',
+                      controller: _commentTanggalKepulanganController,
+                    ),
 
-                          const CustomFieldSpacer(),
+                    const CustomFieldSpacer(),
 
-                          buildTitle('Tanggal Kepulangan'),
-                          CustomDatePickerField(
-                            selectedDate: tanggalKepulangan,
-                            onDateSelected: (value) {
-                              setState(() {
-                                tanggalKepulangan = value;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ) :
-                    const Center(),
+                    CustomCommentWidget(
+                      title: 'Jumlah Parsitipan',
+                      mainText: '15 Orang',
+                      controller: _commentJumlahParsitipanController,
+                    ),
+
+                    const CustomFieldSpacer(),
+
+                    CustomCommentWidget(
+                      title: 'Target Kegiatan',
+                      mainText: 'Lorem Ipsum',
+                      controller: _commentTargetKegiatanController,
+                    ),
+
+                    const CustomFieldSpacer(),
+
+                    CustomCommentWidget(
+                      title: 'Total Pendanaan',
+                      mainText: 'Rp. 20.000.000',
+                      controller: _commentTotalPendanaanController,
+                    ),
+
+                    const CustomFieldSpacer(),
+
+                    CustomCommentWidget(
+                      title: 'Keterangan',
+                      mainText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                      controller: _commentKeteranganController,
+                    ),
 
                     const CustomFieldSpacer(),
 
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        buildTitle('Jumlah Parsitipan'),
-
-                        const SizedBox(width: 4.0),
-
-                        Switch(
-                          value: jenisPartisipan,
-                          onChanged: (bool newValue) {
-                            setState(() => jenisPartisipan = newValue);
-                          },
+                        CustomButton(
+                          navigation: () => Navigator.pop(context),
+                          text: 'Kembali',
                         ),
 
-                        const SizedBox(width: 4.0),
+                        const SizedBox(width: 8.0),
 
-                        Expanded(
-                          child: jenisPartisipan == false ?
-                          buildTitle('Tim') :
-                          buildTitle('Orang'),
-                        ),
+                        CustomButton(
+                          navigation: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2LKRoute),
+                          text: 'Berikutnya',
+                        )
                       ],
                     ),
-                    CustomTextField(controller: _commentJumlahParsitipanController),
-
-                    const CustomFieldSpacer(),
-
-                    buildTitle('Target Kegiatan'),
-                    CustomTextField(controller: _commentTargetKegiatanController),
-
-                    const CustomFieldSpacer(),
-
-                    buildTitle('Total Pendanaan'),
-                    CustomTextField(controller: _commentTotalPendanaanController),
-
-                    const CustomFieldSpacer(),
-
-                    buildTitle('Keterangan'),
-                    CustomTextField(controller: _commentKeteranganController),
-
-                    const CustomFieldSpacer(),
-
-                    buildTitle('Tanda Tangan Ormawa'),
-                    InkWell(
-                      onTap: (){},
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.0),
-                          border: Border.all(color: Colors.white),
-                        ),
-                        child: Column(
-                          children: [
-                            tandaTangan != true ?
-                            InkWell(
-                              onTap: () {
-                                setState(() => tandaTangan = !tandaTangan);
-                              },
-                              child: const Text(
-                                'Tekan untuk tanda tangan',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ) :
-                            const Center(),
-
-                            tandaTangan == true ?
-                            Column(
-                              children: [
-
-                                const CustomFieldSpacer(height: 4.0),
-
-                                SfSignaturePad(
-                                  key: signatureGlobalKey,
-                                  backgroundColor: Colors.white,
-                                  strokeColor: Colors.black,
-                                  minimumStrokeWidth: 1.0,
-                                  maximumStrokeWidth: 4.0,
-                                ),
-
-                                const CustomFieldSpacer(),
-
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() => tandaTangan = !tandaTangan);
-                                      },
-                                      child: const Text(
-                                        'Tutup',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ),
-
-                                    InkWell(
-                                      onTap: _handleClearButtonPressed,
-                                      child: const Text(
-                                        'Clear',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ) :
-                            const Center(),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    const CustomFieldSpacer(),
-
-                    CustomButton(
-                      navigation: () {
-                        tempatKegiatan == false ?
-                        Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2DKRoute) :
-                        Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2LKRoute);
-                      },
-                      text: 'Berikutnya',
-                    )
                   ],
                 ),
               ],
