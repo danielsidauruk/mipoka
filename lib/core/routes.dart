@@ -45,3 +45,4 @@ const mobilePenggunaPrestasiPageRoute = '/mobilePenggunaPrestasiPageRoute';
 const mobilePemeriksaDaftarLaporanKegiatanPageRoute = '/mobilePemeriksaDaftarLaporanKegiatanRoute';
 
 const mobilePemeriksaDaftarUsulanKegiatanPageRoute = '/mobilePemeriksaDaftarUsulanKegiatanRoute';
+const mobilePemeriksaPengajuanUsulanKegiatan1PageRoute = '/mobilePemeriksaPengajuanUsulanKegiatan1PageRoute';

@@ -149,6 +149,10 @@ class _MobilePemeriksaDaftarLaporanKegiatanState extends State<MobilePemeriksaDa
                                       onTap: () {},
                                       child: Text(
                                         'Kegiatan ${index + 1}',
+                                        style: const TextStyle(
+                                          color: Colors.blue,
+                                          decoration: TextDecoration.underline,
+                                        ),
                                       ),
                                     ),
                                   ),

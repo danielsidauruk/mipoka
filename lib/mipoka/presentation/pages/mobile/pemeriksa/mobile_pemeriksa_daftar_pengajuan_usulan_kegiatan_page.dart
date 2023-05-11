@@ -146,9 +146,13 @@ class _MobilePemeriksaDaftarPengajuanKegiatanState extends State<MobilePemeriksa
                                   Align(
                                     alignment: Alignment.center,
                                     child: InkWell(
-                                      onTap: () {},
+                                      onTap: () => Navigator.pushNamed(context, mobilePemeriksaPengajuanUsulanKegiatan1PageRoute),
                                       child: Text(
                                         'Kegiatan ${index + 1}',
+                                        style: const TextStyle(
+                                          color: Colors.blue,
+                                          decoration: TextDecoration.underline,
+                                        ),
                                       ),
                                     ),
                                   ),
