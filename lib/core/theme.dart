@@ -29,6 +29,7 @@ Column buildTitle(String title, {double titlePadding = 4}) {
         title,
         style: const TextStyle(
           fontSize: 16,
+          fontWeight: FontWeight.bold
         ),
       ),
 
@@ -47,5 +48,19 @@ Column buildDescription(String text) {
 
       const SizedBox(height: 4.0),
     ],
+  );
+}
+
+Widget customDisplayField(String text) {
+  return Container(
+    alignment: Alignment.centerLeft,
+    width: double.infinity,
+    constraints: const BoxConstraints(minHeight: 35.0),
+    padding: const EdgeInsets.all(8.0),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(4.0),
+      border: Border.all(color: Colors.white),
+    ),
+    child: Text(text),
   );
 }

@@ -3,6 +3,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_comment_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -36,13 +37,20 @@ class _MobilePemeriksaPengajuanUsulanKegiatan1PageState extends State<MobilePeme
   DateTime? tanggalKepulangan;
   bool jenisPartisipan = false;
 
-  final TextEditingController _namaKegiatanController = TextEditingController();
-  final TextEditingController _deskripsiKegiatanController = TextEditingController();
-  final TextEditingController _tempatKegiatanController = TextEditingController();
-  final TextEditingController _jumlahParsitipanController = TextEditingController();
-  final TextEditingController _targetKegiatanController = TextEditingController();
-  final TextEditingController _totalPendanaanController = TextEditingController();
-  final TextEditingController _keteranganController = TextEditingController();
+  final TextEditingController _commentNamaOrmawaController = TextEditingController();
+  final TextEditingController _commentPembiayaanController = TextEditingController();
+  final TextEditingController _commentNamaKegiatanController = TextEditingController();
+  final TextEditingController _commentBentukKegiatanController = TextEditingController();
+  final TextEditingController _commentDeskripsiKegiatanController = TextEditingController();
+  final TextEditingController _commentTanggalMulaiKegiatanController = TextEditingController();
+  final TextEditingController _commentTanggalSelesaiKegiatanController = TextEditingController();
+  final TextEditingController _commentWaktuMulaiKegiatanController = TextEditingController();
+  final TextEditingController _commentWaktuSelesaiKegiatanController = TextEditingController();
+  final TextEditingController _commentTempatKegiatanController = TextEditingController();
+  final TextEditingController _commentJumlahParsitipanController = TextEditingController();
+  final TextEditingController _commentTargetKegiatanController = TextEditingController();
+  final TextEditingController _commentTotalPendanaanController = TextEditingController();
+  final TextEditingController _commentKeteranganController = TextEditingController();
 
   final GlobalKey<SfSignaturePadState> signatureGlobalKey = GlobalKey();
 
@@ -77,87 +85,75 @@ class _MobilePemeriksaPengajuanUsulanKegiatan1PageState extends State<MobilePeme
 
                 CustomContentBox(
                   children: [
-                    buildTitle('Nama Ormawa'),
-                    CustomDropdownButton(
-                      value: ormawaDropDownValue,
-                      items: listNamaOrmawa,
-                      onChanged: (String? value) {
-                        setState(() => ormawaDropDownValue = value!);
-                      },
+
+                    CustomCommentWidget(
+                      title: 'Nama Ormawa',
+                      mainText: 'Mikroskil Esport',
+                      controller: _commentNamaOrmawaController,
                     ),
 
                     const CustomFieldSpacer(),
 
-                    buildTitle('Pembiayaan'),
-                    CustomDropdownButton(
-                      value: pembiayaanDropDownValue,
-                      items: listPembiayaan,
-                      onChanged: (String? value) {
-                        setState(() => pembiayaanDropDownValue = value!);
-                      },
+                    CustomCommentWidget(
+                      title: 'Pembiayaan',
+                      mainText: 'Mandiri',
+                      controller: _commentPembiayaanController,
                     ),
 
                     const CustomFieldSpacer(),
 
-                    buildTitle('Nama Kegiatan'),
-                    CustomTextField(controller: _namaKegiatanController),
-
-                    Row(
-                      children: [
-                        buildTitle('Bentuk Kegiatan'),
-
-                        const SizedBox(width: 4.0),
-
-                        Switch(
-                          value: bentukKegiatanValue,
-                          onChanged: (bool newValue) {
-                            setState(() => bentukKegiatanValue = newValue);
-                          },
-                        ),
-
-                        const SizedBox(width: 4.0),
-
-                        bentukKegiatanValue == false ?
-                        buildTitle('Daring') :
-                        buildTitle('Luring'),
-                      ],
-                    ),
-
-                    CustomDropdownButton(
-                      value: bentukKegiatanDropDownValue,
-                      items: listBentukKegiatan,
-                      onChanged: (String? value) {
-                        setState(() => bentukKegiatanDropDownValue = value!);
-                      },
+                    CustomCommentWidget(
+                      title: 'Nama Kegiatan',
+                      mainText: 'Vexana Starlight Tournament - MEL Mar 2023',
+                      controller: _commentNamaKegiatanController,
                     ),
 
                     const CustomFieldSpacer(),
 
-                    buildTitle('Deskripsi Kegiatan'),
-                    CustomTextField(controller: _deskripsiKegiatanController),
-
-                    const CustomFieldSpacer(),
-
-                    buildTitle('Tanggal Mulai Kegiatan'),
-                    CustomDatePickerField(
-                      selectedDate: tanggalMulaiKegiatan,
-                      onDateSelected: (value) {
-                        setState(() {
-                          tanggalMulaiKegiatan = value;
-                        });
-                      },
+                    CustomCommentWidget(
+                      title: 'Bentuk Kegiatan',
+                      mainText: 'Daring, Bakti Sosial',
+                      controller: _commentBentukKegiatanController,
                     ),
 
                     const CustomFieldSpacer(),
 
-                    buildTitle('Tanggal Selesai Kegiatan'),
-                    CustomDatePickerField(
-                      selectedDate: tanggalSelesaiKegiatan,
-                      onDateSelected: (value) {
-                        setState(() {
-                          tanggalSelesaiKegiatan = value;
-                        });
-                      },
+                    CustomCommentWidget(
+                      title: 'Deskripsi Kegiatan',
+                      mainText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                      controller: _commentDeskripsiKegiatanController,
+                    ),
+
+                    const CustomFieldSpacer(),
+
+                    CustomCommentWidget(
+                      title: 'Tanggal Mulai Kegiatan',
+                      mainText: '11/05/2023',
+                      controller: _commentTanggalMulaiKegiatanController,
+                    ),
+
+                    const CustomFieldSpacer(),
+
+                    CustomCommentWidget(
+                      title: 'Tanggal Selesai Kegiatan',
+                      mainText: '11/05/2023',
+                      controller: _commentTanggalSelesaiKegiatanController,
+                    ),
+
+                    const CustomFieldSpacer(),
+
+                    CustomCommentWidget(
+                      title: 'Waktu Mulai Kegiatan',
+                      mainText: '13.30',
+                      controller: _commentWaktuMulaiKegiatanController,
+                    ),
+
+                    const CustomFieldSpacer(),
+
+                    CustomCommentWidget(
+                      title: 'Waktu Selesai Kegiatan',
+                      mainText: '15.30',
+                      controller: _commentWaktuSelesaiKegiatanController,
                     ),
 
                     const CustomFieldSpacer(),
@@ -202,7 +198,7 @@ class _MobilePemeriksaPengajuanUsulanKegiatan1PageState extends State<MobilePeme
                         ),
                       ],
                     ),
-                    CustomTextField(controller: _tempatKegiatanController),
+                    CustomTextField(controller: _commentTempatKegiatanController),
 
                     const CustomFieldSpacer(),
 
@@ -261,22 +257,22 @@ class _MobilePemeriksaPengajuanUsulanKegiatan1PageState extends State<MobilePeme
                         ),
                       ],
                     ),
-                    CustomTextField(controller: _jumlahParsitipanController),
+                    CustomTextField(controller: _commentJumlahParsitipanController),
 
                     const CustomFieldSpacer(),
 
                     buildTitle('Target Kegiatan'),
-                    CustomTextField(controller: _targetKegiatanController),
+                    CustomTextField(controller: _commentTargetKegiatanController),
 
                     const CustomFieldSpacer(),
 
                     buildTitle('Total Pendanaan'),
-                    CustomTextField(controller: _totalPendanaanController),
+                    CustomTextField(controller: _commentTotalPendanaanController),
 
                     const CustomFieldSpacer(),
 
                     buildTitle('Keterangan'),
-                    CustomTextField(controller: _keteranganController),
+                    CustomTextField(controller: _commentKeteranganController),
 
                     const CustomFieldSpacer(),
 
