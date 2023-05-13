@@ -219,17 +219,24 @@ class _MobilePemeriksaPengajuanUsulanKegiatan1PageState extends State<MobilePeme
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
+                        // CustomButton(
+                        //   navigation: () => Navigator.pop(context),
+                        //   text: 'Kembali',
+                        // ),
+
+                        const SizedBox(width: 8.0),
+
                         CustomButton(
-                          navigation: () => Navigator.pop(context),
-                          text: 'Kembali',
+                          navigation: () => Navigator.pushNamed(context, mobilePemeriksaPengajuanUsulanKegiatan2DKPageRoute),
+                          text: 'Berikutnya (DK)',
                         ),
 
                         const SizedBox(width: 8.0),
 
                         CustomButton(
-                          navigation: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2LKRoute),
-                          text: 'Berikutnya',
-                        )
+                          navigation: () => Navigator.pushNamed(context, mobilePemeriksaPengajuanUsulanKegiatan2LKPageRoute),
+                          text: 'Berikutnya (LK)',
+                        ),
                       ],
                     ),
                   ],

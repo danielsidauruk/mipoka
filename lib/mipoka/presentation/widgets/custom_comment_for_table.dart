@@ -3,25 +3,23 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 
-class CustomCommentWidget extends StatefulWidget {
+class CustomCommentForTable extends StatefulWidget {
   final String title;
   final String description;
-  final String mainText;
   final TextEditingController controller;
 
-  const CustomCommentWidget({
+  const CustomCommentForTable({
     super.key,
     required this.title,
     this.description = 'Catatan: (Berisi teks yang harus di revisi)',
-    required this.mainText,
     required this.controller,
   });
 
   @override
-  State<CustomCommentWidget> createState() => _CustomCommentWidgetState();
+  State<CustomCommentForTable> createState() => _CustomCommentForTableState();
 }
 
-class _CustomCommentWidgetState extends State<CustomCommentWidget> {
+class _CustomCommentForTableState extends State<CustomCommentForTable> {
   bool isEditing = false;
 
   @override
@@ -29,13 +27,19 @@ class _CustomCommentWidgetState extends State<CustomCommentWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildTitle(widget.title),
-        buildDescription(widget.description),
+
         Row(
           children: [
             Expanded(
               flex: 8,
-              child: customDisplayField(widget.mainText),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildTitle(widget.title),
+                  buildDescription(widget.description),
+                ],
+              ),
             ),
             Expanded(
               flex: 2,
@@ -78,11 +82,11 @@ class _CustomCommentWidgetState extends State<CustomCommentWidget> {
         if (isEditing)
           Column(
             children: [
-              const CustomFieldSpacer(),
-
               CustomTextField(controller: widget.controller),
             ],
           ),
+
+        const CustomFieldSpacer(height: 4.0),
       ],
     );
   }
