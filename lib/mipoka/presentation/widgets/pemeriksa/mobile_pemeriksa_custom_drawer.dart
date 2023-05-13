@@ -125,7 +125,7 @@ class _MobileCustomPemeriksaDrawerState extends State<MobileCustomPemeriksaDrawe
                                   onTap: () => _showAlertDialog(context),
                                   // onTap: () => Navigator.pushNamed(context, mobileAkunPageRoute),
                                   child: Text(
-                                    'Daniel Hamonangan Sidauruk (191112857)',
+                                    'Sio Jurnalis Pipin (Pembina)',
                                     style: TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                 ),

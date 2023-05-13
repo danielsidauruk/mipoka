@@ -42,11 +42,14 @@ const mobilePenggunaOrmawaUKMPageRoute = '/mobilePenggunaOrmawaUKMPageRoute';
 const mobilePenggunaPrestasiPageRoute = '/mobilePenggunaPrestasiPageRoute';
 
 // mobile routes - pemeriksa
-const mobilePemeriksaDaftarLaporanKegiatanPageRoute = '/mobilePemeriksaDaftarLaporanKegiatanRoute';
-
 const mobilePemeriksaDaftarUsulanKegiatanPageRoute = '/mobilePemeriksaDaftarUsulanKegiatanRoute';
 const mobilePemeriksaPengajuanUsulanKegiatan1PageRoute = '/mobilePemeriksaPengajuanUsulanKegiatan1PageRoute';
 const mobilePemeriksaPengajuanUsulanKegiatan2DKPageRoute = '/mobilePemeriksaPengajuanUsulanKegiatan2DKPageRoute';
 const mobilePemeriksaPengajuanUsulanKegiatan2LKPageRoute = '/mobilePemeriksaPengajuanUsulanKegiatan2LKPageRoute';
 const mobilePemeriksaPengajuanUsulanKegiatan3PageRoute = '/mobilePemeriksaPengajuanUsulanKegiatan3PageRoute';
 const mobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraRoute = '/mobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraRoute';
+
+const mobilePemeriksaDaftarLaporanKegiatanPageRoute = '/mobilePemeriksaDaftarLaporanKegiatanRoute';
+const mobilePemeriksaPengajuanLaporanKegiatan1PageRoute = '/mobilePemeriksaPengajuanLaporanKegiatan1PageRoute';
+const mobilePemeriksaPengajuanLaporanKegiatan2PageRoute = '/mobilePemeriksaPengajuanLaporanKegiatan2PageRoute';
+const mobilePemeriksaPengajuanLaporanKegiatan3PageRoute = '/mobilePemeriksaPengajuanLaporanKegiatan3PageRoute';

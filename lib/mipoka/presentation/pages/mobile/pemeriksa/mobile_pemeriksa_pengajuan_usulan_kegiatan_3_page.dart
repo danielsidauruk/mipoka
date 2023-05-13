@@ -25,8 +25,6 @@ class MobilePemeriksaPengajuanUsulanKegiatan3Page extends StatefulWidget {
 
 class _MobilePemeriksaPengajuanUsulanKegiatan3PageState
     extends State<MobilePemeriksaPengajuanUsulanKegiatan3Page> {
-  bool tempatKegiatan = false;
-  bool tertibAcara = false;
 
   final TextEditingController _latarBelakangController = TextEditingController();
   final TextEditingController _tujuanKegiatanController = TextEditingController();

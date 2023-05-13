@@ -7,6 +7,9 @@ import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_notifikasi_page.d
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_password_baru_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/mobile_pemeriksa_daftar_pengajuan_laporan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/mobile_pemeriksa_daftar_pengajuan_usulan_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/mobile_pemeriksa_pengajuan_laporan_kegiatan_1.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/mobile_pemeriksa_pengajuan_laporan_kegiatan_2_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/mobile_pemeriksa_pengajuan_laporan_kegiatan_3.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/mobile_pemeriksa_pengajuan_usulan_kegiatan_1.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/mobile_pemeriksa_pengajuan_usulan_kegiatan_2_dk_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/mobile_pemeriksa_pengajuan_usulan_kegiatan_2_lk_page.dart';
@@ -174,6 +177,12 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const MobilePemeriksaPengajuanUsulanKegiatan3Page());
           case mobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraRoute:
             return MaterialPageRoute(builder: (_) => const MobilePemeriksaPengajuanUsulanKegiatan3TertibAcara());
+          case mobilePemeriksaPengajuanLaporanKegiatan1PageRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePemeriksaPengajuanLaporanKegiatan1Page());
+          case mobilePemeriksaPengajuanLaporanKegiatan2PageRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePemeriksaPengajuanLaporanKegiatan2Page());
+          case mobilePemeriksaPengajuanLaporanKegiatan3PageRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePemeriksaPengajuanLaporanKegiatan3Page());
         }
       },
     );

@@ -4,7 +4,6 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_comment_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
@@ -19,19 +18,6 @@ class MobilePemeriksaPengajuanUsulanKegiatan1Page extends StatefulWidget {
 }
 
 class _MobilePemeriksaPengajuanUsulanKegiatan1PageState extends State<MobilePemeriksaPengajuanUsulanKegiatan1Page> {
-
-  String ormawaDropDownValue = listNamaOrmawa[0];
-  String pembiayaanDropDownValue = listPembiayaan[0];
-  bool bentukKegiatanValue = false;
-  String bentukKegiatanDropDownValue = listBentukKegiatan[0];
-  DateTime? tanggalMulaiKegiatan;
-  DateTime? tanggalSelesaiKegiatan;
-  TimeOfDay? waktuMulaiKegiatan;
-  TimeOfDay? waktuSelesaiKegiatan;
-  bool tempatKegiatan = false;
-  DateTime? tanggalKeberangkatan;
-  DateTime? tanggalKepulangan;
-  bool jenisPartisipan = false;
 
   final TextEditingController _commentNamaOrmawaController = TextEditingController();
   final TextEditingController _commentPembiayaanController = TextEditingController();
