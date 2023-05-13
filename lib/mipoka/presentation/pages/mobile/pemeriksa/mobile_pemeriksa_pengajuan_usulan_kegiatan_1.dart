@@ -8,6 +8,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/mobile_pemeriksa_custom_drawer.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 
 class MobilePemeriksaPengajuanUsulanKegiatan1Page extends StatefulWidget {
@@ -67,7 +68,7 @@ class _MobilePemeriksaPengajuanUsulanKegiatan1PageState extends State<MobilePeme
     return Scaffold(
       appBar: const MipokaAppBar(),
 
-      drawer: const MobileCustomPenggunaDrawerWidget(),
+      drawer: const MobileCustomPemeriksaDrawer(),
 
       body: SingleChildScrollView(
         child: Padding(

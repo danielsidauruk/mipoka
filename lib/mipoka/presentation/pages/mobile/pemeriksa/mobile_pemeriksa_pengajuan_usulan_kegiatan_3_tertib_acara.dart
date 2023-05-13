@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mipoka/core/routes.dart';
-import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_comment_for_table.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/mobile_pemeriksa_custom_drawer.dart';
 
 class MobilePemeriksaPengajuanUsulanKegiatan3TertibAcara extends StatefulWidget {
   const MobilePemeriksaPengajuanUsulanKegiatan3TertibAcara({super.key});
@@ -25,7 +22,7 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraState extends State<Mob
     return Scaffold(
       appBar: const MipokaAppBar(),
 
-      drawer: const MobileCustomPenggunaDrawerWidget(),
+      drawer: const MobileCustomPemeriksaDrawer(),
 
       body: Padding(
         padding: const EdgeInsets.all(16.0),

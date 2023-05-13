@@ -9,6 +9,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/mobile_pemeriksa_custom_drawer.dart';
 
 class MobilePemeriksaDaftarPengajuanKegiatan extends StatefulWidget {
   const MobilePemeriksaDaftarPengajuanKegiatan({super.key});
@@ -25,7 +26,7 @@ class _MobilePemeriksaDaftarPengajuanKegiatanState extends State<MobilePemeriksa
     return Scaffold(
       appBar: const MipokaAppBar(),
 
-      drawer: const MobileCustomPenggunaDrawerWidget(),
+      drawer: const MobileCustomPemeriksaDrawer(),
 
       body: Padding(
         padding: const EdgeInsets.all(16.0),

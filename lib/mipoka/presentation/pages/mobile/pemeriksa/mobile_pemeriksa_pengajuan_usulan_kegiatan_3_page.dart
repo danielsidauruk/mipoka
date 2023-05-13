@@ -13,6 +13,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_rich_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/mobile_pemeriksa_custom_drawer.dart';
 
 class MobilePemeriksaPengajuanUsulanKegiatan3Page extends StatefulWidget {
   const MobilePemeriksaPengajuanUsulanKegiatan3Page({super.key});
@@ -42,7 +43,7 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3PageState
     return Scaffold(
       appBar: const MipokaAppBar(),
 
-      drawer: const MobileCustomPenggunaDrawerWidget(),
+      drawer: const MobileCustomPemeriksaDrawer(),
 
       body: SingleChildScrollView(
         child: Padding(

@@ -7,6 +7,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/mobile_pemeriksa_custom_drawer.dart';
 
 // => Fixed ContentBox
 
@@ -23,11 +24,10 @@ class _MobilePemeriksaPengajuanUsulanKegiatan2DKPageState extends State<MobilePe
 
   @override
   Widget build(BuildContext context) {
-    bool isEditing = false;
     return Scaffold(
       appBar: const MipokaAppBar(),
 
-      drawer: const MobileCustomPenggunaDrawerWidget(),
+      drawer: const MobileCustomPemeriksaDrawer(),
 
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -37,7 +37,7 @@ class _MobilePemeriksaPengajuanUsulanKegiatan2DKPageState extends State<MobilePe
 
             const CustomMobileTitle(text: 'Pemeriksa - Kegiatan - Usulan Kegiatan'),
 
-            const CustomFieldSpacer(height: 8.0),
+            const CustomFieldSpacer(),
 
             Expanded(
               child: CustomContentBox(
