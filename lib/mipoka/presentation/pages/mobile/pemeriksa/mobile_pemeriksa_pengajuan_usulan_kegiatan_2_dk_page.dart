@@ -236,7 +236,7 @@ class _MobilePemeriksaPengajuanUsulanKegiatan2DKPageState extends State<MobilePe
                       const SizedBox(width: 8.0),
 
                       CustomButton(
-                        navigation: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan3Route),
+                        navigation: () => Navigator.pushNamed(context, mobilePemeriksaPengajuanUsulanKegiatan3PageRoute),
                         text: 'Berikutnya',
                       ),
                     ],

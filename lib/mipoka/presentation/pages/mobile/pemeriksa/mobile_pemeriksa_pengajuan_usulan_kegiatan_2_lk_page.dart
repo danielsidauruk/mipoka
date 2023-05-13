@@ -255,7 +255,7 @@ class _MobilePemeriksaPengajuanUsulanKegiatan2LKState extends State<MobilePemeri
                         const SizedBox(width: 8.0),
 
                         CustomButton(
-                          navigation: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan3Route),
+                          navigation: () => Navigator.pushNamed(context, mobilePemeriksaPengajuanUsulanKegiatan3PageRoute),
                           text: 'Berikutnya',
                         ),
                       ],

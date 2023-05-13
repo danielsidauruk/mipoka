@@ -48,3 +48,5 @@ const mobilePemeriksaDaftarUsulanKegiatanPageRoute = '/mobilePemeriksaDaftarUsul
 const mobilePemeriksaPengajuanUsulanKegiatan1PageRoute = '/mobilePemeriksaPengajuanUsulanKegiatan1PageRoute';
 const mobilePemeriksaPengajuanUsulanKegiatan2DKPageRoute = '/mobilePemeriksaPengajuanUsulanKegiatan2DKPageRoute';
 const mobilePemeriksaPengajuanUsulanKegiatan2LKPageRoute = '/mobilePemeriksaPengajuanUsulanKegiatan2LKPageRoute';
+const mobilePemeriksaPengajuanUsulanKegiatan3PageRoute = '/mobilePemeriksaPengajuanUsulanKegiatan3PageRoute';
+const mobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraRoute = '/mobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraRoute';

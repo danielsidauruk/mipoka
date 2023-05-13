@@ -10,6 +10,8 @@ import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/mobile_pemerik
 import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/mobile_pemeriksa_pengajuan_usulan_kegiatan_1.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/mobile_pemeriksa_pengajuan_usulan_kegiatan_2_dk_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/mobile_pemeriksa_pengajuan_usulan_kegiatan_2_lk_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/mobile_pemeriksa_pengajuan_usulan_kegiatan_3_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/mobile_pemeriksa_pengajuan_usulan_kegiatan_3_tertib_acara.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_berita_detail_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_laporan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/mobile_pengguna_daftar_pengajuan_sarana_dan_prasarana_page.dart';
@@ -168,6 +170,10 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const MobilePemeriksaPengajuanUsulanKegiatan2DKPage());
           case mobilePemeriksaPengajuanUsulanKegiatan2LKPageRoute:
             return MaterialPageRoute(builder: (_) => const MobilePemeriksaPengajuanUsulanKegiatan2LK());
+          case mobilePemeriksaPengajuanUsulanKegiatan3PageRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePemeriksaPengajuanUsulanKegiatan3Page());
+          case mobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraRoute:
+            return MaterialPageRoute(builder: (_) => const MobilePemeriksaPengajuanUsulanKegiatan3TertibAcara());
         }
       },
     );
