@@ -4,23 +4,19 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/mobile_kemahasiswaan_custom_drawer.dart';
 
-class MobileKemahasiswaanBerandaPage extends StatefulWidget {
-  const MobileKemahasiswaanBerandaPage({super.key});
+class MobileKemahasiswaanMPTMahasiswaPeriodePage extends StatefulWidget {
+  const MobileKemahasiswaanMPTMahasiswaPeriodePage({super.key});
 
   @override
-  State<MobileKemahasiswaanBerandaPage> createState() => _MobileKemahasiswaanBerandaPageState();
+  State<MobileKemahasiswaanMPTMahasiswaPeriodePage> createState() => _MobileKemahasiswaanMPTMahasiswaPeriodePageState();
 }
 
-class _MobileKemahasiswaanBerandaPageState extends State<MobileKemahasiswaanBerandaPage> {
-  String dropDownValue = dropdownItem[0];
+class _MobileKemahasiswaanMPTMahasiswaPeriodePageState extends State<MobileKemahasiswaanMPTMahasiswaPeriodePage> {
 
   @override
   Widget build(BuildContext context) {
@@ -33,106 +29,24 @@ class _MobileKemahasiswaanBerandaPageState extends State<MobileKemahasiswaanBera
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
 
-              const Placeholder(
-                fallbackHeight: 170,
-              ),
-
-              const CustomFieldSpacer(height: 4.0),
-
-              SizedBox(
-                height: 60,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    Container(
-                      height: 50,
-                      width: 50,
-                      color: Colors.grey,
-                    ),
-
-                    const SizedBox(width: 4.0),
-
-                    Container(
-                      height: 50,
-                      width: 50,
-                      color: Colors.grey,
-                    ),
-
-                    const SizedBox(width: 4.0),
-
-                    Container(
-                      height: 50,
-                      width: 50,
-                      color: Colors.grey,
-                    ),
-
-                    const SizedBox(width: 4.0),
-
-                    Container(
-                      height: 50,
-                      width: 50,
-                      color: Colors.grey,
-                    ),
-
-                    const SizedBox(width: 4.0),
-
-                    Container(
-                      height: 50,
-                      width: 50,
-                      color: Colors.grey,
-                    ),
-
-                    const SizedBox(width: 4.0),
-
-                    Container(
-                      height: 50,
-                      width: 50,
-                      color: Colors.grey,
-                    ),
-
-                    const SizedBox(width: 4.0),
-
-                    Container(
-                      height: 50,
-                      width: 50,
-                      color: Colors.grey,
-                    ),
-                  ],
-                ),
-              ),
-
-              const CustomFieldSpacer(),
-
-              const CustomMobileTitle(text: 'Kemahasiswaan - Edit Beranda'),
+              const CustomMobileTitle(text: 'Kemahasiswaan - MPT Mahasiswa - Periode'),
 
               const CustomFieldSpacer(),
 
               CustomContentBox(
                 children: [
-                  
-                  buildTitle('Total Berita : 2'),
+
+                  buildTitle('Total Periode : 2'),
 
                   CustomAddButton(
                     buttonText: 'Tambah',
-                    onPressed: () => Navigator.pushNamed(context, mobileKemahasiswaanEditBerandaTambahPageRoute),
+                    onPressed: () => Navigator.pushNamed(context, mobileKemahasiswaanMPTMahasiswaTambahPeriodePageRoute),
                   ),
 
-                  const CustomFieldSpacer(),
-
-                  buildTitle('Penulis'),
-
-                  CustomDropdownButton(
-                    value: dropDownValue,
-                    items: dropdownItem,
-                    onChanged: (String? value) {
-                      setState(() => dropDownValue = value!);
-                    },
-                  ),
-
-                  const CustomFieldSpacer(),
+                  const CustomFieldSpacer(height: 8.0),
 
                   Container(
                     decoration: BoxDecoration(
@@ -148,21 +62,21 @@ class _MobileKemahasiswaanBerandaPageState extends State<MobileKemahasiswaanBera
                           columns: const [
                             DataColumn(
                               label: Text(
-                                'Tanggal Diterbitkan',
+                                'Tahun',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
                             ),
                             DataColumn(
                               label: Text(
-                                'Judul Berita',
+                                'Tanggal Mulai',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
                             ),
                             DataColumn(
                               label: Text(
-                                'Penulis',
+                                'Tanggal Selesai',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
@@ -177,25 +91,25 @@ class _MobileKemahasiswaanBerandaPageState extends State<MobileKemahasiswaanBera
                             ),
                           ],
 
-                          rows: List<DataRow>.generate(12, (int index) {
+                          rows: List<DataRow>.generate(6, (int index) {
                             return DataRow(
                               cells: [
-                                DataCell(
+                                const DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text('${index + 1} maret 2023',),
+                                    child: Text('2023',),
                                   ),
                                 ),
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text('Berita ${index + 1}',),
+                                    child: Text('1${index + 1} Mei 2023',),
                                   ),
                                 ),
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text('Penulis ${index + 1}',),
+                                    child: Text('1${index + 2} Mei 2023',),
                                   ),
                                 ),
                                 DataCell(
@@ -203,7 +117,7 @@ class _MobileKemahasiswaanBerandaPageState extends State<MobileKemahasiswaanBera
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       IconButton(
-                                        onPressed: (){},
+                                        onPressed: () => Navigator.pushNamed(context, mobileKemahasiswaanMPTMahasiswaTambahPeriodePageRoute),
                                         icon: Icon(Icons.edit, color: Colors.yellow),
                                       ),
 
@@ -223,45 +137,9 @@ class _MobileKemahasiswaanBerandaPageState extends State<MobileKemahasiswaanBera
                   ),
                 ],
               ),
+
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  InkWell buildBeritaTile() {
-    return InkWell(
-      onTap: () => Navigator.pushNamed(context, mobilePenggunaBerandaDetailPageRoute),
-      child: Container(
-        height: 80,
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.white)
-        ),
-        padding: const EdgeInsets.all(4.0),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Container(
-                width: 80,
-                height: 80,
-                color: Colors.grey,
-              ),
-            ),
-
-            const SizedBox(width: 4.0),
-
-            const Expanded(
-              flex: 3,
-              child: Text(
-                'Lorem ipsum dolor sit amet, consectetur '
-                    'adipiscing elit, sed do eiusmod tempor incididunt '
-                    'ut labore et dolore ',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
         ),
       ),
     );

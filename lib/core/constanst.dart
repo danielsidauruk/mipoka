@@ -13,3 +13,7 @@ const namaKegiatanItem = [
 ];
 
 const tingkatList = ['Desa/Kelurahan', 'Kecamatan', 'Kabupaten/Kota', 'Provinsi', 'Nasional', 'Internasional'];
+
+final List<String> years = List.generate(10, (index) =>
+    (DateTime.now().year - index).toString(),
+);

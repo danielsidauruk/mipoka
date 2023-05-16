@@ -57,3 +57,5 @@ const mobilePemeriksaPengajuanLaporanKegiatan3PageRoute = '/mobilePemeriksaPenga
 // mobile routes - kemahasiswaan
 const mobileKemahasiswaanBerandaPageRoute = '/mobileKemahasiswaanBerandaPageRoute';
 const mobileKemahasiswaanEditBerandaTambahPageRoute = '/mobileKemahasiswaanEditBerandaTambahPageRoute';
+const mobileKemahasiswaanMPTMahasiswaPeriodePageRoute = '/mobileKemahasiswaanMPTMahasiswaPeriodePageRoute';
+const mobileKemahasiswaanMPTMahasiswaTambahPeriodePageRoute = '/mobileKemahasiswaanMPTMahasiswaTambahPeriodePageRoute';
