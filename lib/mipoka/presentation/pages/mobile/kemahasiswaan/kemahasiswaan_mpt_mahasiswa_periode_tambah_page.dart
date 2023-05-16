@@ -39,7 +39,7 @@ class _MobileKemahasiswaanMPTMahasiswaTambahPeriodePageState extends State<Mobil
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
 
-              const CustomMobileTitle(text: 'Kemahasiswaan - MPT Mahasiswa - Periode'),
+              const CustomMobileTitle(text: 'Kemahasiswaan - MPT Mahasiswa - Tambah Periode'),
 
               const CustomFieldSpacer(),
 

@@ -10,6 +10,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_filter_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/mobile_kemahasiswaan_custom_drawer.dart';
 
 class KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePage extends StatefulWidget {
@@ -20,8 +21,12 @@ class KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePage extends StatefulWidget {
 }
 
 class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePage> {
-  String jenis = listBentukKegiatan[0];
-  String kegiatan = listNamaKegiatan[0];
+  String yearValue = DateTime.now().year.toString();
+  String bentukKegiatanValue = listBentukKegiatan[0];
+  String namaKegiatanValue = listNamaKegiatan[0];
+  String prodiValue = listProdi[0];
+  final TextEditingController _jumlahPoinController = TextEditingController();
+  final TextEditingController _nimController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -59,25 +64,35 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
 
                   const CustomFieldSpacer(),
 
-                  buildTitle('Jenis'),
+                  buildTitle('Periode'),
                   CustomDropdownButton(
-                    value: jenis,
-                    items: listBentukKegiatan,
+                    value: yearValue,
+                    items: years,
                     onChanged: (String? value) {
-                      setState(() => jenis = value!);
+                      setState(() => yearValue = value!);
                     },
                   ),
 
                   const CustomFieldSpacer(),
 
-                  buildTitle('Kegiatan'),
+                  buildTitle('Prodi'),
                   CustomDropdownButton(
-                    value: kegiatan,
-                    items: listNamaKegiatan,
+                    value: prodiValue,
+                    items: listProdi,
                     onChanged: (String? value) {
-                      setState(() => kegiatan = value!);
+                      setState(() => prodiValue = value!);
                     },
                   ),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Jumlah Poin'),
+                  CustomTextField(controller: _jumlahPoinController),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('NIM'),
+                  CustomTextField(controller: _nimController),
 
                   const CustomFieldSpacer(),
 
@@ -109,14 +124,21 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                             ),
                             DataColumn(
                               label: Text(
-                                'Jenis Kegiatan',
+                                'Periode',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
                             ),
                             DataColumn(
                               label: Text(
-                                'Nama Kegiatan',
+                                'NIM',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                'Nama',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
@@ -124,20 +146,6 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                             DataColumn(
                               label: Text(
                                 'Poin',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Waktu Mulai',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Waktu Selesai',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
@@ -164,47 +172,31 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text('Jenis Kegiatan - ${index + 1}',),
+                                    child: Text('Manajemen',),
                                   ),
                                 ),
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text('Nama Kegiatan - ${index + 1}',),
+                                    child: Text('21111${index + 1}342',),
                                   ),
                                 ),
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text('${(index + 1) * 2}',),
+                                    child: Text('Mahasiswa ${(index + 1) * 2}',),
                                   ),
                                 ),
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text('${index + 1} Mei 2023',),
+                                    child: Text('${index + 7}',),
                                   ),
                                 ),
                                 DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('${index + 3} Mei 2023',),
-                                  ),
-                                ),
-                                DataCell(
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      IconButton(
-                                        onPressed: () => Navigator.pushNamed(context, kemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageRoute),
-                                        icon: const Icon(Icons.edit, color: Colors.yellow),
-                                      ),
-
-                                      IconButton(
-                                        onPressed: (){},
-                                        icon: const Icon(Icons.delete, color: Colors.red),
-                                      ),
-                                    ],
+                                  IconButton(
+                                    onPressed: (){},
+                                    icon: const Icon(Icons.delete, color: Colors.red),
                                   ),
                                 ),
                               ],

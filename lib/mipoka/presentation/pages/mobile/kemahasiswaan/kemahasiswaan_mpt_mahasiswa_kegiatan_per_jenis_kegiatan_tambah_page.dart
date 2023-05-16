@@ -36,7 +36,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageState extends 
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
 
-              const CustomMobileTitle(text: 'Kemahasiswaan - MPT Mahasiswa - Kegiatan per Jenis Kegiatan'),
+              const CustomMobileTitle(text: 'Kemahasiswaan - MPT Mahasiswa - Tambah Kegiatan per Jenis Kegiatan'),
 
               const CustomFieldSpacer(),
 

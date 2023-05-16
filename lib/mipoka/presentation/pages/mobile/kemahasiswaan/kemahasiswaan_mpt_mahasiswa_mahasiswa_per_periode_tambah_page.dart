@@ -8,6 +8,8 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_date_picker_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_filter_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -41,26 +43,14 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState extends State
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
 
-              const CustomMobileTitle(text: 'Kemahasiswaan - MPT Mahasiswa - Mahasiswa per Periode'),
+              const CustomMobileTitle(text: 'Kemahasiswaan - MPT Mahasiswa - Impor Mahasiswa per Periode'),
 
               const CustomFieldSpacer(),
 
               CustomContentBox(
                 children: [
 
-                  buildTitle('Nama Kegiatan'),
-                  CustomDropdownButton(
-                    value: namaKegiatan,
-                    items: listNamaKegiatan,
-                    onChanged: (String? value) {
-                      setState(() => namaKegiatan = value!);
-                    },
-                  ),
-
-                  const CustomFieldSpacer(),
-
-                  buildTitle('Tahun'),
-
+                  buildTitle('Periode'),
                   CustomDropdownButton(
                     value: yearValue,
                     items: years,
@@ -71,28 +61,87 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState extends State
 
                   const CustomFieldSpacer(),
 
-                  buildTitle('Tanggal mulai'),
-                  CustomDatePickerField(
-                    selectedDate: tanggalMulai,
-                    onDateSelected: (value) {
-                      setState(() => tanggalMulai = value);
-                    },
+                  buildTitle('Impor File'),
+                  CustomIconButton(
+                    onTap: () {},
+                    icon: Icons.upload,
                   ),
 
                   const CustomFieldSpacer(),
+                  
+                  CustomFilterButton(text: 'Export Template', onPressed: (){}),
 
-                  buildTitle('Tanggal selesai'),
-                  CustomDatePickerField(
-                    selectedDate: tanggalSelesai,
-                    onDateSelected: (value) {
-                      setState(() => tanggalSelesai = value);
-                    },
-                  ),
-                  
                   const CustomFieldSpacer(),
-                  
-                  buildTitle('Poin Kegiatan'),
-                  CustomTextField(controller: _poinKegiatanController),
+
+                  CustomFilterButton(text: 'Proses', onPressed: (){}),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Keterangan Kolom di Excel'),
+
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                    ),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: DataTable(
+                          columnSpacing: 40,
+                          border: TableBorder.all(color: Colors.white),
+                          columns: const [
+                            DataColumn(
+                              label: Text(
+                                'Nama Kolom',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                'Tipe Data',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                'Null',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
+
+                          rows: List<DataRow>.generate(1, (int index) {
+                            return DataRow(
+                              cells: [
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text('NIM',),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text('Integer',),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text('False',),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }),
+                        ),
+                      ),
+                    ),
+                  ),
 
                   const CustomFieldSpacer(),
 
@@ -102,13 +151,6 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState extends State
                       CustomButton(
                         onTap: () => Navigator.pop(context),
                         text: 'Kembali',
-                      ),
-
-                      const SizedBox(width: 8.0),
-
-                      CustomButton(
-                        onTap: () => Navigator.pop(context),
-                        text: 'Simpan',
                       ),
                     ],
                   ),
