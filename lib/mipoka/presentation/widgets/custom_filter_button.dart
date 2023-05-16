@@ -18,7 +18,7 @@ class CustomFilterButton extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         width: double.infinity,
         alignment: Alignment.center,
-        constraints: const BoxConstraints(minHeight: 30.0),
+        constraints: const BoxConstraints(minHeight: 35.0),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(5.0),
