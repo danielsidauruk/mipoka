@@ -97,7 +97,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan2LKDataPesertaState extends State<Mo
                   const CustomFieldSpacer(),
 
                   CustomButton(
-                    navigation: () {
+                    onTap: () {
                       Navigator.pop(context);
                     },
                     text: 'Tambahkan Peserta',

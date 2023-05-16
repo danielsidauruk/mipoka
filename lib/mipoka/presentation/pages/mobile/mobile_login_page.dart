@@ -84,12 +84,13 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                   ),
 
                   // buildCustomContainer(
-                  //   onTap: () => Navigator.pushNamed(context, mobilePenggunaBerandaRoute),
                   //   text: 'Sign In',
                   // ),
 
                   buildCustomContainer(
-                    onTap: () => Navigator.pushNamed(context, mobilePemeriksaDaftarUsulanKegiatanPageRoute),
+                    //   onTap: () => Navigator.pushNamed(context, mobilePenggunaBerandaRoute),
+                    // onTap: () => Navigator.pushNamed(context, mobilePemeriksaDaftarUsulanKegiatanPageRoute),
+                    onTap: () => Navigator.pushNamed(context, mobileKemahasiswaanBerandaPageRoute),
                     text: 'Sign In',
                   ),
 

@@ -279,14 +279,14 @@ class _MobilePemeriksaPengajuanLaporanKegiatan2PageState extends State<MobilePem
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       CustomButton(
-                        navigation: () => Navigator.pop(context),
+                        onTap: () => Navigator.pop(context),
                         text: 'Sebelumnya',
                       ),
 
                       const SizedBox(width: 8.0),
 
                       CustomButton(
-                        navigation: () => Navigator.pushNamed(context, mobilePemeriksaPengajuanLaporanKegiatan3PageRoute),
+                        onTap: () => Navigator.pushNamed(context, mobilePemeriksaPengajuanLaporanKegiatan3PageRoute),
                         text: 'Berikutnya',
                       ),
                     ],

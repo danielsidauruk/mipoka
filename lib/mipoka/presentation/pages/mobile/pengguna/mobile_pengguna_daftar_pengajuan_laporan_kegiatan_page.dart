@@ -189,7 +189,7 @@ class _MobilePenggunaDaftarLaporanKegiatanState extends State<MobilePenggunaDaft
             const CustomFieldSpacer(),
 
             CustomButton(
-              navigation: () => Navigator.pushNamed(
+              onTap: () => Navigator.pushNamed(
                 context,
                 mobilePenggunaPengajuanLaporanKegiatan1Route,
               ),

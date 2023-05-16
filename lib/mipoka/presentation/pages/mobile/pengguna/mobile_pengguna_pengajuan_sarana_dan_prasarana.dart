@@ -189,14 +189,14 @@ class _MobilePenggunaPengajuanSaranaDanPrasaranaState
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       CustomButton(
-                        navigation: () => Navigator.pop(context),
+                        onTap: () => Navigator.pop(context),
                         text: 'Batal',
                       ),
 
                       const SizedBox(width: 8.0),
 
                       CustomButton(
-                        navigation: () {
+                        onTap: () {
                           Navigator.pushNamed(context, mobilePenggunaDaftarPengajuanKegiatanRoute);
                         },
                         text: 'Kirim',

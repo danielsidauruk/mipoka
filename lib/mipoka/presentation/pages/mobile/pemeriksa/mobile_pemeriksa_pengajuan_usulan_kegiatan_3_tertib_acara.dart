@@ -123,7 +123,7 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraState extends State<Mob
                   const CustomFieldSpacer(),
 
                   CustomButton(
-                    navigation: () => Navigator.pop(context),
+                    onTap: () => Navigator.pop(context),
                     text: 'Kembali',
                   ),
                 ],

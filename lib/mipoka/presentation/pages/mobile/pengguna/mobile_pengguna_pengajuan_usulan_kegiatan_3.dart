@@ -194,7 +194,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
                   const CustomFieldSpacer(),
 
                   CustomButton(
-                    navigation: () {
+                    onTap: () {
                       Navigator.pushNamed(context, mobilePenggunaDaftarPengajuanKegiatanRoute);
                     },
                     text: 'Kirim',

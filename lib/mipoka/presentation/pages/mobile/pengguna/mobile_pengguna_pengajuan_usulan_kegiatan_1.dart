@@ -384,7 +384,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State extends State<MobilePenggunaP
                     const CustomFieldSpacer(),
 
                     CustomButton(
-                      navigation: () {
+                      onTap: () {
                         tempatKegiatan == false ?
                         Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2DKRoute) :
                         Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2LKRoute);

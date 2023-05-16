@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  final VoidCallback navigation;
+  final VoidCallback onTap;
   final String text;
 
   const CustomButton({
-    required this.navigation,
+    required this.onTap,
     required this.text,
     Key? key,
   }) : super(key: key);
@@ -16,7 +16,7 @@ class CustomButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         InkWell(
-          onTap: navigation,
+          onTap: onTap,
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24),
             constraints: const BoxConstraints(minHeight: 35.0),

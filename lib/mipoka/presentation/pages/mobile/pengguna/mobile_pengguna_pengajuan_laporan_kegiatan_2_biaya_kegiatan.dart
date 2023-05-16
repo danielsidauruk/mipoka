@@ -117,7 +117,7 @@ class _MobilePenggunaPengajuanLaporanKegiatan2BiayaKegiatanState extends State<M
                   const CustomFieldSpacer(),
 
                   CustomButton(
-                    navigation: () {
+                    onTap: () {
                       Navigator.pop(context);
                     },
                     text: 'Tambahkan Peserta',

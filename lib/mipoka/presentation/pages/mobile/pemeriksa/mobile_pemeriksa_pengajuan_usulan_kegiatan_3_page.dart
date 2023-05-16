@@ -184,7 +184,7 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3PageState
                   const CustomFieldSpacer(),
 
                   CustomButton(
-                    navigation: () {
+                    onTap: () {
                       Navigator.pushNamed(context, mobilePemeriksaDaftarUsulanKegiatanPageRoute);
                     },
                     text: 'Kirim',

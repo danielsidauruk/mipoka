@@ -53,14 +53,14 @@ class _MobilePasswordBaruPageState extends State<MobilePasswordBaruPage> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   CustomButton(
-                    navigation: () => Navigator.pop(context),
+                    onTap: () => Navigator.pop(context),
                     text: 'Kembali',
                   ),
 
                   const SizedBox(width: 8.0),
 
                   CustomButton(
-                    navigation: () => Navigator.pushNamed(context, mobileLoginPageRoute),
+                    onTap: () => Navigator.pushNamed(context, mobileLoginPageRoute),
                     text: 'Kirim',
                   ),
                 ],

@@ -56,7 +56,7 @@ class _MobilePenggunaPengajuanLaporanKegiatan2ImportPesertaState extends State<M
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       CustomButton(
-                        navigation: () {
+                        onTap: () {
                           Navigator.pop(context);
                         },
                         text: 'Unduh Templat',
@@ -65,7 +65,7 @@ class _MobilePenggunaPengajuanLaporanKegiatan2ImportPesertaState extends State<M
                       const SizedBox(width: 8.0),
 
                       CustomButton(
-                        navigation: () {
+                        onTap: () {
                           Navigator.pop(context);
                         },
                         text: 'Proses',

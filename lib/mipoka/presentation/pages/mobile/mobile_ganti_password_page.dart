@@ -59,7 +59,7 @@ class _MobileGantiPasswordPageState extends State<MobileGantiPasswordPage> {
                   const CustomFieldSpacer(),
                   
                   CustomButton(
-                    navigation: () => Navigator.pop(context),
+                    onTap: () => Navigator.pop(context),
                     text: 'Ganti Password',
                   ),
                 ],

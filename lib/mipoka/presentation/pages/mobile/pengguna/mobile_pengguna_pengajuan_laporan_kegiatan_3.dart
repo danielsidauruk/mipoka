@@ -126,7 +126,7 @@ class _MobilePenggunaPengajuanLaporanKegiatan3State
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       CustomButton(
-                        navigation: () {
+                        onTap: () {
                           Navigator.pop(context);
                         },
                         text: 'Sebelumnya',
@@ -135,7 +135,7 @@ class _MobilePenggunaPengajuanLaporanKegiatan3State
                       const SizedBox(width: 8.0),
 
                       CustomButton(
-                        navigation: () {
+                        onTap: () {
                           Navigator.pushNamed(context, mobilePenggunaDaftarLaporanKegiatanRoute);
                         },
                         text: 'Kirim',

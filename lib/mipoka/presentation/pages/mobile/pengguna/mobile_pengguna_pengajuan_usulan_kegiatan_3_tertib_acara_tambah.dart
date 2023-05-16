@@ -83,7 +83,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan3TertibAcaraTambahState extends Stat
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       CustomButton(
-                        navigation: () {
+                        onTap: () {
                           Navigator.pop(context);
                         },
                         text: 'Kembali',
@@ -92,7 +92,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan3TertibAcaraTambahState extends Stat
                       const SizedBox(width: 8.0),
 
                       CustomButton(
-                        navigation: () {
+                        onTap: () {
                           Navigator.pop(context);
                         },
                         text: 'Tambahkan Peserta',

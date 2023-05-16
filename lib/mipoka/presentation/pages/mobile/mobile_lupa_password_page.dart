@@ -48,14 +48,14 @@ class _MobileLupaPasswordPageState extends State<MobileLupaPasswordPage> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   CustomButton(
-                    navigation: () => Navigator.pop(context),
+                    onTap: () => Navigator.pop(context),
                     text: 'Kembali',
                   ),
 
                   const SizedBox(width: 8.0),
 
                   CustomButton(
-                    navigation: () => Navigator.pushNamed(context, mobilePasswordBaruPageRoute),
+                    onTap: () => Navigator.pushNamed(context, mobilePasswordBaruPageRoute),
                     text: 'Kirim',
                   ),
                 ],

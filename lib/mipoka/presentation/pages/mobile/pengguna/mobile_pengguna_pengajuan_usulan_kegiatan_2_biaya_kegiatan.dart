@@ -108,7 +108,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatanState extends State<Mo
                   const CustomFieldSpacer(),
 
                   CustomButton(
-                    navigation: () {
+                    onTap: () {
                       Navigator.pop(context);
                     },
                     text: 'Tambahkan',

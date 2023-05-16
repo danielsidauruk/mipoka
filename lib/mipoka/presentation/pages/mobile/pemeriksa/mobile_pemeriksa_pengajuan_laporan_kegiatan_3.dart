@@ -146,7 +146,7 @@ class _MobilePemeriksaPengajuanLaporanKegiatan3PageState
                       // const SizedBox(width: 4.0),
 
                       CustomButton(
-                        navigation: () {
+                        onTap: () {
                           Navigator.pushNamed(context, mobilePemeriksaDaftarLaporanKegiatanPageRoute);
                         },
                         text: 'Tolak',
@@ -155,7 +155,7 @@ class _MobilePemeriksaPengajuanLaporanKegiatan3PageState
                       const SizedBox(width: 4.0),
 
                       CustomButton(
-                        navigation: () {
+                        onTap: () {
                           Navigator.pushNamed(context, mobilePemeriksaDaftarLaporanKegiatanPageRoute);
                         },
                         text: 'Terima',

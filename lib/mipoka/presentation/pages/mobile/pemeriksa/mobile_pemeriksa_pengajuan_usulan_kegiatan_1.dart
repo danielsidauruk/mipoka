@@ -209,14 +209,14 @@ class _MobilePemeriksaPengajuanUsulanKegiatan1PageState extends State<MobilePeme
                         const SizedBox(width: 8.0),
 
                         CustomButton(
-                          navigation: () => Navigator.pushNamed(context, mobilePemeriksaPengajuanUsulanKegiatan2DKPageRoute),
+                          onTap: () => Navigator.pushNamed(context, mobilePemeriksaPengajuanUsulanKegiatan2DKPageRoute),
                           text: 'Berikutnya (DK)',
                         ),
 
                         const SizedBox(width: 8.0),
 
                         CustomButton(
-                          navigation: () => Navigator.pushNamed(context, mobilePemeriksaPengajuanUsulanKegiatan2LKPageRoute),
+                          onTap: () => Navigator.pushNamed(context, mobilePemeriksaPengajuanUsulanKegiatan2LKPageRoute),
                           text: 'Berikutnya (LK)',
                         ),
                       ],

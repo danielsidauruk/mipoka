@@ -58,14 +58,14 @@ class _MobilePenggunaMPTUnggahBuktiState extends State<MobilePenggunaMPTUnggahBu
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       CustomButton(
-                        navigation: () => Navigator.pop(context),
+                        onTap: () => Navigator.pop(context),
                         text: 'Batal',
                       ),
 
                       const SizedBox(width: 8.0),
 
                       CustomButton(
-                        navigation: () {
+                        onTap: () {
                           Navigator.pop(context);
                         },
                         text: 'Tambah',
