@@ -20,7 +20,7 @@ class MobileKemahasiswaanBerandaPage extends StatefulWidget {
 }
 
 class _MobileKemahasiswaanBerandaPageState extends State<MobileKemahasiswaanBerandaPage> {
-  String dropDownValue = dropdownItem[0];
+  String dropDownValue = listStatus[0];
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +126,7 @@ class _MobileKemahasiswaanBerandaPageState extends State<MobileKemahasiswaanBera
 
                   CustomDropdownButton(
                     value: dropDownValue,
-                    items: dropdownItem,
+                    items: listStatus,
                     onChanged: (String? value) {
                       setState(() => dropDownValue = value!);
                     },

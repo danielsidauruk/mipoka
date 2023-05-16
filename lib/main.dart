@@ -12,7 +12,8 @@ import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasisw
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_mahasiswa_per_periode_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_mahasiswa_per_periode_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_periode_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_periode_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_riwayat_kegiatan_mahasiswa_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_riwayat_kegiatan_mahasiswa_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_ganti_password_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_lupa_password_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_notifikasi_page.dart';
@@ -204,7 +205,7 @@ class MyApp extends StatelessWidget {
           case mobileKemahasiswaanMPTMahasiswaPeriodePageRoute:
             return MaterialPageRoute(builder: (_) => const MobileKemahasiswaanMPTMahasiswaPeriodePage());
           case mobileKemahasiswaanMPTMahasiswaTambahPeriodePageRoute:
-            return MaterialPageRoute(builder: (_) => const MobileKemahasiswaanMPTMahasiswaTambahPeriodePage());
+            return MaterialPageRoute(builder: (_) => const KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage());
           case mobileKemahasiswaanMPTMahasiswaJenisKegiatanPageRoute:
             return MaterialPageRoute(builder: (_) => const MobileKemahasiswaanMPTMahasiswaJenisKegiatanPage());
           case mobileKemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute:
@@ -221,6 +222,10 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePage());
           case kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute:
             return MaterialPageRoute(builder: (_) => const KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPage());
+          case kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageRoute:
+            return MaterialPageRoute(builder: (_) => const KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPage());
+          case kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute:
+            return MaterialPageRoute(builder: (_) => const KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage());
         }
       },
     );

@@ -21,7 +21,7 @@ class MobilePemeriksaDaftarPengajuanKegiatan extends StatefulWidget {
 class _MobilePemeriksaDaftarPengajuanKegiatanState extends State<MobilePemeriksaDaftarPengajuanKegiatan> {
   @override
   Widget build(BuildContext context) {
-    String dropDownValue = dropdownItem[0];
+    String dropDownValue = listStatus[0];
 
     return Scaffold(
       appBar: const MipokaAppBar(),
@@ -47,7 +47,7 @@ class _MobilePemeriksaDaftarPengajuanKegiatanState extends State<MobilePemeriksa
                   const CustomFieldSpacer(height: 4.0),
 
                   CustomDropdownButton(
-                    items: dropdownItem,
+                    items: listStatus,
                     value: dropDownValue,
                     onChanged: (String? value) {
                       setState(() => dropDownValue = value!);

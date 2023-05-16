@@ -1,4 +1,4 @@
-const dropdownItem = ['Semua', 'Menunggu', 'Berlansung', 'Ditolak'];
+const listStatus = ['Semua', 'Menunggu', 'Berlansung', 'Ditolak'];
 const listNamaOrmawa = ['Ormawa A', 'Ormawa B', 'Ormawa C', 'Ormawa D', 'Ormawa E'];
 const listGedung = ['A', 'B', 'C', 'D'];
 const listPembiayaan = ['Mandiri', 'Didanai'];
