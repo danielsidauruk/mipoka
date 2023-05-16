@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/utils.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/mobile_kemahasiswaan_beranda_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/mobile_kemahasiswaan_edit_beranda_tambah_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/mobile_kemahasiswaan_mpt_mahasiswa_jenis_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/mobile_kemahasiswaan_mpt_mahasiswa_jenis_kegiatan_tambah_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/mobile_kemahasiswaan_mpt_mahasiswa_kegiatan_per_jenis_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/mobile_kemahasiswaan_mpt_mahasiswa_kegiatan_per_jenis_kegiatan_tambah_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/mobile_kemahasiswaan_mpt_mahasiswa_periode_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/mobile_kemahasiswaan_mpt_mahasiswa_periode_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_beranda_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_edit_beranda_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_jenis_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_jenis_kegiatan_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_jenis_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_jenis_kegiatan_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_periode_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_periode_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_periode_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_periode_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_ganti_password_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_lupa_password_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/mobile_notifikasi_page.dart';
@@ -209,6 +211,10 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPage());
           case mobileKemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageRoute:
             return MaterialPageRoute(builder: (_) => const KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPage());
+          case kemahasiswaanMPTMahasiswaKegiatanPerPeriodePageRoute:
+            return MaterialPageRoute(builder: (_) => const KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage());
+          case kemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageRoute:
+            return MaterialPageRoute(builder: (_) => const KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPage());
         }
       },
     );

@@ -6,9 +6,9 @@ const listBentukKegiatan = ['Bakti Sosial', 'Festival', 'Kebaktian', 'Kompetisi'
   'Loka Karya', 'Pelantikan', 'Perkumpulan', 'Pertunjukan', 'Rapat', 'Seminar', 'Turnamen'];
 
 const listNamaKegiatan = [
+  'Chou Starlight Tournament',
   'Vexana Starlight Tournament - MEL Mar 2023 Vexana Starlight Tournament - MEL Mar 2023 Vexana Starlight Tournament - MEL Mar 2023',
   'Yuzhong Starlight Tournament - MEL Mar 2023',
-  'Chou Starlight Tournament',
   'Lancelot Starlight Tournament - MEL Mar 2023',
 ];
 
