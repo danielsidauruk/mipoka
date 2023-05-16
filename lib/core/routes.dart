@@ -59,3 +59,5 @@ const mobileKemahasiswaanBerandaPageRoute = '/mobileKemahasiswaanBerandaPageRout
 const mobileKemahasiswaanEditBerandaTambahPageRoute = '/mobileKemahasiswaanEditBerandaTambahPageRoute';
 const mobileKemahasiswaanMPTMahasiswaPeriodePageRoute = '/mobileKemahasiswaanMPTMahasiswaPeriodePageRoute';
 const mobileKemahasiswaanMPTMahasiswaTambahPeriodePageRoute = '/mobileKemahasiswaanMPTMahasiswaTambahPeriodePageRoute';
+const mobileKemahasiswaanMPTMahasiswaJenisKegiatanPageRoute = '/mobileKemahasiswaanMPTMahasiswaJenisKegiatanPageRoute';
+const mobileKemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute = '/mobileKemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute';
