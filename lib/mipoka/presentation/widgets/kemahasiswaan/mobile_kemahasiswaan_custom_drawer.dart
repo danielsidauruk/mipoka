@@ -209,7 +209,7 @@ class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasisw
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () => Navigator.pushNamed(context, ''),
+                          onTap: () => Navigator.pushNamed(context, mobileKemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageRoute),
                         ),
 
                         ListTile(

@@ -40,7 +40,6 @@ class _MobileKemahasiswaanMPTMahasiswaJenisKegiatanPageState extends State<Mobil
                 children: [
 
                   buildTitle('Total Jenis Kegiatan : 6'),
-
                   CustomAddButton(
                     buttonText: 'Tambah',
                     onPressed: () => Navigator.pushNamed(context, mobileKemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute),

@@ -5,7 +5,7 @@ const listPembiayaan = ['Mandiri', 'Didanai'];
 const listBentukKegiatan = ['Bakti Sosial', 'Festival', 'Kebaktian', 'Kompetisi', 'Latihan',
   'Loka Karya', 'Pelantikan', 'Perkumpulan', 'Pertunjukan', 'Rapat', 'Seminar', 'Turnamen'];
 
-const namaKegiatanItem = [
+const listNamaKegiatan = [
   'Vexana Starlight Tournament - MEL Mar 2023 Vexana Starlight Tournament - MEL Mar 2023 Vexana Starlight Tournament - MEL Mar 2023',
   'Yuzhong Starlight Tournament - MEL Mar 2023',
   'Chou Starlight Tournament',
