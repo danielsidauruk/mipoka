@@ -214,7 +214,15 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text('21111281${index + 1}',),
+                                    child: InkWell(
+                                      onTap: () => Navigator.pushNamed(context, kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPageRoute),
+                                      child: Text(
+                                        '21111${index + 1}342',
+                                        style: const TextStyle(
+                                          color: Colors.blue,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 DataCell(

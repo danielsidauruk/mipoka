@@ -245,7 +245,7 @@ class _MobileCustomKemahasiswaanDrawerState
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onTap: () => Navigator.pushNamed(context, ''),
+                      onTap: () => Navigator.pushNamed(context, kemahasiswaanEditOrmawaPageRoute),
                     ),
                     ListTile(
                       title: const Text(

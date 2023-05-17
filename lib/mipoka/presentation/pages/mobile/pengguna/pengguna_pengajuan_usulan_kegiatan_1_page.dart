@@ -6,6 +6,7 @@ import 'dart:ui' as ui;
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_switch_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_date_picker_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
@@ -232,6 +233,19 @@ class _MobilePenggunaPengajuanUsulanKegiatan1State
                         )
                       : const Center(),
                   const CustomFieldSpacer(),
+
+                  // CustomSwitchField(
+                  //   title: 'Jumlah Partisipan',
+                  //   value: jenisPartisipan,
+                  //   option1: 'Tim',
+                  //   option2: 'Orang',
+                  //   onChanged: (bool newValue) {
+                  //     setState(() {
+                  //       jenisPartisipan = newValue;
+                  //     });
+                  //   }
+                  // ),
+
                   Row(
                     children: [
                       buildTitle('Jumlah Parsitipan'),

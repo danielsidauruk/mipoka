@@ -74,69 +74,167 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
 
                   const CustomFieldSpacer(),
 
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                    ),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: DataTable(
-                          columnSpacing: 40,
-                          border: TableBorder.all(color: Colors.white),
-                          columns: const [
-                            DataColumn(
-                              label: Text(
+                  Table(
+                    border: TableBorder.all(color: Colors.white),
+                    children: const [
+                      TableRow(
+                        children: [
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
                                 'Nama Kolom',
-                                style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                            DataColumn(
-                              label: Text(
-                                'Tipe Data',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Usia Tipe Data',
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                            DataColumn(
-                              label: Text(
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
                                 'Null',
-                                style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                          ],
-
-                          rows: List<DataRow>.generate(1, (int index) {
-                            return DataRow(
-                              cells: [
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('NIM',),
-                                  ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('Integer',),
-                                  ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('False',),
-                                  ),
-                                ),
-                              ],
-                            );
-                          }),
-                        ),
+                          ),
+                        ],
                       ),
-                    ),
+                      TableRow(
+                        children: [
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'NIM',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Integer',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'False',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'ID Kegiatan',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Integer',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'False',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Poin',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Integer',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'False',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Keterangan Mahasiswa',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'String',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'True',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
+
 
                   const CustomFieldSpacer(),
 

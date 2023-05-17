@@ -3,12 +3,15 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/utils.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_beranda_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_edit_beranda_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_edit_ormawa_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_edit_ormawa_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_jenis_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_jenis_kegiatan_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_jenis_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_jenis_kegiatan_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_periode_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_periode_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_mahasiswa_per_periode_detail_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_mahasiswa_per_periode_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_mahasiswa_per_periode_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_periode_page.dart';
@@ -20,14 +23,14 @@ import 'package:mipoka/mipoka/presentation/pages/mobile/notifikasi_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/password_baru_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_daftar_pengajuan_laporan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_daftar_pengajuan_usulan_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_laporan_kegiatan_1.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_laporan_kegiatan_1_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_laporan_kegiatan_2_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_laporan_kegiatan_3.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_1.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_laporan_kegiatan_3_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_1_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_2_dk_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_2_lk_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_3_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_3_tertib_acara.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_3_tertib_acara_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_berita_detail_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_daftar_pengajuan_laporan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_daftar_pengajuan_sarana_dan_prasarana_page.dart';
@@ -38,19 +41,19 @@ import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengaj
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_laporan_kegiatan_2_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_laporan_kegiatan_2_biaya_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_laporan_kegiatan_2_import_peserta_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_laporan_kegiatan_3.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_sarana_dan_prasarana.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_1.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_2_biaya_kegiatan.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_2_dk.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_2_dk_data_peserta.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_2_lk.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_laporan_kegiatan_3_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_sarana_dan_prasarana_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_1_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_2_biaya_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_2_dk_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_2_dk_data_peserta_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_2_lk_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_daftar_pengajuan_usulan_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_2_lk_data_peserta.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_2_lk_data_peserta_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_beranda_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_3.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_3_tertib_acara.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_3_tertib_acara_tambah.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_3_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_3_tertib_acara_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_3_tertib_acara_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_prestasi_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/web/web_pengguna_beranda_page.dart';
 import 'mipoka/presentation/pages/mobile/login_page.dart';
@@ -310,6 +313,12 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(
                 builder: (_) =>
                     const KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage());
+          case kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPageRoute:
+            return MaterialPageRoute(builder: (_) => const KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPage());
+          case kemahasiswaanEditOrmawaPageRoute:
+            return MaterialPageRoute(builder: (_) => const KemahasiswaanEditOrmawaPage());
+          case kemahasiswaanEditOrmawaTambahPageRoute:
+            return MaterialPageRoute(builder: (_) => const KemahasiswaanEditOrmawaTambahPage());
         }
       },
     );
