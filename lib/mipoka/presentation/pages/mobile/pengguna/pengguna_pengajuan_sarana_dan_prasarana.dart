@@ -55,11 +55,8 @@ class _MobilePenggunaPengajuanSaranaDanPrasaranaState
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-
               const CustomMobileTitle(text: 'Pengajuan - Sarana dan Prasarana'),
-
               const CustomFieldSpacer(),
-
               CustomContentBox(
                 children: [
                   buildTitle('Nama Ormawa'),
@@ -70,9 +67,7 @@ class _MobilePenggunaPengajuanSaranaDanPrasaranaState
                       setState(() => namaOrmawaValue = value!);
                     },
                   ),
-
                   const CustomFieldSpacer(),
-
                   buildTitle('Tanggal Mulai Kegiatan'),
                   CustomDatePickerField(
                     selectedDate: tanggalMulaiKegiatan,
@@ -82,9 +77,7 @@ class _MobilePenggunaPengajuanSaranaDanPrasaranaState
                       });
                     },
                   ),
-
                   const CustomFieldSpacer(),
-
                   buildTitle('Tanggal Selesai Kegiatan'),
                   CustomDatePickerField(
                     selectedDate: tanggalSelesaiKegiatan,
@@ -94,9 +87,7 @@ class _MobilePenggunaPengajuanSaranaDanPrasaranaState
                       });
                     },
                   ),
-
                   const CustomFieldSpacer(),
-
                   buildTitle('Gedung'),
                   CustomDropdownButton(
                     items: listGedung,
@@ -105,9 +96,7 @@ class _MobilePenggunaPengajuanSaranaDanPrasaranaState
                       setState(() => gedungValue = value!);
                     },
                   ),
-
                   const CustomFieldSpacer(),
-
                   buildTitle('Ruang'),
                   CustomDropdownButton(
                     items: listGedung,
@@ -116,9 +105,7 @@ class _MobilePenggunaPengajuanSaranaDanPrasaranaState
                       setState(() => ruangValue = value!);
                     },
                   ),
-
                   const CustomFieldSpacer(),
-
                   buildTitle('Waktu Mulai Kegiatan'),
                   CustomTimePickerField(
                     selectedTime: waktuMulaiKegiatan,
@@ -126,65 +113,45 @@ class _MobilePenggunaPengajuanSaranaDanPrasaranaState
                       waktuMulaiKegiatan = time;
                     },
                   ),
-
                   const CustomFieldSpacer(),
-
                   buildTitle('Waktu Selesai Kegiatan'),
                   CustomRichTextField(controller: _kegiatanController),
-
                   const CustomFieldSpacer(),
-
                   buildTitle('Perlengkapan yang dibutuhkan'),
-
                   const SizedBox(height: 4.0),
-
                   CustomCheckBox(
                     title: 'Proyektor/LCD',
                     controller: _proyektorLcdController,
                   ),
-
                   const SizedBox(height: 4.0),
-
                   CustomCheckBox(
                     title: 'Laptop',
                     controller: _laptopController,
                   ),
-
                   const SizedBox(height: 4.0),
-
                   CustomCheckBox(
                     title: 'Mikrofon',
                     controller: _mikrofonController,
                   ),
-
                   const SizedBox(height: 4.0),
-
                   CustomCheckBox(
                     title: 'Speaker',
                     controller: _speakerController,
                   ),
-
                   const SizedBox(height: 4.0),
-
                   CustomCheckBox(
                     title: 'TV',
                     controller: _tvController,
                   ),
-
                   const SizedBox(height: 4.0),
-
                   CustomCheckBox(
                     title: 'Lampu',
                     controller: _lampuController,
                   ),
-
                   const CustomFieldSpacer(),
-
                   buildTitle('Lain - lain'),
                   CustomRichTextField(controller: _lainController),
-
                   const CustomFieldSpacer(),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -192,12 +159,11 @@ class _MobilePenggunaPengajuanSaranaDanPrasaranaState
                         onTap: () => Navigator.pop(context),
                         text: 'Batal',
                       ),
-
                       const SizedBox(width: 8.0),
-
                       CustomButton(
                         onTap: () {
-                          Navigator.pushNamed(context, mobilePenggunaDaftarPengajuanKegiatanRoute);
+                          Navigator.pushNamed(context,
+                              penggunaDaftarPengajuanKegiatanPageRoute);
                         },
                         text: 'Kirim',
                       ),

@@ -24,26 +24,20 @@ class _MobileLupaPasswordPageState extends State<MobileLupaPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: const MipokaAppBar(),
-
       drawer: const MobileCustomPenggunaDrawerWidget(),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: CustomContentBox(
             children: [
               customBoxTitle('Lupa Password'),
-              buildDescription('Link untuk pembaruan kata sandi akan dikirim ke e-mail yang anda tulis.'),
-
+              buildDescription(
+                  'Link untuk pembaruan kata sandi akan dikirim ke e-mail yang anda tulis.'),
               const CustomFieldSpacer(),
-
               buildTitle('Email'),
               CustomTextField(controller: _emailController),
-
               const CustomFieldSpacer(),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -51,11 +45,10 @@ class _MobileLupaPasswordPageState extends State<MobileLupaPasswordPage> {
                     onTap: () => Navigator.pop(context),
                     text: 'Kembali',
                   ),
-
                   const SizedBox(width: 8.0),
-
                   CustomButton(
-                    onTap: () => Navigator.pushNamed(context, mobilePasswordBaruPageRoute),
+                    onTap: () =>
+                        Navigator.pushNamed(context, passwordBaruPageRoute),
                     text: 'Kirim',
                   ),
                 ],

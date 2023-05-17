@@ -8,47 +8,45 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
-import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/mobile_kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 
-class KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPage extends StatefulWidget {
+class KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPage
+    extends StatefulWidget {
   const KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPage({super.key});
 
   @override
-  State<KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPage> createState() => _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageState();
+  State<KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPage> createState() =>
+      _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageState();
 }
 
-class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPage> {
+class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageState
+    extends State<KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPage> {
   String jenisKegiatan = listBentukKegiatan[0];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaAppBar(),
-
       drawer: const MobileCustomKemahasiswaanDrawer(),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-
-              const CustomMobileTitle(text: 'Kemahasiswaan - MPT Mahasiswa - Kegiatan per Jenis Kegiatan'),
-
+              const CustomMobileTitle(
+                  text:
+                      'Kemahasiswaan - MPT Mahasiswa - Kegiatan per Jenis Kegiatan'),
               const CustomFieldSpacer(),
-
               CustomContentBox(
                 children: [
-
                   buildTitle('Total Kegiatan per Jenis Kegiatan : 6'),
                   CustomAddButton(
                     buttonText: 'Tambah',
-                    onPressed: () => Navigator.pushNamed(context, mobileKemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageRoute),
+                    onPressed: () => Navigator.pushNamed(context,
+                        kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageRoute),
                   ),
-
                   const CustomFieldSpacer(),
-
                   buildTitle('Jenis'),
                   CustomDropdownButton(
                     value: jenisKegiatan,
@@ -57,9 +55,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<
                       setState(() => jenisKegiatan = value!);
                     },
                   ),
-
                   const CustomFieldSpacer(),
-
                   Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
@@ -102,40 +98,49 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<
                               ),
                             ),
                           ],
-
                           rows: List<DataRow>.generate(6, (int index) {
                             return DataRow(
                               cells: [
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text('Jenis Kegiatan - ${index + 1}',),
+                                    child: Text(
+                                      'Jenis Kegiatan - ${index + 1}',
+                                    ),
                                   ),
                                 ),
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text('Nama Kegiatan - ${index + 1}',),
+                                    child: Text(
+                                      'Nama Kegiatan - ${index + 1}',
+                                    ),
                                   ),
                                 ),
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text('Keterangan - ${index + 1}',),
+                                    child: Text(
+                                      'Keterangan - ${index + 1}',
+                                    ),
                                   ),
                                 ),
                                 DataCell(
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       IconButton(
-                                        onPressed: () => Navigator.pushNamed(context, mobileKemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute),
-                                        icon: const Icon(Icons.edit, color: Colors.yellow),
+                                        onPressed: () => Navigator.pushNamed(
+                                            context,
+                                            kemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute),
+                                        icon: const Icon(Icons.edit,
+                                            color: Colors.yellow),
                                       ),
-
                                       IconButton(
-                                        onPressed: (){},
-                                        icon: const Icon(Icons.delete, color: Colors.red),
+                                        onPressed: () {},
+                                        icon: const Icon(Icons.delete,
+                                            color: Colors.red),
                                       ),
                                     ],
                                   ),

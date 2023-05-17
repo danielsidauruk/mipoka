@@ -14,7 +14,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_rich_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/mobile_pemeriksa_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 
 class MobilePemeriksaPengajuanLaporanKegiatan3Page extends StatefulWidget {
   const MobilePemeriksaPengajuanLaporanKegiatan3Page({super.key});
@@ -26,22 +26,25 @@ class MobilePemeriksaPengajuanLaporanKegiatan3Page extends StatefulWidget {
 
 class _MobilePemeriksaPengajuanLaporanKegiatan3PageState
     extends State<MobilePemeriksaPengajuanLaporanKegiatan3Page> {
-
-  final TextEditingController _latarBelakangController = TextEditingController();
-  final TextEditingController _hasilKegiatanController = TextEditingController();
+  final TextEditingController _latarBelakangController =
+      TextEditingController();
+  final TextEditingController _hasilKegiatanController =
+      TextEditingController();
   final TextEditingController _penutupController = TextEditingController();
-  final TextEditingController _postinganKegiatanController = TextEditingController();
-  final TextEditingController _dokumentasiKegiatanController = TextEditingController();
-  final TextEditingController _tabulasiHasilController = TextEditingController();
-  final TextEditingController _fakturpembayaranController = TextEditingController();
+  final TextEditingController _postinganKegiatanController =
+      TextEditingController();
+  final TextEditingController _dokumentasiKegiatanController =
+      TextEditingController();
+  final TextEditingController _tabulasiHasilController =
+      TextEditingController();
+  final TextEditingController _fakturpembayaranController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaAppBar(),
-
       drawer: const MobileCustomPemeriksaDrawer(),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -49,90 +52,80 @@ class _MobilePemeriksaPengajuanLaporanKegiatan3PageState
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-
-              const CustomMobileTitle(text: 'Pemeriksa - Kegiatan - Laporan Kegiatan'),
-
+              const CustomMobileTitle(
+                  text: 'Pemeriksa - Kegiatan - Laporan Kegiatan'),
               const CustomFieldSpacer(),
-
               CustomContentBox(
                 children: [
-
                   CustomCommentWidget(
                     title: 'Latar Belakang',
-                    mainText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                    mainText:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
                     controller: _latarBelakangController,
                   ),
-
                   const CustomFieldSpacer(),
-
                   CustomCommentWidget(
                     title: 'Tujuan Kegiatan',
-                    mainText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                    mainText:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
                     controller: _hasilKegiatanController,
                   ),
-
                   const CustomFieldSpacer(),
-
                   CustomCommentWidget(
                     title: 'Penutup',
-                    mainText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                    mainText:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
                     controller: _penutupController,
                   ),
-
                   const CustomFieldSpacer(),
-
                   CustomCommentForTable(
                     title: 'Postingan Kegiatan',
                     description: 'Catatan (Berisi file yang harus direvisi)',
                     controller: _postinganKegiatanController,
                   ),
                   CustomIconButton(
-                    onTap: () => FileUploader.selectAndUploadFile('postingLaporanKegiatanButton'),
+                    onTap: () => FileUploader.selectAndUploadFile(
+                        'postingLaporanKegiatanButton'),
                     text: 'postingan_kegiatan.pdf',
                     icon: Icons.picture_as_pdf,
                   ),
-
                   const CustomFieldSpacer(),
-
                   CustomCommentForTable(
                     title: 'Dokumentasi Kegiatan',
                     description: 'Catatan (Berisi file yang harus direvisi)',
                     controller: _dokumentasiKegiatanController,
                   ),
                   CustomIconButton(
-                    onTap: () => FileUploader.selectAndUploadFile('dokumentasiKegiatanButton'),
+                    onTap: () => FileUploader.selectAndUploadFile(
+                        'dokumentasiKegiatanButton'),
                     text: 'dokumentasi_kegiatan.pdf',
                     icon: Icons.picture_as_pdf,
                   ),
-
                   const CustomFieldSpacer(),
-
                   CustomCommentForTable(
                     title: 'Tabulasi Hasil',
                     description: 'Catatan (Berisi file yang harus direvisi)',
                     controller: _tabulasiHasilController,
                   ),
                   CustomIconButton(
-                    onTap: () => FileUploader.selectAndUploadFile('tabulasiHasilButton'),
+                    onTap: () =>
+                        FileUploader.selectAndUploadFile('tabulasiHasilButton'),
                     text: 'tabulasi_hasil.pdf',
                     icon: Icons.picture_as_pdf,
                   ),
-
                   const CustomFieldSpacer(),
-
                   CustomCommentForTable(
                     title: 'Faktur Pembayaran',
                     description: 'Catatan (Berisi file yang harus direvisi)',
                     controller: _fakturpembayaranController,
                   ),
                   CustomIconButton(
-                    onTap: () => FileUploader.selectAndUploadFile('fakturPembayaranButton'),
+                    onTap: () => FileUploader.selectAndUploadFile(
+                        'fakturPembayaranButton'),
                     text: 'tabulasi_hasil.pdf',
                     icon: Icons.picture_as_pdf,
                   ),
-
                   const CustomFieldSpacer(),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -147,7 +140,8 @@ class _MobilePemeriksaPengajuanLaporanKegiatan3PageState
 
                       CustomButton(
                         onTap: () {
-                          Navigator.pushNamed(context, mobilePemeriksaDaftarLaporanKegiatanPageRoute);
+                          Navigator.pushNamed(
+                              context, pemeriksaDaftarLaporanKegiatanPageRoute);
                         },
                         text: 'Tolak',
                       ),
@@ -156,7 +150,8 @@ class _MobilePemeriksaPengajuanLaporanKegiatan3PageState
 
                       CustomButton(
                         onTap: () {
-                          Navigator.pushNamed(context, mobilePemeriksaDaftarLaporanKegiatanPageRoute);
+                          Navigator.pushNamed(
+                              context, pemeriksaDaftarLaporanKegiatanPageRoute);
                         },
                         text: 'Terima',
                       ),

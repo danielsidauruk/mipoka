@@ -18,31 +18,25 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaAppBar(),
-
       drawer: const MobileCustomPenggunaDrawerWidget(),
-
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-
-            const CustomMobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
-
+            const CustomMobileTitle(
+                text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
             const SizedBox(height: 8.0),
-
             Expanded(
               child: CustomContentBox(
                 children: [
                   buildTitle('Data Peserta Kegiatan (Dalam Kota)'),
-
                   CustomAddButton(
                     buttonText: 'Data Partisipan',
-                    onPressed: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaRoute),
+                    onPressed: () => Navigator.pushNamed(context,
+                        penggunaPengajuanUsulanKegiatan2DKDataPesertaPageRoute),
                   ),
-
                   const CustomFieldSpacer(),
-
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
@@ -92,7 +86,6 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
                                 ),
                               ),
                             ],
-
                             rows: List<DataRow>.generate(12, (int index) {
                               return DataRow(
                                 cells: [
@@ -119,18 +112,14 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   const CustomFieldSpacer(),
-
                   buildTitle('Rincian Biaya Kegiatan'),
-
                   CustomAddButton(
                     buttonText: 'Biaya Kegiatan',
-                    onPressed: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatanRoute),
+                    onPressed: () => Navigator.pushNamed(context,
+                        penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute),
                   ),
-
                   const CustomFieldSpacer(),
-
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
@@ -150,47 +139,52 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
                                     DataColumn(
                                       label: Text(
                                         'No.',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
                                         'Nama Biaya',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
                                         'Qty',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
                                         'Harga Satuan',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
                                         'Total',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
                                         'Keterangan',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                   ],
-
                                   rows: List.generate(12, (int index) {
                                     return DataRow(
                                       cells: [
@@ -221,9 +215,7 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   const CustomFieldSpacer(),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -231,16 +223,14 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
                         onTap: () => Navigator.pop(context),
                         text: 'Sebelumnya',
                       ),
-
                       const SizedBox(width: 8.0),
-
                       CustomButton(
-                        onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan3Route),
+                        onTap: () => Navigator.pushNamed(
+                            context, penggunaPengajuanUsulanKegiatan3PageRoute),
                         text: 'Berikutnya',
                       ),
                     ],
                   ),
-
                 ],
               ),
             ),
@@ -282,7 +272,7 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
 //                 const FieldSpacer(),
 //
 //                 InkWell(
-//                   onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaRoute),
+//                   onTap: () => Navigator.pushNamed(context, penggunaPengajuanUsulanKegiatan2DKDataPesertaPageRoute),
 //                   child: Container(
 //                     padding: const EdgeInsets.all(8.0),
 //                     width: double.infinity,
@@ -399,7 +389,7 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
 //                 const FieldSpacer(),
 //
 //                 InkWell(
-//                   onTap: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatanRoute),
+//                   onTap: () => Navigator.pushNamed(context, penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute),
 //                   child: Container(
 //                     padding: const EdgeInsets.all(8.0),
 //                     width: double.infinity,
@@ -534,7 +524,7 @@ class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
 //                     const SizedBox(width: 8.0),
 //
 //                     CustomButton(
-//                       navigation: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan3Route),
+//                       navigation: () => Navigator.pushNamed(context, penggunaPengajuanUsulanKegiatan3PageRoute),
 //                       text: 'Berikutnya',
 //                     ),
 //                   ],

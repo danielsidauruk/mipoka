@@ -10,38 +10,35 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
-import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/mobile_kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 
 class MobileKemahasiswaanBerandaPage extends StatefulWidget {
   const MobileKemahasiswaanBerandaPage({super.key});
 
   @override
-  State<MobileKemahasiswaanBerandaPage> createState() => _MobileKemahasiswaanBerandaPageState();
+  State<MobileKemahasiswaanBerandaPage> createState() =>
+      _MobileKemahasiswaanBerandaPageState();
 }
 
-class _MobileKemahasiswaanBerandaPageState extends State<MobileKemahasiswaanBerandaPage> {
+class _MobileKemahasiswaanBerandaPageState
+    extends State<MobileKemahasiswaanBerandaPage> {
   String dropDownValue = listStatus[0];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaAppBar(),
-
       drawer: const MobileCustomKemahasiswaanDrawer(),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-
               const Placeholder(
                 fallbackHeight: 170,
               ),
-
               const CustomFieldSpacer(height: 4.0),
-
               SizedBox(
                 height: 60,
                 child: ListView(
@@ -52,49 +49,37 @@ class _MobileKemahasiswaanBerandaPageState extends State<MobileKemahasiswaanBera
                       width: 50,
                       color: Colors.grey,
                     ),
-
                     const SizedBox(width: 4.0),
-
                     Container(
                       height: 50,
                       width: 50,
                       color: Colors.grey,
                     ),
-
                     const SizedBox(width: 4.0),
-
                     Container(
                       height: 50,
                       width: 50,
                       color: Colors.grey,
                     ),
-
                     const SizedBox(width: 4.0),
-
                     Container(
                       height: 50,
                       width: 50,
                       color: Colors.grey,
                     ),
-
                     const SizedBox(width: 4.0),
-
                     Container(
                       height: 50,
                       width: 50,
                       color: Colors.grey,
                     ),
-
                     const SizedBox(width: 4.0),
-
                     Container(
                       height: 50,
                       width: 50,
                       color: Colors.grey,
                     ),
-
                     const SizedBox(width: 4.0),
-
                     Container(
                       height: 50,
                       width: 50,
@@ -103,27 +88,19 @@ class _MobileKemahasiswaanBerandaPageState extends State<MobileKemahasiswaanBera
                   ],
                 ),
               ),
-
               const CustomFieldSpacer(),
-
               const CustomMobileTitle(text: 'Kemahasiswaan - Edit Beranda'),
-
               const CustomFieldSpacer(),
-
               CustomContentBox(
                 children: [
-                  
                   buildTitle('Total Berita : 2'),
-
                   CustomAddButton(
                     buttonText: 'Tambah',
-                    onPressed: () => Navigator.pushNamed(context, mobileKemahasiswaanEditBerandaTambahPageRoute),
+                    onPressed: () => Navigator.pushNamed(
+                        context, kemahasiswaanEditBerandaTambahPageRoute),
                   ),
-
                   const CustomFieldSpacer(),
-
                   buildTitle('Penulis'),
-
                   CustomDropdownButton(
                     value: dropDownValue,
                     items: listStatus,
@@ -131,9 +108,7 @@ class _MobileKemahasiswaanBerandaPageState extends State<MobileKemahasiswaanBera
                       setState(() => dropDownValue = value!);
                     },
                   ),
-
                   const CustomFieldSpacer(),
-
                   Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
@@ -176,40 +151,47 @@ class _MobileKemahasiswaanBerandaPageState extends State<MobileKemahasiswaanBera
                               ),
                             ),
                           ],
-
                           rows: List<DataRow>.generate(12, (int index) {
                             return DataRow(
                               cells: [
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text('${index + 1} maret 2023',),
+                                    child: Text(
+                                      '${index + 1} maret 2023',
+                                    ),
                                   ),
                                 ),
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text('Berita ${index + 1}',),
+                                    child: Text(
+                                      'Berita ${index + 1}',
+                                    ),
                                   ),
                                 ),
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text('Penulis ${index + 1}',),
+                                    child: Text(
+                                      'Penulis ${index + 1}',
+                                    ),
                                   ),
                                 ),
                                 DataCell(
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       IconButton(
-                                        onPressed: (){},
-                                        icon: Icon(Icons.edit, color: Colors.yellow),
+                                        onPressed: () {},
+                                        icon: Icon(Icons.edit,
+                                            color: Colors.yellow),
                                       ),
-
                                       IconButton(
-                                        onPressed: (){},
-                                        icon: Icon(Icons.delete, color: Colors.red),
+                                        onPressed: () {},
+                                        icon: Icon(Icons.delete,
+                                            color: Colors.red),
                                       ),
                                     ],
                                   ),
@@ -232,12 +214,10 @@ class _MobileKemahasiswaanBerandaPageState extends State<MobileKemahasiswaanBera
 
   InkWell buildBeritaTile() {
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, mobilePenggunaBerandaDetailPageRoute),
+      onTap: () => Navigator.pushNamed(context, penggunaBerandaDetailPageRoute),
       child: Container(
         height: 80,
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.white)
-        ),
+        decoration: BoxDecoration(border: Border.all(color: Colors.white)),
         padding: const EdgeInsets.all(4.0),
         child: Row(
           children: [
@@ -249,15 +229,13 @@ class _MobileKemahasiswaanBerandaPageState extends State<MobileKemahasiswaanBera
                 color: Colors.grey,
               ),
             ),
-
             const SizedBox(width: 4.0),
-
             const Expanded(
               flex: 3,
               child: Text(
                 'Lorem ipsum dolor sit amet, consectetur '
-                    'adipiscing elit, sed do eiusmod tempor incididunt '
-                    'ut labore et dolore ',
+                'adipiscing elit, sed do eiusmod tempor incididunt '
+                'ut labore et dolore ',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),

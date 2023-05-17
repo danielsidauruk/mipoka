@@ -9,43 +9,37 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
-import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/mobile_pemeriksa_custom_drawer.dart';
 
-class MobilePemeriksaDaftarLaporanKegiatan extends StatefulWidget {
-  const MobilePemeriksaDaftarLaporanKegiatan({super.key});
+class MobilePenggunaDaftarLaporanKegiatan extends StatefulWidget {
+  const MobilePenggunaDaftarLaporanKegiatan({super.key});
 
   @override
-  State<MobilePemeriksaDaftarLaporanKegiatan> createState() => _MobilePemeriksaDaftarLaporanKegiatanState();
+  State<MobilePenggunaDaftarLaporanKegiatan> createState() =>
+      _MobilePenggunaDaftarLaporanKegiatanState();
 }
 
-class _MobilePemeriksaDaftarLaporanKegiatanState extends State<MobilePemeriksaDaftarLaporanKegiatan> {
+class _MobilePenggunaDaftarLaporanKegiatanState
+    extends State<MobilePenggunaDaftarLaporanKegiatan> {
   @override
   Widget build(BuildContext context) {
     String dropDownValue = listStatus[0];
 
     return Scaffold(
       appBar: const MipokaAppBar(),
-
-      drawer: const MobileCustomPemeriksaDrawer(),
-
+      drawer: const MobileCustomPenggunaDrawerWidget(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-
-            const CustomMobileTitle(text: 'Pemeriksa - Verifikasi Laporan Kegiatan '),
-
+            const CustomMobileTitle(
+                text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
             const CustomFieldSpacer(),
-
             Expanded(
               child: CustomContentBox(
                 children: [
-
                   customBoxTitle('Status'),
-
-                  const CustomFieldSpacer(),
-
+                  const SizedBox(height: 4.0),
                   CustomDropdownButton(
                     items: listStatus,
                     value: dropDownValue,
@@ -53,9 +47,7 @@ class _MobilePemeriksaDaftarLaporanKegiatanState extends State<MobilePemeriksaDa
                       setState(() => dropDownValue = value!);
                     },
                   ),
-
                   const CustomFieldSpacer(),
-
                   Expanded(
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
@@ -115,7 +107,6 @@ class _MobilePemeriksaDaftarLaporanKegiatanState extends State<MobilePemeriksaDa
                               ),
                             ),
                           ],
-
                           rows: List<DataRow>.generate(12, (int index) {
                             return DataRow(
                               cells: [
@@ -146,15 +137,8 @@ class _MobilePemeriksaDaftarLaporanKegiatanState extends State<MobilePemeriksaDa
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: InkWell(
-                                      onTap: () => Navigator.pushNamed(context, mobilePemeriksaPengajuanLaporanKegiatan1PageRoute),
-                                      child: Text(
-                                        'Kegiatan ${index + 1}',
-                                        style: const TextStyle(
-                                          color: Colors.blue,
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                      ),
+                                    child: Text(
+                                      'Kegiatan ${index + 1}',
                                     ),
                                   ),
                                 ),
@@ -169,13 +153,8 @@ class _MobilePemeriksaDaftarLaporanKegiatanState extends State<MobilePemeriksaDa
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: const [
-                                        Icon(Icons.check),
-
-                                        Icon(Icons.cancel_outlined),
-                                      ],
+                                    child: Text(
+                                      'Validasi ${index + 1}',
                                     ),
                                   ),
                                 ),
@@ -195,14 +174,16 @@ class _MobilePemeriksaDaftarLaporanKegiatanState extends State<MobilePemeriksaDa
                     ),
                   ),
                 ],
-
               ),
             ),
-
             const CustomFieldSpacer(),
-
-            customBoxTitle('Total Usulan Kegiatan : 2'),
-
+            CustomButton(
+              onTap: () => Navigator.pushNamed(
+                context,
+                penggunaPengajuanLaporanKegiatanPage1Route,
+              ),
+              text: 'Laporkan Kegiatan',
+            ),
           ],
         ),
       ),

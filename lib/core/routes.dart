@@ -1,71 +1,111 @@
-
 // web routes - pengguna
 const webPenggunaBerandaRoute = '/webPenggunaBerandaRoute';
 
 // mobile
-const mobileLoginPageRoute = '/mobileLoginPageRoute';
-const mobileGantiPasswordPageRoute = '/mobileGantiPasswordPageRoute';
-const mobileLupaPasswordPageRoute = '/mobileLupaPasswordPageRoute';
-const mobilePasswordBaruPageRoute = '/mobilePasswordBaruPageRoute';
-const mobileNotifikasiPageRoute = '/mobileNotifikasiPageRoute';
+const loginPageRoute = '/loginPageRoute';
+const gantiPasswordPageRoute = '/gantiPasswordPageRoute';
+const lupaPasswordPageRoute = '/lupaPasswordPageRoute';
+const passwordBaruPageRoute = '/passwordBaruPageRoute';
+const notifikasiPageRoute = '/notifikasiPageRoute';
 
 // mobile routes - pengguna
-const mobilePenggunaBerandaRoute = '/mobilePenggunaBerandaRoute';
-const mobilePenggunaBerandaDetailPageRoute = '/mobilePenggunaBerandaDetailPageRoute';
+const penggunaBerandaPageRoute = '/penggunaBerandaPageRoute';
+const penggunaBerandaDetailPageRoute = '/penggunaBerandaDetailPageRoute';
 
-const mobilePenggunaDaftarPengajuanKegiatanRoute = '/mobileDaftarPengajuanKegiatanRoute';
-const mobilePenggunaPengajuanUsulanKegiatan1Route = '/mobilePenggunaPengajuanUsulanKegiatan1Route';
-const mobilePenggunaPengajuanUsulanKegiatan2LKRoute = '/mobilePenggunaPengajuanUsulanKegiatan2LKRoute';
-const mobilePenggunaPengajuanUsulanKegiatan2DKRoute = '/mobilePenggunaPengajuanUsulanKegiatan2DKRoute';
-const mobilePenggunaPengajuanUsulanKegiatan2LKDataPesertaRoute = '/mobilePenggunaPengajuanUsulanKegiatan2LKDataPesertaRoute';
-const mobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaRoute = '/mobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaRoute';
-const mobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatanRoute = '/mobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatanRoute';
-const mobilePenggunaPengajuanUsulanKegiatan3Route = '/mobilePenggunaPengajuanUsulanKegiatan3Route';
-const mobilePenggunaPengajuanUsulanKegiatan3TertibAcaraRoute = '/mobilePenggunaPengajuanUsulanKegiatan3TertibAcaraRoute';
-const mobilePenggunaPengajuanUsulanKegiatan3TertibAcaraTambahRoute = '/mobilePenggunaPengajuanUsulanKegiatan3TertibAcaraTambahRoute';
+const penggunaDaftarPengajuanKegiatanPageRoute =
+    '/penggunaDaftarPengajuanKegiatanPageRoute';
+const penggunaPengajuanUsulanKegiatanPage1Route =
+    '/penggunaPengajuanUsulanKegiatanPage1Route';
+const penggunaPengajuanUsulanKegiatan2LKPageRoute =
+    '/penggunaPengajuanUsulanKegiatan2LKPageRoute';
+const penggunaPengajuanUsulanKegiatan2DKPageRoute =
+    '/penggunaPengajuanUsulanKegiatan2DKPageRoute';
+const penggunaPengajuanUsulanKegiatan2LKDataPesertaPageRoute =
+    '/penggunaPengajuanUsulanKegiatan2LKDataPesertaPageRoute';
+const penggunaPengajuanUsulanKegiatan2DKDataPesertaPageRoute =
+    '/penggunaPengajuanUsulanKegiatan2DKDataPesertaPageRoute';
+const penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute =
+    '/penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute';
+const penggunaPengajuanUsulanKegiatan3PageRoute =
+    '/penggunaPengajuanUsulanKegiatan3PageRoute';
+const penggunaPengajuanUsulanKegiatan3TertibAcaraPageRoute =
+    '/penggunaPengajuanUsulanKegiatan3TertibAcaraPageRoute';
+const penggunaPengajuanUsulanKegiatan3TertibAcaraTambahPageRoute =
+    '/penggunaPengajuanUsulanKegiatan3TertibAcaraTambahPageRoute';
 
-const mobilePenggunaDaftarLaporanKegiatanRoute = '/mobilePenggunaDaftarLaporanKegiatanRoute';
-const mobilePenggunaPengajuanLaporanKegiatan1Route = '/mobilePenggunaPengajuanLaporanKegiatan1Route';
-const mobilePenggunaPengajuanLaporanKegiatan2Route = '/mobilePenggunaPengajuanLaporanKegiatan2Route';
-const mobilePenggunaPengajuanLaporanKegiatan2BiayaKegiatanRoute = '/MobilePenggunaPengajuanLaporanKegiatan2BiayaKegiatan';
-const mobilePenggunaPengajuanLaporanKegiatan2ImportKegiatanRoute = '/mobilePenggunaPengajuanLaporanKegiatan2ImportKegiatanRoute';
-const mobilePenggunaPengajuanLaporanKegiatan3Route = '/mobilePenggunaPengajuanLaporanKegiatan3Route';
+const penggunaDaftarLaporanKegiatanPageRoute =
+    '/penggunaDaftarLaporanKegiatanPageRoute';
+const penggunaPengajuanLaporanKegiatanPage1Route =
+    '/penggunaPengajuanLaporanKegiatanPage1Route';
+const penggunaPengajuanLaporanKegiatan2PageRoute =
+    '/penggunaPengajuanLaporanKegiatan2PageRoute';
+const penggunaPengajuanLaporanKegiatan2BiayaKegiatanPageRoute =
+    '/penggunaPengajuanLaporanKegiatan2BiayaKegiatanPageRoute';
+const penggunaPengajuanLaporanKegiatan2ImportKegiatanPageRoute =
+    '/penggunaPengajuanLaporanKegiatan2ImportKegiatanPageRoute';
+const penggunaPengajuanLaporanKegiatan3PageRoute =
+    '/penggunaPengajuanLaporanKegiatan3PageRoute';
 
-const mobilePenggunaDaftarPengajuanSaranaDanPrasaranaRoute = '/mobilePenggunaDaftarPengajuanSaranaDanPrasaranaRoute';
-const mobilePenggunaPengajuanSaranaDanPrasaranaRoute = '/mobilePenggunaDaftarPengajuanSaranaDanPrasarana1Route';
+const penggunaDaftarPengajuanSaranaDanPrasaranaPageRoute =
+    '/penggunaDaftarPengajuanSaranaDanPrasaranaPageRoute';
+const penggunaPengajuanSaranaDanPrasaranaPageRoute =
+    '/penggunaDaftarPengajuanSaranaDanPrasaranaPage1Route';
 
-const mobilePenggunaMPTRoute = '/mobilePenggunaMPTRoute';
-const mobilePenggunaMPTUnggahBuktiRoute = '/mobilePenggunaMPTUnggahBuktiRoute';
+const penggunaMPTPageRoute = '/penggunaMPTPageRoute';
+const penggunaMPTUnggahBuktiPageRoute = '/penggunaMPTUnggahBuktiPageRoute';
 
-const mobilePenggunaOrmawaUKMPageRoute = '/mobilePenggunaOrmawaUKMPageRoute';
+const penggunaOrmawaUKMPageRoute = '/penggunaOrmawaUKMPageRoute';
 
-const mobilePenggunaPrestasiPageRoute = '/mobilePenggunaPrestasiPageRoute';
+const penggunaPrestasiPageRoute = '/penggunaPrestasiPageRoute';
 
 // mobile routes - pemeriksa
-const mobilePemeriksaDaftarUsulanKegiatanPageRoute = '/mobilePemeriksaDaftarUsulanKegiatanRoute';
-const mobilePemeriksaPengajuanUsulanKegiatan1PageRoute = '/mobilePemeriksaPengajuanUsulanKegiatan1PageRoute';
-const mobilePemeriksaPengajuanUsulanKegiatan2DKPageRoute = '/mobilePemeriksaPengajuanUsulanKegiatan2DKPageRoute';
-const mobilePemeriksaPengajuanUsulanKegiatan2LKPageRoute = '/mobilePemeriksaPengajuanUsulanKegiatan2LKPageRoute';
-const mobilePemeriksaPengajuanUsulanKegiatan3PageRoute = '/mobilePemeriksaPengajuanUsulanKegiatan3PageRoute';
-const mobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraRoute = '/mobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraRoute';
+const pemeriksaDaftarUsulanKegiatanPageRoute =
+    '/pemeriksaDaftarUsulanKegiatanPageRoute';
+const pemeriksaPengajuanUsulanKegiatan1PageRoute =
+    '/pemeriksaPengajuanUsulanKegiatan1PageRoute';
+const pemeriksaPengajuanUsulanKegiatan2DKPageRoute =
+    '/pemeriksaPengajuanUsulanKegiatan2DKPageRoute';
+const pemeriksaPengajuanUsulanKegiatan2LKPageRoute =
+    '/pemeriksaPengajuanUsulanKegiatan2LKPageRoute';
+const pemeriksaPengajuanUsulanKegiatan3PageRoute =
+    '/pemeriksaPengajuanUsulanKegiatan3PageRoute';
+const pemeriksaPengajuanUsulanKegiatan3TertibAcaraPageRoute =
+    '/pemeriksaPengajuanUsulanKegiatan3TertibAcaraPageRoute';
 
-const mobilePemeriksaDaftarLaporanKegiatanPageRoute = '/mobilePemeriksaDaftarLaporanKegiatanRoute';
-const mobilePemeriksaPengajuanLaporanKegiatan1PageRoute = '/mobilePemeriksaPengajuanLaporanKegiatan1PageRoute';
-const mobilePemeriksaPengajuanLaporanKegiatan2PageRoute = '/mobilePemeriksaPengajuanLaporanKegiatan2PageRoute';
-const mobilePemeriksaPengajuanLaporanKegiatan3PageRoute = '/mobilePemeriksaPengajuanLaporanKegiatan3PageRoute';
+const pemeriksaDaftarLaporanKegiatanPageRoute =
+    '/pemeriksaDaftarLaporanKegiatanPageRoute';
+const pemeriksaPengajuanLaporanKegiatan1PageRoute =
+    '/pemeriksaPengajuanLaporanKegiatan1PageRoute';
+const pemeriksaPengajuanLaporanKegiatan2PageRoute =
+    '/pemeriksaPengajuanLaporanKegiatan2PageRoute';
+const pemeriksaPengajuanLaporanKegiatan3PageRoute =
+    '/pemeriksaPengajuanLaporanKegiatan3PageRoute';
 
 // mobile routes - kemahasiswaan
-const mobileKemahasiswaanBerandaPageRoute = '/mobileKemahasiswaanBerandaPageRoute';
-const mobileKemahasiswaanEditBerandaTambahPageRoute = '/mobileKemahasiswaanEditBerandaTambahPageRoute';
-const mobileKemahasiswaanMPTMahasiswaPeriodePageRoute = '/mobileKemahasiswaanMPTMahasiswaPeriodePageRoute';
-const mobileKemahasiswaanMPTMahasiswaTambahPeriodePageRoute = '/mobileKemahasiswaanMPTMahasiswaTambahPeriodePageRoute';
-const mobileKemahasiswaanMPTMahasiswaJenisKegiatanPageRoute = '/mobileKemahasiswaanMPTMahasiswaJenisKegiatanPageRoute';
-const mobileKemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute = '/mobileKemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute';
-const mobileKemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageRoute = '/mobileKemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageRoute';
-const mobileKemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageRoute = '/mobileKemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageRoute';
-const kemahasiswaanMPTMahasiswaKegiatanPerPeriodePageRoute = '/kemahasiswaanMPTMahasiswaKegiatanPerPeriodePageRoute';
-const kemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageRoute = '/kemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageRoute';
-const kemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageRoute = '/kemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageRoute';
-const kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute = '/kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute';
-const kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageRoute = '/kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageRoute';
-const kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute = '/kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute';
+const kemahasiswaanBerandaPageRoute = '/kemahasiswaanBerandaPageRoute';
+const kemahasiswaanEditBerandaTambahPageRoute =
+    '/kemahasiswaanEditBerandaTambahPageRoute';
+const kemahasiswaanMPTMahasiswaPeriodePageRoute =
+    '/kemahasiswaanMPTMahasiswaPeriodePageRoute';
+const kemahasiswaanMPTMahasiswaTambahPeriodePageRoute =
+    '/kemahasiswaanMPTMahasiswaTambahPeriodePageRoute';
+const kemahasiswaanMPTMahasiswaJenisKegiatanPageRoute =
+    '/kemahasiswaanMPTMahasiswaJenisKegiatanPageRoute';
+const kemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute =
+    '/kemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute';
+const kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageRoute =
+    '/kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageRoute';
+const kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageRoute =
+    '/kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageRoute';
+const kemahasiswaanMPTMahasiswaKegiatanPerPeriodePageRoute =
+    '/kemahasiswaanMPTMahasiswaKegiatanPerPeriodePageRoute';
+const kemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageRoute =
+    '/kemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageRoute';
+const kemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageRoute =
+    '/kemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageRoute';
+const kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute =
+    '/kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute';
+const kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageRoute =
+    '/kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageRoute';
+const kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute =
+    '/kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute';

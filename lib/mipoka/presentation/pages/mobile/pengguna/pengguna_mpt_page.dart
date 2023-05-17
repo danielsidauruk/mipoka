@@ -1,60 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
-class MobilePenggunaDaftarPengajuanSaranaDanPrasarana extends StatefulWidget {
-  const MobilePenggunaDaftarPengajuanSaranaDanPrasarana({super.key});
+// => Fixed ContentBox
 
-  @override
-  State<MobilePenggunaDaftarPengajuanSaranaDanPrasarana> createState() => _MobilePenggunaDaftarPengajuanSaranaDanPrasaranaState();
-}
+class MobilePenggunaMPT extends StatelessWidget {
+  const MobilePenggunaMPT({super.key});
 
-class _MobilePenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<MobilePenggunaDaftarPengajuanSaranaDanPrasarana> {
   @override
   Widget build(BuildContext context) {
-    String dropDownValue = listStatus[0];
-
     return Scaffold(
       appBar: const MipokaAppBar(),
-
       drawer: const MobileCustomPenggunaDrawerWidget(),
-
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-
-            const CustomMobileTitle(text: 'Pengajuan - Sarana & Prasarana'),
-
-            const CustomFieldSpacer(),
-
-            Expanded(
-              child: CustomContentBox(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const CustomMobileTitle(text: 'MPT'),
+              const CustomFieldSpacer(),
+              CustomContentBox(
                 children: [
-
-                  customBoxTitle('Status'),
-
-                  const SizedBox(height: 4.0),
-
-                  CustomDropdownButton(
-                    items: listStatus,
-                    value: dropDownValue,
-                    onChanged: (String? value) {
-                      setState(() => dropDownValue = value!);
-                    },
-                  ),
-
+                  customBoxTitle('Kegiatan yang Sudah Diklaim'),
                   const CustomFieldSpacer(),
-
-                  Expanded(
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                    ),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: SingleChildScrollView(
@@ -72,27 +50,6 @@ class _MobilePenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<Mobile
                             ),
                             DataColumn(
                               label: Text(
-                                'Tanggal Pengajuan',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Nama Pengaju',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Nama Ormawa',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
                                 'Nama Kegiatan',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
@@ -100,48 +57,26 @@ class _MobilePenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<Mobile
                             ),
                             DataColumn(
                               label: Text(
-                                'Hari/tanggal',
+                                'Jenis Kegiatan',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
                             ),
                             DataColumn(
                               label: Text(
-                                'Ruang/Gedung',
+                                'Keterangan Mahasiswa',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
                             ),
                             DataColumn(
                               label: Text(
-                                'Lama Penggunaan',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Lain - lain',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Pengajuan',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Status',
+                                'Keterangan Kemahasiswaan',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
                             ),
                           ],
-
                           rows: List<DataRow>.generate(12, (int index) {
                             return DataRow(
                               cells: [
@@ -157,30 +92,6 @@ class _MobilePenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<Mobile
                                   Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      '${index + 1} Mei 2023',
-                                    ),
-                                  ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      'Mahasiswa ${index + 1}',
-                                    ),
-                                  ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      'Ormawa${index + 1}',
-                                    ),
-                                  ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
                                       'Kegiatan ${index + 1}',
                                     ),
                                   ),
@@ -189,7 +100,7 @@ class _MobilePenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<Mobile
                                   Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      'Hari ${index + 1}',
+                                      'Jenis ${index + 1}',
                                     ),
                                   ),
                                 ),
@@ -197,7 +108,7 @@ class _MobilePenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<Mobile
                                   Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      'Ruang${index + 1} Gedung B',
+                                      'Keterangan Mahasiswa ${index + 1}',
                                     ),
                                   ),
                                 ),
@@ -205,31 +116,7 @@ class _MobilePenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<Mobile
                                   Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      '${index + 1} Jam ${index * 5} menit',
-                                    ),
-                                  ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      'Lain - lain ${index + 1}',
-                                    ),
-                                  ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      'File ${index + 1}',
-                                    ),
-                                  ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      'Pending ${index + 1}',
+                                      'Keterangan Kemahasiswaan ${index + 1}',
                                     ),
                                   ),
                                 ),
@@ -240,53 +127,133 @@ class _MobilePenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<Mobile
                       ),
                     ),
                   ),
-
+                  const CustomFieldSpacer(height: 12),
+                  customBoxTitle('Kegiatan yang Belum Diklaim'),
                   const CustomFieldSpacer(),
-
-                  // CustomButton(
-                  //   navigation: () => Navigator.pushNamed(
-                  //     context,
-                  //     mobilePenggunaPengajuanUsulanKegiatan1Route,
-                  //   ),
-                  //   text: 'Ajukan Peminjaman Sarana dan Prasarana',
-                  // ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
-                        onTap: () => Navigator.pushNamed(
-                          context,
-                          mobilePenggunaPengajuanSaranaDanPrasaranaRoute,
-                        ),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24),
-                          constraints: BoxConstraints(
-                            minHeight: 35.0,
-                            maxWidth: MediaQuery.of(context).size.width * 0.6,
-                          ),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          child: const Text(
-                            'Ajukan Peminjaman Sarana dan Prasarana',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                    ),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: DataTable(
+                          columnSpacing: 40,
+                          border: TableBorder.all(color: Colors.white),
+                          columns: const [
+                            DataColumn(
+                              label: Text(
+                                'No.',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                            textAlign: TextAlign.center,
-                            softWrap: true,
-                          ),
+                            DataColumn(
+                              label: Text(
+                                'Nama Kegiatan',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            DataColumn(
+                              label: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'Jenis Kegiatan',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                'Poin',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                'Tanggal Mulai',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                'Tanggal Selesai',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                'Aksi',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
+                          rows: List.generate(12, (int index) {
+                            return DataRow(
+                              cells: [
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text('${index + 1}'),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text('Kegiatan $index'),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text('Jenis $index'),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text('${(index + 1) * 3}'),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text('${index + 1} Mei 2023'),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text('${index + 4} Mei 2023'),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: InkWell(
+                                      onTap: () => Navigator.pushNamed(context,
+                                          penggunaMPTUnggahBuktiPageRoute),
+                                      child: const Icon(Icons.cloud_upload),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }),
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

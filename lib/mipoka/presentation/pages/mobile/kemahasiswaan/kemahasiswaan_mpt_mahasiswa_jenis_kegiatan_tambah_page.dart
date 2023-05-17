@@ -10,7 +10,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
-import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/mobile_kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 
 class MobileKemahasiswaanMPTMahasiswaJenisKegiatanTambahPage extends StatefulWidget {
   const MobileKemahasiswaanMPTMahasiswaJenisKegiatanTambahPage({super.key});

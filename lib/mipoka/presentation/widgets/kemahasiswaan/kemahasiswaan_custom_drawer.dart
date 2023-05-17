@@ -8,10 +8,12 @@ class MobileCustomKemahasiswaanDrawer extends StatefulWidget {
   const MobileCustomKemahasiswaanDrawer({super.key});
 
   @override
-  State<MobileCustomKemahasiswaanDrawer> createState() => _MobileCustomKemahasiswaanDrawerState();
+  State<MobileCustomKemahasiswaanDrawer> createState() =>
+      _MobileCustomKemahasiswaanDrawerState();
 }
 
-class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasiswaanDrawer> {
+class _MobileCustomKemahasiswaanDrawerState
+    extends State<MobileCustomKemahasiswaanDrawer> {
   final TextEditingController _queryController = TextEditingController();
 
   void _showAlertDialog(BuildContext context) {
@@ -37,11 +39,10 @@ class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasisw
                 ),
                 textAlign: TextAlign.center,
               ),
-
               const CustomFieldSpacer(height: 24),
-
               InkWell(
-                onTap: () => Navigator.pushNamed(context, mobileGantiPasswordPageRoute),
+                onTap: () =>
+                    Navigator.pushNamed(context, gantiPasswordPageRoute),
                 child: Text(
                   'Ganti Password',
                   style: TextStyle(color: Colors.lightBlue),
@@ -75,14 +76,11 @@ class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasisw
           child: Column(
             children: [
               CustomTextField(controller: _queryController),
-
               const CustomFieldSpacer(),
-
               const Divider(
                 color: Colors.grey,
                 thickness: 1,
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -90,27 +88,23 @@ class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasisw
                     value: darkMode,
                     onChanged: (value) {},
                   ),
-
                   const Text(
                     'Dark Mode',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
-
               const Divider(
                 color: Colors.grey,
                 thickness: 1,
               ),
-
               const CustomFieldSpacer(),
-
               Expanded(
                 child: ListView(
                   children: [
-
                     Container(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 8.0),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey),
                       ),
@@ -119,38 +113,35 @@ class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasisw
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-
                               Expanded(
                                 child: InkWell(
                                   onTap: () => _showAlertDialog(context),
                                   // onTap: () => Navigator.pushNamed(context, mobileAkunPageRoute),
                                   child: Text(
                                     'Tasia Taslim (Kemahasiswaan)',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ),
                             ],
                           ),
-
                           const CustomFieldSpacer(),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               IconButton(
-                                onPressed: () {} ,
+                                onPressed: () {},
                                 icon: const Icon(Icons.message),
                               ),
-
                               IconButton(
-                                onPressed: () => Navigator.pushNamed(context, mobileNotifikasiPageRoute),
+                                onPressed: () => Navigator.pushNamed(
+                                    context, notifikasiPageRoute),
                                 icon: const Icon(Icons.notifications),
                               ),
-
-                              
                               IconButton(
-                                onPressed: () => Navigator.pushNamed(context, mobileLoginPageRoute),
+                                onPressed: () => Navigator.pushNamed(
+                                    context, loginPageRoute),
                                 icon: const Icon(Icons.exit_to_app),
                               ),
                             ],
@@ -158,7 +149,6 @@ class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasisw
                         ],
                       ),
                     ),
-
                     ListTile(
                       title: const Text(
                         'Beranda',
@@ -167,9 +157,9 @@ class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasisw
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onTap: () => Navigator.pushNamed(context, mobileKemahasiswaanBerandaPageRoute),
+                      onTap: () => Navigator.pushNamed(
+                          context, kemahasiswaanBerandaPageRoute),
                     ),
-
                     ExpansionTile(
                       title: const Text(
                         'Kemahasiswaan',
@@ -187,9 +177,9 @@ class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasisw
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () => Navigator.pushNamed(context, mobileKemahasiswaanMPTMahasiswaPeriodePageRoute),
+                          onTap: () => Navigator.pushNamed(context,
+                              kemahasiswaanMPTMahasiswaPeriodePageRoute),
                         ),
-
                         ListTile(
                           title: const Text(
                             'Jenis Kegiatan',
@@ -198,9 +188,9 @@ class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasisw
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () => Navigator.pushNamed(context, mobileKemahasiswaanMPTMahasiswaJenisKegiatanPageRoute),
+                          onTap: () => Navigator.pushNamed(context,
+                              kemahasiswaanMPTMahasiswaJenisKegiatanPageRoute),
                         ),
-
                         ListTile(
                           title: const Text(
                             'Kegiatan per Jenis Kegiatan',
@@ -209,9 +199,9 @@ class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasisw
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () => Navigator.pushNamed(context, mobileKemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageRoute),
+                          onTap: () => Navigator.pushNamed(context,
+                              kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageRoute),
                         ),
-
                         ListTile(
                           title: const Text(
                             'Kegiatan per Periode',
@@ -220,9 +210,9 @@ class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasisw
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () => Navigator.pushNamed(context, kemahasiswaanMPTMahasiswaKegiatanPerPeriodePageRoute),
+                          onTap: () => Navigator.pushNamed(context,
+                              kemahasiswaanMPTMahasiswaKegiatanPerPeriodePageRoute),
                         ),
-
                         ListTile(
                           title: const Text(
                             'Mahasiswa per Periode',
@@ -231,9 +221,9 @@ class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasisw
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () => Navigator.pushNamed(context, kemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageRoute),
+                          onTap: () => Navigator.pushNamed(context,
+                              kemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageRoute),
                         ),
-
                         ListTile(
                           title: const Text(
                             'Riwayat Kegiatan Mahasiswa',
@@ -242,11 +232,11 @@ class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasisw
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () => Navigator.pushNamed(context, kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageRoute),
+                          onTap: () => Navigator.pushNamed(context,
+                              kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageRoute),
                         ),
                       ],
                     ),
-
                     ListTile(
                       title: const Text(
                         'Edit Ormawa',
@@ -257,7 +247,6 @@ class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasisw
                       ),
                       onTap: () => Navigator.pushNamed(context, ''),
                     ),
-
                     ListTile(
                       title: const Text(
                         'Prestasi Mahasiswa',
@@ -268,7 +257,6 @@ class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasisw
                       ),
                       onTap: () => Navigator.pushNamed(context, ''),
                     ),
-
                     ListTile(
                       title: const Text(
                         'Cek Usulan Kegiatan',
@@ -279,7 +267,6 @@ class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasisw
                       ),
                       onTap: () => Navigator.pushNamed(context, ''),
                     ),
-
                     ListTile(
                       title: const Text(
                         'Verivikasi Sarana & Prasarana',
@@ -290,7 +277,6 @@ class _MobileCustomKemahasiswaanDrawerState extends State<MobileCustomKemahasisw
                       ),
                       onTap: () => Navigator.pushNamed(context, ''),
                     ),
-
                     ListTile(
                       title: const Text(
                         'Cek Laporan Kegiatan',

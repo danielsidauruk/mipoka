@@ -9,42 +9,38 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 
-class MobilePenggunaDaftarLaporanKegiatan extends StatefulWidget {
-  const MobilePenggunaDaftarLaporanKegiatan({super.key});
+class MobilePemeriksaDaftarLaporanKegiatan extends StatefulWidget {
+  const MobilePemeriksaDaftarLaporanKegiatan({super.key});
 
   @override
-  State<MobilePenggunaDaftarLaporanKegiatan> createState() => _MobilePenggunaDaftarLaporanKegiatanState();
+  State<MobilePemeriksaDaftarLaporanKegiatan> createState() =>
+      _MobilePemeriksaDaftarLaporanKegiatanState();
 }
 
-class _MobilePenggunaDaftarLaporanKegiatanState extends State<MobilePenggunaDaftarLaporanKegiatan> {
+class _MobilePemeriksaDaftarLaporanKegiatanState
+    extends State<MobilePemeriksaDaftarLaporanKegiatan> {
   @override
   Widget build(BuildContext context) {
     String dropDownValue = listStatus[0];
 
     return Scaffold(
       appBar: const MipokaAppBar(),
-
-      drawer: const MobileCustomPenggunaDrawerWidget(),
-
+      drawer: const MobileCustomPemeriksaDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-
-            const CustomMobileTitle(text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
-
+            const CustomMobileTitle(
+                text: 'Pemeriksa - Verifikasi Laporan Kegiatan '),
             const CustomFieldSpacer(),
-
             Expanded(
               child: CustomContentBox(
                 children: [
-
                   customBoxTitle('Status'),
-
-                  const SizedBox(height: 4.0),
-
+                  const CustomFieldSpacer(),
                   CustomDropdownButton(
                     items: listStatus,
                     value: dropDownValue,
@@ -52,9 +48,7 @@ class _MobilePenggunaDaftarLaporanKegiatanState extends State<MobilePenggunaDaft
                       setState(() => dropDownValue = value!);
                     },
                   ),
-
                   const CustomFieldSpacer(),
-
                   Expanded(
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
@@ -114,7 +108,6 @@ class _MobilePenggunaDaftarLaporanKegiatanState extends State<MobilePenggunaDaft
                               ),
                             ),
                           ],
-
                           rows: List<DataRow>.generate(12, (int index) {
                             return DataRow(
                               cells: [
@@ -145,8 +138,16 @@ class _MobilePenggunaDaftarLaporanKegiatanState extends State<MobilePenggunaDaft
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text(
-                                      'Kegiatan ${index + 1}',
+                                    child: InkWell(
+                                      onTap: () => Navigator.pushNamed(context,
+                                          pemeriksaPengajuanLaporanKegiatan1PageRoute),
+                                      child: Text(
+                                        'Kegiatan ${index + 1}',
+                                        style: const TextStyle(
+                                          color: Colors.blue,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -161,8 +162,13 @@ class _MobilePenggunaDaftarLaporanKegiatanState extends State<MobilePenggunaDaft
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text(
-                                      'Validasi ${index + 1}',
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: const [
+                                        Icon(Icons.check),
+                                        Icon(Icons.cancel_outlined),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -182,19 +188,10 @@ class _MobilePenggunaDaftarLaporanKegiatanState extends State<MobilePenggunaDaft
                     ),
                   ),
                 ],
-
               ),
             ),
-
             const CustomFieldSpacer(),
-
-            CustomButton(
-              onTap: () => Navigator.pushNamed(
-                context,
-                mobilePenggunaPengajuanLaporanKegiatan1Route,
-              ),
-              text: 'Laporkan Kegiatan',
-            ),
+            customBoxTitle('Total Usulan Kegiatan : 2'),
           ],
         ),
       ),

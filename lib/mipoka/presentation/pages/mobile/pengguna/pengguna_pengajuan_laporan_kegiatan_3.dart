@@ -33,9 +33,7 @@ class _MobilePenggunaPengajuanLaporanKegiatan3State
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaAppBar(),
-
       drawer: const MobileCustomPenggunaDrawerWidget(),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -43,85 +41,76 @@ class _MobilePenggunaPengajuanLaporanKegiatan3State
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-
-              const CustomMobileTitle(text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
-
+              const CustomMobileTitle(
+                  text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
               const CustomFieldSpacer(),
-
               CustomContentBox(
                 children: [
-
                   buildTitle('Latar Belakang'),
                   buildDescription('Berisi latar belakang kegiatan diusulkan'),
                   CustomRichTextField(controller: _latarBelakangController),
-
                   const CustomFieldSpacer(),
-
                   buildTitle('Tujuan Kegiatan'),
                   buildDescription('Berisi tujuan kegiatan diusulkan'),
                   CustomRichTextField(controller: _hasilKegiatanController),
-
                   const CustomFieldSpacer(),
-
                   buildTitle('Penutup'),
                   buildDescription('Ucapkan salam penutup.'),
                   CustomRichTextField(controller: _penutupController),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-
                       buildTitle('Lampiran'),
-
                       Switch(
                         value: isLampiran,
                         onChanged: (bool newValue) {
                           setState(() => isLampiran = newValue);
                         },
                       ),
-
                       Expanded(
-                        child: isLampiran == false ?
-                        buildTitle('Tidak') :
-                        buildTitle('Ya'),
+                        child: isLampiran == false
+                            ? buildTitle('Tidak')
+                            : buildTitle('Ya'),
                       ),
                     ],
                   ),
-                  isLampiran != false ?
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const CustomFieldSpacer(),
-
-                      buildTitle('Postingan Kegiatan'),
-                      buildDescription('Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
-                      CustomFilePickerButton(
-                        onTap: () => FileUploader.selectAndUploadFile('postingLaporanKegiatanButton'),
-                      ),
-
-                      const CustomFieldSpacer(),
-
-                      buildTitle('Dokumentasi Kegiatan'),
-                      buildDescription('Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
-                      CustomFilePickerButton(onTap: () => FileUploader.selectAndUploadFile('dokumentasiKegiatanButton')),
-
-                      const CustomFieldSpacer(),
-
-                      buildTitle('Tabulasi Hasil'),
-                      buildDescription('Unggah foto pencapaian dari kegiatan yang telah dilaksanakan.'),
-                      CustomFilePickerButton(onTap: () => FileUploader.selectAndUploadFile('tabulasiHasilButton')),
-
-                      const CustomFieldSpacer(),
-
-                      buildTitle('Faktur Pembayaran'),
-                      buildDescription('Unggah bon transaksi kegiatan yang telah dilaksanakan.'),
-                      CustomFilePickerButton(onTap: () => FileUploader.selectAndUploadFile('fakturPembayaranButton')),
-                    ],
-                  ) :
-                  const Center(),
-
+                  isLampiran != false
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const CustomFieldSpacer(),
+                            buildTitle('Postingan Kegiatan'),
+                            buildDescription(
+                                'Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
+                            CustomFilePickerButton(
+                              onTap: () => FileUploader.selectAndUploadFile(
+                                  'postingLaporanKegiatanButton'),
+                            ),
+                            const CustomFieldSpacer(),
+                            buildTitle('Dokumentasi Kegiatan'),
+                            buildDescription(
+                                'Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
+                            CustomFilePickerButton(
+                                onTap: () => FileUploader.selectAndUploadFile(
+                                    'dokumentasiKegiatanButton')),
+                            const CustomFieldSpacer(),
+                            buildTitle('Tabulasi Hasil'),
+                            buildDescription(
+                                'Unggah foto pencapaian dari kegiatan yang telah dilaksanakan.'),
+                            CustomFilePickerButton(
+                                onTap: () => FileUploader.selectAndUploadFile(
+                                    'tabulasiHasilButton')),
+                            const CustomFieldSpacer(),
+                            buildTitle('Faktur Pembayaran'),
+                            buildDescription(
+                                'Unggah bon transaksi kegiatan yang telah dilaksanakan.'),
+                            CustomFilePickerButton(
+                                onTap: () => FileUploader.selectAndUploadFile(
+                                    'fakturPembayaranButton')),
+                          ],
+                        )
+                      : const Center(),
                   const CustomFieldSpacer(),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -131,12 +120,11 @@ class _MobilePenggunaPengajuanLaporanKegiatan3State
                         },
                         text: 'Sebelumnya',
                       ),
-
                       const SizedBox(width: 8.0),
-
                       CustomButton(
                         onTap: () {
-                          Navigator.pushNamed(context, mobilePenggunaDaftarLaporanKegiatanRoute);
+                          Navigator.pushNamed(
+                              context, penggunaDaftarLaporanKegiatanPageRoute);
                         },
                         text: 'Kirim',
                       ),

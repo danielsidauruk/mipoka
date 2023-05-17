@@ -1,48 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:mipoka/core/routes.dart';
+import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_comment_for_table.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
-import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/mobile_pemeriksa_custom_drawer.dart';
 
-class MobilePemeriksaPengajuanUsulanKegiatan3TertibAcara extends StatefulWidget {
-  const MobilePemeriksaPengajuanUsulanKegiatan3TertibAcara({super.key});
-
-  @override
-  State<MobilePemeriksaPengajuanUsulanKegiatan3TertibAcara> createState() => _MobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraState();
-}
-
-class _MobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraState extends State<MobilePemeriksaPengajuanUsulanKegiatan3TertibAcara> {
-  final TextEditingController _tertibAcaraController = TextEditingController();
+class MobilePenggunaPengajuanUsulanKegiatan3TertibAcara
+    extends StatelessWidget {
+  const MobilePenggunaPengajuanUsulanKegiatan3TertibAcara({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaAppBar(),
-
-      drawer: const MobileCustomPemeriksaDrawer(),
-
+      drawer: const MobileCustomPenggunaDrawerWidget(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-
-            const CustomMobileTitle(text: 'Pemeriksa - Kegiatan - Usulan Kegiatan'),
-
+            const CustomMobileTitle(
+                text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
             const CustomFieldSpacer(),
-
             Expanded(
               child: CustomContentBox(
                 children: [
-
-                  CustomCommentForTable(
-                    title: 'Tertib Acara',
-                    controller: _tertibAcaraController,
+                  buildTitle('Tertib Acara'),
+                  buildDescription(
+                      'Rincikan alur dari kegiatan yang akan dilaksanakan'),
+                  CustomAddButton(
+                    buttonText: 'Tertib Acara',
+                    onPressed: () => Navigator.pushNamed(context,
+                        penggunaPengajuanUsulanKegiatan3TertibAcaraTambahPageRoute),
                   ),
-
+                  const CustomFieldSpacer(),
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
@@ -92,7 +87,6 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraState extends State<Mob
                                 ),
                               ),
                             ],
-
                             rows: List<DataRow>.generate(12, (int index) {
                               return DataRow(
                                 cells: [
@@ -119,12 +113,20 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraState extends State<Mob
                       ),
                     ),
                   ),
-
                   const CustomFieldSpacer(),
-
-                  CustomButton(
-                    onTap: () => Navigator.pop(context),
-                    text: 'Kembali',
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomButton(
+                        onTap: () => Navigator.pop(context),
+                        text: 'Kembali',
+                      ),
+                      const SizedBox(width: 8.0),
+                      CustomButton(
+                        onTap: () => Navigator.pop(context),
+                        text: 'Tambahkan',
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -132,6 +134,18 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraState extends State<Mob
           ],
         ),
       ),
+    );
+  }
+
+  Column buildDescription(String text) {
+    return Column(
+      children: [
+        Text(
+          text,
+          style: const TextStyle(color: Colors.grey),
+        ),
+        const SizedBox(height: 4.0),
+      ],
     );
   }
 }

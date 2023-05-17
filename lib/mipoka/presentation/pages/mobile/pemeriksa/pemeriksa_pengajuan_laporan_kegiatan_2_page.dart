@@ -7,7 +7,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
-import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/mobile_pemeriksa_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 
 // => Fixed ContentBox
 
@@ -15,39 +15,37 @@ class MobilePemeriksaPengajuanLaporanKegiatan2Page extends StatefulWidget {
   const MobilePemeriksaPengajuanLaporanKegiatan2Page({super.key});
 
   @override
-  State<MobilePemeriksaPengajuanLaporanKegiatan2Page> createState() => _MobilePemeriksaPengajuanLaporanKegiatan2PageState();
+  State<MobilePemeriksaPengajuanLaporanKegiatan2Page> createState() =>
+      _MobilePemeriksaPengajuanLaporanKegiatan2PageState();
 }
 
-class _MobilePemeriksaPengajuanLaporanKegiatan2PageState extends State<MobilePemeriksaPengajuanLaporanKegiatan2Page> {
-  final TextEditingController _dataPesertaKegiatanController = TextEditingController();
-  final TextEditingController _realisasiBiayaKegiatanController = TextEditingController();
+class _MobilePemeriksaPengajuanLaporanKegiatan2PageState
+    extends State<MobilePemeriksaPengajuanLaporanKegiatan2Page> {
+  final TextEditingController _dataPesertaKegiatanController =
+      TextEditingController();
+  final TextEditingController _realisasiBiayaKegiatanController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaAppBar(),
-
       drawer: const MobileCustomPemeriksaDrawer(),
-
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-
-            const CustomMobileTitle(text: 'Pemeriksa - Kegiatan - Usulan Kegiatan'),
-
+            const CustomMobileTitle(
+                text: 'Pemeriksa - Kegiatan - Usulan Kegiatan'),
             const CustomFieldSpacer(),
-
             Expanded(
               child: CustomContentBox(
                 children: [
-
                   CustomCommentForTable(
                     title: 'Data Peserta Kegiatan',
                     controller: _dataPesertaKegiatanController,
                   ),
-
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
@@ -97,38 +95,47 @@ class _MobilePemeriksaPengajuanLaporanKegiatan2PageState extends State<MobilePem
                                 ),
                               ),
                             ],
-
                             rows: List<DataRow>.generate(12, (int index) {
                               return DataRow(
                                 cells: [
                                   DataCell(
                                     Align(
                                       alignment: Alignment.center,
-                                      child: Text('${index + 1}',),
+                                      child: Text(
+                                        '${index + 1}',
+                                      ),
                                     ),
                                   ),
                                   DataCell(
                                     Align(
                                       alignment: Alignment.center,
-                                      child: Text('NIM/NIP ${index + 1}',),
+                                      child: Text(
+                                        'NIM/NIP ${index + 1}',
+                                      ),
                                     ),
                                   ),
                                   DataCell(
                                     Align(
                                       alignment: Alignment.center,
-                                      child: Text('Nama Lengkap ${index + 1}',),
+                                      child: Text(
+                                        'Nama Lengkap ${index + 1}',
+                                      ),
                                     ),
                                   ),
                                   DataCell(
                                     Align(
                                       alignment: Alignment.center,
-                                      child: Text('Peran ${index + 1}',),
+                                      child: Text(
+                                        'Peran ${index + 1}',
+                                      ),
                                     ),
                                   ),
                                   DataCell(
                                     Align(
                                       alignment: Alignment.center,
-                                      child: Text('Dasar Pengiriman ${index + 1}',),
+                                      child: Text(
+                                        'Dasar Pengiriman ${index + 1}',
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -139,14 +146,11 @@ class _MobilePemeriksaPengajuanLaporanKegiatan2PageState extends State<MobilePem
                       ),
                     ),
                   ),
-
                   const CustomFieldSpacer(),
-
                   CustomCommentForTable(
                     title: 'Realisasi Biaya Kegiatan',
                     controller: _realisasiBiayaKegiatanController,
                   ),
-
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
@@ -166,14 +170,16 @@ class _MobilePemeriksaPengajuanLaporanKegiatan2PageState extends State<MobilePem
                                     DataColumn(
                                       label: Text(
                                         'No.',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
                                         'Nama Biaya',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
@@ -182,40 +188,44 @@ class _MobilePemeriksaPengajuanLaporanKegiatan2PageState extends State<MobilePem
                                         alignment: Alignment.center,
                                         child: Text(
                                           'Qty',
-                                          style: TextStyle(fontWeight: FontWeight.bold),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
                                         'Harga Satuan',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
                                         'Usulan Anggaran',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
                                         'Realisasi Anggaran',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
                                         'Selisih',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                   ],
-
                                   rows: List.generate(12, (int index) {
                                     return DataRow(
                                       cells: [
@@ -246,13 +256,15 @@ class _MobilePemeriksaPengajuanLaporanKegiatan2PageState extends State<MobilePem
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Text('Usulan Anggaran $index'),
+                                            child:
+                                                Text('Usulan Anggaran $index'),
                                           ),
                                         ),
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Text('Realisasi Anggaran $index'),
+                                            child: Text(
+                                                'Realisasi Anggaran $index'),
                                           ),
                                         ),
                                         DataCell(
@@ -272,9 +284,7 @@ class _MobilePemeriksaPengajuanLaporanKegiatan2PageState extends State<MobilePem
                       ),
                     ),
                   ),
-
                   const CustomFieldSpacer(),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -282,16 +292,14 @@ class _MobilePemeriksaPengajuanLaporanKegiatan2PageState extends State<MobilePem
                         onTap: () => Navigator.pop(context),
                         text: 'Sebelumnya',
                       ),
-
                       const SizedBox(width: 8.0),
-
                       CustomButton(
-                        onTap: () => Navigator.pushNamed(context, mobilePemeriksaPengajuanLaporanKegiatan3PageRoute),
+                        onTap: () => Navigator.pushNamed(context,
+                            pemeriksaPengajuanLaporanKegiatan3PageRoute),
                         text: 'Berikutnya',
                       ),
                     ],
                   ),
-
                 ],
               ),
             ),

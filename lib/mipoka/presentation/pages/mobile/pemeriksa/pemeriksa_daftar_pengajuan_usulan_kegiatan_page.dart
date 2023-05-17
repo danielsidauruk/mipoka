@@ -9,42 +9,38 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 
-class MobilePenggunaDaftarPengajuanKegiatan extends StatefulWidget {
-  const MobilePenggunaDaftarPengajuanKegiatan({super.key});
+class MobilePemeriksaDaftarPengajuanKegiatan extends StatefulWidget {
+  const MobilePemeriksaDaftarPengajuanKegiatan({super.key});
 
   @override
-  State<MobilePenggunaDaftarPengajuanKegiatan> createState() => _MobilePenggunaDaftarPengajuanKegiatanState();
+  State<MobilePemeriksaDaftarPengajuanKegiatan> createState() =>
+      _MobilePemeriksaDaftarPengajuanKegiatanState();
 }
 
-class _MobilePenggunaDaftarPengajuanKegiatanState extends State<MobilePenggunaDaftarPengajuanKegiatan> {
+class _MobilePemeriksaDaftarPengajuanKegiatanState
+    extends State<MobilePemeriksaDaftarPengajuanKegiatan> {
   @override
   Widget build(BuildContext context) {
     String dropDownValue = listStatus[0];
 
     return Scaffold(
       appBar: const MipokaAppBar(),
-
-      drawer: const MobileCustomPenggunaDrawerWidget(),
-
+      drawer: const MobileCustomPemeriksaDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-
-            const CustomMobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
-
+            const CustomMobileTitle(
+                text: 'Pemeriksa - Verifikasi Usulan Kegiatan'),
             const CustomFieldSpacer(),
-
             Expanded(
               child: CustomContentBox(
                 children: [
-
                   customBoxTitle('Status'),
-
-                  const SizedBox(height: 4.0),
-
+                  const CustomFieldSpacer(height: 4.0),
                   CustomDropdownButton(
                     items: listStatus,
                     value: dropDownValue,
@@ -52,9 +48,7 @@ class _MobilePenggunaDaftarPengajuanKegiatanState extends State<MobilePenggunaDa
                       setState(() => dropDownValue = value!);
                     },
                   ),
-
                   const CustomFieldSpacer(),
-
                   Expanded(
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
@@ -114,27 +108,78 @@ class _MobilePenggunaDaftarPengajuanKegiatanState extends State<MobilePenggunaDa
                               ),
                             ),
                           ],
-
                           rows: List<DataRow>.generate(12, (int index) {
                             return DataRow(
                               cells: [
                                 DataCell(
-                                  Text(
-                                    '${index + 1}',
-                                    textAlign: TextAlign.center,
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      '${index + 1}',
+                                    ),
                                   ),
                                 ),
                                 DataCell(
-                                  Text(
-                                    'Age $index',
-                                    textAlign: TextAlign.center,
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      '${index + 1} Mei 2023',
+                                    ),
                                   ),
                                 ),
-                                DataCell(Text('City $index')),
-                                DataCell(Text('Country $index')),
-                                DataCell(Text('Salary $index')),
-                                DataCell(Text('Position $index')),
-                                DataCell(Text('Department $index')),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Mahasiswa ${index + 1}',
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: InkWell(
+                                      onTap: () => Navigator.pushNamed(context,
+                                          pemeriksaPengajuanUsulanKegiatan1PageRoute),
+                                      child: Text(
+                                        'Kegiatan ${index + 1}',
+                                        style: const TextStyle(
+                                          color: Colors.blue,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'File Laporan ${index + 1}',
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: const [
+                                        Icon(Icons.check),
+                                        Icon(Icons.cancel_outlined),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Status ${index + 1}',
+                                    ),
+                                  ),
+                                ),
                               ],
                             );
                           }),
@@ -143,19 +188,10 @@ class _MobilePenggunaDaftarPengajuanKegiatanState extends State<MobilePenggunaDa
                     ),
                   ),
                 ],
-
               ),
             ),
-
             const CustomFieldSpacer(),
-
-            CustomButton(
-              onTap: () => Navigator.pushNamed(
-                context,
-                mobilePenggunaPengajuanUsulanKegiatan1Route,
-              ),
-              text: 'Ajukan Kegiatan',
-            ),
+            customBoxTitle('Total Usulan Kegiatan : 2'),
           ],
         ),
       ),

@@ -25,30 +25,21 @@ class _MobilePasswordBaruPageState extends State<MobilePasswordBaruPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: const MipokaAppBar(),
-
       drawer: const MobileCustomPenggunaDrawerWidget(),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: CustomContentBox(
             children: [
               customBoxTitle('Password Baru'),
-
               const CustomFieldSpacer(),
-
               buildTitle('Masukkan Password Baru'),
               CustomTextField(controller: _passwordController),
-
               const CustomFieldSpacer(),
-
               buildTitle('Ulangi Password'),
               CustomTextField(controller: _password1Controller),
-
               const CustomFieldSpacer(),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -56,11 +47,9 @@ class _MobilePasswordBaruPageState extends State<MobilePasswordBaruPage> {
                     onTap: () => Navigator.pop(context),
                     text: 'Kembali',
                   ),
-
                   const SizedBox(width: 8.0),
-
                   CustomButton(
-                    onTap: () => Navigator.pushNamed(context, mobileLoginPageRoute),
+                    onTap: () => Navigator.pushNamed(context, loginPageRoute),
                     text: 'Kirim',
                   ),
                 ],

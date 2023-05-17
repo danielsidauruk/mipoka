@@ -20,23 +20,21 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         title: const Text(
-            'MIPOKA',
+          'MIPOKA',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 26,
           ),
         ),
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-
             Text(
               'LOGIN',
-              style: mobileLoginTitle,
+              style: loginTitle,
             ),
 
             SizedBox(
@@ -88,9 +86,10 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                   // ),
 
                   buildCustomContainer(
-                    //   onTap: () => Navigator.pushNamed(context, mobilePenggunaBerandaRoute),
-                    // onTap: () => Navigator.pushNamed(context, mobilePemeriksaDaftarUsulanKegiatanPageRoute),
-                    onTap: () => Navigator.pushNamed(context, mobileKemahasiswaanBerandaPageRoute),
+                    //   onTap: () => Navigator.pushNamed(context, penggunaBerandaPageRoute),
+                    // onTap: () => Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute),
+                    onTap: () => Navigator.pushNamed(
+                        context, kemahasiswaanBerandaPageRoute),
                     text: 'Sign In',
                   ),
 
@@ -98,11 +97,14 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                        onPressed: () => Navigator.pushNamed(context, mobileLupaPasswordPageRoute),
+                        onPressed: () =>
+                            Navigator.pushNamed(context, lupaPasswordPageRoute),
                         child: Text(
                           'Forget Password?',
                           style: Theme.of(context)
-                              .textTheme.titleSmall?.copyWith(color: Colors.grey),
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(color: Colors.grey),
                         ),
                       ),
                     ],
@@ -113,20 +115,17 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
 
             Container(
               width: 250,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white)
-              ),
+              decoration:
+                  BoxDecoration(border: Border.all(color: Colors.white)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-
                   Switch(
                     value: darkMode,
                     onChanged: (value) {
                       setState(() => darkMode = value);
                     },
                   ),
-                  
                   const Text(
                     'Dark Mode',
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -156,7 +155,8 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
     );
   }
 
-  Widget buildCustomContainer({required VoidCallback onTap, required String text}) {
+  Widget buildCustomContainer(
+      {required VoidCallback onTap, required String text}) {
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -186,5 +186,4 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
       ),
     );
   }
-
 }

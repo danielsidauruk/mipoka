@@ -8,10 +8,12 @@ class MobileCustomPemeriksaDrawer extends StatefulWidget {
   const MobileCustomPemeriksaDrawer({super.key});
 
   @override
-  State<MobileCustomPemeriksaDrawer> createState() => _MobileCustomPemeriksaDrawerState();
+  State<MobileCustomPemeriksaDrawer> createState() =>
+      _MobileCustomPemeriksaDrawerState();
 }
 
-class _MobileCustomPemeriksaDrawerState extends State<MobileCustomPemeriksaDrawer> {
+class _MobileCustomPemeriksaDrawerState
+    extends State<MobileCustomPemeriksaDrawer> {
   final TextEditingController _queryController = TextEditingController();
 
   void _showAlertDialog(BuildContext context) {
@@ -37,11 +39,10 @@ class _MobileCustomPemeriksaDrawerState extends State<MobileCustomPemeriksaDrawe
                 ),
                 textAlign: TextAlign.center,
               ),
-
               const CustomFieldSpacer(height: 24),
-
               InkWell(
-                onTap: () => Navigator.pushNamed(context, mobileGantiPasswordPageRoute),
+                onTap: () =>
+                    Navigator.pushNamed(context, gantiPasswordPageRoute),
                 child: Text(
                   'Ganti Password',
                   style: TextStyle(color: Colors.lightBlue),
@@ -75,14 +76,11 @@ class _MobileCustomPemeriksaDrawerState extends State<MobileCustomPemeriksaDrawe
           child: Column(
             children: [
               CustomTextField(controller: _queryController),
-
               const CustomFieldSpacer(),
-
               const Divider(
                 color: Colors.grey,
                 thickness: 1,
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -90,27 +88,23 @@ class _MobileCustomPemeriksaDrawerState extends State<MobileCustomPemeriksaDrawe
                     value: darkMode,
                     onChanged: (value) {},
                   ),
-
                   const Text(
                     'Dark Mode',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
-
               const Divider(
                 color: Colors.grey,
                 thickness: 1,
               ),
-
               const CustomFieldSpacer(),
-
               Expanded(
                 child: ListView(
                   children: [
-
                     Container(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 8.0),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey),
                       ),
@@ -119,38 +113,35 @@ class _MobileCustomPemeriksaDrawerState extends State<MobileCustomPemeriksaDrawe
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-
                               Expanded(
                                 child: InkWell(
                                   onTap: () => _showAlertDialog(context),
                                   // onTap: () => Navigator.pushNamed(context, mobileAkunPageRoute),
                                   child: Text(
                                     'Sio Jurnalis Pipin (Pembina)',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ),
                             ],
                           ),
-
                           const CustomFieldSpacer(),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               IconButton(
-                                onPressed: () {} ,
+                                onPressed: () {},
                                 icon: const Icon(Icons.message),
                               ),
-
                               IconButton(
-                                onPressed: () => Navigator.pushNamed(context, mobileNotifikasiPageRoute),
+                                onPressed: () => Navigator.pushNamed(
+                                    context, notifikasiPageRoute),
                                 icon: const Icon(Icons.notifications),
                               ),
-
-                              
                               IconButton(
-                                onPressed: () => Navigator.pushNamed(context, mobileLoginPageRoute),
+                                onPressed: () => Navigator.pushNamed(
+                                    context, loginPageRoute),
                                 icon: const Icon(Icons.exit_to_app),
                               ),
                             ],
@@ -158,8 +149,6 @@ class _MobileCustomPemeriksaDrawerState extends State<MobileCustomPemeriksaDrawe
                         ],
                       ),
                     ),
-
-
                     ExpansionTile(
                       title: const Text(
                         'Pemeriksa',
@@ -177,9 +166,9 @@ class _MobileCustomPemeriksaDrawerState extends State<MobileCustomPemeriksaDrawe
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () => Navigator.pushNamed(context, mobilePemeriksaDaftarUsulanKegiatanPageRoute),
+                          onTap: () => Navigator.pushNamed(
+                              context, pemeriksaDaftarUsulanKegiatanPageRoute),
                         ),
-
                         ListTile(
                           title: const Text(
                             'Verifikasi Laporan Kegiatan',
@@ -188,7 +177,8 @@ class _MobileCustomPemeriksaDrawerState extends State<MobileCustomPemeriksaDrawe
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () => Navigator.pushNamed(context, mobilePemeriksaDaftarLaporanKegiatanPageRoute),
+                          onTap: () => Navigator.pushNamed(
+                              context, pemeriksaDaftarLaporanKegiatanPageRoute),
                         ),
                       ],
                     ),

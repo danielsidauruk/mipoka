@@ -16,10 +16,12 @@ class MobilePenggunaPengajuanLaporanKegiatan1 extends StatefulWidget {
   const MobilePenggunaPengajuanLaporanKegiatan1({super.key});
 
   @override
-  State<MobilePenggunaPengajuanLaporanKegiatan1> createState() => _MobilePenggunaPengajuanLaporanKegiatan1State();
+  State<MobilePenggunaPengajuanLaporanKegiatan1> createState() =>
+      _MobilePenggunaPengajuanLaporanKegiatan1State();
 }
 
-class _MobilePenggunaPengajuanLaporanKegiatan1State extends State<MobilePenggunaPengajuanLaporanKegiatan1> {
+class _MobilePenggunaPengajuanLaporanKegiatan1State
+    extends State<MobilePenggunaPengajuanLaporanKegiatan1> {
   final QuillController _pencapaianController = QuillController.basic();
 
   @override
@@ -28,28 +30,21 @@ class _MobilePenggunaPengajuanLaporanKegiatan1State extends State<MobilePengguna
 
     return Scaffold(
       appBar: const MipokaAppBar(),
-
       drawer: const MobileCustomPenggunaDrawerWidget(),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-
-              const CustomMobileTitle(text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
-
+              const CustomMobileTitle(
+                  text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
               const CustomFieldSpacer(),
-
               CustomContentBox(
                 children: [
-
                   buildTitle('Nama Ormawa'),
                   buildTitle('Mikroskil Esport'),
-
                   const CustomFieldSpacer(),
-
                   buildTitle('Nama Kegiatan'),
                   CustomDropdownButton(
                     items: listNamaKegiatan,
@@ -58,18 +53,14 @@ class _MobilePenggunaPengajuanLaporanKegiatan1State extends State<MobilePengguna
                       setState(() => namaKegiatanValue = value!);
                     },
                   ),
-
                   const CustomFieldSpacer(),
-
                   buildTitle('Pencapaian'),
                   CustomRichTextField(controller: _pencapaianController),
-
                   const CustomFieldSpacer(),
-
                   CustomButton(
                     onTap: () => Navigator.pushNamed(
                       context,
-                      mobilePenggunaPengajuanLaporanKegiatan2Route,
+                      penggunaPengajuanLaporanKegiatan2PageRoute,
                     ),
                     text: 'Berikutnya',
                   ),

@@ -13,7 +13,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_rich_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/mobile_pemeriksa_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 
 class MobilePemeriksaPengajuanUsulanKegiatan3Page extends StatefulWidget {
   const MobilePemeriksaPengajuanUsulanKegiatan3Page({super.key});
@@ -25,41 +25,44 @@ class MobilePemeriksaPengajuanUsulanKegiatan3Page extends StatefulWidget {
 
 class _MobilePemeriksaPengajuanUsulanKegiatan3PageState
     extends State<MobilePemeriksaPengajuanUsulanKegiatan3Page> {
-
-  final TextEditingController _latarBelakangController = TextEditingController();
-  final TextEditingController _tujuanKegiatanController = TextEditingController();
-  final TextEditingController _manfaatKegiatanController = TextEditingController();
-  final TextEditingController _bentukPelaksanaanKegiatanController = TextEditingController();
-  final TextEditingController _targetPencapaianKegiatanController = TextEditingController();
-  final TextEditingController _waktuDanTempatPelaksanaanKegiatanController = TextEditingController();
-  final TextEditingController _rencanaAnggaranKegiatanController = TextEditingController();
-  final TextEditingController _perlengkapanDanPeralatanController = TextEditingController();
+  final TextEditingController _latarBelakangController =
+      TextEditingController();
+  final TextEditingController _tujuanKegiatanController =
+      TextEditingController();
+  final TextEditingController _manfaatKegiatanController =
+      TextEditingController();
+  final TextEditingController _bentukPelaksanaanKegiatanController =
+      TextEditingController();
+  final TextEditingController _targetPencapaianKegiatanController =
+      TextEditingController();
+  final TextEditingController _waktuDanTempatPelaksanaanKegiatanController =
+      TextEditingController();
+  final TextEditingController _rencanaAnggaranKegiatanController =
+      TextEditingController();
+  final TextEditingController _perlengkapanDanPeralatanController =
+      TextEditingController();
   final TextEditingController _penutupController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaAppBar(),
-
       drawer: const MobileCustomPemeriksaDrawer(),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-
-              const CustomMobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
-
+              const CustomMobileTitle(
+                  text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
               const CustomFieldSpacer(),
-
               CustomContentBox(
                 children: [
-                  
                   CustomCommentWidget(
                     title: 'Latar Belakang',
-                    mainText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                    mainText:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
                     controller: _latarBelakangController,
                   ),
 
@@ -67,7 +70,8 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3PageState
 
                   CustomCommentWidget(
                     title: 'Tujuan Kegiatan',
-                    mainText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                    mainText:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
                     controller: _tujuanKegiatanController,
                   ),
 
@@ -75,7 +79,8 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3PageState
 
                   CustomCommentWidget(
                     title: 'Manfaat Kegiatan',
-                    mainText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                    mainText:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
                     controller: _manfaatKegiatanController,
                   ),
 
@@ -83,7 +88,8 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3PageState
 
                   CustomCommentWidget(
                     title: 'Bentuk Pelaksanaan Kegiatan',
-                    mainText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                    mainText:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
                     controller: _bentukPelaksanaanKegiatanController,
                   ),
 
@@ -91,7 +97,8 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3PageState
 
                   CustomCommentWidget(
                     title: 'Bentuk Pelaksanaan Kegiatan',
-                    mainText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                    mainText:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
                     controller: _targetPencapaianKegiatanController,
                   ),
 
@@ -99,7 +106,8 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3PageState
 
                   CustomCommentWidget(
                     title: 'Waktu dan Tempat Pelaksanaan',
-                    mainText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                    mainText:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
                     controller: _waktuDanTempatPelaksanaanKegiatanController,
                   ),
 
@@ -107,7 +115,8 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3PageState
 
                   CustomCommentWidget(
                     title: 'Rencana Anggaran Kegiatan',
-                    mainText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                    mainText:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
                     controller: _rencanaAnggaranKegiatanController,
                   ),
 
@@ -116,16 +125,18 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3PageState
                   // tertibAcara != false ?
                   buildTitle('Tertib Acara'),
                   CustomIconButton(
-                    onTap: () => Navigator.pushNamed(context, mobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraRoute),
+                    onTap: () => Navigator.pushNamed(context,
+                        pemeriksaPengajuanUsulanKegiatan3TertibAcaraPageRoute),
                     text: 'Detail',
-                     icon: Icons.arrow_forward_ios,
+                    icon: Icons.arrow_forward_ios,
                   ),
 
                   const CustomFieldSpacer(),
 
                   CustomCommentWidget(
                     title: 'Perlengkapan dan Peralatan',
-                    mainText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                    mainText:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
                     controller: _perlengkapanDanPeralatanController,
                   ),
 
@@ -133,7 +144,8 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3PageState
 
                   CustomCommentWidget(
                     title: 'Penutup',
-                    mainText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                    mainText:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
                     controller: _penutupController,
                   ),
 
@@ -144,9 +156,11 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3PageState
                   const CustomFieldSpacer(height: 4.0),
 
                   buildTitle('Postingan Kegiatan'),
-                  buildDescription('Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
+                  buildDescription(
+                      'Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
                   CustomIconButton(
-                    onTap: () => FileUploader.selectAndUploadFile('postingKegiatanButton'),
+                    onTap: () => FileUploader.selectAndUploadFile(
+                        'postingKegiatanButton'),
                     text: 'postingan_kegiatan.pdf',
                     icon: Icons.picture_as_pdf,
                   ),
@@ -154,9 +168,11 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3PageState
                   const CustomFieldSpacer(),
 
                   buildTitle('Surat Undangan Kegiatan'),
-                  buildDescription('Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
+                  buildDescription(
+                      'Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
                   CustomIconButton(
-                    onTap: () => FileUploader.selectAndUploadFile('suratUndanganKegiatanButton'),
+                    onTap: () => FileUploader.selectAndUploadFile(
+                        'suratUndanganKegiatanButton'),
                     text: 'surat_undangan.pdf',
                     icon: Icons.picture_as_pdf,
                   ),
@@ -164,9 +180,11 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3PageState
                   const CustomFieldSpacer(),
 
                   buildTitle('Linimasa Kegiatan'),
-                  buildDescription('Unggah foto linimasa kegiatan yang akan dilaksanakan.'),
+                  buildDescription(
+                      'Unggah foto linimasa kegiatan yang akan dilaksanakan.'),
                   CustomIconButton(
-                    onTap: () => FileUploader.selectAndUploadFile('linimasaKegiatanButton'),
+                    onTap: () => FileUploader.selectAndUploadFile(
+                        'linimasaKegiatanButton'),
                     text: 'linimasa_kegiatan.pdf',
                     icon: Icons.picture_as_pdf,
                   ),
@@ -174,9 +192,11 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3PageState
                   const CustomFieldSpacer(),
 
                   buildTitle('Tempat Kegiatan'),
-                  buildDescription('Unggah foto tempat kegiatan yang akan dilaksanakan.'),
+                  buildDescription(
+                      'Unggah foto tempat kegiatan yang akan dilaksanakan.'),
                   CustomIconButton(
-                    onTap: () => FileUploader.selectAndUploadFile('tempatKegiatanButton'),
+                    onTap: () => FileUploader.selectAndUploadFile(
+                        'tempatKegiatanButton'),
                     text: 'tempat_kegiatan.pdf',
                     icon: Icons.picture_as_pdf,
                   ),
@@ -185,7 +205,8 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3PageState
 
                   CustomButton(
                     onTap: () {
-                      Navigator.pushNamed(context, mobilePemeriksaDaftarUsulanKegiatanPageRoute);
+                      Navigator.pushNamed(
+                          context, pemeriksaDaftarUsulanKegiatanPageRoute);
                     },
                     text: 'Kirim',
                   ),

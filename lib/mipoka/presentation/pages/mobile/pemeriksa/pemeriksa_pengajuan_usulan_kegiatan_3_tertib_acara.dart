@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:mipoka/core/routes.dart';
-import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_comment_for_table.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 
-class MobilePenggunaPengajuanUsulanKegiatan3TertibAcara extends StatelessWidget {
-  const MobilePenggunaPengajuanUsulanKegiatan3TertibAcara({super.key});
+class MobilePemeriksaPengajuanUsulanKegiatan3TertibAcara extends StatefulWidget {
+  const MobilePemeriksaPengajuanUsulanKegiatan3TertibAcara({super.key});
+
+  @override
+  State<MobilePemeriksaPengajuanUsulanKegiatan3TertibAcara> createState() => _MobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraState();
+}
+
+class _MobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraState extends State<MobilePemeriksaPengajuanUsulanKegiatan3TertibAcara> {
+  final TextEditingController _tertibAcaraController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaAppBar(),
 
-      drawer: const MobileCustomPenggunaDrawerWidget(),
+      drawer: const MobileCustomPemeriksaDrawer(),
 
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -25,23 +30,18 @@ class MobilePenggunaPengajuanUsulanKegiatan3TertibAcara extends StatelessWidget 
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
 
-            const CustomMobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
+            const CustomMobileTitle(text: 'Pemeriksa - Kegiatan - Usulan Kegiatan'),
 
             const CustomFieldSpacer(),
 
             Expanded(
               child: CustomContentBox(
                 children: [
-                  buildTitle('Tertib Acara'),
 
-                  buildDescription('Rincikan alur dari kegiatan yang akan dilaksanakan'),
-
-                  CustomAddButton(
-                    buttonText: 'Tertib Acara',
-                    onPressed: () => Navigator.pushNamed(context, mobilePenggunaPengajuanUsulanKegiatan3TertibAcaraTambahRoute),
+                  CustomCommentForTable(
+                    title: 'Tertib Acara',
+                    controller: _tertibAcaraController,
                   ),
-
-                  const CustomFieldSpacer(),
 
                   Expanded(
                     child: Container(
@@ -122,42 +122,16 @@ class MobilePenggunaPengajuanUsulanKegiatan3TertibAcara extends StatelessWidget 
 
                   const CustomFieldSpacer(),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      CustomButton(
-                        onTap: () => Navigator.pop(context),
-                        text: 'Kembali',
-                      ),
-
-                      const SizedBox(width: 8.0),
-
-                      CustomButton(
-                        onTap: () => Navigator.pop(context),
-                        text: 'Tambahkan',
-                      ),
-                    ],
+                  CustomButton(
+                    onTap: () => Navigator.pop(context),
+                    text: 'Kembali',
                   ),
-
                 ],
               ),
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Column buildDescription(String text) {
-    return Column(
-      children: [
-        Text(
-          text,
-          style: const TextStyle(color: Colors.grey),
-        ),
-
-        const SizedBox(height: 4.0),
-      ],
     );
   }
 }

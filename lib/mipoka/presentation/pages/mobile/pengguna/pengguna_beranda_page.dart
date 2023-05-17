@@ -10,65 +10,46 @@ class MobilePenggunaBerandaPage extends StatefulWidget {
   const MobilePenggunaBerandaPage({super.key});
 
   @override
-  State<MobilePenggunaBerandaPage> createState() => _MobilePenggunaBerandaPageState();
+  State<MobilePenggunaBerandaPage> createState() =>
+      _MobilePenggunaBerandaPageState();
 }
 
 class _MobilePenggunaBerandaPageState extends State<MobilePenggunaBerandaPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaAppBar(),
-
       drawer: const MobileCustomPenggunaDrawerWidget(),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-
               const CustomMobileTitle(text: 'Berita Kemahasiswaan'),
-
               const CustomFieldSpacer(),
-
               CustomContentBox(
                 children: [
                   const Placeholder(
                     fallbackHeight: 170,
                   ),
-
                   const CustomFieldSpacer(),
-
                   ListView(
                     physics: const ScrollPhysics(),
                     shrinkWrap: true,
                     children: [
                       buildBeritaTile(),
-
                       const SizedBox(height: 4.0),
-
                       buildBeritaTile(),
-
                       const SizedBox(height: 4.0),
-
                       buildBeritaTile(),
-
                       const SizedBox(height: 4.0),
-
                       buildBeritaTile(),
-
                       const SizedBox(height: 4.0),
-
                       buildBeritaTile(),
-
                       const SizedBox(height: 4.0),
-
                       buildBeritaTile(),
-
                       const SizedBox(height: 4.0),
-
                       buildBeritaTile(),
                     ],
                   ),
@@ -83,12 +64,10 @@ class _MobilePenggunaBerandaPageState extends State<MobilePenggunaBerandaPage> {
 
   InkWell buildBeritaTile() {
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, mobilePenggunaBerandaDetailPageRoute),
+      onTap: () => Navigator.pushNamed(context, penggunaBerandaDetailPageRoute),
       child: Container(
         height: 80,
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.white)
-        ),
+        decoration: BoxDecoration(border: Border.all(color: Colors.white)),
         padding: const EdgeInsets.all(4.0),
         child: Row(
           children: [
@@ -100,15 +79,13 @@ class _MobilePenggunaBerandaPageState extends State<MobilePenggunaBerandaPage> {
                 color: Colors.grey,
               ),
             ),
-
             const SizedBox(width: 4.0),
-
             const Expanded(
               flex: 3,
               child: Text(
                 'Lorem ipsum dolor sit amet, consectetur '
-                    'adipiscing elit, sed do eiusmod tempor incididunt '
-                    'ut labore et dolore ',
+                'adipiscing elit, sed do eiusmod tempor incididunt '
+                'ut labore et dolore ',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),

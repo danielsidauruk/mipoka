@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 
 bool darkMode = false;
 
-TextStyle mobileLoginTitle = const TextStyle(
-  fontWeight: FontWeight.bold,
-  fontSize: 24
-);
+TextStyle loginTitle =
+    const TextStyle(fontWeight: FontWeight.bold, fontSize: 24);
 
 Row customBoxTitle(String title) {
   return Row(
@@ -27,12 +25,8 @@ Column buildTitle(String title, {double titlePadding = 4}) {
     children: [
       Text(
         title,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold
-        ),
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
-
       SizedBox(height: titlePadding),
     ],
   );
@@ -45,7 +39,6 @@ Column buildDescription(String text) {
         text,
         style: const TextStyle(color: Colors.grey),
       ),
-
       const SizedBox(height: 4.0),
     ],
   );

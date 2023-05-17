@@ -8,10 +8,12 @@ class MobileCustomPenggunaDrawerWidget extends StatefulWidget {
   const MobileCustomPenggunaDrawerWidget({super.key});
 
   @override
-  State<MobileCustomPenggunaDrawerWidget> createState() => _MobileCustomPenggunaDrawerWidgetState();
+  State<MobileCustomPenggunaDrawerWidget> createState() =>
+      _MobileCustomPenggunaDrawerWidgetState();
 }
 
-class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaDrawerWidget> {
+class _MobileCustomPenggunaDrawerWidgetState
+    extends State<MobileCustomPenggunaDrawerWidget> {
   final TextEditingController _queryController = TextEditingController();
 
   void _showAlertDialog(BuildContext context) {
@@ -37,11 +39,10 @@ class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaD
                 ),
                 textAlign: TextAlign.center,
               ),
-
               const CustomFieldSpacer(height: 24),
-
               InkWell(
-                onTap: () => Navigator.pushNamed(context, mobileGantiPasswordPageRoute),
+                onTap: () =>
+                    Navigator.pushNamed(context, gantiPasswordPageRoute),
                 child: Text(
                   'Ganti Password',
                   style: TextStyle(color: Colors.lightBlue),
@@ -75,14 +76,11 @@ class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaD
           child: Column(
             children: [
               CustomTextField(controller: _queryController),
-
               const CustomFieldSpacer(),
-
               const Divider(
                 color: Colors.grey,
                 thickness: 1,
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -90,27 +88,23 @@ class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaD
                     value: darkMode,
                     onChanged: (value) {},
                   ),
-
                   const Text(
                     'Dark Mode',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
-
               const Divider(
                 color: Colors.grey,
                 thickness: 1,
               ),
-
               const CustomFieldSpacer(),
-
               Expanded(
                 child: ListView(
                   children: [
-
                     Container(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 8.0),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey),
                       ),
@@ -129,31 +123,29 @@ class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaD
                                   // onTap: () => Navigator.pushNamed(context, mobileAkunPageRoute),
                                   child: Text(
                                     'Daniel Hamonangan Sidauruk (191112857)',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ),
                             ],
                           ),
-
                           const CustomFieldSpacer(),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               IconButton(
-                                onPressed: () {} ,
+                                onPressed: () {},
                                 icon: const Icon(Icons.message),
                               ),
-
                               IconButton(
-                                onPressed: () => Navigator.pushNamed(context, mobileNotifikasiPageRoute),
+                                onPressed: () => Navigator.pushNamed(
+                                    context, notifikasiPageRoute),
                                 icon: const Icon(Icons.notifications),
                               ),
-
-                              
                               IconButton(
-                                onPressed: () => Navigator.pushNamed(context, mobileLoginPageRoute),
+                                onPressed: () => Navigator.pushNamed(
+                                    context, loginPageRoute),
                                 icon: const Icon(Icons.exit_to_app),
                               ),
                             ],
@@ -161,7 +153,6 @@ class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaD
                         ],
                       ),
                     ),
-
                     ListTile(
                       title: const Text(
                         'Beranda',
@@ -170,9 +161,9 @@ class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaD
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onTap: () => Navigator.pushNamed(context, mobilePenggunaBerandaRoute),
+                      onTap: () => Navigator.pushNamed(
+                          context, penggunaBerandaPageRoute),
                     ),
-
                     ExpansionTile(
                       title: const Text(
                         'Pengajuan',
@@ -199,9 +190,9 @@ class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaD
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              onTap: () => Navigator.pushNamed(context, mobilePenggunaDaftarPengajuanKegiatanRoute),
+                              onTap: () => Navigator.pushNamed(context,
+                                  penggunaDaftarPengajuanKegiatanPageRoute),
                             ),
-
                             ListTile(
                               title: const Text(
                                 'Laporan Kegiatan',
@@ -210,12 +201,11 @@ class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaD
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              onTap: () => Navigator.pushNamed(context, mobilePenggunaDaftarLaporanKegiatanRoute),
+                              onTap: () => Navigator.pushNamed(context,
+                                  penggunaDaftarLaporanKegiatanPageRoute),
                             ),
-
                           ],
                         ),
-
                         ListTile(
                           title: const Text(
                             'Sarana & Prasarana',
@@ -224,11 +214,11 @@ class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaD
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () => Navigator.pushNamed(context, mobilePenggunaDaftarPengajuanSaranaDanPrasaranaRoute),
+                          onTap: () => Navigator.pushNamed(context,
+                              penggunaDaftarPengajuanSaranaDanPrasaranaPageRoute),
                         ),
                       ],
                     ),
-
                     ListTile(
                       title: const Text(
                         'MPT',
@@ -237,9 +227,9 @@ class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaD
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onTap: () => Navigator.pushNamed(context, mobilePenggunaMPTRoute),
+                      onTap: () =>
+                          Navigator.pushNamed(context, penggunaMPTPageRoute),
                     ),
-
                     ExpansionTile(
                       title: const Text(
                         'Ormawa',
@@ -248,7 +238,6 @@ class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaD
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-
                       children: [
                         ListTile(
                           title: const Text(
@@ -258,11 +247,11 @@ class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaD
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () => Navigator.pushNamed(context, mobilePenggunaOrmawaUKMPageRoute),
+                          onTap: () => Navigator.pushNamed(
+                              context, penggunaOrmawaUKMPageRoute),
                         ),
                       ],
                     ),
-
                     ListTile(
                       title: const Text(
                         'Prestasi',
@@ -271,7 +260,8 @@ class _MobileCustomPenggunaDrawerWidgetState extends State<MobileCustomPenggunaD
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onTap: () => Navigator.pushNamed(context, mobilePenggunaPrestasiPageRoute),
+                      onTap: () => Navigator.pushNamed(
+                          context, penggunaPrestasiPageRoute),
                     ),
                   ],
                 ),
