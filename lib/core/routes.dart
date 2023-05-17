@@ -113,3 +113,5 @@ const kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPageRoute =
     '/kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPageRoute';
 const kemahasiswaanEditOrmawaPageRoute = '/kemahasiswaanEditOrmawaPageRoute';
 const kemahasiswaanEditOrmawaTambahPageRoute = '/kemahasiswaanEditOrmawaTambahPageRoute';
+const kemahasiswaanPrestasiMahasiswaPageRoute = '/kemahasiswaanPrestasiMahasiswaPageRoute';
+const kemahasiswaanPrestasiMahasiswaTambahPageRoute = '/kemahasiswaanPrestasiMahasiswaTambahPageRoute';

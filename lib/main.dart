@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/utils.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahaiswaan_prestasi_mahasiswa_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_beranda_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_edit_beranda_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_edit_ormawa_page.dart';
@@ -18,6 +19,7 @@ import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasisw
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_riwayat_kegiatan_mahasiswa_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_riwayat_kegiatan_mahasiswa_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/ganti_password_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_prestasi_mahasiswa_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/lupa_password_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/notifikasi_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/password_baru_page.dart';
@@ -319,6 +321,10 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const KemahasiswaanEditOrmawaPage());
           case kemahasiswaanEditOrmawaTambahPageRoute:
             return MaterialPageRoute(builder: (_) => const KemahasiswaanEditOrmawaTambahPage());
+          case kemahasiswaanPrestasiMahasiswaPageRoute:
+            return MaterialPageRoute(builder: (_) => const KemahasiswaanPrestasiMahasiswaPage());
+          case kemahasiswaanPrestasiMahasiswaTambahPageRoute:
+            return MaterialPageRoute(builder: (_) => const KemahasiswaanPrestasiMahasiswaTambahPage());
         }
       },
     );

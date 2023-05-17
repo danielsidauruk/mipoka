@@ -255,7 +255,7 @@ class _MobileCustomKemahasiswaanDrawerState
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onTap: () => Navigator.pushNamed(context, ''),
+                      onTap: () => Navigator.pushNamed(context, kemahasiswaanPrestasiMahasiswaPageRoute),
                     ),
                     ListTile(
                       title: const Text(

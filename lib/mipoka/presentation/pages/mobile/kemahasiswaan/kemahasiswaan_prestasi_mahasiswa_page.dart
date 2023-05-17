@@ -1,56 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
+import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_filter_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 
-class MobilePenggunaPrestasiPage extends StatefulWidget {
-  const MobilePenggunaPrestasiPage({super.key});
+class KemahasiswaanPrestasiMahasiswaPage extends StatefulWidget {
+  const KemahasiswaanPrestasiMahasiswaPage({super.key});
 
   @override
-  State<MobilePenggunaPrestasiPage> createState() => _MobilePenggunaPrestasiPageState();
+  State<KemahasiswaanPrestasiMahasiswaPage> createState() => _KemahasiswaanPrestasiMahasiswaPageState();
 }
 
-class _MobilePenggunaPrestasiPageState extends State<MobilePenggunaPrestasiPage> {
-
-  final List<String> years = List.generate(10, (index) =>
-      (DateTime.now().year - index).toString(),
-  );
-
+class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPrestasiMahasiswaPage> {
   String namaOrmawaValue = listNamaOrmawa[0];
-  String yearValue = DateTime.now().year.toString();
+  String tahunValue = years[0].toString();
   String tingkatValue = listTingkat[0];
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: const MipokaAppBar(),
 
-      drawer: const MobileCustomPenggunaDrawerWidget(),
+      drawer: const MobileCustomKemahasiswaanDrawer(),
 
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
 
-            const CustomMobileTitle(text: 'Prestasi'),
+              const CustomMobileTitle(text: 'Kemahasiswaan - Prestasi Mahasiswa'),
 
-            const CustomFieldSpacer(),
+              const CustomFieldSpacer(),
 
-            Expanded(
-              child: CustomContentBox(
+              CustomContentBox(
                 children: [
+
+                  buildTitle('Total Prestasi Mahasiswa : 6'),
+                  CustomAddButton(
+                    buttonText: 'Tambah',
+                    onPressed: () => Navigator.pushNamed(context, kemahasiswaanPrestasiMahasiswaTambahPageRoute),
+                  ),
+
+                  const CustomFieldSpacer(),
 
                   buildTitle('Nama Ormawa'),
                   CustomDropdownButton(
-                    items: listNamaOrmawa,
                     value: namaOrmawaValue,
+                    items: listNamaOrmawa,
                     onChanged: (String? value) {
                       setState(() => namaOrmawaValue = value!);
                     },
@@ -60,10 +65,10 @@ class _MobilePenggunaPrestasiPageState extends State<MobilePenggunaPrestasiPage>
 
                   buildTitle('Tahun'),
                   CustomDropdownButton(
+                    value: tahunValue,
                     items: years,
-                    value: yearValue,
                     onChanged: (String? value) {
-                      setState(() => yearValue = value!);
+                      setState(() => tahunValue = value!);
                     },
                   ),
 
@@ -71,8 +76,8 @@ class _MobilePenggunaPrestasiPageState extends State<MobilePenggunaPrestasiPage>
 
                   buildTitle('Tingkat'),
                   CustomDropdownButton(
-                    items: listTingkat,
                     value: tingkatValue,
+                    items: listTingkat,
                     onChanged: (String? value) {
                       setState(() => tingkatValue = value!);
                     },
@@ -80,30 +85,17 @@ class _MobilePenggunaPrestasiPageState extends State<MobilePenggunaPrestasiPage>
 
                   const CustomFieldSpacer(),
 
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      child: const Text(
-                        'Saring',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
+                  CustomFilterButton(
+                    text: 'Filter',
+                    onPressed: () {},
                   ),
 
                   const CustomFieldSpacer(),
 
-                  Expanded(
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                    ),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: SingleChildScrollView(
@@ -163,63 +155,49 @@ class _MobilePenggunaPrestasiPageState extends State<MobilePenggunaPrestasiPage>
                             ),
                           ],
 
-                          rows: List<DataRow>.generate(12, (int index) {
+                          rows: List<DataRow>.generate(6, (int index) {
                             return DataRow(
                               cells: [
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text(
-                                      '${index + 1}',
-                                    ),
+                                    child: Text('${index + 1}',),
                                   ),
                                 ),
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text(
-                                      '19111000${index + 1}',
-                                    ),
+                                    child: Text('211112${index + 1}87',),
                                   ),
                                 ),
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text(
-                                      'Mahasiswa ${index + 1}',
-                                    ),
+                                    child: Text('Mahasiswa - ${index + 1}',),
                                   ),
                                 ),
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text(
-                                      'Kegiatan ${index + 1}',
-                                    ),
+                                    child: Text('Nama Kegiatan - ${index + 1}',),
                                   ),
                                 ),
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text(
-                                      '${index + 1} Mei 2023',
-                                    ),
+                                    child: Text('${index + 1} Mei 2023',),
+                                  ),
+                                ),
+                                const DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text('Kabupaten',),
                                   ),
                                 ),
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text(
-                                      'Tingkat - ${index + 1}',
-                                    ),
-                                  ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      'Level ${index + 1}',
-                                    ),
+                                    child: Text('Prestasi ${index + 1}',),
                                   ),
                                 ),
                               ],
@@ -231,8 +209,8 @@ class _MobilePenggunaPrestasiPageState extends State<MobilePenggunaPrestasiPage>
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -16,6 +16,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_time_picker_field.dart';
+import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 
 class KemahasiswaanEditOrmawaTambahPage extends StatefulWidget {
@@ -79,7 +80,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaAppBar(),
-      drawer: const MobileCustomPenggunaDrawerWidget(),
+      drawer: const MobileCustomKemahasiswaanDrawer(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
