@@ -117,10 +117,11 @@ class _MobileCustomKemahasiswaanDrawerState
                                 child: InkWell(
                                   onTap: () => _showAlertDialog(context),
                                   // onTap: () => Navigator.pushNamed(context, mobileAkunPageRoute),
-                                  child: Text(
+                                  child: const Text(
                                     'Tasia Taslim (Kemahasiswaan)',
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                               ),
@@ -265,7 +266,7 @@ class _MobileCustomKemahasiswaanDrawerState
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onTap: () => Navigator.pushNamed(context, ''),
+                      onTap: () => Navigator.pushNamed(context, kemahasiswaanCekUsulanKegiatanPageRoute),
                     ),
                     ListTile(
                       title: const Text(
@@ -275,7 +276,7 @@ class _MobileCustomKemahasiswaanDrawerState
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onTap: () => Navigator.pushNamed(context, ''),
+                      onTap: () => Navigator.pushNamed(context, kemahasiswaanCekSaranaDanPrasaranaPageRoute),
                     ),
                     ListTile(
                       title: const Text(
@@ -285,7 +286,7 @@ class _MobileCustomKemahasiswaanDrawerState
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onTap: () => Navigator.pushNamed(context, ''),
+                      onTap: () => Navigator.pushNamed(context, kemahasiswaanCekLaporanKegiatanPageRoute),
                     ),
                   ],
                 ),

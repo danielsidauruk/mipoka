@@ -3,6 +3,9 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/utils.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahaiswaan_prestasi_mahasiswa_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_beranda_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_cek_laporan_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_cek_sarana_dan_prasarana_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_cek_usulan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_edit_beranda_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_edit_ormawa_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_edit_ormawa_tambah_page.dart';
@@ -325,6 +328,12 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const KemahasiswaanPrestasiMahasiswaPage());
           case kemahasiswaanPrestasiMahasiswaTambahPageRoute:
             return MaterialPageRoute(builder: (_) => const KemahasiswaanPrestasiMahasiswaTambahPage());
+          case kemahasiswaanCekUsulanKegiatanPageRoute:
+            return MaterialPageRoute(builder: (_) => const KemahasiswaanCekUsulanKegiatanPage());
+          case kemahasiswaanCekLaporanKegiatanPageRoute:
+            return MaterialPageRoute(builder: (_) => const KemahasiswaanCekLaporanKegiatanPage());
+          case kemahasiswaanCekSaranaDanPrasaranaPageRoute:
+            return MaterialPageRoute(builder: (_) => const KemahasiswaanCekSaranaDanPrasaranaPage());
         }
       },
     );

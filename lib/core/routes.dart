@@ -115,3 +115,6 @@ const kemahasiswaanEditOrmawaPageRoute = '/kemahasiswaanEditOrmawaPageRoute';
 const kemahasiswaanEditOrmawaTambahPageRoute = '/kemahasiswaanEditOrmawaTambahPageRoute';
 const kemahasiswaanPrestasiMahasiswaPageRoute = '/kemahasiswaanPrestasiMahasiswaPageRoute';
 const kemahasiswaanPrestasiMahasiswaTambahPageRoute = '/kemahasiswaanPrestasiMahasiswaTambahPageRoute';
+const kemahasiswaanCekUsulanKegiatanPageRoute = '/kemahasiswaanCekUsulanKegiatanPageRoute';
+const kemahasiswaanCekLaporanKegiatanPageRoute = '/kemahasiswaanCekLaporanKegiatanPageRoute';
+const kemahasiswaanCekSaranaDanPrasaranaPageRoute = '/kemahasiswaanCekSaranaDanPrasaranaPageRoute';
