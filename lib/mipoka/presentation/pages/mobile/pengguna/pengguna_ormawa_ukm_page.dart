@@ -5,7 +5,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
 class MobilePenggunaOrmawaUKMPage extends StatefulWidget {
@@ -27,7 +27,7 @@ class _MobilePenggunaOrmawaUKMPageState extends State<MobilePenggunaOrmawaUKMPag
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaAppBar(),
+      appBar: const MipokaMobileAppBar(),
 
       drawer: const MobileCustomPenggunaDrawerWidget(),
 

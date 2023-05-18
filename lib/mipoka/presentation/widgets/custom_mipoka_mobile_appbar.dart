@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MipokaAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MipokaAppBar({super.key});
+class MipokaMobileAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const MipokaMobileAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {

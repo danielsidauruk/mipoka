@@ -6,7 +6,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 
@@ -24,7 +24,7 @@ class _MobilePenggunaMPTUnggahBuktiState extends State<MobilePenggunaMPTUnggahBu
   Widget build(BuildContext context) {
     return Scaffold(
 
-      appBar: const MipokaAppBar(),
+      appBar: const MipokaMobileAppBar(),
 
       drawer: const MobileCustomPenggunaDrawerWidget(),
 

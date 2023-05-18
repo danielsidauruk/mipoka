@@ -3,7 +3,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_comment_for_table.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 
@@ -20,7 +20,7 @@ class _MobilePemeriksaPengajuanUsulanKegiatan3TertibAcaraState extends State<Mob
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaAppBar(),
+      appBar: const MipokaMobileAppBar(),
 
       drawer: const MobileCustomPemeriksaDrawer(),
 

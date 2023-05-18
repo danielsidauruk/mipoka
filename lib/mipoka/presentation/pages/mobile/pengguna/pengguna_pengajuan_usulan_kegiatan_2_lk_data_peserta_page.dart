@@ -6,7 +6,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_date_picker_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_appbar.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
 class MobilePenggunaPengajuanUsulanKegiatan2LKDataPeserta extends StatefulWidget {
@@ -29,7 +29,7 @@ class _MobilePenggunaPengajuanUsulanKegiatan2LKDataPesertaState extends State<Mo
   Widget build(BuildContext context) {
     return Scaffold(
 
-      appBar: const MipokaAppBar(),
+      appBar: const MipokaMobileAppBar(),
 
       drawer: const MobileCustomPenggunaDrawerWidget(),
 
