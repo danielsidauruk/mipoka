@@ -70,14 +70,15 @@ class CustomDropdownButton2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('page reloaded');
-    return BlocBuilder<DropdownCubit, String>(
-      builder: (context, state) {
-        return BlocProvider(
-          create: (context) => DropdownCubit(items[0]),
-          child: Container(
+    return BlocProvider(
+      create: (context) => DropdownCubit(items[0]),
+      child: BlocBuilder<DropdownCubit, String>(
+        builder: (context, state) {
+          return Container(
             width: double.infinity,
             height: 35,
-            padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(
+                vertical: 2.0, horizontal: 8.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4.0),
               border: Border.all(color: Colors.white),
@@ -99,9 +100,9 @@ class CustomDropdownButton2 extends StatelessWidget {
                 );
               }).toList(),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
