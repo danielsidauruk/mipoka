@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/cubit/cubit.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
@@ -173,6 +175,7 @@ class _MobilePenggunaDaftarPengajuanKegiatanState
   }
 
   Scaffold buildMobilePage(BuildContext context) {
+    print('Project Reloaded');
     return Scaffold(
     appBar: const MipokaMobileAppBar(),
     drawer: const MobileCustomPenggunaDrawerWidget(),
@@ -189,13 +192,12 @@ class _MobilePenggunaDaftarPengajuanKegiatanState
               children: [
                 customBoxTitle('Status'),
                 const SizedBox(height: 4.0),
-                CustomDropdownButton(
-                  items: listStatus,
-                  value: dropDownValue,
-                  onChanged: (String? value) {
-                    setState(() => dropDownValue = value!);
-                  },
+
+                BlocProvider(
+                  create: (context) => DropdownCubit(listStatus[0]),
+                  child: const CustomDropdownButton2(items: listStatus),
                 ),
+
                 const CustomFieldSpacer(),
                 Expanded(
                   child: SingleChildScrollView(
@@ -297,6 +299,6 @@ class _MobilePenggunaDaftarPengajuanKegiatanState
         ],
       ),
     ),
-  );
+    );
   }
 }

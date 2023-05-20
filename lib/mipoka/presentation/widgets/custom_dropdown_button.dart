@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/cubit/cubit.dart';
 
 class CustomDropdownButton extends StatefulWidget {
   final String? value;
@@ -58,3 +60,49 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
     );
   }
 }
+
+
+class CustomDropdownButton2 extends StatelessWidget {
+  final List<String> items;
+
+  const CustomDropdownButton2({super.key, required this.items});
+
+  @override
+  Widget build(BuildContext context) {
+    print('page reloaded');
+    return BlocBuilder<DropdownCubit, String>(
+      builder: (context, state) {
+        return BlocProvider(
+          create: (context) => DropdownCubit(items[0]),
+          child: Container(
+            width: double.infinity,
+            height: 35,
+            padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4.0),
+              border: Border.all(color: Colors.white),
+            ),
+            child: DropdownButton<String>(
+              value: state,
+              icon: const Icon(Icons.arrow_drop_down),
+              isExpanded: true,
+              underline: const Center(),
+              onChanged: (String? value) {
+                if (value != null) {
+                  context.read<DropdownCubit>().setDropdownValue(value);
+                }
+              },
+              items: items.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+

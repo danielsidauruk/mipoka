@@ -295,7 +295,8 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                 child: Column(
                   children: [
                     InkWell(
-                      onTap: () => Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute),
+                      // onTap: () => Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute),
+                      onTap: () => Navigator.pushNamed(context, penggunaBerandaPageRoute),
                       child: Container(
                         alignment: Alignment.center,
                         margin: const EdgeInsets.symmetric(vertical: 8.0),
