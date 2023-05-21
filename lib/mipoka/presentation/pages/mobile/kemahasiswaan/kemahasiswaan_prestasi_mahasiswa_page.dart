@@ -54,33 +54,24 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
 
                   buildTitle('Nama Ormawa'),
                   CustomDropdownButton(
-                    value: namaOrmawaValue,
                     items: listNamaOrmawa,
-                    onChanged: (String? value) {
-                      setState(() => namaOrmawaValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Tahun'),
                   CustomDropdownButton(
-                    value: tahunValue,
                     items: years,
-                    onChanged: (String? value) {
-                      setState(() => tahunValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Tingkat'),
                   CustomDropdownButton(
-                    value: tingkatValue,
                     items: listTingkat,
-                    onChanged: (String? value) {
-                      setState(() => tingkatValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),

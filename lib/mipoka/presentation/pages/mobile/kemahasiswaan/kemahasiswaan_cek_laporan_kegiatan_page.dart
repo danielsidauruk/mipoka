@@ -1,29 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
-import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 
-class KemahasiswaanCekLaporanKegiatanPage extends StatefulWidget {
+class KemahasiswaanCekLaporanKegiatanPage extends StatelessWidget {
   const KemahasiswaanCekLaporanKegiatanPage({super.key});
 
   @override
-  State<KemahasiswaanCekLaporanKegiatanPage> createState() =>
-      _KemahasiswaanCekLaporanKegiatanPageState();
-}
-
-class _KemahasiswaanCekLaporanKegiatanPageState
-    extends State<KemahasiswaanCekLaporanKegiatanPage> {
-  @override
   Widget build(BuildContext context) {
-    String dropDownValue = listStatus[0];
 
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
@@ -43,10 +32,7 @@ class _KemahasiswaanCekLaporanKegiatanPageState
 
                   CustomDropdownButton(
                     items: listStatus,
-                    value: dropDownValue,
-                    onChanged: (String? value) {
-                      setState(() => dropDownValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),

@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
-import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_date_picker_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_filter_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 
 class KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPage extends StatefulWidget {
@@ -23,7 +19,6 @@ class KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPage extends StatefulWid
 }
 
 class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState extends State<KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPage> {
-  String namaKegiatan = listNamaKegiatan[0];
   String yearValue = DateTime.now().year.toString();
   DateTime? tanggalMulai;
   DateTime? tanggalSelesai;
@@ -52,11 +47,8 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState extends State
 
                   buildTitle('Periode'),
                   CustomDropdownButton(
-                    value: yearValue,
                     items: years,
-                    onChanged: (String? value) {
-                      setState(() => yearValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),

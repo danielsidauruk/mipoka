@@ -58,15 +58,14 @@ class _MobilePenggunaPengajuanSaranaDanPrasaranaState
               const CustomMobileTitle(text: 'Pengajuan - Sarana dan Prasarana'),
               const CustomFieldSpacer(),
               CustomContentBox(
+
                 children: [
                   buildTitle('Nama Ormawa'),
                   CustomDropdownButton(
                     items: listNamaOrmawa,
-                    value: namaOrmawaValue,
-                    onChanged: (String? value) {
-                      setState(() => namaOrmawaValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
+
                   const CustomFieldSpacer(),
                   buildTitle('Tanggal Mulai Kegiatan'),
                   CustomDatePickerField(
@@ -91,19 +90,14 @@ class _MobilePenggunaPengajuanSaranaDanPrasaranaState
                   buildTitle('Gedung'),
                   CustomDropdownButton(
                     items: listGedung,
-                    value: gedungValue,
-                    onChanged: (String? value) {
-                      setState(() => gedungValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
                   const CustomFieldSpacer(),
                   buildTitle('Ruang'),
+
                   CustomDropdownButton(
                     items: listGedung,
-                    value: ruangValue,
-                    onChanged: (String? value) {
-                      setState(() => ruangValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
                   const CustomFieldSpacer(),
                   buildTitle('Waktu Mulai Kegiatan'),

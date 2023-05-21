@@ -2,28 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 
-class MobilePemeriksaDaftarPengajuanKegiatan extends StatefulWidget {
+class MobilePemeriksaDaftarPengajuanKegiatan extends StatelessWidget {
   const MobilePemeriksaDaftarPengajuanKegiatan({super.key});
 
   @override
-  State<MobilePemeriksaDaftarPengajuanKegiatan> createState() =>
-      _MobilePemeriksaDaftarPengajuanKegiatanState();
-}
-
-class _MobilePemeriksaDaftarPengajuanKegiatanState
-    extends State<MobilePemeriksaDaftarPengajuanKegiatan> {
-  @override
   Widget build(BuildContext context) {
-    String dropDownValue = listStatus[0];
 
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
@@ -43,10 +33,7 @@ class _MobilePemeriksaDaftarPengajuanKegiatanState
                   const CustomFieldSpacer(height: 4.0),
                   CustomDropdownButton(
                     items: listStatus,
-                    value: dropDownValue,
-                    onChanged: (String? value) {
-                      setState(() => dropDownValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
                   const CustomFieldSpacer(),
                   Expanded(

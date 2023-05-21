@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/Method/open_file_picker_method.dart';
+import 'package:mipoka/domain/utils/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
@@ -181,12 +181,22 @@ class _MobilePenggunaPengajuanUsulanKegiatan3State
                       onTap: () => FileUploader.selectAndUploadFile(
                           'tempatKegiatanButton')),
                   const CustomFieldSpacer(),
-                  CustomButton(
-                    onTap: () {
-                      Navigator.pushNamed(
-                          context, penggunaDaftarPengajuanKegiatanPageRoute);
-                    },
-                    text: 'Kirim',
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomButton(
+                        onTap: () => Navigator.pop(context),
+                        text: 'Sebelumnya',
+                      ),
+
+                      const SizedBox(width: 8.0),
+
+                      CustomButton(
+                        onTap: () => Navigator.pushNamed(context, penggunaDaftarPengajuanKegiatanPageRoute),
+                        text: 'Kirim',
+                      ),
+                    ],
                   ),
                 ],
               )

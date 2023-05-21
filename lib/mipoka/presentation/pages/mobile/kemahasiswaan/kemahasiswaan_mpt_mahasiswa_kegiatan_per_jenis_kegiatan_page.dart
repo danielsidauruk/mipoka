@@ -11,17 +11,8 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 
 class KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPage
-    extends StatefulWidget {
+    extends StatelessWidget {
   const KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPage({super.key});
-
-  @override
-  State<KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPage> createState() =>
-      _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageState();
-}
-
-class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageState
-    extends State<KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPage> {
-  String jenisKegiatan = listBentukKegiatan[0];
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +39,12 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageState
                   ),
                   const CustomFieldSpacer(),
                   buildTitle('Jenis'),
+
                   CustomDropdownButton(
-                    value: jenisKegiatan,
                     items: listBentukKegiatan,
-                    onChanged: (String? value) {
-                      setState(() => jenisKegiatan = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
+
                   const CustomFieldSpacer(),
                   Container(
                     decoration: BoxDecoration(

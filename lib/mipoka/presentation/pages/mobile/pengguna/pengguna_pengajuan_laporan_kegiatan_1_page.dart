@@ -26,7 +26,6 @@ class _MobilePenggunaPengajuanLaporanKegiatan1State
 
   @override
   Widget build(BuildContext context) {
-    String namaKegiatanValue = listNamaKegiatan[0];
 
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
@@ -48,10 +47,7 @@ class _MobilePenggunaPengajuanLaporanKegiatan1State
                   buildTitle('Nama Kegiatan'),
                   CustomDropdownButton(
                     items: listNamaKegiatan,
-                    value: namaKegiatanValue,
-                    onChanged: (String? value) {
-                      setState(() => namaKegiatanValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
                   const CustomFieldSpacer(),
                   buildTitle('Pencapaian'),

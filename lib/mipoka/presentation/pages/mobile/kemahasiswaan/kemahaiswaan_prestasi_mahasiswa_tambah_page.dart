@@ -49,10 +49,9 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
 
                   buildTitle('Nama Ormawa'),
                   CustomDropdownButton(
-                    value: namaOrmawaValue,
                     items: listNamaOrmawa,
-                    onChanged: (String? value) {
-                      setState(() => namaOrmawaValue = value!);
+                    onValueChanged: (value) {
+                      print('Input "$value" to State Management BLoC');
                     },
                   ),
 
@@ -75,22 +74,16 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
 
                   buildTitle('Waktu Penyelenggaraan'),
                   CustomDropdownButton(
-                    value: yearValue,
                     items: years,
-                    onChanged: (String? value) {
-                      setState(() => yearValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Tingkat'),
                   CustomDropdownButton(
-                    value: tingkatValue,
                     items: listTingkat,
-                    onChanged: (String? value) {
-                      setState(() => tingkatValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),

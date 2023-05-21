@@ -69,11 +69,21 @@ class _MobilePenggunaPengajuanUsulanKegiatan2DKDataPesertaState extends State<Mo
 
                   const CustomFieldSpacer(),
 
-                  CustomButton(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    text: 'Tambahkan Peserta',
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomButton(
+                        onTap: () => Navigator.pop(context),
+                        text: 'Sebelumnya',
+                      ),
+
+                      const SizedBox(width: 8.0),
+
+                      CustomButton(
+                        onTap: () => Navigator.pop(context),
+                        text: 'Tambahkan Peserta',
+                      ),
+                    ],
                   ),
                 ],
               ),

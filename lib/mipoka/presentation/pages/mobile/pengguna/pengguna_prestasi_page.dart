@@ -17,14 +17,6 @@ class MobilePenggunaPrestasiPage extends StatefulWidget {
 
 class _MobilePenggunaPrestasiPageState extends State<MobilePenggunaPrestasiPage> {
 
-  final List<String> years = List.generate(10, (index) =>
-      (DateTime.now().year - index).toString(),
-  );
-
-  String namaOrmawaValue = listNamaOrmawa[0];
-  String yearValue = DateTime.now().year.toString();
-  String tingkatValue = listTingkat[0];
-
   @override
   Widget build(BuildContext context) {
 
@@ -50,10 +42,7 @@ class _MobilePenggunaPrestasiPageState extends State<MobilePenggunaPrestasiPage>
                   buildTitle('Nama Ormawa'),
                   CustomDropdownButton(
                     items: listNamaOrmawa,
-                    value: namaOrmawaValue,
-                    onChanged: (String? value) {
-                      setState(() => namaOrmawaValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),
@@ -61,10 +50,7 @@ class _MobilePenggunaPrestasiPageState extends State<MobilePenggunaPrestasiPage>
                   buildTitle('Tahun'),
                   CustomDropdownButton(
                     items: years,
-                    value: yearValue,
-                    onChanged: (String? value) {
-                      setState(() => yearValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),
@@ -72,10 +58,7 @@ class _MobilePenggunaPrestasiPageState extends State<MobilePenggunaPrestasiPage>
                   buildTitle('Tingkat'),
                   CustomDropdownButton(
                     items: listTingkat,
-                    value: tingkatValue,
-                    onChanged: (String? value) {
-                      setState(() => tingkatValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),

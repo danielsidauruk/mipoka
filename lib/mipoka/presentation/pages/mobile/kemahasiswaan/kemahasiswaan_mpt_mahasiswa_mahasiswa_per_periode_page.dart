@@ -7,7 +7,6 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_filter_button.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -66,22 +65,16 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
 
                   buildTitle('Periode'),
                   CustomDropdownButton(
-                    value: yearValue,
                     items: years,
-                    onChanged: (String? value) {
-                      setState(() => yearValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Prodi'),
                   CustomDropdownButton(
-                    value: prodiValue,
                     items: listProdi,
-                    onChanged: (String? value) {
-                      setState(() => prodiValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),

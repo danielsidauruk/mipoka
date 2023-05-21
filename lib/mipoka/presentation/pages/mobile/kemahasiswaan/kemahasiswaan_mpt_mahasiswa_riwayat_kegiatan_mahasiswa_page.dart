@@ -7,7 +7,6 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_filter_button.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -66,44 +65,32 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
 
                   buildTitle('Periode'),
                   CustomDropdownButton(
-                    value: yearValue,
                     items: years,
-                    onChanged: (String? value) {
-                      setState(() => yearValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Jenis'),
                   CustomDropdownButton(
-                    value: jenisKegiatanValue,
                     items: listBentukKegiatan,
-                    onChanged: (String? value) {
-                      setState(() => jenisKegiatanValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Kegiatan'),
                   CustomDropdownButton(
-                    value: namaKegiatanValue,
                     items: listNamaKegiatan,
-                    onChanged: (String? value) {
-                      setState(() => namaKegiatanValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Status'),
                   CustomDropdownButton(
-                    value: statusValue,
                     items: listStatus,
-                    onChanged: (String? value) {
-                      setState(() => statusValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),

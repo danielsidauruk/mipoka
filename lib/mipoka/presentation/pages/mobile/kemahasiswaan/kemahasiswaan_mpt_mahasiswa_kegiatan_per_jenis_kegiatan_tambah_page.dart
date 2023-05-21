@@ -42,7 +42,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageState extends 
 
               CustomContentBox(
                 children: [
-                  
+
                   buildTitle('Nama Jenis Kegiatan'),
 
                   CustomTextField(controller: _namaJenisKegiatanController),
@@ -51,11 +51,8 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageState extends 
 
                   buildTitle('Jenis Kegiatan'),
                   CustomDropdownButton(
-                    value: jenisKegiatan,
                     items: listBentukKegiatan,
-                    onChanged: (String? value) {
-                      setState(() => jenisKegiatan = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),

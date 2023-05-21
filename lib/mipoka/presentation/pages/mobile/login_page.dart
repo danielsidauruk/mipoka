@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 
 class MobileLoginPage extends StatefulWidget {
   const MobileLoginPage({super.key});
@@ -295,7 +296,6 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                 child: Column(
                   children: [
                     InkWell(
-                      // onTap: () => Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute),
                       onTap: () => Navigator.pushNamed(context, penggunaBerandaPageRoute),
                       child: Container(
                         alignment: Alignment.center,
@@ -312,7 +312,69 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: const [
                             Text(
-                              'Sign In',
+                              'Sign In - Pengguna',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Icon(Icons.arrow_forward_ios),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    const CustomFieldSpacer(height: 8.0),
+
+                    InkWell(
+                      onTap: () => Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute),
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.symmetric(vertical: 8.0),
+                        padding: const EdgeInsets.all(8.0),
+                        height: 60,
+
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(color: Theme.of(context).accentColor),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Text(
+                              'Sign In - Kemahasiswaan',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Icon(Icons.arrow_forward_ios),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    const CustomFieldSpacer(height: 8.0),
+
+                    InkWell(
+                      onTap: () => Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute),
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.symmetric(vertical: 8.0),
+                        padding: const EdgeInsets.all(8.0),
+                        height: 60,
+
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(color: Theme.of(context).accentColor),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Text(
+                              'Sign In - Pengguna',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,

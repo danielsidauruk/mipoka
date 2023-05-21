@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/Method/open_file_picker_method.dart';
+import 'package:mipoka/domain/utils/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_comment_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_comment_for_table.dart';

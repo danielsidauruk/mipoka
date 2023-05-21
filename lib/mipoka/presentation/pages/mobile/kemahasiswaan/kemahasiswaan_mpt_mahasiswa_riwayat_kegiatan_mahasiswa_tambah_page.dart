@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_date_picker_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_filter_button.dart';
@@ -22,7 +20,6 @@ class KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage extends StatefulWidget 
 
 class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage> {
 
-  String yearValue = DateTime.now().year.toString();
   bool isChecked = false;
   DateTime? tanggalMulai;
   DateTime? tanggalSelesai;
@@ -51,11 +48,8 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
                   buildTitle('Periode'),
 
                   CustomDropdownButton(
-                    value: yearValue,
                     items: years,
-                    onChanged: (String? value) {
-                      setState(() => yearValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(height: 8.0),

@@ -4,10 +4,8 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
@@ -102,11 +100,8 @@ class _MobileKemahasiswaanBerandaPageState
                   const CustomFieldSpacer(),
                   buildTitle('Penulis'),
                   CustomDropdownButton(
-                    value: dropDownValue,
                     items: listStatus,
-                    onChanged: (String? value) {
-                      setState(() => dropDownValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
                   const CustomFieldSpacer(),
                   Container(

@@ -10,19 +10,11 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
-class MobilePenggunaDaftarLaporanKegiatan extends StatefulWidget {
+class MobilePenggunaDaftarLaporanKegiatan extends StatelessWidget {
   const MobilePenggunaDaftarLaporanKegiatan({super.key});
 
   @override
-  State<MobilePenggunaDaftarLaporanKegiatan> createState() =>
-      _MobilePenggunaDaftarLaporanKegiatanState();
-}
-
-class _MobilePenggunaDaftarLaporanKegiatanState
-    extends State<MobilePenggunaDaftarLaporanKegiatan> {
-  @override
   Widget build(BuildContext context) {
-    String dropDownValue = listStatus[0];
 
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
@@ -32,19 +24,23 @@ class _MobilePenggunaDaftarLaporanKegiatanState
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+
             const CustomMobileTitle(
                 text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
+
             const CustomFieldSpacer(),
+
             Expanded(
               child: CustomContentBox(
                 children: [
                   customBoxTitle('Status'),
-                  const SizedBox(height: 4.0),
+
+                  const CustomFieldSpacer(height: 4.0),
+
                   CustomDropdownButton(
                     items: listStatus,
-                    value: dropDownValue,
-                    onChanged: (String? value) {
-                      setState(() => dropDownValue = value!);
+                    onValueChanged: (value) {
+
                     },
                   ),
                   const CustomFieldSpacer(),

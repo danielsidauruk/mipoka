@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
-import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_date_picker_field.dart';
@@ -21,8 +19,6 @@ class KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPage extends StatefulWidg
 }
 
 class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPage> {
-  String namaKegiatan = listNamaKegiatan[0];
-  String yearValue = DateTime.now().year.toString();
   DateTime? tanggalMulai;
   DateTime? tanggalSelesai;
   final TextEditingController _poinKegiatanController = TextEditingController();
@@ -50,11 +46,8 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
 
                   buildTitle('Nama Kegiatan'),
                   CustomDropdownButton(
-                    value: namaKegiatan,
                     items: listNamaKegiatan,
-                    onChanged: (String? value) {
-                      setState(() => namaKegiatan = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),
@@ -62,11 +55,8 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
                   buildTitle('Tahun'),
 
                   CustomDropdownButton(
-                    value: yearValue,
                     items: years,
-                    onChanged: (String? value) {
-                      setState(() => yearValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),

@@ -8,20 +8,11 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 
-class KemahasiswaanCekSaranaDanPrasaranaPage extends StatefulWidget {
+class KemahasiswaanCekSaranaDanPrasaranaPage extends StatelessWidget {
   const KemahasiswaanCekSaranaDanPrasaranaPage({super.key});
 
   @override
-  State<KemahasiswaanCekSaranaDanPrasaranaPage> createState() =>
-      _KemahasiswaanCekSaranaDanPrasaranaPageState();
-}
-
-class _KemahasiswaanCekSaranaDanPrasaranaPageState
-    extends State<KemahasiswaanCekSaranaDanPrasaranaPage> {
-  @override
   Widget build(BuildContext context) {
-    String dropDownValue = listStatus[0];
-
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomKemahasiswaanDrawer(),
@@ -40,10 +31,7 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState
 
                   CustomDropdownButton(
                     items: listStatus,
-                    value: dropDownValue,
-                    onChanged: (String? value) {
-                      setState(() => dropDownValue = value!);
-                    },
+                    onValueChanged: (value) {},
                   ),
 
                   const CustomFieldSpacer(),

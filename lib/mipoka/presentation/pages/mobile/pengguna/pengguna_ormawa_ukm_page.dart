@@ -46,11 +46,11 @@ class _MobilePenggunaOrmawaUKMPageState extends State<MobilePenggunaOrmawaUKMPag
                 children: [
 
                   buildTitle('Nama Ormawa'),
+
                   CustomDropdownButton(
                     items: listNamaOrmawa,
-                    value: namaOrmawaValue,
-                    onChanged: (String? value) {
-                      setState(() => namaOrmawaValue = value!);
+                    onValueChanged: (value) {
+                      print(value);
                     },
                   ),
 

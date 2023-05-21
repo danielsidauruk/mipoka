@@ -2,74 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/cubit/cubit.dart';
 
-class CustomDropdownButton extends StatefulWidget {
-  final String? value;
+class CustomDropdownButton extends StatelessWidget {
   final List<String> items;
-  final Function(String) onChanged;
+  final Function(String) onValueChanged;
 
   const CustomDropdownButton({
-    Key? key,
-    required this.value,
+    super.key,
     required this.items,
-    required this.onChanged,
-  }) : super(key: key);
-
-  @override
-  State<CustomDropdownButton> createState() => _CustomDropdownButtonState();
-}
-
-class _CustomDropdownButtonState extends State<CustomDropdownButton> {
-  String? dropdownValue;
-
-  @override
-  void initState() {
-    super.initState();
-    dropdownValue = widget.value;
-  }
+    required this.onValueChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 35,
-      // constraints: const BoxConstraints(minHeight: 35.0),
-      padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        border: Border.all(color: Colors.white),
-      ),
-      child: DropdownButton<String>(
-        value: dropdownValue,
-        icon: const Icon(Icons.arrow_drop_down),
-        isExpanded: true,
-        underline: const Center(),
-        onChanged: (String? value) {
-          setState(() {
-            dropdownValue = value;
-            widget.onChanged(value!);
-          });
-        },
-        items: widget.items
-            .map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-      ),
-    );
-  }
-}
-
-
-class CustomDropdownButton2 extends StatelessWidget {
-  final List<String> items;
-
-  const CustomDropdownButton2({super.key, required this.items});
-
-  @override
-  Widget build(BuildContext context) {
-    print('page reloaded');
     return BlocProvider(
       create: (context) => DropdownCubit(items[0]),
       child: BlocBuilder<DropdownCubit, String>(
@@ -78,7 +22,9 @@ class CustomDropdownButton2 extends StatelessWidget {
             width: double.infinity,
             height: 35,
             padding: const EdgeInsets.symmetric(
-                vertical: 2.0, horizontal: 8.0),
+              vertical: 2.0,
+              horizontal: 8.0,
+            ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4.0),
               border: Border.all(color: Colors.white),
@@ -91,6 +37,7 @@ class CustomDropdownButton2 extends StatelessWidget {
               onChanged: (String? value) {
                 if (value != null) {
                   context.read<DropdownCubit>().setDropdownValue(value);
+                  onValueChanged(value); // Panggil fungsi callback
                 }
               },
               items: items.map<DropdownMenuItem<String>>((String value) {
@@ -106,4 +53,3 @@ class CustomDropdownButton2 extends StatelessWidget {
     );
   }
 }
-
