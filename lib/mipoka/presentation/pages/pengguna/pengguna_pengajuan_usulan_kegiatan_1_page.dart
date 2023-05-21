@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/switch_cubit.dart';
 import 'package:mipoka/mipoka/presentation/bloc/text_field_cubit.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_switch_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_date_picker_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
@@ -176,27 +179,22 @@ class _PenggunaPengajuanUsulanKegiatan1State
                     },
                   ),
 
-                  Row(
-                    children: [
-                      buildTitle('Tempat Kegiatan Kegiatan'),
-                      const SizedBox(width: 4.0),
-                      Switch(
-                        value: tempatKegiatan,
-                        onChanged: (bool newValue) {
-                          setState(() => tempatKegiatan = newValue);
-                        },
-                      ),
-                      const SizedBox(width: 4.0),
-                      Expanded(
-                        child: tempatKegiatan == false
-                            ? buildTitle('Dalam Kota')
-                            : buildTitle('Luar Kota'),
-                      ),
-                    ],
+                  CustomSwitch(
+                    title: 'Tempat Kegiatan Kegiatan',
+                    option1: 'Dalam Kota',
+                    option2: 'Luar Kota',
+                    onChanged: (value) {
+                      print(value);
+                      setState(() {
+                        tempatKegiatan = value;
+                      });
+                    },
                   ),
                   CustomTextField(controller: _tempatKegiatanController),
+
                   const CustomFieldSpacer(),
-                  tempatKegiatan != false
+
+                  tempatKegiatan == true
                       ? SizedBox(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,40 +212,18 @@ class _PenggunaPengajuanUsulanKegiatan1State
                         ),
                       ],
                     ),
-                  )
-                      : const Center(),
-                  const CustomFieldSpacer(),
+                  ) :
+                  const Center(),
 
-                  // CustomSwitchField(
-                  //   title: 'Jumlah Partisipan',
-                  //   value: jenisPartisipan,
-                  //   option1: 'Tim',
-                  //   option2: 'Orang',
-                  //   onChanged: (bool newValue) {
-                  //     setState(() {
-                  //       jenisPartisipan = newValue;
-                  //     });
-                  //   }
-                  // ),
-
-                  Row(
-                    children: [
-                      buildTitle('Jumlah Parsitipan'),
-                      const SizedBox(width: 4.0),
-                      Switch(
-                        value: jenisPartisipan,
-                        onChanged: (bool newValue) {
-                          setState(() => jenisPartisipan = newValue);
-                        },
-                      ),
-                      const SizedBox(width: 4.0),
-                      Expanded(
-                        child: jenisPartisipan == false
-                            ? buildTitle('Tim')
-                            : buildTitle('Orang'),
-                      ),
-                    ],
+                  CustomSwitch(
+                    title: 'Jumlah Parsitipan',
+                    option1: 'Tim',
+                    option2: 'Orang',
+                    onChanged: (value) {
+                      print(value);
+                    },
                   ),
+
                   CustomTextField(controller: _jumlahParsitipanController),
                   const CustomFieldSpacer(),
 
