@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mipoka/core/theme.dart';
 
 class CustomSwitchField extends StatelessWidget {
   final String title;
@@ -30,13 +31,6 @@ class CustomSwitchField extends StatelessWidget {
           child: value == false ? buildTitle(option1) : buildTitle(option2),
         ),
       ],
-    );
-  }
-
-  Widget buildTitle(String title) {
-    return Text(
-      title,
-      style: TextStyle(fontWeight: FontWeight.bold),
     );
   }
 }

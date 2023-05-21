@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/cubit/cubit.dart';
+import 'package:mipoka/mipoka/presentation/bloc/dropdown_cubit.dart';
 
 class CustomDropdownButton extends StatelessWidget {
   final List<String> items;
@@ -37,7 +37,7 @@ class CustomDropdownButton extends StatelessWidget {
               onChanged: (String? value) {
                 if (value != null) {
                   context.read<DropdownCubit>().setDropdownValue(value);
-                  onValueChanged(value); // Panggil fungsi callback
+                  onValueChanged(value);
                 }
               },
               items: items.map<DropdownMenuItem<String>>((String value) {

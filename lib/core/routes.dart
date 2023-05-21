@@ -1,6 +1,3 @@
-// web routes - pengguna
-const webPenggunaBerandaRoute = '/webPenggunaBerandaRoute';
-
 // mobile
 const loginPageRoute = '/loginPageRoute';
 const gantiPasswordPageRoute = '/gantiPasswordPageRoute';

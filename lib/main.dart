@@ -1,67 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/utils.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahaiswaan_prestasi_mahasiswa_tambah_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_beranda_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_cek_laporan_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_cek_sarana_dan_prasarana_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_cek_usulan_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_edit_beranda_tambah_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_edit_ormawa_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_edit_ormawa_tambah_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_jenis_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_jenis_kegiatan_tambah_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_jenis_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_jenis_kegiatan_tambah_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_periode_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_periode_tambah_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_mahasiswa_per_periode_detail_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_mahasiswa_per_periode_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_mahasiswa_per_periode_tambah_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_periode_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_riwayat_kegiatan_mahasiswa_tambah_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_riwayat_kegiatan_mahasiswa_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/ganti_password_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/kemahasiswaan/kemahasiswaan_prestasi_mahasiswa_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/lupa_password_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/notifikasi_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/password_baru_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_daftar_pengajuan_laporan_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_daftar_pengajuan_usulan_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_laporan_kegiatan_1_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_laporan_kegiatan_2_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_laporan_kegiatan_3_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_1_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_2_dk_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_2_lk_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_3_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_3_tertib_acara_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_berita_detail_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_daftar_pengajuan_laporan_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_daftar_pengajuan_sarana_dan_prasarana_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_mpt_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_mpt_unggah_bukti_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_ormawa_ukm_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_laporan_kegiatan_1_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_laporan_kegiatan_2_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_laporan_kegiatan_2_biaya_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_laporan_kegiatan_2_import_peserta_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_laporan_kegiatan_3_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_sarana_dan_prasarana_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_1_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_2_biaya_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_2_dk_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_2_dk_data_peserta_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_2_lk_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_daftar_pengajuan_usulan_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_2_lk_data_peserta_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_beranda_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_3_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_3_tertib_acara_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_pengajuan_usulan_kegiatan_3_tertib_acara_tambah_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/mobile/pengguna/pengguna_prestasi_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/web/web_pengguna_beranda_page.dart';
-import 'mipoka/presentation/pages/mobile/login_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/ganti_password_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahaiswaan_prestasi_mahasiswa_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_cek_laporan_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_cek_sarana_dan_prasarana_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_cek_usulan_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_edit_beranda_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_edit_ormawa_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_edit_ormawa_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_jenis_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_jenis_kegiatan_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_jenis_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_jenis_kegiatan_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_periode_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_periode_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_mahasiswa_per_periode_detail_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_mahasiswa_per_periode_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_mahasiswa_per_periode_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_periode_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_riwayat_kegiatan_mahasiswa_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_riwayat_kegiatan_mahasiswa_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_prestasi_mahasiswa_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/lupa_password_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/notifikasi_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/password_baru_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_daftar_pengajuan_laporan_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_daftar_pengajuan_usulan_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_laporan_kegiatan_1_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_laporan_kegiatan_2_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_laporan_kegiatan_3_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_1_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_2_dk_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_2_lk_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_3_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_3_tertib_acara_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_berita_detail_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_daftar_pengajuan_laporan_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_daftar_pengajuan_sarana_dan_prasarana_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_mpt_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_mpt_unggah_bukti_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_ormawa_ukm_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_laporan_kegiatan_1_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_laporan_kegiatan_2_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_laporan_kegiatan_2_biaya_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_laporan_kegiatan_2_import_peserta_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_laporan_kegiatan_3_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_sarana_dan_prasarana_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_1_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_biaya_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_dk_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_dk_data_peserta_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_lk_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_daftar_pengajuan_usulan_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_lk_data_peserta_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_beranda_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_3_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_3_tertib_acara_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_3_tertib_acara_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_prestasi_page.dart';
+import 'mipoka/presentation/pages/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -103,177 +102,173 @@ class MyApp extends StatelessWidget {
       ),
       home:
           // WebLoginPage(),
-          const MobileLoginPage(),
+          const LoginPage(),
       navigatorObservers: [routeObserver],
       onGenerateRoute: (RouteSettings settings) {
         switch (settings.name) {
-          // web route
-          case webPenggunaBerandaRoute:
-            return MaterialPageRoute(
-                builder: (_) => const WebPenggunaBerandaPage());
 
           // mobile route
           case loginPageRoute:
-            return MaterialPageRoute(builder: (_) => const MobileLoginPage());
+            return MaterialPageRoute(builder: (_) => const LoginPage());
           case gantiPasswordPageRoute:
             return MaterialPageRoute(
-                builder: (_) => const MobileGantiPasswordPage());
+                builder: (_) => const GantiPasswordPage());
 
           // mobile - pengguna  route
           case penggunaBerandaPageRoute:
             return MaterialPageRoute(
-                builder: (_) => const MobilePenggunaBerandaPage());
+                builder: (_) => const PenggunaBerandaPage());
           case penggunaBerandaDetailPageRoute:
             return MaterialPageRoute(
-                builder: (_) => const MobilePenggunaBerandaDetailPage());
+                builder: (_) => const PenggunaBerandaDetailPage());
           case lupaPasswordPageRoute:
             return MaterialPageRoute(
-                builder: (_) => const MobileLupaPasswordPage());
+                builder: (_) => const LupaPasswordPage());
           case passwordBaruPageRoute:
             return MaterialPageRoute(
-                builder: (_) => const MobilePasswordBaruPage());
+                builder: (_) => const PasswordBaruPage());
           case notifikasiPageRoute:
             return MaterialPageRoute(
-                builder: (_) => const MobileNotifikasiPage());
+                builder: (_) => const NotifikasiPage());
 
           case penggunaDaftarPengajuanKegiatanPageRoute:
             return MaterialPageRoute(
-                builder: (_) => const MobilePenggunaDaftarPengajuanKegiatan());
+                builder: (_) => const PenggunaDaftarPengajuanKegiatan());
           case penggunaPengajuanUsulanKegiatanPage1Route:
             return MaterialPageRoute(
-                builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan1());
+                builder: (_) => const PenggunaPengajuanUsulanKegiatan1());
           case penggunaPengajuanUsulanKegiatan2LKPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePenggunaPengajuanUsulanKegiatan2LK());
+                    const PenggunaPengajuanUsulanKegiatan2LK());
           case penggunaPengajuanUsulanKegiatan2LKDataPesertaPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePenggunaPengajuanUsulanKegiatan2LKDataPeserta());
+                    const PenggunaPengajuanUsulanKegiatan2LKDataPeserta());
           case penggunaPengajuanUsulanKegiatan2DKPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePenggunaPengajuanUsulanKegiatan2DK());
+                    const PenggunaPengajuanUsulanKegiatan2DK());
           case penggunaPengajuanUsulanKegiatan2DKDataPesertaPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePenggunaPengajuanUsulanKegiatan2DKDataPeserta());
+                    const PenggunaPengajuanUsulanKegiatan2DKDataPeserta());
           case penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePenggunaPengajuanUsulanKegiatan2BiayaKegiatan());
+                    const PenggunaPengajuanUsulanKegiatan2BiayaKegiatan());
           case penggunaPengajuanUsulanKegiatan3PageRoute:
             return MaterialPageRoute(
-                builder: (_) => const MobilePenggunaPengajuanUsulanKegiatan3());
+                builder: (_) => const PenggunaPengajuanUsulanKegiatan3());
           case penggunaPengajuanUsulanKegiatan3TertibAcaraPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePenggunaPengajuanUsulanKegiatan3TertibAcara());
+                    const PenggunaPengajuanUsulanKegiatan3TertibAcara());
           case penggunaPengajuanUsulanKegiatan3TertibAcaraTambahPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePenggunaPengajuanUsulanKegiatan3TertibAcaraTambah());
+                    const PenggunaPengajuanUsulanKegiatan3TertibAcaraTambah());
 
           case penggunaDaftarLaporanKegiatanPageRoute:
             return MaterialPageRoute(
-                builder: (_) => const MobilePenggunaDaftarLaporanKegiatan());
+                builder: (_) => const PenggunaDaftarLaporanKegiatan());
           case penggunaPengajuanLaporanKegiatanPage1Route:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePenggunaPengajuanLaporanKegiatan1());
+                    const PenggunaPengajuanLaporanKegiatan1());
           case penggunaPengajuanLaporanKegiatan2PageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePenggunaPengajuanLaporanKegiatan2());
+                    const PenggunaPengajuanLaporanKegiatan2());
           case penggunaPengajuanLaporanKegiatan2BiayaKegiatanPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePenggunaPengajuanLaporanKegiatan2BiayaKegiatan());
+                    const PenggunaPengajuanLaporanKegiatan2BiayaKegiatan());
           case penggunaPengajuanLaporanKegiatan2ImportKegiatanPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePenggunaPengajuanLaporanKegiatan2ImportPeserta());
+                    const PenggunaPengajuanLaporanKegiatan2ImportPeserta());
           case penggunaPengajuanLaporanKegiatan3PageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePenggunaPengajuanLaporanKegiatan3());
+                    const PenggunaPengajuanLaporanKegiatan3());
 
           case penggunaDaftarPengajuanSaranaDanPrasaranaPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePenggunaDaftarPengajuanSaranaDanPrasarana());
+                    const PenggunaDaftarPengajuanSaranaDanPrasarana());
           case penggunaPengajuanSaranaDanPrasaranaPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePenggunaPengajuanSaranaDanPrasarana());
+                    const PenggunaPengajuanSaranaDanPrasarana());
 
           case penggunaMPTPageRoute:
-            return MaterialPageRoute(builder: (_) => const MobilePenggunaMPT());
+            return MaterialPageRoute(builder: (_) => const PenggunaMPTPage());
           case penggunaMPTUnggahBuktiPageRoute:
             return MaterialPageRoute(
-                builder: (_) => const MobilePenggunaMPTUnggahBukti());
+                builder: (_) => const PenggunaMPTUnggahBuktiPage());
 
           case penggunaOrmawaUKMPageRoute:
             return MaterialPageRoute(
-                builder: (_) => const MobilePenggunaOrmawaUKMPage());
+                builder: (_) => const PenggunaOrmawaUKMPage());
 
           case penggunaPrestasiPageRoute:
             return MaterialPageRoute(
-                builder: (_) => const MobilePenggunaPrestasiPage());
+                builder: (_) => const PenggunaPrestasiPage());
 
           // mobile - pemeriksa
           case pemeriksaDaftarUsulanKegiatanPageRoute:
             return MaterialPageRoute(
-                builder: (_) => const MobilePemeriksaDaftarPengajuanKegiatan());
+                builder: (_) => const PemeriksaDaftarPengajuanKegiatanPage());
           case pemeriksaPengajuanUsulanKegiatan1PageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePemeriksaPengajuanUsulanKegiatan1Page());
+                    const PemeriksaPengajuanUsulanKegiatan1Page());
 
           case pemeriksaDaftarLaporanKegiatanPageRoute:
             return MaterialPageRoute(
-                builder: (_) => const MobilePemeriksaDaftarLaporanKegiatan());
+                builder: (_) => const PemeriksaDaftarLaporanKegiatanPage());
           case pemeriksaPengajuanUsulanKegiatan2DKPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePemeriksaPengajuanUsulanKegiatan2DKPage());
+                    const PemeriksaPengajuanUsulanKegiatan2DKPage());
           case pemeriksaPengajuanUsulanKegiatan2LKPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePemeriksaPengajuanUsulanKegiatan2LK());
+                    const PemeriksaPengajuanUsulanKegiatan2LKPage());
           case pemeriksaPengajuanUsulanKegiatan3PageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePemeriksaPengajuanUsulanKegiatan3Page());
+                    const PemeriksaPengajuanUsulanKegiatan3Page());
           case pemeriksaPengajuanUsulanKegiatan3TertibAcaraPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePemeriksaPengajuanUsulanKegiatan3TertibAcara());
+                    const PemeriksaPengajuanUsulanKegiatan3TertibAcaraPage());
           case pemeriksaPengajuanLaporanKegiatan1PageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePemeriksaPengajuanLaporanKegiatan1Page());
+                    const PemeriksaPengajuanLaporanKegiatan1Page());
           case pemeriksaPengajuanLaporanKegiatan2PageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePemeriksaPengajuanLaporanKegiatan2Page());
+                    const PemeriksaPengajuanLaporanKegiatan2Page());
           case pemeriksaPengajuanLaporanKegiatan3PageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobilePemeriksaPengajuanLaporanKegiatan3Page());
+                    const PemeriksaPengajuanLaporanKegiatan3Page());
 
           // mobile - kemahasiswaan
           case kemahasiswaanBerandaPageRoute:
             return MaterialPageRoute(
-                builder: (_) => const MobileKemahasiswaanBerandaPage());
+                builder: (_) => const KemahasiswaanBerandaPage());
           case kemahasiswaanEditBerandaTambahPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobileKemahasiswaanEditBerandaTambahPage());
+                    const KemahasiswaanEditBerandaTambahPage());
           case kemahasiswaanMPTMahasiswaPeriodePageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobileKemahasiswaanMPTMahasiswaPeriodePage());
+                    const KemahasiswaanMPTMahasiswaPeriodePage());
           case kemahasiswaanMPTMahasiswaTambahPeriodePageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
@@ -281,11 +276,11 @@ class MyApp extends StatelessWidget {
           case kemahasiswaanMPTMahasiswaJenisKegiatanPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobileKemahasiswaanMPTMahasiswaJenisKegiatanPage());
+                    const KemahasiswaanMPTMahasiswaJenisKegiatanPage());
           case kemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
-                    const MobileKemahasiswaanMPTMahasiswaJenisKegiatanTambahPage());
+                    const KemahasiswaanMPTMahasiswaJenisKegiatanTambahPage());
           case kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageRoute:
             return MaterialPageRoute(
                 builder: (_) =>
@@ -319,58 +314,33 @@ class MyApp extends StatelessWidget {
                 builder: (_) =>
                     const KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage());
           case kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPageRoute:
-            return MaterialPageRoute(builder: (_) => const KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPage());
+            return MaterialPageRoute(
+                builder: (_) =>
+                    const KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPage());
           case kemahasiswaanEditOrmawaPageRoute:
-            return MaterialPageRoute(builder: (_) => const KemahasiswaanEditOrmawaPage());
+            return MaterialPageRoute(
+                builder: (_) => const KemahasiswaanEditOrmawaPage());
           case kemahasiswaanEditOrmawaTambahPageRoute:
-            return MaterialPageRoute(builder: (_) => const KemahasiswaanEditOrmawaTambahPage());
+            return MaterialPageRoute(
+                builder: (_) => const KemahasiswaanEditOrmawaTambahPage());
           case kemahasiswaanPrestasiMahasiswaPageRoute:
-            return MaterialPageRoute(builder: (_) => const KemahasiswaanPrestasiMahasiswaPage());
+            return MaterialPageRoute(
+                builder: (_) => const KemahasiswaanPrestasiMahasiswaPage());
           case kemahasiswaanPrestasiMahasiswaTambahPageRoute:
-            return MaterialPageRoute(builder: (_) => const KemahasiswaanPrestasiMahasiswaTambahPage());
+            return MaterialPageRoute(
+                builder: (_) =>
+                    const KemahasiswaanPrestasiMahasiswaTambahPage());
           case kemahasiswaanCekUsulanKegiatanPageRoute:
-            return MaterialPageRoute(builder: (_) => const KemahasiswaanCekUsulanKegiatanPage());
+            return MaterialPageRoute(
+                builder: (_) => const KemahasiswaanCekUsulanKegiatanPage());
           case kemahasiswaanCekLaporanKegiatanPageRoute:
-            return MaterialPageRoute(builder: (_) => const KemahasiswaanCekLaporanKegiatanPage());
+            return MaterialPageRoute(
+                builder: (_) => const KemahasiswaanCekLaporanKegiatanPage());
           case kemahasiswaanCekSaranaDanPrasaranaPageRoute:
-            return MaterialPageRoute(builder: (_) => const KemahasiswaanCekSaranaDanPrasaranaPage());
+            return MaterialPageRoute(
+                builder: (_) => const KemahasiswaanCekSaranaDanPrasaranaPage());
         }
       },
     );
   }
 }
-
-// Widget build(BuildContext context) {
-//   return MaterialApp(
-//     debugShowCheckedModeBanner: false,
-//     title: 'Flutter Demo',
-//     theme: ThemeData(
-//       fontFamily: 'Roboto',
-//       scaffoldBackgroundColor: Colors.black,
-//       textTheme: const TextTheme(
-//         displayLarge: TextStyle(fontSize: 56, color: Colors.white),
-//         displayMedium: TextStyle(fontSize: 45, color: Colors.white),
-//         bodyLarge: TextStyle(fontSize: 28, color: Colors.white),
-//         titleMedium: TextStyle(fontSize: 16, color: Colors.white),
-//         titleSmall: TextStyle(fontSize: 14, color: Colors.white),
-//         labelLarge: TextStyle(
-//           fontWeight: FontWeight.normal,
-//           fontSize: 14,
-//           color: Colors.white,
-//         ),
-//       ),
-//       brightness: Brightness.dark,
-//       primaryColor: Colors.black,
-//       accentColor: Colors.white,
-//       backgroundColor: Colors.black,
-//       iconTheme: const IconThemeData(color: Colors.white),
-//       inputDecorationTheme: const InputDecorationTheme(
-//         border: OutlineInputBorder(
-//           borderSide: BorderSide(color: Colors.white),
-//         ),
-//       ),
-//     ),
-//     // home: const MobileLoginPage(),
-//     home: DesktopLoginPage(),
-//   );
-// }
