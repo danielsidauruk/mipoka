@@ -24,18 +24,30 @@ class CustomSwitch extends StatelessWidget {
       child: BlocBuilder<SwitchCubit, bool>(
         builder: (context, state) {
           return Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              buildTitle(title),
-              const SizedBox(width: 4.0),
-              Switch(
-                value: state,
-                onChanged: (newValue) {
-                  context.read<SwitchCubit>().toggleSwitch(newValue);
-                  onChanged(newValue);
-                },
-              ),
-              const SizedBox(width: 4.0),
               Expanded(
+                flex: 4,
+                child: buildTitle(title),
+              ),
+
+              const SizedBox(width: 4.0),
+
+              Expanded(
+                flex: 1,
+                child: Switch(
+                  value: state,
+                  onChanged: (newValue) {
+                    context.read<SwitchCubit>().toggleSwitch(newValue);
+                    onChanged(newValue);
+                  },
+                ),
+              ),
+
+              const SizedBox(width: 4.0),
+
+              Expanded(
+                flex: 1,
                 child: state == false ? buildTitle(option1) : buildTitle(option2),
               ),
             ],

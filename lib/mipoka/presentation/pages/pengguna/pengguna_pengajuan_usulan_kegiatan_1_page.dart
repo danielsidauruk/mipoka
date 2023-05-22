@@ -8,6 +8,7 @@ import 'package:mipoka/mipoka/presentation/bloc/text_field_cubit.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_signature_pad.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_switch_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_date_picker_field.dart';
@@ -26,17 +27,9 @@ class PenggunaPengajuanUsulanKegiatan1 extends StatefulWidget {
       _PenggunaPengajuanUsulanKegiatan1State();
 }
 
-class _PenggunaPengajuanUsulanKegiatan1State
-    extends State<PenggunaPengajuanUsulanKegiatan1> {
+class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsulanKegiatan1> {
   bool bentukKegiatanValue = false;
-  DateTime? tanggalMulaiKegiatan;
-  DateTime? tanggalSelesaiKegiatan;
-  TimeOfDay? waktuMulaiKegiatan;
-  TimeOfDay? waktuSelesaiKegiatan;
   bool tempatKegiatan = false;
-  DateTime? tanggalKeberangkatan;
-  DateTime? tanggalKepulangan;
-  bool jenisPartisipan = false;
 
   final TextEditingController _namaKegiatanController = TextEditingController();
   final TextEditingController _deskripsiKegiatanController =
@@ -50,20 +43,13 @@ class _PenggunaPengajuanUsulanKegiatan1State
       TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
 
-  final GlobalKey<SfSignaturePadState> signatureGlobalKey = GlobalKey();
+  // final GlobalKey<SfSignaturePadState> signatureGlobalKey = GlobalKey();
+  // bool tandaTangan = false;
 
-  final textFieldCubit = TextFieldCubit();
-
-  bool tandaTangan = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  void _handleClearButtonPressed() {
-    signatureGlobalKey.currentState!.clear();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -111,23 +97,29 @@ class _PenggunaPengajuanUsulanKegiatan1State
                   //   onSubmitted: (value) => print('Value: $value'),
                   // ),
 
-                  Row(
-                    children: [
-                      buildTitle('Bentuk Kegiatan'),
-                      const SizedBox(width: 4.0),
-                      Switch(
-                        value: bentukKegiatanValue,
-                        onChanged: (bool newValue) {
-                          setState(() => bentukKegiatanValue = newValue);
-                        },
-                      ),
-                      const SizedBox(width: 4.0),
-                      bentukKegiatanValue == false
-                          ? buildTitle('Daring')
-                          : buildTitle('Luring'),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     buildTitle('Bentuk Kegiatan'),
+                  //     const SizedBox(width: 4.0),
+                  //     Switch(
+                  //       value: bentukKegiatanValue,
+                  //       onChanged: (bool newValue) {
+                  //         setState(() => bentukKegiatanValue = newValue);
+                  //       },
+                  //     ),
+                  //     const SizedBox(width: 4.0),
+                  //     bentukKegiatanValue == false
+                  //         ? buildTitle('Daring')
+                  //         : buildTitle('Luring'),
+                  //   ],
+                  // ),
 
+                  CustomSwitch(
+                    title: 'Bentuk Kegiatan',
+                    option1: 'Daring',
+                    option2: 'Luring',
+                    onChanged: (value) {},
+                  ),
 
                   CustomDropdownButton(
                     items: listBentukKegiatan,
@@ -190,6 +182,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                       });
                     },
                   ),
+
                   CustomTextField(controller: _tempatKegiatanController),
 
                   const CustomFieldSpacer(),
@@ -241,80 +234,84 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                   const CustomFieldSpacer(),
                   buildTitle('Tanda Tangan Ormawa'),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: Column(
-                        children: [
-                          tandaTangan != true
-                              ? InkWell(
-                            onTap: () {
-                              setState(() => tandaTangan = !tandaTangan);
-                            },
-                            child: const Text(
-                              'Tekan untuk tanda tangan',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                          )
-                              : const Center(),
-                          tandaTangan == true
-                              ? Column(
-                            children: [
-                              const CustomFieldSpacer(height: 4.0),
-                              SfSignaturePad(
-                                key: signatureGlobalKey,
-                                backgroundColor: Colors.white,
-                                strokeColor: Colors.black,
-                                minimumStrokeWidth: 1.0,
-                                maximumStrokeWidth: 4.0,
-                              ),
-                              const CustomFieldSpacer(),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      setState(() =>
-                                      tandaTangan = !tandaTangan);
-                                    },
-                                    child: const Text(
-                                      'Tutup',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: _handleClearButtonPressed,
-                                    child: const Text(
-                                      'Clear',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )
-                              : const Center(),
-                        ],
-                      ),
-                    ),
-                  ),
+                  // InkWell(
+                  //   onTap: () {},
+                  //   child: Container(
+                  //     alignment: Alignment.center,
+                  //     padding: const EdgeInsets.all(8.0),
+                  //     decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(5.0),
+                  //       border: Border.all(color: Colors.white),
+                  //     ),
+                  //     child: Column(
+                  //       children: [
+                  //         tandaTangan != true
+                  //             ? InkWell(
+                  //           onTap: () {
+                  //             setState(() => tandaTangan = !tandaTangan);
+                  //           },
+                  //           child: const Text(
+                  //             'Tekan untuk tanda tangan',
+                  //             style: TextStyle(
+                  //               color: Colors.white,
+                  //               fontSize: 16,
+                  //             ),
+                  //           ),
+                  //         )
+                  //             : const Center(),
+                  //         tandaTangan == true
+                  //             ? Column(
+                  //           children: [
+                  //             const CustomFieldSpacer(height: 4.0),
+                  //             SfSignaturePad(
+                  //               key: signatureGlobalKey,
+                  //               backgroundColor: Colors.white,
+                  //               strokeColor: Colors.black,
+                  //               minimumStrokeWidth: 1.0,
+                  //               maximumStrokeWidth: 4.0,
+                  //             ),
+                  //             const CustomFieldSpacer(),
+                  //             Row(
+                  //               mainAxisAlignment:
+                  //               MainAxisAlignment.spaceEvenly,
+                  //               children: [
+                  //                 InkWell(
+                  //                   onTap: () {
+                  //                     setState(() =>
+                  //                     tandaTangan = !tandaTangan);
+                  //                   },
+                  //                   child: const Text(
+                  //                     'Tutup',
+                  //                     style: TextStyle(
+                  //                       color: Colors.white,
+                  //                       fontSize: 16,
+                  //                     ),
+                  //                   ),
+                  //                 ),
+                  //                 InkWell(
+                  //                   onTap: _handleClearButtonPressed,
+                  //                   child: const Text(
+                  //                     'Clear',
+                  //                     style: TextStyle(
+                  //                       color: Colors.white,
+                  //                       fontSize: 16,
+                  //                     ),
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ],
+                  //         ) :
+                  //         const Center(),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+
+                  CustomSignaturePad(),
+
                   const CustomFieldSpacer(),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -346,29 +343,29 @@ class _PenggunaPengajuanUsulanKegiatan1State
     );
 
   }
+
+  // void _handleSaveButtonPressed() async {
+  //   final data =
+  //   await signatureGlobalKey.currentState!.toImage(pixelRatio: 3.0);
+  //   final bytes = await data.toByteData(format: ui.ImageByteFormat.png);
+  //   await Navigator.of(context).push(
+  //     MaterialPageRoute(
+  //       builder: (BuildContext context) {
+  //         return Scaffold(
+  //           appBar: AppBar(),
+  //           body: Center(
+  //             child: Container(
+  //               color: Colors.grey[300],
+  //               child: Image.memory(bytes!.buffer.asUint8List()),
+  //             ),
+  //           ),
+  //         );
+  //       },
+  //     ),
+  //   );
+  // }
 }
 
-
-// void _handleSaveButtonPressed() async {
-//   final data =
-//   await signatureGlobalKey.currentState!.toImage(pixelRatio: 3.0);
-//   final bytes = await data.toByteData(format: ui.ImageByteFormat.png);
-//   await Navigator.of(context).push(
-//     MaterialPageRoute(
-//       builder: (BuildContext context) {
-//         return Scaffold(
-//           appBar: AppBar(),
-//           body: Center(
-//             child: Container(
-//               color: Colors.grey[300],
-//               child: Image.memory(bytes!.buffer.asUint8List()),
-//             ),
-//           ),
-//         );
-//       },
-//     ),
-//   );
-// }
 
 // Scaffold buildWebPage(BuildContext context) {
 //   return Scaffold(

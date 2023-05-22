@@ -22,6 +22,7 @@ Row customBoxTitle(String title) {
 
 Column buildTitle(String title, {double titlePadding = 4}) {
   return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text(
         title,
