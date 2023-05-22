@@ -24,7 +24,6 @@ class CustomSwitch extends StatelessWidget {
       child: BlocBuilder<SwitchCubit, bool>(
         builder: (context, state) {
           return Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Expanded(
                 flex: 4,
@@ -47,8 +46,8 @@ class CustomSwitch extends StatelessWidget {
               const SizedBox(width: 4.0),
 
               Expanded(
-                flex: 1,
-                child: state == false ? buildTitle(option1) : buildTitle(option2),
+                flex: 2,
+                child: state == false ? Center(child: buildTitle(option1)) : Center(child: buildTitle(option2)),
               ),
             ],
           );

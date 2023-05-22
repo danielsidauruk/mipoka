@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/bloc/switch_cubit.dart';
-import 'package:mipoka/mipoka/presentation/bloc/text_field_cubit.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
@@ -17,7 +14,6 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_time_picker_field.dart';
-import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 
 class PenggunaPengajuanUsulanKegiatan1 extends StatefulWidget {
   const PenggunaPengajuanUsulanKegiatan1({super.key});
@@ -172,7 +168,7 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                   ),
 
                   CustomSwitch(
-                    title: 'Tempat Kegiatan Kegiatan',
+                    title: 'Tempat Kegiatan',
                     option1: 'Dalam Kota',
                     option2: 'Luar Kota',
                     onChanged: (value) {
