@@ -42,6 +42,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
 
   @override
   Widget build(BuildContext context) {
+    print('Page 3 Reloaded');
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomPenggunaDrawerWidget(),
@@ -56,40 +57,56 @@ class _PenggunaPengajuanUsulanKegiatan3State
               const CustomFieldSpacer(),
               CustomContentBox(
                 children: [
+
                   buildTitle('Latar Belakang'),
                   buildDescription('Berisi latar belakang kegiatan diusulkan'),
                   CustomRichTextField(controller: _latarBelakangController),
+
+
                   const CustomFieldSpacer(),
+
                   buildTitle('Tujuan Kegiatan'),
                   buildDescription('Berisi tujuan kegiatan diusulkan'),
                   CustomRichTextField(controller: _tujuanKegiatanController),
+
                   const CustomFieldSpacer(),
+
                   buildTitle('Manfaat Kegiatan'),
                   buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
                   CustomRichTextField(controller: _manfaatKegiatanController),
+
                   const CustomFieldSpacer(),
+
                   buildTitle('Bentuk Pelaksanaan Kegiatan'),
                   buildDescription(
                       'Berisi bentuk kegiatan diusulkan. Misalnya: Webinar, Seminar Onsite, Lomba, Bakti Sosial, dll'),
                   CustomRichTextField(
                       controller: _bentukPelaksanaanKegiatanController),
+
                   const CustomFieldSpacer(),
+
                   buildTitle('Target Pencapaian Kegiatan'),
                   buildDescription(
                       'Bagian ini berisi target yang akan dicapai. Mis: Lolos babak final, meraih juara 1,2,3 dst'),
                   CustomRichTextField(
                       controller: _targetPencapaianKegiatanController),
+
                   const CustomFieldSpacer(),
+
                   buildTitle('Waktu dan Tempat Pelaksanaan'),
                   buildDescription('Rincikan dengan jelas'),
                   CustomRichTextField(
                       controller: _waktuDanTempatPelaksanaanKegiatanController),
+
                   const CustomFieldSpacer(),
+
                   buildTitle('Rencana Anggaran Kegiatan'),
                   buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
                   CustomRichTextField(
                       controller: _rencanaAnggaranKegiatanController),
+
                   const CustomFieldSpacer(),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -135,51 +152,68 @@ class _PenggunaPengajuanUsulanKegiatan3State
                           ),
                         )
                       : const Center(),
+
                   const CustomFieldSpacer(),
+
                   buildTitle('Perlengkapan dan Peralatan (jika ada)'),
                   buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
                   CustomRichTextField(
                       controller: _perlengkapanDanPeralatanController),
+
                   const CustomFieldSpacer(),
+
                   buildTitle('Penutup'),
                   CustomRichTextField(controller: _penutupController),
+
                   const CustomFieldSpacer(),
+
                   buildTitle('Lampiran - Lampiran'),
+
                   const CustomFieldSpacer(),
+
                   buildTitle('Postingan Kegiatan'),
                   buildDescription(
                       'Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
                   CustomFilePickerButton(
                       onTap: () => FileUploader.selectAndUploadFile(
                           'postingKegiatanButton')),
+
                   const CustomFieldSpacer(),
+
                   buildTitle('Postingan Kegiatan'),
                   buildDescription(
                       'Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
                   CustomFilePickerButton(
                       onTap: () => FileUploader.selectAndUploadFile(
                           'postingKegiatanButton')),
+
                   const CustomFieldSpacer(),
+
                   buildTitle('Surat Undangan Kegiatan'),
                   buildDescription(
                       'Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
                   CustomFilePickerButton(
                       onTap: () => FileUploader.selectAndUploadFile(
                           'suratUndanganKegiatanButton')),
+
                   const CustomFieldSpacer(),
+
                   buildTitle('Linimasa Kegiatan'),
                   buildDescription(
                       'Unggah foto linimasa kegiatan yang akan dilaksanakan.'),
                   CustomFilePickerButton(
                       onTap: () => FileUploader.selectAndUploadFile(
                           'linimasaKegiatanButton')),
+
                   const CustomFieldSpacer(),
+
                   buildTitle('Tempat Kegiatan'),
                   buildDescription(
                       'Unggah foto tempat kegiatan yang akan dilaksanakan.'),
                   CustomFilePickerButton(
                       onTap: () => FileUploader.selectAndUploadFile(
                           'tempatKegiatanButton')),
+
                   const CustomFieldSpacer(),
 
                   Row(
