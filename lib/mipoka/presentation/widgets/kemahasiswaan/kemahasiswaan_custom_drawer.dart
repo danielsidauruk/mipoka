@@ -128,24 +128,28 @@ class _MobileCustomKemahasiswaanDrawerState
                             ],
                           ),
                           const CustomFieldSpacer(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.message),
-                              ),
-                              IconButton(
-                                onPressed: () => Navigator.pushNamed(
-                                    context, notifikasiPageRoute),
-                                icon: const Icon(Icons.notifications),
-                              ),
-                              IconButton(
-                                onPressed: () => Navigator.pushNamed(
-                                    context, loginPageRoute),
-                                icon: const Icon(Icons.exit_to_app),
-                              ),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                InkWell(
+                                  onTap: () {},
+                                  child: Image.asset('assets/icons/sms.png', width: 30,),
+                                ),
+
+                                InkWell(
+                                  onTap: () => Navigator.pushNamed(context, notifikasiPageRoute),
+                                  child: Image.asset('assets/icons/notification.png', width: 30,),
+                                ),
+
+                                InkWell(
+                                  onTap: () => Navigator.pushNamed(context, loginPageRoute),
+                                  child: Image.asset('assets/icons/exit.png', width: 30,),
+                                ),
+
+                              ],
+                            ),
                           ),
                         ],
                       ),

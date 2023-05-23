@@ -187,9 +187,12 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                                   ),
                                 ),
                                 DataCell(
-                                  IconButton(
-                                    onPressed: (){},
-                                    icon: const Icon(Icons.delete, color: Colors.red),
+                                  InkWell(
+                                    onTap: () {},
+                                    child: Image.asset(
+                                      'assets/icons/delete.png',
+                                      width: 24,
+                                    ),
                                   ),
                                 ),
                               ],

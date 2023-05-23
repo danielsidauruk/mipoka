@@ -114,31 +114,53 @@ class KemahasiswaanCekLaporanKegiatanPage extends StatelessWidget {
                                     child: Text('Kegiatan - ${index + 1}',),
                                   ),
                                 ),
-                                const DataCell(
+                                DataCell(
                                   Center(
-                                    child: Icon(
-                                      Icons.picture_as_pdf,
-                                      color: Colors.red,
+                                    child: InkWell(
+                                      onTap: () {},
+                                      child: Image.asset(
+                                        'assets/icons/pdf.png',
+                                        width: 24,
+                                      ),
                                     ),
                                   ),
                                 ),
                                 DataCell(
                                   Center(
                                     child: index % 2 == 0 ?
-                                    const Icon(Icons.check, color: Colors.green,) :
-                                    const Icon(Icons.cancel_outlined, color: Colors.red,),
+                                    Image.asset(
+                                      'assets/icons/approve.png',
+                                      width: 24,
+                                    ) :
+                                    Image.asset(
+                                      'assets/icons/close.png',
+                                      width: 24,
+                                    ),
                                   ),
                                 ),
                                 DataCell(
-                                  Center(
-                                    child: Row(
-                                      children: [
-                                        const Icon(Icons.check, color: Colors.green,),
-                                        const Icon(Icons.cancel_outlined, color: Colors.red,),
-                                      ],
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    ),
-                                  )
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Image.asset(
+                                          'assets/icons/approve.png',
+                                          width: 24,
+                                        ),
+                                      ),
+
+                                      const SizedBox(width: 8.0,),
+
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Image.asset(
+                                          'assets/icons/close.png',
+                                          width: 24,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             );

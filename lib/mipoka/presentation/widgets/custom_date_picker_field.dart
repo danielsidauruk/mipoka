@@ -47,9 +47,9 @@ class CustomDatePickerField extends StatelessWidget {
                         ? DateFormat('dd / MM / yyyy').format(state)
                         : '',
                   ),
-                  const Icon(
-                    Icons.calendar_month_sharp,
-                    size: 20,
+                  Image.asset(
+                    'assets/icons/calendar.png',
+                    width: 24,
                   ),
                 ],
               ),

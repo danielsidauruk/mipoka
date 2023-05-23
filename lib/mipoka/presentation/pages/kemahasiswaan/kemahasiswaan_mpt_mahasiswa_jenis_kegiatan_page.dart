@@ -84,19 +84,24 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                                 DataCell(
                                   Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      IconButton(
-                                        onPressed: () => Navigator.pushNamed(
-                                            context,
-                                            kemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute),
-                                        icon: const Icon(Icons.edit,
-                                            color: Colors.yellow),
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Image.asset(
+                                          'assets/icons/edit.png',
+                                          width: 24,
+                                        ),
                                       ),
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(Icons.delete,
-                                            color: Colors.red),
+
+                                      const SizedBox(width: 16.0,),
+
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Image.asset(
+                                          'assets/icons/delete.png',
+                                          width: 24,
+                                        ),
                                       ),
                                     ],
                                   ),

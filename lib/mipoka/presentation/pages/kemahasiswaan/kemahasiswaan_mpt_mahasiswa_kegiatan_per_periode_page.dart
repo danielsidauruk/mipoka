@@ -169,18 +169,28 @@ class KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage extends StatelessWidget {
                                     child: Text('${index + 3} Mei 2023',),
                                   ),
                                 ),
+
                                 DataCell(
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      IconButton(
-                                        onPressed: () => Navigator.pushNamed(context, kemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageRoute),
-                                        icon: const Icon(Icons.edit, color: Colors.yellow),
+                                      InkWell(
+                                        onTap: () => Navigator.pushNamed(context, kemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageRoute),
+                                        child: Image.asset(
+                                          'assets/icons/edit.png',
+                                          width: 24,
+                                        ),
                                       ),
 
-                                      IconButton(
-                                        onPressed: (){},
-                                        icon: const Icon(Icons.delete, color: Colors.red),
+                                      const SizedBox(width: 16.0,),
+
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Image.asset(
+                                          'assets/icons/delete.png',
+                                          width: 24,
+                                        ),
                                       ),
                                     ],
                                   ),

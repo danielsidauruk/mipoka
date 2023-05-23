@@ -37,3 +37,17 @@ flutter:
     - assets/icons/pdf.png
     - assets/icons/word.png
     - assets/icons/home.png
+    - assets/icons/upload.png
+    - assets/icons/attach.png
+    - assets/icons/filter.png
+    - assets/icons/approve.png
+    - assets/icons/close.png
+    - assets/icons/edit.png
+    - assets/icons/delete.png
+    - assets/icons/calendar.png
+    - assets/icons/notification.png
+    - assets/icons/exit.png
+    - assets/icons/time.png
+    - assets/icons/sms.png
+    - assets/icons/light-mode.png
+    - assets/icons/dark-mode.png

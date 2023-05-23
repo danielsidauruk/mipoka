@@ -236,35 +236,54 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                                     child: Text('${index + 20}',),
                                   ),
                                 ),
-                                const DataCell(
+                                DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Icon(Icons.picture_as_pdf, color: Colors.redAccent),
+                                    child: Image.asset(
+                                      'assets/icons/pdf.png',
+                                      width: 24,
+                                    ),
                                   ),
                                 ),
-                                const DataCell(
+                                DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Icon(Icons.check, color: Colors.green,),
+                                    child: Image.asset(
+                                      'assets/icons/approve.png',
+                                      width: 24,
+                                    ),
                                   ),
                                 ),
                                 DataCell(
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      IconButton(
-                                        onPressed: () => Navigator.pushNamed(context, kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute),
-                                        icon: const Icon(Icons.edit, color: Colors.yellow),
-                                      ),
-                                      
-                                      IconButton(
-                                        onPressed: (){},
-                                        icon: const Icon(Icons.check_circle_outline, color: Colors.green,),
+                                      InkWell(
+                                        onTap: () => Navigator.pushNamed(context, kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute),
+                                        child: Image.asset(
+                                          'assets/icons/edit.png',
+                                          width: 24,
+                                        ),
                                       ),
 
-                                      IconButton(
-                                        onPressed: (){},
-                                        icon: const Icon(Icons.delete, color: Colors.red),
+                                      const SizedBox(width: 8.0,),
+
+                                      InkWell(
+                                        onTap: () => Navigator.pushNamed(context, kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute),
+                                        child: Image.asset(
+                                          'assets/icons/approve.png',
+                                          width: 24,
+                                        ),
+                                      ),
+
+                                      const SizedBox(width: 8.0,),
+
+                                      InkWell(
+                                        onTap: () => Navigator.pushNamed(context, kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute),
+                                        child: Image.asset(
+                                          'assets/icons/delete.png',
+                                          width: 24,
+                                        ),
                                       ),
                                     ],
                                   ),

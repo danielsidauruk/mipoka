@@ -107,7 +107,7 @@ class KemahasiswaanCekSaranaDanPrasaranaPage extends StatelessWidget {
                             ),
                             DataColumn(
                               label: Text(
-                                'Status',
+                                'Aksi',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
@@ -158,27 +158,37 @@ class KemahasiswaanCekSaranaDanPrasaranaPage extends StatelessWidget {
                                     child: Text('Lain - lain ${index + 1}',),
                                   ),
                                 ),
-                                const DataCell(
+                                DataCell(
                                   Center(
-                                    child: Icon(
-                                      Icons.picture_as_pdf,
-                                      color: Colors.red,
+                                    child: Image.asset(
+                                      'assets/icons/pdf.png',
+                                      width: 24,
                                     ),
                                   ),
                                 ),
                                 DataCell(
-                                  Center(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: const [
-                                        Icon(Icons.check, color: Colors.green,),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Image.asset(
+                                          'assets/icons/approve.png',
+                                          width: 24,
+                                        ),
+                                      ),
 
-                                        SizedBox(width: 8.0),
+                                      const SizedBox(width: 8.0,),
 
-                                        Icon(Icons.cancel_outlined, color: Colors.red,),
-                                      ],
-                                    ),
-                                  )
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Image.asset(
+                                          'assets/icons/close.png',
+                                          width: 24,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             );

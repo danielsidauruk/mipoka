@@ -4,6 +4,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_filter_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
@@ -52,11 +53,10 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
                     onValueChanged: (value) {},
                   ),
 
-                  const CustomFieldSpacer(height: 8.0),
+                  const CustomFieldSpacer(),
 
                   buildTitle('Import File'),
-
-                  CustomIconButton(onTap: () {}, icon: Icons.upload),
+                  CustomFilePickerButton(onTap: () {}),
 
                   const CustomFieldSpacer(),
 

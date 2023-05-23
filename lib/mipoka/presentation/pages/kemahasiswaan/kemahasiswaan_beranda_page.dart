@@ -178,15 +178,22 @@ class _KemahasiswaanBerandaPageState
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(Icons.edit,
-                                            color: Colors.yellow),
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Image.asset(
+                                          'assets/icons/edit.png',
+                                          width: 24,
+                                        ),
                                       ),
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(Icons.delete,
-                                            color: Colors.red),
+
+                                      const SizedBox(width: 8.0,),
+
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Image.asset(
+                                          'assets/icons/delete.png',
+                                          width: 24,
+                                        ),
                                       ),
                                     ],
                                   ),

@@ -239,7 +239,10 @@ class PenggunaMPTPage extends StatelessWidget {
                                     child: InkWell(
                                       onTap: () => Navigator.pushNamed(context,
                                           penggunaMPTUnggahBuktiPageRoute),
-                                      child: const Icon(Icons.cloud_upload),
+                                      child: Image.asset(
+                                        'assets/icons/upload.png',
+                                        width: 24,
+                                      ),
                                     ),
                                   ),
                                 ),

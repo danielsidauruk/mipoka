@@ -30,9 +30,9 @@ class CustomFilePickerButton extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
 
-            const Icon(
-              Icons.upload,
-              size: 20,
+            Image.asset(
+              'assets/icons/attach.png',
+              width: 20,
             ),
           ],
         ),
