@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/check_for_duplicated.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -42,9 +43,27 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
               CustomContentBox(
                 children: [
 
-                  buildTitle('Unggah File'),
+                  buildTitle('Unggah File 1'),
                   CustomFilePickerButton(
-                    onTap: () => FileUploader.selectAndUploadFile('importMPT'),
+                    onTap: () async {
+                      await FileUploaderAndCheckDuplicated.selectAndUploadFileForChecker('file1');
+                    },
+                  ),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Unggah File 2'),
+                  CustomFilePickerButton(
+                    onTap: () async {
+                      await FileUploaderAndCheckDuplicated.selectAndUploadFileForChecker('file2');
+                    },
+                  ),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('List File Path'),
+                  CustomFilePickerButton(
+                    onTap: () => print(FileUploaderAndCheckDuplicated.getStoredFiles()),
                   ),
 
                   const CustomFieldSpacer(),
@@ -65,9 +84,7 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                       const SizedBox(width: 8.0),
 
                       CustomButton(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
+                        onTap: () => Navigator.pop(context),
                         text: 'Tambah',
                       ),
                     ],
