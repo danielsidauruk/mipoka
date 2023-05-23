@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_switch_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -62,7 +63,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                   buildDescription('Berisi latar belakang kegiatan diusulkan'),
                   CustomRichTextField(controller: _latarBelakangController),
 
-
                   const CustomFieldSpacer(),
 
                   buildTitle('Tujuan Kegiatan'),
@@ -107,24 +107,16 @@ class _PenggunaPengajuanUsulanKegiatan3State
 
                   const CustomFieldSpacer(),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      buildTitle('Tertib Acara'),
-                      Switch(
-                        value: tertibAcara,
-                        onChanged: (bool newValue) {
-                          setState(() => tertibAcara = newValue);
-                        },
-                      ),
-                      Expanded(
-                        child: tertibAcara == false
-                            ? buildTitle('Tidak')
-                            : buildTitle('Ya'),
-                      ),
-                    ],
+                  CustomSwitch(
+                    title: 'Tertib Acara',
+                    option1: 'Tidak',
+                    option2: 'Ya',
+                    onChanged: (value) {
+                      setState(() => tertibAcara = value);
+                    },
                   ),
-                  tertibAcara != false
+
+                  tertibAcara == true
                       ? InkWell(
                           onTap: () => Navigator.pushNamed(context,
                               penggunaPengajuanUsulanKegiatan3TertibAcaraPageRoute),
@@ -227,7 +219,12 @@ class _PenggunaPengajuanUsulanKegiatan3State
                       const SizedBox(width: 8.0),
 
                       CustomButton(
-                        onTap: () => Navigator.pushNamed(context, penggunaDaftarPengajuanKegiatanPageRoute),
+                        // onTap: () => Navigator.pushNamed(context, penggunaDaftarPengajuanKegiatanPageRoute),
+                        onTap: () {
+                          print('getPlainText : ${_latarBelakangController.getPlainText()}');
+                          print('document ${_latarBelakangController.document.toPlainText()}');
+                          print('document ${_latarBelakangController.document.toDelta()}');
+                        },
                         text: 'Kirim',
                       ),
                     ],

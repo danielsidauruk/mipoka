@@ -28,7 +28,7 @@ import 'package:mipoka/mipoka/presentation/bloc/quil_editor_focus_cubit/quill_ed
 //             padding: const EdgeInsets.all(8.0),
 //             child: QuillEditor(
 //               controller: controller,
-//               focusNode: FocusNode(),da
+//               focusNode: FocusNode(),
 //               readOnly: false,
 //               expands: false,
 //               padding: EdgeInsets.zero,
@@ -156,6 +156,3 @@ class CustomRichTextField extends StatelessWidget {
     );
   }
 }
-
-
-

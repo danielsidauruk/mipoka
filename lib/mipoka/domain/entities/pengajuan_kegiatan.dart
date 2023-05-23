@@ -21,7 +21,13 @@ class PengajuanKegiatan extends Equatable {
   final String targetKegiatan;
   final double totalPendanaan;
   final String keterangan;
-  final String tandaTanganOrmawa;
+  final String pathTandaTanganOrmawa;
+
+  final String latarBelakang;
+  final String tujuanKegiatan;
+  final String manfaatKegiatan;
+  final String
+
 
   const PengajuanKegiatan({
     required this.namaOrmawa,
@@ -43,7 +49,7 @@ class PengajuanKegiatan extends Equatable {
     required this.targetKegiatan,
     required this.totalPendanaan,
     required this.keterangan,
-    required this.tandaTanganOrmawa,
+    required this.pathTandaTanganOrmawa,
   });
 
   @override
@@ -67,6 +73,6 @@ class PengajuanKegiatan extends Equatable {
     targetKegiatan,
     totalPendanaan,
     keterangan,
-    tandaTanganOrmawa,
+    pathTandaTanganOrmawa,
   ];
 }
