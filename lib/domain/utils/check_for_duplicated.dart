@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 class FileUploaderAndCheckDuplicated {
   static Map<String, String?> filePaths = {};
 
+
   static Future<void> selectAndUploadFileForChecker(String buttonName) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
@@ -48,4 +49,14 @@ class FileUploaderAndCheckDuplicated {
     return filePaths.values.where((path) => path != null).toList();
   }
 
+  static void clearStoredFiles() {
+    filePaths.clear();
+  }
+
+  String getFileNameAndSize(String filePath) {
+    File file = File(filePath);
+    String fileName = file.path.split('/').last;
+    String fileSize = '${(file.lengthSync() / 1024).toStringAsFixed(2)} KB';
+    return '$fileName ($fileSize)';
+  }
 }

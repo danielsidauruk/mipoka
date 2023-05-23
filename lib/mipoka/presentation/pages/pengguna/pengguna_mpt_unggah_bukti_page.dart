@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/check_for_duplicated.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -45,6 +48,7 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
 
                   buildTitle('Unggah File 1'),
                   CustomFilePickerButton(
+                    // text: buttonText,
                     onTap: () async {
                       await FileUploaderAndCheckDuplicated.selectAndUploadFileForChecker('file1');
                     },
@@ -64,6 +68,15 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                   buildTitle('List File Path'),
                   CustomFilePickerButton(
                     onTap: () => print(FileUploaderAndCheckDuplicated.getStoredFiles()),
+                  ),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('List File Path'),
+                  CustomIconButton(
+                    icon: Icons.delete,
+                    text: 'Clear Cache',
+                    onTap: () => FileUploaderAndCheckDuplicated.clearStoredFiles(),
                   ),
 
                   const CustomFieldSpacer(),
@@ -96,5 +109,12 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
         ),
       ),
     );
+  }
+
+  String getFileNameAndSize(String filePath) {
+    File file = File(filePath);
+    String fileName = file.path.split('/').last;
+    String fileSize = '${(file.lengthSync() / 1024).toStringAsFixed(2)} KB';
+    return '$fileName ($fileSize)';
   }
 }
