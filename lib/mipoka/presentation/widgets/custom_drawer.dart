@@ -154,6 +154,10 @@ class _MobileCustomPenggunaDrawerWidgetState
                       ),
                     ),
                     ListTile(
+                      // leading: Image.asset(
+                      //   'assets/icons/home.png',
+                      //   width: 30,
+                      // ),
                       title: const Text(
                         'Beranda',
                         style: TextStyle(

@@ -72,7 +72,7 @@ class PenggunaDaftarPengajuanKegiatan extends StatelessWidget {
                             ),
                             DataColumn(
                               label: Text(
-                                'Tanggal Mengirim\nUsulan Kegiatan',
+                                'Tanggal Mengirim Usulan Kegiatan',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
@@ -117,22 +117,63 @@ class PenggunaDaftarPengajuanKegiatan extends StatelessWidget {
                             return DataRow(
                               cells: [
                                 DataCell(
-                                  Text(
-                                    '${index + 1}',
-                                    textAlign: TextAlign.center,
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      '${index + 1}',
+                                    ),
                                   ),
                                 ),
                                 DataCell(
-                                  Text(
-                                    'Age $index',
-                                    textAlign: TextAlign.center,
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      '2${index + 1} Mei 2023',
+                                    ),
                                   ),
                                 ),
-                                DataCell(Text('City $index')),
-                                DataCell(Text('Country $index')),
-                                DataCell(Text('Salary $index')),
-                                DataCell(Text('Position $index')),
-                                DataCell(Text('Department $index')),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Mahasiswa ${index + 1}',
+                                    ),
+                                  ),
+                                ),
+
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Kegiatan ${index + 1}',
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Image.asset(
+                                      'assets/icons/word.png',
+                                      width: 24,
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Kegiatan ${index + 1}',
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Kegiatan ${index + 1}',
+                                    ),
+                                  ),
+                                ),
                               ],
                             );
                           }),

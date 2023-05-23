@@ -141,8 +141,9 @@ class PenggunaDaftarLaporanKegiatan extends StatelessWidget {
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text(
-                                      'File Laporan ${index + 1}',
+                                    child: Image.asset(
+                                      'assets/icons/word.png',
+                                      width: 24,
                                     ),
                                   ),
                                 ),
