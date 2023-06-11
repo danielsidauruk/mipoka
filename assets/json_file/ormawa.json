@@ -1,0 +1,30 @@
+{
+  "ormawa": [
+    {
+      "idOrmawa": 1,
+      "namaOrmawa": "Ormawa A",
+      "pembina": "Pembina A",
+      "ketua": "Ketua A",
+      "wakil": "Wakil A",
+      "bendahara": "Bendahara A",
+      "jumlahAnggota": 50,
+      "fotoPembina": "foto_pembina1.jpg",
+      "fotoKetua": "foto_ketua1.jpg",
+      "fotoWakil": "foto_wakil1.jpg",
+      "fotoBendahara": "foto_bendahara1.jpg"
+    },
+    {
+      "idOrmawa": 2,
+      "namaOrmawa": "Ormawa B",
+      "pembina": "Pembina B",
+      "ketua": "Ketua B",
+      "wakil": "Wakil B",
+      "bendahara": "Bendahara B",
+      "jumlahAnggota": 30,
+      "fotoPembina": "foto_pembina2.jpg",
+      "fotoKetua": "foto_ketua2.jpg",
+      "fotoWakil": "foto_wakil2.jpg",
+      "fotoBendahara": "foto_bendahara2.jpg"
+    }
+  ]
+}

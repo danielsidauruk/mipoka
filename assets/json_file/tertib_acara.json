@@ -1,0 +1,18 @@
+{
+  "tertib_acara": [
+    {
+      "idTertibAcara": 1,
+      "waktuMulai": "08:00",
+      "waktuSelesai": "10:00",
+      "aktivitas": "Pembukaan",
+      "keterangan": "Sambutan dan pengenalan acara"
+    },
+    {
+      "idTertibAcara": 2,
+      "waktuMulai": "10:00",
+      "waktuSelesai": "12:00",
+      "aktivitas": "Presentasi",
+      "keterangan": "Penyampaian materi oleh pembicara"
+    }
+  ]
+}

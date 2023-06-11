@@ -1,0 +1,32 @@
+{
+  "riwayat_mpt": [
+    {
+      "idRiwayatMpt": 1,
+      "idKegiatan": 1001,
+      "idUser": 2001,
+      "status": "Selesai",
+      "file": "mpt1.pdf",
+      "hash": "abcde12345",
+      "keteranganA": "Riwayat MPT Semester 1",
+      "keteranganB": "Laporan MPT Mahasiswa",
+      "mulai": "2023-01-01T08:00:00Z",
+      "akhir": "2023-01-15T16:00:00Z",
+      "updatedAt": "2023-01-15T16:30:00Z",
+      "createdAt": "2023-01-15T16:30:00Z"
+    },
+    {
+      "idRiwayatMpt": 2,
+      "idKegiatan": 1002,
+      "idUser": 2002,
+      "status": "Menunggu",
+      "file": "mpt2.pdf",
+      "hash": "fghij67890",
+      "keteranganA": "Riwayat MPT Semester 2",
+      "keteranganB": "Laporan MPT Mahasiswa",
+      "mulai": "2023-07-01T08:00:00Z",
+      "akhir": "2023-07-15T16:00:00Z",
+      "updatedAt": "2023-07-15T16:30:00Z",
+      "createdAt": "2023-07-15T16:30:00Z"
+    }
+  ]
+}

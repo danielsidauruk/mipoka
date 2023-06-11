@@ -1,0 +1,24 @@
+{
+  "rincian_laporan": [
+    {
+      "idRincianLaporan": 1,
+      "idLaporan": 1001,
+      "keteranganA": "Pembelian Bahan Baku",
+      "qty": 10,
+      "satuan": 1,
+      "usulanAnggaran": 500000,
+      "realisasiAnggaran": 450000,
+      "selisih": 50000
+    },
+    {
+      "idRincianLaporan": 2,
+      "idLaporan": 1001,
+      "keteranganA": "Pembayaran Gaji Karyawan",
+      "qty": 20,
+      "satuan": 1,
+      "usulanAnggaran": 1000000,
+      "realisasiAnggaran": 950000,
+      "selisih": 50000
+    }
+  ]
+}

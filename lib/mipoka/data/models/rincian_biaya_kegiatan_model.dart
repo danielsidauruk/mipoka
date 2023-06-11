@@ -1,4 +1,4 @@
-import 'package:mipoka/mipoka/domain/entities/rincian.dart';
+import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 
 class RincianBiayaKegiatanModel extends RincianBiayaKegiatan {
   const RincianBiayaKegiatanModel({

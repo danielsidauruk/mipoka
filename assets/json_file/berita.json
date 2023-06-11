@@ -1,0 +1,18 @@
+{
+  "berita": [
+    {
+      "idBerita": 1,
+      "jenisKegiatan": "Olahraga",
+      "penulis": "John Doe",
+      "gambar": "gambar1.jpg",
+      "teks": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    {
+      "idBerita": 2,
+      "jenisKegiatan": "Seni",
+      "penulis": "Jane Smith",
+      "gambar": "gambar2.jpg",
+      "teks": "Praesent varius quam et lectus hendrerit posuere."
+    }
+  ]
+}

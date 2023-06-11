@@ -1,0 +1,20 @@
+{
+  "admin": [
+    {
+      "id_admin": 1,
+      "nip": "12345",
+      "username": "admin1",
+      "password": "password1",
+      "no_hp": "0812345678",
+      "role": "admin"
+    },
+    {
+      "id_admin": 2,
+      "nip": "54321",
+      "username": "admin2",
+      "password": "password2",
+      "no_hp": "087654321",
+      "role": "superadmin"
+    }
+  ]
+}

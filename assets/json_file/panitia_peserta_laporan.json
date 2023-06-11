@@ -1,0 +1,22 @@
+{
+  "panitiaPesertaLaporan": [
+    {
+      "idPanitiaPesertaLaporan": 1,
+      "idLaporan": 1,
+      "jenisMahasiswa": "Jenis Mahasiswa A",
+      "nim": "NIM A",
+      "namaLengkap": "Nama Lengkap A",
+      "prodi": "Prodi A",
+      "peran": "Peran A"
+    },
+    {
+      "idPanitiaPesertaLaporan": 2,
+      "idLaporan": 1,
+      "jenisMahasiswa": "Jenis Mahasiswa B",
+      "nim": "NIM B",
+      "namaLengkap": "Nama Lengkap B",
+      "prodi": "Prodi B",
+      "peran": "Peran B"
+    }
+  ]
+}

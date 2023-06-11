@@ -1,0 +1,40 @@
+{
+  "sessions": [
+    {
+      "idSession": 1,
+      "userId": 1001,
+      "ruangan": "A101",
+      "gedung": "Gedung A",
+      "idOrmawa": "ORM001",
+      "startTime": "2023-06-01T08:00:00Z",
+      "endTime": "2023-06-01T10:00:00Z",
+      "date": "2023-06-01",
+      "kegiatan": "Rapat Koordinasi",
+      "perlengkapan": "LCD Projector",
+      "lain": "None",
+      "status": "Scheduled",
+      "keterangan": "Rapat rutin mingguan",
+      "updatedAt": "2023-06-01T10:30:00Z",
+      "createdAt": "2023-06-01T10:30:00Z",
+      "updatedBy": "Admin"
+    },
+    {
+      "idSession": 2,
+      "userId": 1002,
+      "ruangan": "B201",
+      "gedung": "Gedung B",
+      "idOrmawa": "ORM002",
+      "startTime": "2023-06-02T14:00:00Z",
+      "endTime": "2023-06-02T16:00:00Z",
+      "date": "2023-06-02",
+      "kegiatan": "Pelatihan P3K",
+      "perlengkapan": "First Aid Kit",
+      "lain": "None",
+      "status": "Scheduled",
+      "keterangan": "Pelatihan wajib bagi anggota",
+      "updatedAt": "2023-06-02T16:30:00Z",
+      "createdAt": "2023-06-02T16:30:00Z",
+      "updatedBy": "Admin"
+    }
+  ]
+}
