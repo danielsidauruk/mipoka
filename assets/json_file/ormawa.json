@@ -8,10 +8,10 @@
       "wakil": "Wakil A",
       "bendahara": "Bendahara A",
       "jumlahAnggota": 50,
-      "fotoPembina": "foto_pembina1.jpg",
-      "fotoKetua": "foto_ketua1.jpg",
-      "fotoWakil": "foto_wakil1.jpg",
-      "fotoBendahara": "foto_bendahara1.jpg"
+      "fotoPembina": "https://random-d.uk/api/randomimg?t=1686482823678",
+      "fotoKetua": "https://random-d.uk/api/randomimg?t=1686482823678",
+      "fotoWakil": "https://random-d.uk/api/randomimg?t=1686482823678",
+      "fotoBendahara": "https://random-d.uk/api/randomimg?t=1686482823678"
     },
     {
       "idOrmawa": 2,
@@ -21,10 +21,10 @@
       "wakil": "Wakil B",
       "bendahara": "Bendahara B",
       "jumlahAnggota": 30,
-      "fotoPembina": "foto_pembina2.jpg",
-      "fotoKetua": "foto_ketua2.jpg",
-      "fotoWakil": "foto_wakil2.jpg",
-      "fotoBendahara": "foto_bendahara2.jpg"
+      "fotoPembina": "https://random-d.uk/api/randomimg?t=1686482823678",
+      "fotoKetua": "https://random-d.uk/api/randomimg?t=1686482823678",
+      "fotoWakil": "https://random-d.uk/api/randomimg?t=1686482823678",
+      "fotoBendahara": "https://random-d.uk/api/randomimg?t=1686482823678"
     }
   ]
 }
