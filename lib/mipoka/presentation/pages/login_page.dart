@@ -374,7 +374,7 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: const [
                             Text(
-                              'Sign In - Pengguna',
+                              'Sign In - Pemeriksa',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,

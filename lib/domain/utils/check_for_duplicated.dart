@@ -33,6 +33,7 @@ class FileUploaderAndCheckDuplicated {
   static Future<String?> checkForDuplicateFile(PlatformFile file) async {
     List<int> bytes = await File(file.path!).readAsBytes();
     String hash = sha256.convert(bytes).toString();
+    print('SHA : $hash');
     for (String? filePath in filePaths.values) {
       if (filePath != null) {
         List<int> existingBytes = await File(filePath).readAsBytes();
