@@ -1,32 +1,38 @@
 import 'package:equatable/equatable.dart';
 
-class DataPesertaLuarKota extends Equatable {
-  final int nimNip;
+class Peserta extends Equatable {
+  final int idPeserta;
+  final int idUsulan;
+  final String nim;
   final String namaLengkap;
-  final int nik;
+  final String nik;
   final String tempatLahir;
-  final DateTime tanggalLahir;
+  final String tanggalLahir;
   final String peran;
-  final String dasarPengiriman;
+  final String dasarKirim;
 
-  const DataPesertaLuarKota({
-    required this.nimNip,
+  Peserta({
+    required this.idPeserta,
+    required this.idUsulan,
+    required this.nim,
     required this.namaLengkap,
     required this.nik,
     required this.tempatLahir,
     required this.tanggalLahir,
     required this.peran,
-    required this.dasarPengiriman,
+    required this.dasarKirim,
   });
 
   @override
   List<Object?> get props => [
-    nimNip,
+    idPeserta,
+    idUsulan,
+    nim,
     namaLengkap,
     nik,
     tempatLahir,
     tanggalLahir,
     peran,
-    dasarPengiriman,
+    dasarKirim,
   ];
 }
