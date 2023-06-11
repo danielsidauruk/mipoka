@@ -1,6 +1,6 @@
 import 'package:mipoka/mipoka/domain/entities/rincian_laporan.dart';
 
-class RincianLaporanModel extends RincianLaporan {
+class RincianLaporanModel extends RincianL {
   const RincianLaporanModel({
     required int idRincianLaporan,
     required int idLaporan,
@@ -11,7 +11,7 @@ class RincianLaporanModel extends RincianLaporan {
     required int realisasiAnggaran,
     required int selisih,
   }) : super(
-    idRincianLaporan: idRincianLaporan,
+    idRincianL: idRincianLaporan,
     idLaporan: idLaporan,
     keteranganA: keteranganA,
     qty: qty,
@@ -36,7 +36,7 @@ class RincianLaporanModel extends RincianLaporan {
 
   Map<String, dynamic> toJson() {
     return {
-      'idRincianLaporan': idRincianLaporan,
+      'idRincianLaporan': idRincianL,
       'idLaporan': idLaporan,
       'keteranganA': keteranganA,
       'qty': qty,

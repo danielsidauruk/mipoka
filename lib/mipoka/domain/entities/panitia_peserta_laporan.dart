@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class PanitiaPesertaLaporan extends Equatable {
-  final int idPanitiaPesertaLaporan;
+class PanitiaPesertaL extends Equatable {
+  final int idPanitiaPesertaL;
   final int idLaporan;
   final String jenisMahasiswa;
   final String nim;
@@ -9,8 +9,8 @@ class PanitiaPesertaLaporan extends Equatable {
   final String prodi;
   final String peran;
 
-  const PanitiaPesertaLaporan({
-    required this.idPanitiaPesertaLaporan,
+  const PanitiaPesertaL({
+    required this.idPanitiaPesertaL,
     required this.idLaporan,
     required this.jenisMahasiswa,
     required this.nim,
@@ -21,7 +21,7 @@ class PanitiaPesertaLaporan extends Equatable {
 
   @override
   List<Object?> get props => [
-    idPanitiaPesertaLaporan,
+    idPanitiaPesertaL,
     idLaporan,
     jenisMahasiswa,
     nim,

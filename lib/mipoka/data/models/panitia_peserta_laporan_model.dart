@@ -1,6 +1,6 @@
 import 'package:mipoka/mipoka/domain/entities/panitia_peserta_laporan.dart';
 
-class PanitiaPesertaLaporanModel extends PanitiaPesertaLaporan {
+class PanitiaPesertaLaporanModel extends PanitiaPesertaL {
   const PanitiaPesertaLaporanModel({
     required int idPanitiaPesertaLaporan,
     required int idLaporan,
@@ -10,7 +10,7 @@ class PanitiaPesertaLaporanModel extends PanitiaPesertaLaporan {
     required String prodi,
     required String peran,
   }) : super(
-    idPanitiaPesertaLaporan: idPanitiaPesertaLaporan,
+    idPanitiaPesertaL: idPanitiaPesertaLaporan,
     idLaporan: idLaporan,
     jenisMahasiswa: jenisMahasiswa,
     nim: nim,
@@ -33,7 +33,7 @@ class PanitiaPesertaLaporanModel extends PanitiaPesertaLaporan {
 
   Map<String, dynamic> toJson() {
     return {
-      'idPanitiaPesertaLaporan': idPanitiaPesertaLaporan,
+      'idPanitiaPesertaLaporan': idPanitiaPesertaL,
       'idLaporan': idLaporan,
       'jenisMahasiswa': jenisMahasiswa,
       'nim': nim,

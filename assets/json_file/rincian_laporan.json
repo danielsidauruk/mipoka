@@ -1,7 +1,7 @@
 {
-  "rincian_laporan": [
+  "rincian_l": [
     {
-      "idRincianLaporan": 1,
+      "idRincianL": 1,
       "idLaporan": 1001,
       "keteranganA": "Pembelian Bahan Baku",
       "qty": 10,
@@ -11,7 +11,7 @@
       "selisih": 50000
     },
     {
-      "idRincianLaporan": 2,
+      "idRincianL": 2,
       "idLaporan": 1001,
       "keteranganA": "Pembayaran Gaji Karyawan",
       "qty": 20,

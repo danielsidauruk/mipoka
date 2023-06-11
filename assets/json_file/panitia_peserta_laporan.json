@@ -1,7 +1,7 @@
 {
-  "panitiaPesertaLaporan": [
+  "panitiaPesertaL": [
     {
-      "idPanitiaPesertaLaporan": 1,
+      "idPanitiaPesertaL": 1,
       "idLaporan": 1,
       "jenisMahasiswa": "Jenis Mahasiswa A",
       "nim": "NIM A",
@@ -10,7 +10,7 @@
       "peran": "Peran A"
     },
     {
-      "idPanitiaPesertaLaporan": 2,
+      "idPanitiaPesertaL": 2,
       "idLaporan": 1,
       "jenisMahasiswa": "Jenis Mahasiswa B",
       "nim": "NIM B",
