@@ -1,6 +1,6 @@
 import 'package:mipoka/mipoka/domain/entities/rincian_laporan.dart';
 
-class RincianLaporanModel extends RincianL {
+class RincianLaporanModel extends RincianLaporan {
   const RincianLaporanModel({
     required int idRincianLaporan,
     required int idLaporan,

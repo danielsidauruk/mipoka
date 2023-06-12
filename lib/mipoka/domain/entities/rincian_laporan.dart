@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class RincianL extends Equatable {
+class RincianLaporan extends Equatable {
   final int idRincianL;
   final int idLaporan;
   final String keteranganA;
@@ -10,7 +10,7 @@ class RincianL extends Equatable {
   final int realisasiAnggaran;
   final int selisih;
 
-  const RincianL({
+  const RincianLaporan({
     required this.idRincianL,
     required this.idLaporan,
     required this.keteranganA,

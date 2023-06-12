@@ -12,6 +12,13 @@ import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
 import 'package:mipoka/mipoka/domain/entities/periode.dart';
 import 'package:mipoka/mipoka/domain/entities/peserta.dart';
 import 'package:mipoka/mipoka/domain/entities/prestasi.dart';
+import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/rincian_laporan.dart';
+import 'package:mipoka/mipoka/domain/entities/riwayat_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/session.dart';
+import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
+import 'package:mipoka/mipoka/domain/entities/user.dart';
+import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 
 abstract class MipokaRepositories {
   Future<Either<Failure, Berita>> getBerita();
@@ -73,6 +80,41 @@ abstract class MipokaRepositories {
   Future<Either<Failure, Prestasi>> createPrestasi(Prestasi prestasi);
   Future<Either<Failure, Prestasi>> updatePrestasi(Prestasi prestasi);
   Future<Either<Failure, void>> deletePrestasi(int idPrestasi);
+
+  Future<Either<Failure, RincianBiayaKegiatan>> getRincianBiayaKegiatan();
+  Future<Either<Failure, RincianBiayaKegiatan>> createRincianBiayaKegiatan(RincianBiayaKegiatan rincianBiayaKegiatan);
+  Future<Either<Failure, RincianBiayaKegiatan>> updateRincianBiayaKegiatan(RincianBiayaKegiatan rincianBiayaKegiatan);
+  Future<Either<Failure, void>> deleteRincianBiayaKegiatan(int idRincianBiayaKegiatan);
+
+  Future<Either<Failure, RincianLaporan>> getRincianLaporan();
+  Future<Either<Failure, RincianLaporan>> createRincianLaporan(RincianLaporan rincianLaporan);
+  Future<Either<Failure, RincianLaporan>> updateRincianLaporan(RincianLaporan rincianLaporan);
+  Future<Either<Failure, void>> deleteRincianLaporan(int idRincianL);
+
+  Future<Either<Failure, RiwayatMpt>> getRiwayatMpt();
+  Future<Either<Failure, RiwayatMpt>> createRiwayatMpt(RiwayatMpt riwayatMpt);
+  Future<Either<Failure, RiwayatMpt>> updateRiwayatMpt(RiwayatMpt riwayatMpt);
+  Future<Either<Failure, void>> deleteRiwayatMpt(int idRiwayatMpt);
+
+  Future<Either<Failure, Session>> getSession();
+  Future<Either<Failure, Session>> createSession(Session session);
+  Future<Either<Failure, Session>> updateSession(Session session);
+  Future<Either<Failure, void>> deleteSession(int idSession);
+
+  Future<Either<Failure, TertibAcara>> getTertibAcara();
+  Future<Either<Failure, TertibAcara>> createTertibAcara(TertibAcara tertibAcara);
+  Future<Either<Failure, TertibAcara>> updateTertibAcara(TertibAcara tertibAcara);
+  Future<Either<Failure, void>> deleteTertibAcara(int idTertibAcara);
+
+  Future<Either<Failure, User>> getUser();
+  Future<Either<Failure, User>> createUser(User user);
+  Future<Either<Failure, User>> updateUser(User user);
+  Future<Either<Failure, void>> deleteUser(int idUser);
+
+  Future<Either<Failure, UsulanKegiatan>> getUsulanKegiatan();
+  Future<Either<Failure, UsulanKegiatan>> createUsulanKegiatan(UsulanKegiatan usulanKegiatan);
+  Future<Either<Failure, UsulanKegiatan>> updateUsulanKegiatan(UsulanKegiatan usulanKegiatan);
+  Future<Either<Failure, void>> deleteUsulanKegiatan(int idUsulan);
 }
 
 

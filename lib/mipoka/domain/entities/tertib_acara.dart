@@ -8,7 +8,7 @@ class TertibAcara extends Equatable {
   final String aktivitas;
   final String keterangan;
 
-  TertibAcara({
+  const TertibAcara({
     required this.idTertibAcara,
     required this.waktuMulai,
     required this.waktuSelesai,
