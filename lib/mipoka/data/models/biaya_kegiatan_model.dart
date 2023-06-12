@@ -17,11 +17,11 @@ class BiayaKegiatanModel extends BiayaKegiatan {
 
   factory BiayaKegiatanModel.fromJson(Map<String, dynamic> json) {
     return BiayaKegiatanModel(
-      namaBiayaKegiatan: json['namaBiayaKegiatan'] as String,
-      qty: json['qty'] as int,
-      hargaSatuan: json['hargaSatuan'] as int,
-      total: json['total'] as int,
-      keterangan: json['keterangan'] as String,
+      namaBiayaKegiatan: json['namaBiayaKegiatan'],
+      qty: json['qty'],
+      hargaSatuan: json['hargaSatuan'],
+      total: json['total'],
+      keterangan: json['keterangan'],
     );
   }
 

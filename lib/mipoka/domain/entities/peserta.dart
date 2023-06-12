@@ -11,7 +11,7 @@ class Peserta extends Equatable {
   final String peran;
   final String dasarKirim;
 
-  Peserta({
+  const Peserta({
     required this.idPeserta,
     required this.idUsulan,
     required this.nim,

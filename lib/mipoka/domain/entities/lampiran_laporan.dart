@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-class Lampiran extends Equatable {
+class LampiranLaporan extends Equatable {
   final int idLampiran;
   final String lampiranA;
   final String lampiranB;
   final String lampiranC;
   final String lampiranD;
 
-  const Lampiran({
+  const LampiranLaporan({
     required this.idLampiran,
     required this.lampiranA,
     required this.lampiranB,
