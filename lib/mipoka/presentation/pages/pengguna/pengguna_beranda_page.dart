@@ -22,21 +22,20 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
     super.initState();
     BlocProvider.of<ReadBeritaBloc>(context, listen: false)
         .add(LoadBeritaEvent());
-    print('Bloc has been trigered');
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ReadBeritaBloc, ReadBeritaState>(
-      builder: (context, state) {
-        if (state is ReadBeritaLoading) {
-          return const Text('Loading');
-        } else if (state is ReadBeritaHasData) {
-          final berita = state.berita;
-          return Scaffold(
-            appBar: const MipokaMobileAppBar(),
-            drawer: const MobileCustomPenggunaDrawerWidget(),
-            body: SingleChildScrollView(
+    return Scaffold(
+      appBar: const MipokaMobileAppBar(),
+      drawer: const MobileCustomPenggunaDrawerWidget(),
+      body: BlocBuilder<ReadBeritaBloc, ReadBeritaState>(
+        builder: (context, state) {
+          if (state is ReadBeritaLoading) {
+            return const Text('Loading');
+          } else if (state is ReadBeritaHasData) {
+            final berita = state.berita;
+            return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -105,14 +104,14 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
                   ],
                 ),
               ),
-            ),
-          );
-        } else if (state is ReadBeritaError) {
-          return Text('Error');
-        } else {
-          return const Text('IDK');
-        }
-      },
+            );
+          } else if (state is ReadBeritaError) {
+            return Text('Error');
+          } else {
+            return const Text('IDK');
+          }
+        },
+      ),
     );
   }
 
