@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/signature_cubit.dart';
+import 'package:mipoka/mipoka/presentation/bloc/cubit/signature_cubit.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 

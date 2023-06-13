@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:mipoka/mipoka/presentation/bloc/date_picker_cubit.dart';
+import 'package:mipoka/mipoka/presentation/bloc/cubit/date_picker_cubit.dart';
 
 class CustomDatePickerField extends StatelessWidget {
   final void Function(DateTime?) onDateSelected;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/bloc/switch_cubit.dart';
+import 'package:mipoka/mipoka/presentation/bloc/cubit/switch_cubit.dart';
 
 class CustomSwitch extends StatelessWidget {
   final String title;

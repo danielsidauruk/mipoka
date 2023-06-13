@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/dropdown_cubit.dart';
+import 'package:mipoka/mipoka/presentation/bloc/cubit/dropdown_cubit.dart';
 
 class CustomDropdownButton extends StatelessWidget {
   final List<String> items;

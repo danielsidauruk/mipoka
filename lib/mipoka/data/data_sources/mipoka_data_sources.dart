@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:mipoka/mipoka/data/models/admin_model.dart';
 import 'package:mipoka/mipoka/data/models/berita_model.dart';
 import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
@@ -116,17 +119,24 @@ abstract class MipokaDataSources {
 }
 
 class MipokaDataSourcesImpl extends MipokaDataSources {
+  MipokaDataSourcesImpl({required this.client});
+  final http.Client client;
+
   // => BeritaModel Repositories
+  final file = File('mipoka/assets/json_file/berita.json');
+
   @override
   Future<BeritaModel> createBerita(BeritaModel beritaModel) {
     // TODO: implement createBeritaModel
     throw UnimplementedError();
   }
-
   @override
-  Future<BeritaModel> readBerita() {
-    // TODO: implement getBeritaModel
-    throw UnimplementedError();
+  Future<BeritaModel> readBerita() async {
+    String jsonContent = await file.readAsString();
+    Map<String, dynamic> beritaMap = json.decode(jsonContent);
+
+    BeritaModel beritaModel = BeritaModel.fromJson(beritaMap);
+    return beritaModel;
   }
   @override
   Future<BeritaModel> updateBerita(BeritaModel beritaModel) {

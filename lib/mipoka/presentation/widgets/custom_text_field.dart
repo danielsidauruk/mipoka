@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/text_field_cubit.dart';
+import 'package:mipoka/mipoka/presentation/bloc/cubit/text_field_cubit.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({

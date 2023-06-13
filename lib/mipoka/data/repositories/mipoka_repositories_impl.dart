@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
+import 'package:mipoka/core/exception.dart';
 import 'package:mipoka/domain/utils/failure.dart';
+import 'package:mipoka/mipoka/data/data_sources/mipoka_data_sources.dart';
 import 'package:mipoka/mipoka/domain/entities/admin.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
@@ -21,18 +23,27 @@ import 'package:mipoka/mipoka/domain/entities/user.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/repositories/mipoka_repositories.dart';
 
-class MipokaRepositoriesImpl extends MipokaRepositories{
+class MipokaRepositoriesImpl extends MipokaRepositories {
+  final MipokaDataSources mipokaDataSources;
+
+  MipokaRepositoriesImpl({required this.mipokaDataSources});
+
   // => Berita Repositories
   @override
   Future<Either<Failure, Berita>> createBerita(Berita berita) {
     // TODO: implement createBerita
     throw UnimplementedError();
   }
+
   @override
-  Future<Either<Failure, Berita>> readBerita() {
-    // TODO: implement getBerita
-    throw UnimplementedError();
+  Future<Either<Failure, Berita>> readBerita() async {
+    try {
+      return Right(await mipokaDataSources.readBerita());
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
   }
+
   @override
   Future<Either<Failure, Berita>> updateBerita(Berita berita) {
     // TODO: implement updateBerita

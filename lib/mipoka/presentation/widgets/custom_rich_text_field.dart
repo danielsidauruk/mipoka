@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:mipoka/mipoka/presentation/bloc/quil_editor_focus_cubit/quill_editor_focus_cubit.dart';
-import 'package:mipoka/mipoka/presentation/bloc/quil_editor_focus_cubit/quill_editor_focus_state.dart';
+import 'package:mipoka/mipoka/presentation/bloc/cubit/quil_editor_focus_cubit/quill_editor_focus_cubit.dart';
+import 'package:mipoka/mipoka/presentation/bloc/cubit/quil_editor_focus_cubit/quill_editor_focus_state.dart';
 
 // class CustomRichTextField extends StatelessWidget {
 //   final QuillController controller;

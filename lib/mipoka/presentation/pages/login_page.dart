@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/read_berita_bloc/read_berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 
 class LoginPage extends StatefulWidget {
@@ -296,7 +298,11 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   children: [
                     InkWell(
-                      onTap: () => Navigator.pushNamed(context, penggunaBerandaPageRoute),
+                      onTap: () {
+                        Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                        BlocProvider.of<ReadBeritaBloc>(context, listen: false)
+                            .add(LoadBeritaEvent());
+                        },
                       child: Container(
                         alignment: Alignment.center,
                         margin: const EdgeInsets.symmetric(vertical: 8.0),
