@@ -1,26 +1,37 @@
-import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/domain/entities/lampiran.dart';
 
-class Lampiran extends Equatable {
-  final int idLampiran;
-  final String? lampiranA;
-  final String? lampiranB;
-  final String? lampiranC;
-  final String? lampiranD;
+class LampiranModel extends Lampiran {
+  const LampiranModel({
+    required int idLampiran,
+    required String lampiranA,
+    required String lampiranB,
+    required String lampiranC,
+    required String lampiranD,
+  }) : super(
+    idLampiran: idLampiran,
+    lampiranA: lampiranA,
+    lampiranB: lampiranB,
+    lampiranC: lampiranC,
+    lampiranD: lampiranD,
+  );
 
-  const Lampiran({
-    required this.idLampiran,
-    this.lampiranA,
-    this.lampiranB,
-    this.lampiranC,
-    this.lampiranD,
-  });
+  Map<String, dynamic> toJson() {
+    return {
+      'idLampiran': idLampiran,
+      'lampiranA': lampiranA,
+      'lampiranB': lampiranB,
+      'lampiranC': lampiranC,
+      'lampiranD': lampiranD,
+    };
+  }
 
-  @override
-  List<Object?> get props => [
-    idLampiran,
-    lampiranA,
-    lampiranB,
-    lampiranC,
-    lampiranD,
-  ];
+  static LampiranModel fromJson(Map<String, dynamic> json) {
+    return LampiranModel(
+      idLampiran: json['idLampiran'],
+      lampiranA: json['lampiranA'],
+      lampiranB: json['lampiranB'],
+      lampiranC: json['lampiranC'],
+      lampiranD: json['lampiranD'],
+    );
+  }
 }

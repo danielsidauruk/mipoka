@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:mipoka/domain/utils/failure.dart';
-import 'package:mipoka/mipoka/data/models/lampiran_model.dart';
 import 'package:mipoka/mipoka/domain/entities/admin.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/lampiran.dart';
 import 'package:mipoka/mipoka/domain/entities/lampiran_laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/panitia_peserta_laporan.dart';
