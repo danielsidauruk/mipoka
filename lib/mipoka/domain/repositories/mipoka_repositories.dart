@@ -21,12 +21,12 @@ import 'package:mipoka/mipoka/domain/entities/user.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 
 abstract class MipokaRepositories {
-  Future<Either<Failure, Berita>> getBerita();
+  Future<Either<Failure, Berita>> readBerita();
   Future<Either<Failure, Berita>> createBerita(Berita berita);
   Future<Either<Failure, Berita>> updateBerita(Berita berita);
   Future<Either<Failure, void>> deleteBerita(int beritaId);
 
-  Future<Either<Failure, Admin>> getAdmin();
+  Future<Either<Failure, Admin>> readAdmin();
   Future<Either<Failure, Admin>> createAdmin(Admin admin);
   Future<Either<Failure, Admin>> updateAdmin(Admin admin);
   Future<Either<Failure, void>> deleteAdmin(int adminId);
@@ -53,7 +53,7 @@ abstract class MipokaRepositories {
 
   Future<Either<Failure, Ormawa>> getOrmawa();
   Future<Either<Failure, Ormawa>> createOrmawa(Ormawa ormawa);
-  Future<Either<Failure, Lampiran>> updateOrmawa(Ormawa ormawa);
+  Future<Either<Failure, Ormawa>> updateOrmawa(Ormawa ormawa);
   Future<Either<Failure, void>> deleteOrmawa(int idOrmawa);
 
   Future<Either<Failure, PanitiaPesertaL>> getPanitiaPesertaL();
@@ -116,15 +116,3 @@ abstract class MipokaRepositories {
   Future<Either<Failure, UsulanKegiatan>> updateUsulanKegiatan(UsulanKegiatan usulanKegiatan);
   Future<Either<Failure, void>> deleteUsulanKegiatan(int idUsulan);
 }
-
-
-
-
-
-
-
-
-
-
-
-
