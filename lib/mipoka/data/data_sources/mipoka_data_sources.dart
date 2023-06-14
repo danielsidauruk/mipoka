@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:mipoka/mipoka/data/models/admin_model.dart';
 import 'package:mipoka/mipoka/data/models/berita_model.dart';
@@ -123,8 +124,6 @@ class MipokaDataSourcesImpl extends MipokaDataSources {
   final http.Client client;
 
   // => BeritaModel Repositories
-  final file = File('mipoka/assets/json_file/berita.json');
-
   @override
   Future<BeritaModel> createBerita(BeritaModel beritaModel) {
     // TODO: implement createBeritaModel
@@ -132,12 +131,22 @@ class MipokaDataSourcesImpl extends MipokaDataSources {
   }
   @override
   Future<BeritaModel> readBerita() async {
-    String jsonContent = await file.readAsString();
-    Map<String, dynamic> beritaMap = json.decode(jsonContent);
+    // String jsonContent = await file.readAsString();
+    final String response = await rootBundle.loadString('assets/json_file/berita.json');
+    Map<String, dynamic> beritaMap = json.decode(response);
 
     BeritaModel beritaModel = BeritaModel.fromJson(beritaMap);
+    print("..number of items ${beritaModel.teks}");
     return beritaModel;
   }
+  // Future<void> readJson() async {
+  //   final String response = await rootBundle.loadString('assets/sample.json');
+  //   final data = await json.decode(response);
+  //   setState(() {
+  //     _items = data["items"];
+  //     print("..number of items ${_items.length}");
+  //   });
+  // }
   @override
   Future<BeritaModel> updateBerita(BeritaModel beritaModel) {
     // TODO: implement updateBeritaModel

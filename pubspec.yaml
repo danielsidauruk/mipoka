@@ -22,6 +22,7 @@ dependencies:
   dartz: ^0.10.1
   http: ^0.13.5
   get_it: ^7.2.0
+  path_provider: ^2.0.8
 
 dev_dependencies:
   flutter_test:
@@ -54,3 +55,23 @@ flutter:
     - assets/icons/sms.png
     - assets/icons/light-mode.png
     - assets/icons/dark-mode.png
+
+    - assets/json_file/admin.json
+    - assets/json_file/berita.json
+    - assets/json_file/biaya.json
+    - assets/json_file/kegiatan.json
+    - assets/json_file/lampiran.json
+    - assets/json_file/laporan.json
+    - assets/json_file/ormawa.json
+    - assets/json_file/panitia_peserta_laporan.json
+    - assets/json_file/partisipan.json
+    - assets/json_file/periode.json
+    - assets/json_file/peserta.json
+    - assets/json_file/prestasi.json
+    - assets/json_file/rincian_biaya_kegiatan.json
+    - assets/json_file/rincian_laporan.json
+    - assets/json_file/riwayat_mpt.json
+    - assets/json_file/session.json
+    - assets/json_file/tertib_acara.json
+    - assets/json_file/user.json
+    - assets/json_file/usulan_kegiatan.json
