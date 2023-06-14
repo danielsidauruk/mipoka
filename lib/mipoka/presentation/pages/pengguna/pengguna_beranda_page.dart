@@ -50,7 +50,7 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
                         ),
                         const CustomFieldSpacer(),
                         ListView.builder(
-                          itemCount: 1,
+                          itemCount: berita.length,
                           physics: const ScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
@@ -64,16 +64,12 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
                                   children: [
                                     Expanded(
                                       flex: 1,
-                                      child: Container(
-                                        width: 80,
-                                        height: 80,
-                                        color: Colors.grey,
-                                      ),
+                                      child: Image.network(berita[index].gambar),
                                     ),
                                     const SizedBox(width: 4.0),
                                     Expanded(
                                       flex: 3,
-                                      child: Text(berita.teks,
+                                      child: Text(berita[index].teks,
                                         style: const TextStyle(fontWeight: FontWeight.bold),
                                       ),
                                     ),

@@ -23,7 +23,7 @@ import 'package:mipoka/mipoka/data/models/user_model.dart';
 import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
 
 abstract class MipokaDataSources {
-  Future<BeritaModel> readBerita();
+  Future<List<BeritaModel>> readBerita();
   Future<BeritaModel> createBerita(BeritaModel beritaModel);
   Future<BeritaModel> updateBerita(BeritaModel beritaModel);
   Future<void> deleteBerita(int beritaId);
@@ -129,15 +129,26 @@ class MipokaDataSourcesImpl extends MipokaDataSources {
     // TODO: implement createBeritaModel
     throw UnimplementedError();
   }
+  // @override
+  // Future<List<BeritaModel>> readBerita() async {
+  //   // String jsonContent = await file.readAsString();
+  //   final String response = await rootBundle.loadString('assets/json_file/berita.json');
+  //   Map<String, dynamic> beritaMap = json.decode(response);
+  //
+  //   BeritaModel beritaModel = BeritaModel.fromJson(beritaMap);
+  //   print("..number of items ${beritaModel.teks}");
+  //   return beritaModel;
+  // }
   @override
-  Future<BeritaModel> readBerita() async {
-    // String jsonContent = await file.readAsString();
+  Future<List<BeritaModel>> readBerita() async {
     final String response = await rootBundle.loadString('assets/json_file/berita.json');
-    Map<String, dynamic> beritaMap = json.decode(response);
+    List<dynamic> beritaList = json.decode(response);
 
-    BeritaModel beritaModel = BeritaModel.fromJson(beritaMap);
-    print("..number of items ${beritaModel.teks}");
-    return beritaModel;
+    List<BeritaModel> result = beritaList
+        .map((beritaMap) => BeritaModel.fromJson(beritaMap))
+        .toList();
+
+    return result;
   }
   // Future<void> readJson() async {
   //   final String response = await rootBundle.loadString('assets/sample.json');

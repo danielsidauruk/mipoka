@@ -36,7 +36,7 @@ class MipokaRepositoriesImpl extends MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, Berita>> readBerita() async {
+  Future<Either<Failure, List<Berita>>> readBerita() async {
     try {
       return Right(await mipokaDataSources.readBerita());
     } on ServerException {

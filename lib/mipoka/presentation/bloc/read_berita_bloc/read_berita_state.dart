@@ -22,7 +22,7 @@ class ReadBeritaError extends ReadBeritaState {
 
 class ReadBeritaHasData extends ReadBeritaState {
   const ReadBeritaHasData({required this.berita});
-  final Berita berita;
+  final List<Berita> berita;
 
   @override
   List<Object> get props => [berita];
