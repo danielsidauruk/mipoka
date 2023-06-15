@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:mipoka/core/exception.dart';
 import 'package:mipoka/domain/utils/failure.dart';
 import 'package:mipoka/mipoka/data/data_sources/mipoka_data_sources.dart';
+import 'package:mipoka/mipoka/data/models/berita_model.dart';
 import 'package:mipoka/mipoka/domain/entities/admin.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
@@ -32,7 +33,7 @@ class MipokaRepositoriesImpl extends MipokaRepositories {
   @override
   Future<Either<Failure, String>> createBerita(Berita berita) async {
     try {
-      return Right(await mipokaDataSources.createBerita(berita.toBeritaModel()));
+      return Right(await mipokaDataSources.createBerita(BeritaModel.fromEntity(berita)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -50,7 +51,7 @@ class MipokaRepositoriesImpl extends MipokaRepositories {
   @override
   Future<Either<Failure, String>> updateBerita(Berita berita) async {
     try {
-      return Right(await mipokaDataSources.updateBerita(berita.toBeritaModel()));
+      return Right(await mipokaDataSources.updateBerita(BeritaModel.fromEntity(berita)));
     } on ServerException {
       return const Left(ServerFailure());
     }

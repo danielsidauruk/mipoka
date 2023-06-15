@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/data/models/panitia_peserta_laporan_model.dart';
 
 class PanitiaPesertaL extends Equatable {
   final int idPanitiaPesertaL;
@@ -18,6 +19,18 @@ class PanitiaPesertaL extends Equatable {
     required this.prodi,
     required this.peran,
   });
+
+  PanitiaPesertaLaporanModel toPanitiaPesertaLaporanMode() {
+    return PanitiaPesertaLaporanModel(
+      idPanitiaPesertaLaporan: idPanitiaPesertaL,
+      idLaporan: idLaporan,
+      jenisMahasiswa: jenisMahasiswa,
+      nim: nim,
+      namaLengkap: namaLengkap,
+      prodi: prodi,
+      peran: peran,
+    );
+  }
 
   @override
   List<Object?> get props => [

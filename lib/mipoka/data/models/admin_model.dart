@@ -17,6 +17,17 @@ class AdminModel extends Admin {
     role: role,
   );
 
+  factory AdminModel.fromEntity(Admin admin) {
+    return AdminModel(
+      idAdmin: admin.idAdmin,
+      nip: admin.nip,
+      username: admin.username,
+      password: admin.password,
+      noHp: admin.noHp,
+      role: admin.role,
+    );
+  }
+
   factory AdminModel.fromJson(Map<String, dynamic> json) {
     return AdminModel(
       idAdmin: json['id_admin'],

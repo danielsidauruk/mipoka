@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 
 class Ormawa extends Equatable {
   final int idOrmawa;
@@ -26,6 +27,22 @@ class Ormawa extends Equatable {
     required this.fotoWakil,
     required this.fotoBendahara,
   });
+
+  OrmawaModel toOrmawaModel() {
+    return OrmawaModel(
+      idOrmawa: idOrmawa,
+      namaOrmawa: namaOrmawa,
+      pembina: pembina,
+      ketua: ketua,
+      wakil: wakil,
+      bendahara: bendahara,
+      jumlahAnggota: jumlahAnggota,
+      fotoPembina: fotoPembina,
+      fotoKetua: fotoKetua,
+      fotoWakil: fotoWakil,
+      fotoBendahara: fotoBendahara,
+    );
+  }
 
   @override
   List<Object?> get props => [

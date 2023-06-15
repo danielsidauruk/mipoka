@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/data/models/periode_model.dart';
 
 class Periode extends Equatable {
   final int idPeriode;
@@ -14,6 +15,16 @@ class Periode extends Equatable {
     required this.mulai,
     required this.akhir,
   });
+
+  PeriodeModel toPeriodeModel() {
+    return PeriodeModel(
+      idPeriode: idPeriode,
+      tahun: tahun,
+      ulang: ulang,
+      mulai: mulai,
+      akhir: akhir,
+    );
+  }
 
   @override
   List<Object?> get props => [

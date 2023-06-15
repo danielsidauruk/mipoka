@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/data/models/admin_model.dart';
 
 class Admin extends Equatable {
   final int idAdmin;

@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:mipoka/mipoka/data/models/laporan_model.dart';
 
 class Laporan extends Equatable {
   final int idLaporan;
@@ -63,6 +64,40 @@ class Laporan extends Equatable {
     required this.createdAt,
     required this.updatedBy,
   });
+
+  LaporanModel toLaporanModel() {
+    return LaporanModel(
+      idLaporan: idLaporan,
+      idOrmawa: idOrmawa,
+      idUser: idUser,
+      idUsulan: idUsulan,
+      namaKegiatan: namaKegiatan,
+      bentuk: bentuk,
+      hasilK: hasilK,
+      totalDana: totalDana,
+      sumberDana: sumberDana,
+      deskripsiKegiatan: deskripsiKegiatan,
+      tempatKegiatan: tempatKegiatan,
+      keberangkatan: keberangkatan,
+      kepulangan: kepulangan,
+      jumlahPartisipan: jumlahPartisipan,
+      bentukPelaksanaanKegiatan: bentukPelaksanaanKegiatan,
+      hasilKegiatan: hasilKegiatan,
+      pembina: pembina,
+      ketuaOrmawa: ketuaOrmawa,
+      latarBelakang: latarBelakang,
+      waktuDanTempatPelaksanaan: waktuDanTempatPelaksanaan,
+      panitiaPesertaL: panitiaPesertaL,
+      idRincianBiayaKegiatan: idRincianBiayaKegiatan,
+      penutup: penutup,
+      idLampiranL: idLampiranL,
+      status: status,
+      file: file,
+      updatedAt: updatedAt,
+      createdAt: createdAt,
+      updatedBy: updatedBy,
+    );
+  }
 
   @override
   List<Object?> get props => [

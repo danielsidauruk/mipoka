@@ -15,6 +15,26 @@ class BeritaModel extends Berita {
     teks: teks,
   );
 
+  // BeritaModel toBeritaModel() {
+  //   return BeritaModel(
+  //     idBerita: idBerita,
+  //     jenisKegiatan: jenisKegiatan,
+  //     penulis: penulis,
+  //     gambar: gambar,
+  //     teks: teks,
+  //   );
+  // }
+
+  factory BeritaModel.fromEntity(Berita berita) {
+    return BeritaModel(
+      idBerita: berita.idBerita,
+      jenisKegiatan: berita.jenisKegiatan,
+      penulis: berita.penulis,
+      gambar: berita.gambar,
+      teks: berita.teks,
+    );
+  }
+
   factory BeritaModel.fromJson(Map<String, dynamic> json) {
     return BeritaModel(
       idBerita: json['idBerita'],

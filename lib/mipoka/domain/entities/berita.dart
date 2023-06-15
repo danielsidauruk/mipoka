@@ -24,14 +24,4 @@ class Berita extends Equatable {
     gambar,
     teks,
   ];
-
-  BeritaModel toBeritaModel() {
-    return BeritaModel(
-      idBerita: idBerita,
-      jenisKegiatan: jenisKegiatan,
-      penulis: penulis,
-      gambar: gambar,
-      teks: teks,
-    );
-  }
 }

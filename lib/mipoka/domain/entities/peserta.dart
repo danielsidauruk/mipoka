@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/data/models/peserta_model.dart';
 
 class Peserta extends Equatable {
   final int idPeserta;
@@ -22,6 +23,20 @@ class Peserta extends Equatable {
     required this.peran,
     required this.dasarKirim,
   });
+
+  PesertaModel toPesertaModel() {
+    return PesertaModel(
+      idPeserta: idPeserta,
+      idUsulan: idUsulan,
+      nim: nim,
+      namaLengkap: namaLengkap,
+      nik: nik,
+      tempatLahir: tempatLahir,
+      tanggalLahir: tanggalLahir,
+      peran: peran,
+      dasarKirim: dasarKirim,
+    );
+  }
 
   @override
   List<Object?> get props => [
