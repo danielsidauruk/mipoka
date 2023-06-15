@@ -24,7 +24,8 @@ import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
 
 abstract class MipokaDataSources {
   Future<List<BeritaModel>> readBerita();
-  Future<BeritaModel> createBerita(BeritaModel beritaModel);
+  // Future<BeritaModel> createBerita(BeritaModel beritaModel);
+  Future<void> createBerita(BeritaModel beritaModel);
   Future<BeritaModel> updateBerita(BeritaModel beritaModel);
   Future<void> deleteBerita(int beritaId);
 
@@ -125,9 +126,17 @@ class MipokaDataSourcesImpl extends MipokaDataSources {
 
   // => BeritaModel Repositories
   @override
-  Future<BeritaModel> createBerita(BeritaModel beritaModel) {
-    // TODO: implement createBeritaModel
-    throw UnimplementedError();
+  Future<String> createBerita(BeritaModel beritaModel) async {
+    final String response = await rootBundle.loadString('assets/json_file/berita.json');
+    List<dynamic> beritaList = json.decode(response);
+
+    Map<String, dynamic> newBeritaData = beritaModel.toJson();
+    beritaList.add(newBeritaData);
+
+    final String updateJson = json.encode(beritaList);
+    await File('assets/json_file/berita.json').writeAsString(updateJson);
+
+    return "Berita has been created successfully.";
   }
   @override
   Future<List<BeritaModel>> readBerita() async {

@@ -14,4 +14,12 @@ class BeritaUseCase{
   Future<Either<Failure, Berita>> createBerita(Berita berita) {
     return mipokaRepositories.createBerita(berita);
   }
+
+  Future<Either<Failure, Berita>> updateBerita(Berita berita) {
+    return mipokaRepositories.updateBerita(berita);
+  }
+
+  Future<Either<Failure, void>> deleteBerita(int beritaId) {
+    return mipokaRepositories.deleteBerita(beritaId);
+  }
 }
