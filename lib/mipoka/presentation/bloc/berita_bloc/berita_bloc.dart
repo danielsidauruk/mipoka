@@ -10,15 +10,15 @@ part 'berita_state.dart';
 class BeritaBloc extends Bloc<BeritaEvent, BeritaState> {
   final BeritaUseCase beritaUseCase;
 
-  BeritaBloc({required this.beritaUseCase}) : super(ReadBeritaEmpty()) {
+  BeritaBloc({required this.beritaUseCase}) : super(BeritaEmpty()) {
     on<LoadBeritaEvent>((event, emit) async {
-      emit (ReadBeritaLoading());
+      emit (BeritaLoading());
 
-      final berita = await beritaUseCase.readBerita(NoParams());
+      final berita = await beritaUseCase.readBerita();
 
       berita.fold(
-            (failure) => emit(ReadBeritaError(message: failure.message)),
-            (berita) => emit(ReadBeritaHasData(berita: berita)),
+            (failure) => emit(BeritaError(message: failure.message)),
+            (berita) => emit(BeritaHasData(berita: berita)),
       );
     });
   }

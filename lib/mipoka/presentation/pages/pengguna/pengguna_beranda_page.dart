@@ -31,9 +31,9 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
       drawer: const MobileCustomPenggunaDrawerWidget(),
       body: BlocBuilder<BeritaBloc, BeritaState>(
         builder: (context, state) {
-          if (state is ReadBeritaLoading) {
+          if (state is BeritaLoading) {
             return const Text('Loading');
-          } else if (state is ReadBeritaHasData) {
+          } else if (state is BeritaHasData) {
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -101,7 +101,7 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
                 ),
               ),
             );
-          } else if (state is ReadBeritaError) {
+          } else if (state is BeritaError) {
             return Text('Error');
           } else {
             return const Text('IDK');

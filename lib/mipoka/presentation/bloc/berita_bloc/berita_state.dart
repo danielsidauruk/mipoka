@@ -7,21 +7,21 @@ abstract class BeritaState extends Equatable {
   List<Object> get props => [];
 }
 
-class ReadBeritaEmpty extends BeritaState {}
+class BeritaEmpty extends BeritaState {}
 
-class ReadBeritaLoading extends BeritaState {}
+class BeritaLoading extends BeritaState {}
 
-class ReadBeritaError extends BeritaState {
+class BeritaError extends BeritaState {
   final String message;
 
-  const ReadBeritaError({required this.message});
+  const BeritaError({required this.message});
 
   @override
   List<Object> get props => [message];
 }
 
-class ReadBeritaHasData extends BeritaState {
-  const ReadBeritaHasData({required this.berita});
+class BeritaHasData extends BeritaState {
+  const BeritaHasData({required this.berita});
   final List<Berita> berita;
 
   @override
