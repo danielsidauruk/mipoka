@@ -27,7 +27,7 @@ abstract class MipokaDataSources {
   Future<List<BeritaModel>> readBerita();
   Future<String> createBerita(BeritaModel beritaModel);
   Future<String> updateBerita(BeritaModel beritaModel);
-  Future<void> deleteBerita(int beritaId);
+  Future<String> deleteBerita(int beritaId);
 
   Future<AdminModel> readAdmin();
   Future<AdminModel> createAdmin(AdminModel adminModel);
@@ -161,9 +161,12 @@ class MipokaDataSourcesImpl extends MipokaDataSources {
     return "Berita has been updated successfully.";
   }
   @override
-  Future<void> deleteBerita(int beritaId) {
-    // TODO: implement deleteBeritaModel
-    throw UnimplementedError();
+  Future<String> deleteBerita(int beritaId) async {
+    if (kDebugMode) {
+      print('Berita with ID $beritaId has been deleted successfully.');
+    }
+
+    return "Berita has been deleted successfully.";
   }
 
 

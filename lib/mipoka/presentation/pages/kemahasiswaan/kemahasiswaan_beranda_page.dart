@@ -196,7 +196,7 @@ class _KemahasiswaanBerandaPageState
                                           MainAxisAlignment.spaceEvenly,
                                           children: [
                                             InkWell(
-                                              onTap: () {},
+                                              onTap: () => Navigator.pushNamed(context, kemahasiswaanEditBerandaTambahPageRoute),
                                               child: Image.asset(
                                                 'assets/icons/edit.png',
                                                 width: 24,
@@ -205,12 +205,24 @@ class _KemahasiswaanBerandaPageState
 
                                             const SizedBox(width: 8.0,),
 
-                                            InkWell(
-                                              onTap: () {},
-                                              child: Image.asset(
-                                                'assets/icons/delete.png',
-                                                width: 24,
-                                              ),
+                                            BlocConsumer<BeritaBloc, BeritaState>(
+                                              listener: (context, state) {
+                                                if (state is BeritaSuccessMessage) {
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                    SnackBar(content: Text(state.message), duration: const Duration(seconds: 5)),
+                                                  );
+                                                }
+                                              },
+                                              builder: (context, state) {
+                                                return InkWell(
+                                                  onTap: () => context.read<BeritaBloc>()
+                                                      .add(DeleteBeritaEvent(berita.idBerita)),
+                                                  child: Image.asset(
+                                                    'assets/icons/delete.png',
+                                                    width: 24,
+                                                  ),
+                                                );
+                                              },
                                             ),
                                           ],
                                         ),
@@ -231,7 +243,7 @@ class _KemahasiswaanBerandaPageState
           } else if (state is BeritaError) {
             return Text(state.message);
           } else {
-            return Text('IDK');
+            return const Text('IDK');
           }
         },
       ),

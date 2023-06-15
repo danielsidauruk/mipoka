@@ -24,7 +24,7 @@ abstract class MipokaRepositories {
   Future<Either<Failure, List<Berita>>> readBerita();
   Future<Either<Failure, String>> createBerita(Berita berita);
   Future<Either<Failure, String>> updateBerita(Berita berita);
-  Future<Either<Failure, void>> deleteBerita(int beritaId);
+  Future<Either<Failure, String>> deleteBerita(int beritaId);
 
   Future<Either<Failure, Admin>> readAdmin();
   Future<Either<Failure, Admin>> createAdmin(Admin admin);

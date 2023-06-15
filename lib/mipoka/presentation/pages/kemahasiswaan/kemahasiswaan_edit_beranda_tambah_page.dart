@@ -88,15 +88,29 @@ class _KemahasiswaanEditBerandaTambahPageState extends State<KemahasiswaanEditBe
                         listener: (context, state) {
                           if (state is BeritaSuccessMessage) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(state.message), duration: Duration(seconds: 5),),
+                              SnackBar(content: Text(state.message), duration: const Duration(seconds: 5)),
                             );
                           }
                         },
                         builder: (context, state) {
                           return CustomButton(
                             onTap: () {
-                              context.read<BeritaBloc>().add(
-                                  CreateBeritaEvent(
+                              // context.read<BeritaBloc>().add(
+                              //   CreateBeritaEvent(
+                              //     Berita(
+                              //       idBerita: 1234,
+                              //       jenisKegiatan: _judulBeritaController.text,
+                              //       penulis: _penulisController.text,
+                              //       gambar: "https://random-d.uk/api/randomimg?t=1686482823678",
+                              //       // teks: _textBeritaController.getPlainText(),
+                              //       teks: _textBeritaController.text,
+                              //     ),
+                              //   ),
+                              // );
+                              if (_judulBeritaController.text != "" && _penulisController.text != ""
+                                  && _textBeritaController.text != "") {
+                                context.read<BeritaBloc>().add(
+                                  UpdateBeritaEvent(
                                     Berita(
                                       idBerita: 1234,
                                       jenisKegiatan: _judulBeritaController.text,
@@ -105,8 +119,14 @@ class _KemahasiswaanEditBerandaTambahPageState extends State<KemahasiswaanEditBe
                                       // teks: _textBeritaController.getPlainText(),
                                       teks: _textBeritaController.text,
                                     ),
-                                  ));
-                              Navigator.pop(context);
+                                  ),
+                                );
+                                Navigator.pop(context);
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Field cannot be empty.'), duration: Duration(seconds: 5)),
+                                );
+                              }
                             },
                             text: 'Simpan',
                           );

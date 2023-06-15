@@ -19,7 +19,7 @@ class BeritaUseCase{
     return mipokaRepositories.updateBerita(berita);
   }
 
-  Future<Either<Failure, void>> deleteBerita(int beritaId) {
+  Future<Either<Failure, String>> deleteBerita(int beritaId) {
     return mipokaRepositories.deleteBerita(beritaId);
   }
 }

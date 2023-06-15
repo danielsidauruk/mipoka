@@ -44,6 +44,21 @@ class BeritaBloc extends Bloc<BeritaEvent, BeritaState> {
             (failure) => emit(BeritaError(message: failure.message)),
             (message) => emit(BeritaSuccessMessage(message: message)),
       );
+
+      add(ReadBeritaEvent());
+    });
+
+    on<DeleteBeritaEvent>((event, emit) async {
+      emit (BeritaLoading());
+
+      final berita = await beritaUseCase.deleteBerita(event.beritaId);
+
+      berita.fold(
+            (failure) => emit(BeritaError(message: failure.message)),
+            (message) => emit(BeritaSuccessMessage(message: message)),
+      );
+
+      add(ReadBeritaEvent());
     });
   }
 }

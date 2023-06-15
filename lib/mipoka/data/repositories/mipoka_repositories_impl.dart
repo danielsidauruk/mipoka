@@ -56,9 +56,12 @@ class MipokaRepositoriesImpl extends MipokaRepositories {
     }
   }
   @override
-  Future<Either<Failure, void>> deleteBerita(int beritaId) {
-    // TODO: implement deleteBerita
-    throw UnimplementedError();
+  Future<Either<Failure, String>> deleteBerita(int beritaId) async {
+    try {
+      return Right(await mipokaDataSources.deleteBerita(beritaId));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
   }
 
 

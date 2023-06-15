@@ -17,6 +17,10 @@ class ReadBeritaEvent extends BeritaEvent {}
 
 class UpdateBeritaEvent extends BeritaEvent {
   final Berita berita;
-
   const UpdateBeritaEvent(this.berita);
+}
+
+class DeleteBeritaEvent extends BeritaEvent {
+  final int beritaId;
+  const DeleteBeritaEvent(this.beritaId);
 }
