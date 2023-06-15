@@ -301,7 +301,7 @@ class _LoginPageState extends State<LoginPage> {
                       onTap: () {
                         Navigator.pushNamed(context, penggunaBerandaPageRoute);
                         BlocProvider.of<BeritaBloc>(context, listen: false)
-                            .add(LoadBeritaEvent());
+                            .add(ReadBeritaEvent());
                         },
                       child: Container(
                         alignment: Alignment.center,

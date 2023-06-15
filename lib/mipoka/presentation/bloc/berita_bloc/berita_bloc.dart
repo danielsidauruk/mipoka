@@ -10,7 +10,21 @@ class BeritaBloc extends Bloc<BeritaEvent, BeritaState> {
   final BeritaUseCase beritaUseCase;
 
   BeritaBloc({required this.beritaUseCase}) : super(BeritaEmpty()) {
-    on<LoadBeritaEvent>((event, emit) async {
+
+    on<CreateBeritaEvent>((event, emit) async {
+      emit (BeritaLoading());
+
+      final berita = await beritaUseCase.createBerita(event.berita);
+
+      berita.fold(
+            (failure) => emit(BeritaError(message: failure.message)),
+            (message) => emit(BeritaSuccessMessage(message: message)),
+      );
+
+      add(ReadBeritaEvent());
+    });
+
+    on<ReadBeritaEvent>((event, emit) async {
       emit (BeritaLoading());
 
       final berita = await beritaUseCase.readBerita();
@@ -18,6 +32,17 @@ class BeritaBloc extends Bloc<BeritaEvent, BeritaState> {
       berita.fold(
             (failure) => emit(BeritaError(message: failure.message)),
             (berita) => emit(BeritaHasData(berita: berita)),
+      );
+    });
+
+    on<UpdateBeritaEvent>((event, emit) async {
+      emit (BeritaLoading());
+
+      final berita = await beritaUseCase.updateBerita(event.berita);
+
+      berita.fold(
+            (failure) => emit(BeritaError(message: failure.message)),
+            (message) => emit(BeritaSuccessMessage(message: message)),
       );
     });
   }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:mipoka/mipoka/data/models/admin_model.dart';
@@ -24,9 +25,8 @@ import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
 
 abstract class MipokaDataSources {
   Future<List<BeritaModel>> readBerita();
-  // Future<BeritaModel> createBerita(BeritaModel beritaModel);
-  Future<void> createBerita(BeritaModel beritaModel);
-  Future<BeritaModel> updateBerita(BeritaModel beritaModel);
+  Future<String> createBerita(BeritaModel beritaModel);
+  Future<String> updateBerita(BeritaModel beritaModel);
   Future<void> deleteBerita(int beritaId);
 
   Future<AdminModel> readAdmin();
@@ -127,14 +127,17 @@ class MipokaDataSourcesImpl extends MipokaDataSources {
   // => BeritaModel Repositories
   @override
   Future<String> createBerita(BeritaModel beritaModel) async {
-    final String response = await rootBundle.loadString('assets/json_file/berita.json');
-    List<dynamic> beritaList = json.decode(response);
-
-    Map<String, dynamic> newBeritaData = beritaModel.toJson();
-    beritaList.add(newBeritaData);
-
-    final String updateJson = json.encode(beritaList);
-    await File('assets/json_file/berita.json').writeAsString(updateJson);
+    // final String response = await rootBundle.loadString('assets/json_file/berita.json');
+    // List<dynamic> beritaList = json.decode(response);
+    //
+    // Map<String, dynamic> newBeritaData = beritaModel.toJson();
+    // beritaList.add(newBeritaData);
+    //
+    // final String updateJson = json.encode(beritaList);
+    // // await File('assets/json_file/berita.json').writeAsString(updateJson);
+    if (kDebugMode) {
+      print(beritaModel.toJson());
+    }
 
     return "Berita has been created successfully.";
   }
@@ -150,9 +153,12 @@ class MipokaDataSourcesImpl extends MipokaDataSources {
     return result;
   }
   @override
-  Future<BeritaModel> updateBerita(BeritaModel beritaModel) {
-    // TODO: implement updateBeritaModel
-    throw UnimplementedError();
+  Future<String> updateBerita(BeritaModel beritaModel) async {
+    if (kDebugMode) {
+      print(beritaModel.toJson());
+    }
+
+    return "Berita has been updated successfully.";
   }
   @override
   Future<void> deleteBerita(int beritaId) {

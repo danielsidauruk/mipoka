@@ -7,6 +7,16 @@ abstract class BeritaEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class LoadBeritaEvent extends BeritaEvent {}
+class CreateBeritaEvent extends BeritaEvent {
+  final Berita berita;
 
-class CreateBeritaEvent extends BeritaEvent {}
+  const CreateBeritaEvent(this.berita);
+}
+
+class ReadBeritaEvent extends BeritaEvent {}
+
+class UpdateBeritaEvent extends BeritaEvent {
+  final Berita berita;
+
+  const UpdateBeritaEvent(this.berita);
+}

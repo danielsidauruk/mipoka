@@ -14,6 +14,7 @@ Future<void> init() async {
 
   // BLOC
   locator.registerFactory(() => BeritaBloc(beritaUseCase: locator()));
+
   // USE CASE
   locator.registerLazySingleton(() => BeritaUseCase(mipokaRepositories: locator()));
 

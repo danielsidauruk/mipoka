@@ -30,9 +30,12 @@ class MipokaRepositoriesImpl extends MipokaRepositories {
 
   // => Berita Repositories
   @override
-  Future<Either<Failure, Berita>> createBerita(Berita berita) {
-    // TODO: implement createBerita
-    throw UnimplementedError();
+  Future<Either<Failure, String>> createBerita(Berita berita) async {
+    try {
+      return Right(await mipokaDataSources.createBerita(berita.toBeritaModel()));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
   }
 
   @override
@@ -45,9 +48,12 @@ class MipokaRepositoriesImpl extends MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, Berita>> updateBerita(Berita berita) {
-    // TODO: implement updateBerita
-    throw UnimplementedError();
+  Future<Either<Failure, String>> updateBerita(Berita berita) async {
+    try {
+      return Right(await mipokaDataSources.updateBerita(berita.toBeritaModel()));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
   }
   @override
   Future<Either<Failure, void>> deleteBerita(int beritaId) {

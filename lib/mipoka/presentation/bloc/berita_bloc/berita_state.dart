@@ -27,3 +27,11 @@ class BeritaHasData extends BeritaState {
   @override
   List<Object> get props => [berita];
 }
+
+class BeritaSuccessMessage extends BeritaState {
+  const BeritaSuccessMessage({required this.message});
+  final String message;
+
+  @override
+  List<Object> get props => [message];
+}

@@ -21,7 +21,7 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
   void initState() {
     super.initState();
     BlocProvider.of<BeritaBloc>(context, listen: false)
-        .add(LoadBeritaEvent());
+        .add(ReadBeritaEvent());
   }
 
   @override
@@ -102,7 +102,7 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
               ),
             );
           } else if (state is BeritaError) {
-            return Text('Error');
+            return const Text('Error');
           } else {
             return const Text('IDK');
           }

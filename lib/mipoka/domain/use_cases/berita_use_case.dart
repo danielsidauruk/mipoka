@@ -11,11 +11,11 @@ class BeritaUseCase{
     return mipokaRepositories.readBerita();
   }
 
-  Future<Either<Failure, Berita>> createBerita(Berita berita) {
+  Future<Either<Failure, String>> createBerita(Berita berita) {
     return mipokaRepositories.createBerita(berita);
   }
 
-  Future<Either<Failure, Berita>> updateBerita(Berita berita) {
+  Future<Either<Failure, String>> updateBerita(Berita berita) {
     return mipokaRepositories.updateBerita(berita);
   }
 

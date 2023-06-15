@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:mipoka/core/constanst.dart';
+import 'package:uuid/uuid.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
+import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -23,11 +26,13 @@ class KemahasiswaanEditBerandaTambahPage extends StatefulWidget {
 class _KemahasiswaanEditBerandaTambahPageState extends State<KemahasiswaanEditBerandaTambahPage> {
   final TextEditingController _judulBeritaController = TextEditingController();
   final TextEditingController _penulisController = TextEditingController();
-  final QuillController _textBeritaController = QuillController.basic();
+  // final QuillController _textBeritaController = QuillController.basic();
+  final TextEditingController _textBeritaController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    Berita berita;
+    String uuid = const Uuid().v4();
+
 
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
@@ -64,7 +69,8 @@ class _KemahasiswaanEditBerandaTambahPageState extends State<KemahasiswaanEditBe
                   const CustomFieldSpacer(),
 
                   buildTitle('Text Berita'),
-                  CustomRichTextField(controller: _textBeritaController),
+                  // CustomRichTextField(controller: _textBeritaController),
+                  CustomTextField(controller: _textBeritaController),
 
                   const CustomFieldSpacer(),
 
@@ -78,12 +84,33 @@ class _KemahasiswaanEditBerandaTambahPageState extends State<KemahasiswaanEditBe
 
                       const SizedBox(width: 8.0),
 
-                      CustomButton(
-                        onTap: () {
-
-                          Navigator.pop(context);
-                          },
-                        text: 'Simpan',
+                      BlocConsumer<BeritaBloc, BeritaState>(
+                        listener: (context, state) {
+                          if (state is BeritaSuccessMessage) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(state.message), duration: Duration(seconds: 5),),
+                            );
+                          }
+                        },
+                        builder: (context, state) {
+                          return CustomButton(
+                            onTap: () {
+                              context.read<BeritaBloc>().add(
+                                  CreateBeritaEvent(
+                                    Berita(
+                                      idBerita: 1234,
+                                      jenisKegiatan: _judulBeritaController.text,
+                                      penulis: _penulisController.text,
+                                      gambar: "https://random-d.uk/api/randomimg?t=1686482823678",
+                                      // teks: _textBeritaController.getPlainText(),
+                                      teks: _textBeritaController.text,
+                                    ),
+                                  ));
+                              Navigator.pop(context);
+                            },
+                            text: 'Simpan',
+                          );
+                        },
                       ),
                     ],
                   ),

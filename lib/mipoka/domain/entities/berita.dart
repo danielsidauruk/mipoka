@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/data/models/berita_model.dart';
 
 class Berita extends Equatable {
   final int idBerita;
@@ -23,4 +24,14 @@ class Berita extends Equatable {
     gambar,
     teks,
   ];
+
+  BeritaModel toBeritaModel() {
+    return BeritaModel(
+      idBerita: idBerita,
+      jenisKegiatan: jenisKegiatan,
+      penulis: penulis,
+      gambar: gambar,
+      teks: teks,
+    );
+  }
 }
