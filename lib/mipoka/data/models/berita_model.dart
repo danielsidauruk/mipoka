@@ -17,11 +17,11 @@ class BeritaModel extends Berita {
 
   factory BeritaModel.fromJson(Map<String, dynamic> json) {
     return BeritaModel(
-      idBerita: json['idBerita'] as int,
-      jenisKegiatan: json['jenisKegiatan'] as String,
-      penulis: json['penulis'] as String,
-      gambar: json['gambar'] as String,
-      teks: json['teks'] as String,
+      idBerita: json['idBerita'],
+      jenisKegiatan: json['jenisKegiatan'],
+      penulis: json['penulis'],
+      gambar: json['gambar'],
+      teks: json['teks'],
     );
   }
 

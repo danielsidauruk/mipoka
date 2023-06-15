@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/utils.dart';
 import 'package:mipoka/dependency_injection.dart' as di;
-import 'package:mipoka/mipoka/presentation/bloc/read_berita_bloc/read_berita_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/ganti_password_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahaiswaan_prestasi_mahasiswa_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_page.dart';
@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         // Berita
-        BlocProvider(create: (_) => di.locator<ReadBeritaBloc>()),
+        BlocProvider(create: (_) => di.locator<BeritaBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

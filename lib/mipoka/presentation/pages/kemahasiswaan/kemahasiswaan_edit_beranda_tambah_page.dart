@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -26,6 +27,8 @@ class _KemahasiswaanEditBerandaTambahPageState extends State<KemahasiswaanEditBe
 
   @override
   Widget build(BuildContext context) {
+    Berita berita;
+
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
 
@@ -76,7 +79,10 @@ class _KemahasiswaanEditBerandaTambahPageState extends State<KemahasiswaanEditBe
                       const SizedBox(width: 8.0),
 
                       CustomButton(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () {
+
+                          Navigator.pop(context);
+                          },
                         text: 'Simpan',
                       ),
                     ],

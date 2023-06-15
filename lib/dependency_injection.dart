@@ -3,8 +3,8 @@ import 'package:http/http.dart';
 import 'package:mipoka/mipoka/data/data_sources/mipoka_data_sources.dart';
 import 'package:mipoka/mipoka/data/repositories/mipoka_repositories_impl.dart';
 import 'package:mipoka/mipoka/domain/repositories/mipoka_repositories.dart';
-import 'package:mipoka/mipoka/domain/use_cases/read_berita.dart';
-import 'package:mipoka/mipoka/presentation/bloc/read_berita_bloc/read_berita_bloc.dart';
+import 'package:mipoka/mipoka/domain/use_cases/berita_use_case.dart';
+import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 
 final locator = GetIt.instance;
 
@@ -13,9 +13,9 @@ Future<void> init() async {
   locator.registerLazySingleton<Client>(() => Client());
 
   // BLOC
-  locator.registerFactory(() => ReadBeritaBloc(readBerita: locator()));
+  locator.registerFactory(() => BeritaBloc(beritaUseCase: locator()));
   // USE CASE
-  locator.registerLazySingleton(() => ReadBerita(mipokaRepositories: locator()));
+  locator.registerLazySingleton(() => BeritaUseCase(mipokaRepositories: locator()));
 
   // REPOSITORIES
   locator.registerLazySingleton<MipokaRepositories>(() =>

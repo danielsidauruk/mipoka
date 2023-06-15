@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
-import 'package:mipoka/mipoka/presentation/bloc/read_berita_bloc/read_berita_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -20,7 +20,7 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<ReadBeritaBloc>(context, listen: false)
+    BlocProvider.of<BeritaBloc>(context, listen: false)
         .add(LoadBeritaEvent());
   }
 
@@ -29,12 +29,11 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomPenggunaDrawerWidget(),
-      body: BlocBuilder<ReadBeritaBloc, ReadBeritaState>(
+      body: BlocBuilder<BeritaBloc, BeritaState>(
         builder: (context, state) {
           if (state is ReadBeritaLoading) {
             return const Text('Loading');
           } else if (state is ReadBeritaHasData) {
-            final berita = state.berita;
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -50,10 +49,11 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
                         ),
                         const CustomFieldSpacer(),
                         ListView.builder(
-                          itemCount: berita.length,
+                          itemCount: state.berita.length,
                           physics: const ScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
+                            final berita = state.berita[index];
                             return InkWell(
                               onTap: () => Navigator.pushNamed(context, penggunaBerandaDetailPageRoute),
                               child: Container(
@@ -64,12 +64,12 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
                                   children: [
                                     Expanded(
                                       flex: 1,
-                                      child: Image.network(berita[index].gambar),
+                                      child: Image.network(berita.gambar),
                                     ),
                                     const SizedBox(width: 4.0),
                                     Expanded(
                                       flex: 3,
-                                      child: Text(berita[index].teks,
+                                      child: Text(berita.teks,
                                         style: const TextStyle(fontWeight: FontWeight.bold),
                                       ),
                                     ),

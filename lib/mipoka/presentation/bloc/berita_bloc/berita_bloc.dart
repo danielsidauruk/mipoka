@@ -2,19 +2,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mipoka/core/use_case.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
-import 'package:mipoka/mipoka/domain/use_cases/read_berita.dart';
+import 'package:mipoka/mipoka/domain/use_cases/berita_use_case.dart';
 
-part 'read_berita_event.dart';
-part 'read_berita_state.dart';
+part 'berita_event.dart';
+part 'berita_state.dart';
 
-class ReadBeritaBloc extends Bloc<ReadBeritaEvent, ReadBeritaState> {
-  final ReadBerita readBerita;
+class BeritaBloc extends Bloc<BeritaEvent, BeritaState> {
+  final BeritaUseCase beritaUseCase;
 
-  ReadBeritaBloc({required this.readBerita}) : super(ReadBeritaEmpty()) {
+  BeritaBloc({required this.beritaUseCase}) : super(ReadBeritaEmpty()) {
     on<LoadBeritaEvent>((event, emit) async {
       emit (ReadBeritaLoading());
 
-      final berita = await readBerita.call(NoParams());
+      final berita = await beritaUseCase.readBerita(NoParams());
 
       berita.fold(
             (failure) => emit(ReadBeritaError(message: failure.message)),

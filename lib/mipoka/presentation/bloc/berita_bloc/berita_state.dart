@@ -1,17 +1,17 @@
-part of 'read_berita_bloc.dart';
+part of 'berita_bloc.dart';
 
-abstract class ReadBeritaState extends Equatable {
-  const ReadBeritaState();
+abstract class BeritaState extends Equatable {
+  const BeritaState();
 
   @override
   List<Object> get props => [];
 }
 
-class ReadBeritaEmpty extends ReadBeritaState {}
+class ReadBeritaEmpty extends BeritaState {}
 
-class ReadBeritaLoading extends ReadBeritaState {}
+class ReadBeritaLoading extends BeritaState {}
 
-class ReadBeritaError extends ReadBeritaState {
+class ReadBeritaError extends BeritaState {
   final String message;
 
   const ReadBeritaError({required this.message});
@@ -20,7 +20,7 @@ class ReadBeritaError extends ReadBeritaState {
   List<Object> get props => [message];
 }
 
-class ReadBeritaHasData extends ReadBeritaState {
+class ReadBeritaHasData extends BeritaState {
   const ReadBeritaHasData({required this.berita});
   final List<Berita> berita;
 

@@ -129,16 +129,6 @@ class MipokaDataSourcesImpl extends MipokaDataSources {
     // TODO: implement createBeritaModel
     throw UnimplementedError();
   }
-  // @override
-  // Future<List<BeritaModel>> readBerita() async {
-  //   // String jsonContent = await file.readAsString();
-  //   final String response = await rootBundle.loadString('assets/json_file/berita.json');
-  //   Map<String, dynamic> beritaMap = json.decode(response);
-  //
-  //   BeritaModel beritaModel = BeritaModel.fromJson(beritaMap);
-  //   print("..number of items ${beritaModel.teks}");
-  //   return beritaModel;
-  // }
   @override
   Future<List<BeritaModel>> readBerita() async {
     final String response = await rootBundle.loadString('assets/json_file/berita.json');
@@ -150,14 +140,6 @@ class MipokaDataSourcesImpl extends MipokaDataSources {
 
     return result;
   }
-  // Future<void> readJson() async {
-  //   final String response = await rootBundle.loadString('assets/sample.json');
-  //   final data = await json.decode(response);
-  //   setState(() {
-  //     _items = data["items"];
-  //     print("..number of items ${_items.length}");
-  //   });
-  // }
   @override
   Future<BeritaModel> updateBerita(BeritaModel beritaModel) {
     // TODO: implement updateBeritaModel
