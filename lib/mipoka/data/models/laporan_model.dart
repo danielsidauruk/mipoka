@@ -64,6 +64,40 @@ class LaporanModel extends Laporan {
     updatedBy: updatedBy,
   );
 
+  factory LaporanModel.fromEntity(Laporan laporan) {
+    return LaporanModel(
+      idLaporan: laporan.idLaporan,
+      idOrmawa: laporan.idOrmawa,
+      idUser: laporan.idUser,
+      idUsulan: laporan.idUsulan,
+      namaKegiatan: laporan.namaKegiatan,
+      bentuk: laporan.bentuk,
+      hasilK: laporan.hasilK,
+      totalDana: laporan.totalDana,
+      sumberDana: laporan.sumberDana,
+      deskripsiKegiatan: laporan.deskripsiKegiatan,
+      tempatKegiatan: laporan.tempatKegiatan,
+      keberangkatan: laporan.keberangkatan,
+      kepulangan: laporan.kepulangan,
+      jumlahPartisipan: laporan.jumlahPartisipan,
+      bentukPelaksanaanKegiatan: laporan.bentukPelaksanaanKegiatan,
+      hasilKegiatan: laporan.hasilKegiatan,
+      pembina: laporan.pembina,
+      ketuaOrmawa: laporan.ketuaOrmawa,
+      latarBelakang: laporan.latarBelakang,
+      waktuDanTempatPelaksanaan: laporan.waktuDanTempatPelaksanaan,
+      panitiaPesertaL: laporan.panitiaPesertaL,
+      idRincianBiayaKegiatan: laporan.idRincianBiayaKegiatan,
+      penutup: laporan.penutup,
+      idLampiranL: laporan.idLampiranL,
+      status: laporan.status,
+      file: laporan.file,
+      updatedAt: laporan.updatedAt,
+      createdAt: laporan.createdAt,
+      updatedBy: laporan.updatedBy,
+    );
+  }
+
   factory LaporanModel.fromJson(Map<String, dynamic> json) {
     return LaporanModel(
       idLaporan: json['idLaporan'],

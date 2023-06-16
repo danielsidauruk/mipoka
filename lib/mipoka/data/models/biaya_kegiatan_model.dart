@@ -15,6 +15,16 @@ class BiayaKegiatanModel extends BiayaKegiatan {
     keterangan: keterangan,
   );
 
+  factory BiayaKegiatanModel.fromEntity(BiayaKegiatan biayaKegiatan) {
+    return BiayaKegiatanModel(
+      namaBiayaKegiatan: biayaKegiatan.namaBiayaKegiatan,
+      qty: biayaKegiatan.qty,
+      hargaSatuan: biayaKegiatan.hargaSatuan,
+      total: biayaKegiatan.total,
+      keterangan: biayaKegiatan.keterangan,
+    );
+  }
+
   factory BiayaKegiatanModel.fromJson(Map<String, dynamic> json) {
     return BiayaKegiatanModel(
       namaBiayaKegiatan: json['namaBiayaKegiatan'],

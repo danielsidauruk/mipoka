@@ -21,6 +21,19 @@ class RincianLaporanModel extends RincianLaporan {
     selisih: selisih,
   );
 
+  factory RincianLaporanModel.fromEntity(RincianLaporan rincianLaporan) {
+    return RincianLaporanModel(
+      idRincianLaporan: rincianLaporan.idRincianL,
+      idLaporan: rincianLaporan.idLaporan,
+      keteranganA: rincianLaporan.keteranganA,
+      qty: rincianLaporan.qty,
+      satuan: rincianLaporan.satuan,
+      usulanAnggaran: rincianLaporan.usulanAnggaran,
+      realisasiAnggaran: rincianLaporan.realisasiAnggaran,
+      selisih: rincianLaporan.selisih,
+    );
+  }
+
   factory RincianLaporanModel.fromJson(Map<String, dynamic> json) {
     return RincianLaporanModel(
       idRincianLaporan: json['idRincianLaporan'],

@@ -19,6 +19,18 @@ class PanitiaPesertaLaporanModel extends PanitiaPesertaL {
     peran: peran,
   );
 
+  factory PanitiaPesertaLaporanModel.fromEntity(PanitiaPesertaL panitiaPesertaL) {
+    return PanitiaPesertaLaporanModel(
+      idPanitiaPesertaLaporan: panitiaPesertaL.idPanitiaPesertaL,
+      idLaporan: panitiaPesertaL.idLaporan,
+      jenisMahasiswa: panitiaPesertaL.jenisMahasiswa,
+      nim: panitiaPesertaL.nim,
+      namaLengkap: panitiaPesertaL.namaLengkap,
+      prodi: panitiaPesertaL.prodi,
+      peran: panitiaPesertaL.peran,
+    );
+  }
+
   factory PanitiaPesertaLaporanModel.fromJson(Map<String, dynamic> json) {
     return PanitiaPesertaLaporanModel(
       idPanitiaPesertaLaporan: json['idPanitiaPesertaLaporan'],

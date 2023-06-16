@@ -27,6 +27,22 @@ class OrmawaModel extends Ormawa {
     fotoBendahara: fotoBendahara,
   );
 
+  factory OrmawaModel.fromEntity(Ormawa ormawa) {
+    return OrmawaModel(
+      idOrmawa: ormawa.idOrmawa,
+      namaOrmawa: ormawa.namaOrmawa,
+      pembina: ormawa.pembina,
+      ketua: ormawa.ketua,
+      wakil: ormawa.wakil,
+      bendahara: ormawa.bendahara,
+      jumlahAnggota: ormawa.jumlahAnggota,
+      fotoPembina: ormawa.fotoPembina,
+      fotoKetua: ormawa.fotoKetua,
+      fotoWakil: ormawa.fotoWakil,
+      fotoBendahara: ormawa.fotoBendahara,
+    );
+  }
+
   factory OrmawaModel.fromJson(Map<String, dynamic> json) {
     return OrmawaModel(
       idOrmawa: json['idOrmawa'],

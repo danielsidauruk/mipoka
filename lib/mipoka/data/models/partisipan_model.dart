@@ -23,6 +23,20 @@ class PartisipanModel extends Partisipan {
     dasarKirim: dasarKirim,
   );
 
+  factory PartisipanModel.fromEntity(Partisipan partisipan) {
+    return PartisipanModel(
+      idPeserta: partisipan.idPeserta,
+      idUsulan: partisipan.idUsulan,
+      nim: partisipan.nim,
+      namaLengkap: partisipan.namaLengkap,
+      nik: partisipan.nik,
+      tempatLahir: partisipan.tempatLahir,
+      tanggalLahir: partisipan.tanggalLahir,
+      peran: partisipan.peran,
+      dasarKirim: partisipan.dasarKirim,
+    );
+  }
+
   factory PartisipanModel.fromJson(Map<String, dynamic> json) {
     return PartisipanModel(
       idPeserta: json['idPeserta'],

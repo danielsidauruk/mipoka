@@ -19,6 +19,18 @@ class KegiatanModel extends Kegiatan {
     keterangan: keterangan,
   );
 
+  factory KegiatanModel.fromEntity(Kegiatan kegiatan) {
+    return KegiatanModel(
+      idKegiatan: kegiatan.idKegiatan,
+      jenisKegiatan: kegiatan.keterangan,
+      namaKegiatan: kegiatan.namaKegiatan,
+      idPeriode: kegiatan.idPeriode,
+      pointMpt: kegiatan.pointMpt,
+      idOrmawa: kegiatan.idOrmawa,
+      keterangan: kegiatan.keterangan,
+    );
+  }
+
   factory KegiatanModel.fromJson(Map<String, dynamic> json) {
     return KegiatanModel(
       idKegiatan: json['idKegiatan'],

@@ -23,6 +23,20 @@ class PesertaModel extends Peserta {
     dasarKirim: dasarKirim,
   );
 
+  factory PesertaModel.fromEntity(Peserta peserta) {
+    return PesertaModel(
+      idPeserta: peserta.idPeserta,
+      idUsulan: peserta.idUsulan,
+      nim: peserta.nim,
+      namaLengkap: peserta.namaLengkap,
+      nik: peserta.nik,
+      tempatLahir: peserta.tempatLahir,
+      tanggalLahir: peserta.tanggalLahir,
+      peran: peserta.peran,
+      dasarKirim: peserta.dasarKirim,
+    );
+  }
+
   factory PesertaModel.fromJson(Map<String, dynamic> json) {
     return PesertaModel(
       idPeserta: json['idPeserta'],

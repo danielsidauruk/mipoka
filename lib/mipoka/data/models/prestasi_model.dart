@@ -17,6 +17,17 @@ class PrestasiModel extends Prestasi {
     prestasiDicapai: prestasiDicapai,
   );
 
+  factory PrestasiModel.fromEntity(Prestasi prestasi) {
+    return PrestasiModel(
+      idPrestasi: prestasi.idPrestasi,
+      nim: prestasi.nim,
+      namaLengkap: prestasi.namaLengkap,
+      kegiatan: prestasi.kegiatan,
+      tingkat: prestasi.tingkat,
+      prestasiDicapai: prestasi.prestasiDicapai,
+    );
+  }
+
   factory PrestasiModel.fromJson(Map<String, dynamic> json) {
     return PrestasiModel(
       idPrestasi: json['idPrestasi'],

@@ -19,6 +19,18 @@ class RincianBiayaKegiatanModel extends RincianBiayaKegiatan {
     keterangan: keterangan,
   );
 
+  factory RincianBiayaKegiatanModel.fromEntity(RincianBiayaKegiatan rincianBiayaKegiatan) {
+    return RincianBiayaKegiatanModel(
+      idRincianBiayaKegiatan: rincianBiayaKegiatan.idRincianBiayaKegiatan,
+      idUsulan: rincianBiayaKegiatan.idUsulan,
+      namaBiayaKegiatan: rincianBiayaKegiatan.namaBiayaKegiatan,
+      kuantiti: rincianBiayaKegiatan.kuantiti,
+      hargaSatuan: rincianBiayaKegiatan.hargaSatuan,
+      total: rincianBiayaKegiatan.total,
+      keterangan: rincianBiayaKegiatan.keterangan,
+    );
+  }
+
   factory RincianBiayaKegiatanModel.fromJson(Map<String, dynamic> json) {
     return RincianBiayaKegiatanModel(
       idRincianBiayaKegiatan: json['idRincianBiayaKegiatan'],

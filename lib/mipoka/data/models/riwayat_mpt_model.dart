@@ -29,6 +29,23 @@ class RiwayatMptModel extends RiwayatMpt {
     createdAt: createdAt,
   );
 
+  factory RiwayatMptModel.fromEntity(RiwayatMpt riwayatMpt) {
+    return RiwayatMptModel(
+      idRiwayatMpt: riwayatMpt.idRiwayatMpt,
+      idKegiatan: riwayatMpt.idKegiatan,
+      idUser: riwayatMpt.idUser,
+      status: riwayatMpt.status,
+      file: riwayatMpt.file,
+      hash: riwayatMpt.hash,
+      keteranganA: riwayatMpt.keteranganA,
+      keteranganB: riwayatMpt.keteranganB,
+      mulai: riwayatMpt.mulai,
+      akhir: riwayatMpt.akhir,
+      updatedAt: riwayatMpt.updatedAt,
+      createdAt: riwayatMpt.createdAt,
+    );
+  }
+
   factory RiwayatMptModel.fromJson(Map<String, dynamic> json) {
     return RiwayatMptModel(
       idRiwayatMpt: json['idRiwayatMpt'],

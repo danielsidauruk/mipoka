@@ -15,16 +15,6 @@ class BeritaModel extends Berita {
     teks: teks,
   );
 
-  // BeritaModel toBeritaModel() {
-  //   return BeritaModel(
-  //     idBerita: idBerita,
-  //     jenisKegiatan: jenisKegiatan,
-  //     penulis: penulis,
-  //     gambar: gambar,
-  //     teks: teks,
-  //   );
-  // }
-
   factory BeritaModel.fromEntity(Berita berita) {
     return BeritaModel(
       idBerita: berita.idBerita,

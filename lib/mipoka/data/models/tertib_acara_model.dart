@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
 
 class TertibAcaraModel extends TertibAcara {
-  TertibAcaraModel({
+  const TertibAcaraModel({
     required int idTertibAcara,
     required TimeOfDay waktuMulai,
     required TimeOfDay waktuSelesai,
@@ -15,6 +15,16 @@ class TertibAcaraModel extends TertibAcara {
     aktivitas: aktivitas,
     keterangan: keterangan,
   );
+
+  factory TertibAcaraModel.fromEntity(TertibAcara tertibAcara) {
+    return TertibAcaraModel(
+      idTertibAcara: tertibAcara.idTertibAcara,
+      waktuMulai: tertibAcara.waktuMulai,
+      waktuSelesai: tertibAcara.waktuSelesai,
+      aktivitas: tertibAcara.aktivitas,
+      keterangan: tertibAcara.keterangan,
+    );
+  }
 
   factory TertibAcaraModel.fromJson(Map<String, dynamic> json) {
     return TertibAcaraModel(

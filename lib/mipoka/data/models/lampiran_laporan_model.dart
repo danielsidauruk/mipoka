@@ -15,6 +15,16 @@ class LampiranLaporanModel extends LampiranLaporan {
     lampiranD: lampiranD,
   );
 
+  factory LampiranLaporanModel.fromEntity(LampiranLaporan lampiranLaporan) {
+    return LampiranLaporanModel(
+      idLampiran: lampiranLaporan.idLampiran,
+      lampiranA: lampiranLaporan.lampiranA,
+      lampiranB: lampiranLaporan.lampiranB,
+      lampiranC: lampiranLaporan.lampiranC,
+      lampiranD: lampiranLaporan.lampiranD,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'idLampiran': idLampiran,

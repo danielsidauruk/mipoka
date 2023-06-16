@@ -15,6 +15,16 @@ class PeriodeModel extends Periode {
     akhir: akhir,
   );
 
+  factory PeriodeModel.fromEntity(Periode periode) {
+    return PeriodeModel(
+      idPeriode: periode.idPeriode,
+      tahun: periode.tahun,
+      ulang: periode.ulang,
+      mulai: periode.mulai,
+      akhir: periode.akhir,
+    );
+  }
+
   factory PeriodeModel.fromJson(Map<String, dynamic> json) {
     return PeriodeModel(
       idPeriode: json['idPeriode'],

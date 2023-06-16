@@ -87,6 +87,52 @@ class UsulanKegiatanModel extends UsulanKegiatan {
     updatedBy: updatedBy,
   );
 
+  factory UsulanKegiatanModel.fromEntity(UsulanKegiatan usulanKegiatan) {
+    return UsulanKegiatanModel(
+      idUsulan: usulanKegiatan.idUsulan,
+      idUser: usulanKegiatan.idUser,
+      idOrmawa: usulanKegiatan.idOrmawa,
+      pembiayaan: usulanKegiatan.pembiayaan,
+      namaKegiatan: usulanKegiatan.namaKegiatan,
+      bentukKegiatanA: usulanKegiatan.bentukKegiatanA,
+      deskripsiKegiatan: usulanKegiatan.deskripsiKegiatan,
+      tanggalMulaiKegiatan: usulanKegiatan.tanggalMulaiKegiatan,
+      tanggalSelesaiKegiatan: usulanKegiatan.tanggalSelesaiKegiatan,
+      waktuMulaiKegiatan: usulanKegiatan.waktuMulaiKegiatan,
+      waktuSelesaiKegiatan: usulanKegiatan.waktuSelesaiKegiatan,
+      tempatKegiatan: usulanKegiatan.tempatKegiatan,
+      tanggalKeberangkatan: usulanKegiatan.tanggalKeberangkatan,
+      tanggalKepulangan: usulanKegiatan.tanggalKepulangan,
+      jumlahPartisipan: usulanKegiatan.jumlahPartisipan,
+      targetKegiatan: usulanKegiatan.targetKegiatan,
+      totalPendana: usulanKegiatan.totalPendana,
+      tandaTanganOrmawa: usulanKegiatan.tandaTanganOrmawa,
+      idPartisipan: usulanKegiatan.idPartisipan,
+      idRincianBiayaKegiatan: usulanKegiatan.idRincianBiayaKegiatan,
+      ketuaOrmawa: usulanKegiatan.ketuaOrmawa,
+      pembina: usulanKegiatan.pembina,
+      latarBelakang: usulanKegiatan.latarBelakang,
+      tujuanKegiatan: usulanKegiatan.tujuanKegiatan,
+      manfaatKegiatan: usulanKegiatan.manfaatKegiatan,
+      bentukPelaksanaanKegiatan: usulanKegiatan.bentukPelaksanaanKegiatan,
+      targetPencapaianKegiatan: usulanKegiatan.targetPencapaianKegiatan,
+      waktuDanTempatPelaksanaan: usulanKegiatan.waktuDanTempatPelaksanaan,
+      rencanaAnggaranKegiatan: usulanKegiatan.rencanaAnggaranKegiatan,
+      idPanitiaPeserta: usulanKegiatan.idPanitiaPeserta,
+      idTertibAcara: usulanKegiatan.idTertibAcara,
+      perlengkapan: usulanKegiatan.perlengkapan,
+      penutup: usulanKegiatan.penutup,
+      idLampiran: usulanKegiatan.idLampiran,
+      status: usulanKegiatan.status,
+      validasiPembina: usulanKegiatan.validasiPembina,
+      roles: usulanKegiatan.roles,
+      file: usulanKegiatan.file,
+      updatedAt: usulanKegiatan.updatedAt,
+      createdAt: usulanKegiatan.createdAt,
+      updatedBy: usulanKegiatan.updatedBy,
+    );
+  }
+
   factory UsulanKegiatanModel.fromJson(Map<String, dynamic> json) {
     return UsulanKegiatanModel(
       idUsulan: json['idUsulan'],

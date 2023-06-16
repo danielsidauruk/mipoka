@@ -41,6 +41,29 @@ class UserModel extends User {
     updatedAt: updatedAt,
   );
 
+  factory UserModel.fromEntity(User user) {
+    return UserModel(
+      idUser: user.idUser,
+      idOrmawa: user.idOrmawa,
+      idOrmawaB: user.idOrmawaB,
+      email: user.email,
+      username: user.username,
+      password: user.password,
+      namaLengkap: user.namaLengkap,
+      nim: user.nim,
+      noHp: user.noHp,
+      image: user.image,
+      mpt: user.mpt,
+      semester: user.semester,
+      kelas: user.kelas,
+      periodeMpt: user.periodeMpt,
+      status: user.status,
+      prodi: user.prodi,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    );
+  }
+
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       idUser: json['idUser'],

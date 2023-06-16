@@ -36,6 +36,27 @@ class SessionModel extends Session {
     createdAt: createdAt,
     updatedBy: updatedBy,
   );
+  
+  factory SessionModel.fromEntity(Session session) {
+    return SessionModel(
+      idSession: session.idSession,
+      userId: session.userId,
+      ruangan: session.ruangan,
+      gedung: session.gedung,
+      idOrmawa: session.idOrmawa,
+      startTime: session.startTime,
+      endTime: session.endTime,
+      date: session.date,
+      kegiatan: session.kegiatan,
+      perlengkapan: session.perlengkapan,
+      lain: session.lain,
+      status: session.status,
+      keterangan: session.keterangan,
+      updatedAt: session.updatedAt,
+      createdAt: session.createdAt,
+      updatedBy: session.updatedBy,
+    );
+  }
 
   factory SessionModel.fromJson(Map<String, dynamic> json) {
     return SessionModel(
