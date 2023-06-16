@@ -18,6 +18,24 @@ class Admin extends Equatable {
     required this.role,
   });
 
+  Admin updateWith({
+    int? idAdmin,
+    String? nip,
+    String? username,
+    String? password,
+    String? noHp,
+    String? role,
+  }) {
+    return Admin(
+      idAdmin: idAdmin ?? this.idAdmin,
+      nip: nip ?? this.nip,
+      username: username ?? this.username,
+      password: password ?? this.password,
+      noHp: noHp ?? this.noHp,
+      role: role ?? this.role,
+    );
+  }
+
   @override
   List<Object?> get props => [
     idAdmin,

@@ -29,6 +29,36 @@ class RiwayatMpt extends Equatable {
     required this.createdAt,
   });
 
+  RiwayatMpt copyWith({
+    int? idRiwayatMpt,
+    int? idKegiatan,
+    int? idUser,
+    String? status,
+    String? file,
+    String? hash,
+    String? keteranganA,
+    String? keteranganB,
+    DateTime? mulai,
+    DateTime? akhir,
+    DateTime? updatedAt,
+    DateTime? createdAt,
+  }) {
+    return RiwayatMpt(
+      idRiwayatMpt: idRiwayatMpt ?? this.idRiwayatMpt,
+      idKegiatan: idKegiatan ?? this.idKegiatan,
+      idUser: idUser ?? this.idUser,
+      status: status ?? this.status,
+      file: file ?? this.file,
+      hash: hash ?? this.hash,
+      keteranganA: keteranganA ?? this.keteranganA,
+      keteranganB: keteranganB ?? this.keteranganB,
+      mulai: mulai ?? this.mulai,
+      akhir: akhir ?? this.akhir,
+      updatedAt: updatedAt ?? this.updatedAt,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
   @override
   List<Object?> get props => [
     idRiwayatMpt,

@@ -24,17 +24,27 @@ class Partisipan extends Equatable {
     required this.dasarKirim,
   });
 
-  PartisipanModel toPartisipanModel() {
-    return PartisipanModel(
-      idPeserta: idPeserta,
-      idUsulan: idUsulan,
-      nim: nim,
-      namaLengkap: namaLengkap,
-      nik: nik,
-      tempatLahir: tempatLahir,
-      tanggalLahir: tanggalLahir,
-      peran: peran,
-      dasarKirim: dasarKirim,
+  Partisipan updateWith({
+    int? idPeserta,
+    int? idUsulan,
+    String? nim,
+    String? namaLengkap,
+    String? nik,
+    String? tempatLahir,
+    String? tanggalLahir,
+    String? peran,
+    String? dasarKirim,
+  }) {
+    return Partisipan(
+      idPeserta: idPeserta ?? this.idPeserta,
+      idUsulan: idUsulan ?? this.idUsulan,
+      nim: nim ?? this.nim,
+      namaLengkap: namaLengkap ?? this.namaLengkap,
+      nik: nik ?? this.nik,
+      tempatLahir: tempatLahir ?? this.tempatLahir,
+      tanggalLahir: tanggalLahir ?? this.tanggalLahir,
+      peran: peran ?? this.peran,
+      dasarKirim: dasarKirim ?? this.dasarKirim,
     );
   }
 

@@ -17,6 +17,24 @@ class Prestasi extends Equatable {
     required this.prestasiDicapai,
   });
 
+  Prestasi copyWith({
+    int? idPrestasi,
+    String? nim,
+    String? namaLengkap,
+    String? kegiatan,
+    String? tingkat,
+    String? prestasiDicapai,
+  }) {
+    return Prestasi(
+      idPrestasi: idPrestasi ?? this.idPrestasi,
+      nim: nim ?? this.nim,
+      namaLengkap: namaLengkap ?? this.namaLengkap,
+      kegiatan: kegiatan ?? this.kegiatan,
+      tingkat: tingkat ?? this.tingkat,
+      prestasiDicapai: prestasiDicapai ?? this.prestasiDicapai,
+    );
+  }
+
   @override
   List<Object?> get props => [
     idPrestasi,

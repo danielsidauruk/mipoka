@@ -28,19 +28,31 @@ class Ormawa extends Equatable {
     required this.fotoBendahara,
   });
 
-  OrmawaModel toOrmawaModel() {
-    return OrmawaModel(
-      idOrmawa: idOrmawa,
-      namaOrmawa: namaOrmawa,
-      pembina: pembina,
-      ketua: ketua,
-      wakil: wakil,
-      bendahara: bendahara,
-      jumlahAnggota: jumlahAnggota,
-      fotoPembina: fotoPembina,
-      fotoKetua: fotoKetua,
-      fotoWakil: fotoWakil,
-      fotoBendahara: fotoBendahara,
+  Ormawa updateWith({
+    int? idOrmawa,
+    String? namaOrmawa,
+    String? pembina,
+    String? ketua,
+    String? wakil,
+    String? bendahara,
+    int? jumlahAnggota,
+    String? fotoPembina,
+    String? fotoKetua,
+    String? fotoWakil,
+    String? fotoBendahara,
+  }) {
+    return Ormawa(
+      idOrmawa: idOrmawa ?? this.idOrmawa,
+      namaOrmawa: namaOrmawa ?? this.namaOrmawa,
+      pembina: pembina ?? this.pembina,
+      ketua: ketua ?? this.ketua,
+      wakil: wakil ?? this.wakil,
+      bendahara: bendahara ?? this.bendahara,
+      jumlahAnggota: jumlahAnggota ?? this.jumlahAnggota,
+      fotoPembina: fotoPembina ?? this.fotoPembina,
+      fotoKetua: fotoKetua ?? this.fotoKetua,
+      fotoWakil: fotoWakil ?? this.fotoWakil,
+      fotoBendahara: fotoBendahara ?? this.fotoBendahara,
     );
   }
 

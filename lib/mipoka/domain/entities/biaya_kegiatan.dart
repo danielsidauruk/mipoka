@@ -16,13 +16,19 @@ class BiayaKegiatan extends Equatable {
     required this.keterangan,
   });
 
-  BiayaKegiatanModel toBiayaKegiatanModel() {
-    return BiayaKegiatanModel(
-      namaBiayaKegiatan: namaBiayaKegiatan,
-      qty: qty,
-      hargaSatuan: hargaSatuan,
-      total: total,
-      keterangan: keterangan,
+  BiayaKegiatan updateWith({
+    String? namaBiayaKegiatan,
+    int? qty,
+    int? hargaSatuan,
+    int? total,
+    String? keterangan,
+  }) {
+    return BiayaKegiatan(
+      namaBiayaKegiatan: namaBiayaKegiatan ?? this.namaBiayaKegiatan,
+      qty: qty ?? this.qty,
+      hargaSatuan: hargaSatuan ?? this.hargaSatuan,
+      total: total ?? this.total,
+      keterangan: keterangan ?? this.keterangan,
     );
   }
 

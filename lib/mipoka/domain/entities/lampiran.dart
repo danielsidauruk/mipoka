@@ -26,6 +26,22 @@ class Lampiran extends Equatable {
     );
   }
 
+  Lampiran updateWith({
+    int? idLampiran,
+    String? lampiranA,
+    String? lampiranB,
+    String? lampiranC,
+    String? lampiranD,
+  }) {
+    return Lampiran(
+      idLampiran: idLampiran ?? this.idLampiran,
+      lampiranA: lampiranA ?? this.lampiranA,
+      lampiranB: lampiranB ?? this.lampiranB,
+      lampiranC: lampiranC ?? this.lampiranC,
+      lampiranD: lampiranD ?? this.lampiranD,
+    );
+  }
+
   @override
   List<Object?> get props => [
     idLampiran,

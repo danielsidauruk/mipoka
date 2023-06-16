@@ -20,15 +20,23 @@ class PanitiaPesertaL extends Equatable {
     required this.peran,
   });
 
-  PanitiaPesertaLaporanModel toPanitiaPesertaLaporanMode() {
-    return PanitiaPesertaLaporanModel(
-      idPanitiaPesertaLaporan: idPanitiaPesertaL,
-      idLaporan: idLaporan,
-      jenisMahasiswa: jenisMahasiswa,
-      nim: nim,
-      namaLengkap: namaLengkap,
-      prodi: prodi,
-      peran: peran,
+  PanitiaPesertaL updateWith({
+    int? idPanitiaPesertaL,
+    int? idLaporan,
+    String? jenisMahasiswa,
+    String? nim,
+    String? namaLengkap,
+    String? prodi,
+    String? peran,
+  }) {
+    return PanitiaPesertaL(
+      idPanitiaPesertaL: idPanitiaPesertaL ?? this.idPanitiaPesertaL,
+      idLaporan: idLaporan ?? this.idLaporan,
+      jenisMahasiswa: jenisMahasiswa ?? this.jenisMahasiswa,
+      nim: nim ?? this.nim,
+      namaLengkap: namaLengkap ?? this.namaLengkap,
+      prodi: prodi ?? this.prodi,
+      peran: peran ?? this.peran,
     );
   }
 

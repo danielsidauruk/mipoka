@@ -16,13 +16,19 @@ class Periode extends Equatable {
     required this.akhir,
   });
 
-  PeriodeModel toPeriodeModel() {
-    return PeriodeModel(
-      idPeriode: idPeriode,
-      tahun: tahun,
-      ulang: ulang,
-      mulai: mulai,
-      akhir: akhir,
+  Periode copyWith({
+    int? idPeriode,
+    String? tahun,
+    String? ulang,
+    DateTime? mulai,
+    DateTime? akhir,
+  }) {
+    return Periode(
+      idPeriode: idPeriode ?? this.idPeriode,
+      tahun: tahun ?? this.tahun,
+      ulang: ulang ?? this.ulang,
+      mulai: mulai ?? this.mulai,
+      akhir: akhir ?? this.akhir,
     );
   }
 

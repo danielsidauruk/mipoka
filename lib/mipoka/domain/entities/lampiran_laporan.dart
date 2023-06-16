@@ -16,13 +16,19 @@ class LampiranLaporan extends Equatable {
     required this.lampiranD,
   });
 
-  LampiranLaporanModel toLampiranLaporanModel() {
-    return LampiranLaporanModel(
-      idLampiran: idLampiran,
-      lampiranA: lampiranA,
-      lampiranB: lampiranB,
-      lampiranC: lampiranC,
-      lampiranD: lampiranD,
+  LampiranLaporan updateWith({
+    int? idLampiran,
+    String? lampiranA,
+    String? lampiranB,
+    String? lampiranC,
+    String? lampiranD,
+  }) {
+    return LampiranLaporan(
+      idLampiran: idLampiran ?? this.idLampiran,
+      lampiranA: lampiranA ?? this.lampiranA,
+      lampiranB: lampiranB ?? this.lampiranB,
+      lampiranC: lampiranC ?? this.lampiranC,
+      lampiranD: lampiranD ?? this.lampiranD,
     );
   }
 

@@ -20,15 +20,23 @@ class Kegiatan extends Equatable {
     required this.keterangan,
   });
 
-  KegiatanModel toKegiatanModel() {
-    return KegiatanModel(
-      idKegiatan: idKegiatan,
-      jenisKegiatan: jenisKegiatan,
-      namaKegiatan: namaKegiatan,
-      idPeriode: idPeriode,
-      pointMpt: pointMpt,
-      idOrmawa: idOrmawa,
-      keterangan: keterangan,
+  Kegiatan updateWith({
+    int? idKegiatan,
+    String? jenisKegiatan,
+    String? namaKegiatan,
+    String? idPeriode,
+    int? pointMpt,
+    int? idOrmawa,
+    String? keterangan,
+  }) {
+    return Kegiatan(
+      idKegiatan: idKegiatan ?? this.idKegiatan,
+      jenisKegiatan: jenisKegiatan ?? this.jenisKegiatan,
+      namaKegiatan: namaKegiatan ?? this.namaKegiatan,
+      idPeriode: idPeriode ?? this.idPeriode,
+      pointMpt: pointMpt ?? this.pointMpt,
+      idOrmawa: idOrmawa ?? this.idOrmawa,
+      keterangan: keterangan ?? this.keterangan,
     );
   }
 

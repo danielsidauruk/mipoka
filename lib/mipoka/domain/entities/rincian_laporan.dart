@@ -21,6 +21,28 @@ class RincianLaporan extends Equatable {
     required this.selisih,
   });
 
+  RincianLaporan copyWith({
+    int? idRincianL,
+    int? idLaporan,
+    String? keteranganA,
+    int? qty,
+    int? satuan,
+    int? usulanAnggaran,
+    int? realisasiAnggaran,
+    int? selisih,
+  }) {
+    return RincianLaporan(
+      idRincianL: idRincianL ?? this.idRincianL,
+      idLaporan: idLaporan ?? this.idLaporan,
+      keteranganA: keteranganA ?? this.keteranganA,
+      qty: qty ?? this.qty,
+      satuan: satuan ?? this.satuan,
+      usulanAnggaran: usulanAnggaran ?? this.usulanAnggaran,
+      realisasiAnggaran: realisasiAnggaran ?? this.realisasiAnggaran,
+      selisih: selisih ?? this.selisih,
+    );
+  }
+
   @override
   List<Object?> get props => [
     idRincianL,
