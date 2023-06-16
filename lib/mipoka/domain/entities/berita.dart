@@ -16,14 +16,14 @@ class Berita extends Equatable {
     required this.teks,
   });
 
-  BeritaModel copyWith({
+  Berita updateWith({
     int? idBerita,
     String? jenisKegiatan,
     String? penulis,
     String? gambar,
     String? teks,
   }) {
-    return BeritaModel(
+    return Berita(
       idBerita: idBerita ?? this.idBerita,
       jenisKegiatan: jenisKegiatan ?? this.jenisKegiatan,
       penulis: penulis ?? this.penulis,

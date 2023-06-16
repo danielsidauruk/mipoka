@@ -104,7 +104,7 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                               onTap: () {
                                 context.read<BeritaBloc>().add(
                                   UpdateBeritaEvent(
-                                    berita.copyWith(
+                                    berita.updateWith(
                                       jenisKegiatan: _judulBeritaController.text,
                                       penulis: _penulisController.text,
                                       gambar: "https://random-d.uk/api/randomimg?t=1686482823678",
