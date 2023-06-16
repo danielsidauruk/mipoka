@@ -127,14 +127,6 @@ class MipokaDataSourcesImpl extends MipokaDataSources {
   // => BeritaModel Repositories
   @override
   Future<String> createBerita(BeritaModel beritaModel) async {
-    // final String response = await rootBundle.loadString('assets/json_file/berita.json');
-    // List<dynamic> beritaList = json.decode(response);
-    //
-    // Map<String, dynamic> newBeritaData = beritaModel.toJson();
-    // beritaList.add(newBeritaData);
-    //
-    // final String updateJson = json.encode(beritaList);
-    // // await File('assets/json_file/berita.json').writeAsString(updateJson);
     if (kDebugMode) {
       print(beritaModel.toJson());
     }

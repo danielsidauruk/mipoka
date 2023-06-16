@@ -110,7 +110,7 @@ class _KemahasiswaanBerandaPageState
                         CustomAddButton(
                           buttonText: 'Tambah',
                           onPressed: () => Navigator.pushNamed(
-                              context, kemahasiswaanEditBerandaTambahPageRoute),
+                              context, kemahasiswaanBerandaTambahBeritaPageRoute),
                         ),
                         const CustomFieldSpacer(),
                         buildTitle('Penulis'),
@@ -196,7 +196,12 @@ class _KemahasiswaanBerandaPageState
                                           MainAxisAlignment.spaceEvenly,
                                           children: [
                                             InkWell(
-                                              onTap: () => Navigator.pushNamed(context, kemahasiswaanEditBerandaTambahPageRoute),
+                                              onTap: () => Navigator.pushNamed(
+                                                context,
+                                                kemahasiswaanBerandaUpdateBeritaPageRoute,
+                                                arguments: berita.idBerita,
+                                              ),
+                                              // onTap:() =>
                                               child: Image.asset(
                                                 'assets/icons/edit.png',
                                                 width: 24,

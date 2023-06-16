@@ -3,14 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/utils.dart';
 import 'package:mipoka/dependency_injection.dart' as di;
+import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/ganti_password_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahaiswaan_prestasi_mahasiswa_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_update_berita.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_cek_laporan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_cek_sarana_dan_prasarana_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_cek_usulan_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_edit_beranda_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_edit_ormawa_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_edit_ormawa_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_jenis_kegiatan_page.dart';
@@ -114,14 +116,14 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
 
-            // mobile route
+            // route
             case loginPageRoute:
               return MaterialPageRoute(builder: (_) => const LoginPage());
             case gantiPasswordPageRoute:
               return MaterialPageRoute(
                   builder: (_) => const GantiPasswordPage());
 
-            // mobile - pengguna  route
+            // pengguna  route
             case penggunaBerandaPageRoute:
               return MaterialPageRoute(
                   builder: (_) => const PenggunaBerandaPage());
@@ -264,14 +266,23 @@ class MyApp extends StatelessWidget {
                   builder: (_) =>
                       const PemeriksaPengajuanLaporanKegiatan3Page());
 
-            // mobile - kemahasiswaan
+            // kemahasiswaan
             case kemahasiswaanBerandaPageRoute:
               return MaterialPageRoute(
                   builder: (_) => const KemahasiswaanBerandaPage());
-            case kemahasiswaanEditBerandaTambahPageRoute:
+            case kemahasiswaanBerandaTambahBeritaPageRoute:
               return MaterialPageRoute(
                   builder: (_) =>
-                      const KemahasiswaanEditBerandaTambahPage());
+                      const KemahasiswaanBerandaBeritaPage());
+            case kemahasiswaanBerandaUpdateBeritaPageRoute:
+              final id = settings.arguments as int;
+
+              return MaterialPageRoute(
+                builder: (_) => KemahasiswaanBerandaUpdateBeritaPage(beritaId: id),
+                settings: settings
+              );
+            //     settings: settings,
+            //   );
             case kemahasiswaanMPTMahasiswaPeriodePageRoute:
               return MaterialPageRoute(
                   builder: (_) =>

@@ -16,6 +16,22 @@ class Berita extends Equatable {
     required this.teks,
   });
 
+  BeritaModel copyWith({
+    int? idBerita,
+    String? jenisKegiatan,
+    String? penulis,
+    String? gambar,
+    String? teks,
+  }) {
+    return BeritaModel(
+      idBerita: idBerita ?? this.idBerita,
+      jenisKegiatan: jenisKegiatan ?? this.jenisKegiatan,
+      penulis: penulis ?? this.penulis,
+      gambar: gambar ?? this.gambar,
+      teks: teks ?? this.teks,
+    );
+  }
+
   @override
   List<Object?> get props => [
     idBerita,

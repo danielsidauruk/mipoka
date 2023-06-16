@@ -80,8 +80,10 @@ const pemeriksaPengajuanLaporanKegiatan3PageRoute =
 
 // mobile routes - kemahasiswaan
 const kemahasiswaanBerandaPageRoute = '/kemahasiswaanBerandaPageRoute';
-const kemahasiswaanEditBerandaTambahPageRoute =
-    '/kemahasiswaanEditBerandaTambahPageRoute';
+const kemahasiswaanBerandaTambahBeritaPageRoute =
+    '/kemahasiswaanBerandaTambahBeritaPageRoute';
+const kemahasiswaanBerandaUpdateBeritaPageRoute =
+    'kemahasiswaanBerandaUpdateBeritaPageRoute';
 const kemahasiswaanMPTMahasiswaPeriodePageRoute =
     '/kemahasiswaanMPTMahasiswaPeriodePageRoute';
 const kemahasiswaanMPTMahasiswaTambahPeriodePageRoute =

@@ -16,14 +16,14 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_rich_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 
-class KemahasiswaanEditBerandaTambahPage extends StatefulWidget {
-  const KemahasiswaanEditBerandaTambahPage({super.key});
+class KemahasiswaanBerandaBeritaPage extends StatefulWidget {
+  const KemahasiswaanBerandaBeritaPage({super.key});
 
   @override
-  State<KemahasiswaanEditBerandaTambahPage> createState() => _KemahasiswaanEditBerandaTambahPageState();
+  State<KemahasiswaanBerandaBeritaPage> createState() => _KemahasiswaanBerandaBeritaPageState();
 }
 
-class _KemahasiswaanEditBerandaTambahPageState extends State<KemahasiswaanEditBerandaTambahPage> {
+class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBeritaPage> {
   final TextEditingController _judulBeritaController = TextEditingController();
   final TextEditingController _penulisController = TextEditingController();
   // final QuillController _textBeritaController = QuillController.basic();
@@ -95,38 +95,18 @@ class _KemahasiswaanEditBerandaTambahPageState extends State<KemahasiswaanEditBe
                         builder: (context, state) {
                           return CustomButton(
                             onTap: () {
-                              // context.read<BeritaBloc>().add(
-                              //   CreateBeritaEvent(
-                              //     Berita(
-                              //       idBerita: 1234,
-                              //       jenisKegiatan: _judulBeritaController.text,
-                              //       penulis: _penulisController.text,
-                              //       gambar: "https://random-d.uk/api/randomimg?t=1686482823678",
-                              //       // teks: _textBeritaController.getPlainText(),
-                              //       teks: _textBeritaController.text,
-                              //     ),
-                              //   ),
-                              // );
-                              if (_judulBeritaController.text != "" && _penulisController.text != ""
-                                  && _textBeritaController.text != "") {
-                                context.read<BeritaBloc>().add(
-                                  UpdateBeritaEvent(
-                                    Berita(
-                                      idBerita: 1234,
-                                      jenisKegiatan: _judulBeritaController.text,
-                                      penulis: _penulisController.text,
-                                      gambar: "https://random-d.uk/api/randomimg?t=1686482823678",
-                                      // teks: _textBeritaController.getPlainText(),
-                                      teks: _textBeritaController.text,
-                                    ),
+                              context.read<BeritaBloc>().add(
+                                CreateBeritaEvent(
+                                  Berita(
+                                    idBerita: 1234,
+                                    jenisKegiatan: _judulBeritaController.text,
+                                    penulis: _penulisController.text,
+                                    gambar: "https://random-d.uk/api/randomimg?t=1686482823678",
+                                    // teks: _textBeritaController.getPlainText(),
+                                    teks: _textBeritaController.text,
                                   ),
-                                );
-                                Navigator.pop(context);
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Field cannot be empty.'), duration: Duration(seconds: 5)),
-                                );
-                              }
+                                ),
+                              );
                             },
                             text: 'Simpan',
                           );
