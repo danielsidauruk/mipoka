@@ -107,6 +107,10 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                               ),
                             ),
                           );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Berita has been deleted successfully.'), duration: Duration(seconds: 1)),
+                          );
+                          Navigator.pop(context);
                         },
                         text: 'Simpan',
                       ),

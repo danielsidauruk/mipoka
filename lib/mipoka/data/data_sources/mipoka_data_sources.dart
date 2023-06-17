@@ -59,7 +59,7 @@ abstract class MipokaDataSources {
   Future<String> updateOrmawa(OrmawaModel ormawaModel);
   Future<String> deleteOrmawa(int idOrmawa);
 
-  Future<List<PanitiaPesertaLaporanModel>> getPanitiaPesertaL();
+  Future<List<PanitiaPesertaLaporanModel>> readPanitiaPesertaL();
   Future<String> createPanitiaPesertaL(PanitiaPesertaLaporanModel panitiaPesertaLaporanModel);
   Future<String> updatePanitiaPesertaL(PanitiaPesertaLaporanModel panitiaPesertaLaporanModel);
   Future<String> deletePanitiaPesertaL(int idPanitiaPesertaLaporan);
@@ -84,7 +84,7 @@ abstract class MipokaDataSources {
   Future<String> updatePrestasi(PrestasiModel prestasiModel);
   Future<String> deletePrestasi(int idPrestasi);
 
-  Future<List<RincianBiayaKegiatanModel>> getRincianBiayaKegiatan();
+  Future<List<RincianBiayaKegiatanModel>> readRincianBiayaKegiatan();
   Future<String> createRincianBiayaKegiatan(RincianBiayaKegiatanModel rincianBiayaKegiatanModel);
   Future<String> updateRincianBiayaKegiatan(RincianBiayaKegiatanModel rincianBiayaKegiatanModel);
   Future<String> deleteRincianBiayaKegiatan(int idRincianBiayaKegiatan);
@@ -99,7 +99,7 @@ abstract class MipokaDataSources {
   Future<String> updateRiwayatMpt(RiwayatMptModel riwayatMptModel);
   Future<String> deleteRiwayatMpt(int idRiwayatMpt);
 
-  Future<List<SessionModel>> getSession();
+  Future<List<SessionModel>> readSession();
   Future<String> createSession(SessionModel sessionModel);
   Future<String> updateSession(SessionModel sessionModel);
   Future<String> deleteSession(int idSession);
@@ -400,7 +400,7 @@ class MipokaDataSourcesImpl extends MipokaDataSources {
     return "Panitia Peserta Laporan has been created successfully.";
   }
   @override
-  Future<List<PanitiaPesertaLaporanModel>> getPanitiaPesertaL() async {
+  Future<List<PanitiaPesertaLaporanModel>> readPanitiaPesertaL() async {
     final String response = await rootBundle.loadString('assets/json_file/panitia_peserta_laporan.json');
     List<dynamic> resultList = json.decode(response);
 
@@ -590,7 +590,7 @@ class MipokaDataSourcesImpl extends MipokaDataSources {
     return "Rincian Biaya Kegiatan has been created successfully.";
   }
   @override
-  Future<List<RincianBiayaKegiatanModel>> getRincianBiayaKegiatan() async {
+  Future<List<RincianBiayaKegiatanModel>> readRincianBiayaKegiatan() async {
     final String response = await rootBundle.loadString('assets/json_file/rincian_biaya_kegiatan.json');
     List<dynamic> resultList = json.decode(response);
 
@@ -704,7 +704,7 @@ class MipokaDataSourcesImpl extends MipokaDataSources {
     return "Session has been created successfully.";
   }
   @override
-  Future<List<SessionModel>> getSession() async {
+  Future<List<SessionModel>> readSession() async {
     final String response = await rootBundle.loadString('assets/json_file/session.json');
     List<dynamic> resultList = json.decode(response);
 

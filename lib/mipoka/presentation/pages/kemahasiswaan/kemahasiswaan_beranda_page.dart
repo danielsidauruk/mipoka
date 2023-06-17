@@ -170,7 +170,7 @@ class _KemahasiswaanBerandaPageState
                                         Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            '${index + 1} maret 2023',
+                                            '${index + 1} Maret 2023',
                                           ),
                                         ),
                                       ),
@@ -210,25 +210,18 @@ class _KemahasiswaanBerandaPageState
 
                                             const SizedBox(width: 8.0,),
 
-                                            BlocConsumer<BeritaBloc, BeritaState>(
-                                              listener: (context, state) {
-                                                if (state is BeritaSuccessMessage) {
-                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                    SnackBar(content: Text(state.message), duration: const Duration(seconds: 1)),
-                                                  );
-                                                }
-                                              },
-                                              builder: (context, state) {
-                                                return InkWell(
-                                                  onTap: () => context.read<BeritaBloc>()
-                                                      .add(DeleteBeritaEvent(berita.idBerita)),
-                                                  child: Image.asset(
-                                                    'assets/icons/delete.png',
-                                                    width: 24,
-                                                  ),
+                                            InkWell(
+                                              onTap: () {
+                                                context.read<BeritaBloc>().add(DeleteBeritaEvent(berita.idBerita));
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                  const SnackBar(content: Text('Berita has been deleted successfully.'), duration: Duration(seconds: 1)),
                                                 );
                                               },
-                                            ),
+                                              child: Image.asset(
+                                                'assets/icons/delete.png',
+                                                width: 24,
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ),

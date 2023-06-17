@@ -34,9 +34,9 @@ abstract class MipokaRepositories {
   Future<Either<Failure, List<BiayaKegiatan>>> getBiayaKegiatan(String namaBiayaKegiatan);
   Future<Either<Failure, String>> createBiayaKegiatan(BiayaKegiatan biayaKegiatan);
   Future<Either<Failure, String>> updateBiayaKegiatan(BiayaKegiatan biayaKegiatan);
-  Future<Either<Failure, String>> deleteBiayaKegiatan(String namaBiayaKegiatan);
+  Future<Either<Failure, String>> deleteBiayaKegiatan(int idNamaBiayaKegiatan);
 
-  Future<Either<Failure, List<Kegiatan>>> getKegiatan();
+  Future<Either<Failure, List<Kegiatan>>> readKegiatan();
   Future<Either<Failure, String>> createKegiatan(Kegiatan kegiatan);
   Future<Either<Failure, String>> updateKegiatan(Kegiatan kegiatan);
   Future<Either<Failure, String>> deleteKegiatan(int idKegiatan);
@@ -65,27 +65,27 @@ abstract class MipokaRepositories {
       PanitiaPesertaL panitiaPesertaL);
   Future<Either<Failure, String>> deletePanitiaPesertaL(int idPanitiaPesertaL);
 
-  Future<Either<Failure, List<Partisipan>>> getPartisipan();
+  Future<Either<Failure, List<Partisipan>>> readPartisipan();
   Future<Either<Failure, String>> createPartisipan(Partisipan partisipan);
   Future<Either<Failure, String>> updatePartisipan(Partisipan partisipan);
   Future<Either<Failure, String>> deletePartisipan(int idPartisipan);
 
-  Future<Either<Failure, List<Periode>>> getPeriode();
+  Future<Either<Failure, List<Periode>>> readPeriode();
   Future<Either<Failure, String>> createPeriode(Periode periode);
   Future<Either<Failure, String>> updatePeriode(Periode periode);
-  Future<Either<Failure, String>> deletePeriode(Periode periode);
+  Future<Either<Failure, String>> deletePeriode(int idPeriode);
 
-  Future<Either<Failure, List<Peserta>>> getPeserta();
+  Future<Either<Failure, List<Peserta>>> readPeserta();
   Future<Either<Failure, String>> createPeserta(Peserta peserta);
   Future<Either<Failure, String>> updatePeserta(Peserta peserta);
   Future<Either<Failure, String>> deletePeserta(int idPeserta);
 
-  Future<Either<Failure, List<Prestasi>>> getPrestasi();
+  Future<Either<Failure, List<Prestasi>>> readPrestasi();
   Future<Either<Failure, String>> createPrestasi(Prestasi prestasi);
   Future<Either<Failure, String>> updatePrestasi(Prestasi prestasi);
   Future<Either<Failure, String>> deletePrestasi(int idPrestasi);
 
-  Future<Either<Failure, List<RincianBiayaKegiatan>>> getRincianBiayaKegiatan();
+  Future<Either<Failure, List<RincianBiayaKegiatan>>> readRincianBiayaKegiatan();
   Future<Either<Failure, String>> createRincianBiayaKegiatan(
       RincianBiayaKegiatan rincianBiayaKegiatan);
   Future<Either<Failure, String>> updateRincianBiayaKegiatan(
@@ -93,34 +93,34 @@ abstract class MipokaRepositories {
   Future<Either<Failure, String>> deleteRincianBiayaKegiatan(
       int idRincianBiayaKegiatan);
 
-  Future<Either<Failure, List<RincianLaporan>>> getRincianLaporan();
+  Future<Either<Failure, List<RincianLaporan>>> readRincianLaporan();
   Future<Either<Failure, String>> createRincianLaporan(
       RincianLaporan rincianLaporan);
   Future<Either<Failure, String>> updateRincianLaporan(
       RincianLaporan rincianLaporan);
   Future<Either<Failure, String>> deleteRincianLaporan(int idRincianL);
 
-  Future<Either<Failure, List<RiwayatMpt>>> getRiwayatMpt();
+  Future<Either<Failure, List<RiwayatMpt>>> readRiwayatMpt();
   Future<Either<Failure, String>> createRiwayatMpt(RiwayatMpt riwayatMpt);
   Future<Either<Failure, String>> updateRiwayatMpt(RiwayatMpt riwayatMpt);
   Future<Either<Failure, String>> deleteRiwayatMpt(int idRiwayatMpt);
 
-  Future<Either<Failure, List<Session>>> getSession();
+  Future<Either<Failure, List<Session>>> readSession();
   Future<Either<Failure, String>> createSession(Session session);
   Future<Either<Failure, String>> updateSession(Session session);
   Future<Either<Failure, String>> deleteSession(int idSession);
 
-  Future<Either<Failure, List<TertibAcara>>> getTertibAcara();
+  Future<Either<Failure, List<TertibAcara>>> readTertibAcara();
   Future<Either<Failure, String>> createTertibAcara(TertibAcara tertibAcara);
   Future<Either<Failure, String>> updateTertibAcara(TertibAcara tertibAcara);
   Future<Either<Failure, String>> deleteTertibAcara(int idTertibAcara);
 
-  Future<Either<Failure, List<User>>> getUser();
+  Future<Either<Failure, List<User>>> readUser();
   Future<Either<Failure, String>> createUser(User user);
   Future<Either<Failure, String>> updateUser(User user);
   Future<Either<Failure, String>> deleteUser(int idUser);
 
-  Future<Either<Failure, List<UsulanKegiatan>>> getUsulanKegiatan();
+  Future<Either<Failure, List<UsulanKegiatan>>> readUsulanKegiatan();
   Future<Either<Failure, String>> createUsulanKegiatan(
       UsulanKegiatan usulanKegiatan);
   Future<Either<Failure, String>> updateUsulanKegiatan(
