@@ -58,12 +58,12 @@ abstract class MipokaRepositories {
   Future<Either<Failure, String>> updateOrmawa(Ormawa ormawa);
   Future<Either<Failure, String>> deleteOrmawa(int idOrmawa);
 
-  Future<Either<Failure, List<PanitiaPesertaLaporan>>> readPanitiaPesertaL();
-  Future<Either<Failure, String>> createPanitiaPesertaL(
+  Future<Either<Failure, List<PanitiaPesertaLaporan>>> readPanitiaPesertaLaporan();
+  Future<Either<Failure, String>> createPanitiaPesertaLaporan(
       PanitiaPesertaLaporan panitiaPesertaL);
-  Future<Either<Failure, String>> updatePanitiaPesertaL(
+  Future<Either<Failure, String>> updatePanitiaPesertaLaporan(
       PanitiaPesertaLaporan panitiaPesertaL);
-  Future<Either<Failure, String>> deletePanitiaPesertaL(int idPanitiaPesertaL);
+  Future<Either<Failure, String>> deletePanitiaPesertaLaporan(int idPanitiaPesertaLaporan);
 
   Future<Either<Failure, List<Partisipan>>> readPartisipan();
   Future<Either<Failure, String>> createPartisipan(Partisipan partisipan);

@@ -9,18 +9,18 @@ class PanitiaPesertaLaporanUseCase {
   PanitiaPesertaLaporanUseCase({required this.mipokaRepositories});
 
   Future<Either<Failure, List<PanitiaPesertaLaporan>>> readPanitiaPesertaL() {
-    return mipokaRepositories.readPanitiaPesertaL();
+    return mipokaRepositories.readPanitiaPesertaLaporan();
   }
 
   Future<Either<Failure, String>> createPanitiaPesertaL(PanitiaPesertaLaporan panitiaPesertaL) {
-    return mipokaRepositories.createPanitiaPesertaL(panitiaPesertaL);
+    return mipokaRepositories.createPanitiaPesertaLaporan(panitiaPesertaL);
   }
 
   Future<Either<Failure, String>> updatePanitiaPesertaLaporan(PanitiaPesertaLaporan panitiaPesertaL) {
-    return mipokaRepositories.updatePanitiaPesertaL(panitiaPesertaL);
+    return mipokaRepositories.updatePanitiaPesertaLaporan(panitiaPesertaL);
   }
 
   Future<Either<Failure, String>> deletePanitiaPesertaLaporan(int idPanitiaPesertaL) {
-    return mipokaRepositories.deletePanitiaPesertaL(idPanitiaPesertaL);
+    return mipokaRepositories.deletePanitiaPesertaLaporan(idPanitiaPesertaL);
   }
 }

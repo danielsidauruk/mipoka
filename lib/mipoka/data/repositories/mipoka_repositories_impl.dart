@@ -316,7 +316,7 @@ class MipokaRepositoriesImpl extends MipokaRepositories {
 
   // => Panitia Peserta Laporan
   @override
-  Future<Either<Failure, String>> createPanitiaPesertaL(PanitiaPesertaLaporan panitiaPesertaL) async {
+  Future<Either<Failure, String>> createPanitiaPesertaLaporan(PanitiaPesertaLaporan panitiaPesertaL) async {
     try {
       return Right(await mipokaDataSources.createPanitiaPesertaL(PanitiaPesertaLaporanModel.fromEntity(panitiaPesertaL)));
     } on ServerException {
@@ -325,7 +325,7 @@ class MipokaRepositoriesImpl extends MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, List<PanitiaPesertaLaporan>>> readPanitiaPesertaL() async {
+  Future<Either<Failure, List<PanitiaPesertaLaporan>>> readPanitiaPesertaLaporan() async {
     try {
       return Right(await mipokaDataSources.readPanitiaPesertaL());
     } on ServerException {
@@ -334,7 +334,7 @@ class MipokaRepositoriesImpl extends MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, String>> updatePanitiaPesertaL(PanitiaPesertaLaporan panitiaPesertaL) async {
+  Future<Either<Failure, String>> updatePanitiaPesertaLaporan(PanitiaPesertaLaporan panitiaPesertaL) async {
     try {
       return Right(await mipokaDataSources.updatePanitiaPesertaL(PanitiaPesertaLaporanModel.fromEntity(panitiaPesertaL)));
     } on ServerException {
@@ -343,7 +343,7 @@ class MipokaRepositoriesImpl extends MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, String>> deletePanitiaPesertaL(int idPanitiaPesertaL) async {
+  Future<Either<Failure, String>> deletePanitiaPesertaLaporan(int idPanitiaPesertaL) async {
     try {
       return Right(await mipokaDataSources.deletePanitiaPesertaL(idPanitiaPesertaL));
     } on ServerException {
