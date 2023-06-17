@@ -275,10 +275,10 @@ class MyApp extends StatelessWidget {
                   builder: (_) =>
                       const KemahasiswaanBerandaBeritaPage());
             case kemahasiswaanBerandaUpdateBeritaPageRoute:
-              final id = settings.arguments as int;
+              final berita = settings.arguments as Berita;
 
               return MaterialPageRoute(
-                builder: (_) => KemahasiswaanBerandaUpdateBeritaPage(beritaId: id),
+                builder: (_) => KemahasiswaanBerandaUpdateBeritaPage(berita: berita),
                 settings: settings
               );
             //     settings: settings,

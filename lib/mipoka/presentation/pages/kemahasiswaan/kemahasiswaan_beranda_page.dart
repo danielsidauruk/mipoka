@@ -199,7 +199,7 @@ class _KemahasiswaanBerandaPageState
                                               onTap: () => Navigator.pushNamed(
                                                 context,
                                                 kemahasiswaanBerandaUpdateBeritaPageRoute,
-                                                arguments: berita.idBerita,
+                                                arguments: berita,
                                               ),
                                               // onTap:() =>
                                               child: Image.asset(
@@ -214,7 +214,7 @@ class _KemahasiswaanBerandaPageState
                                               listener: (context, state) {
                                                 if (state is BeritaSuccessMessage) {
                                                   ScaffoldMessenger.of(context).showSnackBar(
-                                                    SnackBar(content: Text(state.message), duration: const Duration(seconds: 5)),
+                                                    SnackBar(content: Text(state.message), duration: const Duration(seconds: 1)),
                                                   );
                                                 }
                                               },

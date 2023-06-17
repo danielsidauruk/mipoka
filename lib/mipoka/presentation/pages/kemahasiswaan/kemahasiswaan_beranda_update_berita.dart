@@ -17,12 +17,12 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 
 class KemahasiswaanBerandaUpdateBeritaPage extends StatefulWidget {
-  const KemahasiswaanBerandaUpdateBeritaPage({
+  KemahasiswaanBerandaUpdateBeritaPage({
     super.key,
-    required this.beritaId,
+    required this.berita,
   });
 
-  final int beritaId;
+  final Berita berita;
 
   @override
   State<KemahasiswaanBerandaUpdateBeritaPage> createState() => _KemahasiswaanBerandaUpdateBeritaPageState();
@@ -35,102 +35,89 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
   final TextEditingController _textBeritaController = TextEditingController();
 
   @override
+  void initState() {
+    _judulBeritaController.text = "berita.judulBerita";
+    _penulisController.text = widget.berita.penulis;
+    _textBeritaController.text = widget.berita.teks;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    String uuid = const Uuid().v4();
-
-
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
 
       drawer: const MobileCustomKemahasiswaanDrawer(),
 
-      body: BlocBuilder<BeritaBloc, BeritaState>(
-        builder: (context, state) {
-          if (state is BeritaLoading) {
-            return const Text('Loading');
-          } else if (state is BeritaHasData) {
-            final berita = state.berita[0];
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const CustomMobileTitle(text: 'Kemahasiswaan - Edit Beranda - Tambah'),
 
-            _judulBeritaController.text = "berita.judulBerita";
-            _penulisController.text = berita.penulis;
-            _textBeritaController.text = berita.teks;
+              const CustomFieldSpacer(),
 
-            return SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const CustomMobileTitle(text: 'Kemahasiswaan - Edit Beranda - Tambah'),
+              CustomContentBox(
+                children: [
+                  buildTitle('Judul Berita'),
 
-                    const CustomFieldSpacer(),
+                  CustomTextField(controller: _judulBeritaController),
 
-                    CustomContentBox(
-                      children: [
-                        buildTitle('Judul Berita'),
+                  const CustomFieldSpacer(),
 
-                        CustomTextField(controller: _judulBeritaController),
+                  buildTitle('Penulis'),
 
-                        const CustomFieldSpacer(),
+                  CustomTextField(controller: _penulisController),
 
-                        buildTitle('Penulis'),
+                  const CustomFieldSpacer(),
 
-                        CustomTextField(controller: _penulisController),
+                  buildTitle('Tambah Gambar'),
+                  CustomIconButton(onTap: () {}, icon: Icons.upload),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Tambah Gambar'),
-                        CustomIconButton(onTap: () {}, icon: Icons.upload),
+                  buildTitle('Text Berita'),
+                  // CustomRichTextField(controller: _textBeritaController),
+                  CustomTextField(controller: _textBeritaController),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Text Berita'),
-                        // CustomRichTextField(controller: _textBeritaController),
-                        CustomTextField(controller: _textBeritaController),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomButton(
+                        onTap: () => Navigator.pop(context),
+                        text: 'Kembali',
+                      ),
 
-                        const CustomFieldSpacer(),
+                      const SizedBox(width: 8.0),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            CustomButton(
-                              onTap: () => Navigator.pop(context),
-                              text: 'Kembali',
+                      CustomButton(
+                        onTap: () {
+                          context.read<BeritaBloc>().add(
+                            UpdateBeritaEvent(
+                              widget.berita.updateWith(
+                                jenisKegiatan: _judulBeritaController.text,
+                                penulis: _penulisController.text,
+                                gambar: "https://random-d.uk/api/randomimg?t=1686482823678",
+                                // teks: _textBeritaController.getPlainText(),
+                                teks: _textBeritaController.text,
+                              ),
                             ),
+                          );
+                        },
+                        text: 'Simpan',
+                      ),
+                    ],
+                  ),
 
-                            const SizedBox(width: 8.0),
-
-                            CustomButton(
-                              onTap: () {
-                                context.read<BeritaBloc>().add(
-                                  UpdateBeritaEvent(
-                                    berita.updateWith(
-                                      jenisKegiatan: _judulBeritaController.text,
-                                      penulis: _penulisController.text,
-                                      gambar: "https://random-d.uk/api/randomimg?t=1686482823678",
-                                      // teks: _textBeritaController.getPlainText(),
-                                      teks: _textBeritaController.text,
-                                    ),
-                                  ),
-                                );
-                              },
-                              text: 'Simpan',
-                            ),
-                          ],
-                        ),
-
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            );
-          } else if (state is BeritaError) {
-            return Text(state.message);
-          } else {
-            return const Text("BLoC hasn't triggered yet");
-          }
-        },
+                ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
