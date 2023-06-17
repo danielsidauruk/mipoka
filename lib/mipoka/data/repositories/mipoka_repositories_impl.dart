@@ -8,6 +8,7 @@ import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/lampiran_laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/lampiran_model.dart';
+import 'package:mipoka/mipoka/data/models/laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/data/models/panitia_peserta_laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
@@ -27,6 +28,7 @@ import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/lampiran.dart';
 import 'package:mipoka/mipoka/domain/entities/lampiran_laporan.dart';
+import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/panitia_peserta_laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
@@ -270,6 +272,42 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   Future<Either<Failure, String>> deleteLampiran(int idLampiran) async {
     try {
       return Right(await mipokaDataSources.deleteLampiran(idLampiran));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+
+  // => Laporan
+  @override
+  Future<Either<Failure, String>> createLaporan(Laporan laporan) async {
+    try {
+      return Right(await mipokaDataSources.createLaporan(LaporanModel.fromEntity(laporan)));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+  @override
+  Future<Either<Failure, List<Laporan>>> readLaporan() async {
+    try {
+      return Right(await mipokaDataSources.readLaporan());
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> updateLaporan(Laporan laporan) async {
+    try {
+      return Right(await mipokaDataSources.updateLaporan(LaporanModel.fromEntity(laporan)));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+  @override
+  Future<Either<Failure, String>> deleteLaporan(int idLaporan) async {
+    try {
+      return Right(await mipokaDataSources.deleteLaporan(idLaporan));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -777,5 +815,4 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
       return const Left(ServerFailure());
     }
   }
-
 }

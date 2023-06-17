@@ -6,6 +6,7 @@ import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/lampiran.dart';
 import 'package:mipoka/mipoka/domain/entities/lampiran_laporan.dart';
+import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/panitia_peserta_laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
@@ -41,17 +42,22 @@ abstract class MipokaRepositories {
   Future<Either<Failure, String>> updateKegiatan(Kegiatan kegiatan);
   Future<Either<Failure, String>> deleteKegiatan(int idKegiatan);
 
-  Future<Either<Failure, List<Lampiran>>> readLampiran();
-  Future<Either<Failure, String>> createLampiran(Lampiran lampiran);
-  Future<Either<Failure, String>> updateLampiran(Lampiran lampiran);
-  Future<Either<Failure, String>> deleteLampiran(int idLampiran);
-
   Future<Either<Failure, List<LampiranLaporan>>> readLampiranLaporan();
   Future<Either<Failure, String>> createLampiranLaporan(
       LampiranLaporan lampiranLaporan);
   Future<Either<Failure, String>> updateLampiranLaporan(
       LampiranLaporan lampiranLaporan);
   Future<Either<Failure, String>> deleteLampiranLaporan(int idLampiranLaporan);
+
+  Future<Either<Failure, List<Lampiran>>> readLampiran();
+  Future<Either<Failure, String>> createLampiran(Lampiran lampiran);
+  Future<Either<Failure, String>> updateLampiran(Lampiran lampiran);
+  Future<Either<Failure, String>> deleteLampiran(int idLampiran);
+
+  Future<Either<Failure, List<Laporan>>> readLaporan();
+  Future<Either<Failure, String>> createLaporan(Laporan laporan);
+  Future<Either<Failure, String>> updateLaporan(Laporan laporan);
+  Future<Either<Failure, String>> deleteLaporan(int idLampiran);
 
   Future<Either<Failure, List<Ormawa>>> readOrmawa();
   Future<Either<Failure, String>> createOrmawa(Ormawa ormawa);

@@ -9,6 +9,7 @@ import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/lampiran_laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/lampiran_model.dart';
+import 'package:mipoka/mipoka/data/models/laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/data/models/panitia_peserta_laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
@@ -22,6 +23,7 @@ import 'package:mipoka/mipoka/data/models/session_model.dart';
 import 'package:mipoka/mipoka/data/models/tertib_acara_model.dart';
 import 'package:mipoka/mipoka/data/models/user_model.dart';
 import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
+import 'package:mipoka/mipoka/domain/entities/lampiran.dart';
 
 abstract class MipokaDataSources {
   Future<List<BeritaModel>> readBerita();
@@ -44,15 +46,20 @@ abstract class MipokaDataSources {
   Future<String> updateKegiatan(KegiatanModel kegiatanModel);
   Future<String> deleteKegiatan(int kegiatanId);
 
+  Future<List<LampiranLaporanModel>> readLampiranLaporan();
+  Future<String> createLampiranLaporan(LampiranLaporanModel lampiranLaporanModel);
+  Future<String> updateLampiranLaporan(LampiranLaporanModel lampiranLaporanModel);
+  Future<String> deleteLampiranLaporan(int lampiranLaporanId);
+
   Future<List<LampiranModel>> readLampiran();
   Future<String> createLampiran(LampiranModel lampiranModel);
   Future<String> updateLampiran(LampiranModel lampiranModel);
   Future<String> deleteLampiran(int idLampiran);
 
-  Future<List<LampiranLaporanModel>> readLampiranLaporan();
-  Future<String> createLampiranLaporan(LampiranLaporanModel lampiranLaporanModel);
-  Future<String> updateLampiranLaporan(LampiranLaporanModel lampiranLaporanModel);
-  Future<String> deleteLampiranLaporan(int lampiranLaporanId);
+  Future<List<LaporanModel>> readLaporan();
+  Future<String> createLaporan(LaporanModel laporanModel);
+  Future<String> updateLaporan(LaporanModel laporanModel);
+  Future<String> deleteLaporan(int laporanId);
 
   Future<List<OrmawaModel>> readOrmawa();
   Future<String> createOrmawa(OrmawaModel ormawaModel);
@@ -349,6 +356,44 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     }
 
     return "Lampiran has been deleted successfully.";
+  }
+
+
+  // Laporan
+  @override
+  Future<String> createLaporan(LaporanModel laporanModel) async {
+    if (kDebugMode) {
+      print(laporanModel.toJson());
+    }
+
+    return "Laporan has been created successfully.";
+  }
+  @override
+  Future<List<LaporanModel>> readLaporan() async {
+    final String response = await rootBundle.loadString('assets/json_file/laporan.json');
+    List<dynamic> resultList = json.decode(response);
+
+    List<LaporanModel> result = resultList
+        .map((resultMap) => LaporanModel.fromJson(resultMap))
+        .toList();
+
+    return result;
+  }
+  @override
+  Future<String> updateLaporan(LaporanModel laporanModel) async {
+    if (kDebugMode) {
+      print(laporanModel.toJson());
+    }
+
+    return "Lampiran has been updated successfully.";
+  }
+  @override
+  Future<String> deleteLaporan(int laporanId) async {
+    if (kDebugMode) {
+      print('Laporan with ID $laporanId has been deleted successfully.');
+    }
+
+    return "Laporan has been deleted successfully.";
   }
 
 

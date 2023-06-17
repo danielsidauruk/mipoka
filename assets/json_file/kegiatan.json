@@ -1,22 +1,20 @@
-{
-  "kegiatan": [
-    {
-      "idKegiatan": 1,
-      "jenisKegiatan": "Olahraga",
-      "namaKegiatan": "Turnamen Sepak Bola",
-      "idPeriode": "P2023",
-      "pointMpt": 100,
-      "idOrmawa": 123,
-      "keterangan": "Turnamen sepak bola antar ormawa"
-    },
-    {
-      "idKegiatan": 2,
-      "jenisKegiatan": "Seni",
-      "namaKegiatan": "Pentas Drama",
-      "idPeriode": "P2023",
-      "pointMpt": 50,
-      "idOrmawa": 456,
-      "keterangan": "Pentas drama musikal"
-    }
-  ]
-}
+[
+  {
+    "idKegiatan": 1,
+    "jenisKegiatan": "Olahraga",
+    "namaKegiatan": "Turnamen Sepak Bola",
+    "idPeriode": "P2023",
+    "pointMpt": 100,
+    "idOrmawa": 123,
+    "keterangan": "Turnamen sepak bola antar ormawa"
+  },
+  {
+    "idKegiatan": 2,
+    "jenisKegiatan": "Seni",
+    "namaKegiatan": "Pentas Drama",
+    "idPeriode": "P2023",
+    "pointMpt": 50,
+    "idOrmawa": 456,
+    "keterangan": "Pentas drama musikal"
+  }
+]

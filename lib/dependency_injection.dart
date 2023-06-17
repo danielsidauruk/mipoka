@@ -9,6 +9,7 @@ import 'package:mipoka/mipoka/domain/use_cases/biaya_kegiatan_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/kegiatan_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/lampiran_laporan_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/lampiran_use_case.dart';
+import 'package:mipoka/mipoka/domain/use_cases/laporan_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/ormawa_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/panitia_peserta_laporan_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/partisipan_use_case.dart';
@@ -28,6 +29,7 @@ import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiat
 import 'package:mipoka/mipoka/presentation/bloc/kegiatan_bloc/kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/lampiran_bloc/lampiran_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/lampiran_laporan_bloc/lampiran_laporan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/panitia_peserta_laporan_bloc/panitia_peserta_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/partisipan_bloc/partisipan_bloc.dart';
@@ -55,6 +57,7 @@ Future<void> init() async {
   locator.registerFactory(() => KegiatanBloc(kegiatanUseCase: locator()));
   locator.registerFactory(() => LampiranLaporanBloc(lampiranLaporanUseCase: locator()));
   locator.registerFactory(() => LampiranBloc(lampiranUseCase: locator()));
+  locator.registerFactory(() => LaporanBloc(laporanUseCase: locator()));
   locator.registerFactory(() => OrmawaBloc(ormawaUseCase: locator()));
   locator.registerFactory(() => PanitiaPesertaLaporanBloc(panitiaPesertaLaporanUseCase: locator()));
   locator.registerFactory(() => PartisipanBloc(partisipanUseCase: locator()));
@@ -76,6 +79,7 @@ Future<void> init() async {
   locator.registerLazySingleton(() => KegiatanUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => LampiranLaporanUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => LampiranUseCase(mipokaRepositories: locator()));
+  locator.registerLazySingleton(() => LaporanUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => OrmawaUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => PanitiaPesertaLaporanUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => PartisipanUseCase(mipokaRepositories: locator()));

@@ -1,18 +1,16 @@
-{
-  "biaya_kegiatan": [
-    {
-      "namaBiayaKegiatan": "Peralatan",
-      "qty": 5,
-      "hargaSatuan": 10000,
-      "total": 50000,
-      "keterangan": "Biaya untuk peralatan kegiatan"
-    },
-    {
-      "namaBiayaKegiatan": "Transportasi",
-      "qty": 2,
-      "hargaSatuan": 50000,
-      "total": 100000,
-      "keterangan": "Biaya untuk transportasi kegiatan"
-    }
-  ]
-}
+[
+  {
+    "namaBiayaKegiatan": "Peralatan",
+    "qty": 5,
+    "hargaSatuan": 10000,
+    "total": 50000,
+    "keterangan": "Biaya untuk peralatan kegiatan"
+  },
+  {
+    "namaBiayaKegiatan": "Transportasi",
+    "qty": 2,
+    "hargaSatuan": 50000,
+    "total": 100000,
+    "keterangan": "Biaya untuk transportasi kegiatan"
+  }
+]
