@@ -1,6 +1,6 @@
 import 'package:mipoka/mipoka/domain/entities/panitia_peserta_laporan.dart';
 
-class PanitiaPesertaLaporanModel extends PanitiaPesertaL {
+class PanitiaPesertaLaporanModel extends PanitiaPesertaLaporan {
   const PanitiaPesertaLaporanModel({
     required int idPanitiaPesertaLaporan,
     required int idLaporan,
@@ -19,7 +19,7 @@ class PanitiaPesertaLaporanModel extends PanitiaPesertaL {
     peran: peran,
   );
 
-  factory PanitiaPesertaLaporanModel.fromEntity(PanitiaPesertaL panitiaPesertaL) {
+  factory PanitiaPesertaLaporanModel.fromEntity(PanitiaPesertaLaporan panitiaPesertaL) {
     return PanitiaPesertaLaporanModel(
       idPanitiaPesertaLaporan: panitiaPesertaL.idPanitiaPesertaL,
       idLaporan: panitiaPesertaL.idLaporan,

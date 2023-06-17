@@ -31,7 +31,7 @@ abstract class MipokaRepositories {
   Future<Either<Failure, String>> updateAdmin(Admin admin);
   Future<Either<Failure, String>> deleteAdmin(int adminId);
 
-  Future<Either<Failure, List<BiayaKegiatan>>> readBiayaKegiatan(String namaBiayaKegiatan);
+  Future<Either<Failure, List<BiayaKegiatan>>> readBiayaKegiatan();
   Future<Either<Failure, String>> createBiayaKegiatan(BiayaKegiatan biayaKegiatan);
   Future<Either<Failure, String>> updateBiayaKegiatan(BiayaKegiatan biayaKegiatan);
   Future<Either<Failure, String>> deleteBiayaKegiatan(int idNamaBiayaKegiatan);
@@ -58,11 +58,11 @@ abstract class MipokaRepositories {
   Future<Either<Failure, String>> updateOrmawa(Ormawa ormawa);
   Future<Either<Failure, String>> deleteOrmawa(int idOrmawa);
 
-  Future<Either<Failure, List<PanitiaPesertaL>>> readPanitiaPesertaL();
+  Future<Either<Failure, List<PanitiaPesertaLaporan>>> readPanitiaPesertaL();
   Future<Either<Failure, String>> createPanitiaPesertaL(
-      PanitiaPesertaL panitiaPesertaL);
+      PanitiaPesertaLaporan panitiaPesertaL);
   Future<Either<Failure, String>> updatePanitiaPesertaL(
-      PanitiaPesertaL panitiaPesertaL);
+      PanitiaPesertaLaporan panitiaPesertaL);
   Future<Either<Failure, String>> deletePanitiaPesertaL(int idPanitiaPesertaL);
 
   Future<Either<Failure, List<Partisipan>>> readPartisipan();

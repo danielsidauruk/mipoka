@@ -8,8 +8,8 @@ class BiayaKegiatanUseCase {
 
   BiayaKegiatanUseCase({required this.mipokaRepositories});
 
-  Future<Either<Failure, List<BiayaKegiatan>>> readBiayaKegiatan(String namaBiayaKegiatan) {
-    return mipokaRepositories.readBiayaKegiatan(namaBiayaKegiatan);
+  Future<Either<Failure, List<BiayaKegiatan>>> readBiayaKegiatan() {
+    return mipokaRepositories.readBiayaKegiatan();
   }
 
   Future<Either<Failure, String>> createBiayaKegiatan(BiayaKegiatan biayaKegiatan) {

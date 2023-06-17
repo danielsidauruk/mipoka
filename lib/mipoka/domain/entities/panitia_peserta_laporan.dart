@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:mipoka/mipoka/data/models/panitia_peserta_laporan_model.dart';
 
-class PanitiaPesertaL extends Equatable {
+class PanitiaPesertaLaporan extends Equatable {
   final int idPanitiaPesertaL;
   final int idLaporan;
   final String jenisMahasiswa;
@@ -10,7 +10,7 @@ class PanitiaPesertaL extends Equatable {
   final String prodi;
   final String peran;
 
-  const PanitiaPesertaL({
+  const PanitiaPesertaLaporan({
     required this.idPanitiaPesertaL,
     required this.idLaporan,
     required this.jenisMahasiswa,
@@ -20,7 +20,7 @@ class PanitiaPesertaL extends Equatable {
     required this.peran,
   });
 
-  PanitiaPesertaL updateWith({
+  PanitiaPesertaLaporan updateWith({
     int? idPanitiaPesertaL,
     int? idLaporan,
     String? jenisMahasiswa,
@@ -29,7 +29,7 @@ class PanitiaPesertaL extends Equatable {
     String? prodi,
     String? peran,
   }) {
-    return PanitiaPesertaL(
+    return PanitiaPesertaLaporan(
       idPanitiaPesertaL: idPanitiaPesertaL ?? this.idPanitiaPesertaL,
       idLaporan: idLaporan ?? this.idLaporan,
       jenisMahasiswa: jenisMahasiswa ?? this.jenisMahasiswa,
