@@ -104,7 +104,7 @@ abstract class MipokaDataSources {
   Future<String> updateSession(SessionModel sessionModel);
   Future<String> deleteSession(int idSession);
 
-  Future<List<TertibAcaraModel>> getTertibAcara();
+  Future<List<TertibAcaraModel>> readTertibAcara();
   Future<String> createTertibAcara(TertibAcaraModel tertibAcaraModel);
   Future<String> updateTertibAcara(TertibAcaraModel tertibAcaraModel);
   Future<String> deleteTertibAcara(int idTertibAcara);
@@ -742,7 +742,7 @@ class MipokaDataSourcesImpl extends MipokaDataSources {
     return "Tertib Acara has been created successfully.";
   }
   @override
-  Future<List<TertibAcaraModel>> getTertibAcara() async {
+  Future<List<TertibAcaraModel>> readTertibAcara() async {
     final String response = await rootBundle.loadString('assets/json_file/tertib_acara.json');
     List<dynamic> resultList = json.decode(response);
 

@@ -31,7 +31,7 @@ abstract class MipokaRepositories {
   Future<Either<Failure, String>> updateAdmin(Admin admin);
   Future<Either<Failure, String>> deleteAdmin(int adminId);
 
-  Future<Either<Failure, List<BiayaKegiatan>>> getBiayaKegiatan(String namaBiayaKegiatan);
+  Future<Either<Failure, List<BiayaKegiatan>>> readBiayaKegiatan(String namaBiayaKegiatan);
   Future<Either<Failure, String>> createBiayaKegiatan(BiayaKegiatan biayaKegiatan);
   Future<Either<Failure, String>> updateBiayaKegiatan(BiayaKegiatan biayaKegiatan);
   Future<Either<Failure, String>> deleteBiayaKegiatan(int idNamaBiayaKegiatan);
@@ -41,24 +41,24 @@ abstract class MipokaRepositories {
   Future<Either<Failure, String>> updateKegiatan(Kegiatan kegiatan);
   Future<Either<Failure, String>> deleteKegiatan(int idKegiatan);
 
-  Future<Either<Failure, List<Lampiran>>> getLampiran();
+  Future<Either<Failure, List<Lampiran>>> readLampiran();
   Future<Either<Failure, String>> createLampiran(Lampiran lampiran);
   Future<Either<Failure, String>> updateLampiran(Lampiran lampiran);
   Future<Either<Failure, String>> deleteLampiran(int idLampiran);
 
-  Future<Either<Failure, List<LampiranLaporan>>> getLampiranLaporan();
+  Future<Either<Failure, List<LampiranLaporan>>> readLampiranLaporan();
   Future<Either<Failure, String>> createLampiranLaporan(
       LampiranLaporan lampiranLaporan);
   Future<Either<Failure, String>> updateLampiranLaporan(
       LampiranLaporan lampiranLaporan);
   Future<Either<Failure, String>> deleteLampiranLaporan(int idLampiranLaporan);
 
-  Future<Either<Failure, List<Ormawa>>> getOrmawa();
+  Future<Either<Failure, List<Ormawa>>> readOrmawa();
   Future<Either<Failure, String>> createOrmawa(Ormawa ormawa);
   Future<Either<Failure, String>> updateOrmawa(Ormawa ormawa);
   Future<Either<Failure, String>> deleteOrmawa(int idOrmawa);
 
-  Future<Either<Failure, List<PanitiaPesertaL>>> getPanitiaPesertaL();
+  Future<Either<Failure, List<PanitiaPesertaL>>> readPanitiaPesertaL();
   Future<Either<Failure, String>> createPanitiaPesertaL(
       PanitiaPesertaL panitiaPesertaL);
   Future<Either<Failure, String>> updatePanitiaPesertaL(

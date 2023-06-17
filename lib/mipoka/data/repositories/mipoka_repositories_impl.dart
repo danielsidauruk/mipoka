@@ -135,7 +135,7 @@ class MipokaRepositoriesImpl extends MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, List<BiayaKegiatan>>> getBiayaKegiatan(String namaBiayaKegiatan) async {
+  Future<Either<Failure, List<BiayaKegiatan>>> readBiayaKegiatan(String namaBiayaKegiatan) async {
     try {
       return Right(await mipokaDataSources.readBiayaKegiatan());
     } on ServerException {
@@ -211,7 +211,7 @@ class MipokaRepositoriesImpl extends MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, List<LampiranLaporan>>> getLampiranLaporan() async {
+  Future<Either<Failure, List<LampiranLaporan>>> readLampiranLaporan() async {
     try {
       return Right(await mipokaDataSources.readLampiranLaporan());
     } on ServerException {
@@ -249,7 +249,7 @@ class MipokaRepositoriesImpl extends MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, List<Lampiran>>> getLampiran() async {
+  Future<Either<Failure, List<Lampiran>>> readLampiran() async {
     try {
       return Right(await mipokaDataSources.readLampiran());
     } on ServerException {
@@ -287,7 +287,7 @@ class MipokaRepositoriesImpl extends MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, List<Ormawa>>> getOrmawa() async {
+  Future<Either<Failure, List<Ormawa>>> readOrmawa() async {
     try {
       return Right(await mipokaDataSources.readOrmawa());
     } on ServerException {
@@ -325,7 +325,7 @@ class MipokaRepositoriesImpl extends MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, List<PanitiaPesertaL>>> getPanitiaPesertaL() async {
+  Future<Either<Failure, List<PanitiaPesertaL>>> readPanitiaPesertaL() async {
     try {
       return Right(await mipokaDataSources.readPanitiaPesertaL());
     } on ServerException {
@@ -675,7 +675,7 @@ class MipokaRepositoriesImpl extends MipokaRepositories {
   @override
   Future<Either<Failure, List<TertibAcara>>> readTertibAcara() async {
     try {
-      return Right(await mipokaDataSources.getTertibAcara());
+      return Right(await mipokaDataSources.readTertibAcara());
     } on ServerException {
       return const Left(ServerFailure());
     }
