@@ -42,7 +42,7 @@ import 'package:mipoka/mipoka/domain/entities/user.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/repositories/mipoka_repositories.dart';
 
-class MipokaRepositoriesImpl extends MipokaRepositories {
+class MipokaRepositoriesImpl implements MipokaRepositories {
   final MipokaDataSources mipokaDataSources;
 
   MipokaRepositoriesImpl({required this.mipokaDataSources});

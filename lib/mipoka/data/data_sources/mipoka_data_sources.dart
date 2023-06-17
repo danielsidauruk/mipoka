@@ -120,7 +120,7 @@ abstract class MipokaDataSources {
   Future<String> deleteUsulanKegiatan(int idUsulan);
 }
 
-class MipokaDataSourcesImpl extends MipokaDataSources {
+class MipokaDataSourcesImpl implements MipokaDataSources {
   MipokaDataSourcesImpl({required this.client});
   final http.Client client;
 

@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:mipoka/mipoka/data/models/laporan_model.dart';
 
 class Laporan extends Equatable {
   final int idLaporan;

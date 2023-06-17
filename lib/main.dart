@@ -281,8 +281,6 @@ class MyApp extends StatelessWidget {
                 builder: (_) => KemahasiswaanBerandaUpdateBeritaPage(berita: berita),
                 settings: settings
               );
-            //     settings: settings,
-            //   );
             case kemahasiswaanMPTMahasiswaPeriodePageRoute:
               return MaterialPageRoute(
                   builder: (_) =>
