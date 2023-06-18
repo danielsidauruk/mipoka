@@ -42,16 +42,23 @@ class _PenggunaPengajuanLaporanKegiatan1State
                 children: [
                   buildTitle('Nama Ormawa'),
                   buildTitle('Mikroskil Esport'),
+
                   const CustomFieldSpacer(),
+
                   buildTitle('Nama Kegiatan'),
+
                   CustomDropdownButton(
                     items: listNamaKegiatan,
                     onValueChanged: (value) {},
                   ),
+
                   const CustomFieldSpacer(),
+
                   buildTitle('Pencapaian'),
                   CustomRichTextField(controller: _pencapaianController),
+
                   const CustomFieldSpacer(),
+
                   CustomButton(
                     onTap: () => Navigator.pushNamed(
                       context,

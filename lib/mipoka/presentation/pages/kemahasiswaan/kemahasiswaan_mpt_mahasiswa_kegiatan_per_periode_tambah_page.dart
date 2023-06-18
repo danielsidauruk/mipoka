@@ -19,9 +19,9 @@ class KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPage extends StatefulWidg
 }
 
 class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPage> {
-  DateTime? tanggalMulai;
-  DateTime? tanggalSelesai;
   final TextEditingController _poinKegiatanController = TextEditingController();
+  final TextEditingController _tanggalMulaiController = TextEditingController();
+  final TextEditingController _tanggalSelesaiController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,16 +63,14 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
 
                   buildTitle('Tanggal mulai'),
                   CustomDatePickerField(
-                    onDateSelected: (value) {
-                    },
+                    controller: _tanggalMulaiController,
                   ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Tanggal selesai'),
                   CustomDatePickerField(
-                    onDateSelected: (value) {
-                    },
+                    controller: _tanggalSelesaiController,
                   ),
                   
                   const CustomFieldSpacer(),

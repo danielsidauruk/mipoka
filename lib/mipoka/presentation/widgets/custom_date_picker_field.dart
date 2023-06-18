@@ -16,27 +16,37 @@ class CustomDatePickerField extends StatelessWidget {
       alignment: Alignment.center,
       padding: const EdgeInsets.all(8.0),
       constraints: const BoxConstraints(minHeight: 35.0),
-      height: 35,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
         border: Border.all(color: Colors.white),
       ),
-      child: DateTimeField(
-        controller: controller,
-        decoration: const InputDecoration.collapsed(
-          hintText: 'Start Date',
-        ),
-        resetIcon: null,
-        format: DateFormat('yyyy-MM-dd'),
-        onShowPicker: (context, currentValue) async {
-          final date = await showDatePicker(
-            context: context,
-            initialDate: currentValue ?? DateTime.now(),
-            firstDate: DateTime(1945),
-            lastDate: DateTime(2100),
-          );
-          return date;
-        },
+      child: Row(
+        children: [
+          Expanded(
+            child: DateTimeField(
+              controller: controller,
+              decoration: const InputDecoration.collapsed(
+                hintText: 'Enter Date',
+              ),
+              resetIcon: null,
+              format: DateFormat('dd-MM-yyyy'),
+              onShowPicker: (context, currentValue) async {
+                final date = await showDatePicker(
+                  context: context,
+                  initialDate: currentValue ?? DateTime.now(),
+                  firstDate: DateTime(1945),
+                  lastDate: DateTime(2100),
+                );
+                return date;
+              },
+            ),
+          ),
+
+          const Icon(
+            Icons.calendar_today_outlined,
+            size: 20,
+          ),
+        ],
       ),
     );
   }

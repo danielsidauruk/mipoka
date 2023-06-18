@@ -23,7 +23,7 @@ class CustomTimePickerField extends StatelessWidget {
             child: DateTimeField(
               controller: controller,
               decoration: const InputDecoration.collapsed(
-                hintText: 'Input Time',
+                hintText: 'Enter Time',
               ),
               resetIcon: null,
               format: DateFormat.Hm(),
