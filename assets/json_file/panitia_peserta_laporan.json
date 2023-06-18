@@ -1,22 +1,20 @@
-{
-  "panitiaPesertaL": [
-    {
-      "idPanitiaPesertaL": 1,
-      "idLaporan": 1,
-      "jenisMahasiswa": "Jenis Mahasiswa A",
-      "nim": "NIM A",
-      "namaLengkap": "Nama Lengkap A",
-      "prodi": "Prodi A",
-      "peran": "Peran A"
-    },
-    {
-      "idPanitiaPesertaL": 2,
-      "idLaporan": 1,
-      "jenisMahasiswa": "Jenis Mahasiswa B",
-      "nim": "NIM B",
-      "namaLengkap": "Nama Lengkap B",
-      "prodi": "Prodi B",
-      "peran": "Peran B"
-    }
-  ]
-}
+[
+  {
+    "idPanitiaPesertaL": 1,
+    "idLaporan": 1,
+    "jenisMahasiswa": "Jenis Mahasiswa A",
+    "nim": "NIM A",
+    "namaLengkap": "Nama Lengkap A",
+    "prodi": "Prodi A",
+    "peran": "Peran A"
+  },
+  {
+    "idPanitiaPesertaL": 2,
+    "idLaporan": 1,
+    "jenisMahasiswa": "Jenis Mahasiswa B",
+    "nim": "NIM B",
+    "namaLengkap": "Nama Lengkap B",
+    "prodi": "Prodi B",
+    "peran": "Peran B"
+  }
+]

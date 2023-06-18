@@ -1,26 +1,24 @@
-{
-  "partisipan": [
-    {
-      "idPeserta": 1,
-      "idUsulan": 1,
-      "nim": "NIM A",
-      "namaLengkap": "Nama Lengkap A",
-      "nik": "NIK A",
-      "tempatLahir": "Tempat Lahir A",
-      "tanggalLahir": "Tanggal Lahir A",
-      "peran": "Peran A",
-      "dasarKirim": "Dasar Kirim A"
-    },
-    {
-      "idPeserta": 2,
-      "idUsulan": 1,
-      "nim": "NIM B",
-      "namaLengkap": "Nama Lengkap B",
-      "nik": "NIK B",
-      "tempatLahir": "Tempat Lahir B",
-      "tanggalLahir": "Tanggal Lahir B",
-      "peran": "Peran B",
-      "dasarKirim": "Dasar Kirim B"
-    }
-  ]
-}
+[
+  {
+    "idPeserta": 1,
+    "idUsulan": 1,
+    "nim": "NIM A",
+    "namaLengkap": "Nama Lengkap A",
+    "nik": "NIK A",
+    "tempatLahir": "Tempat Lahir A",
+    "tanggalLahir": "Tanggal Lahir A",
+    "peran": "Peran A",
+    "dasarKirim": "Dasar Kirim A"
+  },
+  {
+    "idPeserta": 2,
+    "idUsulan": 1,
+    "nim": "NIM B",
+    "namaLengkap": "Nama Lengkap B",
+    "nik": "NIK B",
+    "tempatLahir": "Tempat Lahir B",
+    "tanggalLahir": "Tanggal Lahir B",
+    "peran": "Peran B",
+    "dasarKirim": "Dasar Kirim B"
+  }
+]

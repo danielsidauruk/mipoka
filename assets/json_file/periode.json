@@ -1,18 +1,16 @@
-{
-  "periode": [
-    {
-      "idPeriode": 1,
-      "tahun": "2022",
-      "ulang": "Ulang A",
-      "mulai": "2022-01-01T00:00:00.000Z",
-      "akhir": "2022-12-31T23:59:59.000Z"
-    },
-    {
-      "idPeriode": 2,
-      "tahun": "2023",
-      "ulang": "Ulang B",
-      "mulai": "2023-01-01T00:00:00.000Z",
-      "akhir": "2023-12-31T23:59:59.000Z"
-    }
-  ]
-}
+[
+  {
+    "idPeriode": 1,
+    "tahun": "2022",
+    "ulang": "Ulang A",
+    "mulai": "2022-01-01T00:00:00.000Z",
+    "akhir": "2022-12-31T23:59:59.000Z"
+  },
+  {
+    "idPeriode": 2,
+    "tahun": "2023",
+    "ulang": "Ulang B",
+    "mulai": "2023-01-01T00:00:00.000Z",
+    "akhir": "2023-12-31T23:59:59.000Z"
+  }
+]
