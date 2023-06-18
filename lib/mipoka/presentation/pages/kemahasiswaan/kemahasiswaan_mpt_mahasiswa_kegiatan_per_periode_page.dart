@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/riwayat_mpt_bloc/riwayat_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
@@ -11,8 +12,21 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 
-class KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage extends StatelessWidget {
+class KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage extends StatefulWidget {
   const KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage({super.key});
+
+  @override
+  State<KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage> createState() => _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState();
+}
+
+class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState extends State<KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage> {
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   BlocProvider.of<RiwayatMptBloc>(context, listen: false)
+  //       .add(ReadLaporanEvent());
+  // }
 
   @override
   Widget build(BuildContext context) {

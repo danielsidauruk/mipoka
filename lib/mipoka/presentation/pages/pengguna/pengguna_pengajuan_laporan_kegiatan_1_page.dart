@@ -26,7 +26,6 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomPenggunaDrawerWidget(),

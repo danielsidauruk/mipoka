@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -6,7 +7,12 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
 class PenggunaBerandaDetailPage extends StatefulWidget {
-  const PenggunaBerandaDetailPage({super.key});
+  final Berita berita;
+
+  const PenggunaBerandaDetailPage({
+    super.key,
+    required this.berita,
+  });
 
   @override
   State<PenggunaBerandaDetailPage> createState() => _PenggunaBerandaDetailPageState();
@@ -35,16 +41,13 @@ class _PenggunaBerandaDetailPageState extends State<PenggunaBerandaDetailPage> {
               CustomContentBox(
                 children: [
 
-                  buildDetailBeritaTitle('MENJADI ACARA PERDANA! SEMINAR PASAR MODAL UKM'
-                      'MIKROSKIL INVESTMENT CLUB SUKSES TERSELENGGARAKAN'
-                      'BERSAMA PENGUKUHAN KSPM',
-                  ),
+                  buildDetailBeritaTitle('widget.berita.judulBerita',),
 
                   const CustomFieldSpacer(height: 4),
 
-                  const Text(
-                    'Diterbitkan: 14 April 2023 | Oleh: Andrew Husada',
-                    style: TextStyle(color: Colors.grey),
+                  Text(
+                    'Diterbitkan: 14 April 2023 | Oleh: ${widget.berita.penulis}',
+                    style: const TextStyle(color: Colors.grey),
                   ),
 
                   const CustomFieldSpacer(),
@@ -56,21 +59,7 @@ class _PenggunaBerandaDetailPageState extends State<PenggunaBerandaDetailPage> {
 
                   const CustomFieldSpacer(),
 
-                  const Text('          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore'
-                    'magna aliqua. At quis risus sed vulputate odio ut enim. Orci dapibus ultrices in iaculis. Quis ipsum suspendisse'
-                    'ultrices gravida dictum fusce ut. Duis ut diam quam nulla. Porttitor lacus luctus accumsan tortor posuere ac.'
-                    '\n          Sagittis id consectetur purus ut faucibus pulvinar elementum integer enim. Etiam sit amet nisl purus in mollis nunc'
-                    'sed id. Nisl vel pretium lectus quam id. Mattis pellentesque id nibh tortor. Montes nascetur ridiculus mus mauris'
-                    'vitae ultricies leo. Quis risus sed vulputate odio.\n           Lobortis elementum nibh tellus molestie nunc non blandit massa'
-                    'enim. Mattis pellentesque id nibh tortor id aliquet. Elementum integer enim neque volutpat ac.'
-                      '\n          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore'
-                      'magna aliqua. At quis risus sed vulputate odio ut enim. Orci dapibus ultrices in iaculis. Quis ipsum suspendisse'
-                      'ultrices gravida dictum fusce ut. Duis ut diam quam nulla. Porttitor lacus luctus accumsan tortor posuere ac.'
-                      '\n          Sagittis id consectetur purus ut faucibus pulvinar elementum integer enim. Etiam sit amet nisl purus in mollis nunc'
-                      'sed id. Nisl vel pretium lectus quam id. Mattis pellentesque id nibh tortor. Montes nascetur ridiculus mus mauris'
-                      'vitae ultricies leo. Quis risus sed vulputate odio.\n           Lobortis elementum nibh tellus molestie nunc non blandit massa'
-                      'enim. Mattis pellentesque id nibh tortor id aliquet. Elementum integer enim neque volutpat ac.'
-                  ),
+                  Text(widget.berita.teks),
                 ],
               ),
             ],

@@ -25,7 +25,7 @@ import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.d
 import 'package:mipoka/mipoka/presentation/bloc/user_bloc/user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/ganti_password_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahaiswaan_prestasi_mahasiswa_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_prestasi_mahasiswa_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_update_berita.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_cek_laporan_kegiatan_page.dart';
@@ -165,8 +165,11 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) => const PenggunaBerandaPage());
             case penggunaBerandaDetailPageRoute:
+              final berita = settings.arguments as Berita;
               return MaterialPageRoute(
-                  builder: (_) => const PenggunaBerandaDetailPage());
+                builder: (_) => PenggunaBerandaDetailPage(berita: berita),
+                settings: settings
+              );
             case lupaPasswordPageRoute:
               return MaterialPageRoute(
                   builder: (_) => const LupaPasswordPage());

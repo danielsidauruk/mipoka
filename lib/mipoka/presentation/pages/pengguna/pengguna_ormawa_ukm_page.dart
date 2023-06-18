@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
@@ -17,12 +19,12 @@ class PenggunaOrmawaUKMPage extends StatefulWidget {
 
 class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
 
-  String namaOrmawaValue = listNamaOrmawa[0];
-  final Map<String, String> biodata = {
-    'Nama': 'Daniel Sidauruk',
-    'Tanggal Lahir': '11 Juli 2022',
-    // Tambahkan entri biodata lainnya sesuai kebutuhan
-  };
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<OrmawaBloc>(context, listen: false)
+        .add(ReadOrmawaEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,98 +34,110 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
       drawer: const MobileCustomPenggunaDrawerWidget(),
 
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
+        child: BlocBuilder<OrmawaBloc, OrmawaState>(
+          builder: (context, state) {
+            if (state is OrmawaLoading) {
+              return const Text('Loading');
+            } else if (state is OrmawaHasData) {
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
 
-              const CustomMobileTitle(text: 'Ormawa - UKM'),
+                    const CustomMobileTitle(text: 'Ormawa - UKM'),
 
-              const CustomFieldSpacer(),
+                    const CustomFieldSpacer(),
 
-              CustomContentBox(
-                children: [
+                    CustomContentBox(
+                      children: [
 
-                  buildTitle('Nama Ormawa'),
+                        buildTitle('Nama Ormawa'),
 
-                  CustomDropdownButton(
-                    items: listNamaOrmawa,
-                    onValueChanged: (value) {
-                      print(value);
-                    },
-                  ),
+                        CustomDropdownButton(
+                          items: listNamaOrmawa,
+                          onValueChanged: (value) {
+                            print(value);
+                          },
+                        ),
 
-                  const CustomFieldSpacer(),
+                        const CustomFieldSpacer(),
 
-                  Center(
-                    child: Container(
-                      width: 200,
-                      height: 200,
-                      color: Colors.grey,
+                        Center(
+                          child: Container(
+                            width: 200,
+                            height: 200,
+                            color: Colors.grey,
+                          ),
+                        ),
+
+                        const CustomFieldSpacer(),
+
+                        customBoxTitle('Mikroskil Esport'),
+                        Text('Berdiri         : 16 Juli 2021'),
+                        Text('Pendiri         : Tommy Christian Hasibuan'),
+                        Text(
+                          'Jumlah Anggota  : 206',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+
+                        const CustomFieldSpacer(),
+
+                        customBoxTitle('Pembina'),
+                        const CustomFieldSpacer(height: 4.0),
+
+                        buildTitle(
+                          'Dosen',
+                          titlePadding: 0.0,
+                        ),
+                        Text('Sio Jurnalis Pipin, S.Kom., M.Kom.'),
+
+                        const CustomFieldSpacer(),
+
+                        customBoxTitle('Pengurus Inti'),
+                        const CustomFieldSpacer(height: 4.0),
+
+                        buildTitle(
+                          'Ketua UKM',
+                          titlePadding: 0.0,
+                        ),
+                        Text('Stefani Gisella'),
+
+                        const CustomFieldSpacer(height: 4.0),
+
+                        buildTitle(
+                          'Wakil Ketua UKM',
+                          titlePadding: 0.0,
+                        ),
+                        Text('Jhonsen Antoni Jingga'),
+
+                        const CustomFieldSpacer(height: 4.0),
+
+                        buildTitle(
+                          'Sekretaris UKM',
+                          titlePadding: 0.0,
+                        ),
+                        Text('Adventus Totti Mariano Simbolon'),
+
+                        const CustomFieldSpacer(height: 4.0),
+
+                        buildTitle(
+                          'Bendahara UKM',
+                          titlePadding: 0.0,
+                        ),
+                        Text('Muhammad Azraqi Syahriza'),
+
+                      ],
                     ),
-                  ),
-
-                  const CustomFieldSpacer(),
-
-                  customBoxTitle('Mikroskil Esport'),
-                  Text('Berdiri         : 16 Juli 2021'),
-                  Text('Pendiri         : Tommy Christian Hasibuan'),
-                  Text(
-                    'Jumlah Anggota  : 206',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-
-                  const CustomFieldSpacer(),
-
-                  customBoxTitle('Pembina'),
-                  const CustomFieldSpacer(height: 4.0),
-
-                  buildTitle(
-                    'Dosen',
-                    titlePadding: 0.0,
-                  ),
-                  Text('Sio Jurnalis Pipin, S.Kom., M.Kom.'),
-
-                  const CustomFieldSpacer(),
-
-                  customBoxTitle('Pengurus Inti'),
-                  const CustomFieldSpacer(height: 4.0),
-
-                  buildTitle(
-                    'Ketua UKM',
-                    titlePadding: 0.0,
-                  ),
-                  Text('Stefani Gisella'),
-
-                  const CustomFieldSpacer(height: 4.0),
-
-                  buildTitle(
-                    'Wakil Ketua UKM',
-                    titlePadding: 0.0,
-                  ),
-                  Text('Jhonsen Antoni Jingga'),
-
-                  const CustomFieldSpacer(height: 4.0),
-
-                  buildTitle(
-                    'Sekretaris UKM',
-                    titlePadding: 0.0,
-                  ),
-                  Text('Adventus Totti Mariano Simbolon'),
-
-                  const CustomFieldSpacer(height: 4.0),
-
-                  buildTitle(
-                    'Bendahara UKM',
-                    titlePadding: 0.0,
-                  ),
-                  Text('Muhammad Azraqi Syahriza'),
-
-                ],
-              ),
-            ],
-          ),
+                  ],
+                ),
+              );
+            } else if (state is OrmawaError) {
+              return Text(state.message);
+            } else {
+              return const Text('IDK');
+            }
+          },
         ),
       ),
     );

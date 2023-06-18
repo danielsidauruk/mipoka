@@ -17,7 +17,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 
 class KemahasiswaanBerandaUpdateBeritaPage extends StatefulWidget {
-  KemahasiswaanBerandaUpdateBeritaPage({
+  const KemahasiswaanBerandaUpdateBeritaPage({
     super.key,
     required this.berita,
   });
