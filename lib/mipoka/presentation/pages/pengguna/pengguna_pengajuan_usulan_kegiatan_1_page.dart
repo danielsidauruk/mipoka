@@ -39,13 +39,14 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
       TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
 
-  // final GlobalKey<SfSignaturePadState> signatureGlobalKey = GlobalKey();
-  // bool tandaTangan = false;
+  final TextEditingController _waktuMulaiController = TextEditingController();
+  final TextEditingController _waktuSelesaiController = TextEditingController();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
+  final TextEditingController _tanggalMulaiController = TextEditingController();
+  final TextEditingController _tanggalSelesaiController = TextEditingController();
+
+  final TextEditingController _tanggalKeberangkatanController = TextEditingController();
+  final TextEditingController _tanggalKepulanganController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -132,40 +133,21 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                   const CustomFieldSpacer(),
 
                   buildTitle('Tanggal Mulai Kegiatan'),
-                  CustomDatePickerField(
-                    onDateSelected: (value) {
-                      print(value.toString());
-                    },
-                  ),
+                  CustomDatePickerField(controller: _tanggalMulaiController),
 
                   const CustomFieldSpacer(),
                   buildTitle('Tanggal Selesai Kegiatan'),
-                  CustomDatePickerField(
-                    onDateSelected: (value) {
-                    },
-                  ),
+                  CustomDatePickerField(controller: _tanggalSelesaiController),
+
                   const CustomFieldSpacer(),
+
                   buildTitle('Waktu Mulai Kegiatan'),
-                  CustomTimePickerField(
-                    onTimeSelected: (value) {
-                      print(value);
-                    },
-                  ),
+                  CustomTimePickerField(controller: _waktuMulaiController),
+
                   const CustomFieldSpacer(),
 
                   buildTitle('Waktu Selesai Kegiatan'),
-                  // CustomTimePickerField(
-                  //   selectedTime: waktuSelesaiKegiatan,
-                  //   onTimeSelected: (TimeOfDay time) {
-                  //     waktuSelesaiKegiatan = time;
-                  //   },
-                  // ),
-
-                  CustomTimePickerField(
-                    onTimeSelected: (value) {
-                      print(value);
-                    },
-                  ),
+                  CustomTimePickerField(controller: _waktuSelesaiController),
 
                   CustomSwitch(
                     title: 'Tempat Kegiatan',
@@ -190,14 +172,15 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                       children: [
                         buildTitle('Tanggal Keberangkatan'),
                         CustomDatePickerField(
-                          onDateSelected: (value) {
-                          },
+                          controller: _tanggalKeberangkatanController,
                         ),
+
                         const CustomFieldSpacer(),
+
                         buildTitle('Tanggal Kepulangan'),
+
                         CustomDatePickerField(
-                          onDateSelected: (value) {
-                          },
+                          controller: _tanggalKepulanganController,
                         ),
                       ],
                     ),

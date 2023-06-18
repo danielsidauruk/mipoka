@@ -20,8 +20,8 @@ class _PenggunaPengajuanUsulanKegiatan3TertibAcaraTambahState extends State<Peng
   final TextEditingController _aktivitasController = TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
 
-  TimeOfDay? waktuMulaiKegiatan;
-  TimeOfDay? waktuSelesaiKegiatan;
+  final TextEditingController _waktuMulaiController = TextEditingController();
+  final TextEditingController _waktuSelesaiController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,20 +50,12 @@ class _PenggunaPengajuanUsulanKegiatan3TertibAcaraTambahState extends State<Peng
                   const CustomFieldSpacer(),
 
                   buildTitle('Waktu Mulai'),
-                  CustomTimePickerField(
-                    onTimeSelected: (value) {
-                      print(value);
-                    },
-                  ),
+                  CustomTimePickerField(controller: _waktuMulaiController),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Waktu Selesai'),
-                  CustomTimePickerField(
-                    onTimeSelected: (value) {
-                      print(value);
-                    },
-                  ),
+                  CustomTimePickerField(controller: _waktuSelesaiController),
 
                   const CustomFieldSpacer(),
 

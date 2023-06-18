@@ -28,10 +28,6 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
     BlocProvider.of<PrestasiBloc>(context, listen: false)
         .add(ReadPrestasiEvent());
   }
-  
-  String namaOrmawaValue = listNamaOrmawa[0];
-  String tahunValue = years[0].toString();
-  String tingkatValue = listTingkat[0];
 
   @override
   Widget build(BuildContext context) {

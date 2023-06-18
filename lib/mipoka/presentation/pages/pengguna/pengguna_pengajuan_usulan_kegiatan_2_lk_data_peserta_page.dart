@@ -17,13 +17,15 @@ class PenggunaPengajuanUsulanKegiatan2LKDataPeserta extends StatefulWidget {
 }
 
 class _PenggunaPengajuanUsulanKegiatan2LKDataPesertaState extends State<PenggunaPengajuanUsulanKegiatan2LKDataPeserta> {
-  DateTime? tanggalLahir;
+
   final TextEditingController _nipNipController = TextEditingController();
   final TextEditingController _namaLengkapController = TextEditingController();
   final TextEditingController _nikController = TextEditingController();
   final TextEditingController _tempatLahirController = TextEditingController();
   final TextEditingController _peranController = TextEditingController();
   final TextEditingController _dasarPengirimanController = TextEditingController();
+
+  final TextEditingController _tanggalLahirController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -76,8 +78,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKDataPesertaState extends State<Pengguna
 
                   buildTitle('Tanggal Lahir'),
                   CustomDatePickerField(
-                    onDateSelected: (value) {
-                    },
+                    controller: _tanggalLahirController,
                   ),
 
                   const CustomFieldSpacer(),

@@ -28,20 +28,19 @@ class PenggunaPengajuanSaranaDanPrasarana extends StatefulWidget {
 class _PenggunaPengajuanSaranaDanPrasaranaState
     extends State<PenggunaPengajuanSaranaDanPrasarana> {
 
+  final TextEditingController _tanggalMulaiController = TextEditingController();
+  final TextEditingController _tanggalSelesaiController = TextEditingController();
+
+  final TextEditingController _waktuMulaiController = TextEditingController();
+  final TextEditingController _waktuSelesaiController = TextEditingController();
+
   @override
   void initState() {
-    super.initState();
     BlocProvider.of<SessionBloc>(context, listen: false)
         .add(ReadSessionEvent());
+    super.initState();
   }
 
-  String namaOrmawaValue = listNamaOrmawa[0];
-  String gedungValue = listGedung[0];
-  String ruangValue = listGedung[0];
-  DateTime? tanggalMulaiKegiatan;
-  DateTime? tanggalSelesaiKegiatan;
-  TimeOfDay? waktuMulaiKegiatan;
-  TimeOfDay? waktuSelesaiKegiatan;
   bool isChecked = false;
 
   final TextEditingController _proyektorLcdController = TextEditingController();
@@ -84,40 +83,46 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
 
                         const CustomFieldSpacer(),
                         buildTitle('Tanggal Mulai Kegiatan'),
-                        CustomDatePickerField(
-                          onDateSelected: (value) {},
-                        ),
+                        CustomDatePickerField(controller: _tanggalMulaiController),
+
                         const CustomFieldSpacer(),
+
                         buildTitle('Tanggal Selesai Kegiatan'),
-                        CustomDatePickerField(
-                          onDateSelected: (value) {},
-                        ),
+                        CustomDatePickerField(controller: _tanggalSelesaiController),
+
                         const CustomFieldSpacer(),
+
                         buildTitle('Gedung'),
                         CustomDropdownButton(
                           items: listGedung,
                           onValueChanged: (value) {},
                         ),
+
                         const CustomFieldSpacer(),
+
                         buildTitle('Ruang'),
 
                         CustomDropdownButton(
                           items: listGedung,
                           onValueChanged: (value) {},
                         ),
+
                         const CustomFieldSpacer(),
+
                         buildTitle('Waktu Mulai Kegiatan'),
-                        CustomTimePickerField(
-                          onTimeSelected: (value) {
-                            print(value);
-                          },
-                        ),
+                        CustomTimePickerField(controller: _waktuMulaiController),
+
                         const CustomFieldSpacer(),
+
                         buildTitle('Waktu Selesai Kegiatan'),
-                        CustomRichTextField(controller: _kegiatanController),
+                        CustomTimePickerField(controller: _waktuSelesaiController),
+
                         const CustomFieldSpacer(),
+
                         buildTitle('Perlengkapan yang dibutuhkan'),
+
                         const SizedBox(height: 4.0),
+
                         CustomCheckBox(
                           title: 'Proyektor/LCD',
                           controller: _proyektorLcdController,
