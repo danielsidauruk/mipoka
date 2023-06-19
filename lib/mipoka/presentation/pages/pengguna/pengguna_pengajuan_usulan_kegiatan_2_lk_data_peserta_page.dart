@@ -30,11 +30,8 @@ class _PenggunaPengajuanUsulanKegiatan2LKDataPesertaState extends State<Pengguna
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: const MipokaMobileAppBar(),
-
       drawer: const MobileCustomPenggunaDrawerWidget(),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

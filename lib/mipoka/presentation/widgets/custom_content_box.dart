@@ -15,6 +15,7 @@ class CustomContentBox extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: children,
       ),
     );

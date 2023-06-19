@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
@@ -35,7 +36,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const CustomMobileTitle(text: 'Pengajuan - Sarana & Prasarana'),
             const CustomFieldSpacer(),
@@ -44,251 +45,248 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                 if (state is SessionLoading) {
                   return const Text('Loading');
                 } else if (state is SessionHasData) {
-                  return Expanded(
-                    child: CustomContentBox(
-                      children: [
-                        customBoxTitle('Status'),
+                  return CustomContentBox(
+                    children: [
+                      customBoxTitle('Status'),
 
-                        const CustomFieldSpacer(height: 4.0),
+                      const CustomFieldSpacer(height: 4.0),
 
-                        CustomDropdownButton(
-                          items: listStatus,
-                          onValueChanged: (value) {},
-                        ),
+                      CustomDropdownButton(
+                        items: listStatus,
+                        onValueChanged: (value) {},
+                      ),
 
-                        const CustomFieldSpacer(),
+                      const CustomFieldSpacer(),
 
-                        Expanded(
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: DataTable(
-                                columnSpacing: 40,
-                                border: TableBorder.all(color: Colors.white),
-                                columns: const [
-                                  DataColumn(
-                                    label: Text(
-                                      'No.',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                      SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: DataTable(
+                            columnSpacing: 40,
+                            border: TableBorder.all(color: Colors.white),
+                            columns: const [
+                              DataColumn(
+                                label: Text(
+                                  'No.',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Tanggal Pengajuan',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Nama Pengaju',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Nama Ormawa',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Nama Kegiatan',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Hari/tanggal',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Ruang/Gedung',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Lama Penggunaan',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Lain - lain',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Pengajuan',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Status',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                            rows: List<DataRow>.generate(state.sessionList.length, (int index) {
+                              final session = state.sessionList[index];
+                              return DataRow(
+                                cells: [
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        '${index + 1}',
+                                      ),
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Tanggal Pengajuan',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        DateFormat('dd-MM-yyyy').format(session.createdAt),
+                                      ),
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Nama Pengaju',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        session.user.namaLengkap,
+                                      ),
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Nama Ormawa',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'session.nama ormawa',
+                                      ),
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Nama Kegiatan',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        session.kegiatan,
+                                      ),
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Hari/tanggal',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        DateFormat('dd-MM-yyyy').format(session.date),
+                                      ),
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Ruang/Gedung',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        session.gedung,
+                                      ),
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Lama Penggunaan',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'session',
+                                      ),
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Lain - lain',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        session.lain,
+                                      ),
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Pengajuan',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'File ${index + 1}',
+                                      ),
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Status',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        session.status,
+                                      ),
                                     ),
                                   ),
                                 ],
-                                rows: List<DataRow>.generate(12, (int index) {
-                                  return DataRow(
-                                    cells: [
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            '${index + 1}',
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            '${index + 1} Mei 2023',
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            'Mahasiswa ${index + 1}',
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            'Ormawa${index + 1}',
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            'Kegiatan ${index + 1}',
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            'Hari ${index + 1}',
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            'Ruang${index + 1} Gedung B',
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            '${index + 1} Jam ${index * 5} menit',
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            'Lain - lain ${index + 1}',
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            'File ${index + 1}',
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            'Pending ${index + 1}',
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                }),
+                              );
+                            }),
+                          ),
+                        ),
+                      ),
+
+                      const CustomFieldSpacer(),
+
+                      // CustomButton(
+                      //   navigation: () => Navigator.pushNamed(
+                      //     context,
+                      //     penggunaPengajuanUsulanKegiatanPage1Route,
+                      //   ),
+                      //   text: 'Ajukan Peminjaman Sarana dan Prasarana',
+                      // ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                            onTap: () => Navigator.pushNamed(
+                              context,
+                              penggunaPengajuanSaranaDanPrasaranaPageRoute,
+                            ),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 24),
+                              constraints: BoxConstraints(
+                                minHeight: 35.0,
+                                maxWidth: MediaQuery.of(context).size.width * 0.6,
+                              ),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                              child: const Text(
+                                'Ajukan Peminjaman Sarana dan Prasarana',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                                softWrap: true,
                               ),
                             ),
                           ),
-                        ),
-
-                        const CustomFieldSpacer(),
-
-                        // CustomButton(
-                        //   navigation: () => Navigator.pushNamed(
-                        //     context,
-                        //     penggunaPengajuanUsulanKegiatanPage1Route,
-                        //   ),
-                        //   text: 'Ajukan Peminjaman Sarana dan Prasarana',
-                        // ),
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            InkWell(
-                              onTap: () => Navigator.pushNamed(
-                                context,
-                                penggunaPengajuanSaranaDanPrasaranaPageRoute,
-                              ),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 8.0, horizontal: 24),
-                                constraints: BoxConstraints(
-                                  minHeight: 35.0,
-                                  maxWidth: MediaQuery.of(context).size.width * 0.6,
-                                ),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                child: const Text(
-                                  'Ajukan Peminjaman Sarana dan Prasarana',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                  softWrap: true,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                    ],
                   );
                 } else if (state is SessionError) {
                   return const Text('Error');

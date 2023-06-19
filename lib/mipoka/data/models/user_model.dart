@@ -1,6 +1,7 @@
 import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/domain/entities/user.dart';
 
+// => Just Updated
 class UserModel extends User {
   final OrmawaModel? ormawaModel;
 
