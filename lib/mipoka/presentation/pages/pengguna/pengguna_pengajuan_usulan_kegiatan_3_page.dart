@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/read_pdf.dart';
+import 'package:mipoka/domain/utils/usulan_kegiatan_template.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_switch_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -12,6 +14,9 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_rich_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
+import 'package:pdf_render/pdf_render_widgets.dart';
+import 'package:pdf_render/pdf_render.dart';
+import 'package:http/http.dart' as http;
 
 class PenggunaPengajuanUsulanKegiatan3 extends StatefulWidget {
   const PenggunaPengajuanUsulanKegiatan3({super.key});
@@ -23,6 +28,7 @@ class PenggunaPengajuanUsulanKegiatan3 extends StatefulWidget {
 
 class _PenggunaPengajuanUsulanKegiatan3State
     extends State<PenggunaPengajuanUsulanKegiatan3> {
+
   bool tempatKegiatan = false;
   bool tertibAcara = false;
 
@@ -208,6 +214,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
 
                   const CustomFieldSpacer(),
 
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -221,9 +228,21 @@ class _PenggunaPengajuanUsulanKegiatan3State
                       CustomButton(
                         // onTap: () => Navigator.pushNamed(context, penggunaDaftarPengajuanKegiatanPageRoute),
                         onTap: () {
-                          print('getPlainText : ${_latarBelakangController.getPlainText()}');
-                          print('document ${_latarBelakangController.document.toPlainText()}');
-                          print('document ${_latarBelakangController.document.toDelta()}');
+                          // fillDocxTemplate();
+                          // showPDFViewer(context, 'https://storage.googleapis.com/usulan_kegiatan_output/cheatsheet-gcp-A4.pdf');
+                          // PdfViewer.openAsset('assets/hello.pdf')
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const CustomPdfViewer(
+                                pdfUrl: 'https://storage.googleapis.com/usulan_kegiatan_output/cheatsheet-gcp-A4.pdf',
+                              ),
+                            ),
+                          );
+                          print('Button has been pressed');
+                          // print('getPlainText : ${_latarBelakangController.getPlainText()}');
+                          // print('document ${_latarBelakangController.document.toPlainText()}');
+                          // print('document ${_latarBelakangController.document.toDelta()}');
                         },
                         text: 'Kirim',
                       ),

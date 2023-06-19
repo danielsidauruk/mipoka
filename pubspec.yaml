@@ -25,6 +25,9 @@ dependencies:
   path_provider: ^2.0.8
   uuid: ^3.0.4
   datetime_picker_formfield: ^2.0.1
+  docx_template: ^0.3.4
+  syncfusion_flutter_pdfviewer: ^21.2.3
+  pdf_render: ^1.4.0
 
 dev_dependencies:
   flutter_test:
@@ -77,3 +80,5 @@ flutter:
     - assets/json_file/tertib_acara.json
     - assets/json_file/user.json
     - assets/json_file/usulan_kegiatan.json
+
+    - assets/docx_template/usulan_template.docx
