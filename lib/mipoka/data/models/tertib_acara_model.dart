@@ -1,20 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
 
+// => Just Updated
 class TertibAcaraModel extends TertibAcara {
   const TertibAcaraModel({
-    required int idTertibAcara,
-    required TimeOfDay waktuMulai,
-    required TimeOfDay waktuSelesai,
-    required String aktivitas,
-    required String keterangan,
-  }) : super(
-    idTertibAcara: idTertibAcara,
-    waktuMulai: waktuMulai,
-    waktuSelesai: waktuSelesai,
-    aktivitas: aktivitas,
-    keterangan: keterangan,
-  );
+    required super.idTertibAcara,
+    required super.waktuMulai,
+    required super.waktuSelesai,
+    required super.aktivitas,
+    required super.keterangan,
+  });
 
   factory TertibAcaraModel.fromEntity(TertibAcara tertibAcara) {
     return TertibAcaraModel(
@@ -26,23 +20,19 @@ class TertibAcaraModel extends TertibAcara {
     );
   }
 
-  factory TertibAcaraModel.fromJson(Map<String, dynamic> json) {
-    return TertibAcaraModel(
-      idTertibAcara: json['idTertibAcara'],
-      waktuMulai: TimeOfDay.fromDateTime(DateTime.parse(json['waktuMulai'])),
-      waktuSelesai: TimeOfDay.fromDateTime(DateTime.parse(json['waktuSelesai'])),
-      aktivitas: json['aktivitas'],
-      keterangan: json['keterangan'],
-    );
-  }
+  factory TertibAcaraModel.fromJson(Map<String, dynamic> json) => TertibAcaraModel(
+    idTertibAcara: json["idTertibAcara"],
+    waktuMulai: json["waktuMulai"],
+    waktuSelesai: json["waktuSelesai"],
+    aktivitas: json["aktivitas"],
+    keterangan: json["keterangan"],
+  );
 
-  Map<String, dynamic> toJson() {
-    return {
-      'idTertibAcara': idTertibAcara,
-      'waktuMulai': '${waktuMulai.hour}:${waktuMulai.minute}',
-      'waktuSelesai': '${waktuSelesai.hour}:${waktuSelesai.minute}',
-      'aktivitas': aktivitas,
-      'keterangan': keterangan,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    "idTertibAcara": idTertibAcara,
+    "waktuMulai": waktuMulai,
+    "waktuSelesai": waktuSelesai,
+    "aktivitas": aktivitas,
+    "keterangan": keterangan,
+  };
 }

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 
-class Ormawa extends Equatable {
+// Just updated
+class Ormawa extends Equatable{
   final int idOrmawa;
   final String namaOrmawa;
   final String pembina;
@@ -14,7 +14,7 @@ class Ormawa extends Equatable {
   final String fotoWakil;
   final String fotoBendahara;
 
-  const Ormawa({
+  Ormawa({
     required this.idOrmawa,
     required this.namaOrmawa,
     required this.pembina,
@@ -28,7 +28,7 @@ class Ormawa extends Equatable {
     required this.fotoBendahara,
   });
 
-  Ormawa updateWith({
+  Ormawa copyWith({
     int? idOrmawa,
     String? namaOrmawa,
     String? pembina,
@@ -40,21 +40,20 @@ class Ormawa extends Equatable {
     String? fotoKetua,
     String? fotoWakil,
     String? fotoBendahara,
-  }) {
-    return Ormawa(
-      idOrmawa: idOrmawa ?? this.idOrmawa,
-      namaOrmawa: namaOrmawa ?? this.namaOrmawa,
-      pembina: pembina ?? this.pembina,
-      ketua: ketua ?? this.ketua,
-      wakil: wakil ?? this.wakil,
-      bendahara: bendahara ?? this.bendahara,
-      jumlahAnggota: jumlahAnggota ?? this.jumlahAnggota,
-      fotoPembina: fotoPembina ?? this.fotoPembina,
-      fotoKetua: fotoKetua ?? this.fotoKetua,
-      fotoWakil: fotoWakil ?? this.fotoWakil,
-      fotoBendahara: fotoBendahara ?? this.fotoBendahara,
-    );
-  }
+  }) =>
+      Ormawa(
+        idOrmawa: idOrmawa ?? this.idOrmawa,
+        namaOrmawa: namaOrmawa ?? this.namaOrmawa,
+        pembina: pembina ?? this.pembina,
+        ketua: ketua ?? this.ketua,
+        wakil: wakil ?? this.wakil,
+        bendahara: bendahara ?? this.bendahara,
+        jumlahAnggota: jumlahAnggota ?? this.jumlahAnggota,
+        fotoPembina: fotoPembina ?? this.fotoPembina,
+        fotoKetua: fotoKetua ?? this.fotoKetua,
+        fotoWakil: fotoWakil ?? this.fotoWakil,
+        fotoBendahara: fotoBendahara ?? this.fotoBendahara,
+      );
 
   @override
   List<Object?> get props => [

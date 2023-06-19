@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 
-class User extends Equatable {
+// Just updated
+class User extends Equatable{
   final int idUser;
   final int idOrmawa;
   final int idOrmawaB;
@@ -19,6 +21,7 @@ class User extends Equatable {
   final String prodi;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final Ormawa? ormawa;
 
   const User({
     required this.idUser,
@@ -39,6 +42,7 @@ class User extends Equatable {
     required this.prodi,
     required this.createdAt,
     required this.updatedAt,
+    this.ormawa
   });
 
   User copyWith({
@@ -60,28 +64,29 @@ class User extends Equatable {
     String? prodi,
     DateTime? createdAt,
     DateTime? updatedAt,
-  }) {
-    return User(
-      idUser: idUser ?? this.idUser,
-      idOrmawa: idOrmawa ?? this.idOrmawa,
-      idOrmawaB: idOrmawaB ?? this.idOrmawaB,
-      email: email ?? this.email,
-      username: username ?? this.username,
-      password: password ?? this.password,
-      namaLengkap: namaLengkap ?? this.namaLengkap,
-      nim: nim ?? this.nim,
-      noHp: noHp ?? this.noHp,
-      image: image ?? this.image,
-      mpt: mpt ?? this.mpt,
-      semester: semester ?? this.semester,
-      kelas: kelas ?? this.kelas,
-      periodeMpt: periodeMpt ?? this.periodeMpt,
-      status: status ?? this.status,
-      prodi: prodi ?? this.prodi,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-    );
-  }
+    Ormawa? ormawa,
+  }) =>
+      User(
+        idUser: idUser ?? this.idUser,
+        idOrmawa: idOrmawa ?? this.idOrmawa,
+        idOrmawaB: idOrmawaB ?? this.idOrmawaB,
+        email: email ?? this.email,
+        username: username ?? this.username,
+        password: password ?? this.password,
+        namaLengkap: namaLengkap ?? this.namaLengkap,
+        nim: nim ?? this.nim,
+        noHp: noHp ?? this.noHp,
+        image: image ?? this.image,
+        mpt: mpt ?? this.mpt,
+        semester: semester ?? this.semester,
+        kelas: kelas ?? this.kelas,
+        periodeMpt: periodeMpt ?? this.periodeMpt,
+        status: status ?? this.status,
+        prodi: prodi ?? this.prodi,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+        ormawa: ormawa ?? this.ormawa
+      );
 
   @override
   List<Object?> get props => [
@@ -103,5 +108,6 @@ class User extends Equatable {
     prodi,
     createdAt,
     updatedAt,
+    ormawa,
   ];
 }

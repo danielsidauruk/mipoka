@@ -1,62 +1,56 @@
 import 'package:equatable/equatable.dart';
-import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
 
-class Partisipan extends Equatable {
-  final int idPeserta;
-  final int idUsulan;
+// Just updated
+class Partisipan extends Equatable{
+  final int idPartisipan;
   final String nim;
   final String namaLengkap;
   final String nik;
   final String tempatLahir;
-  final String tanggalLahir;
+  final DateTime tglLahir;
   final String peran;
   final String dasarKirim;
 
   const Partisipan({
-    required this.idPeserta,
-    required this.idUsulan,
+    required this.idPartisipan,
     required this.nim,
     required this.namaLengkap,
     required this.nik,
     required this.tempatLahir,
-    required this.tanggalLahir,
+    required this.tglLahir,
     required this.peran,
     required this.dasarKirim,
   });
 
-  Partisipan updateWith({
-    int? idPeserta,
-    int? idUsulan,
+  Partisipan copyWith({
+    int? idPartisipan,
     String? nim,
     String? namaLengkap,
     String? nik,
     String? tempatLahir,
-    String? tanggalLahir,
+    DateTime? tglLahir,
     String? peran,
     String? dasarKirim,
-  }) {
-    return Partisipan(
-      idPeserta: idPeserta ?? this.idPeserta,
-      idUsulan: idUsulan ?? this.idUsulan,
-      nim: nim ?? this.nim,
-      namaLengkap: namaLengkap ?? this.namaLengkap,
-      nik: nik ?? this.nik,
-      tempatLahir: tempatLahir ?? this.tempatLahir,
-      tanggalLahir: tanggalLahir ?? this.tanggalLahir,
-      peran: peran ?? this.peran,
-      dasarKirim: dasarKirim ?? this.dasarKirim,
-    );
-  }
+  }) =>
+      Partisipan(
+        idPartisipan: idPartisipan ?? this.idPartisipan,
+        nim: nim ?? this.nim,
+        namaLengkap: namaLengkap ?? this.namaLengkap,
+        nik: nik ?? this.nik,
+        tempatLahir: tempatLahir ?? this.tempatLahir,
+        tglLahir: tglLahir ?? this.tglLahir,
+        peran: peran ?? this.peran,
+        dasarKirim: dasarKirim ?? this.dasarKirim,
+      );
 
   @override
   List<Object?> get props => [
-    idPeserta,
-    idUsulan,
+    idPartisipan,
     nim,
     namaLengkap,
     nik,
     tempatLahir,
-    tanggalLahir,
+    tglLahir,
     peran,
     dasarKirim,
   ];

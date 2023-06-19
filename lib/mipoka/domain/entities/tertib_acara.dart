@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
-class TertibAcara extends Equatable {
+// Just updated
+class TertibAcara extends Equatable{
   final int idTertibAcara;
-  final TimeOfDay waktuMulai;
-  final TimeOfDay waktuSelesai;
+  final String waktuMulai;
+  final String waktuSelesai;
   final String aktivitas;
   final String keterangan;
 
@@ -18,19 +18,18 @@ class TertibAcara extends Equatable {
 
   TertibAcara copyWith({
     int? idTertibAcara,
-    TimeOfDay? waktuMulai,
-    TimeOfDay? waktuSelesai,
+    String? waktuMulai,
+    String? waktuSelesai,
     String? aktivitas,
     String? keterangan,
-  }) {
-    return TertibAcara(
-      idTertibAcara: idTertibAcara ?? this.idTertibAcara,
-      waktuMulai: waktuMulai ?? this.waktuMulai,
-      waktuSelesai: waktuSelesai ?? this.waktuSelesai,
-      aktivitas: aktivitas ?? this.aktivitas,
-      keterangan: keterangan ?? this.keterangan,
-    );
-  }
+  }) =>
+      TertibAcara(
+        idTertibAcara: idTertibAcara ?? this.idTertibAcara,
+        waktuMulai: waktuMulai ?? this.waktuMulai,
+        waktuSelesai: waktuSelesai ?? this.waktuSelesai,
+        aktivitas: aktivitas ?? this.aktivitas,
+        keterangan: keterangan ?? this.keterangan,
+      );
 
   @override
   List<Object?> get props => [

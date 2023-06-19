@@ -1,45 +1,30 @@
+import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/domain/entities/user.dart';
 
 class UserModel extends User {
+  final OrmawaModel? ormawaModel;
+
   const UserModel({
-    required int idUser,
-    required int idOrmawa,
-    required int idOrmawaB,
-    required String email,
-    required String username,
-    required String password,
-    required String namaLengkap,
-    required String nim,
-    required String noHp,
-    required String image,
-    required int mpt,
-    required String semester,
-    required String kelas,
-    required String periodeMpt,
-    required String status,
-    required String prodi,
-    required DateTime createdAt,
-    required DateTime updatedAt,
-  }) : super(
-    idUser: idUser,
-    idOrmawa: idOrmawa,
-    idOrmawaB: idOrmawaB,
-    email: email,
-    username: username,
-    password: password,
-    namaLengkap: namaLengkap,
-    nim: nim,
-    noHp: noHp,
-    image: image,
-    mpt: mpt,
-    semester: semester,
-    kelas: kelas,
-    periodeMpt: periodeMpt,
-    status: status,
-    prodi: prodi,
-    createdAt: createdAt,
-    updatedAt: updatedAt,
-  );
+    required super.idUser,
+    required super.idOrmawa,
+    required super.idOrmawaB,
+    required super.email,
+    required super.username,
+    required super.password,
+    required super.namaLengkap,
+    required super.nim,
+    required super.noHp,
+    required super.image,
+    required super.mpt,
+    required super.semester,
+    required super.kelas,
+    required super.periodeMpt,
+    required super.status,
+    required super.prodi,
+    required super.createdAt,
+    required super.updatedAt,
+    this.ormawaModel
+  }) : super(ormawa: ormawaModel);
 
   factory UserModel.fromEntity(User user) {
     return UserModel(
@@ -61,52 +46,51 @@ class UserModel extends User {
       prodi: user.prodi,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
+      ormawaModel: user.ormawa != null ? OrmawaModel.fromEntity(user.ormawa!) : null,
     );
   }
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      idUser: json['idUser'],
-      idOrmawa: json['idOrmawa'],
-      idOrmawaB: json['idOrmawaB'],
-      email: json['email'],
-      username: json['username'],
-      password: json['password'],
-      namaLengkap: json['namaLengkap'],
-      nim: json['nim'],
-      noHp: json['noHp'],
-      image: json['image'],
-      mpt: json['mpt'],
-      semester: json['semester'],
-      kelas: json['kelas'],
-      periodeMpt: json['periodeMpt'],
-      status: json['status'],
-      prodi: json['prodi'],
-      createdAt: DateTime.parse(json['createdAt']),
-      updatedAt: DateTime.parse(json['updatedAt']),
-    );
-  }
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+    idUser: json["idUser"],
+    idOrmawa: json["idOrmawa"],
+    idOrmawaB: json["idOrmawaB"],
+    email: json["email"],
+    username: json["username"],
+    password: json["password"],
+    namaLengkap: json["namaLengkap"],
+    nim: json["nim"],
+    noHp: json["noHp"],
+    image: json["image"],
+    mpt: json["mpt"],
+    semester: json["semester"],
+    kelas: json["kelas"],
+    periodeMpt: json["periodeMpt"],
+    status: json["status"],
+    prodi: json["prodi"],
+    createdAt: DateTime.parse(json["createdAt"]),
+    updatedAt: DateTime.parse(json["updatedAt"]),
+    ormawaModel: json.containsKey("ormawa") ? OrmawaModel.fromJson(json["ormawa"]) : null,
+  );
 
-  Map<String, dynamic> toJson() {
-    return {
-      'idUser': idUser,
-      'idOrmawa': idOrmawa,
-      'idOrmawaB': idOrmawaB,
-      'email': email,
-      'username': username,
-      'password': password,
-      'namaLengkap': namaLengkap,
-      'nim': nim,
-      'noHp': noHp,
-      'image': image,
-      'mpt': mpt,
-      'semester': semester,
-      'kelas': kelas,
-      'periodeMpt': periodeMpt,
-      'status': status,
-      'prodi': prodi,
-      'createdAt': createdAt.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    "idUser": idUser,
+    "idOrmawa": idOrmawa,
+    "idOrmawaB": idOrmawaB,
+    "email": email,
+    "username": username,
+    "password": password,
+    "namaLengkap": namaLengkap,
+    "nim": nim,
+    "noHp": noHp,
+    "image": image,
+    "mpt": mpt,
+    "semester": semester,
+    "kelas": kelas,
+    "periodeMpt": periodeMpt,
+    "status": status,
+    "prodi": prodi,
+    "createdAt": createdAt.toIso8601String(),
+    "updatedAt": updatedAt.toIso8601String(),
+    "ormawa": ormawaModel?.toJson(),
+  };
 }

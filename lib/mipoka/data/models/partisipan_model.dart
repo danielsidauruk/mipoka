@@ -1,67 +1,50 @@
 import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
 
+// => Just Updated
 class PartisipanModel extends Partisipan {
   const PartisipanModel({
-    required int idPeserta,
-    required int idUsulan,
-    required String nim,
-    required String namaLengkap,
-    required String nik,
-    required String tempatLahir,
-    required String tanggalLahir,
-    required String peran,
-    required String dasarKirim,
-  }) : super(
-    idPeserta: idPeserta,
-    idUsulan: idUsulan,
-    nim: nim,
-    namaLengkap: namaLengkap,
-    nik: nik,
-    tempatLahir: tempatLahir,
-    tanggalLahir: tanggalLahir,
-    peran: peran,
-    dasarKirim: dasarKirim,
-  );
+    required super.idPartisipan,
+    required super.nim,
+    required super.namaLengkap,
+    required super.nik,
+    required super.tempatLahir,
+    required super.tglLahir,
+    required super.peran,
+    required super.dasarKirim,
+  });
 
   factory PartisipanModel.fromEntity(Partisipan partisipan) {
     return PartisipanModel(
-      idPeserta: partisipan.idPeserta,
-      idUsulan: partisipan.idUsulan,
+      idPartisipan: partisipan.idPartisipan,
       nim: partisipan.nim,
       namaLengkap: partisipan.namaLengkap,
       nik: partisipan.nik,
       tempatLahir: partisipan.tempatLahir,
-      tanggalLahir: partisipan.tanggalLahir,
+      tglLahir: partisipan.tglLahir,
       peran: partisipan.peran,
       dasarKirim: partisipan.dasarKirim,
     );
   }
 
-  factory PartisipanModel.fromJson(Map<String, dynamic> json) {
-    return PartisipanModel(
-      idPeserta: json['idPeserta'],
-      idUsulan: json['idUsulan'],
-      nim: json['nim'],
-      namaLengkap: json['namaLengkap'],
-      nik: json['nik'],
-      tempatLahir: json['tempatLahir'],
-      tanggalLahir: json['tanggalLahir'],
-      peran: json['peran'],
-      dasarKirim: json['dasarKirim'],
-    );
-  }
+  factory PartisipanModel.fromJson(Map<String, dynamic> json) => PartisipanModel(
+    idPartisipan: json["idPartisipan"],
+    nim: json["nim"],
+    namaLengkap: json["namaLengkap"],
+    nik: json["nik"],
+    tempatLahir: json["tempatLahir"],
+    tglLahir: DateTime.parse(json["tglLahir"]),
+    peran: json["peran"],
+    dasarKirim: json["dasarKirim"],
+  );
 
-  Map<String, dynamic> toJson() {
-    return {
-      'idPeserta': idPeserta,
-      'idUsulan': idUsulan,
-      'nim': nim,
-      'namaLengkap': namaLengkap,
-      'nik': nik,
-      'tempatLahir': tempatLahir,
-      'tanggalLahir': tanggalLahir,
-      'peran': peran,
-      'dasarKirim': dasarKirim,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    "idPartisipan": idPartisipan,
+    "nim": nim,
+    "namaLengkap": namaLengkap,
+    "nik": nik,
+    "tempatLahir": tempatLahir,
+    "tglLahir": "${tglLahir.year.toString().padLeft(4, '0')}-${tglLahir.month.toString().padLeft(2, '0')}-${tglLahir.day.toString().padLeft(2, '0')}",
+    "peran": peran,
+    "dasarKirim": dasarKirim,
+  };
 }

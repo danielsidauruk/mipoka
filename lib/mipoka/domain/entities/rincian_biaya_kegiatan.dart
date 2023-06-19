@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
+// Just updated
 class RincianBiayaKegiatan extends Equatable {
   final int idRincianBiayaKegiatan;
-  final int idUsulan;
   final String namaBiayaKegiatan;
   final int kuantiti;
   final int hargaSatuan;
@@ -11,7 +11,6 @@ class RincianBiayaKegiatan extends Equatable {
 
   const RincianBiayaKegiatan({
     required this.idRincianBiayaKegiatan,
-    required this.idUsulan,
     required this.namaBiayaKegiatan,
     required this.kuantiti,
     required this.hargaSatuan,
@@ -21,28 +20,24 @@ class RincianBiayaKegiatan extends Equatable {
 
   RincianBiayaKegiatan copyWith({
     int? idRincianBiayaKegiatan,
-    int? idUsulan,
     String? namaBiayaKegiatan,
     int? kuantiti,
     int? hargaSatuan,
     int? total,
     String? keterangan,
-  }) {
-    return RincianBiayaKegiatan(
-      idRincianBiayaKegiatan: idRincianBiayaKegiatan ?? this.idRincianBiayaKegiatan,
-      idUsulan: idUsulan ?? this.idUsulan,
-      namaBiayaKegiatan: namaBiayaKegiatan ?? this.namaBiayaKegiatan,
-      kuantiti: kuantiti ?? this.kuantiti,
-      hargaSatuan: hargaSatuan ?? this.hargaSatuan,
-      total: total ?? this.total,
-      keterangan: keterangan ?? this.keterangan,
-    );
-  }
+  }) =>
+      RincianBiayaKegiatan(
+        idRincianBiayaKegiatan: idRincianBiayaKegiatan ?? this.idRincianBiayaKegiatan,
+        namaBiayaKegiatan: namaBiayaKegiatan ?? this.namaBiayaKegiatan,
+        kuantiti: kuantiti ?? this.kuantiti,
+        hargaSatuan: hargaSatuan ?? this.hargaSatuan,
+        total: total ?? this.total,
+        keterangan: keterangan ?? this.keterangan,
+      );
 
   @override
   List<Object?> get props => [
     idRincianBiayaKegiatan,
-    idUsulan,
     namaBiayaKegiatan,
     kuantiti,
     hargaSatuan,

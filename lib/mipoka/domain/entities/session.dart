@@ -1,13 +1,14 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/domain/entities/user.dart';
 
 class Session extends Equatable {
   final int idSession;
   final int userId;
   final String ruangan;
   final String gedung;
-  final String idOrmawa;
-  final DateTime startTime;
-  final DateTime endTime;
+  final int idOrmawa;
+  final String startTime;
+  final String endTime;
   final DateTime date;
   final String kegiatan;
   final String perlengkapan;
@@ -17,6 +18,7 @@ class Session extends Equatable {
   final DateTime updatedAt;
   final DateTime createdAt;
   final String updatedBy;
+  final User user;
 
   const Session({
     required this.idSession,
@@ -35,6 +37,7 @@ class Session extends Equatable {
     required this.updatedAt,
     required this.createdAt,
     required this.updatedBy,
+    required this.user,
   });
 
   Session copyWith({
@@ -42,9 +45,9 @@ class Session extends Equatable {
     int? userId,
     String? ruangan,
     String? gedung,
-    String? idOrmawa,
-    DateTime? startTime,
-    DateTime? endTime,
+    int? idOrmawa,
+    String? startTime,
+    String? endTime,
     DateTime? date,
     String? kegiatan,
     String? perlengkapan,
@@ -54,26 +57,27 @@ class Session extends Equatable {
     DateTime? updatedAt,
     DateTime? createdAt,
     String? updatedBy,
-  }) {
-    return Session(
-      idSession: idSession ?? this.idSession,
-      userId: userId ?? this.userId,
-      ruangan: ruangan ?? this.ruangan,
-      gedung: gedung ?? this.gedung,
-      idOrmawa: idOrmawa ?? this.idOrmawa,
-      startTime: startTime ?? this.startTime,
-      endTime: endTime ?? this.endTime,
-      date: date ?? this.date,
-      kegiatan: kegiatan ?? this.kegiatan,
-      perlengkapan: perlengkapan ?? this.perlengkapan,
-      lain: lain ?? this.lain,
-      status: status ?? this.status,
-      keterangan: keterangan ?? this.keterangan,
-      updatedAt: updatedAt ?? this.updatedAt,
-      createdAt: createdAt ?? this.createdAt,
-      updatedBy: updatedBy ?? this.updatedBy,
-    );
-  }
+    User? user,
+  }) =>
+      Session(
+        idSession: idSession ?? this.idSession,
+        userId: userId ?? this.userId,
+        ruangan: ruangan ?? this.ruangan,
+        gedung: gedung ?? this.gedung,
+        idOrmawa: idOrmawa ?? this.idOrmawa,
+        startTime: startTime ?? this.startTime,
+        endTime: endTime ?? this.endTime,
+        date: date ?? this.date,
+        kegiatan: kegiatan ?? this.kegiatan,
+        perlengkapan: perlengkapan ?? this.perlengkapan,
+        lain: lain ?? this.lain,
+        status: status ?? this.status,
+        keterangan: keterangan ?? this.keterangan,
+        updatedAt: updatedAt ?? this.updatedAt,
+        createdAt: createdAt ?? this.createdAt,
+        updatedBy: updatedBy ?? this.updatedBy,
+        user: user ?? this.user,
+      );
 
   @override
   List<Object?> get props => [
@@ -93,5 +97,7 @@ class Session extends Equatable {
     updatedAt,
     createdAt,
     updatedBy,
+    user,
   ];
 }
+
