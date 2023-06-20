@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_drop_down_with_controller.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_signature_pad.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_switch_field.dart';
@@ -48,6 +50,14 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
   final TextEditingController _tanggalKeberangkatanController = TextEditingController();
   final TextEditingController _tanggalKepulanganController = TextEditingController();
 
+  String? dropDownItemController;
+
+  @override
+  void initState() {
+    dropDownItemController = "Ormawa D";
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     print('Page reloaded');
@@ -74,6 +84,49 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                     },
                   ),
 
+                  // Container(
+                  //   width: double.infinity,
+                  //   height: 35,
+                  //   padding: const EdgeInsets.symmetric(
+                  //     vertical: 2.0,
+                  //     horizontal: 8.0,
+                  //   ),
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(4.0),
+                  //     border: Border.all(color: Colors.white),
+                  //   ),
+                  //   child: DropdownButton<String>(
+                  //     value: dropDownItem,
+                  //     icon: const Icon(Icons.arrow_drop_down),
+                  //     isExpanded: true,
+                  //     underline: const Center(),
+                  //     onChanged: (value) {
+                  //       setState(() {
+                  //         dropDownItem = value!;
+                  //       });
+                  //     },
+                  //     items: listNamaOrmawa.map<DropdownMenuItem<String>>((String value) {
+                  //       return DropdownMenuItem<String>(
+                  //         value: value,
+                  //         child: Text(value),
+                  //       );
+                  //     }).toList(),
+                  //   ),
+                  // ),
+
+                  const CustomFieldSpacer(),
+
+                  DropdownController(
+                    list: listNamaOrmawa,
+                    controller: dropDownItemController,
+                    onValueChanged: (value) {
+                      if (kDebugMode) {
+                        print('Input $value to State Management BLoC or Database');
+                      }
+                      dropDownItemController = value;
+                    },
+                  ),
+                  
                   const CustomFieldSpacer(),
 
                   buildTitle('Pembiayaan'),
@@ -205,7 +258,10 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                   const CustomFieldSpacer(),
                   buildTitle('Total Pendanaan'),
 
-                  CustomTextField(controller: _totalPendanaanController),
+                  CustomTextField(
+                    controller: _totalPendanaanController,
+                    textInputType: TextInputType.number,
+                  ),
                   const CustomFieldSpacer(),
 
                   buildTitle('Keterangan'),
@@ -303,6 +359,7 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
 
                       CustomMipokaButton(
                         onTap: () {
+                          print(dropDownItemController);
                           tempatKegiatan == false
                               ? Navigator.pushNamed(context,
                               penggunaPengajuanUsulanKegiatan2DKPageRoute)

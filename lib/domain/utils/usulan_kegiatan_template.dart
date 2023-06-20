@@ -154,7 +154,7 @@ void fillDocxTemplate() async {
     final fileGenerated = File('${tempDir.path}/generated.docx');
     await fileGenerated.writeAsBytes(docGenerated);
 
-    const storageUrl = 'https://storage.googleapis.com/usulan_kegiatan_output/usulan_kegiatan_output.docx';
+    const storageUrl = 'https://storage.googleapis.com/usulan_kegiatan_output/usulan_kegiatan_output_web.docx';
     final uploadResponse = await http.put(Uri.parse(storageUrl), body: await fileGenerated.readAsBytes());
     if (uploadResponse.statusCode == 200) {
       print('File uploaded successfully');
