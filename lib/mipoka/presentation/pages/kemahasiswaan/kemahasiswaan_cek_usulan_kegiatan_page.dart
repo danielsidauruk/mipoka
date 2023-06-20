@@ -4,7 +4,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
@@ -49,7 +49,7 @@ class _KemahasiswaanCekUsulanKegiatanPageState extends State<KemahasiswaanCekUsu
                       children: [
                         buildTitle('Status'),
 
-                        CustomDropdownButton(
+                        MipokaCustomDropdown(
                           items: listStatus,
                           onValueChanged: (value) {},
                         ),

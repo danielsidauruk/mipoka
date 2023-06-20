@@ -7,7 +7,7 @@
 // import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 // import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 // import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-// import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
+// import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 // import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 // import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 // import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
@@ -224,7 +224,7 @@ import 'package:mipoka/domain/utils/convertToLowerCase.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
@@ -290,11 +290,11 @@ class _PenggunaDaftarPengajuanKegiatanState extends State<PenggunaDaftarPengajua
 
                       const CustomFieldSpacer(height: 4.0),
 
-                      CustomDropdownButton(
+                      MipokaCustomDropdown(
                         items: listStatus,
                         onValueChanged: (value) {
                           print('Call RESTAPI http://${convertToLowerCase(
-                              value)} from back-end Database');
+                              value!)} from back-end Database');
                         },
                       ),
 

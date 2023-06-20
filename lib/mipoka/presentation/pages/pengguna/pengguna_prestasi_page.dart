@@ -4,7 +4,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
@@ -54,7 +54,7 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                       children: [
 
                         buildTitle('Nama Ormawa'),
-                        CustomDropdownButton(
+                        MipokaCustomDropdown(
                           items: listNamaOrmawa,
                           onValueChanged: (value) {},
                         ),
@@ -62,7 +62,7 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                         const CustomFieldSpacer(),
 
                         buildTitle('Tahun'),
-                        CustomDropdownButton(
+                        MipokaCustomDropdown(
                           items: years,
                           onValueChanged: (value) {},
                         ),
@@ -70,7 +70,7 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                         const CustomFieldSpacer(),
 
                         buildTitle('Tingkat'),
-                        CustomDropdownButton(
+                        MipokaCustomDropdown(
                           items: listTingkat,
                           onValueChanged: (value) {},
                         ),

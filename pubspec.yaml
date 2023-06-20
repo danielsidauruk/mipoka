@@ -28,6 +28,7 @@ dependencies:
 #  syncfusion_flutter_pdfviewer: ^21.2.3
   pdf_render: ^1.4.0
   flutter_quill: ^7.2.8
+  firebase_storage: ^11.2.3
 
 dev_dependencies:
   flutter_test:

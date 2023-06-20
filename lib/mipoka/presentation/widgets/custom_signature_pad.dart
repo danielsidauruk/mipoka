@@ -1,14 +1,30 @@
+import 'dart:io';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/cubit/signature_cubit.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:http/http.dart' as http;
 
 class CustomSignaturePad extends StatelessWidget {
   final GlobalKey<SfSignaturePadState> signatureGlobalKey =
   GlobalKey<SfSignaturePadState>();
 
   CustomSignaturePad({super.key});
+
+  Future<File> saveSignature() async {
+    final image = await signatureGlobalKey.currentState?.toImage(pixelRatio: 3.0);
+    final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
+    final bytes = byteData?.buffer.asUint8List();
+
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/signature.png');
+    await file.writeAsBytes(bytes!);
+
+    return file;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +73,12 @@ class CustomSignaturePad extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           InkWell(
-                            onTap: () {
-                              context.read<SignatureCubit>().toggleSignature();
+                            onTap: () async {
+                              File signatureFile = await saveSignature();
+                              uploadFile(signatureFile);
                             },
                             child: const Text(
-                              'Tutup',
+                              'Save',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -83,8 +100,8 @@ class CustomSignaturePad extends StatelessWidget {
                         ],
                       ),
                     ],
-                  ) :
-                  const Center(),
+                  )
+                      : const Center(),
                 ],
               ),
             ),
@@ -94,4 +111,32 @@ class CustomSignaturePad extends StatelessWidget {
     );
   }
 }
+
+
+Future<void> uploadFile(File file) async {
+  // try {
+  //   FirebaseStorage storage = FirebaseStorage.instance;
+  //
+  //   String fileName = file.path.split('/').last;
+  //
+  //   Reference ref = storage.ref().child(fileName);
+  //
+  //   UploadTask uploadTask = ref.putFile(file);
+  //   TaskSnapshot taskSnapshot = await uploadTask;
+  //
+  //   String downloadURL = await taskSnapshot.ref.getDownloadURL();
+  //
+  //   return downloadURL;
+  // } catch (e) {
+  //   return 'Error uploading file: $e';
+  // }
+  String storageUrl = 'https://storage.googleapis.com/usulan_kegiatan_output/signature.png';
+  final uploadResponse = await http.put(Uri.parse(storageUrl), body: await file.readAsBytes());
+  if (uploadResponse.statusCode == 200) {
+    print('File uploaded successfully');
+  } else {
+    print('File upload failed');
+  }
+}
+
 

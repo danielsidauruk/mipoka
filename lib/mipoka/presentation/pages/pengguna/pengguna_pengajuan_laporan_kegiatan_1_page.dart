@@ -5,7 +5,7 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
@@ -47,7 +47,7 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
                   buildTitle('Nama Kegiatan'),
 
-                  CustomDropdownButton(
+                  MipokaCustomDropdown(
                     items: listNamaKegiatan,
                     onValueChanged: (value) {},
                   ),

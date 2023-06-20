@@ -8,7 +8,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_check_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_date_picker_field.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
@@ -76,7 +76,7 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
 
                       children: [
                         buildTitle('Nama Ormawa'),
-                        CustomDropdownButton(
+                        MipokaCustomDropdown(
                           items: listNamaOrmawa,
                           onValueChanged: (value) {},
                         ),
@@ -93,7 +93,7 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                         const CustomFieldSpacer(),
 
                         buildTitle('Gedung'),
-                        CustomDropdownButton(
+                        MipokaCustomDropdown(
                           items: listGedung,
                           onValueChanged: (value) {},
                         ),
@@ -102,7 +102,7 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
 
                         buildTitle('Ruang'),
 
-                        CustomDropdownButton(
+                        MipokaCustomDropdown(
                           items: listGedung,
                           onValueChanged: (value) {},
                         ),

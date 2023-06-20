@@ -4,7 +4,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_date_picker_field.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
@@ -45,7 +45,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
                 children: [
 
                   buildTitle('Nama Kegiatan'),
-                  CustomDropdownButton(
+                  MipokaCustomDropdown(
                     items: listNamaKegiatan,
                     onValueChanged: (value) {},
                   ),
@@ -54,7 +54,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
 
                   buildTitle('Tahun'),
 
-                  CustomDropdownButton(
+                  MipokaCustomDropdown(
                     items: years,
                     onValueChanged: (value) {},
                   ),

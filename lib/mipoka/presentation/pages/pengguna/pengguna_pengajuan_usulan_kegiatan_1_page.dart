@@ -6,7 +6,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drop_down_with_controller.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_signature_pad.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_switch_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -50,11 +50,13 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
   final TextEditingController _tanggalKeberangkatanController = TextEditingController();
   final TextEditingController _tanggalKepulanganController = TextEditingController();
 
-  String? dropDownItemController;
+  String? _namaOrmawaController;
+  String? _pembiayaanController;
+  String? _bentukKegiatanController;
 
   @override
   void initState() {
-    dropDownItemController = "Ormawa D";
+    _namaOrmawaController = "Ormawa D";
     super.initState();
   }
 
@@ -72,58 +74,22 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
             children: [
               const CustomMobileTitle(
                   text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
+
               const CustomFieldSpacer(),
+
               CustomContentBox(
                 children: [
+
                   buildTitle('Nama Ormawa'),
 
-                  CustomDropdownButton(
+                  MipokaCustomDropdown(
                     items: listNamaOrmawa,
-                    onValueChanged: (value) {
-                      print('Input $value to State Management BLoC');
-                    },
-                  ),
-
-                  // Container(
-                  //   width: double.infinity,
-                  //   height: 35,
-                  //   padding: const EdgeInsets.symmetric(
-                  //     vertical: 2.0,
-                  //     horizontal: 8.0,
-                  //   ),
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(4.0),
-                  //     border: Border.all(color: Colors.white),
-                  //   ),
-                  //   child: DropdownButton<String>(
-                  //     value: dropDownItem,
-                  //     icon: const Icon(Icons.arrow_drop_down),
-                  //     isExpanded: true,
-                  //     underline: const Center(),
-                  //     onChanged: (value) {
-                  //       setState(() {
-                  //         dropDownItem = value!;
-                  //       });
-                  //     },
-                  //     items: listNamaOrmawa.map<DropdownMenuItem<String>>((String value) {
-                  //       return DropdownMenuItem<String>(
-                  //         value: value,
-                  //         child: Text(value),
-                  //       );
-                  //     }).toList(),
-                  //   ),
-                  // ),
-
-                  const CustomFieldSpacer(),
-
-                  DropdownController(
-                    list: listNamaOrmawa,
-                    controller: dropDownItemController,
+                    controller: _namaOrmawaController,
                     onValueChanged: (value) {
                       if (kDebugMode) {
                         print('Input $value to State Management BLoC or Database');
                       }
-                      dropDownItemController = value;
+                      _namaOrmawaController = value;
                     },
                   ),
                   
@@ -131,10 +97,14 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
 
                   buildTitle('Pembiayaan'),
 
-                  CustomDropdownButton(
+                  MipokaCustomDropdown(
                     items: listPembiayaan,
+                    controller: _pembiayaanController,
                     onValueChanged: (value) {
-                      print('Input $value to State Management BLoC');
+                      if (kDebugMode) {
+                        print('Input $value to State Management BLoC or Database');
+                      }
+                      _pembiayaanController = value;
                     },
                   ),
 
@@ -171,10 +141,12 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                     onChanged: (value) {},
                   ),
 
-                  CustomDropdownButton(
+                  MipokaCustomDropdown(
                     items: listBentukKegiatan,
+                    controller: _bentukKegiatanController,
                     onValueChanged: (value) {
                       print('Input "$value" to State Management BLoC');
+                      _bentukKegiatanController = value;
                     },
                   ),
 
@@ -359,7 +331,7 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
 
                       CustomMipokaButton(
                         onTap: () {
-                          print(dropDownItemController);
+                          print(_namaOrmawaController);
                           tempatKegiatan == false
                               ? Navigator.pushNamed(context,
                               penggunaPengajuanUsulanKegiatan2DKPageRoute)

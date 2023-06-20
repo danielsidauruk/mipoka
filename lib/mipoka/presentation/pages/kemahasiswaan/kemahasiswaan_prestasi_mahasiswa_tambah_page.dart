@@ -3,7 +3,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
@@ -48,7 +48,7 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                 children: [
 
                   buildTitle('Nama Ormawa'),
-                  CustomDropdownButton(
+                  MipokaCustomDropdown(
                     items: listNamaOrmawa,
                     onValueChanged: (value) {
                       print('Input "$value" to State Management BLoC');
@@ -73,7 +73,7 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                   const CustomFieldSpacer(),
 
                   buildTitle('Waktu Penyelenggaraan'),
-                  CustomDropdownButton(
+                  MipokaCustomDropdown(
                     items: years,
                     onValueChanged: (value) {},
                   ),
@@ -81,7 +81,7 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                   const CustomFieldSpacer(),
 
                   buildTitle('Tingkat'),
-                  CustomDropdownButton(
+                  MipokaCustomDropdown(
                     items: listTingkat,
                     onValueChanged: (value) {},
                   ),

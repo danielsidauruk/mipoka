@@ -67,12 +67,12 @@ import 'package:mipoka/mipoka/presentation/bloc/cubit/dropdown_cubit.dart';
 
 
 // => Using Cubit
-class DropdownController extends StatefulWidget {
+class MipokaCustomDropdown extends StatefulWidget {
   final List<String> items;
   final String? controller;
   final Function(String?)? onValueChanged;
 
-  const DropdownController({
+  const MipokaCustomDropdown({
     Key? key,
     required this.items,
     this.controller,
@@ -80,10 +80,10 @@ class DropdownController extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<DropdownController> createState() => _DropdownControllerState();
+  State<MipokaCustomDropdown> createState() => _MipokaCustomDropdownState();
 }
 
-class _DropdownControllerState extends State<DropdownController> {
+class _MipokaCustomDropdownState extends State<MipokaCustomDropdown> {
   late final DropdownBloc dropdownBloc;
 
   @override

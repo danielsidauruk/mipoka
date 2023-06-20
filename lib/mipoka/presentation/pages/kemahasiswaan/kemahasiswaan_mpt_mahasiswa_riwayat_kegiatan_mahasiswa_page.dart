@@ -4,7 +4,7 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_dropdown_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_filter_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
@@ -64,7 +64,7 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                   const CustomFieldSpacer(),
 
                   buildTitle('Periode'),
-                  CustomDropdownButton(
+                  MipokaCustomDropdown(
                     items: years,
                     onValueChanged: (value) {},
                   ),
@@ -72,7 +72,7 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                   const CustomFieldSpacer(),
 
                   buildTitle('Jenis'),
-                  CustomDropdownButton(
+                  MipokaCustomDropdown(
                     items: listBentukKegiatan,
                     onValueChanged: (value) {},
                   ),
@@ -80,7 +80,7 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                   const CustomFieldSpacer(),
 
                   buildTitle('Kegiatan'),
-                  CustomDropdownButton(
+                  MipokaCustomDropdown(
                     items: listNamaKegiatan,
                     onValueChanged: (value) {},
                   ),
@@ -88,7 +88,7 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                   const CustomFieldSpacer(),
 
                   buildTitle('Status'),
-                  CustomDropdownButton(
+                  MipokaCustomDropdown(
                     items: listStatus,
                     onValueChanged: (value) {},
                   ),
