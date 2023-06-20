@@ -59,7 +59,7 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
                   const CustomFieldSpacer(),
 
-                  CustomButton(
+                  CustomMipokaButton(
                     onTap: () => Navigator.pushNamed(
                       context,
                       penggunaPengajuanLaporanKegiatan2PageRoute,

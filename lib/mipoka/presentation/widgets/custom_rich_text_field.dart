@@ -11,33 +11,52 @@ import 'package:mipoka/mipoka/presentation/bloc/cubit/quil_editor_focus_cubit/qu
 //
 //   @override
 //   Widget build(BuildContext context) {
-//     return Container(
-//       alignment: Alignment.center,
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(5.0),
-//         border: Border.all(color: Colors.white),
-//       ),
-//       child: Column(
-//         children: [
-//           QuillToolbar.basic(
-//             controller: controller,
-//             axis: Axis.horizontal,
-//             multiRowsDisplay: false,
-//           ),
-//           Container(
-//             padding: const EdgeInsets.all(8.0),
-//             child: QuillEditor(
-//               controller: controller,
-//               focusNode: FocusNode(),
-//               readOnly: false,
-//               expands: false,
-//               padding: EdgeInsets.zero,
-//               scrollController: ScrollController(),
-//               scrollable: true,
-//               autoFocus: false,
+//     return BlocProvider(
+//       create: (context) => QuillEditorFocusCubit(),
+//       child: Builder(
+//         builder: (context) {
+//           final focusNode = FocusNode();
+//           final quillEditorFocusCubit = context.watch<QuillEditorFocusCubit>();
+//
+//           focusNode.addListener(() {
+//             quillEditorFocusCubit.setFocus(focusNode.hasFocus);
+//           });
+//
+//           return Container(
+//             alignment: Alignment.center,
+//             decoration: BoxDecoration(
+//               borderRadius: BorderRadius.circular(5.0),
+//               border: Border.all(color: Colors.white),
 //             ),
-//           ),
-//         ],
+//             child: Column(
+//               children: [
+//                 BlocBuilder<QuillEditorFocusCubit, QuillEditorFocusState>(
+//                   builder: (context, toolbarState) {
+//                     return toolbarState.isFocused ?
+//                     QuillToolbar.basic(
+//                       controller: controller,
+//                       axis: Axis.horizontal,
+//                       multiRowsDisplay: false,
+//                     ) : const Center();
+//                   },
+//                 ),
+//                 Container(
+//                   padding: const EdgeInsets.all(8.0),
+//                   child: QuillEditor(
+//                     controller: controller,
+//                     focusNode: FocusNode(),
+//                     readOnly: false,
+//                     expands: false,
+//                     padding: EdgeInsets.zero,
+//                     scrollController: ScrollController(),
+//                     scrollable: true,
+//                     autoFocus: false,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           );
+//         },
 //       ),
 //     );
 //   }
@@ -139,13 +158,13 @@ class CustomRichTextField extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: QuillEditor(
                     controller: controller,
-                    focusNode: focusNode,
-                    scrollController: ScrollController(),
-                    scrollable: true,
-                    autoFocus: false,
+                    focusNode: FocusNode(),
                     readOnly: false,
                     expands: false,
                     padding: EdgeInsets.zero,
+                    scrollController: ScrollController(),
+                    scrollable: true,
+                    autoFocus: false,
                   ),
                 ),
               ],

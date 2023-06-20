@@ -203,7 +203,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
 
                   const CustomFieldSpacer(),
 
-                  CustomButton(
+                  CustomMipokaButton(
                     onTap: () {
                       Navigator.pushNamed(
                           context, pemeriksaDaftarUsulanKegiatanPageRoute);

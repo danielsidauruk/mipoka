@@ -288,12 +288,12 @@ class _PemeriksaPengajuanLaporanKegiatan2PageState
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () => Navigator.pop(context),
                         text: 'Sebelumnya',
                       ),
                       const SizedBox(width: 8.0),
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () => Navigator.pushNamed(context,
                             pemeriksaPengajuanLaporanKegiatan3PageRoute),
                         text: 'Berikutnya',

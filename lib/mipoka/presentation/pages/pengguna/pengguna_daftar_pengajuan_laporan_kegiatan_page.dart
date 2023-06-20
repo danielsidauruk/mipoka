@@ -193,7 +193,7 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                     ),
                   ),
                   const CustomFieldSpacer(),
-                  CustomButton(
+                  CustomMipokaButton(
                     onTap: () => Navigator.pushNamed(
                       context,
                       penggunaPengajuanLaporanKegiatanPage1Route,

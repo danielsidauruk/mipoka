@@ -116,7 +116,7 @@ class _PenggunaPengajuanLaporanKegiatan2BiayaKegiatanState extends State<Penggun
 
                   const CustomFieldSpacer(),
 
-                  CustomButton(
+                  CustomMipokaButton(
                     onTap: () {
                       Navigator.pop(context);
                     },

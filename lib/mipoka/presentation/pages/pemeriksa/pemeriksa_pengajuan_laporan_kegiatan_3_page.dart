@@ -138,7 +138,7 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                       //
                       // const SizedBox(width: 4.0),
 
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () {
                           Navigator.pushNamed(
                               context, pemeriksaDaftarLaporanKegiatanPageRoute);
@@ -148,7 +148,7 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
 
                       const SizedBox(width: 4.0),
 
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () {
                           Navigator.pushNamed(
                               context, pemeriksaDaftarLaporanKegiatanPageRoute);

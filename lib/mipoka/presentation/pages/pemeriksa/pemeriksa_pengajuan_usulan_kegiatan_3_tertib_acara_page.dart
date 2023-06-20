@@ -122,7 +122,7 @@ class _PemeriksaPengajuanUsulanKegiatan3TertibAcaraPageState extends State<Pemer
 
                   const CustomFieldSpacer(),
 
-                  CustomButton(
+                  CustomMipokaButton(
                     onTap: () => Navigator.pop(context),
                     text: 'Kembali',
                   ),

@@ -139,7 +139,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState extends State
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () => Navigator.pop(context),
                         text: 'Kembali',
                       ),

@@ -90,7 +90,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKDataPesertaState extends State<Pengguna
 
                   const CustomFieldSpacer(),
 
-                  CustomButton(
+                  CustomMipokaButton(
                     onTap: () {
                       Navigator.pop(context);
                     },

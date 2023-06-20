@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomButton extends StatelessWidget {
+class CustomMipokaButton extends StatelessWidget {
   final VoidCallback onTap;
   final String text;
 
-  const CustomButton({
+  const CustomMipokaButton({
     required this.onTap,
     required this.text,
     Key? key,

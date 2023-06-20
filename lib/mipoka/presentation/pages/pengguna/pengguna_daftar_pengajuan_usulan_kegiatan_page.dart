@@ -425,7 +425,7 @@ class _PenggunaDaftarPengajuanKegiatanState extends State<PenggunaDaftarPengajua
                       ),
 
                       const CustomFieldSpacer(),
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () =>
                             Navigator.pushNamed(
                               context,

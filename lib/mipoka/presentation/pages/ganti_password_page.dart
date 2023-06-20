@@ -58,7 +58,7 @@ class _GantiPasswordPageState extends State<GantiPasswordPage> {
 
                   const CustomFieldSpacer(),
                   
-                  CustomButton(
+                  CustomMipokaButton(
                     onTap: () => Navigator.pop(context),
                     text: 'Ganti Password',
                   ),

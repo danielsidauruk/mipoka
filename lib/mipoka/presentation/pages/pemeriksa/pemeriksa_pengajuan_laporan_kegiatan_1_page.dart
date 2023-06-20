@@ -56,7 +56,7 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                     controller: _commentPencapaianController,
                   ),
                   const CustomFieldSpacer(),
-                  CustomButton(
+                  CustomMipokaButton(
                     onTap: () => Navigator.pushNamed(
                       context,
                       pemeriksaPengajuanLaporanKegiatan2PageRoute,

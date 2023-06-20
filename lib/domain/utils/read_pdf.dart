@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+// import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 // import '';
 //
 // // void showPDFViewer(BuildContext context, String pdfLink) {
@@ -29,21 +29,21 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 //   }
 // }
 
-class CustomPdfViewer extends StatelessWidget {
-  final String pdfUrl;
-
-  const CustomPdfViewer({super.key, required this.pdfUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('PDF Viewer'),
-      ),
-      body: SfPdfViewer.network(
-        pdfUrl,
-      ),
-    );
-  }
-}
+// class CustomPdfViewer extends StatelessWidget {
+//   final String pdfUrl;
+//
+//   const CustomPdfViewer({super.key, required this.pdfUrl});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('PDF Viewer'),
+//       ),
+//       body: SfPdfViewer.network(
+//         pdfUrl,
+//       ),
+//     );
+//   }
+// }
 

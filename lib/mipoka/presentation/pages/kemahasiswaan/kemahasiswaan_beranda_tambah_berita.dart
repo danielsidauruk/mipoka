@@ -77,7 +77,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () => Navigator.pop(context),
                         text: 'Kembali',
                       ),
@@ -93,7 +93,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                           }
                         },
                         builder: (context, state) {
-                          return CustomButton(
+                          return CustomMipokaButton(
                             onTap: () {
                               context.read<BeritaBloc>().add(
                                 CreateBeritaEvent(

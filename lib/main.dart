@@ -139,7 +139,7 @@ class MyApp extends StatelessWidget {
           ),
           brightness: Brightness.dark,
           primaryColor: Colors.black,
-          accentColor: Colors.white,
+          hintColor: Colors.white,
           backgroundColor: Colors.black,
           iconTheme: const IconThemeData(color: Colors.white),
           inputDecorationTheme: const InputDecorationTheme(

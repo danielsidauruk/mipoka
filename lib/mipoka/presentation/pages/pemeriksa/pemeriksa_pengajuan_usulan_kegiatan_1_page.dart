@@ -190,7 +190,7 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
 
                       const SizedBox(width: 8.0),
 
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () => Navigator.pushNamed(context,
                             pemeriksaPengajuanUsulanKegiatan2DKPageRoute),
                         text: 'Berikutnya (DK)',
@@ -198,7 +198,7 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
 
                       const SizedBox(width: 8.0),
 
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () => Navigator.pushNamed(context,
                             pemeriksaPengajuanUsulanKegiatan2LKPageRoute),
                         text: 'Berikutnya (LK)',

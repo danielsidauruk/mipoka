@@ -218,31 +218,29 @@ class _PenggunaPengajuanUsulanKegiatan3State
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () => Navigator.pop(context),
                         text: 'Sebelumnya',
                       ),
 
                       const SizedBox(width: 8.0),
 
-                      CustomButton(
+                      CustomMipokaButton(
                         // onTap: () => Navigator.pushNamed(context, penggunaDaftarPengajuanKegiatanPageRoute),
                         onTap: () {
-                          // fillDocxTemplate();
-                          // showPDFViewer(context, 'https://storage.googleapis.com/usulan_kegiatan_output/cheatsheet-gcp-A4.pdf');
-                          // PdfViewer.openAsset('assets/hello.pdf')
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const CustomPdfViewer(
-                                pdfUrl: 'https://storage.googleapis.com/usulan_kegiatan_output/cheatsheet-gcp-A4.pdf',
-                              ),
-                            ),
-                          );
-                          print('Button has been pressed');
-                          // print('getPlainText : ${_latarBelakangController.getPlainText()}');
-                          // print('document ${_latarBelakangController.document.toPlainText()}');
-                          // print('document ${_latarBelakangController.document.toDelta()}');
+                          fillDocxTemplate();
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => const CustomPdfViewer(
+                          //       pdfUrl: 'https://storage.googleapis.com/usulan_kegiatan_output/cheatsheet-gcp-A4.pdf',
+                          //     ),
+                          //   ),
+                          // );
+                          // print('Button has been pressed');
+                          // // print('getPlainText : ${_latarBelakangController.getPlainText()}');
+                          // // print('document ${_latarBelakangController.document.toPlainText()}');
+                          // // print('document ${_latarBelakangController.document.toDelta()}');
                         },
                         text: 'Kirim',
                       ),

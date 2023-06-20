@@ -55,7 +55,7 @@ class _PenggunaPengajuanLaporanKegiatan2ImportPesertaState extends State<Penggun
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () {
                           Navigator.pop(context);
                         },
@@ -64,7 +64,7 @@ class _PenggunaPengajuanLaporanKegiatan2ImportPesertaState extends State<Penggun
 
                       const SizedBox(width: 8.0),
 
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () {
                           Navigator.pop(context);
                         },

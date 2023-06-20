@@ -136,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
 
                                   decoration: BoxDecoration(
                                     border: Border(
-                                      bottom: BorderSide(color: Theme.of(context).accentColor),
+                                      bottom: BorderSide(color: Theme.of(context).hintColor),
                                     ),
                                   ),
                                   child: Row(
@@ -311,7 +311,7 @@ class _LoginPageState extends State<LoginPage> {
 
                         decoration: BoxDecoration(
                           border: Border(
-                            bottom: BorderSide(color: Theme.of(context).accentColor),
+                            bottom: BorderSide(color: Theme.of(context).hintColor),
                           ),
                         ),
                         child: Row(
@@ -342,7 +342,7 @@ class _LoginPageState extends State<LoginPage> {
 
                         decoration: BoxDecoration(
                           border: Border(
-                            bottom: BorderSide(color: Theme.of(context).accentColor),
+                            bottom: BorderSide(color: Theme.of(context).hintColor),
                           ),
                         ),
                         child: Row(
@@ -373,7 +373,7 @@ class _LoginPageState extends State<LoginPage> {
 
                         decoration: BoxDecoration(
                           border: Border(
-                            bottom: BorderSide(color: Theme.of(context).accentColor),
+                            bottom: BorderSide(color: Theme.of(context).hintColor),
                           ),
                         ),
                         child: Row(

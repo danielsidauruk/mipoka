@@ -13,7 +13,6 @@ dependencies:
     sdk: flutter
 
   intl: ^0.17.0
-  flutter_quill: ^7.1.14
   syncfusion_flutter_signaturepad: ^21.2.3
   file_picker: ^5.2.11
   flutter_bloc: ^8.1.2
@@ -26,8 +25,9 @@ dependencies:
   uuid: ^3.0.4
   datetime_picker_formfield: ^2.0.1
   docx_template: ^0.3.4
-  syncfusion_flutter_pdfviewer: ^21.2.3
+#  syncfusion_flutter_pdfviewer: ^21.2.3
   pdf_render: ^1.4.0
+  flutter_quill: ^7.2.8
 
 dev_dependencies:
   flutter_test:
@@ -82,3 +82,4 @@ flutter:
     - assets/json_file/usulan_kegiatan.json
 
     - assets/docx_template/usulan_template.docx
+    - assets/docx_template/template.docx

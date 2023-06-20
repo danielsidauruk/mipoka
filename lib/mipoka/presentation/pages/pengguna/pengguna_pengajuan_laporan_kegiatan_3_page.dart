@@ -114,14 +114,14 @@ class _PenggunaPengajuanLaporanKegiatan3State
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () {
                           Navigator.pop(context);
                         },
                         text: 'Sebelumnya',
                       ),
                       const SizedBox(width: 8.0),
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () {
                           Navigator.pushNamed(
                               context, penggunaDaftarLaporanKegiatanPageRoute);

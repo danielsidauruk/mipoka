@@ -294,14 +294,14 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () => Navigator.pop(context),
                         text: 'Batal',
                       ),
 
                       const SizedBox(width: 8.0),
 
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () {
                           tempatKegiatan == false
                               ? Navigator.pushNamed(context,

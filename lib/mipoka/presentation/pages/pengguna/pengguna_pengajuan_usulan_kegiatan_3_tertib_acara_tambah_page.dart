@@ -72,7 +72,7 @@ class _PenggunaPengajuanUsulanKegiatan3TertibAcaraTambahState extends State<Peng
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () {
                           Navigator.pop(context);
                         },
@@ -81,7 +81,7 @@ class _PenggunaPengajuanUsulanKegiatan3TertibAcaraTambahState extends State<Peng
 
                       const SizedBox(width: 8.0),
 
-                      CustomButton(
+                      CustomMipokaButton(
                         onTap: () {
                           Navigator.pop(context);
                         },
