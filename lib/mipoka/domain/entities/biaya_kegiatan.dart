@@ -1,43 +1,76 @@
 import 'package:equatable/equatable.dart';
-import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
 
-class BiayaKegiatan extends Equatable {
-  final String namaBiayaKegiatan;
-  final int qty;
-  final int hargaSatuan;
-  final int total;
+class BiayaKegiatan extends Equatable{
+  final int idBiayaKegiatan;
+  final String idLaporan;
+  final String namaBiaya;
   final String keterangan;
+  final int kuantitas;
+  final int hargaSatuan;
+  final int usulanAnggaran;
+  final int realisasiAnggaran;
+  final int selisih;
+  final int totalUsulan;
+  final int totalRealisasi;
+  final int totalSelisih;
 
   const BiayaKegiatan({
-    required this.namaBiayaKegiatan,
-    required this.qty,
-    required this.hargaSatuan,
-    required this.total,
+    required this.idBiayaKegiatan,
+    required this.idLaporan,
+    required this.namaBiaya,
     required this.keterangan,
+    required this.kuantitas,
+    required this.hargaSatuan,
+    required this.usulanAnggaran,
+    required this.realisasiAnggaran,
+    required this.selisih,
+    required this.totalUsulan,
+    required this.totalRealisasi,
+    required this.totalSelisih,
   });
 
-  BiayaKegiatan updateWith({
-    String? namaBiayaKegiatan,
-    int? qty,
-    int? hargaSatuan,
-    int? total,
+  BiayaKegiatan copyWith({
+    int? idBiayaKegiatan,
+    String? idLaporan,
+    String? namaBiaya,
     String? keterangan,
-  }) {
-    return BiayaKegiatan(
-      namaBiayaKegiatan: namaBiayaKegiatan ?? this.namaBiayaKegiatan,
-      qty: qty ?? this.qty,
-      hargaSatuan: hargaSatuan ?? this.hargaSatuan,
-      total: total ?? this.total,
-      keterangan: keterangan ?? this.keterangan,
-    );
-  }
+    int? kuantitas,
+    int? hargaSatuan,
+    int? usulanAnggaran,
+    int? realisasiAnggaran,
+    int? selisih,
+    int? totalUsulan,
+    int? totalRealisasi,
+    int? totalSelisih,
+  }) =>
+      BiayaKegiatan(
+        idBiayaKegiatan: idBiayaKegiatan ?? this.idBiayaKegiatan,
+        idLaporan: idLaporan ?? this.idLaporan,
+        namaBiaya: namaBiaya ?? this.namaBiaya,
+        keterangan: keterangan ?? this.keterangan,
+        kuantitas: kuantitas ?? this.kuantitas,
+        hargaSatuan: hargaSatuan ?? this.hargaSatuan,
+        usulanAnggaran: usulanAnggaran ?? this.usulanAnggaran,
+        realisasiAnggaran: realisasiAnggaran ?? this.realisasiAnggaran,
+        selisih: selisih ?? this.selisih,
+        totalUsulan: totalUsulan ?? this.totalUsulan,
+        totalRealisasi: totalRealisasi ?? this.totalRealisasi,
+        totalSelisih: totalSelisih ?? this.totalSelisih,
+      );
 
   @override
   List<Object?> get props => [
-    namaBiayaKegiatan,
-    qty,
-    hargaSatuan,
-    total,
+    idBiayaKegiatan,
+    idLaporan,
+    namaBiaya,
     keterangan,
+    kuantitas,
+    hargaSatuan,
+    usulanAnggaran,
+    realisasiAnggaran,
+    selisih,
+    totalUsulan,
+    totalRealisasi,
+    totalSelisih,
   ];
 }

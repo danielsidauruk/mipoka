@@ -23,7 +23,6 @@ import 'package:mipoka/mipoka/data/models/session_model.dart';
 import 'package:mipoka/mipoka/data/models/tertib_acara_model.dart';
 import 'package:mipoka/mipoka/data/models/user_model.dart';
 import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
-import 'package:mipoka/mipoka/domain/entities/lampiran.dart';
 
 abstract class MipokaDataSources {
   Future<List<BeritaModel>> readBerita();

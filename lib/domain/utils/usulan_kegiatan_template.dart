@@ -38,9 +38,16 @@ import 'package:http/http.dart' as http;
 //
 // }
 
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+
 void fillDocxTemplate() async {
-  final f = File("assets/docx_template/template.docx");
-  final docx = await DocxTemplate.fromBytes(await f.readAsBytes());
+  // final f = File("assets/docx_template/template.docx");
+  final data = await rootBundle.load('assets/docx_template/template.docx');
+  final bytes = data.buffer.asUint8List();
+
+  final docx = await DocxTemplate.fromBytes(bytes);
+  // final docx = await DocxTemplate.fromBytes(await f.readAsBytes());
 
   /*
     Or in the case of Flutter, you can use rootBundle.load, then get bytes
@@ -52,7 +59,7 @@ void fillDocxTemplate() async {
   */
 
   // Load test image for inserting in docx
-  final testFileContent = await File('assets/docx_template/test.jpg').readAsBytes();
+  // final testFileContent = await File('assets/docx_template/test.jpg').readAsBytes();
 
   final listNormal = ['Foo', 'Bar', 'Baz'];
   final listBold = ['ooFPlop', 'raB', 'zaB'];
@@ -77,8 +84,8 @@ void fillDocxTemplate() async {
       RowContent()
         ..add(TextContent("key1", "Paul"))
         ..add(TextContent("key2", "Viberg"))
-        ..add(TextContent("key3", "Engineer"))
-        ..add(ImageContent('img', testFileContent)),
+        ..add(TextContent("key3", "Engineer")),
+      // ..add(ImageContent('img', testFileContent)),
       RowContent()
         ..add(TextContent("key1", "Alex"))
         ..add(TextContent("key2", "Houser"))
@@ -87,7 +94,7 @@ void fillDocxTemplate() async {
           TextContent("value", "Mercedes-Benz C-Class S205"),
           TextContent("value", "Lexus LX 570")
         ]))
-        ..add(ImageContent('img', testFileContent))
+      // ..add(ImageContent('img', testFileContent))
     ]))
     ..add(ListContent("list", [
       TextContent("value", "Engine")
@@ -137,18 +144,25 @@ void fillDocxTemplate() async {
       PlainContent("multilinePlain")
         ..add(TextContent('multilineText', 'line 3'))
     ]))
-    ..add(TextContent('multilineText2', 'line 1\nline 2\n line 3'))
-    ..add(ImageContent('img', testFileContent));
+    ..add(TextContent('multilineText2', 'line 1\nline 2\n line 3'));
+  // ..add(ImageContent('img', testFileContent));
 
   final docGenerated = await docx.generate(content);
-  final fileGenerated = File('generated.docx');
-  if (docGenerated != null) await fileGenerated.writeAsBytes(docGenerated);
 
-  const storageUrl = 'https://storage.googleapis.com/usulan_kegiatan_output/usulan_kegiatan_output.docx';
-  final uploadResponse = await http.put(Uri.parse(storageUrl), body: await fileGenerated.readAsBytes());
-  if (uploadResponse.statusCode == 200) {
-    print('File uploaded successfully');
+  if (docGenerated != null) {
+    final tempDir = await getTemporaryDirectory();
+    final fileGenerated = File('${tempDir.path}/generated.docx');
+    await fileGenerated.writeAsBytes(docGenerated);
+
+    const storageUrl = 'https://storage.googleapis.com/usulan_kegiatan_output/usulan_kegiatan_output.docx';
+    final uploadResponse = await http.put(Uri.parse(storageUrl), body: await fileGenerated.readAsBytes());
+    if (uploadResponse.statusCode == 200) {
+      print('File uploaded successfully');
+    } else {
+      print('File upload failed');
+    }
   } else {
-    print('File upload failed');
+    print ('File failed to upload');
   }
 }
+
