@@ -5,6 +5,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/delete_file.dart';
+import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -391,12 +392,9 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
 
   @override
   void initState() {
-    final usulanKegiatanBloc = context.read<UsulanKegiatanBloc>();
-    _namaOrmawaController = "Ormawa B";
-    _tanggalKepulanganController.text = "13-01-2001";
-    _bentukKegiatanSwitchController = true;
-    _tempatKegiatanSwitchController = true;
-    _signaturePadController = true;
+    BlocProvider.of<UsulanKegiatanBloc>(context, listen: false)
+        .add(ReadUsulanKegiatanEvent());
+
     _customUrlController = 'https://storage.googleapis.com/mipoka_bucket/signature.png';
     super.initState();
   }
@@ -417,6 +415,29 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
             return const Text('Loading');
           } else if (state is UsulanKegiatanHasData) {
 
+            _namaKegiatanController.text = state.usulanKegiatanList[0].namaKegiatan;
+            _deskripsiKegiatanController.text = state.usulanKegiatanList[0].deskripsiKegiatan;
+            _tempatKegiatanController.text = state.usulanKegiatanList[0].tempatKegiatan;
+            _jumlahParsitipanController.text = state.usulanKegiatanList[0].jumlahPartisipan.toString();
+            _targetKegiatanController.text = state.usulanKegiatanList[0].targetKegiatan;
+            _totalPendanaanController.text = state.usulanKegiatanList[0].totalPendana.toString();
+
+            // _keteranganController.text = state.usulanKegiatanList[0]
+            // _waktuMulaiController
+            // _waktuSelesaiController
+            // _tanggalMulaiController
+            // _tanggalSelesaiController
+            // _tanggalKeberangkatanController
+            // _tanggalKepulanganController
+
+            // _namaOrmawaController
+            // _pembiayaanController
+            // _bentukKegiatanController
+            // _bentukKegiatanSwitchController
+            // _tempatKegiatanSwitchController
+            // _jumlahParsitipanSwitchController
+            // _signaturePadController
+            // _customUrlController
 
             return SingleChildScrollView(
               child: Padding(
@@ -582,44 +603,44 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                         const CustomFieldSpacer(),
                         buildTitle('Tanda Tangan Ormawa'),
 
-                        Container(
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.all(8.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            border: Border.all(color: Colors.white),
-                          ),
-                          child: _signaturePadController
-                              ? Column(
-                            children: [
-                              Image.network(_customUrlController!),
-                              const SizedBox(height: 4.0),
-                              InkWell(
-                                onTap: () {
-                                  deleteFile(_customUrlController!);
-                                  setState(() {
-                                    _signaturePadController = false;
-                                  });
-                                },
-                                child: const Text(
-                                  'Delete',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                              : CustomSignaturePad(
-                            customUrl: _customUrlController!,
-                            onPressed: (value) {
-                              setState(() {
-                                _signaturePadController = value;
-                              });
-                            },
-                          ),
-                        ),
+                        // Container(
+                        //   alignment: Alignment.center,
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(5.0),
+                        //     border: Border.all(color: Colors.white),
+                        //   ),
+                        //   child: _signaturePadController
+                        //       ? Column(
+                        //     children: [
+                        //       Image.network(_customUrlController!),
+                        //       const SizedBox(height: 4.0),
+                        //       InkWell(
+                        //         onTap: () {
+                        //           deleteFile(_customUrlController!);
+                        //           setState(() {
+                        //             _signaturePadController = false;
+                        //           });
+                        //         },
+                        //         child: const Text(
+                        //           'Delete',
+                        //           style: TextStyle(
+                        //             color: Colors.white,
+                        //             fontSize: 16,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   )
+                        //       : CustomSignaturePad(
+                        //     customUrl: _customUrlController!,
+                        //     onPressed: (value) {
+                        //       setState(() {
+                        //         _signaturePadController = value;
+                        //       });
+                        //     },
+                        //   ),
+                        // ),
 
                         const CustomFieldSpacer(),
 
@@ -643,6 +664,15 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                                     penggunaPengajuanUsulanKegiatan2DKPageRoute)
                                     : Navigator.pushNamed(context,
                                     penggunaPengajuanUsulanKegiatan2LKPageRoute);
+
+                                context.read<UsulanKegiatanBloc>().add(
+                                  UpdateUsulanKegiatanEvent(
+                                    usulanKegiatan: state.usulanKegiatanList[0].copyWith(
+                                      namaKegiatan: _namaKegiatanController.text,
+                                    ),
+                                  ),
+                                );
+
                               },
                               text: 'Berikutnya',
                             ),

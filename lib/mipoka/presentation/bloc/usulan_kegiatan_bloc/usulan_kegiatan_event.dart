@@ -14,8 +14,6 @@ class CreateUsulanKegiatanEvent extends UsulanKegiatanEvent {
 
   const CreateUsulanKegiatanEvent({required this.usulanKegiatan});
 
-  @override
-  List<Object> get props => [usulanKegiatan];
 }
 
 class UpdateUsulanKegiatanEvent extends UsulanKegiatanEvent {
