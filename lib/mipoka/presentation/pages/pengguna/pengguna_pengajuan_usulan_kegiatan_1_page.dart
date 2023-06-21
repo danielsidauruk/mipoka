@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/delete_file.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_signature_pad.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_switch_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_date_picker_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
@@ -26,26 +26,17 @@ class PenggunaPengajuanUsulanKegiatan1 extends StatefulWidget {
 }
 
 class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsulanKegiatan1> {
-  bool tempatKegiatan = false;
-
   final TextEditingController _namaKegiatanController = TextEditingController();
-  final TextEditingController _deskripsiKegiatanController =
-      TextEditingController();
+  final TextEditingController _deskripsiKegiatanController = TextEditingController();
   final TextEditingController _tempatKegiatanController = TextEditingController();
-  final TextEditingController _jumlahParsitipanController =
-      TextEditingController();
-  final TextEditingController _targetKegiatanController =
-      TextEditingController();
-  final TextEditingController _totalPendanaanController =
-      TextEditingController();
+  final TextEditingController _jumlahParsitipanController = TextEditingController();
+  final TextEditingController _targetKegiatanController = TextEditingController();
+  final TextEditingController _totalPendanaanController = TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
-
   final TextEditingController _waktuMulaiController = TextEditingController();
   final TextEditingController _waktuSelesaiController = TextEditingController();
-
   final TextEditingController _tanggalMulaiController = TextEditingController();
   final TextEditingController _tanggalSelesaiController = TextEditingController();
-
   final TextEditingController _tanggalKeberangkatanController = TextEditingController();
   final TextEditingController _tanggalKepulanganController = TextEditingController();
 
@@ -55,7 +46,8 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
   bool? _bentukKegiatanSwitchController;
   bool? _tempatKegiatanSwitchController;
   bool? _jumlahParsitipanSwitchController;
-  bool? _signaturePadController;
+  late bool _signaturePadController;
+  String? _customUrlController;
 
   @override
   void initState() {
@@ -64,12 +56,15 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
     _bentukKegiatanSwitchController = true;
     _tempatKegiatanSwitchController = true;
     _signaturePadController = true;
+    _customUrlController = 'https://storage.googleapis.com/mipoka_bucket/signature.png';
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print('Page reloaded');
+    if (kDebugMode) {
+      print('Page reloaded');
+    }
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomPenggunaDrawerWidget(),
@@ -119,27 +114,6 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
 
                   buildTitle('Nama Kegiatan'),
                   CustomTextField(controller: _namaKegiatanController),
-                  
-                  // CustomTextField2(
-                  //   onSubmitted: (value) => print('Value: $value'),
-                  // ),
-
-                  // Row(
-                  //   children: [
-                  //     buildTitle('Bentuk Kegiatan'),
-                  //     const SizedBox(width: 4.0),
-                  //     Switch(
-                  //       value: bentukKegiatanValue,
-                  //       onChanged: (bool newValue) {
-                  //         setState(() => bentukKegiatanValue = newValue);
-                  //       },
-                  //     ),
-                  //     const SizedBox(width: 4.0),
-                  //     bentukKegiatanValue == false
-                  //         ? buildTitle('Daring')
-                  //         : buildTitle('Luring'),
-                  //   ],
-                  // ),
 
                   MipokaCustomSwitchButton(
                     title: 'Bentuk Kegiatan A',
@@ -158,7 +132,9 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                     items: listBentukKegiatan,
                     controller: _bentukKegiatanController,
                     onValueChanged: (value) {
-                      print('Input "$value" to State Management BLoC');
+                      if (kDebugMode) {
+                        print('Input "$value" to State Management BLoC');
+                      }
                       _bentukKegiatanController = value;
                     },
                   ),
@@ -256,10 +232,51 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                   const CustomFieldSpacer(),
                   buildTitle('Tanda Tangan Ormawa'),
 
-                  // Get signature png from database (if exist)
-                  // https://storage.googleapis.com/mipoka_bucket/signature.png
+                  // => Get signature png from database (if exist)
+                  // => https://storage.googleapis.com/mipoka_bucket/signature.png
+                  // _signaturePadController == true ?
+                  // Container(
+                  //   alignment: Alignment.center,
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(5.0),
+                  //     border: Border.all(color: Colors.white),
+                  //   ),
+                  //   child: Column(
+                  //     children: [
+                  //       Image.network('https://storage.googleapis.com/mipoka_bucket/signaturea.png'),
+                  //
+                  //       const SizedBox(height: 4.0,),
+                  //
+                  //       InkWell(
+                  //         onTap: () {
+                  //           setState(() {
+                  //             // Delete the image from Cloud Bucket
+                  //             deleteFile('https://storage.googleapis.com/mipoka_bucket/signaturea.png');
+                  //             _signaturePadController = false;
+                  //           });
+                  //         },
+                  //         child: const Text(
+                  //           'Clear',
+                  //           style: TextStyle(
+                  //             color: Colors.white,
+                  //             fontSize: 16,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ) :
+                  // CustomSignaturePad(
+                  //   // link based on user's nim and Datetime now
+                  //   customUrl: 'https://storage.googleapis.com/mipoka_bucket/signaturea.png',
+                  //   onPressed: (value){
+                  //     setState(() {
+                  //       // _signaturePadController = value;
+                  //     });
+                  //   },
+                  // ),
 
-                  _signaturePadController == true ?
                   Container(
                     alignment: Alignment.center,
                     padding: const EdgeInsets.all(8.0),
@@ -267,21 +284,20 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                       borderRadius: BorderRadius.circular(5.0),
                       border: Border.all(color: Colors.white),
                     ),
-                    child: Column(
+                    child: _signaturePadController
+                        ? Column(
                       children: [
-                        Image.network('https://storage.googleapis.com/mipoka_bucket/signature.png'),
-
-                        SizedBox(height: 4.0,),
-
+                        Image.network(_customUrlController!),
+                        const SizedBox(height: 4.0),
                         InkWell(
                           onTap: () {
+                            deleteFile(_customUrlController!);
                             setState(() {
-                              // Delete the image from Bucket
                               _signaturePadController = false;
                             });
                           },
                           child: const Text(
-                            'Clear',
+                            'Delete',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -289,12 +305,15 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                           ),
                         ),
                       ],
+                    )
+                        : CustomSignaturePad(
+                      customUrl: _customUrlController!,
+                      onPressed: (value) {
+                        setState(() {
+                          _signaturePadController = value;
+                        });
+                      },
                     ),
-                  ) :
-                  CustomSignaturePad(
-                    // link based on user's nim and Datetime now
-                    customUrl: 'https://storage.googleapis.com/mipoka_bucket/signature.png',
-                    controller: _signaturePadController ?? false,
                   ),
 
                   const CustomFieldSpacer(),
@@ -311,7 +330,9 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
 
                       CustomMipokaButton(
                         onTap: () {
-                          print(_bentukKegiatanSwitchController);
+                          if (kDebugMode) {
+                            print(_bentukKegiatanSwitchController);
+                          }
                           _tempatKegiatanSwitchController == false
                               ? Navigator.pushNamed(context,
                               penggunaPengajuanUsulanKegiatan2DKPageRoute)
@@ -329,29 +350,7 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
         ),
       ),
     );
-
   }
-
-  // void _handleSaveButtonPressed() async {
-  //   final data =
-  //   await signatureGlobalKey.currentState!.toImage(pixelRatio: 3.0);
-  //   final bytes = await data.toByteData(format: ui.ImageByteFormat.png);
-  //   await Navigator.of(context).push(
-  //     MaterialPageRoute(
-  //       builder: (BuildContext context) {
-  //         return Scaffold(
-  //           appBar: AppBar(),
-  //           body: Center(
-  //             child: Container(
-  //               color: Colors.grey[300],
-  //               child: Image.memory(bytes!.buffer.asUint8List()),
-  //             ),
-  //           ),
-  //         );
-  //       },
-  //     ),
-  //   );
-  // }
 }
 
 
