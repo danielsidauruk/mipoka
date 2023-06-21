@@ -1,22 +1,29 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:ui' as ui;
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/domain/utils/upload_file.dart';
 import 'package:mipoka/mipoka/presentation/bloc/cubit/signature_cubit.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:http/http.dart' as http;
-import 'package:googleapis_auth/auth_io.dart' as auth;
-import 'package:googleapis/storage/v1.dart' as storage;
 
-class CustomSignaturePad extends StatelessWidget {
-  final GlobalKey<SfSignaturePadState> signatureGlobalKey =
-  GlobalKey<SfSignaturePadState>();
+class CustomSignaturePad extends StatefulWidget {
+  final String customUrl;
+  final bool controller;
 
-  CustomSignaturePad({super.key});
+  const CustomSignaturePad({
+    super.key,
+    required this.customUrl,
+    required this.controller,
+  });
+
+  @override
+  State<CustomSignaturePad> createState() => _CustomSignaturePadState();
+}
+
+class _CustomSignaturePadState extends State<CustomSignaturePad> {
+  final GlobalKey<SfSignaturePadState> signatureGlobalKey = GlobalKey<SfSignaturePadState>();
 
   Future<File> saveSignature() async {
     final image = await signatureGlobalKey.currentState?.toImage(pixelRatio: 3.0);
@@ -78,8 +85,16 @@ class CustomSignaturePad extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () async {
+                              controller = false;
                               File signatureFile = await saveSignature();
-                              uploadFile(signatureFile);
+                              uploadFile(
+                                file: signatureFile,
+                                customUrl: widget.customUrl,
+                              );
+
+                              setState(() {
+                                controller = false;
+                              });
                             },
                             child: const Text(
                               'Save',
@@ -115,50 +130,3 @@ class CustomSignaturePad extends StatelessWidget {
     );
   }
 }
-
-Future<void> uploadFile(File file) async {
-  String storageUrl = 'https://storage.googleapis.com/mipoka_bucket/signature.png';
-  final uploadResponse = await http.put(Uri.parse(storageUrl), body: await file.readAsBytes());
-  if (uploadResponse.statusCode == 200) {
-    print('File uploaded successfully');
-  } else {
-    print('File upload failed');
-  }
-}
-
-
-// Future<void> uploadFile(File file) async {
-//   const storageUrl = 'https://storage.googleapis.com/usulan_kegiatan_output/folder_baru/signature.png';
-//   final authenticatedClient = http.Client();
-//
-//   final userConsentClient = await auth.clientViaUserConsent(
-//     auth.ClientId("", null),
-//     ['https://www.googleapis.com/auth/devstorage.read_write'],
-//     prompt,
-//   );
-//
-//   final credentials = await auth.clientViaServiceAccount(
-//     auth.ServiceAccountCredentials.fromJson(json.decode(File('assets/service_account_key/mipoka-service-account.json').readAsStringSync())),
-//     ['https://www.googleapis.com/auth/devstorage.read_write'],
-//   );
-//
-//   final authClient = auth.authenticatedClient(authenticatedClient, userConsentClient.credentials);
-//
-//   final response = await authClient.put(Uri.parse(storageUrl), body: await file.readAsBytes());
-//   if (response.statusCode == 200) {
-//     print('File uploaded successfully');
-//   } else {
-//     print('File upload failed');
-//   }
-//
-//   authenticatedClient.close();
-// }
-//
-// Future<String?> prompt(String url) async {
-//   print('Please go to the following URL and grant access:');
-//   print('  => $url');
-//   print('');
-//   stdout.write('Enter the authorization code: ');
-//   final input = stdin.readLineSync()?.trim();
-//   return input;
-// }
