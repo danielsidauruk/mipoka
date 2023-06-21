@@ -145,7 +145,7 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                         Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            '${laporan.idUser}',
+                                            laporan.user.namaLengkap,
                                           ),
                                         ),
                                       ),
