@@ -5,6 +5,9 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/delete_file.dart';
+import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
+import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
+import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -665,13 +668,100 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                                     : Navigator.pushNamed(context,
                                     penggunaPengajuanUsulanKegiatan2LKPageRoute);
 
-                                context.read<UsulanKegiatanBloc>().add(
-                                  UpdateUsulanKegiatanEvent(
-                                    usulanKegiatan: state.usulanKegiatanList[0].copyWith(
-                                      namaKegiatan: _namaKegiatanController.text,
-                                    ),
-                                  ),
-                                );
+                                // context.read<UsulanKegiatanBloc>().add(
+                                //   CreateUsulanKegiatanEvent(
+                                //     usulanKegiatan: UsulanKegiatan(
+                                //       namaKegiatan: _namaKegiatanController.text,
+                                //     ),
+                                //   ),
+                                // );
+                                  // UpdateUsulanKegiatanEvent(
+                                  //   usulanKegiatan: state.usulanKegiatanList[0].copyWith(
+                                  //     namaKegiatan: _namaKegiatanController.text,
+                                  //   ),
+                                  // ),
+
+                                  // CreateUsulanKegiatanEvent(
+                                  //   usulanKegiatan: state.usulanKegiatanList[0].copyWith(
+                                  //     namaKegiatan: _namaKegiatanController.text,
+                                  //   ),
+                                  // ),
+
+                                //   CreateUsulanKegiatanEvent(
+                                //     usulanKegiatan: UsulanKegiatan(
+                                //         idUsulan: idUsulan,
+                                //         user: user,
+                                //         ormawa: Ormawa(
+                                //           idOrmawa: idOrmawa,
+                                //           namaOrmawa: namaOrmawa,
+                                //           pembina: pembina,
+                                //           ketua: ketua,
+                                //           wakil: wakil,
+                                //           bendahara: bendahara,
+                                //           jumlahAnggota: jumlahAnggota,
+                                //           fotoPembina: fotoPembina,
+                                //           fotoKetua: fotoKetua,
+                                //           fotoWakil: fotoWakil,
+                                //           fotoBendahara: fotoBendahara,
+                                //         ),
+                                //       pembiayaan: pembiayaan,
+                                //       namaKegiatan: namaKegiatan,
+                                //       bentukKegiatan: bentukKegiatan,
+                                //       deskripsiKegiatan: deskripsiKegiatan,
+                                //       tanggalMulaiKegiatan: tanggalMulaiKegiatan,
+                                //       tanggalSelesaiKegiatan: tanggalSelesaiKegiatan,
+                                //       waktuMulaiKegiatan: waktuMulaiKegiatan,
+                                //       waktuSelesaiKegiatan: waktuSelesaiKegiatan,
+                                //       tempatKegiatan: tempatKegiatan,
+                                //       tanggalKeberangkatan: tanggalKeberangkatan,
+                                //       tanggalKepulangan: tanggalKepulangan,
+                                //       jumlahPartisipan: jumlahPartisipan,
+                                //       targetKegiatan: targetKegiatan,
+                                //       totalPendana: totalPendana,
+                                //       tandaTanganOrmawa: tandaTanganOrmawa,
+                                //       partisipan: Partisipan(
+                                //         idPartisipan: idPartisipan,
+                                //         nim: nim,
+                                //         namaLengkap: namaLengkap,
+                                //         nik: nik,
+                                //         tempatLahir: tempatLahir,
+                                //         tglLahir: tglLahir,
+                                //         peran: peran,
+                                //         dasarKirim: dasarKirim,
+                                //       ),
+                                //       rincianBiayaKegiatan: RincianBiayaKegiatan(
+                                //         idRincianBiayaKegiatan: idRincianBiayaKegiatan,
+                                //         namaBiayaKegiatan: namaBiayaKegiatan,
+                                //         kuantiti: kuantiti,
+                                //         hargaSatuan: hargaSatuan,
+                                //         total: total,
+                                //         keterangan: keterangan,
+                                //       ),
+                                //       ketuaOrmawa: ketuaOrmawa,
+                                //       pembina: pembina,
+                                //       latarBelakang: latarBelakang,
+                                //       tujuanKegiatan: tujuanKegiatan,
+                                //       manfaatKegiatan: manfaatKegiatan,
+                                //       bentukPelaksanaanKegiatan: bentukPelaksanaanKegiatan,
+                                //       targetPencapaianKegiatan: targetPencapaianKegiatan,
+                                //       waktuDanTempatPelaksanaan: waktuDanTempatPelaksanaan,
+                                //       rencanaAnggaranKegiatan: rencanaAnggaranKegiatan,
+                                //       tertibAcara: tertibAcara,
+                                //       perlengkapan: perlengkapan,
+                                //       penutup: penutup,
+                                //       postinganKegiatan: postinganKegiatan,
+                                //       dokumentasiKegiatan: dokumentasiKegiatan,
+                                //       tabulasiHasil: tabulasiHasil,
+                                //       fakturPembayaran: fakturPembayaran,
+                                //       status: status,
+                                //       validasiPembina: validasiPembina,
+                                //       roles: roles,
+                                //       file: file,
+                                //       updatedAt: updatedAt,
+                                //       createdAt: createdAt,
+                                //     ),
+                                  // ),
+                                // );
 
                               },
                               text: 'Berikutnya',
