@@ -1,19 +1,14 @@
 import 'package:mipoka/mipoka/domain/entities/periode.dart';
 
+// => Just updated
 class PeriodeModel extends Periode {
   const PeriodeModel({
-    required int idPeriode,
-    required String tahun,
-    required String ulang,
-    required DateTime mulai,
-    required DateTime akhir,
-  }) : super(
-    idPeriode: idPeriode,
-    tahun: tahun,
-    ulang: ulang,
-    mulai: mulai,
-    akhir: akhir,
-  );
+    required super.idPeriode,
+    required super.tahun,
+    required super.ulang,
+    required super.mulai,
+    required super.akhir,
+  });
 
   factory PeriodeModel.fromEntity(Periode periode) {
     return PeriodeModel(

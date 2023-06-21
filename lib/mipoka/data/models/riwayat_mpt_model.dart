@@ -1,39 +1,35 @@
+import 'package:mipoka/mipoka/data/models/kegiatan_model.dart';
+import 'package:mipoka/mipoka/data/models/user_model.dart';
 import 'package:mipoka/mipoka/domain/entities/riwayat_mpt.dart';
 
+// => Just Updated
 class RiwayatMptModel extends RiwayatMpt {
+  final KegiatanModel kegiatanModel;
+  final UserModel userModel;
+
   const RiwayatMptModel({
-    required int idRiwayatMpt,
-    required int idKegiatan,
-    required int idUser,
-    required String status,
-    required String file,
-    required String hash,
-    required String keteranganA,
-    required String keteranganB,
-    required DateTime mulai,
-    required DateTime akhir,
-    required DateTime updatedAt,
-    required DateTime createdAt,
+    required super.idRiwayatMpt,
+    required this.kegiatanModel,
+    required this.userModel,
+    required super.status,
+    required super.file,
+    required super.hash,
+    required super.keteranganA,
+    required super.keteranganB,
+    required super.mulai,
+    required super.akhir,
+    required super.updatedAt,
+    required super.createdAt,
   }) : super(
-    idRiwayatMpt: idRiwayatMpt,
-    idKegiatan: idKegiatan,
-    idUser: idUser,
-    status: status,
-    file: file,
-    hash: hash,
-    keteranganA: keteranganA,
-    keteranganB: keteranganB,
-    mulai: mulai,
-    akhir: akhir,
-    updatedAt: updatedAt,
-    createdAt: createdAt,
+    kegiatan: kegiatanModel,
+    user: userModel,
   );
 
   factory RiwayatMptModel.fromEntity(RiwayatMpt riwayatMpt) {
     return RiwayatMptModel(
       idRiwayatMpt: riwayatMpt.idRiwayatMpt,
-      idKegiatan: riwayatMpt.idKegiatan,
-      idUser: riwayatMpt.idUser,
+      kegiatanModel: KegiatanModel.fromEntity(riwayatMpt.kegiatan),
+      userModel: UserModel.fromEntity(riwayatMpt.user),
       status: riwayatMpt.status,
       file: riwayatMpt.file,
       hash: riwayatMpt.hash,
@@ -49,34 +45,34 @@ class RiwayatMptModel extends RiwayatMpt {
   factory RiwayatMptModel.fromJson(Map<String, dynamic> json) {
     return RiwayatMptModel(
       idRiwayatMpt: json['idRiwayatMpt'],
-      idKegiatan: json['idKegiatan'],
-      idUser: json['idUser'],
+      kegiatanModel: KegiatanModel.fromJson(json['kegiatan']),
+      userModel: UserModel.fromJson(json['user']),
       status: json['status'],
       file: json['file'],
       hash: json['hash'],
       keteranganA: json['keteranganA'],
       keteranganB: json['keteranganB'],
-      mulai: DateTime.parse(json['mulai']),
-      akhir: DateTime.parse(json['akhir']),
-      updatedAt: DateTime.parse(json['updatedAt']),
-      createdAt: DateTime.parse(json['createdAt']),
+      mulai: json['mulai'],
+      akhir: json['akhir'],
+      updatedAt: json['updatedAt'],
+      createdAt: json['createdAt'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'idRiwayatMpt': idRiwayatMpt,
-      'idKegiatan': idKegiatan,
-      'idUser': idUser,
+      'kegiatan': kegiatanModel.toJson(),
+      'user': userModel.toJson(),
       'status': status,
       'file': file,
       'hash': hash,
       'keteranganA': keteranganA,
       'keteranganB': keteranganB,
-      'mulai': mulai.toIso8601String(),
-      'akhir': akhir.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
-      'createdAt': createdAt.toIso8601String(),
+      'mulai': mulai,
+      'akhir': akhir,
+      'updatedAt': updatedAt,
+      'createdAt': createdAt,
     };
   }
 }

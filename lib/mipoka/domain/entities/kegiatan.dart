@@ -1,53 +1,54 @@
 import 'package:equatable/equatable.dart';
-import 'package:mipoka/mipoka/data/models/kegiatan_model.dart';
+import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
+import 'package:mipoka/mipoka/domain/entities/periode.dart';
 
+// ==> Just Updated
 class Kegiatan extends Equatable {
   final int idKegiatan;
   final String jenisKegiatan;
   final String namaKegiatan;
-  final String idPeriode;
+  final Periode periode;
   final int pointMpt;
-  final int idOrmawa;
+  final Ormawa ormawa;
   final String keterangan;
 
   const Kegiatan({
     required this.idKegiatan,
     required this.jenisKegiatan,
     required this.namaKegiatan,
-    required this.idPeriode,
+    required this.periode,
     required this.pointMpt,
-    required this.idOrmawa,
+    required this.ormawa,
     required this.keterangan,
   });
 
-  Kegiatan updateWith({
+  Kegiatan copyWith({
     int? idKegiatan,
     String? jenisKegiatan,
     String? namaKegiatan,
-    String? idPeriode,
+    Periode? periode,
     int? pointMpt,
-    int? idOrmawa,
+    Ormawa? ormawa,
     String? keterangan,
-  }) {
-    return Kegiatan(
-      idKegiatan: idKegiatan ?? this.idKegiatan,
-      jenisKegiatan: jenisKegiatan ?? this.jenisKegiatan,
-      namaKegiatan: namaKegiatan ?? this.namaKegiatan,
-      idPeriode: idPeriode ?? this.idPeriode,
-      pointMpt: pointMpt ?? this.pointMpt,
-      idOrmawa: idOrmawa ?? this.idOrmawa,
-      keterangan: keterangan ?? this.keterangan,
-    );
-  }
+  }) =>
+      Kegiatan(
+        idKegiatan: idKegiatan ?? this.idKegiatan,
+        jenisKegiatan: jenisKegiatan ?? this.jenisKegiatan,
+        namaKegiatan: namaKegiatan ?? this.namaKegiatan,
+        periode: periode ?? this.periode,
+        pointMpt: pointMpt ?? this.pointMpt,
+        ormawa: ormawa ?? this.ormawa,
+        keterangan: keterangan ?? this.keterangan,
+      );
 
   @override
   List<Object?> get props => [
     idKegiatan,
     jenisKegiatan,
     namaKegiatan,
-    idPeriode,
+    periode,
     pointMpt,
-    idOrmawa,
+    ormawa,
     keterangan,
   ];
 }

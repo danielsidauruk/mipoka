@@ -1,9 +1,12 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/domain/entities/kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/user.dart';
 
+// => Just Updated
 class RiwayatMpt extends Equatable {
   final int idRiwayatMpt;
-  final int idKegiatan;
-  final int idUser;
+  final Kegiatan kegiatan;
+  final User user;
   final String status;
   final String file;
   final String hash;
@@ -16,8 +19,8 @@ class RiwayatMpt extends Equatable {
 
   const RiwayatMpt({
     required this.idRiwayatMpt,
-    required this.idKegiatan,
-    required this.idUser,
+    required this.kegiatan,
+    required this.user,
     required this.status,
     required this.file,
     required this.hash,
@@ -31,8 +34,8 @@ class RiwayatMpt extends Equatable {
 
   RiwayatMpt copyWith({
     int? idRiwayatMpt,
-    int? idKegiatan,
-    int? idUser,
+    Kegiatan? kegiatan,
+    User? user,
     String? status,
     String? file,
     String? hash,
@@ -42,28 +45,27 @@ class RiwayatMpt extends Equatable {
     DateTime? akhir,
     DateTime? updatedAt,
     DateTime? createdAt,
-  }) {
-    return RiwayatMpt(
-      idRiwayatMpt: idRiwayatMpt ?? this.idRiwayatMpt,
-      idKegiatan: idKegiatan ?? this.idKegiatan,
-      idUser: idUser ?? this.idUser,
-      status: status ?? this.status,
-      file: file ?? this.file,
-      hash: hash ?? this.hash,
-      keteranganA: keteranganA ?? this.keteranganA,
-      keteranganB: keteranganB ?? this.keteranganB,
-      mulai: mulai ?? this.mulai,
-      akhir: akhir ?? this.akhir,
-      updatedAt: updatedAt ?? this.updatedAt,
-      createdAt: createdAt ?? this.createdAt,
-    );
-  }
+  }) =>
+      RiwayatMpt(
+        idRiwayatMpt: idRiwayatMpt ?? this.idRiwayatMpt,
+        kegiatan: kegiatan ?? this.kegiatan,
+        user: user ?? this.user,
+        status: status ?? this.status,
+        file: file ?? this.file,
+        hash: hash ?? this.hash,
+        keteranganA: keteranganA ?? this.keteranganA,
+        keteranganB: keteranganB ?? this.keteranganB,
+        mulai: mulai ?? this.mulai,
+        akhir: akhir ?? this.akhir,
+        updatedAt: updatedAt ?? this.updatedAt,
+        createdAt: createdAt ?? this.createdAt,
+      );
 
   @override
   List<Object?> get props => [
     idRiwayatMpt,
-    idKegiatan,
-    idUser,
+    kegiatan,
+    user,
     status,
     file,
     hash,

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:mipoka/mipoka/data/models/panitia_peserta_laporan_model.dart';
 
+//=> Just updated
 class PanitiaPesertaLaporan extends Equatable {
   final int idPanitiaPesertaL;
   final int idLaporan;

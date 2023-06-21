@@ -29,6 +29,8 @@ dependencies:
   pdf_render: ^1.4.0
   flutter_quill: ^7.2.8
   firebase_storage: ^11.2.3
+  googleapis: ^11.2.0
+  googleapis_auth: ^1.4.1
 
 dev_dependencies:
   flutter_test:
@@ -85,3 +87,5 @@ flutter:
     - assets/docx_template/usulan_template.docx
     - assets/docx_template/template.docx
     - assets/docx_template/test.jpg
+
+    - assets/service_account_key/mipoka-service-account.json
