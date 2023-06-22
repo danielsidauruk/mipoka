@@ -397,8 +397,6 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
   void initState() {
     BlocProvider.of<UsulanKegiatanBloc>(context, listen: false)
         .add(ReadUsulanKegiatanEvent());
-
-    _customUrlController = 'https://storage.googleapis.com/mipoka_bucket/signature.png';
     super.initState();
   }
 
@@ -407,7 +405,7 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
     if (kDebugMode) {
       print('Page reloaded');
     }
-    _customUrlController = 'https://storage.googleapis.com/mipoka_bucket/signature.png';
+    // _customUrlController = 'https://storage.googleapis.com/mipoka_bucket/signature.png';
 
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
@@ -418,12 +416,21 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
             return const Text('Loading');
           } else if (state is UsulanKegiatanHasData) {
 
+            _namaOrmawaController = state.usulanKegiatanList[0].ormawa.namaOrmawa;
             _namaKegiatanController.text = state.usulanKegiatanList[0].namaKegiatan;
             _deskripsiKegiatanController.text = state.usulanKegiatanList[0].deskripsiKegiatan;
             _tempatKegiatanController.text = state.usulanKegiatanList[0].tempatKegiatan;
             _jumlahParsitipanController.text = state.usulanKegiatanList[0].jumlahPartisipan.toString();
             _targetKegiatanController.text = state.usulanKegiatanList[0].targetKegiatan;
             _totalPendanaanController.text = state.usulanKegiatanList[0].totalPendana.toString();
+
+            _customUrlController = state.usulanKegiatanList[0].tandaTanganOrmawa;
+
+            if (_customUrlController == "") {
+              _signaturePadController = false;
+            } else {
+              _signaturePadController = true;
+            }
 
             // _keteranganController.text = state.usulanKegiatanList[0]
             // _waktuMulaiController
@@ -636,14 +643,20 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                         //     ],
                         //   )
                         //       : CustomSignaturePad(
-                        //     customUrl: _customUrlController!,
+                        //     customUrl: 'https://storage.googleapis.com/mipoka_bucket/signatureB.png',
                         //     onPressed: (value) {
                         //       setState(() {
-                        //         _signaturePadController = value;
+                        //         _signaturePadController = true;
+                        //         // _customUrlController = 'https://storage.googleapis.com/mipoka_bucket/signatureB.png';
                         //       });
                         //     },
                         //   ),
                         // ),
+
+                        CustomSignaturePad(
+                          signatureUrl: "",
+                          fileName: state.usulanKegiatanList[0].user.nim,
+                        ),
 
                         const CustomFieldSpacer(),
 

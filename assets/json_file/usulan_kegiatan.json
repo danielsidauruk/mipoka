@@ -48,7 +48,7 @@
     "jumlahPartisipan": 100,
     "targetKegiatan": "Mahasiswa",
     "totalPendana": 5000000,
-    "tandaTanganOrmawa": "null",
+    "tandaTanganOrmawa": "",
     "partisipan": {
       "idPartisipan": 1,
       "nim": "1234567890",
@@ -145,7 +145,7 @@
     "jumlahPartisipan": 100,
     "targetKegiatan": "Mahasiswa",
     "totalPendana": 5000000,
-    "tandaTanganOrmawa": "null",
+    "tandaTanganOrmawa": "",
     "partisipan": {
       "idPartisipan": 1,
       "nim": "1234567890",
