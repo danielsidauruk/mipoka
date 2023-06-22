@@ -32,7 +32,7 @@ class PartisipanModel extends Partisipan {
     namaLengkap: json["namaLengkap"],
     nik: json["nik"],
     tempatLahir: json["tempatLahir"],
-    tglLahir: DateTime.parse(json["tglLahir"]),
+    tglLahir: json["tglLahir"],
     peran: json["peran"],
     dasarKirim: json["dasarKirim"],
   );
@@ -43,7 +43,7 @@ class PartisipanModel extends Partisipan {
     "namaLengkap": namaLengkap,
     "nik": nik,
     "tempatLahir": tempatLahir,
-    "tglLahir": "${tglLahir.year.toString().padLeft(4, '0')}-${tglLahir.month.toString().padLeft(2, '0')}-${tglLahir.day.toString().padLeft(2, '0')}",
+    "tglLahir": tglLahir,
     "peran": peran,
     "dasarKirim": dasarKirim,
   };

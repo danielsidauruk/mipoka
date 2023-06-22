@@ -68,8 +68,8 @@ class UserModel extends User {
     periodeMpt: json["periodeMpt"],
     status: json["status"],
     prodi: json["prodi"],
-    createdAt: DateTime.parse(json["createdAt"]),
-    updatedAt: DateTime.parse(json["updatedAt"]),
+    createdAt: json["createdAt"],
+    updatedAt: json["updatedAt"],
     ormawaModel: json.containsKey("ormawa") ? OrmawaModel.fromJson(json["ormawa"]) : null,
   );
 
@@ -90,8 +90,8 @@ class UserModel extends User {
     "periodeMpt": periodeMpt,
     "status": status,
     "prodi": prodi,
-    "createdAt": createdAt.toIso8601String(),
-    "updatedAt": updatedAt.toIso8601String(),
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
     "ormawa": ormawaModel?.toJson(),
   };
 }

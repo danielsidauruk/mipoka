@@ -14,13 +14,13 @@ class UsulanKegiatan extends Equatable{
   final String namaKegiatan;
   final String bentukKegiatan;
   final String deskripsiKegiatan;
-  final DateTime tanggalMulaiKegiatan;
-  final DateTime tanggalSelesaiKegiatan;
+  final String tanggalMulaiKegiatan;
+  final String tanggalSelesaiKegiatan;
   final String waktuMulaiKegiatan;
   final String waktuSelesaiKegiatan;
   final String tempatKegiatan;
-  final DateTime tanggalKeberangkatan;
-  final DateTime tanggalKepulangan;
+  final String tanggalKeberangkatan;
+  final String tanggalKepulangan;
   final int jumlahPartisipan;
   final String targetKegiatan;
   final int totalPendana;
@@ -47,8 +47,8 @@ class UsulanKegiatan extends Equatable{
   final String validasiPembina;
   final String roles;
   final String file;
-  final DateTime updatedAt;
-  final DateTime createdAt;
+  final String updatedAt;
+  final String createdAt;
 
   const UsulanKegiatan({
     required this.idUsulan,
@@ -103,13 +103,13 @@ class UsulanKegiatan extends Equatable{
     String? namaKegiatan,
     String? bentukKegiatan,
     String? deskripsiKegiatan,
-    DateTime? tanggalMulaiKegiatan,
-    DateTime? tanggalSelesaiKegiatan,
+    String? tanggalMulaiKegiatan,
+    String? tanggalSelesaiKegiatan,
     String? waktuMulaiKegiatan,
     String? waktuSelesaiKegiatan,
     String? tempatKegiatan,
-    DateTime? tanggalKeberangkatan,
-    DateTime? tanggalKepulangan,
+    String? tanggalKeberangkatan,
+    String? tanggalKepulangan,
     int? jumlahPartisipan,
     String? targetKegiatan,
     int? totalPendana,
@@ -136,8 +136,8 @@ class UsulanKegiatan extends Equatable{
     String? validasiPembina,
     String? roles,
     String? file,
-    DateTime? updatedAt,
-    DateTime? createdAt,
+    String? updatedAt,
+    String? createdAt,
   }) =>
       UsulanKegiatan(
         idUsulan: idUsulan ?? this.idUsulan,

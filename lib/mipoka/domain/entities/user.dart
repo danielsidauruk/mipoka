@@ -19,8 +19,8 @@ class User extends Equatable{
   final String periodeMpt;
   final String status;
   final String prodi;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final String createdAt;
+  final String updatedAt;
   final Ormawa? ormawa;
 
   const User({
@@ -62,8 +62,8 @@ class User extends Equatable{
     String? periodeMpt,
     String? status,
     String? prodi,
-    DateTime? createdAt,
-    DateTime? updatedAt,
+    String? createdAt,
+    String? updatedAt,
     Ormawa? ormawa,
   }) =>
       User(

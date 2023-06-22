@@ -7,7 +7,7 @@ class Partisipan extends Equatable{
   final String namaLengkap;
   final String nik;
   final String tempatLahir;
-  final DateTime tglLahir;
+  final String tglLahir;
   final String peran;
   final String dasarKirim;
 
@@ -28,7 +28,7 @@ class Partisipan extends Equatable{
     String? namaLengkap,
     String? nik,
     String? tempatLahir,
-    DateTime? tglLahir,
+    String? tglLahir,
     String? peran,
     String? dasarKirim,
   }) =>

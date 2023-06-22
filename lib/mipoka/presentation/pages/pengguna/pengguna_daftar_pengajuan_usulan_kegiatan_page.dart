@@ -221,6 +221,12 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/convertToLowerCase.dart';
+import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
+import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
+import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
+import 'package:mipoka/mipoka/domain/entities/user.dart';
+import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -248,24 +254,6 @@ class _PenggunaDaftarPengajuanKegiatanState extends State<PenggunaDaftarPengajua
 
   @override
   Widget build(BuildContext context) {
-
-    // final double screenWidth = MediaQuery
-    //     .of(context)
-    //     .size
-    //     .width;
-
-    //   if (screenWidth >= 1024) {
-    //     // return buildWebPage(context);
-    //     return buildMobilePage(context);
-    //   } else {
-    //     return buildMobilePage(context);
-    //   }
-    // }
-
-    // Scaffold buildMobilePage(BuildContext context) {
-    //   print('Project Reloaded');
-    //
-    // }
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomPenggunaDrawerWidget(),
@@ -372,7 +360,7 @@ class _PenggunaDaftarPengajuanKegiatanState extends State<PenggunaDaftarPengajua
                                   Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      DateFormat('dd-MM-yyyy').format(usulanKegiatan.createdAt),
+                                      "usulanKegiatan.createdAt",
                                     ),
                                   ),
                                 ),
@@ -426,11 +414,112 @@ class _PenggunaDaftarPengajuanKegiatanState extends State<PenggunaDaftarPengajua
 
                       const CustomFieldSpacer(),
                       CustomMipokaButton(
-                        onTap: () =>
-                            Navigator.pushNamed(
-                              context,
-                              penggunaPengajuanUsulanKegiatanPage1Route,
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            penggunaPengajuanUsulanKegiatanPage1Route,
+                          );
+                          CreateUsulanKegiatanEvent(
+                            usulanKegiatan: UsulanKegiatan(
+                              idUsulan: 3,
+                              user: User(
+                                idUser: 0,
+                                idOrmawa: 0,
+                                idOrmawaB: 0,
+                                email: "",
+                                username: "",
+                                password: "",
+                                namaLengkap: "",
+                                nim: "",
+                                noHp: "",
+                                image: "",
+                                mpt: 0,
+                                semester: "",
+                                kelas: "",
+                                periodeMpt: "",
+                                status: "",
+                                prodi: "",
+                                createdAt: "",
+                                updatedAt: "",
+                              ),
+                              ormawa: Ormawa(
+                                idOrmawa: 0,
+                                namaOrmawa: "",
+                                pembina: "",
+                                ketua: "",
+                                wakil: "",
+                                bendahara: "",
+                                jumlahAnggota: 0,
+                                fotoPembina: "",
+                                fotoKetua: "",
+                                fotoWakil: "",
+                                fotoBendahara: "",
+                              ),
+                              pembiayaan: "",
+                              namaKegiatan: "",
+                              bentukKegiatan: "",
+                              deskripsiKegiatan: "",
+                              tanggalMulaiKegiatan: "",
+                              tanggalSelesaiKegiatan: "",
+                              waktuMulaiKegiatan: "",
+                              waktuSelesaiKegiatan: "",
+                              tempatKegiatan: "",
+                              tanggalKeberangkatan: "",
+                              tanggalKepulangan: "",
+                              jumlahPartisipan: 0,
+                              targetKegiatan: "",
+                              totalPendana: 0,
+                              tandaTanganOrmawa: "",
+                              partisipan: Partisipan(
+                                idPartisipan: 0,
+                                nim: "",
+                                namaLengkap: "",
+                                nik: "",
+                                tempatLahir: "",
+                                tglLahir: "",
+                                peran: "",
+                                dasarKirim: "",
+                              ),
+                              rincianBiayaKegiatan: RincianBiayaKegiatan(
+                                idRincianBiayaKegiatan: 0,
+                                namaBiayaKegiatan: "",
+                                kuantiti: 0,
+                                hargaSatuan: 0,
+                                total: 0,
+                                keterangan: "",
+                              ),
+                              ketuaOrmawa: "",
+                              pembina: "",
+                              latarBelakang: "",
+                              tujuanKegiatan: "",
+                              manfaatKegiatan: "",
+                              bentukPelaksanaanKegiatan: "",
+                              targetPencapaianKegiatan: "",
+                              waktuDanTempatPelaksanaan: "",
+                              rencanaAnggaranKegiatan: "",
+                              tertibAcara: TertibAcara(
+                                idTertibAcara: 0,
+                                waktuMulai: "",
+                                waktuSelesai: "",
+                                aktivitas: "",
+                                keterangan: "",
+                              ),
+                              perlengkapan: "",
+                              penutup: "",
+                              postinganKegiatan: "",
+                              dokumentasiKegiatan: "",
+                              tabulasiHasil: "",
+                              fakturPembayaran: "",
+                              status: "",
+                              validasiPembina: "",
+                              roles: "",
+                              file: "",
+                              updatedAt: "",
+                              createdAt: "",
                             ),
+                          );
+
+                        },
                         text: 'Ajukan Kegiatan',
                       ),
                     ],
