@@ -462,23 +462,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
             _customUrlController = state.usulanKegiatan.tandaTanganOrmawa;
 
-            // _keteranganController.text = state.usulanKegiatan
-            // _waktuMulaiController
-            // _waktuSelesaiController
-            // _tanggalMulaiController
-            // _tanggalSelesaiController
-            // _tanggalKeberangkatanController
-            // _tanggalKepulanganController
-
-            // _namaOrmawaController
-            // _pembiayaanController
-            // _bentukKegiatanController
-            // _bentukKegiatanSwitchController
-            // _tempatKegiatanSwitchController
-            // _jumlahParsitipanSwitchController
-            // _signaturePadController
-            // _customUrlController
-
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
