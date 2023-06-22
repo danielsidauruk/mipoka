@@ -14,16 +14,17 @@ class KemahasiswaanCekUsulanKegiatanPage extends StatefulWidget {
   const KemahasiswaanCekUsulanKegiatanPage({super.key});
 
   @override
-  State<KemahasiswaanCekUsulanKegiatanPage> createState() => _KemahasiswaanCekUsulanKegiatanPageState();
+  State<KemahasiswaanCekUsulanKegiatanPage> createState() =>
+      _KemahasiswaanCekUsulanKegiatanPageState();
 }
 
-class _KemahasiswaanCekUsulanKegiatanPageState extends State<KemahasiswaanCekUsulanKegiatanPage> {
-
+class _KemahasiswaanCekUsulanKegiatanPageState
+    extends State<KemahasiswaanCekUsulanKegiatanPage> {
   @override
   void initState() {
     super.initState();
     BlocProvider.of<UsulanKegiatanBloc>(context, listen: false)
-        .add(ReadUsulanKegiatanEvent());
+        .add(ReadAllUsulanKegiatanEvent());
   }
 
   @override
@@ -35,7 +36,7 @@ class _KemahasiswaanCekUsulanKegiatanPageState extends State<KemahasiswaanCekUsu
         builder: (context, state) {
           if (state is UsulanKegiatanLoading) {
             return const Text('Loading');
-          } else if (state is UsulanKegiatanHasData) {
+          } else if (state is AllUsulanKegiatanHasData) {
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -48,18 +49,13 @@ class _KemahasiswaanCekUsulanKegiatanPageState extends State<KemahasiswaanCekUsu
                     child: CustomContentBox(
                       children: [
                         buildTitle('Status'),
-
                         MipokaCustomDropdown(
                           items: listStatus,
                           onValueChanged: (value) {},
                         ),
-
                         const CustomFieldSpacer(),
-
                         buildTitle('Total Usulan Kegiatan : 2'),
-
                         const CustomFieldSpacer(height: 4.0),
-
                         Expanded(
                           child: SingleChildScrollView(
                             scrollDirection: Axis.vertical,
@@ -72,35 +68,40 @@ class _KemahasiswaanCekUsulanKegiatanPageState extends State<KemahasiswaanCekUsu
                                   DataColumn(
                                     label: Text(
                                       'No.',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
                                   DataColumn(
                                     label: Text(
                                       'Nama Kegiatan',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
                                   DataColumn(
                                     label: Text(
                                       'File Proposal',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
                                   DataColumn(
                                     label: Text(
                                       'Validasi Pengguna',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
                                   DataColumn(
                                     label: Text(
                                       'Status Pengguna',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
@@ -111,13 +112,17 @@ class _KemahasiswaanCekUsulanKegiatanPageState extends State<KemahasiswaanCekUsu
                                       DataCell(
                                         Align(
                                           alignment: Alignment.center,
-                                          child: Text('${index + 1}',),
+                                          child: Text(
+                                            '${index + 1}',
+                                          ),
                                         ),
                                       ),
                                       DataCell(
                                         Align(
                                           alignment: Alignment.center,
-                                          child: Text('Kegiatan - ${index + 1}',),
+                                          child: Text(
+                                            'Kegiatan - ${index + 1}',
+                                          ),
                                         ),
                                       ),
                                       DataCell(
@@ -131,24 +136,23 @@ class _KemahasiswaanCekUsulanKegiatanPageState extends State<KemahasiswaanCekUsu
                                           ),
                                         ),
                                       ),
-
                                       DataCell(
                                         Center(
-                                          child: index % 2 == 0 ?
-                                          Image.asset(
-                                            'assets/icons/approve.png',
-                                            width: 24,
-                                          ) :
-                                          Image.asset(
-                                            'assets/icons/close.png',
-                                            width: 24,
-                                          ),
+                                          child: index % 2 == 0
+                                              ? Image.asset(
+                                                  'assets/icons/approve.png',
+                                                  width: 24,
+                                                )
+                                              : Image.asset(
+                                                  'assets/icons/close.png',
+                                                  width: 24,
+                                                ),
                                         ),
                                       ),
-
                                       DataCell(
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
                                             InkWell(
                                               onTap: () {},
@@ -157,9 +161,9 @@ class _KemahasiswaanCekUsulanKegiatanPageState extends State<KemahasiswaanCekUsu
                                                 width: 24,
                                               ),
                                             ),
-
-                                            const SizedBox(width: 8.0,),
-
+                                            const SizedBox(
+                                              width: 8.0,
+                                            ),
                                             InkWell(
                                               onTap: () {},
                                               child: Image.asset(

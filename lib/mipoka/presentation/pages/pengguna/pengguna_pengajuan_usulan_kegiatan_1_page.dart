@@ -362,27 +362,40 @@ import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_switch.dart';
 // }
 
 class PenggunaPengajuanUsulanKegiatan1 extends StatefulWidget {
-  const PenggunaPengajuanUsulanKegiatan1({super.key});
+  final int idUsulanKegiatan;
+  const PenggunaPengajuanUsulanKegiatan1({
+    super.key,
+    required this.idUsulanKegiatan,
+  });
 
   @override
   State<PenggunaPengajuanUsulanKegiatan1> createState() =>
       _PenggunaPengajuanUsulanKegiatan1State();
 }
 
-class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsulanKegiatan1> {
+class _PenggunaPengajuanUsulanKegiatan1State
+    extends State<PenggunaPengajuanUsulanKegiatan1> {
   final TextEditingController _namaKegiatanController = TextEditingController();
-  final TextEditingController _deskripsiKegiatanController = TextEditingController();
-  final TextEditingController _tempatKegiatanController = TextEditingController();
-  final TextEditingController _jumlahParsitipanController = TextEditingController();
-  final TextEditingController _targetKegiatanController = TextEditingController();
-  final TextEditingController _totalPendanaanController = TextEditingController();
+  final TextEditingController _deskripsiKegiatanController =
+      TextEditingController();
+  final TextEditingController _tempatKegiatanController =
+      TextEditingController();
+  final TextEditingController _jumlahParsitipanController =
+      TextEditingController();
+  final TextEditingController _targetKegiatanController =
+      TextEditingController();
+  final TextEditingController _totalPendanaanController =
+      TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
   final TextEditingController _waktuMulaiController = TextEditingController();
   final TextEditingController _waktuSelesaiController = TextEditingController();
   final TextEditingController _tanggalMulaiController = TextEditingController();
-  final TextEditingController _tanggalSelesaiController = TextEditingController();
-  final TextEditingController _tanggalKeberangkatanController = TextEditingController();
-  final TextEditingController _tanggalKepulanganController = TextEditingController();
+  final TextEditingController _tanggalSelesaiController =
+      TextEditingController();
+  final TextEditingController _tanggalKeberangkatanController =
+      TextEditingController();
+  final TextEditingController _tanggalKepulanganController =
+      TextEditingController();
 
   String? _namaOrmawaController;
   String? _pembiayaanController;
@@ -394,8 +407,8 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
 
   @override
   void initState() {
-    BlocProvider.of<UsulanKegiatanBloc>(context, listen: false)
-        .add(ReadUsulanKegiatanEvent());
+    BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).add(
+        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
     super.initState();
   }
 
@@ -414,18 +427,22 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
           if (state is UsulanKegiatanLoading) {
             return const Text('Loading');
           } else if (state is UsulanKegiatanHasData) {
+            _namaOrmawaController = state.usulanKegiatan.ormawa.namaOrmawa;
+            _namaKegiatanController.text = state.usulanKegiatan.namaKegiatan;
+            _deskripsiKegiatanController.text =
+                state.usulanKegiatan.deskripsiKegiatan;
+            _tempatKegiatanController.text =
+                state.usulanKegiatan.tempatKegiatan;
+            _jumlahParsitipanController.text =
+                state.usulanKegiatan.jumlahPartisipan.toString();
+            _targetKegiatanController.text =
+                state.usulanKegiatan.targetKegiatan;
+            _totalPendanaanController.text =
+                state.usulanKegiatan.totalPendana.toString();
 
-            _namaOrmawaController = state.usulanKegiatanList[0].ormawa.namaOrmawa;
-            _namaKegiatanController.text = state.usulanKegiatanList[0].namaKegiatan;
-            _deskripsiKegiatanController.text = state.usulanKegiatanList[0].deskripsiKegiatan;
-            _tempatKegiatanController.text = state.usulanKegiatanList[0].tempatKegiatan;
-            _jumlahParsitipanController.text = state.usulanKegiatanList[0].jumlahPartisipan.toString();
-            _targetKegiatanController.text = state.usulanKegiatanList[0].targetKegiatan;
-            _totalPendanaanController.text = state.usulanKegiatanList[0].totalPendana.toString();
+            _customUrlController = state.usulanKegiatan.tandaTanganOrmawa;
 
-            _customUrlController = state.usulanKegiatanList[0].tandaTanganOrmawa;
-
-            // _keteranganController.text = state.usulanKegiatanList[0]
+            // _keteranganController.text = state.usulanKegiatan
             // _waktuMulaiController
             // _waktuSelesaiController
             // _tanggalMulaiController
@@ -450,12 +467,9 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                   children: [
                     const CustomMobileTitle(
                         text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
-
                     const CustomFieldSpacer(),
-
                     CustomContentBox(
                       children: [
-
                         buildTitle('Nama Ormawa'),
 
                         MipokaCustomDropdown(
@@ -463,7 +477,8 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                           controller: _namaOrmawaController,
                           onValueChanged: (value) {
                             if (kDebugMode) {
-                              print('Input $value to State Management BLoC or Database');
+                              print(
+                                  'Input $value to State Management BLoC or Database');
                             }
                             _namaOrmawaController = value;
                           },
@@ -478,7 +493,8 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                           controller: _pembiayaanController,
                           onValueChanged: (value) {
                             if (kDebugMode) {
-                              print('Input $value to State Management BLoC or Database');
+                              print(
+                                  'Input $value to State Management BLoC or Database');
                             }
                             _pembiayaanController = value;
                           },
@@ -490,7 +506,7 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                         CustomTextField(controller: _namaKegiatanController),
 
                         MipokaCustomSwitchButton(
-                          title: 'Bentuk Kegiatan A',
+                          title: 'Bentuk Kegiatan',
                           option1: 'Daring',
                           option2: 'Luring',
                           value: _bentukKegiatanSwitchController,
@@ -516,26 +532,31 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                         const CustomFieldSpacer(),
 
                         buildTitle('Deskripsi Kegiatan'),
-                        CustomTextField(controller: _deskripsiKegiatanController),
+                        CustomTextField(
+                            controller: _deskripsiKegiatanController),
 
                         const CustomFieldSpacer(),
 
                         buildTitle('Tanggal Mulai Kegiatan'),
-                        CustomDatePickerField(controller: _tanggalMulaiController),
+                        CustomDatePickerField(
+                            controller: _tanggalMulaiController),
 
                         const CustomFieldSpacer(),
                         buildTitle('Tanggal Selesai Kegiatan'),
-                        CustomDatePickerField(controller: _tanggalSelesaiController),
+                        CustomDatePickerField(
+                            controller: _tanggalSelesaiController),
 
                         const CustomFieldSpacer(),
 
                         buildTitle('Waktu Mulai Kegiatan'),
-                        CustomTimePickerField(controller: _waktuMulaiController),
+                        CustomTimePickerField(
+                            controller: _waktuMulaiController),
 
                         const CustomFieldSpacer(),
 
                         buildTitle('Waktu Selesai Kegiatan'),
-                        CustomTimePickerField(controller: _waktuSelesaiController),
+                        CustomTimePickerField(
+                            controller: _waktuSelesaiController),
 
                         MipokaCustomSwitchButton(
                           title: 'Tempat Kegiatan',
@@ -555,25 +576,23 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
 
                         _tempatKegiatanSwitchController == true
                             ? SizedBox(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              buildTitle('Tanggal Keberangkatan'),
-                              CustomDatePickerField(
-                                controller: _tanggalKeberangkatanController,
-                              ),
-
-                              const CustomFieldSpacer(),
-
-                              buildTitle('Tanggal Kepulangan'),
-
-                              CustomDatePickerField(
-                                controller: _tanggalKepulanganController,
-                              ),
-                            ],
-                          ),
-                        ) :
-                        const Center(),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    buildTitle('Tanggal Keberangkatan'),
+                                    CustomDatePickerField(
+                                      controller:
+                                          _tanggalKeberangkatanController,
+                                    ),
+                                    const CustomFieldSpacer(),
+                                    buildTitle('Tanggal Kepulangan'),
+                                    CustomDatePickerField(
+                                      controller: _tanggalKepulanganController,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : const Center(),
 
                         MipokaCustomSwitchButton(
                           title: 'Jumlah Partisipan',
@@ -585,7 +604,8 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                           },
                         ),
 
-                        CustomTextField(controller: _jumlahParsitipanController),
+                        CustomTextField(
+                            controller: _jumlahParsitipanController),
                         const CustomFieldSpacer(),
 
                         buildTitle('Target Kegiatan'),
@@ -648,7 +668,8 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
 
                         CustomSignaturePad(
                           signatureUrl: _customUrlController,
-                          fileName: 'https://storage.googleapis.com/mipoka_bucket/signature${state.usulanKegiatanList[0].user.nim}.png',
+                          fileName:
+                              'https://storage.googleapis.com/mipoka_bucket/signature${state.usulanKegiatan.user.nim}.png',
                         ),
 
                         const CustomFieldSpacer(),
@@ -660,9 +681,7 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                               onTap: () => Navigator.pop(context),
                               text: 'Batal',
                             ),
-
                             const SizedBox(width: 8.0),
-
                             CustomMipokaButton(
                               onTap: () {
                                 if (kDebugMode) {
@@ -670,18 +689,19 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                                 }
                                 _tempatKegiatanSwitchController == false
                                     ? Navigator.pushNamed(context,
-                                    penggunaPengajuanUsulanKegiatan2DKPageRoute)
+                                        penggunaPengajuanUsulanKegiatan2DKPageRoute)
                                     : Navigator.pushNamed(context,
-                                    penggunaPengajuanUsulanKegiatan2LKPageRoute);
+                                        penggunaPengajuanUsulanKegiatan2LKPageRoute);
 
                                 context.read<UsulanKegiatanBloc>().add(
-                                  UpdateUsulanKegiatanEvent(
-                                    usulanKegiatan: state.usulanKegiatanList[0].copyWith(
-                                      namaKegiatan: _namaKegiatanController.text,
-                                    ),
-                                  ),
-                                );
-
+                                      UpdateUsulanKegiatanEvent(
+                                        usulanKegiatan:
+                                            state.usulanKegiatan.copyWith(
+                                          namaKegiatan:
+                                              _namaKegiatanController.text,
+                                        ),
+                                      ),
+                                    );
                               },
                               text: 'Berikutnya',
                             ),

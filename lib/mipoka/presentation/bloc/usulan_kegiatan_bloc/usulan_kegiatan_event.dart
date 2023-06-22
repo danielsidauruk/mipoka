@@ -7,13 +7,18 @@ abstract class UsulanKegiatanEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ReadUsulanKegiatanEvent extends UsulanKegiatanEvent {}
+class ReadAllUsulanKegiatanEvent extends UsulanKegiatanEvent {}
+
+class ReadUsulanKegiatanEvent extends UsulanKegiatanEvent {
+  final int idUsulanKegiatan;
+
+  const ReadUsulanKegiatanEvent({required this.idUsulanKegiatan});
+}
 
 class CreateUsulanKegiatanEvent extends UsulanKegiatanEvent {
   final UsulanKegiatan usulanKegiatan;
 
   const CreateUsulanKegiatanEvent({required this.usulanKegiatan});
-
 }
 
 class UpdateUsulanKegiatanEvent extends UsulanKegiatanEvent {

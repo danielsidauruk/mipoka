@@ -237,19 +237,22 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
 class PenggunaDaftarPengajuanKegiatan extends StatefulWidget {
-  const PenggunaDaftarPengajuanKegiatan({super.key});
+  const PenggunaDaftarPengajuanKegiatan({
+    super.key,
+  });
 
   @override
-  State<PenggunaDaftarPengajuanKegiatan> createState() => _PenggunaDaftarPengajuanKegiatanState();
+  State<PenggunaDaftarPengajuanKegiatan> createState() =>
+      _PenggunaDaftarPengajuanKegiatanState();
 }
 
-class _PenggunaDaftarPengajuanKegiatanState extends State<PenggunaDaftarPengajuanKegiatan> {
-
+class _PenggunaDaftarPengajuanKegiatanState
+    extends State<PenggunaDaftarPengajuanKegiatan> {
   @override
   void initState() {
     super.initState();
     BlocProvider.of<UsulanKegiatanBloc>(context, listen: false)
-        .add(ReadUsulanKegiatanEvent());
+        .add(ReadAllUsulanKegiatanEvent());
   }
 
   @override
@@ -261,7 +264,7 @@ class _PenggunaDaftarPengajuanKegiatanState extends State<PenggunaDaftarPengajua
         builder: (context, state) {
           if (state is UsulanKegiatanLoading) {
             return const Text('Loading');
-          } else if (state is UsulanKegiatanHasData) {
+          } else if (state is AllUsulanKegiatanHasData) {
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -269,25 +272,19 @@ class _PenggunaDaftarPengajuanKegiatanState extends State<PenggunaDaftarPengajua
                 children: [
                   const CustomMobileTitle(
                       text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
-
                   const CustomFieldSpacer(),
-
                   CustomContentBox(
                     children: [
                       customBoxTitle('Status'),
-
                       const CustomFieldSpacer(height: 4.0),
-
                       MipokaCustomDropdown(
                         items: listStatus,
                         onValueChanged: (value) {
-                          print('Call RESTAPI http://${convertToLowerCase(
-                              value!)} from back-end Database');
+                          print(
+                              'Call RESTAPI http://${convertToLowerCase(value!)} from back-end Database');
                         },
                       ),
-
                       const CustomFieldSpacer(),
-
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: DataTable(
@@ -344,8 +341,10 @@ class _PenggunaDaftarPengajuanKegiatanState extends State<PenggunaDaftarPengajua
                               ),
                             ),
                           ],
-                          rows: List<DataRow>.generate(state.usulanKegiatanList.length, (int index) {
-                            final usulanKegiatan = state.usulanKegiatanList[index];
+                          rows: List<DataRow>.generate(
+                              state.usulanKegiatanList.length, (int index) {
+                            final usulanKegiatan =
+                                state.usulanKegiatanList[index];
                             return DataRow(
                               cells: [
                                 DataCell(
@@ -360,7 +359,7 @@ class _PenggunaDaftarPengajuanKegiatanState extends State<PenggunaDaftarPengajua
                                   Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      "usulanKegiatan.createdAt",
+                                      usulanKegiatan.createdAt,
                                     ),
                                   ),
                                 ),
@@ -372,7 +371,6 @@ class _PenggunaDaftarPengajuanKegiatanState extends State<PenggunaDaftarPengajua
                                     ),
                                   ),
                                 ),
-
                                 DataCell(
                                   Align(
                                     alignment: Alignment.center,
@@ -411,7 +409,6 @@ class _PenggunaDaftarPengajuanKegiatanState extends State<PenggunaDaftarPengajua
                           }),
                         ),
                       ),
-
                       const CustomFieldSpacer(),
                       CustomMipokaButton(
                         onTap: () {
@@ -421,108 +418,107 @@ class _PenggunaDaftarPengajuanKegiatanState extends State<PenggunaDaftarPengajua
                           );
 
                           context.read<UsulanKegiatanBloc>().add(
-                              CreateUsulanKegiatanEvent(
-                                usulanKegiatan: UsulanKegiatan(
-                                  idUsulan: 3,
-                                  user: User(
-                                    idUser: 0,
-                                    idOrmawa: 0,
-                                    idOrmawaB: 0,
-                                    email: "",
-                                    username: "",
-                                    password: "",
-                                    namaLengkap: "",
-                                    nim: "",
-                                    noHp: "",
-                                    image: "",
-                                    mpt: 0,
-                                    semester: "",
-                                    kelas: "",
-                                    periodeMpt: "",
-                                    status: "",
-                                    prodi: "",
-                                    createdAt: "",
-                                    updatedAt: "",
-                                  ),
-                                  ormawa: Ormawa(
-                                    idOrmawa: 0,
-                                    namaOrmawa: "",
+                                CreateUsulanKegiatanEvent(
+                                  usulanKegiatan: UsulanKegiatan(
+                                    idUsulan: 3,
+                                    user: const User(
+                                      idUser: 0,
+                                      idOrmawa: 0,
+                                      idOrmawaB: 0,
+                                      email: "",
+                                      username: "",
+                                      password: "",
+                                      namaLengkap: "",
+                                      nim: "",
+                                      noHp: "",
+                                      image: "",
+                                      mpt: 0,
+                                      semester: "",
+                                      kelas: "",
+                                      periodeMpt: "",
+                                      status: "",
+                                      prodi: "",
+                                      createdAt: "",
+                                      updatedAt: "",
+                                    ),
+                                    ormawa: Ormawa(
+                                      idOrmawa: 0,
+                                      namaOrmawa: "",
+                                      pembina: "",
+                                      ketua: "",
+                                      wakil: "",
+                                      bendahara: "",
+                                      jumlahAnggota: 0,
+                                      fotoPembina: "",
+                                      fotoKetua: "",
+                                      fotoWakil: "",
+                                      fotoBendahara: "",
+                                    ),
+                                    pembiayaan: "",
+                                    namaKegiatan: "",
+                                    bentukKegiatan: "",
+                                    deskripsiKegiatan: "",
+                                    tanggalMulaiKegiatan: "",
+                                    tanggalSelesaiKegiatan: "",
+                                    waktuMulaiKegiatan: "",
+                                    waktuSelesaiKegiatan: "",
+                                    tempatKegiatan: "",
+                                    tanggalKeberangkatan: "",
+                                    tanggalKepulangan: "",
+                                    jumlahPartisipan: 0,
+                                    targetKegiatan: "",
+                                    totalPendana: 0,
+                                    tandaTanganOrmawa: "",
+                                    partisipan: const Partisipan(
+                                      idPartisipan: 0,
+                                      nim: "",
+                                      namaLengkap: "",
+                                      nik: "",
+                                      tempatLahir: "",
+                                      tglLahir: "",
+                                      peran: "",
+                                      dasarKirim: "",
+                                    ),
+                                    rincianBiayaKegiatan:
+                                        const RincianBiayaKegiatan(
+                                      idRincianBiayaKegiatan: 0,
+                                      namaBiayaKegiatan: "",
+                                      kuantiti: 0,
+                                      hargaSatuan: 0,
+                                      total: 0,
+                                      keterangan: "",
+                                    ),
+                                    ketuaOrmawa: "",
                                     pembina: "",
-                                    ketua: "",
-                                    wakil: "",
-                                    bendahara: "",
-                                    jumlahAnggota: 0,
-                                    fotoPembina: "",
-                                    fotoKetua: "",
-                                    fotoWakil: "",
-                                    fotoBendahara: "",
+                                    latarBelakang: "",
+                                    tujuanKegiatan: "",
+                                    manfaatKegiatan: "",
+                                    bentukPelaksanaanKegiatan: "",
+                                    targetPencapaianKegiatan: "",
+                                    waktuDanTempatPelaksanaan: "",
+                                    rencanaAnggaranKegiatan: "",
+                                    tertibAcara: const TertibAcara(
+                                      idTertibAcara: 0,
+                                      waktuMulai: "",
+                                      waktuSelesai: "",
+                                      aktivitas: "",
+                                      keterangan: "",
+                                    ),
+                                    perlengkapan: "",
+                                    penutup: "",
+                                    postinganKegiatan: "",
+                                    dokumentasiKegiatan: "",
+                                    tabulasiHasil: "",
+                                    fakturPembayaran: "",
+                                    status: "",
+                                    validasiPembina: "",
+                                    roles: "",
+                                    file: "",
+                                    updatedAt: "",
+                                    createdAt: "",
                                   ),
-                                  pembiayaan: "",
-                                  namaKegiatan: "",
-                                  bentukKegiatan: "",
-                                  deskripsiKegiatan: "",
-                                  tanggalMulaiKegiatan: "",
-                                  tanggalSelesaiKegiatan: "",
-                                  waktuMulaiKegiatan: "",
-                                  waktuSelesaiKegiatan: "",
-                                  tempatKegiatan: "",
-                                  tanggalKeberangkatan: "",
-                                  tanggalKepulangan: "",
-                                  jumlahPartisipan: 0,
-                                  targetKegiatan: "",
-                                  totalPendana: 0,
-                                  tandaTanganOrmawa: "",
-                                  partisipan: Partisipan(
-                                    idPartisipan: 0,
-                                    nim: "",
-                                    namaLengkap: "",
-                                    nik: "",
-                                    tempatLahir: "",
-                                    tglLahir: "",
-                                    peran: "",
-                                    dasarKirim: "",
-                                  ),
-                                  rincianBiayaKegiatan: RincianBiayaKegiatan(
-                                    idRincianBiayaKegiatan: 0,
-                                    namaBiayaKegiatan: "",
-                                    kuantiti: 0,
-                                    hargaSatuan: 0,
-                                    total: 0,
-                                    keterangan: "",
-                                  ),
-                                  ketuaOrmawa: "",
-                                  pembina: "",
-                                  latarBelakang: "",
-                                  tujuanKegiatan: "",
-                                  manfaatKegiatan: "",
-                                  bentukPelaksanaanKegiatan: "",
-                                  targetPencapaianKegiatan: "",
-                                  waktuDanTempatPelaksanaan: "",
-                                  rencanaAnggaranKegiatan: "",
-                                  tertibAcara: TertibAcara(
-                                    idTertibAcara: 0,
-                                    waktuMulai: "",
-                                    waktuSelesai: "",
-                                    aktivitas: "",
-                                    keterangan: "",
-                                  ),
-                                  perlengkapan: "",
-                                  penutup: "",
-                                  postinganKegiatan: "",
-                                  dokumentasiKegiatan: "",
-                                  tabulasiHasil: "",
-                                  fakturPembayaran: "",
-                                  status: "",
-                                  validasiPembina: "",
-                                  roles: "",
-                                  file: "",
-                                  updatedAt: "",
-                                  createdAt: "",
                                 ),
-                              ),
-                          );
-
-
+                              );
                         },
                         text: 'Ajukan Kegiatan',
                       ),

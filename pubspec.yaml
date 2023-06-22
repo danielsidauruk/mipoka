@@ -83,6 +83,7 @@ flutter:
     - assets/json_file/tertib_acara.json
     - assets/json_file/user.json
     - assets/json_file/usulan_kegiatan.json
+    - assets/json_file/usulan_kegiatan_object.json
 
     - assets/docx_template/usulan_template.docx
     - assets/docx_template/template.docx

@@ -12,9 +12,18 @@ class UsulanKegiatanEmpty extends UsulanKegiatanState {}
 class UsulanKegiatanLoading extends UsulanKegiatanState {}
 
 class UsulanKegiatanHasData extends UsulanKegiatanState {
+  final UsulanKegiatan usulanKegiatan;
+
+  const UsulanKegiatanHasData({required this.usulanKegiatan});
+
+  @override
+  List<Object> get props => [usulanKegiatan];
+}
+
+class AllUsulanKegiatanHasData extends UsulanKegiatanState {
   final List<UsulanKegiatan> usulanKegiatanList;
 
-  const UsulanKegiatanHasData({required this.usulanKegiatanList});
+  const AllUsulanKegiatanHasData({required this.usulanKegiatanList});
 
   @override
   List<Object> get props => [usulanKegiatanList];
