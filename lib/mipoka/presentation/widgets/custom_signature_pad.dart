@@ -205,7 +205,7 @@ import 'package:path_provider/path_provider.dart';
 //   }
 
 class CustomSignaturePad extends StatefulWidget {
-  final String signatureUrl;
+  final String? signatureUrl;
   final String fileName;
 
   const CustomSignaturePad({
@@ -232,6 +232,16 @@ class _CustomSignaturePadState extends State<CustomSignaturePad> {
     await file.writeAsBytes(bytes!);
 
     return file;
+  }
+
+  bool isImage = true;
+
+  @override
+  void initState() {
+    if (widget.signatureUrl == "") {
+      isImage = false;
+    }
+    super.initState();
   }
 
   @override
@@ -285,7 +295,7 @@ class _CustomSignaturePadState extends State<CustomSignaturePad> {
                             onTap: () async {
                               final file = await saveSignature();
                               // context.read<SignatureCubit>().toggleSignature();
-                              uploadFile(file: file, customUrl: 'https://storage.googleapis.com/mipoka_bucket/signature${widget.fileName}.png');
+                              uploadFile(file: file, customUrl: widget.fileName);
                             },
                             child: const Text(
                               'Save',
@@ -297,7 +307,7 @@ class _CustomSignaturePadState extends State<CustomSignaturePad> {
                           ),
                           InkWell(
                             onTap: () {
-                              deleteFile('https://storage.googleapis.com/mipoka_bucket/signature${widget.fileName}.png');
+                              deleteFile(widget.signatureUrl ?? widget.fileName);
                               signatureGlobalKey.currentState?.clear();
                             },
                             child: const Text(
@@ -308,25 +318,36 @@ class _CustomSignaturePadState extends State<CustomSignaturePad> {
                               ),
                             ),
                           ),
-                          InkWell(
-                            onTap: () {
-                              context.read<SignatureCubit>().toggleSignature();
-                            },
-                            child: const Text(
-                              'Batal',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                          )
                         ],
                       ),
                     ],
                   ) : const Center(),
 
-                  if (widget.signatureUrl != "")
-                    Image.network(widget.signatureUrl),
+                  if (widget.signatureUrl != "" && isImage == true)
+                    Column(
+                      children: [
+                        Image.network(widget.signatureUrl!),
+
+                        const CustomFieldSpacer(),
+
+                        InkWell(
+                          onTap: () {
+                            context.read<SignatureCubit>().toggleSignature();
+                            deleteFile(widget.signatureUrl!);
+                            setState(() {
+                              isImage = false;
+                            });
+                          },
+                          child: const Text(
+                            'Hapus',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                 ],
               ),
             ),

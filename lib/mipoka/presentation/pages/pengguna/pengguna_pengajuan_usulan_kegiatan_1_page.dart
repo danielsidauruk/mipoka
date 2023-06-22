@@ -390,7 +390,6 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
   bool? _bentukKegiatanSwitchController;
   bool? _tempatKegiatanSwitchController;
   bool? _jumlahParsitipanSwitchController;
-  late bool _signaturePadController;
   String? _customUrlController;
 
   @override
@@ -425,12 +424,6 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
             _totalPendanaanController.text = state.usulanKegiatanList[0].totalPendana.toString();
 
             _customUrlController = state.usulanKegiatanList[0].tandaTanganOrmawa;
-
-            if (_customUrlController == "") {
-              _signaturePadController = false;
-            } else {
-              _signaturePadController = true;
-            }
 
             // _keteranganController.text = state.usulanKegiatanList[0]
             // _waktuMulaiController
@@ -654,8 +647,8 @@ class _PenggunaPengajuanUsulanKegiatan1State extends State<PenggunaPengajuanUsul
                         // ),
 
                         CustomSignaturePad(
-                          signatureUrl: "",
-                          fileName: state.usulanKegiatanList[0].user.nim,
+                          signatureUrl: _customUrlController,
+                          fileName: 'https://storage.googleapis.com/mipoka_bucket/signature${state.usulanKegiatanList[0].user.nim}.png',
                         ),
 
                         const CustomFieldSpacer(),
