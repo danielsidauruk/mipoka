@@ -186,7 +186,9 @@ class MyApp extends StatelessWidget {
             case penggunaPengajuanUsulanKegiatanPage1Route:
               final idUsulanKegiatan = settings.arguments as int;
               return MaterialPageRoute(
-                  builder: (_) => const PenggunaPengajuanUsulanKegiatan1());
+                builder: (_) => PenggunaPengajuanUsulanKegiatan1(idUsulanKegiatan: idUsulanKegiatan),
+                settings: settings,
+              );
             case penggunaPengajuanUsulanKegiatan2LKPageRoute:
               return MaterialPageRoute(
                   builder: (_) =>

@@ -415,6 +415,7 @@ class _PenggunaDaftarPengajuanKegiatanState
                           Navigator.pushNamed(
                             context,
                             penggunaPengajuanUsulanKegiatanPage1Route,
+                            arguments: 3
                           );
 
                           context.read<UsulanKegiatanBloc>().add(

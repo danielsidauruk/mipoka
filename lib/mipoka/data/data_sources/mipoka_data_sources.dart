@@ -934,7 +934,8 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     final String response =
         await rootBundle.loadString('assets/json_file/usulan_kegiatan_object.json');
 
-    UsulanKegiatanModel result = UsulanKegiatanModel.fromJson(json.decode(response));
+    dynamic jsonResult = json.decode(response);
+    UsulanKegiatanModel result = UsulanKegiatanModel.fromJson(jsonResult);
 
     if (kDebugMode) {
       print(result);

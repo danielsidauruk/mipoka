@@ -375,34 +375,28 @@ class PenggunaPengajuanUsulanKegiatan1 extends StatefulWidget {
 
 class _PenggunaPengajuanUsulanKegiatan1State
     extends State<PenggunaPengajuanUsulanKegiatan1> {
-  final TextEditingController _namaKegiatanController = TextEditingController();
-  final TextEditingController _deskripsiKegiatanController =
-      TextEditingController();
-  final TextEditingController _tempatKegiatanController =
-      TextEditingController();
-  final TextEditingController _jumlahParsitipanController =
-      TextEditingController();
-  final TextEditingController _targetKegiatanController =
-      TextEditingController();
-  final TextEditingController _totalPendanaanController =
-      TextEditingController();
-  final TextEditingController _keteranganController = TextEditingController();
-  final TextEditingController _waktuMulaiController = TextEditingController();
-  final TextEditingController _waktuSelesaiController = TextEditingController();
-  final TextEditingController _tanggalMulaiController = TextEditingController();
-  final TextEditingController _tanggalSelesaiController =
-      TextEditingController();
-  final TextEditingController _tanggalKeberangkatanController =
-      TextEditingController();
-  final TextEditingController _tanggalKepulanganController =
-      TextEditingController();
-
   String? _namaOrmawaController;
   String? _pembiayaanController;
-  String? _bentukKegiatanController;
+  final TextEditingController _namaKegiatanController = TextEditingController();
   bool? _bentukKegiatanSwitchController;
+  String? _bentukKegiatanController;
+  // _bentukKegiatanController ?? "Luring" : "Daring"
+  final TextEditingController _deskripsiKegiatanController = TextEditingController();
+  final TextEditingController _tanggalMulaiController = TextEditingController();
+  final TextEditingController _tanggalSelesaiController = TextEditingController();
+  final TextEditingController _waktuMulaiController = TextEditingController();
+  final TextEditingController _waktuSelesaiController = TextEditingController();
+  final TextEditingController _tanggalKeberangkatanController = TextEditingController();
+  final TextEditingController _tanggalKepulanganController = TextEditingController();
   bool? _tempatKegiatanSwitchController;
+  // _tempatKegiatanSwitchController ?? "Luar Kota" : "Dalam Kota"
+  final TextEditingController _tempatKegiatanController = TextEditingController();
+  final TextEditingController _targetKegiatanController = TextEditingController();
   bool? _jumlahParsitipanSwitchController;
+  // _jumlahParsitipanSwitchController ?? "Orang" : "Tim"
+  final TextEditingController _jumlahParsitipanController = TextEditingController();
+  final TextEditingController _totalPendanaanController = TextEditingController();
+  final TextEditingController _keteranganController = TextEditingController();
   String? _customUrlController;
 
   @override
@@ -411,6 +405,32 @@ class _PenggunaPengajuanUsulanKegiatan1State
         ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
     super.initState();
   }
+
+  // // @override
+  // // void dispose() {
+  // //   BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).close();
+  // //   super.dispose();
+  // // }
+  // //
+  // // @override
+  // // void didUpdateWidget(covariant PenggunaPengajuanUsulanKegiatan1 oldWidget) {
+  // //   super.didUpdateWidget(oldWidget);
+  // //   BlocProvider.of<UsulanKegiatanBloc>(context).add(
+  // //       ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
+  // // }
+  //
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).add(
+  //       ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
+  // }
+  //
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).close();
+  // }
 
   @override
   Widget build(BuildContext context) {

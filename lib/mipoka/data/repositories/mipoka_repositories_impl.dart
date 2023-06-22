@@ -830,6 +830,15 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
+  Future<Either<Failure, UsulanKegiatan>> readUsulanKegiatan(int idUsulanKegiatan) async {
+    try {
+      return Right(await mipokaDataSources.readUsulanKegiatan(idUsulanKegiatan));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+  @override
   Future<Either<Failure, List<UsulanKegiatan>>> readAllUsulanKegiatan() async {
     try {
       return Right(await mipokaDataSources.readAllUsulanKegiatan());
@@ -853,15 +862,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
     try {
       return Right(await mipokaDataSources.updateUsulanKegiatan(
           UsulanKegiatanModel.fromEntity(usulanKegiatan)));
-    } on ServerException {
-      return const Left(ServerFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, UsulanKegiatan>> readUsulanKegiatan(int idUsulanKegiatan) async {
-    try {
-      return Right(await mipokaDataSources.readUsulanKegiatan(idUsulanKegiatan));
     } on ServerException {
       return const Left(ServerFailure());
     }
