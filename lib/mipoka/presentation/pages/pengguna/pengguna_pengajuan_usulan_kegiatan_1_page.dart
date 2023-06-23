@@ -401,9 +401,9 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
   @override
   void initState() {
+    super.initState();
     BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).add(
         ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
-    super.initState();
   }
 
   // // @override
@@ -614,12 +614,22 @@ class _PenggunaPengajuanUsulanKegiatan1State
                         buildTitle('Target Kegiatan'),
                         CustomTextField(controller: _targetKegiatanController),
 
-                        const CustomFieldSpacer(),
-                        buildTitle('Total Pendanaan'),
+                        // const CustomFieldSpacer(),
+                        // buildTitle('Total Pendanaan'),
+
+                        MipokaCustomSwitchButton(
+                          title: 'Total Pendanaan',
+                          option1: 'Uang',
+                          option2: 'Dll',
+                          value: _jumlahParsitipanSwitchController,
+                          onChanged: (value) {
+                            _jumlahParsitipanSwitchController = value;
+                          },
+                        ),
 
                         CustomTextField(
                           controller: _totalPendanaanController,
-                          textInputType: TextInputType.number,
+                          // textInputType: TextInputType.number,
                         ),
                         const CustomFieldSpacer(),
 
@@ -698,10 +708,9 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                                 context.read<UsulanKegiatanBloc>().add(
                                       UpdateUsulanKegiatanEvent(
-                                        usulanKegiatan:
-                                            state.usulanKegiatan.copyWith(
-                                          namaKegiatan:
-                                              _namaKegiatanController.text,
+                                        usulanKegiatan: state.usulanKegiatan.copyWith(
+                                          namaKegiatan: _namaKegiatanController.text,
+
                                         ),
                                       ),
                                     );

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
@@ -15,6 +16,7 @@ class MobileCustomPenggunaDrawerWidget extends StatefulWidget {
 class _MobileCustomPenggunaDrawerWidgetState
     extends State<MobileCustomPenggunaDrawerWidget> {
   final TextEditingController _queryController = TextEditingController();
+  User? user = FirebaseAuth.instance.currentUser;
 
   void _showAlertDialog(BuildContext context) {
     showDialog(
@@ -32,7 +34,7 @@ class _MobileCustomPenggunaDrawerWidgetState
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'Daniel Hamonangan Sidauruk (191112857)',
+                '${user?.email} (191112857)',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -122,9 +124,9 @@ class _MobileCustomPenggunaDrawerWidgetState
                                   onTap: () => _showAlertDialog(context),
                                   // onTap: () => Navigator.pushNamed(context, mobileAkunPageRoute),
                                   child: Text(
-                                    'Daniel Hamonangan Sidauruk (191112857)',
+                                    '${user?.email} (191112857)',
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                        const TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ),
@@ -144,8 +146,10 @@ class _MobileCustomPenggunaDrawerWidgetState
                                 icon: const Icon(Icons.notifications),
                               ),
                               IconButton(
-                                onPressed: () => Navigator.pushNamed(
-                                    context, loginPageRoute),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, loginPageRoute);
+                                  logoutUser();
+                                },
                                 icon: const Icon(Icons.exit_to_app),
                               ),
                             ],
@@ -275,5 +279,12 @@ class _MobileCustomPenggunaDrawerWidgetState
         ),
       ),
     );
+  }
+}
+
+Future<void> logoutUser() async {
+  try {
+    await FirebaseAuth.instance.signOut();
+  } catch (e) {
   }
 }
