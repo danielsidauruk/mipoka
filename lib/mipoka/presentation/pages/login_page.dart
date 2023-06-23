@@ -1,12 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/login_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_login_text_field.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,8 +15,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   User? user = FirebaseAuth.instance.currentUser;
   
   @override
@@ -26,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: false,
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -37,182 +37,108 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'LOGIN',
-              style: loginTitle,
-            ),
-
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(vertical: 8.0),
-                  padding: const EdgeInsets.all(8.0),
-                  height: 60,
-                  width: 450,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: TextField(
-                    controller: emailController,
-                    style: const TextStyle(),
-                    decoration: const InputDecoration(
-                      hintText: "Email",
-                      border: InputBorder.none,
-                    ),
-                  ),
+
+                const SizedBox(height: 40),
+
+                Text(
+                  'LOGIN',
+                  style: loginTitle,
                 ),
 
-                Container(
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(vertical: 8.0),
-                  padding: const EdgeInsets.all(8.0),
-                  height: 60,
-                  width: 450,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: TextField(
-                    controller: passwordController,
-                    style: const TextStyle(),
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      hintText: "Password",
-                      border: InputBorder.none,
+                const SizedBox(height: 80),
+
+                MipokaCustomLoginTextField(
+                  controller: _emailController,
+                  hintText: "Email",
+                ),
+
+                MipokaCustomLoginTextField(
+                  controller: _passwordController,
+                  hintText: "Password",
+                ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pushNamed(context, lupaPasswordPageRoute),
+                      child: Text(
+                        'Forget Password?',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall
+                            ?.copyWith(color: Colors.grey),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
 
                 SizedBox(
-                  width: 450,
+                  width: double.infinity,
                   child: Column(
                     children: [
-                      InkWell(
-                        onTap: () {
-                          registerUser(emailController.text, passwordController.text);
-                          // Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          margin: const EdgeInsets.symmetric(vertical: 8.0),
-                          padding: const EdgeInsets.all(8.0),
-                          height: 60,
 
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(color: Theme.of(context).hintColor),
-                            ),
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Sign In - Pengguna',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Icon(Icons.arrow_forward_ios),
-                            ],
-                          ),
-                        ),
-                      ),
+                      // LoginButton(
+                      //   onTap: () {
+                      //     registerUser(_emailController.text, _passwordController.text);
+                      //     // Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                      //   },
+                      //   title: 'Sign In',
+                      // ),
 
                       const CustomFieldSpacer(height: 8.0),
 
                       LoginButton(
-                        onTap: () {
-                          String email = emailController.text;
-                          String password = passwordController.text;
-                          loginAndNavigate(context, email, password, penggunaBerandaPageRoute);
+                        title: 'Log in - Pengguna',
+                        onTap:() async {
+                          Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                          // try {
+                          //   String email = _emailController.text;
+                          //   String password = _passwordController.text;
+                          //
+                          //   if (email.isNotEmpty && password.isNotEmpty) {
+                          //     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          //       email: email,
+                          //       password: password,
+                          //     );
+                          //
+                          //     User? user = FirebaseAuth.instance.currentUser;
+                          //
+                          //     Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                          //     // Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute),
+                          //     // Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute),
+                          //   } else {
+                          //     if (kDebugMode) {
+                          //       print('Email and Password cannot be empty.');
+                          //     }
+                          //   }
+                          // } catch (e) {
+                          //   if (kDebugMode) {
+                          //     print('Failed to sign in. Please check your email and password.');
+                          //   }
+                          // }
                         },
                       ),
 
                       const CustomFieldSpacer(height: 8.0),
 
-                      InkWell(
-                        onTap: () => Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute),
-                        child: Container(
-                          alignment: Alignment.center,
-                          margin: const EdgeInsets.symmetric(vertical: 8.0),
-                          padding: const EdgeInsets.all(8.0),
-                          height: 60,
-
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(color: Theme.of(context).hintColor),
-                            ),
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Sign In - Kemahasiswaan',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Icon(Icons.arrow_forward_ios),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      const CustomFieldSpacer(height: 8.0),
-
-                      InkWell(
-                        onTap: () => Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute),
-                        child: Container(
-                          alignment: Alignment.center,
-                          margin: const EdgeInsets.symmetric(vertical: 8.0),
-                          padding: const EdgeInsets.all(8.0),
-                          height: 60,
-
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(color: Theme.of(context).hintColor),
-                            ),
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Sign In - Pemeriksa',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Icon(Icons.arrow_forward_ios),
-                            ],
-                          ),
-                        ),
-                      ),
-
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          TextButton(
-                            onPressed: () =>
-                                Navigator.pushNamed(context, lupaPasswordPageRoute),
-                            child: Text(
-                              'Forget Password?',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall
-                                  ?.copyWith(color: Colors.grey),
+                          const Text("Don't have a Account? "),
+                          InkWell(
+                            onTap: () => Navigator.pushNamed(context, registrationPageRoute),
+                            child: const Text(
+                              'Register',
+                              style: TextStyle(color: Colors.blue),
                             ),
                           ),
                         ],
@@ -221,30 +147,31 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
 
+                const SizedBox(height: 80),
+
+                Container(
+                  width: 250,
+                  decoration:
+                  BoxDecoration(border: Border.all(color: Colors.white)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Switch(
+                        value: darkMode,
+                        onChanged: (value) {
+                          setState(() => darkMode = value);
+                        },
+                      ),
+                      const Text(
+                        'Dark Mode',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
-
-            Container(
-              width: 250,
-              decoration:
-              BoxDecoration(border: Border.all(color: Colors.white)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Switch(
-                    value: darkMode,
-                    onChanged: (value) {
-                      setState(() => darkMode = value);
-                    },
-                  ),
-                  const Text(
-                    'Dark Mode',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -259,16 +186,5 @@ Future<void> registerUser(String email, String password) async {
       password: password,
     );
   } catch (e) {
-  }
-}
-
-Future<void> loginUser(String email, String password) async {
-  try {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-  } catch (e) {
-    throw 'Failed to sign in: $e';
   }
 }

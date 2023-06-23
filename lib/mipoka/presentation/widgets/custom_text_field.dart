@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/cubit/text_field_cubit.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -17,7 +15,7 @@ class CustomTextField extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.all(8.0),
-      constraints: const BoxConstraints(minHeight: 35.0),
+      height: 35,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
         border: Border.all(color: Colors.white),

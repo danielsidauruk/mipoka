@@ -4,6 +4,7 @@ const gantiPasswordPageRoute = '/gantiPasswordPageRoute';
 const lupaPasswordPageRoute = '/lupaPasswordPageRoute';
 const passwordBaruPageRoute = '/passwordBaruPageRoute';
 const notifikasiPageRoute = '/notifikasiPageRoute';
+const registrationPageRoute = '/registrationPageRoute';
 
 // mobile routes - pengguna
 const penggunaBerandaPageRoute = '/penggunaBerandaPageRoute';

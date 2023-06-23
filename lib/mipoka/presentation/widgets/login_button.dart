@@ -1,11 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class LoginButton extends StatelessWidget {
   final VoidCallback onTap;
+  final String title;
 
-  const LoginButton({super.key, required this.onTap});
+  const LoginButton({
+    super.key,
+    required this.onTap,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,42 +24,21 @@ class LoginButton extends StatelessWidget {
             bottom: BorderSide(color: Theme.of(context).hintColor),
           ),
         ),
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Log In - Pengguna',
-              style: TextStyle(
+              title,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
             ),
-            Icon(Icons.arrow_forward_ios),
+            // const Icon(Icons.arrow_forward_ios),
+            const Icon(Icons.arrow_forward_ios),
           ],
         ),
       ),
     );
-  }
-}
-
-
-void loginAndNavigate(BuildContext context, String email, String password, String routeName) async {
-  try {
-    if (email.isNotEmpty && password.isNotEmpty) {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-
-      Navigator.pushNamed(context, routeName);
-    } else {
-      if (kDebugMode) {
-        print('Email and Password cannot be empty.');
-      }
-    }
-  } catch (e) {
-    if (kDebugMode) {
-      print('Failed to sign in. Please check your email and password.');
-    }
   }
 }
