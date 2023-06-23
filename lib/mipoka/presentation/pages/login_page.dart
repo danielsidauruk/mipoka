@@ -6,6 +6,7 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/login_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -17,6 +18,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  User? user = FirebaseAuth.instance.currentUser;
   
   @override
   Widget build(BuildContext context) {
@@ -129,56 +131,12 @@ class _LoginPageState extends State<LoginPage> {
 
                       const CustomFieldSpacer(height: 8.0),
 
-                      InkWell(
-                        onTap: () async {
-                          if (emailController.text.isEmpty || passwordController.text.isEmpty) {
-                            if (kDebugMode) {
-                              print('Email & Password cannot be empty');
-                            }
-                            return;
-                          }
-
-                          try {
-                            List<String> signInMethods = await FirebaseAuth.instance.fetchSignInMethodsForEmail(emailController.text);
-                            if (signInMethods.isNotEmpty) {
-
-                              UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                                email: emailController.text,
-                                password: passwordController.text,
-                              );
-                              Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                            } else {
-                              print('Account is not registered');
-                            }
-                          } catch (e) {
-
-                          }
+                      LoginButton(
+                        onTap: () {
+                          String email = emailController.text;
+                          String password = passwordController.text;
+                          loginAndNavigate(context, email, password, penggunaBerandaPageRoute);
                         },
-                        child: Container(
-                          alignment: Alignment.center,
-                          margin: const EdgeInsets.symmetric(vertical: 8.0),
-                          padding: const EdgeInsets.all(8.0),
-                          height: 60,
-
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(color: Theme.of(context).hintColor),
-                            ),
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Log In - Pengguna',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Icon(Icons.arrow_forward_ios),
-                            ],
-                          ),
-                        ),
                       ),
 
                       const CustomFieldSpacer(height: 8.0),
@@ -301,5 +259,16 @@ Future<void> registerUser(String email, String password) async {
       password: password,
     );
   } catch (e) {
+  }
+}
+
+Future<void> loginUser(String email, String password) async {
+  try {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+  } catch (e) {
+    throw 'Failed to sign in: $e';
   }
 }
