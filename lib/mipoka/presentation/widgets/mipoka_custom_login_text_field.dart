@@ -4,11 +4,13 @@ import 'package:mipoka/core/theme.dart';
 class MipokaCustomLoginTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+  final bool obscuredText;
 
   const MipokaCustomLoginTextField({
     super.key,
     required this.controller,
     required this.hintText,
+    this.obscuredText = false,
   });
 
   @override
@@ -24,6 +26,7 @@ class MipokaCustomLoginTextField extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
       ),
       child: TextField(
+        obscureText: obscuredText,
         controller: controller,
         style: const TextStyle(),
         decoration: InputDecoration(

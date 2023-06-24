@@ -6,7 +6,7 @@ import 'package:mipoka/mipoka/domain/entities/user.dart';
 class RiwayatMpt extends Equatable {
   final int idRiwayatMpt;
   final Kegiatan kegiatan;
-  final User user;
+  final MipokaUser user;
   final String status;
   final String file;
   final String hash;
@@ -35,7 +35,7 @@ class RiwayatMpt extends Equatable {
   RiwayatMpt copyWith({
     int? idRiwayatMpt,
     Kegiatan? kegiatan,
-    User? user,
+    MipokaUser? user,
     String? status,
     String? file,
     String? hash,

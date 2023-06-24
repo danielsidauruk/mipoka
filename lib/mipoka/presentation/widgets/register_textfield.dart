@@ -6,11 +6,13 @@ class RegisterTextField extends StatefulWidget {
     required this.controller,
     required this.title,
     this.textInputType = TextInputType.text,
+    this.obscuredText = false,
   });
 
   final TextEditingController controller;
   final String title;
   final TextInputType textInputType;
+  final bool obscuredText;
 
   @override
   State<RegisterTextField> createState() => _RegisterTextFieldState();
@@ -40,9 +42,9 @@ class _RegisterTextFieldState extends State<RegisterTextField> {
             border: Border.all(color: Colors.white),
           ),
           child: TextField(
+            obscureText: widget.obscuredText,
             keyboardType: widget.textInputType,
             controller: widget.controller,
-            maxLines: null,
             style: const TextStyle(),
             decoration: null,
           ),

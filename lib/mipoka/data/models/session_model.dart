@@ -3,7 +3,7 @@ import 'package:mipoka/mipoka/domain/entities/session.dart';
 
 // => Just Updated
 class SessionModel extends Session {
-  final UserModel userModel;
+  final MipokaUserModel userModel;
   const SessionModel({
     required super.idSession,
     required super.userId,
@@ -42,7 +42,7 @@ class SessionModel extends Session {
       updatedAt: session.updatedAt,
       createdAt: session.createdAt,
       updatedBy: session.updatedBy,
-      userModel: UserModel.fromEntity(session.user),
+      userModel: MipokaUserModel.fromEntity(session.user),
     );
   }
 
@@ -63,7 +63,7 @@ class SessionModel extends Session {
     updatedAt: DateTime.parse(json["updatedAt"]),
     createdAt: DateTime.parse(json["createdAt"]),
     updatedBy: json["updatedBy"],
-    userModel: UserModel.fromJson(json["user"]),
+    userModel: MipokaUserModel.fromJson(json["user"]),
   );
 
   Map<String, dynamic> toJson() => {

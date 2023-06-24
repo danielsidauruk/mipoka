@@ -422,13 +422,11 @@ class _PenggunaDaftarPengajuanKegiatanState
                                 CreateUsulanKegiatanEvent(
                                   usulanKegiatan: UsulanKegiatan(
                                     idUsulan: 3,
-                                    user: const User(
-                                      idUser: 0,
+                                    user: MipokaUser(
+                                      idUser: "",
                                       idOrmawa: 0,
                                       idOrmawaB: 0,
                                       email: "",
-                                      username: "",
-                                      password: "",
                                       namaLengkap: "",
                                       nim: "",
                                       noHp: "",
@@ -441,6 +439,19 @@ class _PenggunaDaftarPengajuanKegiatanState
                                       prodi: "",
                                       createdAt: "",
                                       updatedAt: "",
+                                      ormawa: Ormawa(
+                                        idOrmawa: 0,
+                                        namaOrmawa: "",
+                                        pembina: "",
+                                        ketua: "",
+                                        wakil: "",
+                                        bendahara: "",
+                                        jumlahAnggota: 0,
+                                        fotoPembina: "",
+                                        fotoKetua: "",
+                                        fotoWakil: "",
+                                        fotoBendahara: "",
+                                      ),
                                     ),
                                     ormawa: Ormawa(
                                       idOrmawa: 0,

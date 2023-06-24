@@ -5,7 +5,7 @@ import 'package:mipoka/mipoka/domain/entities/riwayat_mpt.dart';
 // => Just Updated
 class RiwayatMptModel extends RiwayatMpt {
   final KegiatanModel kegiatanModel;
-  final UserModel userModel;
+  final MipokaUserModel userModel;
 
   const RiwayatMptModel({
     required super.idRiwayatMpt,
@@ -29,7 +29,7 @@ class RiwayatMptModel extends RiwayatMpt {
     return RiwayatMptModel(
       idRiwayatMpt: riwayatMpt.idRiwayatMpt,
       kegiatanModel: KegiatanModel.fromEntity(riwayatMpt.kegiatan),
-      userModel: UserModel.fromEntity(riwayatMpt.user),
+      userModel: MipokaUserModel.fromEntity(riwayatMpt.user),
       status: riwayatMpt.status,
       file: riwayatMpt.file,
       hash: riwayatMpt.hash,
@@ -46,7 +46,7 @@ class RiwayatMptModel extends RiwayatMpt {
     return RiwayatMptModel(
       idRiwayatMpt: json['idRiwayatMpt'],
       kegiatanModel: KegiatanModel.fromJson(json['kegiatan']),
-      userModel: UserModel.fromJson(json['user']),
+      userModel: MipokaUserModel.fromJson(json['user']),
       status: json['status'],
       file: json['file'],
       hash: json['hash'],

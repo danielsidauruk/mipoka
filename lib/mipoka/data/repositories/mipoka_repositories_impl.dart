@@ -779,17 +779,17 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   // => User
   @override
-  Future<Either<Failure, String>> createUser(User user) async {
+  Future<Either<Failure, String>> createUser(MipokaUser user) async {
     try {
       return Right(
-          await mipokaDataSources.createUser(UserModel.fromEntity(user)));
+          await mipokaDataSources.createUser(MipokaUserModel.fromEntity(user)));
     } on ServerException {
       return const Left(ServerFailure());
     }
   }
 
   @override
-  Future<Either<Failure, List<User>>> readUser() async {
+  Future<Either<Failure, List<MipokaUser>>> readUser() async {
     try {
       return Right(await mipokaDataSources.readUser());
     } on ServerException {
@@ -798,10 +798,10 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, String>> updateUser(User user) async {
+  Future<Either<Failure, String>> updateUser(MipokaUser user) async {
     try {
       return Right(
-          await mipokaDataSources.updateUser(UserModel.fromEntity(user)));
+          await mipokaDataSources.updateUser(MipokaUserModel.fromEntity(user)));
     } on ServerException {
       return const Left(ServerFailure());
     }

@@ -2,16 +2,14 @@ import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/domain/entities/user.dart';
 
 // => Just Updated
-class UserModel extends User {
-  final OrmawaModel? ormawaModel;
+class MipokaUserModel extends MipokaUser {
+  final OrmawaModel ormawaModel;
 
-  const UserModel({
+  const MipokaUserModel({
     required super.idUser,
     required super.idOrmawa,
     required super.idOrmawaB,
     required super.email,
-    required super.username,
-    required super.password,
     required super.namaLengkap,
     required super.nim,
     required super.noHp,
@@ -24,17 +22,15 @@ class UserModel extends User {
     required super.prodi,
     required super.createdAt,
     required super.updatedAt,
-    this.ormawaModel
+    required this.ormawaModel
   }) : super(ormawa: ormawaModel);
 
-  factory UserModel.fromEntity(User user) {
-    return UserModel(
+  factory MipokaUserModel.fromEntity(MipokaUser user) {
+    return MipokaUserModel(
       idUser: user.idUser,
       idOrmawa: user.idOrmawa,
       idOrmawaB: user.idOrmawaB,
       email: user.email,
-      username: user.username,
-      password: user.password,
       namaLengkap: user.namaLengkap,
       nim: user.nim,
       noHp: user.noHp,
@@ -47,17 +43,15 @@ class UserModel extends User {
       prodi: user.prodi,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
-      ormawaModel: user.ormawa != null ? OrmawaModel.fromEntity(user.ormawa!) : null,
+      ormawaModel: OrmawaModel.fromEntity(user.ormawa),
     );
   }
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+  factory MipokaUserModel.fromJson(Map<String, dynamic> json) => MipokaUserModel(
     idUser: json["idUser"],
     idOrmawa: json["idOrmawa"],
     idOrmawaB: json["idOrmawaB"],
     email: json["email"],
-    username: json["username"],
-    password: json["password"],
     namaLengkap: json["namaLengkap"],
     nim: json["nim"],
     noHp: json["noHp"],
@@ -70,7 +64,7 @@ class UserModel extends User {
     prodi: json["prodi"],
     createdAt: json["createdAt"],
     updatedAt: json["updatedAt"],
-    ormawaModel: json.containsKey("ormawa") ? OrmawaModel.fromJson(json["ormawa"]) : null,
+    ormawaModel: OrmawaModel.fromJson(json["ormawa"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -78,8 +72,6 @@ class UserModel extends User {
     "idOrmawa": idOrmawa,
     "idOrmawaB": idOrmawaB,
     "email": email,
-    "username": username,
-    "password": password,
     "namaLengkap": namaLengkap,
     "nim": nim,
     "noHp": noHp,

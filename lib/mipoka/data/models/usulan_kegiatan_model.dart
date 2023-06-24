@@ -7,7 +7,7 @@ import 'package:mipoka/mipoka/data/models/user_model.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 
 class UsulanKegiatanModel extends UsulanKegiatan {
-  final UserModel userModel;
+  final MipokaUserModel userModel;
   final OrmawaModel ormawaModel;
   final PartisipanModel partisipanModel;
   final RincianBiayaKegiatanModel rincianBiayaKegiatanModel;
@@ -67,7 +67,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
   factory UsulanKegiatanModel.fromEntity(UsulanKegiatan usulanKegiatan) {
     return UsulanKegiatanModel(
       idUsulan: usulanKegiatan.idUsulan,
-      userModel: UserModel.fromEntity(usulanKegiatan.user),
+      userModel: MipokaUserModel.fromEntity(usulanKegiatan.user),
       ormawaModel: OrmawaModel.fromEntity(usulanKegiatan.ormawa),
       pembiayaan: usulanKegiatan.pembiayaan,
       namaKegiatan: usulanKegiatan.namaKegiatan,
@@ -114,7 +114,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
 
   factory UsulanKegiatanModel.fromJson(Map<String, dynamic> json) => UsulanKegiatanModel(
     idUsulan: json["idUsulan"],
-    userModel: UserModel.fromJson(json["user"]),
+    userModel: MipokaUserModel.fromJson(json["user"]),
     ormawaModel: OrmawaModel.fromJson(json["ormawa"]),
     pembiayaan: json["pembiayaan"],
     namaKegiatan: json["namaKegiatan"],

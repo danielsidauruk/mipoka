@@ -121,9 +121,9 @@ abstract class MipokaDataSources {
   Future<String> updateTertibAcara(TertibAcaraModel tertibAcaraModel);
   Future<String> deleteTertibAcara(int idTertibAcara);
 
-  Future<List<UserModel>> readUser();
-  Future<String> createUser(UserModel userModel);
-  Future<String> updateUser(UserModel userModel);
+  Future<List<MipokaUserModel>> readUser();
+  Future<String> createUser(MipokaUserModel userModel);
+  Future<String> updateUser(MipokaUserModel userModel);
   Future<String> deleteUser(int idUser);
 
   Future<UsulanKegiatanModel> readUsulanKegiatan(int idUsulanKegiatan);
@@ -890,7 +890,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   // => UserModel
   @override
-  Future<String> createUser(UserModel userModel) async {
+  Future<String> createUser(MipokaUserModel userModel) async {
     if (kDebugMode) {
       print(userModel.toJson());
     }
@@ -899,19 +899,19 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<UserModel>> readUser() async {
+  Future<List<MipokaUserModel>> readUser() async {
     final String response =
-        await rootBundle.loadString('assets/json_file/berita.json');
+        await rootBundle.loadString('assets/json_file/user.json');
     List<dynamic> resultList = json.decode(response);
 
-    List<UserModel> result =
-        resultList.map((resultMap) => UserModel.fromJson(resultMap)).toList();
+    List<MipokaUserModel> result =
+        resultList.map((resultMap) => MipokaUserModel.fromJson(resultMap)).toList();
 
     return result;
   }
 
   @override
-  Future<String> updateUser(UserModel userModel) async {
+  Future<String> updateUser(MipokaUserModel userModel) async {
     if (kDebugMode) {
       print(userModel.toJson());
     }

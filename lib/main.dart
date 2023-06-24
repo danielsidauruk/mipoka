@@ -85,7 +85,7 @@ import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usu
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_3_tertib_acara_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_3_tertib_acara_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_prestasi_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/pengguna/register_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/register_page.dart';
 import 'firebase_options.dart';
 import 'mipoka/presentation/pages/login_page.dart';
 

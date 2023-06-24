@@ -12,7 +12,7 @@ import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 class Laporan extends Equatable{
   final int idLaporan;
   final Ormawa ormawa;
-  final User user;
+  final MipokaUser user;
   final UsulanKegiatan usulanKegiatan;
   final String pembiayaan;
   final String namaKegiatan;
@@ -115,7 +115,7 @@ class Laporan extends Equatable{
   Laporan copyWith({
     int? idLaporan,
     Ormawa? ormawa,
-    User? user,
+    MipokaUser? user,
     UsulanKegiatan? usulanKegiatan,
     String? pembiayaan,
     String? namaKegiatan,

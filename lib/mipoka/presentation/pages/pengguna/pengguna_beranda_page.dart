@@ -44,8 +44,9 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
                     const CustomFieldSpacer(),
                     CustomContentBox(
                       children: [
-                        const Placeholder(
-                          fallbackHeight: 170,
+                        Image.network(
+                          state.berita[0].gambar,
+                          height: 170,
                         ),
                         const CustomFieldSpacer(),
                         ListView.builder(

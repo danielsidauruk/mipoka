@@ -1,11 +1,9 @@
 [
   {
-    "idUser": 1,
+    "idUser": "1",
     "idOrmawa": 1,
     "idOrmawaB": 2,
     "email": "user1@example.com",
-    "username": "user1",
-    "password": "password1",
     "namaLengkap": "User 1",
     "nim": "123456789",
     "noHp": "1234567890",
@@ -17,10 +15,23 @@
     "status": "Active",
     "prodi": "Teknik Informatika",
     "createdAt": "2023-06-10T10:30:00Z",
-    "updatedAt": "2023-06-11T15:45:00Z"
+    "updatedAt": "2023-06-11T15:45:00Z",
+    "ormawa" : {
+      "idOrmawa": 1,
+      "namaOrmawa": "Ormawa A",
+      "pembina": "Pembina A",
+      "ketua": "Ketua A",
+      "wakil": "Wakil A",
+      "bendahara": "Bendahara A",
+      "jumlahAnggota": 50,
+      "fotoPembina": "https://random-d.uk/api/randomimg?t=1686482823678",
+      "fotoKetua": "https://random-d.uk/api/randomimg?t=1686482823678",
+      "fotoWakil": "https://random-d.uk/api/randomimg?t=1686482823678",
+      "fotoBendahara": "https://random-d.uk/api/randomimg?t=1686482823678"
+    }
   },
   {
-    "idUser": 2,
+    "idUser": "2",
     "idOrmawa": 1,
     "idOrmawaB": 3,
     "email": "user2@example.com",
@@ -37,6 +48,19 @@
     "status": "Active",
     "prodi": "Sistem Informasi",
     "createdAt": "2023-06-09T09:15:00Z",
-    "updatedAt": "2023-06-11T12:30:00Z"
+    "updatedAt": "2023-06-11T12:30:00Z",
+    "ormawa" : {
+      "idOrmawa": 1,
+      "namaOrmawa": "Ormawa A",
+      "pembina": "Pembina A",
+      "ketua": "Ketua A",
+      "wakil": "Wakil A",
+      "bendahara": "Bendahara A",
+      "jumlahAnggota": 50,
+      "fotoPembina": "https://random-d.uk/api/randomimg?t=1686482823678",
+      "fotoKetua": "https://random-d.uk/api/randomimg?t=1686482823678",
+      "fotoWakil": "https://random-d.uk/api/randomimg?t=1686482823678",
+      "fotoBendahara": "https://random-d.uk/api/randomimg?t=1686482823678"
+    }
   }
 ]

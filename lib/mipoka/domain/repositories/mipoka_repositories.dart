@@ -126,15 +126,12 @@ abstract class MipokaRepositories {
   Future<Either<Failure, String>> updateTertibAcara(TertibAcara tertibAcara);
   Future<Either<Failure, String>> deleteTertibAcara(int idTertibAcara);
 
-  Future<Either<Failure, List<User>>> readUser();
-  Future<Either<Failure, String>> createUser(User user);
-  Future<Either<Failure, String>> updateUser(User user);
+  Future<Either<Failure, List<MipokaUser>>> readUser();
+  Future<Either<Failure, String>> createUser(MipokaUser user);
+  Future<Either<Failure, String>> updateUser(MipokaUser user);
   Future<Either<Failure, String>> deleteUser(int idUser);
 
   Future<Either<Failure, UsulanKegiatan>> readUsulanKegiatan(int idUsulanKegiatan);
-  // wwww.sahdjkashdfjkahsdfkj/usulan_kegiatan/{nim}/{idUsulan}
-  // SELECT * FROM USULANKEGIATAN
-  // WHERE ID = idUsulanKegiatan
   Future<Either<Failure, List<UsulanKegiatan>>> readAllUsulanKegiatan();
   Future<Either<Failure, String>> createUsulanKegiatan(
       UsulanKegiatan usulanKegiatan);

@@ -18,7 +18,7 @@ class Session extends Equatable {
   final DateTime updatedAt;
   final DateTime createdAt;
   final String updatedBy;
-  final User user;
+  final MipokaUser user;
 
   const Session({
     required this.idSession,
@@ -57,7 +57,7 @@ class Session extends Equatable {
     DateTime? updatedAt,
     DateTime? createdAt,
     String? updatedBy,
-    User? user,
+    MipokaUser? user,
   }) =>
       Session(
         idSession: idSession ?? this.idSession,

@@ -10,16 +10,16 @@ abstract class UserEvent extends Equatable {
 class ReadUserEvent extends UserEvent {}
 
 class CreateUserEvent extends UserEvent {
-  final User user;
+  final MipokaUser mipokaUser;
 
-  const CreateUserEvent({required this.user});
+  const CreateUserEvent({required this.mipokaUser});
 
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [mipokaUser];
 }
 
 class UpdateUserEvent extends UserEvent {
-  final User user;
+  final MipokaUser user;
 
   const UpdateUserEvent({required this.user});
 

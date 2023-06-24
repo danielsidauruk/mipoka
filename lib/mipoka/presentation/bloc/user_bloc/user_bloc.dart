@@ -24,7 +24,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<CreateUserEvent>((event, emit) async {
       emit(UserLoading());
 
-      final result = await userUseCase.createUser(event.user);
+      final result = await userUseCase.createUser(event.mipokaUser);
 
       result.fold(
             (failure) => emit(UserError(message: failure.message)),

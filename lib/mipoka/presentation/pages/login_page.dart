@@ -62,6 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                 MipokaCustomLoginTextField(
                   controller: _passwordController,
                   hintText: "Password",
+                  obscuredText: true,
                 ),
 
                 Row(
@@ -81,70 +82,54 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
 
-                SizedBox(
-                  width: double.infinity,
-                  child: Column(
-                    children: [
+                const CustomFieldSpacer(height: 8.0),
 
-                      // LoginButton(
-                      //   onTap: () {
-                      //     registerUser(_emailController.text, _passwordController.text);
-                      //     // Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                      //   },
-                      //   title: 'Sign In',
-                      // ),
+                LoginButton(
+                  title: 'Log in - Pengguna',
+                  onTap:() async {
+                    Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                    // try {
+                    //   String email = _emailController.text;
+                    //   String password = _passwordController.text;
+                    //
+                    //   if (email.isNotEmpty && password.isNotEmpty) {
+                    //     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    //       email: email,
+                    //       password: password,
+                    //     );
+                    //
+                    //     User? user = FirebaseAuth.instance.currentUser;
+                    //
+                    //     Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                    //     // Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute),
+                    //     // Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute),
+                    //   } else {
+                    //     if (kDebugMode) {
+                    //       print('Email and Password cannot be empty.');
+                    //     }
+                    //   }
+                    // } catch (e) {
+                    //   if (kDebugMode) {
+                    //     print('Failed to sign in. Please check your email and password.');
+                    //   }
+                    // }
+                  },
+                ),
 
-                      const CustomFieldSpacer(height: 8.0),
+                const CustomFieldSpacer(height: 8.0),
 
-                      LoginButton(
-                        title: 'Log in - Pengguna',
-                        onTap:() async {
-                          Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                          // try {
-                          //   String email = _emailController.text;
-                          //   String password = _passwordController.text;
-                          //
-                          //   if (email.isNotEmpty && password.isNotEmpty) {
-                          //     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                          //       email: email,
-                          //       password: password,
-                          //     );
-                          //
-                          //     User? user = FirebaseAuth.instance.currentUser;
-                          //
-                          //     Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                          //     // Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute),
-                          //     // Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute),
-                          //   } else {
-                          //     if (kDebugMode) {
-                          //       print('Email and Password cannot be empty.');
-                          //     }
-                          //   }
-                          // } catch (e) {
-                          //   if (kDebugMode) {
-                          //     print('Failed to sign in. Please check your email and password.');
-                          //   }
-                          // }
-                        },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Don't have a Account? "),
+                    InkWell(
+                      onTap: () => Navigator.pushNamed(context, registrationPageRoute),
+                      child: const Text(
+                        'Register',
+                        style: TextStyle(color: Colors.blue),
                       ),
-
-                      const CustomFieldSpacer(height: 8.0),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("Don't have a Account? "),
-                          InkWell(
-                            onTap: () => Navigator.pushNamed(context, registrationPageRoute),
-                            child: const Text(
-                              'Register',
-                              style: TextStyle(color: Colors.blue),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
 
                 const SizedBox(height: 80),
@@ -175,16 +160,5 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-  }
-}
-
-// Fungsi untuk mendaftarkan pengguna
-Future<void> registerUser(String email, String password) async {
-  try {
-    UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-  } catch (e) {
   }
 }

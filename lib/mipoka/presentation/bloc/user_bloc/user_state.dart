@@ -12,7 +12,7 @@ class UserEmpty extends UserState {}
 class UserLoading extends UserState {}
 
 class UserHasData extends UserState {
-  final List<User> userList;
+  final List<MipokaUser> userList;
 
   const UserHasData({required this.userList});
 

@@ -2,13 +2,11 @@ import 'package:equatable/equatable.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 
 // Just updated
-class User extends Equatable{
-  final int idUser;
+class MipokaUser extends Equatable{
+  final String idUser;
   final int idOrmawa;
   final int idOrmawaB;
   final String email;
-  final String username;
-  final String password;
   final String namaLengkap;
   final String nim;
   final String noHp;
@@ -21,15 +19,13 @@ class User extends Equatable{
   final String prodi;
   final String createdAt;
   final String updatedAt;
-  final Ormawa? ormawa;
+  final Ormawa ormawa;
 
-  const User({
+  const MipokaUser({
     required this.idUser,
     required this.idOrmawa,
     required this.idOrmawaB,
     required this.email,
-    required this.username,
-    required this.password,
     required this.namaLengkap,
     required this.nim,
     required this.noHp,
@@ -42,11 +38,11 @@ class User extends Equatable{
     required this.prodi,
     required this.createdAt,
     required this.updatedAt,
-    this.ormawa
+    required this.ormawa
   });
 
-  User copyWith({
-    int? idUser,
+  MipokaUser copyWith({
+    String? idUser,
     int? idOrmawa,
     int? idOrmawaB,
     String? email,
@@ -66,13 +62,11 @@ class User extends Equatable{
     String? updatedAt,
     Ormawa? ormawa,
   }) =>
-      User(
+      MipokaUser(
         idUser: idUser ?? this.idUser,
         idOrmawa: idOrmawa ?? this.idOrmawa,
         idOrmawaB: idOrmawaB ?? this.idOrmawaB,
         email: email ?? this.email,
-        username: username ?? this.username,
-        password: password ?? this.password,
         namaLengkap: namaLengkap ?? this.namaLengkap,
         nim: nim ?? this.nim,
         noHp: noHp ?? this.noHp,
@@ -94,8 +88,6 @@ class User extends Equatable{
     idOrmawa,
     idOrmawaB,
     email,
-    username,
-    password,
     namaLengkap,
     nim,
     noHp,

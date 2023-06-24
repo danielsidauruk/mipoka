@@ -11,7 +11,7 @@ import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 // => Just updated
 class LaporanModel extends Laporan {
   final OrmawaModel ormawaModel;
-  final UserModel userModel;
+  final MipokaUserModel userModel;
   final UsulanKegiatanModel usulanKegiatanModel;
   final BiayaKegiatanModel biayaKegiatanModel;
   final PartisipanModel partisipanModel;
@@ -83,7 +83,7 @@ class LaporanModel extends Laporan {
     return LaporanModel(
       idLaporan: laporan.idLaporan,
       ormawaModel: OrmawaModel.fromEntity(laporan.ormawa),
-      userModel: UserModel.fromEntity(laporan.user),
+      userModel: MipokaUserModel.fromEntity(laporan.user),
       usulanKegiatanModel: UsulanKegiatanModel.fromEntity(laporan.usulanKegiatan),
       pembiayaan: laporan.pembiayaan,
       namaKegiatan: laporan.namaKegiatan,
@@ -136,7 +136,7 @@ class LaporanModel extends Laporan {
   factory LaporanModel.fromJson(Map<String, dynamic> json) => LaporanModel(
     idLaporan: json["idLaporan"],
     ormawaModel: OrmawaModel.fromJson(json["ormawa"]),
-    userModel: UserModel.fromJson(json["user"]),
+    userModel: MipokaUserModel.fromJson(json["user"]),
     usulanKegiatanModel: UsulanKegiatanModel.fromJson(json["usulan"]),
     pembiayaan: json["pembiayaan"],
     namaKegiatan: json["namaKegiatan"],
