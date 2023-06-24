@@ -134,9 +134,9 @@ class _PenggunaPengajuanUsulanKegiatan3State
                               borderRadius: BorderRadius.circular(5.0),
                               border: Border.all(color: Colors.white),
                             ),
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
+                              children: [
                                 Text(
                                   'Detail',
                                   style: TextStyle(fontWeight: FontWeight.bold),

@@ -143,16 +143,35 @@ class CustomRichTextField extends StatelessWidget {
             ),
             child: Column(
               children: [
-                BlocBuilder<QuillEditorFocusCubit, QuillEditorFocusState>(
-                  builder: (context, state) {
-                    return state.isFocused
-                        ? QuillToolbar.basic(
-                      controller: controller,
-                      axis: Axis.horizontal,
-                      multiRowsDisplay: false,
-                    ) :
-                    const SizedBox();
-                  },
+                // BlocBuilder<QuillEditorFocusCubit, QuillEditorFocusState>(
+                //   builder: (context, state) {
+                //     return state.isFocused
+                //         ? QuillToolbar.basic(
+                //       controller: controller,
+                //       axis: Axis.horizontal,
+                //       multiRowsDisplay: false,
+                //     ) :
+                //     const SizedBox();
+                //   },
+                // ),
+                QuillToolbar.basic(
+                  controller: controller,
+                  axis: Axis.horizontal,
+                  multiRowsDisplay: false,
+                  showFontFamily: false,
+                  showFontSize: false,
+                  showHeaderStyle: false,
+                  showCenterAlignment: false,
+                  showQuote: false,
+                  showSubscript: false,
+                  showSuperscript: false,
+                  showBackgroundColorButton: false,
+                  showDividers: false,
+                  showRedo: false,
+                  showUndo: false,
+                  showSearchButton: false,
+                  showSmallButton: false,
+                  showDirection: false,
                 ),
                 Container(
                   padding: const EdgeInsets.all(8.0),
