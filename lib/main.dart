@@ -76,7 +76,7 @@ import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_sar
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_1_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_biaya_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_dk_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_dk_data_peserta_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/tambah_data_peserta_dalam_kota_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_lk_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_daftar_pengajuan_usulan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_lk_data_peserta_page.dart';
@@ -210,10 +210,10 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) =>
                       const PenggunaPengajuanUsulanKegiatan2DK());
-            case penggunaPengajuanUsulanKegiatan2DKDataPesertaPageRoute:
+            case tambahDataPesertaDalamKotaPageRoute:
               return MaterialPageRoute(
                   builder: (_) =>
-                      const PenggunaPengajuanUsulanKegiatan2DKDataPeserta());
+                      const TambahDataPesertaDalamKota());
             case penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute:
               return MaterialPageRoute(
                   builder: (_) =>

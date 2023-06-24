@@ -22,7 +22,8 @@ import 'package:mipoka/mipoka/domain/entities/user.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 
 abstract class MipokaRepositories {
-  Future<Either<Failure, List<Berita>>> readBerita();
+  Future<Either<Failure, List<Berita>>> readAllBerita();
+  Future<Either<Failure, Berita>> readBerita(int idBerita);
   Future<Either<Failure, String>> createBerita(Berita berita);
   Future<Either<Failure, String>> updateBerita(Berita berita);
   Future<Either<Failure, String>> deleteBerita(int beritaId);
@@ -131,7 +132,8 @@ abstract class MipokaRepositories {
   Future<Either<Failure, String>> updateUser(MipokaUser user);
   Future<Either<Failure, String>> deleteUser(int idUser);
 
-  Future<Either<Failure, UsulanKegiatan>> readUsulanKegiatan(int idUsulanKegiatan);
+  Future<Either<Failure, UsulanKegiatan>> readUsulanKegiatan(
+      int idUsulanKegiatan);
   Future<Either<Failure, List<UsulanKegiatan>>> readAllUsulanKegiatan();
   Future<Either<Failure, String>> createUsulanKegiatan(
       UsulanKegiatan usulanKegiatan);

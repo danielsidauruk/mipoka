@@ -401,9 +401,11 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
   @override
   void initState() {
+    Future.microtask(() {
+      BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).add(
+          ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
+    });
     super.initState();
-    BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).add(
-        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
   }
 
   // // @override

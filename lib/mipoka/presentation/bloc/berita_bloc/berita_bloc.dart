@@ -10,24 +10,23 @@ class BeritaBloc extends Bloc<BeritaEvent, BeritaState> {
   final BeritaUseCase beritaUseCase;
 
   BeritaBloc({required this.beritaUseCase}) : super(BeritaEmpty()) {
-
     on<CreateBeritaEvent>((event, emit) async {
-      emit (BeritaLoading());
+      emit(BeritaLoading());
 
       final berita = await beritaUseCase.createBerita(event.berita);
 
       berita.fold(
-            (failure) => emit(BeritaError(message: failure.message)),
-            (message) => emit(BeritaSuccessMessage(message: message)),
+        (failure) => emit(BeritaError(message: failure.message)),
+        (message) => emit(BeritaSuccessMessage(message: message)),
       );
 
-      add(ReadBeritaEvent());
+      add(ReadAllBeritaEvent());
     });
 
     on<ReadBeritaEvent>((event, emit) async {
-      emit (BeritaLoading());
+      emit(BeritaLoading());
 
-      final berita = await beritaUseCase.readBerita();
+      final berita = await beritaUseCase.readBerita(event.idBerita);
 
       berita.fold(
             (failure) => emit(BeritaError(message: failure.message)),
@@ -35,30 +34,41 @@ class BeritaBloc extends Bloc<BeritaEvent, BeritaState> {
       );
     });
 
+    on<ReadAllBeritaEvent>((event, emit) async {
+      emit(BeritaLoading());
+
+      final allBerita = await beritaUseCase.readAllBerita();
+
+      allBerita.fold(
+        (failure) => emit(BeritaError(message: failure.message)),
+        (allBerita) => emit(AllBeritaHasData(allBerita: allBerita)),
+      );
+    });
+
     on<UpdateBeritaEvent>((event, emit) async {
-      emit (BeritaLoading());
+      emit(BeritaLoading());
 
       final berita = await beritaUseCase.updateBerita(event.berita);
 
       berita.fold(
-            (failure) => emit(BeritaError(message: failure.message)),
-            (message) => emit(BeritaSuccessMessage(message: message)),
+        (failure) => emit(BeritaError(message: failure.message)),
+        (message) => emit(BeritaSuccessMessage(message: message)),
       );
 
-      add(ReadBeritaEvent());
+      add(ReadAllBeritaEvent());
     });
 
     on<DeleteBeritaEvent>((event, emit) async {
-      emit (BeritaLoading());
+      emit(BeritaLoading());
 
       final berita = await beritaUseCase.deleteBerita(event.beritaId);
 
       berita.fold(
-            (failure) => emit(BeritaError(message: failure.message)),
-            (message) => emit(BeritaSuccessMessage(message: message)),
+        (failure) => emit(BeritaError(message: failure.message)),
+        (message) => emit(BeritaSuccessMessage(message: message)),
       );
 
-      add(ReadBeritaEvent());
+      add(ReadAllBeritaEvent());
     });
   }
 }

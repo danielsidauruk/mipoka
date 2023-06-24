@@ -20,9 +20,17 @@ class BeritaError extends BeritaState {
   List<Object> get props => [message];
 }
 
+class AllBeritaHasData extends BeritaState {
+  const AllBeritaHasData({required this.allBerita});
+  final List<Berita> allBerita;
+
+  @override
+  List<Object> get props => [allBerita];
+}
+
 class BeritaHasData extends BeritaState {
   const BeritaHasData({required this.berita});
-  final List<Berita> berita;
+  final Berita berita;
 
   @override
   List<Object> get props => [berita];

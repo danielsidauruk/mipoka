@@ -13,7 +13,12 @@ class CreateBeritaEvent extends BeritaEvent {
   const CreateBeritaEvent(this.berita);
 }
 
-class ReadBeritaEvent extends BeritaEvent {}
+class ReadAllBeritaEvent extends BeritaEvent {}
+
+class ReadBeritaEvent extends BeritaEvent {
+  final int idBerita;
+  const ReadBeritaEvent(this.idBerita);
+}
 
 class UpdateBeritaEvent extends BeritaEvent {
   final Berita berita;

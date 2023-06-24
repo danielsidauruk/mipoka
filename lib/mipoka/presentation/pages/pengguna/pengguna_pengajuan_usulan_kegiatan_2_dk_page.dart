@@ -12,7 +12,6 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
-
 class PenggunaPengajuanUsulanKegiatan2DK extends StatefulWidget {
   const PenggunaPengajuanUsulanKegiatan2DK({super.key});
 
@@ -54,7 +53,7 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                   CustomAddButton(
                     buttonText: 'Data Partisipan',
                     onPressed: () => Navigator.pushNamed(context,
-                        penggunaPengajuanUsulanKegiatan2DKDataPesertaPageRoute),
+                        tambahDataPesertaDalamKotaPageRoute),
                   ),
                   const CustomFieldSpacer(),
                   Expanded(

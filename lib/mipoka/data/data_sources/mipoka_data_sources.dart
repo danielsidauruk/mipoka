@@ -25,7 +25,8 @@ import 'package:mipoka/mipoka/data/models/user_model.dart';
 import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
 
 abstract class MipokaDataSources {
-  Future<List<BeritaModel>> readBerita();
+  Future<List<BeritaModel>> readAllBerita();
+  Future<BeritaModel> readBerita(int idBerita);
   Future<String> createBerita(BeritaModel beritaModel);
   Future<String> updateBerita(BeritaModel beritaModel);
   Future<String> deleteBerita(int beritaId);
@@ -148,7 +149,18 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<BeritaModel>> readBerita() async {
+  Future<BeritaModel> readBerita(int idBerita) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/berita_object.json');
+    dynamic jsonDecode = json.decode(response);
+
+    BeritaModel result = BeritaModel.fromJson(jsonDecode);
+
+    return result;
+  }
+
+  @override
+  Future<List<BeritaModel>> readAllBerita() async {
     final String response =
         await rootBundle.loadString('assets/json_file/berita.json');
     List<dynamic> resultList = json.decode(response);
@@ -904,8 +916,9 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
         await rootBundle.loadString('assets/json_file/user.json');
     List<dynamic> resultList = json.decode(response);
 
-    List<MipokaUserModel> result =
-        resultList.map((resultMap) => MipokaUserModel.fromJson(resultMap)).toList();
+    List<MipokaUserModel> result = resultList
+        .map((resultMap) => MipokaUserModel.fromJson(resultMap))
+        .toList();
 
     return result;
   }
@@ -931,8 +944,8 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   // => Usulan
   @override
   Future<UsulanKegiatanModel> readUsulanKegiatan(int idUsulanKegiatan) async {
-    final String response =
-        await rootBundle.loadString('assets/json_file/usulan_kegiatan_object.json');
+    final String response = await rootBundle
+        .loadString('assets/json_file/usulan_kegiatan_object.json');
 
     dynamic jsonResult = json.decode(response);
     UsulanKegiatanModel result = UsulanKegiatanModel.fromJson(jsonResult);
@@ -943,6 +956,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
     return result;
   }
+
   @override
   Future<String> createUsulanKegiatan(
       UsulanKegiatanModel usulanKegiatanModel) async {

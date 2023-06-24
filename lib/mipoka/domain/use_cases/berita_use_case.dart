@@ -3,12 +3,16 @@ import 'package:mipoka/domain/utils/failure.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/domain/repositories/mipoka_repositories.dart';
 
-class BeritaUseCase{
+class BeritaUseCase {
   final MipokaRepositories mipokaRepositories;
   BeritaUseCase({required this.mipokaRepositories});
 
-  Future<Either<Failure, List<Berita>>> readBerita() {
-    return mipokaRepositories.readBerita();
+  Future<Either<Failure, Berita>> readBerita(int idBerita) {
+    return mipokaRepositories.readBerita(idBerita);
+  }
+
+  Future<Either<Failure, List<Berita>>> readAllBerita() {
+    return mipokaRepositories.readAllBerita();
   }
 
   Future<Either<Failure, String>> createBerita(Berita berita) {

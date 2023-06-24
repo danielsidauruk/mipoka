@@ -12,8 +12,7 @@ class PenggunaBerandaPage extends StatefulWidget {
   const PenggunaBerandaPage({super.key});
 
   @override
-  State<PenggunaBerandaPage> createState() =>
-      _PenggunaBerandaPageState();
+  State<PenggunaBerandaPage> createState() => _PenggunaBerandaPageState();
 }
 
 class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
@@ -21,7 +20,7 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
   void initState() {
     super.initState();
     BlocProvider.of<BeritaBloc>(context, listen: false)
-        .add(ReadBeritaEvent());
+        .add(ReadAllBeritaEvent());
   }
 
   @override
@@ -33,7 +32,7 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
         builder: (context, state) {
           if (state is BeritaLoading) {
             return const Text('Loading');
-          } else if (state is BeritaHasData) {
+          } else if (state is AllBeritaHasData) {
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -45,25 +44,26 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
                     CustomContentBox(
                       children: [
                         Image.network(
-                          state.berita[0].gambar,
+                          state.allBerita[0].gambar,
                           height: 170,
                         ),
                         const CustomFieldSpacer(),
                         ListView.builder(
-                          itemCount: state.berita.length,
+                          itemCount: state.allBerita.length,
                           physics: const ScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
-                            final berita = state.berita[index];
+                            final berita = state.allBerita[index];
                             return InkWell(
                               onTap: () => Navigator.pushNamed(
-                                  context,
-                                  penggunaBerandaDetailPageRoute,
-                                  arguments: berita,
+                                context,
+                                penggunaBerandaDetailPageRoute,
+                                arguments: berita,
                               ),
                               child: Container(
                                 height: 80,
-                                decoration: BoxDecoration(border: Border.all(color: Colors.white)),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.white)),
                                 padding: const EdgeInsets.all(4.0),
                                 child: Row(
                                   children: [
@@ -74,8 +74,10 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
                                     const SizedBox(width: 4.0),
                                     Expanded(
                                       flex: 3,
-                                      child: Text(berita.teks,
-                                        style: const TextStyle(fontWeight: FontWeight.bold),
+                                      child: Text(
+                                        berita.teks,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                   ],

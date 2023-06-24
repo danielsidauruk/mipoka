@@ -250,9 +250,11 @@ class _PenggunaDaftarPengajuanKegiatanState
     extends State<PenggunaDaftarPengajuanKegiatan> {
   @override
   void initState() {
+    Future.microtask(() {
+      BlocProvider.of<UsulanKegiatanBloc>(context, listen: false)
+          .add(ReadAllUsulanKegiatanEvent());
+    });
     super.initState();
-    BlocProvider.of<UsulanKegiatanBloc>(context, listen: false)
-        .add(ReadAllUsulanKegiatanEvent());
   }
 
   @override

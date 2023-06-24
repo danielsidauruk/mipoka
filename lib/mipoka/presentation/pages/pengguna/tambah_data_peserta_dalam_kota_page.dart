@@ -8,14 +8,16 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
-class PenggunaPengajuanUsulanKegiatan2DKDataPeserta extends StatefulWidget {
-  const PenggunaPengajuanUsulanKegiatan2DKDataPeserta({super.key});
+class TambahDataPesertaDalamKota extends StatefulWidget {
+  const TambahDataPesertaDalamKota({
+    super.key,
+  });
 
   @override
-  State<PenggunaPengajuanUsulanKegiatan2DKDataPeserta> createState() => _PenggunaPengajuanUsulanKegiatan2DKDataPesertaState();
+  State<TambahDataPesertaDalamKota> createState() => _TambahDataPesertaDalamKotaState();
 }
 
-class _PenggunaPengajuanUsulanKegiatan2DKDataPesertaState extends State<PenggunaPengajuanUsulanKegiatan2DKDataPeserta> {
+class _TambahDataPesertaDalamKotaState extends State<TambahDataPesertaDalamKota> {
   final TextEditingController _nipNipController = TextEditingController();
   final TextEditingController _namaLengkapController = TextEditingController();
   final TextEditingController _peranController = TextEditingController();
@@ -74,13 +76,15 @@ class _PenggunaPengajuanUsulanKegiatan2DKDataPesertaState extends State<Pengguna
                     children: [
                       CustomMipokaButton(
                         onTap: () => Navigator.pop(context),
-                        text: 'Sebelumnya',
+                        text: 'Batal',
                       ),
 
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
                         text: 'Tambahkan Peserta',
                       ),
                     ],

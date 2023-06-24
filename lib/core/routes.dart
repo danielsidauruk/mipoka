@@ -20,8 +20,8 @@ const penggunaPengajuanUsulanKegiatan2DKPageRoute =
     '/penggunaPengajuanUsulanKegiatan2DKPageRoute';
 const penggunaPengajuanUsulanKegiatan2LKDataPesertaPageRoute =
     '/penggunaPengajuanUsulanKegiatan2LKDataPesertaPageRoute';
-const penggunaPengajuanUsulanKegiatan2DKDataPesertaPageRoute =
-    '/penggunaPengajuanUsulanKegiatan2DKDataPesertaPageRoute';
+const tambahDataPesertaDalamKotaPageRoute =
+    '/tambahDataPesertaDalamKotaPageRoute';
 const penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute =
     '/penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute';
 const penggunaPengajuanUsulanKegiatan3PageRoute =

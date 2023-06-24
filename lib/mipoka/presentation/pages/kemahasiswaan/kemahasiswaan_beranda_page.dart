@@ -20,16 +20,14 @@ class KemahasiswaanBerandaPage extends StatefulWidget {
       _KemahasiswaanBerandaPageState();
 }
 
-class _KemahasiswaanBerandaPageState
-    extends State<KemahasiswaanBerandaPage> {
-
+class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
   @override
   void initState() {
     super.initState();
     BlocProvider.of<BeritaBloc>(context, listen: false)
-        .add(ReadBeritaEvent());
+        .add(ReadAllBeritaEvent());
   }
-  
+
   String dropDownValue = listStatus[0];
 
   @override
@@ -39,9 +37,9 @@ class _KemahasiswaanBerandaPageState
       drawer: const MobileCustomKemahasiswaanDrawer(),
       body: BlocBuilder<BeritaBloc, BeritaState>(
         builder: (context, state) {
-          if(state is BeritaLoading) {
+          if (state is BeritaLoading) {
             return Text('Loading');
-          } else if (state is BeritaHasData) {
+          } else if (state is AllBeritaHasData) {
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -102,15 +100,16 @@ class _KemahasiswaanBerandaPageState
                       ),
                     ),
                     const CustomFieldSpacer(),
-                    const CustomMobileTitle(text: 'Kemahasiswaan - Edit Beranda'),
+                    const CustomMobileTitle(
+                        text: 'Kemahasiswaan - Edit Beranda'),
                     const CustomFieldSpacer(),
                     CustomContentBox(
                       children: [
-                        buildTitle('Total Berita : ${state.berita.length}'),
+                        buildTitle('Total Berita : ${state.allBerita.length}'),
                         CustomAddButton(
                           buttonText: 'Tambah',
-                          onPressed: () => Navigator.pushNamed(
-                              context, kemahasiswaanBerandaTambahBeritaPageRoute),
+                          onPressed: () => Navigator.pushNamed(context,
+                              kemahasiswaanBerandaTambahBeritaPageRoute),
                         ),
                         const CustomFieldSpacer(),
                         buildTitle('Penulis'),
@@ -134,21 +133,24 @@ class _KemahasiswaanBerandaPageState
                                   DataColumn(
                                     label: Text(
                                       'Tanggal Diterbitkan',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
                                   DataColumn(
                                     label: Text(
                                       'Judul Berita',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
                                   DataColumn(
                                     label: Text(
                                       'Penulis',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
@@ -156,14 +158,15 @@ class _KemahasiswaanBerandaPageState
                                     tooltip: 'Aksi yang akan dilakukan',
                                     label: Text(
                                       'Aksi',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
                                 ],
                                 rows: List<DataRow>.generate(
-                                  state.berita.length, (int index) {
-                                    final berita = state.berita[index];
+                                    state.allBerita.length, (int index) {
+                                  final berita = state.allBerita[index];
                                   return DataRow(
                                     cells: [
                                       DataCell(
@@ -193,7 +196,7 @@ class _KemahasiswaanBerandaPageState
                                       DataCell(
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
                                             InkWell(
                                               onTap: () => Navigator.pushNamed(
@@ -207,14 +210,21 @@ class _KemahasiswaanBerandaPageState
                                                 width: 24,
                                               ),
                                             ),
-
-                                            const SizedBox(width: 8.0,),
-
+                                            const SizedBox(
+                                              width: 8.0,
+                                            ),
                                             InkWell(
                                               onTap: () {
-                                                context.read<BeritaBloc>().add(DeleteBeritaEvent(berita.idBerita));
-                                                ScaffoldMessenger.of(context).showSnackBar(
-                                                  const SnackBar(content: Text('Berita has been deleted successfully.'), duration: Duration(seconds: 1)),
+                                                context.read<BeritaBloc>().add(
+                                                    DeleteBeritaEvent(
+                                                        berita.idBerita));
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                      content: Text(
+                                                          'Berita has been deleted successfully.'),
+                                                      duration:
+                                                          Duration(seconds: 1)),
                                                 );
                                               },
                                               child: Image.asset(

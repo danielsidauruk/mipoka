@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:mipoka/domain/utils/failure.dart';
 
 abstract class UseCase<Type, Params> {
-  Future<Either<Failure, Type>> readBerita(Params params);
+  Future<Either<Failure, Type>> readAllBerita(Params params);
 }
 
 class NoParams extends Equatable {
