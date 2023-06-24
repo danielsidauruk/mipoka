@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
-import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
 import 'package:mipoka/mipoka/domain/entities/user.dart';
 
@@ -26,7 +26,7 @@ class UsulanKegiatan extends Equatable{
   final int totalPendana;
   final String tandaTanganOrmawa;
   final Partisipan partisipan;
-  final RincianBiayaKegiatan rincianBiayaKegiatan;
+  final BiayaKegiatan rincianBiayaKegiatan;
   final String ketuaOrmawa;
   final String pembina;
   final String latarBelakang;
@@ -115,7 +115,7 @@ class UsulanKegiatan extends Equatable{
     int? totalPendana,
     String? tandaTanganOrmawa,
     Partisipan? partisipan,
-    RincianBiayaKegiatan? rincianBiayaKegiatan,
+    BiayaKegiatan? rincianBiayaKegiatan,
     String? ketuaOrmawa,
     String? pembina,
     String? latarBelakang,

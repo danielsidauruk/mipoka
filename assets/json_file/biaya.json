@@ -1,5 +1,6 @@
 [
   {
+    "idKegiatan": 1,
     "namaBiayaKegiatan": "Peralatan",
     "qty": 5,
     "hargaSatuan": 10000,
@@ -7,6 +8,7 @@
     "keterangan": "Biaya untuk peralatan kegiatan"
   },
   {
+    "idKegiatan": 2,
     "namaBiayaKegiatan": "Transportasi",
     "qty": 2,
     "hargaSatuan": 50000,

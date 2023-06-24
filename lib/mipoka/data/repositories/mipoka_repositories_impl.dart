@@ -4,7 +4,7 @@ import 'package:mipoka/domain/utils/failure.dart';
 import 'package:mipoka/mipoka/data/data_sources/mipoka_data_sources.dart';
 import 'package:mipoka/mipoka/data/models/admin_model.dart';
 import 'package:mipoka/mipoka/data/models/berita_model.dart';
-import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
+import 'package:mipoka/mipoka/data/models/rincian_biaya_kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/lampiran_laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/lampiran_model.dart';
@@ -15,7 +15,7 @@ import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
 import 'package:mipoka/mipoka/data/models/periode_model.dart';
 import 'package:mipoka/mipoka/data/models/peserta_model.dart';
 import 'package:mipoka/mipoka/data/models/prestasi_model.dart';
-import 'package:mipoka/mipoka/data/models/rincian_biaya_kegiatan_model.dart';
+import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/rincian_laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/riwayat_mpt_model.dart';
 import 'package:mipoka/mipoka/data/models/session_model.dart';
@@ -24,7 +24,7 @@ import 'package:mipoka/mipoka/data/models/user_model.dart';
 import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
 import 'package:mipoka/mipoka/domain/entities/admin.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
-import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/lampiran.dart';
 import 'package:mipoka/mipoka/domain/entities/lampiran_laporan.dart';
@@ -35,7 +35,7 @@ import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
 import 'package:mipoka/mipoka/domain/entities/periode.dart';
 import 'package:mipoka/mipoka/domain/entities/peserta.dart';
 import 'package:mipoka/mipoka/domain/entities/prestasi.dart';
-import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/riwayat_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/session.dart';
@@ -583,17 +583,17 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   // => Rincian Biaya Kegiatan
   @override
   Future<Either<Failure, String>> createRincianBiayaKegiatan(
-      RincianBiayaKegiatan rincianBiayaKegiatan) async {
+      BiayaKegiatan rincianBiayaKegiatan) async {
     try {
       return Right(await mipokaDataSources.createRincianBiayaKegiatan(
-          RincianBiayaKegiatanModel.fromEntity(rincianBiayaKegiatan)));
+          BiayaKegiatanModel.fromEntity(rincianBiayaKegiatan)));
     } on ServerException {
       return const Left(ServerFailure());
     }
   }
 
   @override
-  Future<Either<Failure, List<RincianBiayaKegiatan>>>
+  Future<Either<Failure, List<BiayaKegiatan>>>
       readRincianBiayaKegiatan() async {
     try {
       return Right(await mipokaDataSources.readRincianBiayaKegiatan());
@@ -604,10 +604,10 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, String>> updateRincianBiayaKegiatan(
-      RincianBiayaKegiatan rincianBiayaKegiatan) async {
+      BiayaKegiatan rincianBiayaKegiatan) async {
     try {
       return Right(await mipokaDataSources.updateRincianBiayaKegiatan(
-          RincianBiayaKegiatanModel.fromEntity(rincianBiayaKegiatan)));
+          BiayaKegiatanModel.fromEntity(rincianBiayaKegiatan)));
     } on ServerException {
       return const Left(ServerFailure());
     }

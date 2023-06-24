@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:mipoka/domain/utils/failure.dart';
 import 'package:mipoka/mipoka/domain/entities/admin.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
-import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/lampiran.dart';
 import 'package:mipoka/mipoka/domain/entities/lampiran_laporan.dart';
@@ -13,7 +13,7 @@ import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
 import 'package:mipoka/mipoka/domain/entities/periode.dart';
 import 'package:mipoka/mipoka/domain/entities/peserta.dart';
 import 'package:mipoka/mipoka/domain/entities/prestasi.dart';
-import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/riwayat_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/session.dart';
@@ -96,12 +96,12 @@ abstract class MipokaRepositories {
   Future<Either<Failure, String>> updatePrestasi(Prestasi prestasi);
   Future<Either<Failure, String>> deletePrestasi(int idPrestasi);
 
-  Future<Either<Failure, List<RincianBiayaKegiatan>>>
+  Future<Either<Failure, List<BiayaKegiatan>>>
       readRincianBiayaKegiatan();
   Future<Either<Failure, String>> createRincianBiayaKegiatan(
-      RincianBiayaKegiatan rincianBiayaKegiatan);
+      BiayaKegiatan rincianBiayaKegiatan);
   Future<Either<Failure, String>> updateRincianBiayaKegiatan(
-      RincianBiayaKegiatan rincianBiayaKegiatan);
+      BiayaKegiatan rincianBiayaKegiatan);
   Future<Either<Failure, String>> deleteRincianBiayaKegiatan(
       int idRincianBiayaKegiatan);
 

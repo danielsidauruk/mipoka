@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:mipoka/mipoka/data/models/admin_model.dart';
 import 'package:mipoka/mipoka/data/models/berita_model.dart';
-import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/lampiran_laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/lampiran_model.dart';
@@ -16,7 +14,7 @@ import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
 import 'package:mipoka/mipoka/data/models/periode_model.dart';
 import 'package:mipoka/mipoka/data/models/peserta_model.dart';
 import 'package:mipoka/mipoka/data/models/prestasi_model.dart';
-import 'package:mipoka/mipoka/data/models/rincian_biaya_kegiatan_model.dart';
+import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/rincian_laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/riwayat_mpt_model.dart';
 import 'package:mipoka/mipoka/data/models/session_model.dart';
@@ -95,11 +93,11 @@ abstract class MipokaDataSources {
   Future<String> updatePrestasi(PrestasiModel prestasiModel);
   Future<String> deletePrestasi(int idPrestasi);
 
-  Future<List<RincianBiayaKegiatanModel>> readRincianBiayaKegiatan();
+  Future<List<BiayaKegiatanModel>> readRincianBiayaKegiatan();
   Future<String> createRincianBiayaKegiatan(
-      RincianBiayaKegiatanModel rincianBiayaKegiatanModel);
+      BiayaKegiatanModel rincianBiayaKegiatanModel);
   Future<String> updateRincianBiayaKegiatan(
-      RincianBiayaKegiatanModel rincianBiayaKegiatanModel);
+      BiayaKegiatanModel rincianBiayaKegiatanModel);
   Future<String> deleteRincianBiayaKegiatan(int idRincianBiayaKegiatan);
 
   Future<List<RincianLaporanModel>> readRincianLaporan();
@@ -691,7 +689,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   // => Rincian Biaya kegiatanModel
   @override
   Future<String> createRincianBiayaKegiatan(
-      RincianBiayaKegiatanModel rincianBiayaKegiatanModel) async {
+      BiayaKegiatanModel rincianBiayaKegiatanModel) async {
     if (kDebugMode) {
       print(rincianBiayaKegiatanModel.toJson());
     }
@@ -700,13 +698,13 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<RincianBiayaKegiatanModel>> readRincianBiayaKegiatan() async {
+  Future<List<BiayaKegiatanModel>> readRincianBiayaKegiatan() async {
     final String response = await rootBundle
-        .loadString('assets/json_file/rincian_biaya_kegiatan.json');
+        .loadString('assets/json_file/biaya.json');
     List<dynamic> resultList = json.decode(response);
 
-    List<RincianBiayaKegiatanModel> result = resultList
-        .map((resultMap) => RincianBiayaKegiatanModel.fromJson(resultMap))
+    List<BiayaKegiatanModel> result = resultList
+        .map((resultMap) => BiayaKegiatanModel.fromJson(resultMap))
         .toList();
 
     return result;
@@ -714,7 +712,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<String> updateRincianBiayaKegiatan(
-      RincianBiayaKegiatanModel rincianBiayaKegiatanModel) async {
+      BiayaKegiatanModel rincianBiayaKegiatanModel) async {
     if (kDebugMode) {
       print(rincianBiayaKegiatanModel.toJson());
     }

@@ -72,13 +72,13 @@
       "peran": "Peserta",
       "dasarKirim": "Surat Tugas"
     },
-    "RincianBiayaKegiatan" : {
-      "idRincianBiayaKegiatan": 1,
-      "namaBiayaKegiatan": "Transportasi",
-      "kuantiti": 2,
-      "hargaSatuan": 50000,
-      "total": 100000,
-      "keterangan": "Biaya transportasi pulang-pergi"
+    "biayaKegiatan" : {
+      "idKegiatan": 1,
+      "namaBiayaKegiatan": "Peralatan",
+      "qty": 5,
+      "hargaSatuan": 10000,
+      "total": 50000,
+      "keterangan": "Biaya untuk peralatan kegiatan"
     },
     "ketuaOrmawa": "John Doe",
     "pembina": "Jane Smith",
@@ -182,13 +182,13 @@
       "peran": "Peserta",
       "dasarKirim": "Surat Tugas"
     },
-    "RincianBiayaKegiatan" : {
-      "idRincianBiayaKegiatan": 1,
-      "namaBiayaKegiatan": "Transportasi",
-      "kuantiti": 2,
-      "hargaSatuan": 50000,
-      "total": 100000,
-      "keterangan": "Biaya transportasi pulang-pergi"
+    "biayaKegiatan" : {
+      "idKegiatan": 1,
+      "namaBiayaKegiatan": "Peralatan",
+      "qty": 5,
+      "hargaSatuan": 10000,
+      "total": 50000,
+      "keterangan": "Biaya untuk peralatan kegiatan"
     },
     "ketuaOrmawa": "John Doe",
     "pembina": "Jane Smith",

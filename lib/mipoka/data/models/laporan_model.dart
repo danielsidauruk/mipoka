@@ -1,8 +1,8 @@
-import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
+import 'package:mipoka/mipoka/data/models/rincian_biaya_kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
 import 'package:mipoka/mipoka/data/models/peserta_kegiatan_laporan_model.dart';
-import 'package:mipoka/mipoka/data/models/rincian_biaya_kegiatan_model.dart';
+import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/tertib_acara_model.dart';
 import 'package:mipoka/mipoka/data/models/user_model.dart';
 import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
@@ -13,9 +13,9 @@ class LaporanModel extends Laporan {
   final OrmawaModel ormawaModel;
   final MipokaUserModel userModel;
   final UsulanKegiatanModel usulanKegiatanModel;
-  final BiayaKegiatanModel biayaKegiatanModel;
+  final RincianBiayaKegiatanModel biayaKegiatanModel;
   final PartisipanModel partisipanModel;
-  final RincianBiayaKegiatanModel rincianBiayaKegiatanModel;
+  final BiayaKegiatanModel rincianBiayaKegiatanModel;
   final TertibAcaraModel tertibAcaraModel;
   final PesertaKegiatanLaporanModel pesertaKegiatanLaporanModel;
 
@@ -101,7 +101,7 @@ class LaporanModel extends Laporan {
       totalPendanaan: laporan.totalPendanaan,
       tandaTanganOrmawa: laporan.tandaTanganOrmawa,
       partisipanModel: PartisipanModel.fromEntity(laporan.partisipan),
-      rincianBiayaKegiatanModel: RincianBiayaKegiatanModel.fromEntity(laporan.rincianBiayaKegiatan),
+      rincianBiayaKegiatanModel: BiayaKegiatanModel.fromEntity(laporan.rincianBiayaKegiatan),
       ketuaOrmawa: laporan.ketuaOrmawa,
       pembina: laporan.pembina,
       latarBelakang: laporan.latarBelakang,
@@ -125,7 +125,7 @@ class LaporanModel extends Laporan {
       updatedAt: laporan.updatedAt,
       createdAt: laporan.createdAt,
       filePeserta: laporan.filePeserta,
-      biayaKegiatanModel: BiayaKegiatanModel.fromEntity(laporan.biayaKegiatan),
+      biayaKegiatanModel: RincianBiayaKegiatanModel.fromEntity(laporan.biayaKegiatan),
       pesertaKegiatanLaporanModel: PesertaKegiatanLaporanModel.fromEntity(laporan.pesertaKegiatanLaporan),
       hasilKegiatan: laporan.hasilKegiatan,
       laporanUpdatedAt: laporan.laporanUpdatedAt,
@@ -154,7 +154,7 @@ class LaporanModel extends Laporan {
     totalPendanaan: json["totalPendanaan"],
     tandaTanganOrmawa: json["tandaTanganOrmawa"],
     partisipanModel: PartisipanModel.fromJson(json["partisipan"]),
-    rincianBiayaKegiatanModel: RincianBiayaKegiatanModel.fromJson(json["rincianBiayaKegiatan"]),
+    rincianBiayaKegiatanModel: BiayaKegiatanModel.fromJson(json["rincianBiayaKegiatan"]),
     ketuaOrmawa: json["ketuaOrmawa"],
     pembina: json["pembina"],
     latarBelakang: json["latarBelakang"],
@@ -178,7 +178,7 @@ class LaporanModel extends Laporan {
     updatedAt: DateTime.parse(json["updatedAt"]),
     createdAt: DateTime.parse(json["createdAt"]),
     filePeserta: json["filePeserta"],
-    biayaKegiatanModel: BiayaKegiatanModel.fromJson(json["biayaKegiatan"]),
+    biayaKegiatanModel: RincianBiayaKegiatanModel.fromJson(json["biayaKegiatan"]),
     pesertaKegiatanLaporanModel: PesertaKegiatanLaporanModel.fromJson(json["PesertaKegiatanLaporan"]),
     hasilKegiatan: json["hasilKegiatan"],
     laporanUpdatedAt: DateTime.parse(json["updated_at"]),

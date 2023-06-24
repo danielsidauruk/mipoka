@@ -12,7 +12,7 @@ class RincianBiayaKegiatanEmpty extends RincianBiayaKegiatanState {}
 class RincianBiayaKegiatanLoading extends RincianBiayaKegiatanState {}
 
 class RincianBiayaKegiatanHasData extends RincianBiayaKegiatanState {
-  final List<RincianBiayaKegiatan> rincianBiayaKegiatanList;
+  final List<BiayaKegiatan> rincianBiayaKegiatanList;
 
   const RincianBiayaKegiatanHasData({required this.rincianBiayaKegiatanList});
 

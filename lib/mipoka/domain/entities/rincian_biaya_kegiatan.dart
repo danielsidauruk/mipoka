@@ -1,47 +1,76 @@
 import 'package:equatable/equatable.dart';
 
-// Just updated
-class RincianBiayaKegiatan extends Equatable {
-  final int idRincianBiayaKegiatan;
-  final String namaBiayaKegiatan;
-  final int kuantiti;
-  final int hargaSatuan;
-  final int total;
+class RincianBiayaKegiatan extends Equatable{
+  final int idBiayaKegiatan;
+  final String idLaporan;
+  final String namaBiaya;
   final String keterangan;
+  final int kuantitas;
+  final int hargaSatuan;
+  final int usulanAnggaran;
+  final int realisasiAnggaran;
+  final int selisih;
+  final int totalUsulan;
+  final int totalRealisasi;
+  final int totalSelisih;
 
   const RincianBiayaKegiatan({
-    required this.idRincianBiayaKegiatan,
-    required this.namaBiayaKegiatan,
-    required this.kuantiti,
-    required this.hargaSatuan,
-    required this.total,
+    required this.idBiayaKegiatan,
+    required this.idLaporan,
+    required this.namaBiaya,
     required this.keterangan,
+    required this.kuantitas,
+    required this.hargaSatuan,
+    required this.usulanAnggaran,
+    required this.realisasiAnggaran,
+    required this.selisih,
+    required this.totalUsulan,
+    required this.totalRealisasi,
+    required this.totalSelisih,
   });
 
   RincianBiayaKegiatan copyWith({
-    int? idRincianBiayaKegiatan,
-    String? namaBiayaKegiatan,
-    int? kuantiti,
-    int? hargaSatuan,
-    int? total,
+    int? idBiayaKegiatan,
+    String? idLaporan,
+    String? namaBiaya,
     String? keterangan,
+    int? kuantitas,
+    int? hargaSatuan,
+    int? usulanAnggaran,
+    int? realisasiAnggaran,
+    int? selisih,
+    int? totalUsulan,
+    int? totalRealisasi,
+    int? totalSelisih,
   }) =>
       RincianBiayaKegiatan(
-        idRincianBiayaKegiatan: idRincianBiayaKegiatan ?? this.idRincianBiayaKegiatan,
-        namaBiayaKegiatan: namaBiayaKegiatan ?? this.namaBiayaKegiatan,
-        kuantiti: kuantiti ?? this.kuantiti,
-        hargaSatuan: hargaSatuan ?? this.hargaSatuan,
-        total: total ?? this.total,
+        idBiayaKegiatan: idBiayaKegiatan ?? this.idBiayaKegiatan,
+        idLaporan: idLaporan ?? this.idLaporan,
+        namaBiaya: namaBiaya ?? this.namaBiaya,
         keterangan: keterangan ?? this.keterangan,
+        kuantitas: kuantitas ?? this.kuantitas,
+        hargaSatuan: hargaSatuan ?? this.hargaSatuan,
+        usulanAnggaran: usulanAnggaran ?? this.usulanAnggaran,
+        realisasiAnggaran: realisasiAnggaran ?? this.realisasiAnggaran,
+        selisih: selisih ?? this.selisih,
+        totalUsulan: totalUsulan ?? this.totalUsulan,
+        totalRealisasi: totalRealisasi ?? this.totalRealisasi,
+        totalSelisih: totalSelisih ?? this.totalSelisih,
       );
 
   @override
   List<Object?> get props => [
-    idRincianBiayaKegiatan,
-    namaBiayaKegiatan,
-    kuantiti,
-    hargaSatuan,
-    total,
+    idBiayaKegiatan,
+    idLaporan,
+    namaBiaya,
     keterangan,
+    kuantitas,
+    hargaSatuan,
+    usulanAnggaran,
+    realisasiAnggaran,
+    selisih,
+    totalUsulan,
+    totalRealisasi,
+    totalSelisih,
   ];
 }

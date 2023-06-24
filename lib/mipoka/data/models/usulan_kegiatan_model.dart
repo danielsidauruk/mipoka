@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
-import 'package:mipoka/mipoka/data/models/rincian_biaya_kegiatan_model.dart';
+import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/tertib_acara_model.dart';
 import 'package:mipoka/mipoka/data/models/user_model.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
@@ -10,7 +10,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
   final MipokaUserModel userModel;
   final OrmawaModel ormawaModel;
   final PartisipanModel partisipanModel;
-  final RincianBiayaKegiatanModel rincianBiayaKegiatanModel;
+  final BiayaKegiatanModel rincianBiayaKegiatanModel;
   final TertibAcaraModel tertibAcaraModel;
 
   const UsulanKegiatanModel({
@@ -85,7 +85,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
       totalPendana: usulanKegiatan.totalPendana,
       tandaTanganOrmawa: usulanKegiatan.tandaTanganOrmawa,
       partisipanModel: PartisipanModel.fromEntity(usulanKegiatan.partisipan),
-      rincianBiayaKegiatanModel: RincianBiayaKegiatanModel.fromEntity(usulanKegiatan.rincianBiayaKegiatan),
+      rincianBiayaKegiatanModel: BiayaKegiatanModel.fromEntity(usulanKegiatan.rincianBiayaKegiatan),
       ketuaOrmawa: usulanKegiatan.ketuaOrmawa,
       pembina: usulanKegiatan.pembina,
       latarBelakang: usulanKegiatan.latarBelakang,
@@ -132,7 +132,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
     totalPendana: json["totalPendana"],
     tandaTanganOrmawa: json["tandaTanganOrmawa"],
     partisipanModel: PartisipanModel.fromJson(json["partisipan"]),
-    rincianBiayaKegiatanModel: RincianBiayaKegiatanModel.fromJson(json["RincianBiayaKegiatan"]),
+    rincianBiayaKegiatanModel: BiayaKegiatanModel.fromJson(json["biayaKegiatan"]),
     ketuaOrmawa: json["ketuaOrmawa"],
     pembina: json["pembina"],
     latarBelakang: json["latarBelakang"],
@@ -177,7 +177,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
     "totalPendana": totalPendana,
     "tandaTanganOrmawa": tandaTanganOrmawa,
     "partisipan": partisipanModel.toJson(),
-    "RincianBiayaKegiatan": rincianBiayaKegiatanModel.toJson(),
+    "biayaKegiatan": rincianBiayaKegiatanModel.toJson(),
     "ketuaOrmawa": ketuaOrmawa,
     "pembina": pembina,
     "latarBelakang": latarBelakang,

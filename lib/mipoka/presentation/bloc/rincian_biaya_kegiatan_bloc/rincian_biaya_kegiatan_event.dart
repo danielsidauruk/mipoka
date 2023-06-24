@@ -10,7 +10,7 @@ abstract class RincianBiayaKegiatanEvent extends Equatable {
 class ReadRincianBiayaKegiatanEvent extends RincianBiayaKegiatanEvent {}
 
 class CreateRincianBiayaKegiatanEvent extends RincianBiayaKegiatanEvent {
-  final RincianBiayaKegiatan rincianBiayaKegiatan;
+  final BiayaKegiatan rincianBiayaKegiatan;
 
   const CreateRincianBiayaKegiatanEvent({required this.rincianBiayaKegiatan});
 
@@ -19,7 +19,7 @@ class CreateRincianBiayaKegiatanEvent extends RincianBiayaKegiatanEvent {
 }
 
 class UpdateRincianBiayaKegiatanEvent extends RincianBiayaKegiatanEvent {
-  final RincianBiayaKegiatan rincianBiayaKegiatan;
+  final BiayaKegiatan rincianBiayaKegiatan;
 
   const UpdateRincianBiayaKegiatanEvent({required this.rincianBiayaKegiatan});
 

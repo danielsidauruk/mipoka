@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/use_cases/biaya_kegiatan_use_case.dart';
 
 part 'biaya_kegiatan_event.dart';
@@ -20,7 +21,7 @@ class BiayaKegiatanBloc extends Bloc<BiayaKegiatanEvent, BiayaKegiatanState> {
             (message) => emit(BiayaKegiatanSuccessMessage(message: message)),
       );
 
-      add(ReadBiayaKegiatanEvent());
+      // add(ReadBiayaKegiatanEvent());
     });
 
     on<ReadBiayaKegiatanEvent>((event, emit) async {

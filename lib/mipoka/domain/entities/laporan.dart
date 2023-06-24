@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
-import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
 import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
-import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
 import 'package:mipoka/mipoka/domain/entities/user.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
@@ -30,7 +30,7 @@ class Laporan extends Equatable{
   final int totalPendanaan;
   final String tandaTanganOrmawa;
   final Partisipan partisipan;
-  final RincianBiayaKegiatan rincianBiayaKegiatan;
+  final BiayaKegiatan rincianBiayaKegiatan;
   final String ketuaOrmawa;
   final String pembina;
   final String latarBelakang;
@@ -54,7 +54,7 @@ class Laporan extends Equatable{
   final DateTime updatedAt;
   final DateTime createdAt;
   final String filePeserta;
-  final BiayaKegiatan biayaKegiatan;
+  final RincianBiayaKegiatan biayaKegiatan;
   final PesertaKegiatanLaporan pesertaKegiatanLaporan;
   final String hasilKegiatan;
   final DateTime laporanUpdatedAt;
@@ -133,7 +133,7 @@ class Laporan extends Equatable{
     int? totalPendanaan,
     String? tandaTanganOrmawa,
     Partisipan? partisipan,
-    RincianBiayaKegiatan? rincianBiayaKegiatan,
+    BiayaKegiatan? rincianBiayaKegiatan,
     String? ketuaOrmawa,
     String? pembina,
     String? latarBelakang,
@@ -157,7 +157,7 @@ class Laporan extends Equatable{
     DateTime? updatedAt,
     DateTime? createdAt,
     String? filePeserta,
-    BiayaKegiatan? biayaKegiatan,
+    RincianBiayaKegiatan? biayaKegiatan,
     PesertaKegiatanLaporan? pesertaKegiatanLaporan,
     String? hasilKegiatan,
     DateTime? laporanUpdatedAt,

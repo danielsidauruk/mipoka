@@ -1,5 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/cubit/pengajuan_kegiatan_cubit.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -24,8 +28,9 @@ class UsulanKegiatanTambahBiayaKegiatanPage extends StatefulWidget {
 
 class _UsulanKegiatanTambahBiayaKegiatanPageState extends State<UsulanKegiatanTambahBiayaKegiatanPage> {
   final TextEditingController _namaBiayaKegiatanController = TextEditingController();
-  final TextEditingController _keteranganController =
-  TextEditingController();
+  final TextEditingController _kuantitiController = TextEditingController();
+  final TextEditingController _hargaSatuanController = TextEditingController();
+  final TextEditingController _keteranganController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -55,51 +60,16 @@ class _UsulanKegiatanTambahBiayaKegiatanPageState extends State<UsulanKegiatanTa
                         ),
                         const CustomFieldSpacer(),
                         buildTitle('Qty'),
-                        CustomTextField2(
+                        CustomTextField(
                           textInputType: TextInputType.number,
-                          onSubmitted: (value) {
-                            final qty = int.tryParse(value) ?? 0;
-                            context
-                                .read<PengajuanKegiatanCubit>()
-                                .updateQty(qty);
-                          },
+                          controller: _kuantitiController,
                         ),
                         const CustomFieldSpacer(),
                         buildTitle('Harga Satuan'),
-                        CustomTextField2(
+                        CustomTextField(
                           textInputType: TextInputType.number,
-                          onSubmitted: (value) {
-                            final hargaSatuan = int.tryParse(value) ?? 0;
-                            context
-                                .read<PengajuanKegiatanCubit>()
-                                .updateHargaSatuan(hargaSatuan);
-                          },
+                          controller: _hargaSatuanController,
                         ),
-
-
-
-                        const CustomFieldSpacer(),
-                        buildTitle('Total'),
-                        // CustomTextField3(
-                        //   value: state.total.toString(),
-                        //   textInputType: TextInputType.number,
-                        //   onSubmitted: (value) {  },
-                        // ),
-
-                        BlocProvider(
-                          create: (_) => PengajuanKegiatanCubit(),
-                          child: BlocBuilder<PengajuanKegiatanCubit, PengajuanKegiatanState>(
-                            builder: (context, state) {
-                              return CustomTextField(
-                                controller: TextEditingController(
-                                    text: state.total.toString()),
-                                textInputType: TextInputType.number,
-                              );
-                            },
-                          ),
-                        ),
-
-
 
                         const CustomFieldSpacer(),
                         buildTitle('Keterangan'),
@@ -116,7 +86,29 @@ class _UsulanKegiatanTambahBiayaKegiatanPageState extends State<UsulanKegiatanTa
                             ),
                             const SizedBox(width: 8.0),
                             CustomMipokaButton(
-                              onTap: () => Navigator.pop(context),
+                              onTap: () {
+                                if (
+                                _namaBiayaKegiatanController.text.isNotEmpty && _kuantitiController.text.isNotEmpty &&
+                                    _hargaSatuanController.text.isNotEmpty && _keteranganController.text.isNotEmpty) {
+                                  BlocProvider.of<BiayaKegiatanBloc>(context).add(
+                                    CreateBiayaKegiatanEvent(
+                                      BiayaKegiatan(
+                                        idRincianBiayaKegiatan: 1,
+                                        namaBiayaKegiatan: _namaBiayaKegiatanController.text,
+                                        kuantiti: int.parse(_kuantitiController.text),
+                                        hargaSatuan: int.parse(_hargaSatuanController.text),
+                                        total: int.parse(_kuantitiController.text) * int.parse(_hargaSatuanController.text),
+                                        keterangan: _keteranganController.text,
+                                      ),
+                                    ),
+                                  );
+                                  Navigator.pop(context);
+                                } else {
+                                  if (kDebugMode) {
+                                    print('Text field cannot be empty');
+                                  }
+                                }
+                              },
                               text: 'Tambahkan',
                             ),
                           ],

@@ -223,7 +223,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/convertToLowerCase.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
-import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
 import 'package:mipoka/mipoka/domain/entities/user.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
@@ -495,7 +495,7 @@ class _PenggunaDaftarPengajuanKegiatanState
                                       dasarKirim: "",
                                     ),
                                     rincianBiayaKegiatan:
-                                        const RincianBiayaKegiatan(
+                                        const BiayaKegiatan(
                                       idRincianBiayaKegiatan: 0,
                                       namaBiayaKegiatan: "",
                                       kuantiti: 0,
