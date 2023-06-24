@@ -700,11 +700,13 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                 if (kDebugMode) {
                                   print(_bentukKegiatanSwitchController);
                                 }
-                                _tempatKegiatanSwitchController == false
-                                    ? Navigator.pushNamed(context,
-                                        penggunaPengajuanUsulanKegiatan2DKPageRoute)
-                                    : Navigator.pushNamed(context,
-                                        penggunaPengajuanUsulanKegiatan2LKPageRoute);
+                                // _tempatKegiatanSwitchController == false
+                                //     ? Navigator.pushNamed(context,
+                                //         penggunaPengajuanUsulanKegiatan2DKPageRoute)
+                                //     : Navigator.pushNamed(context,
+                                //         penggunaPengajuanUsulanKegiatan2LKPageRoute);
+                                Navigator.pushNamed(context,
+                                    penggunaPengajuanUsulanKegiatan2DKPageRoute);
 
                                 context.read<UsulanKegiatanBloc>().add(
                                       UpdateUsulanKegiatanEvent(

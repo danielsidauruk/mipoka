@@ -56,7 +56,11 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
                           itemBuilder: (BuildContext context, int index) {
                             final berita = state.berita[index];
                             return InkWell(
-                              onTap: () => Navigator.pushNamed(context, penggunaBerandaDetailPageRoute),
+                              onTap: () => Navigator.pushNamed(
+                                  context,
+                                  penggunaBerandaDetailPageRoute,
+                                  arguments: berita,
+                              ),
                               child: Container(
                                 height: 80,
                                 decoration: BoxDecoration(border: Border.all(color: Colors.white)),

@@ -20,5 +20,49 @@
     "tanggalLahir": "1998-12-31",
     "peran": "Peserta",
     "dasarKirim": "Pilihan Sendiri"
+  },
+  {
+    "idPeserta": 1,
+    "idUsulan": 1,
+    "nim": "1234567890",
+    "namaLengkap": "John Doe",
+    "nik": "1234567890123456",
+    "tempatLahir": "Jakarta",
+    "tanggalLahir": "2000-01-01",
+    "peran": "Peserta",
+    "dasarKirim": "Undangan"
+  },
+  {
+    "idPeserta": 2,
+    "idUsulan": 2,
+    "nim": "0987654321",
+    "namaLengkap": "Jane Smith",
+    "nik": "6543210987654321",
+    "tempatLahir": "Bandung",
+    "tanggalLahir": "1998-12-31",
+    "peran": "Peserta",
+    "dasarKirim": "Pilihan Sendiri"
+  },
+  {
+    "idPeserta": 1,
+    "idUsulan": 1,
+    "nim": "1234567890",
+    "namaLengkap": "John Doe",
+    "nik": "1234567890123456",
+    "tempatLahir": "Jakarta",
+    "tanggalLahir": "2000-01-01",
+    "peran": "Peserta",
+    "dasarKirim": "Undangan"
+  },
+  {
+    "idPeserta": 2,
+    "idUsulan": 2,
+    "nim": "0987654321",
+    "namaLengkap": "Jane Smith",
+    "nik": "6543210987654321",
+    "tempatLahir": "Bandung",
+    "tanggalLahir": "1998-12-31",
+    "peran": "Peserta",
+    "dasarKirim": "Pilihan Sendiri"
   }
 ]

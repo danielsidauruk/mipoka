@@ -198,6 +198,20 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     }
                   },
                 ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Already have an Account? "),
+                    InkWell(
+                      onTap: () => Navigator.pushNamed(context, loginPageRoute),
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
