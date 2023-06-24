@@ -77,6 +77,7 @@ import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_lap
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_laporan_kegiatan_3_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_sarana_dan_prasarana_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_1_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/usulan_kegiatan_edit_biaya_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/usulan_kegiatan_tambah_biaya_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_dk_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/tambah_data_peserta_dalam_kota_page.dart';
@@ -162,12 +163,12 @@ class MyApp extends StatelessWidget {
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
-
             // route
             case loginPageRoute:
               return MaterialPageRoute(builder: (_) => const LoginPage());
             case registrationPageRoute:
-              return MaterialPageRoute(builder: (_) => const RegistrationPage());
+              return MaterialPageRoute(
+                  builder: (_) => const RegistrationPage());
             case gantiPasswordPageRoute:
               return MaterialPageRoute(
                   builder: (_) => const GantiPasswordPage());
@@ -179,9 +180,8 @@ class MyApp extends StatelessWidget {
             case penggunaBerandaDetailPageRoute:
               final berita = settings.arguments as Berita;
               return MaterialPageRoute(
-                builder: (_) => PenggunaBerandaDetailPage(berita: berita),
-                settings: settings
-              );
+                  builder: (_) => PenggunaBerandaDetailPage(berita: berita),
+                  settings: settings);
             case lupaPasswordPageRoute:
               return MaterialPageRoute(
                   builder: (_) => const LupaPasswordPage());
@@ -189,8 +189,7 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) => const PasswordBaruPage());
             case notifikasiPageRoute:
-              return MaterialPageRoute(
-                  builder: (_) => const NotifikasiPage());
+              return MaterialPageRoute(builder: (_) => const NotifikasiPage());
 
             case penggunaDaftarPengajuanKegiatanPageRoute:
               return MaterialPageRoute(
@@ -198,13 +197,13 @@ class MyApp extends StatelessWidget {
             case penggunaPengajuanUsulanKegiatanPage1Route:
               final idUsulanKegiatan = settings.arguments as int;
               return MaterialPageRoute(
-                builder: (_) => PenggunaPengajuanUsulanKegiatan1(idUsulanKegiatan: idUsulanKegiatan),
+                builder: (_) => PenggunaPengajuanUsulanKegiatan1(
+                    idUsulanKegiatan: idUsulanKegiatan),
                 settings: settings,
               );
             case penggunaPengajuanUsulanKegiatan2LKPageRoute:
               return MaterialPageRoute(
-                  builder: (_) =>
-                      const PenggunaPengajuanUsulanKegiatan2LK());
+                  builder: (_) => const PenggunaPengajuanUsulanKegiatan2LK());
             case penggunaPengajuanUsulanKegiatan2LKDataPesertaPageRoute:
               return MaterialPageRoute(
                   builder: (_) =>
@@ -212,12 +211,12 @@ class MyApp extends StatelessWidget {
             case penggunaPengajuanUsulanKegiatan2DKPageRoute:
               final idUsulanKegiatan = settings.arguments as int;
               return MaterialPageRoute(
-                  builder: (_) => PenggunaPengajuanUsulanKegiatan2DK(idUsulanKegiatan: idUsulanKegiatan),
+                builder: (_) => PenggunaPengajuanUsulanKegiatan2DK(
+                    idUsulanKegiatan: idUsulanKegiatan),
               );
             case tambahDataPesertaDalamKotaPageRoute:
               return MaterialPageRoute(
-                  builder: (_) =>
-                      const TambahDataPesertaDalamKota());
+                  builder: (_) => const TambahDataPesertaDalamKota());
             case editDataPesertaDalamKotaPageRoute:
               final partisipanArgs = settings.arguments as PartisipanArgs;
               return MaterialPageRoute(
@@ -228,8 +227,13 @@ class MyApp extends StatelessWidget {
             case penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute:
               final idUsulanKegiatan = settings.arguments as int;
               return MaterialPageRoute(
-                  builder: (_) =>
-                      UsulanKegiatanTambahBiayaKegiatanPage(idUsulanKegiatan: idUsulanKegiatan));
+                builder: (_) => UsulanKegiatanTambahBiayaKegiatanPage(idUsulanKegiatan: idUsulanKegiatan),
+              );
+            case usulanKegiatanEditBiayaKegiatanPageRoute:
+              final biayaKegiatanArgs = settings.arguments as BiayaKegiatanArgs;
+              return MaterialPageRoute(
+                builder: (_) => UsulanKegiatanEditBiayaKegiatanPage(biayaKegiatanArgs: biayaKegiatanArgs),
+              );
             case penggunaPengajuanUsulanKegiatan3PageRoute:
               return MaterialPageRoute(
                   builder: (_) => const PenggunaPengajuanUsulanKegiatan3());
@@ -247,12 +251,10 @@ class MyApp extends StatelessWidget {
                   builder: (_) => const PenggunaDaftarLaporanKegiatan());
             case penggunaPengajuanLaporanKegiatanPage1Route:
               return MaterialPageRoute(
-                  builder: (_) =>
-                      const PenggunaPengajuanLaporanKegiatan1());
+                  builder: (_) => const PenggunaPengajuanLaporanKegiatan1());
             case penggunaPengajuanLaporanKegiatan2PageRoute:
               return MaterialPageRoute(
-                  builder: (_) =>
-                      const PenggunaPengajuanLaporanKegiatan2());
+                  builder: (_) => const PenggunaPengajuanLaporanKegiatan2());
             case penggunaPengajuanLaporanKegiatan2BiayaKegiatanPageRoute:
               return MaterialPageRoute(
                   builder: (_) =>
@@ -263,8 +265,7 @@ class MyApp extends StatelessWidget {
                       const PenggunaPengajuanLaporanKegiatan2ImportPeserta());
             case penggunaPengajuanLaporanKegiatan3PageRoute:
               return MaterialPageRoute(
-                  builder: (_) =>
-                      const PenggunaPengajuanLaporanKegiatan3());
+                  builder: (_) => const PenggunaPengajuanLaporanKegiatan3());
 
             case penggunaDaftarPengajuanSaranaDanPrasaranaPageRoute:
               return MaterialPageRoute(
@@ -272,8 +273,7 @@ class MyApp extends StatelessWidget {
                       const PenggunaDaftarPengajuanSaranaDanPrasarana());
             case penggunaPengajuanSaranaDanPrasaranaPageRoute:
               return MaterialPageRoute(
-                  builder: (_) =>
-                      const PenggunaPengajuanSaranaDanPrasarana());
+                  builder: (_) => const PenggunaPengajuanSaranaDanPrasarana());
 
             case penggunaMPTPageRoute:
               return MaterialPageRoute(builder: (_) => const PenggunaMPTPage());
@@ -336,19 +336,17 @@ class MyApp extends StatelessWidget {
                   builder: (_) => const KemahasiswaanBerandaPage());
             case kemahasiswaanBerandaTambahBeritaPageRoute:
               return MaterialPageRoute(
-                  builder: (_) =>
-                      const KemahasiswaanBerandaBeritaPage());
+                  builder: (_) => const KemahasiswaanBerandaBeritaPage());
             case kemahasiswaanBerandaUpdateBeritaPageRoute:
               final berita = settings.arguments as Berita;
 
               return MaterialPageRoute(
-                builder: (_) => KemahasiswaanBerandaUpdateBeritaPage(berita: berita),
-                settings: settings
-              );
+                  builder: (_) =>
+                      KemahasiswaanBerandaUpdateBeritaPage(berita: berita),
+                  settings: settings);
             case kemahasiswaanMPTMahasiswaPeriodePageRoute:
               return MaterialPageRoute(
-                  builder: (_) =>
-                      const KemahasiswaanMPTMahasiswaPeriodePage());
+                  builder: (_) => const KemahasiswaanMPTMahasiswaPeriodePage());
             case kemahasiswaanMPTMahasiswaTambahPeriodePageRoute:
               return MaterialPageRoute(
                   builder: (_) =>
@@ -418,7 +416,8 @@ class MyApp extends StatelessWidget {
                   builder: (_) => const KemahasiswaanCekLaporanKegiatanPage());
             case kemahasiswaanCekSaranaDanPrasaranaPageRoute:
               return MaterialPageRoute(
-                  builder: (_) => const KemahasiswaanCekSaranaDanPrasaranaPage());
+                  builder: (_) =>
+                      const KemahasiswaanCekSaranaDanPrasaranaPage());
           }
         },
       ),

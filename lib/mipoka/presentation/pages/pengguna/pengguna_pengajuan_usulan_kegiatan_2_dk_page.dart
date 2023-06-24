@@ -283,11 +283,19 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                                   ),
 
                                                   DataCell(
-                                                    Align(
-                                                      alignment: Alignment.center,
-                                                      child: Text(
-                                                        rincianBiayaKegiatan.namaBiayaKegiatan,
-                                                        textAlign: TextAlign.center,
+                                                    InkWell(
+                                                      onTap: () => Navigator.pushNamed(
+                                                          context,
+                                                          usulanKegiatanEditBiayaKegiatanPageRoute,
+                                                          arguments: BiayaKegiatanArgs(biayaKegiatan: rincianBiayaKegiatan, id: widget.idUsulanKegiatan)
+                                                      ),
+                                                      child: Align(
+                                                        alignment: Alignment.center,
+                                                        child: Text(
+                                                          rincianBiayaKegiatan.namaBiayaKegiatan,
+                                                          textAlign: TextAlign.center,
+                                                          style: const TextStyle(color: Colors.blue),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),

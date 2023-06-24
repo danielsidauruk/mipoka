@@ -25,6 +25,8 @@ const tambahDataPesertaDalamKotaPageRoute =
 const editDataPesertaDalamKotaPageRoute = '/editDataPesertaDalamKotaPageRoute';
 const penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute =
     '/penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute';
+const usulanKegiatanEditBiayaKegiatanPageRoute =
+    '/usulanKegiatanEditBiayaKegiatanPageRoute';
 const penggunaPengajuanUsulanKegiatan3PageRoute =
     '/penggunaPengajuanUsulanKegiatan3PageRoute';
 const penggunaPengajuanUsulanKegiatan3TertibAcaraPageRoute =
