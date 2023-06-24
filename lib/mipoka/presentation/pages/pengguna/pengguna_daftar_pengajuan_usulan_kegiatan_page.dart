@@ -249,6 +249,7 @@ class PenggunaDaftarPengajuanKegiatan extends StatefulWidget {
 class _PenggunaDaftarPengajuanKegiatanState
     extends State<PenggunaDaftarPengajuanKegiatan> {
   @override
+
   void initState() {
     Future.microtask(() {
       BlocProvider.of<UsulanKegiatanBloc>(context, listen: false)
@@ -417,7 +418,7 @@ class _PenggunaDaftarPengajuanKegiatanState
                           Navigator.pushNamed(
                             context,
                             penggunaPengajuanUsulanKegiatanPage1Route,
-                            arguments: 3
+                            arguments: 1,
                           );
 
                           context.read<UsulanKegiatanBloc>().add(

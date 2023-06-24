@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/utils.dart';
 import 'package:mipoka/dependency_injection.dart' as di;
+import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
+import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiatan_bloc.dart';
@@ -61,6 +63,7 @@ import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_u
 import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_2_lk_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_3_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_3_tertib_acara_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_data_peserta_dalam_kota_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_berita_detail_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_daftar_pengajuan_laporan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_daftar_pengajuan_sarana_dan_prasarana_page.dart';
@@ -207,13 +210,21 @@ class MyApp extends StatelessWidget {
                   builder: (_) =>
                       const PenggunaPengajuanUsulanKegiatan2LKDataPeserta());
             case penggunaPengajuanUsulanKegiatan2DKPageRoute:
+              final idUsulanKegiatan = settings.arguments as int;
               return MaterialPageRoute(
-                  builder: (_) =>
-                      const PenggunaPengajuanUsulanKegiatan2DK());
+                  builder: (_) => PenggunaPengajuanUsulanKegiatan2DK(idUsulanKegiatan: idUsulanKegiatan),
+              );
             case tambahDataPesertaDalamKotaPageRoute:
               return MaterialPageRoute(
                   builder: (_) =>
                       const TambahDataPesertaDalamKota());
+            case editDataPesertaDalamKotaPageRoute:
+              final multipleArgs = settings.arguments as MultipleArgs;
+              return MaterialPageRoute(
+                builder: (_) => EditDataPesertaDalamKota(
+                  multipleArgs: multipleArgs,
+                ),
+              );
             case penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute:
               return MaterialPageRoute(
                   builder: (_) =>

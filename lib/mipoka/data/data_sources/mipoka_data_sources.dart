@@ -943,6 +943,16 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   // => Usulan
   @override
+  Future<String> createUsulanKegiatan(
+      UsulanKegiatanModel usulanKegiatanModel) async {
+    if (kDebugMode) {
+      print(usulanKegiatanModel.toJson());
+    }
+
+    return "Usulan Kegiatan has been created successfully.";
+  }
+
+  @override
   Future<UsulanKegiatanModel> readUsulanKegiatan(int idUsulanKegiatan) async {
     final String response = await rootBundle
         .loadString('assets/json_file/usulan_kegiatan_object.json');
@@ -951,20 +961,10 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     UsulanKegiatanModel result = UsulanKegiatanModel.fromJson(jsonResult);
 
     if (kDebugMode) {
-      print(result);
+      print(idUsulanKegiatan);
     }
 
     return result;
-  }
-
-  @override
-  Future<String> createUsulanKegiatan(
-      UsulanKegiatanModel usulanKegiatanModel) async {
-    if (kDebugMode) {
-      print(usulanKegiatanModel.toJson());
-    }
-
-    return "Usulan Kegiatan has been created successfully.";
   }
 
   @override

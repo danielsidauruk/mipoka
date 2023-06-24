@@ -1,9 +1,9 @@
 {
   "idUsulan": 1,
   "user": {
-    "idUser": "2",
-    "idOrmawa": 1,
-    "idOrmawaB": 3,
+    "idUser": "",
+    "idOrmawa": 0,
+    "idOrmawaB": 0,
     "email": "user2@example.com",
     "username": "user2",
     "password": "password2",

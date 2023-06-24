@@ -22,6 +22,7 @@ const penggunaPengajuanUsulanKegiatan2LKDataPesertaPageRoute =
     '/penggunaPengajuanUsulanKegiatan2LKDataPesertaPageRoute';
 const tambahDataPesertaDalamKotaPageRoute =
     '/tambahDataPesertaDalamKotaPageRoute';
+const editDataPesertaDalamKotaPageRoute = '/editDataPesertaDalamKotaPageRoute';
 const penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute =
     '/penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute';
 const penggunaPengajuanUsulanKegiatan3PageRoute =
@@ -112,9 +113,15 @@ const kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute =
 const kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPageRoute =
     '/kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPageRoute';
 const kemahasiswaanEditOrmawaPageRoute = '/kemahasiswaanEditOrmawaPageRoute';
-const kemahasiswaanEditOrmawaTambahPageRoute = '/kemahasiswaanEditOrmawaTambahPageRoute';
-const kemahasiswaanPrestasiMahasiswaPageRoute = '/kemahasiswaanPrestasiMahasiswaPageRoute';
-const kemahasiswaanPrestasiMahasiswaTambahPageRoute = '/kemahasiswaanPrestasiMahasiswaTambahPageRoute';
-const kemahasiswaanCekUsulanKegiatanPageRoute = '/kemahasiswaanCekUsulanKegiatanPageRoute';
-const kemahasiswaanCekLaporanKegiatanPageRoute = '/kemahasiswaanCekLaporanKegiatanPageRoute';
-const kemahasiswaanCekSaranaDanPrasaranaPageRoute = '/kemahasiswaanCekSaranaDanPrasaranaPageRoute';
+const kemahasiswaanEditOrmawaTambahPageRoute =
+    '/kemahasiswaanEditOrmawaTambahPageRoute';
+const kemahasiswaanPrestasiMahasiswaPageRoute =
+    '/kemahasiswaanPrestasiMahasiswaPageRoute';
+const kemahasiswaanPrestasiMahasiswaTambahPageRoute =
+    '/kemahasiswaanPrestasiMahasiswaTambahPageRoute';
+const kemahasiswaanCekUsulanKegiatanPageRoute =
+    '/kemahasiswaanCekUsulanKegiatanPageRoute';
+const kemahasiswaanCekLaporanKegiatanPageRoute =
+    '/kemahasiswaanCekLaporanKegiatanPageRoute';
+const kemahasiswaanCekSaranaDanPrasaranaPageRoute =
+    '/kemahasiswaanCekSaranaDanPrasaranaPageRoute';

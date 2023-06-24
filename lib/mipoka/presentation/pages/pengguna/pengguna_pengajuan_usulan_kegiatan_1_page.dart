@@ -375,6 +375,16 @@ class PenggunaPengajuanUsulanKegiatan1 extends StatefulWidget {
 
 class _PenggunaPengajuanUsulanKegiatan1State
     extends State<PenggunaPengajuanUsulanKegiatan1> {
+
+  @override
+  void initState() {
+    Future.microtask(() {
+      BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).add(
+          ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
+    });
+    super.initState();
+  }
+
   String? _namaOrmawaController;
   String? _pembiayaanController;
   final TextEditingController _namaKegiatanController = TextEditingController();
@@ -398,41 +408,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
   final TextEditingController _totalPendanaanController = TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
   String? _customUrlController;
-
-  @override
-  void initState() {
-    Future.microtask(() {
-      BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).add(
-          ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
-    });
-    super.initState();
-  }
-
-  // // @override
-  // // void dispose() {
-  // //   BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).close();
-  // //   super.dispose();
-  // // }
-  // //
-  // // @override
-  // // void didUpdateWidget(covariant PenggunaPengajuanUsulanKegiatan1 oldWidget) {
-  // //   super.didUpdateWidget(oldWidget);
-  // //   BlocProvider.of<UsulanKegiatanBloc>(context).add(
-  // //       ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
-  // // }
-  //
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).add(
-  //       ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
-  // }
-  //
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).close();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -707,8 +682,11 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                 //         penggunaPengajuanUsulanKegiatan2DKPageRoute)
                                 //     : Navigator.pushNamed(context,
                                 //         penggunaPengajuanUsulanKegiatan2LKPageRoute);
-                                Navigator.pushNamed(context,
-                                    penggunaPengajuanUsulanKegiatan2DKPageRoute);
+                                Navigator.pushNamed(
+                                  context,
+                                  penggunaPengajuanUsulanKegiatan2DKPageRoute,
+                                  arguments: widget.idUsulanKegiatan,
+                                );
 
                                 context.read<UsulanKegiatanBloc>().add(
                                       UpdateUsulanKegiatanEvent(
@@ -739,3 +717,4 @@ class _PenggunaPengajuanUsulanKegiatan1State
     );
   }
 }
+

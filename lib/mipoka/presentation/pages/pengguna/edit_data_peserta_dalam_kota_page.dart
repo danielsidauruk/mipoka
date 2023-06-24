@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
+import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/presentation/bloc/partisipan_bloc/partisipan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -11,20 +11,32 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
-class TambahDataPesertaDalamKota extends StatefulWidget {
-  const TambahDataPesertaDalamKota({
+class EditDataPesertaDalamKota extends StatefulWidget {
+  const EditDataPesertaDalamKota({
     super.key,
+    required this.multipleArgs,
   });
 
+  final MultipleArgs multipleArgs;
+
   @override
-  State<TambahDataPesertaDalamKota> createState() => _TambahDataPesertaDalamKotaState();
+  State<EditDataPesertaDalamKota> createState() => _EditDataPesertaDalamKotaState();
 }
 
-class _TambahDataPesertaDalamKotaState extends State<TambahDataPesertaDalamKota> {
+class _EditDataPesertaDalamKotaState extends State<EditDataPesertaDalamKota> {
   final TextEditingController _nimNipController = TextEditingController();
   final TextEditingController _namaLengkapController = TextEditingController();
   final TextEditingController _peranController = TextEditingController();
   final TextEditingController _dasarPengirimanController = TextEditingController();
+
+  @override
+  void initState() {
+    _nimNipController.text = widget.multipleArgs.object.partisipan.nim;
+    _namaLengkapController.text = widget.multipleArgs.object.partisipan.namaLengkap;
+    _peranController.text = widget.multipleArgs.object.partisipan.peran;
+    _dasarPengirimanController.text = widget.multipleArgs.object.partisipan.dasarKirim;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,23 +98,19 @@ class _TambahDataPesertaDalamKotaState extends State<TambahDataPesertaDalamKota>
 
                       CustomMipokaButton(
                         onTap: () {
-                          BlocProvider.of<PartisipanBloc>(context).add(
-                              CreatePartisipanEvent(
-                                Partisipan(
-                                  idPartisipan: 1,
-                                  nim: _nimNipController.text,
-                                  namaLengkap: _namaLengkapController.text,
-                                  nik: "",
-                                  tempatLahir: "",
-                                  tglLahir: "",
-                                  peran: _peranController.text,
-                                  dasarKirim: _dasarPengirimanController.text,
-                                ),
+                          BlocProvider.of<PartisipanBloc>(context, listen: false).add(
+                            UpdatePartisipanEvent(
+                              widget.multipleArgs.object.partisipan.copyWith(
+                                nim: _nimNipController.text,
+                                namaLengkap: _namaLengkapController.text,
+                                peran: _peranController.text,
+                                dasarKirim: _dasarPengirimanController.text,
                               ),
+                            ),
                           );
                           Navigator.pop(context);
                         },
-                        text: 'Tambahkan Peserta',
+                        text: 'Simpan',
                       ),
                     ],
                   ),
