@@ -17,7 +17,7 @@ class EditDataPesertaDalamKota extends StatefulWidget {
     required this.multipleArgs,
   });
 
-  final MultipleArgs multipleArgs;
+  final PartisipanArgs multipleArgs;
 
   @override
   State<EditDataPesertaDalamKota> createState() => _EditDataPesertaDalamKotaState();
@@ -31,10 +31,10 @@ class _EditDataPesertaDalamKotaState extends State<EditDataPesertaDalamKota> {
 
   @override
   void initState() {
-    _nimNipController.text = widget.multipleArgs.object.partisipan.nim;
-    _namaLengkapController.text = widget.multipleArgs.object.partisipan.namaLengkap;
-    _peranController.text = widget.multipleArgs.object.partisipan.peran;
-    _dasarPengirimanController.text = widget.multipleArgs.object.partisipan.dasarKirim;
+    _nimNipController.text = widget.multipleArgs.partisipan.nim;
+    _namaLengkapController.text = widget.multipleArgs.partisipan.namaLengkap;
+    _peranController.text = widget.multipleArgs.partisipan.peran;
+    _dasarPengirimanController.text = widget.multipleArgs.partisipan.dasarKirim;
     super.initState();
   }
 
@@ -100,7 +100,7 @@ class _EditDataPesertaDalamKotaState extends State<EditDataPesertaDalamKota> {
                         onTap: () {
                           BlocProvider.of<PartisipanBloc>(context, listen: false).add(
                             UpdatePartisipanEvent(
-                              widget.multipleArgs.object.partisipan.copyWith(
+                              widget.multipleArgs.partisipan.copyWith(
                                 nim: _nimNipController.text,
                                 namaLengkap: _namaLengkapController.text,
                                 peran: _peranController.text,

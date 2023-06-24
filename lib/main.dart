@@ -77,7 +77,7 @@ import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_lap
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_laporan_kegiatan_3_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_sarana_dan_prasarana_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_1_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_biaya_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/usulan_kegiatan_tambah_biaya_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_dk_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/tambah_data_peserta_dalam_kota_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_lk_page.dart';
@@ -219,16 +219,17 @@ class MyApp extends StatelessWidget {
                   builder: (_) =>
                       const TambahDataPesertaDalamKota());
             case editDataPesertaDalamKotaPageRoute:
-              final multipleArgs = settings.arguments as MultipleArgs;
+              final partisipanArgs = settings.arguments as PartisipanArgs;
               return MaterialPageRoute(
                 builder: (_) => EditDataPesertaDalamKota(
-                  multipleArgs: multipleArgs,
+                  multipleArgs: partisipanArgs,
                 ),
               );
             case penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute:
+              final idUsulanKegiatan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) =>
-                      PenggunaPengajuanUsulanKegiatan2BiayaKegiatan());
+                      UsulanKegiatanTambahBiayaKegiatanPage(idUsulanKegiatan: idUsulanKegiatan));
             case penggunaPengajuanUsulanKegiatan3PageRoute:
               return MaterialPageRoute(
                   builder: (_) => const PenggunaPengajuanUsulanKegiatan3());

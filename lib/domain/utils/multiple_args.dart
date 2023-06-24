@@ -1,6 +1,11 @@
-class MultipleArgs {
-  final dynamic object;
+import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
+
+class PartisipanArgs {
+  final Partisipan partisipan;
   final int id;
 
-  MultipleArgs({required this.object, required this.id});
+  PartisipanArgs({
+    required this.partisipan, 
+    required this.id,
+  });
 }

@@ -71,10 +71,7 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                           onPressed: () => Navigator.pushNamed(
                             context,
                             tambahDataPesertaDalamKotaPageRoute,
-                            arguments: MultipleArgs(
-                              object: state.partisipanList,
-                              id: widget.idUsulanKegiatan,
-                            ),
+                            arguments: widget.idUsulanKegiatan,
                           ),
                         ),
                         const CustomFieldSpacer(),
@@ -151,7 +148,10 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                               Navigator.pushNamed(
                                                 context,
                                                 editDataPesertaDalamKotaPageRoute,
-                                                arguments: state.partisipanList[index],
+                                                arguments: PartisipanArgs(
+                                                  partisipan: state.partisipanList[index],
+                                                  id: widget.idUsulanKegiatan,
+                                                ),
                                               );
                                             },
                                           ),
@@ -195,8 +195,11 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                         buildTitle('Rincian Biaya Kegiatan'),
                         CustomAddButton(
                           buttonText: 'Biaya Kegiatan',
-                          onPressed: () => Navigator.pushNamed(context,
-                              penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute),
+                          onPressed: () => Navigator.pushNamed(
+                            context,
+                            penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute,
+                            arguments: widget.idUsulanKegiatan,
+                          ),
                         ),
                         const CustomFieldSpacer(),
                         Expanded(

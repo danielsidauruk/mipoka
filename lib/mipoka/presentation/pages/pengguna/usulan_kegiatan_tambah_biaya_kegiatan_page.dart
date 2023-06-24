@@ -10,13 +10,22 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PenggunaPengajuanUsulanKegiatan2BiayaKegiatan extends StatelessWidget {
-  final TextEditingController _namaBiayaKegiatanController =
-  TextEditingController();
+class UsulanKegiatanTambahBiayaKegiatanPage extends StatefulWidget {
+  const UsulanKegiatanTambahBiayaKegiatanPage({
+    super.key,
+    required this.idUsulanKegiatan,
+  });
+
+  final int idUsulanKegiatan;
+
+  @override
+  State<UsulanKegiatanTambahBiayaKegiatanPage> createState() => _UsulanKegiatanTambahBiayaKegiatanPageState();
+}
+
+class _UsulanKegiatanTambahBiayaKegiatanPageState extends State<UsulanKegiatanTambahBiayaKegiatanPage> {
+  final TextEditingController _namaBiayaKegiatanController = TextEditingController();
   final TextEditingController _keteranganController =
   TextEditingController();
-
-  PenggunaPengajuanUsulanKegiatan2BiayaKegiatan({super.key});
 
   @override
   Widget build(BuildContext context) {
