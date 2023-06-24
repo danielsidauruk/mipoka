@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
+import 'package:mipoka/mipoka/presentation/bloc/partisipan_bloc/partisipan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -9,22 +12,25 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
-class PenggunaPengajuanUsulanKegiatan2LKDataPeserta extends StatefulWidget {
-  const PenggunaPengajuanUsulanKegiatan2LKDataPeserta({Key? key}) : super(key: key);
+class TambahDataPesertaLuarKotaPage extends StatefulWidget {
+  const TambahDataPesertaLuarKotaPage({
+    super.key,
+    required this.idUsulanKegiatan,
+  });
+
+  final int idUsulanKegiatan;
 
   @override
-  State<PenggunaPengajuanUsulanKegiatan2LKDataPeserta> createState() => _PenggunaPengajuanUsulanKegiatan2LKDataPesertaState();
+  State<TambahDataPesertaLuarKotaPage> createState() => _TambahDataPesertaLuarKotaPageState();
 }
 
-class _PenggunaPengajuanUsulanKegiatan2LKDataPesertaState extends State<PenggunaPengajuanUsulanKegiatan2LKDataPeserta> {
-
-  final TextEditingController _nipNipController = TextEditingController();
+class _TambahDataPesertaLuarKotaPageState extends State<TambahDataPesertaLuarKotaPage> {
+  final TextEditingController _nimNipController = TextEditingController();
   final TextEditingController _namaLengkapController = TextEditingController();
   final TextEditingController _nikController = TextEditingController();
   final TextEditingController _tempatLahirController = TextEditingController();
   final TextEditingController _peranController = TextEditingController();
   final TextEditingController _dasarPengirimanController = TextEditingController();
-
   final TextEditingController _tanggalLahirController = TextEditingController();
 
   @override
@@ -52,7 +58,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKDataPesertaState extends State<Pengguna
 
                   buildTitle('NIM/NIP'),
                   CustomTextField(
-                    controller: _nipNipController,
+                    controller: _nimNipController,
                     textInputType: TextInputType.number,
                   ),
 
@@ -90,11 +96,37 @@ class _PenggunaPengajuanUsulanKegiatan2LKDataPesertaState extends State<Pengguna
 
                   const CustomFieldSpacer(),
 
-                  CustomMipokaButton(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    text: 'Tambahkan Peserta',
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomMipokaButton(
+                        onTap: () => Navigator.pop(context),
+                        text: 'Batal',
+                      ),
+
+                      const SizedBox(width: 8.0),
+
+                      CustomMipokaButton(
+                        onTap: () {
+                          BlocProvider.of<PartisipanBloc>(context).add(
+                            CreatePartisipanEvent(
+                              Partisipan(
+                                idPartisipan: 1,
+                                nim: _nimNipController.text,
+                                namaLengkap: _namaLengkapController.text,
+                                nik: _nikController.text,
+                                tempatLahir: _tempatLahirController.text,
+                                tglLahir: _tanggalLahirController.text,
+                                peran: _peranController.text,
+                                dasarKirim: _dasarPengirimanController.text,
+                              ),
+                            ),
+                          );
+                          Navigator.pop(context);
+                        },
+                        text: 'Tambahkan Peserta',
+                      ),
+                    ],
                   ),
                 ],
               ),

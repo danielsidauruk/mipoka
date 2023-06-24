@@ -677,14 +677,14 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                 if (kDebugMode) {
                                   print(_bentukKegiatanSwitchController);
                                 }
-                                // _tempatKegiatanSwitchController == false
-                                //     ? Navigator.pushNamed(context,
-                                //         penggunaPengajuanUsulanKegiatan2DKPageRoute)
-                                //     : Navigator.pushNamed(context,
-                                //         penggunaPengajuanUsulanKegiatan2LKPageRoute);
                                 Navigator.pushNamed(
                                   context,
                                   penggunaPengajuanUsulanKegiatan2DKPageRoute,
+                                  arguments: widget.idUsulanKegiatan,
+                                );
+                                Navigator.pushNamed(
+                                  context,
+                                  penggunaPengajuanUsulanKegiatan2LKPageRoute,
                                   arguments: widget.idUsulanKegiatan,
                                 );
 

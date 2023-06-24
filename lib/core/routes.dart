@@ -18,8 +18,10 @@ const penggunaPengajuanUsulanKegiatan2LKPageRoute =
     '/penggunaPengajuanUsulanKegiatan2LKPageRoute';
 const penggunaPengajuanUsulanKegiatan2DKPageRoute =
     '/penggunaPengajuanUsulanKegiatan2DKPageRoute';
-const penggunaPengajuanUsulanKegiatan2LKDataPesertaPageRoute =
-    '/penggunaPengajuanUsulanKegiatan2LKDataPesertaPageRoute';
+const tambahDataPesertaLuarKotaPageRoute =
+    '/tambahDataPesertaLuarKotaPageRoute';
+const editDataPesertaLuarKotaPageRoute =
+    '/editDataPesertaLuarKotaPageRoute';
 const tambahDataPesertaDalamKotaPageRoute =
     '/tambahDataPesertaDalamKotaPageRoute';
 const editDataPesertaDalamKotaPageRoute = '/editDataPesertaDalamKotaPageRoute';

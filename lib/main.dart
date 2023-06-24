@@ -7,6 +7,7 @@ import 'package:mipoka/dependency_injection.dart' as di;
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
+import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiatan_bloc.dart';
@@ -64,6 +65,7 @@ import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_u
 import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_3_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_3_tertib_acara_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_data_peserta_dalam_kota_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_data_peserta_luar_kota_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_berita_detail_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_daftar_pengajuan_laporan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_daftar_pengajuan_sarana_dan_prasarana_page.dart';
@@ -83,7 +85,7 @@ import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usu
 import 'package:mipoka/mipoka/presentation/pages/pengguna/tambah_data_peserta_dalam_kota_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_lk_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_daftar_pengajuan_usulan_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_lk_data_peserta_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/tambah_data_peserta_luar_kota_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_beranda_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_3_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_3_tertib_acara_page.dart';
@@ -202,12 +204,22 @@ class MyApp extends StatelessWidget {
                 settings: settings,
               );
             case penggunaPengajuanUsulanKegiatan2LKPageRoute:
+              final idUsulanKegiatan = settings.arguments as int;
               return MaterialPageRoute(
-                  builder: (_) => const PenggunaPengajuanUsulanKegiatan2LK());
-            case penggunaPengajuanUsulanKegiatan2LKDataPesertaPageRoute:
+                  builder: (_) => PenggunaPengajuanUsulanKegiatan2LK(
+                      idUsulanKegiatan: idUsulanKegiatan
+                  ));
+            case tambahDataPesertaLuarKotaPageRoute:
+              final idUsulanKegiatan = settings.arguments as int;
               return MaterialPageRoute(
-                  builder: (_) =>
-                      const PenggunaPengajuanUsulanKegiatan2LKDataPeserta());
+                builder: (_) => TambahDataPesertaLuarKotaPage(
+                    idUsulanKegiatan: idUsulanKegiatan),
+              );
+            case editDataPesertaLuarKotaPageRoute:
+              final partisipanArgs = settings.arguments as PartisipanArgs;
+              return MaterialPageRoute(
+                builder: (_) => EditDataPesertaLuarKotaPage(partisipanArgs: partisipanArgs),
+              );
             case penggunaPengajuanUsulanKegiatan2DKPageRoute:
               final idUsulanKegiatan = settings.arguments as int;
               return MaterialPageRoute(
