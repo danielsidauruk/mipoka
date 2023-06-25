@@ -244,11 +244,11 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                     child: Column(
                       children: [
                         Expanded(
-                          child: BlocBuilder<RincianBiayaKegiatanBloc, RincianBiayaKegiatanState>(
+                          child: BlocBuilder<BiayaKegiatanBloc, BiayaKegiatanState>(
                             builder: (context, state) {
-                              if (state is RincianBiayaKegiatanLoading) {
+                              if (state is BiayaKegiatanLoading) {
                                 return const Text('Loading');
-                              } else if (state is RincianBiayaKegiatanHasData) {
+                              } else if (state is BiayaKegiatanHasData) {
                                 return SingleChildScrollView(
                                   scrollDirection: Axis.vertical,
                                   child: SingleChildScrollView(
@@ -306,8 +306,8 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                                           ),
                                         ),
                                       ],
-                                      rows: List.generate(state.rincianBiayaKegiatanList.length, (int index) {
-                                        final rincianBiayaKegiatan = state.rincianBiayaKegiatanList[index];
+                                      rows: List.generate(state.biayaKegiatanList.length, (int index) {
+                                        final rincianBiayaKegiatan = state.biayaKegiatanList[index];
                                         return DataRow(
                                           cells: [
                                             DataCell(
@@ -382,7 +382,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                                     ),
                                   ),
                                 );
-                              } else if (state is RincianBiayaKegiatanError) {
+                              } else if (state is BiayaKegiatanError) {
                                 return Text(state.message);
                               } else {
                                 return const Text('YNTKTS');
@@ -404,7 +404,10 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                       const SizedBox(width: 8.0),
                       CustomMipokaButton(
                         onTap: () => Navigator.pushNamed(
-                            context, penggunaPengajuanUsulanKegiatan3PageRoute),
+                          context,
+                          penggunaPengajuanUsulanKegiatan3PageRoute,
+                          arguments: widget.idUsulanKegiatan,
+                        ),
                         text: 'Berikutnya',
                       ),
                     ],

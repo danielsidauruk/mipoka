@@ -247,12 +247,15 @@ class MyApp extends StatelessWidget {
                 builder: (_) => UsulanKegiatanEditBiayaKegiatanPage(biayaKegiatanArgs: biayaKegiatanArgs),
               );
             case penggunaPengajuanUsulanKegiatan3PageRoute:
+              final idUsulanKegiatan = settings.arguments as int;
               return MaterialPageRoute(
-                  builder: (_) => const PenggunaPengajuanUsulanKegiatan3());
+                  builder: (_) => PenggunaPengajuanUsulanKegiatan3(
+                    idUsulanKegiatan: idUsulanKegiatan,));
             case penggunaPengajuanUsulanKegiatan3TertibAcaraPageRoute:
+              final idUsulanKegiatan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) =>
-                      const PenggunaPengajuanUsulanKegiatan3TertibAcara());
+                      PenggunaPengajuanUsulanKegiatan3TertibAcara(idUsulanKegiatan: idUsulanKegiatan));
             case penggunaPengajuanUsulanKegiatan3TertibAcaraTambahPageRoute:
               return MaterialPageRoute(
                   builder: (_) =>

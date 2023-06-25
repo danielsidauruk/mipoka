@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:mipoka/mipoka/presentation/bloc/cubit/quil_editor_focus_cubit/quill_editor_focus_cubit.dart';
-import 'package:mipoka/mipoka/presentation/bloc/cubit/quil_editor_focus_cubit/quill_editor_focus_state.dart';
 
 // class CustomRichTextField extends StatelessWidget {
 //   final QuillController controller;
@@ -118,8 +117,7 @@ import 'package:mipoka/mipoka/presentation/bloc/cubit/quil_editor_focus_cubit/qu
 class CustomRichTextField extends StatelessWidget {
   final QuillController controller;
 
-  const CustomRichTextField({Key? key, required this.controller})
-      : super(key: key);
+  const CustomRichTextField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -127,14 +125,6 @@ class CustomRichTextField extends StatelessWidget {
       create: (context) => QuillEditorFocusCubit(),
       child: Builder(
         builder: (context) {
-          final focusNode = FocusNode();
-          final quillEditorFocusCubit =
-          context.watch<QuillEditorFocusCubit>();
-
-          focusNode.addListener(() {
-            quillEditorFocusCubit.setFocus(focusNode.hasFocus);
-          });
-
           return Container(
             alignment: Alignment.center,
             decoration: BoxDecoration(

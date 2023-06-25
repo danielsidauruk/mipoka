@@ -56,7 +56,7 @@ class MipokaCustomSwitchButton extends StatelessWidget {
 
                 Expanded(
                   flex: 2,
-                  child: state == false ? buildTitle(option1) : buildTitle(option2),
+                  child: state == false ? Center(child: buildTitle(option1)) : Center(child: buildTitle(option2)),
                 ),
               ],
             ),

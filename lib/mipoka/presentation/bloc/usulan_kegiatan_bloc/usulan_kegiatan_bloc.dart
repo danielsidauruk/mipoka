@@ -59,7 +59,7 @@ class UsulanKegiatanBloc
         (message) => emit(UsulanKegiatanSuccessMessage(message: message)),
       );
 
-      add(ReadAllUsulanKegiatanEvent());
+      add(const ReadUsulanKegiatanEvent(idUsulanKegiatan: 1));
     });
 
     on<DeleteUsulanKegiatanEvent>((event, emit) async {

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
+import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
+import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -10,8 +15,27 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
 class PenggunaPengajuanUsulanKegiatan3TertibAcara
-    extends StatelessWidget {
-  const PenggunaPengajuanUsulanKegiatan3TertibAcara({super.key});
+    extends StatefulWidget {
+  const PenggunaPengajuanUsulanKegiatan3TertibAcara({
+    super.key,
+    required this.idUsulanKegiatan,
+  });
+
+  final int idUsulanKegiatan;
+
+  @override
+  State<PenggunaPengajuanUsulanKegiatan3TertibAcara> createState() => _PenggunaPengajuanUsulanKegiatan3TertibAcaraState();
+}
+
+class _PenggunaPengajuanUsulanKegiatan3TertibAcaraState extends State<PenggunaPengajuanUsulanKegiatan3TertibAcara> {
+
+  @override
+  void initState() {
+    BlocProvider.of<TertibAcaraBloc>(context).add(
+      ReadTertibAcaraEvent(),
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +58,11 @@ class PenggunaPengajuanUsulanKegiatan3TertibAcara
                       'Rincikan alur dari kegiatan yang akan dilaksanakan'),
                   CustomAddButton(
                     buttonText: 'Tertib Acara',
-                    onPressed: () => Navigator.pushNamed(context,
-                        penggunaPengajuanUsulanKegiatan3TertibAcaraTambahPageRoute),
+                    onPressed: () => Navigator.pushNamed(
+                      context,
+                      penggunaPengajuanUsulanKegiatan3TertibAcaraTambahPageRoute,
+                      arguments: widget.idUsulanKegiatan,
+                    ),
                   ),
                   const CustomFieldSpacer(),
                   Expanded(
