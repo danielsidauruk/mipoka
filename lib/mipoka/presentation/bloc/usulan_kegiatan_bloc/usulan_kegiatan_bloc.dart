@@ -20,6 +20,8 @@ class UsulanKegiatanBloc
 
       result.fold((failure) => emit(UsulanKegiatanError(message: failure.message)),
               (usulanKegiatan) => emit(UsulanKegiatanHasData(usulanKegiatan: usulanKegiatan)));
+
+      add(ReadUsulanKegiatanEvent(idUsulanKegiatan: event.idUsulanKegiatan));
     });
 
     on<ReadAllUsulanKegiatanEvent>((event, emit) async {

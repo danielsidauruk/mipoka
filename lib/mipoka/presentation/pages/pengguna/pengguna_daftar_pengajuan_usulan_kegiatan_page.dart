@@ -423,7 +423,7 @@ class _PenggunaDaftarPengajuanKegiatanState
 
                           context.read<UsulanKegiatanBloc>().add(
                             CreateUsulanKegiatanEvent(
-                                  usulanKegiatan: UsulanKegiatan(
+                              usulanKegiatan: UsulanKegiatan(
                                     idUsulan: 3,
                                     user: MipokaUser(
                                       idUser: "",
@@ -532,7 +532,7 @@ class _PenggunaDaftarPengajuanKegiatanState
                                     updatedAt: "",
                                     createdAt: "",
                                   ),
-                                ),
+                            ),
                           );
                         },
                         text: 'Ajukan Kegiatan',

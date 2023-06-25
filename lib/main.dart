@@ -6,8 +6,6 @@ import 'package:mipoka/core/utils.dart';
 import 'package:mipoka/dependency_injection.dart' as di;
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
-import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
-import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiatan_bloc.dart';
@@ -89,7 +87,7 @@ import 'package:mipoka/mipoka/presentation/pages/pengguna/tambah_data_peserta_lu
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_beranda_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_3_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_3_tertib_acara_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_3_tertib_acara_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/tambah_tertib_acara_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_prestasi_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/register_page.dart';
 import 'firebase_options.dart';
@@ -257,9 +255,9 @@ class MyApp extends StatelessWidget {
                   builder: (_) =>
                       PenggunaPengajuanUsulanKegiatan3TertibAcara(idUsulanKegiatan: idUsulanKegiatan));
             case penggunaPengajuanUsulanKegiatan3TertibAcaraTambahPageRoute:
+              final idUsulanKegiatan = settings.arguments as int;
               return MaterialPageRoute(
-                  builder: (_) =>
-                      const PenggunaPengajuanUsulanKegiatan3TertibAcaraTambah());
+                  builder: (_) => TambahTertibAcaraPage(idUsulanKegiatan: idUsulanKegiatan));
 
             case penggunaDaftarLaporanKegiatanPageRoute:
               return MaterialPageRoute(
@@ -433,6 +431,8 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) =>
                       const KemahasiswaanCekSaranaDanPrasaranaPage());
+            default:
+              return MaterialPageRoute(builder: (_) => const Center());
           }
         },
       ),
