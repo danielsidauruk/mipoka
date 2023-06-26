@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 
 class FileUploader {
 
@@ -27,7 +28,7 @@ class FileUploader {
   // }
 }
 
-Future<String?> selectAndUploadFile(String buttonName, int id) async {
+Future<String?> selectAndUploadFile(String fileName, int id) async {
   try {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
@@ -38,7 +39,7 @@ Future<String?> selectAndUploadFile(String buttonName, int id) async {
       print('File size: ${file.size}');
       print('File extension: ${file.extension}');
 
-      String downloadUrl = await uploadFileToFirebase(file, id);
+      String downloadUrl = await uploadFileToFirebase(file, id, fileName);
       print(downloadUrl);
 
       return downloadUrl;
@@ -46,26 +47,45 @@ Future<String?> selectAndUploadFile(String buttonName, int id) async {
       return null;
     }
   } catch (error) {
-    print('Kesalahan saat memilih dan mengunggah file: $error');
+    if (kDebugMode) {
+      print(error);
+    }
     return null;
   }
 }
 
-Future<String> uploadFileToFirebase(PlatformFile file, int id) async {
+Future<String> uploadFileToFirebase(PlatformFile file, int id, String fileName) async {
   try {
-    // Buat referensi ke Firebase Storage
-    final Reference storageRef = FirebaseStorage.instance.ref().child('nama_file');
+    final Reference storageRef = FirebaseStorage.instance.ref().child('$fileName-$id');
 
-    // Unggah file ke Firebase Storage
     final UploadTask uploadTask = storageRef.putFile(File(file.path!));
     final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
 
-    // Dapatkan URL unduhan file dari Firebase Storage
     final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
     return downloadUrl;
   } catch (error) {
-    print('Kesalahan saat mengunggah file: $error');
+    if (kDebugMode) {
+      print('Failed while uploading file : $error');
+    }
+    rethrow;
+  }
+}
+
+Future<String> uploadSignatureFileToFirebase(File file, int id, String fileName) async {
+  try {
+    final Reference storageRef = FirebaseStorage.instance.ref().child('$fileName-$id');
+
+    final UploadTask uploadTask = storageRef.putFile(File(file.path));
+    final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+
+    final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+    return downloadUrl;
+  } catch (error) {
+    if (kDebugMode) {
+      print('Failed while uploading file : $error');
+    }
     rethrow;
   }
 }

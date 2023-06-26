@@ -438,8 +438,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
             _totalPendanaanController.text =
                 state.usulanKegiatan.totalPendana.toString();
 
-            _customUrlController = state.usulanKegiatan.tandaTanganOrmawa;
-
+            // _customUrlController = state.usulanKegiatan.tandaTanganOrmawa;
+            _customUrlController = "";
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),

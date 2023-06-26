@@ -56,6 +56,10 @@ class _PenggunaPengajuanUsulanKegiatan3State
   late QuillController _rencanaAnggaranKegiatanController;
   late QuillController _perlengkapanDanPeralatanController;
   late QuillController _penutupController;
+  String? _postinganKegiatanController;
+  late String _suratUndanganKegiatanController;
+  late String _linimasaKegiatan;
+  late String _fotoTempatKegiatanController;
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +119,10 @@ class _PenggunaPengajuanUsulanKegiatan3State
                       document: Document()..insert(0, usulanKegiatan.penutup),
                       selection: const TextSelection.collapsed(offset: 0),
                     );
+                    _postinganKegiatanController = usulanKegiatan.postinganKegiatan;
+                    _suratUndanganKegiatanController = "Surat undangan";
+                    _linimasaKegiatan = "usulanKegiatan.linimasaKegiatan";
+                    _fotoTempatKegiatanController = "usulanKegiatan.tempatKegiatan";
 
                     return CustomContentBox(
                       children: [
@@ -213,6 +221,13 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                         ),
                                         DataColumn(
                                           label: Text(
+                                            'Aktivitas',
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          label: Text(
                                             'Waktu Mulai',
                                             style: TextStyle(fontWeight: FontWeight.bold),
                                             textAlign: TextAlign.center,
@@ -221,13 +236,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                         DataColumn(
                                           label: Text(
                                             'Waktu Selesai',
-                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                        DataColumn(
-                                          label: Text(
-                                            'Aktivitas',
                                             style: TextStyle(fontWeight: FontWeight.bold),
                                             textAlign: TextAlign.center,
                                           ),
@@ -257,6 +265,15 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                               Align(
                                                 alignment: Alignment.center,
                                                 child: Text(
+                                                  tertibAcara.aktivitas,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
                                                   tertibAcara.waktuMulai,
                                                   textAlign: TextAlign.center,
                                                 ),
@@ -267,15 +284,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                                 alignment: Alignment.center,
                                                 child: Text(
                                                   tertibAcara.waktuSelesai,
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                            ),
-                                            DataCell(
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  tertibAcara.aktivitas,
                                                   textAlign: TextAlign.center,
                                                 ),
                                               ),
@@ -348,22 +356,22 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildDescription(
                             'Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
                         CustomFilePickerButton(
-                          onTap: () => selectAndUploadFile(
-                            'postingKegiatanButton',
-                            widget.idUsulanKegiatan,
-                          ),
-                        ),
-
-                        const CustomFieldSpacer(),
-
-                        buildTitle('Postingan Kegiatan'),
-                        buildDescription(
-                            'Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
-                        CustomFilePickerButton(
-                            onTap: () => selectAndUploadFile(
-                              'postingKegiatanButton',
-                              widget.idUsulanKegiatan,
-                            ),
+                          onTap: () async {
+                            String? url = await selectAndUploadFile('postingKegiatanButton', widget.idUsulanKegiatan);
+                            setState(() {
+                              _postinganKegiatanController = url;
+                            });
+                            // setState(() {
+                            //   selectAndUploadFile(
+                            //     'postingKegiatanButton',
+                            //     widget.idUsulanKegiatan,
+                            //   );
+                            //
+                            // });
+                          },
+                          text: _postinganKegiatanController != ""
+                              ? getFileNameFromURL(_postinganKegiatanController!)
+                              : "",
                         ),
 
                         const CustomFieldSpacer(),
@@ -450,4 +458,12 @@ class _PenggunaPengajuanUsulanKegiatan3State
       ),
     );
   }
+}
+
+String getFileNameFromURL(String url) {
+  Uri uri = Uri.parse(url);
+  String path = uri.path;
+  List<String> segments = path.split("/");
+  String fileName = segments.last;
+  return fileName;
 }
