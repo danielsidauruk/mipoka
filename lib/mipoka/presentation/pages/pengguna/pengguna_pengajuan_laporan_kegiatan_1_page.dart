@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -22,6 +24,15 @@ class PenggunaPengajuanLaporanKegiatan1 extends StatefulWidget {
 
 class _PenggunaPengajuanLaporanKegiatan1State
     extends State<PenggunaPengajuanLaporanKegiatan1> {
+
+  @override
+  void initState() {
+    BlocProvider.of<LaporanBloc>(context, listen: false).add(
+      ReadLaporanEvent(),
+    );
+    super.initState();
+  }
+
   final QuillController _pencapaianController = QuillController.basic();
 
   @override

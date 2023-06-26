@@ -6,6 +6,7 @@ import 'package:mipoka/core/utils.dart';
 import 'package:mipoka/dependency_injection.dart' as di;
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
+import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiatan_bloc.dart';
@@ -64,6 +65,7 @@ import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_u
 import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_3_tertib_acara_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_data_peserta_dalam_kota_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_data_peserta_luar_kota_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_tertib_acara_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_berita_detail_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_daftar_pengajuan_laporan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_daftar_pengajuan_sarana_dan_prasarana_page.dart';
@@ -254,10 +256,14 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) =>
                       PenggunaPengajuanUsulanKegiatan3TertibAcara(idUsulanKegiatan: idUsulanKegiatan));
-            case penggunaPengajuanUsulanKegiatan3TertibAcaraTambahPageRoute:
+            case tambahTertibAcaraPageRoute:
               final idUsulanKegiatan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) => TambahTertibAcaraPage(idUsulanKegiatan: idUsulanKegiatan));
+            case editTertibAcaraPageRoute:
+              final usulanKegiatan = settings.arguments as UsulanKegiatan;
+              return MaterialPageRoute(
+                  builder: (_) => EditTertibAcaraPage(usulanKegiatan: usulanKegiatan));
 
             case penggunaDaftarLaporanKegiatanPageRoute:
               return MaterialPageRoute(

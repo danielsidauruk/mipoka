@@ -197,7 +197,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                   buttonText: 'Tertib Acara',
                                   onPressed: () => Navigator.pushNamed(
                                     context,
-                                    penggunaPengajuanUsulanKegiatan3TertibAcaraTambahPageRoute,
+                                    tambahTertibAcaraPageRoute,
                                     arguments: widget.idUsulanKegiatan,
                                   ),
                                 ),
@@ -262,11 +262,23 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                               ),
                                             ),
                                             DataCell(
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  tertibAcara.aktivitas,
-                                                  textAlign: TextAlign.center,
+                                              InkWell(
+                                                onTap: () {
+                                                  Navigator.pushNamed(
+                                                    context,
+                                                    editTertibAcaraPageRoute,
+                                                    arguments: usulanKegiatan,
+                                                  );
+                                                },
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    tertibAcara.aktivitas,
+                                                    textAlign: TextAlign.center,
+                                                    style: const TextStyle(
+                                                      color: Colors.blue,
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ),

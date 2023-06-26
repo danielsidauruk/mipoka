@@ -419,10 +419,12 @@ class _PenggunaDaftarPengajuanKegiatanState
                       const CustomFieldSpacer(),
                       CustomMipokaButton(
                         onTap: () {
+                          int id = DateTime.now().millisecondsSinceEpoch;
+
                           context.read<UsulanKegiatanBloc>().add(
                             CreateUsulanKegiatanEvent(
                               usulanKegiatan: UsulanKegiatan(
-                                idUsulan: 3,
+                                idUsulan: id,
                                 user: MipokaUser(
                                   idUser: "",
                                   idOrmawa: 0,

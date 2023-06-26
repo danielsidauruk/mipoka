@@ -33,8 +33,10 @@ const penggunaPengajuanUsulanKegiatan3PageRoute =
     '/penggunaPengajuanUsulanKegiatan3PageRoute';
 const penggunaPengajuanUsulanKegiatan3TertibAcaraPageRoute =
     '/penggunaPengajuanUsulanKegiatan3TertibAcaraPageRoute';
-const penggunaPengajuanUsulanKegiatan3TertibAcaraTambahPageRoute =
-    '/penggunaPengajuanUsulanKegiatan3TertibAcaraTambahPageRoute';
+const tambahTertibAcaraPageRoute =
+    '/tambahTertibAcaraPageRoute';
+const editTertibAcaraPageRoute =
+    '/editTertibAcaraPageRoute';
 
 const penggunaDaftarLaporanKegiatanPageRoute =
     '/penggunaDaftarLaporanKegiatanPageRoute';

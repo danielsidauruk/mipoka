@@ -88,31 +88,31 @@ class _LoginPageState extends State<LoginPage> {
                   title: 'Log in - Pengguna',
                   onTap:() async {
                     Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                    try {
-                      String email = _emailController.text;
-                      String password = _passwordController.text;
-
-                      if (email.isNotEmpty && password.isNotEmpty) {
-                        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                          email: email,
-                          password: password,
-                        );
-
-                        User? user = FirebaseAuth.instance.currentUser;
-
-                        Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                        // Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute),
-                        // Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute),
-                      } else {
-                        if (kDebugMode) {
-                          print('Email and Password cannot be empty.');
-                        }
-                      }
-                    } catch (e) {
-                      if (kDebugMode) {
-                        print('Failed to sign in. Please check your email and password.');
-                      }
-                    }
+                    // try {
+                    //   String email = _emailController.text;
+                    //   String password = _passwordController.text;
+                    //
+                    //   if (email.isNotEmpty && password.isNotEmpty) {
+                    //     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    //       email: email,
+                    //       password: password,
+                    //     );
+                    //
+                    //     User? user = FirebaseAuth.instance.currentUser;
+                    //
+                    //     Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                    //     // Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute),
+                    //     // Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute),
+                    //   } else {
+                    //     if (kDebugMode) {
+                    //       print('Email and Password cannot be empty.');
+                    //     }
+                    //   }
+                    // } catch (e) {
+                    //   if (kDebugMode) {
+                    //     print('Failed to sign in. Please check your email and password.');
+                    //   }
+                    // }
                   },
                 ),
 

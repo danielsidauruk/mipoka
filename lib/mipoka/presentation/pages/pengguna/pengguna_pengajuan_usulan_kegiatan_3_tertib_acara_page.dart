@@ -60,7 +60,7 @@ class _PenggunaPengajuanUsulanKegiatan3TertibAcaraState extends State<PenggunaPe
                     buttonText: 'Tertib Acara',
                     onPressed: () => Navigator.pushNamed(
                       context,
-                      penggunaPengajuanUsulanKegiatan3TertibAcaraTambahPageRoute,
+                      tambahTertibAcaraPageRoute,
                       arguments: widget.idUsulanKegiatan,
                     ),
                   ),
