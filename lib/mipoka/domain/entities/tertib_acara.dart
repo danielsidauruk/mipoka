@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-// Just updated
-class TertibAcara extends Equatable{
+// Just updated 26 / 06 / 2023
+class TertibAcara extends Equatable {
   final int idTertibAcara;
   final String waktuMulai;
   final String waktuSelesai;
@@ -22,14 +22,15 @@ class TertibAcara extends Equatable{
     String? waktuSelesai,
     String? aktivitas,
     String? keterangan,
-  }) =>
-      TertibAcara(
-        idTertibAcara: idTertibAcara ?? this.idTertibAcara,
-        waktuMulai: waktuMulai ?? this.waktuMulai,
-        waktuSelesai: waktuSelesai ?? this.waktuSelesai,
-        aktivitas: aktivitas ?? this.aktivitas,
-        keterangan: keterangan ?? this.keterangan,
-      );
+  }) {
+    return TertibAcara(
+      idTertibAcara: idTertibAcara ?? this.idTertibAcara,
+      waktuMulai: waktuMulai ?? this.waktuMulai,
+      waktuSelesai: waktuSelesai ?? this.waktuSelesai,
+      aktivitas: aktivitas ?? this.aktivitas,
+      keterangan: keterangan ?? this.keterangan,
+    );
+  }
 
   @override
   List<Object?> get props => [

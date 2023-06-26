@@ -1,57 +1,58 @@
 import 'package:equatable/equatable.dart';
 
-// Just updated
-class Partisipan extends Equatable{
+// Just updated 26 / 06 / 2023
+class Partisipan extends Equatable {
   final int idPartisipan;
-  final String nim;
-  final String namaLengkap;
+  final String noInduk;
+  final String namaPartisipan;
   final String nik;
   final String tempatLahir;
-  final String tglLahir;
-  final String peran;
-  final String dasarKirim;
+  final DateTime tglLahir;
+  final String peranPartisipan;
+  final String dasarPengiriman;
 
   const Partisipan({
     required this.idPartisipan,
-    required this.nim,
-    required this.namaLengkap,
+    required this.noInduk,
+    required this.namaPartisipan,
     required this.nik,
     required this.tempatLahir,
     required this.tglLahir,
-    required this.peran,
-    required this.dasarKirim,
+    required this.peranPartisipan,
+    required this.dasarPengiriman,
   });
 
   Partisipan copyWith({
     int? idPartisipan,
-    String? nim,
-    String? namaLengkap,
+    String? noInduk,
+    String? namaPartisipan,
     String? nik,
     String? tempatLahir,
-    String? tglLahir,
-    String? peran,
-    String? dasarKirim,
-  }) =>
-      Partisipan(
-        idPartisipan: idPartisipan ?? this.idPartisipan,
-        nim: nim ?? this.nim,
-        namaLengkap: namaLengkap ?? this.namaLengkap,
-        nik: nik ?? this.nik,
-        tempatLahir: tempatLahir ?? this.tempatLahir,
-        tglLahir: tglLahir ?? this.tglLahir,
-        peran: peran ?? this.peran,
-        dasarKirim: dasarKirim ?? this.dasarKirim,
-      );
+    DateTime? tglLahir,
+    String? peranPartisipan,
+    String? dasarPengiriman,
+  }) {
+    return Partisipan(
+      idPartisipan: idPartisipan ?? this.idPartisipan,
+      noInduk: noInduk ?? this.noInduk,
+      namaPartisipan: namaPartisipan ?? this.namaPartisipan,
+      nik: nik ?? this.nik,
+      tempatLahir: tempatLahir ?? this.tempatLahir,
+      tglLahir: tglLahir ?? this.tglLahir,
+      peranPartisipan: peranPartisipan ?? this.peranPartisipan,
+      dasarPengiriman: dasarPengiriman ?? this.dasarPengiriman,
+    );
+  }
 
   @override
   List<Object?> get props => [
     idPartisipan,
-    nim,
-    namaLengkap,
+    noInduk,
+    namaPartisipan,
     nik,
     tempatLahir,
     tglLahir,
-    peran,
-    dasarKirim,
+    peranPartisipan,
+    dasarPengiriman,
   ];
 }

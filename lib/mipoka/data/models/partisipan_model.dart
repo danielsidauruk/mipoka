@@ -4,47 +4,47 @@ import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
 class PartisipanModel extends Partisipan {
   const PartisipanModel({
     required super.idPartisipan,
-    required super.nim,
-    required super.namaLengkap,
+    required super.noInduk,
+    required super.namaPartisipan,
     required super.nik,
     required super.tempatLahir,
     required super.tglLahir,
-    required super.peran,
-    required super.dasarKirim,
+    required super.peranPartisipan,
+    required super.dasarPengiriman,
   });
 
   factory PartisipanModel.fromEntity(Partisipan partisipan) {
     return PartisipanModel(
       idPartisipan: partisipan.idPartisipan,
-      nim: partisipan.nim,
-      namaLengkap: partisipan.namaLengkap,
+      noInduk: partisipan.noInduk,
+      namaPartisipan: partisipan.namaPartisipan,
       nik: partisipan.nik,
       tempatLahir: partisipan.tempatLahir,
       tglLahir: partisipan.tglLahir,
-      peran: partisipan.peran,
-      dasarKirim: partisipan.dasarKirim,
+      peranPartisipan: partisipan.peranPartisipan,
+      dasarPengiriman: partisipan.dasarPengiriman,
     );
   }
 
   factory PartisipanModel.fromJson(Map<String, dynamic> json) => PartisipanModel(
-    idPartisipan: json["idPartisipan"],
-    nim: json["nim"],
-    namaLengkap: json["namaLengkap"],
+    idPartisipan: json["id_partisipan"],
+    noInduk: json["no_induk"],
+    namaPartisipan: json["nama_partisipan"],
     nik: json["nik"],
-    tempatLahir: json["tempatLahir"],
-    tglLahir: json["tglLahir"],
-    peran: json["peran"],
-    dasarKirim: json["dasarKirim"],
+    tempatLahir: json["tempat_lahir"],
+    tglLahir: json["tgl_lahir"],
+    peranPartisipan: json["peran_partisipan"],
+    dasarPengiriman: json["dasar_pengiriman"],
   );
 
   Map<String, dynamic> toJson() => {
-    "idPartisipan": idPartisipan,
-    "nim": nim,
-    "namaLengkap": namaLengkap,
+    "id_partisipan": idPartisipan,
+    "no_induk": noInduk,
+    "nama_partisipan": namaPartisipan,
     "nik": nik,
-    "tempatLahir": tempatLahir,
-    "tglLahir": tglLahir,
-    "peran": peran,
-    "dasarKirim": dasarKirim,
+    "tempat_lahir": tempatLahir,
+    "tgl_lahir": tglLahir,
+    "peran_partisipan": peranPartisipan,
+    "dasar_pengiriman": dasarPengiriman,
   };
 }
