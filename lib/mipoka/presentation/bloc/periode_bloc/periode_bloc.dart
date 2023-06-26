@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mipoka/mipoka/domain/entities/periode.dart';
+import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/use_cases/periode_use_case.dart';
 
 part 'periode_event.dart';

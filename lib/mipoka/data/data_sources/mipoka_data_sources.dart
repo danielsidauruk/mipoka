@@ -11,7 +11,7 @@ import 'package:mipoka/mipoka/data/models/laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/data/models/panitia_peserta_laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
-import 'package:mipoka/mipoka/data/models/periode_model.dart';
+import 'package:mipoka/mipoka/data/models/periode_mpt_model.dart';
 import 'package:mipoka/mipoka/data/models/peserta_model.dart';
 import 'package:mipoka/mipoka/data/models/prestasi_model.dart';
 import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
