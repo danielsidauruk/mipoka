@@ -1,7 +1,7 @@
 [
   {
-    "id_riwayat_mpt": "1",
-    "id_kegiatan_mpt": "123",
+    "id_riwayat_mpt": 1,
+    "id_kegiatan_mpt": 123,
     "id_user": "456",
     "status_mpt": "Selesai",
     "file_sertifikat_mpt": "sertifikat_mpt.pdf",
@@ -14,8 +14,8 @@
     "updated_by": "Jane Smith"
   },
   {
-    "id_riwayat_mpt": "1",
-    "id_kegiatan_mpt": "123",
+    "id_riwayat_mpt": 1,
+    "id_kegiatan_mpt": 123,
     "id_user": "456",
     "status_mpt": "Selesai",
     "file_sertifikat_mpt": "sertifikat_mpt.pdf",
