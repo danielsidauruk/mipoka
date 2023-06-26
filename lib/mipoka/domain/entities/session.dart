@@ -1,103 +1,141 @@
 import 'package:equatable/equatable.dart';
-import 'package:mipoka/mipoka/domain/entities/user.dart';
 
-class Session extends Equatable {
+class Session extends Equatable{
   final int idSession;
-  final int userId;
+  final String idUser;
+  final int idOrmawa;
+  final String tanggalMulai;
+  final String tanggalSelesai;
   final String ruangan;
   final String gedung;
-  final int idOrmawa;
-  final String startTime;
-  final String endTime;
-  final DateTime date;
+  final String waktuMulaiPenggunaan;
+  final String waktuSelesaiPenggunaan;
   final String kegiatan;
-  final String perlengkapan;
-  final String lain;
+  final int proyektor;
+  final int laptop;
+  final int mikrofon;
+  final int speaker;
+  final int meja;
+  final int kursi;
+  final int papanTulis;
+  final int spidol;
+  final String lainLain;
   final String status;
   final String keterangan;
-  final DateTime updatedAt;
-  final DateTime createdAt;
+  final String updatedAt;
+  final String createdAt;
   final String updatedBy;
-  final MipokaUser user;
+  final String createdBy;
 
   const Session({
     required this.idSession,
-    required this.userId,
+    required this.idUser,
+    required this.idOrmawa,
+    required this.tanggalMulai,
+    required this.tanggalSelesai,
     required this.ruangan,
     required this.gedung,
-    required this.idOrmawa,
-    required this.startTime,
-    required this.endTime,
-    required this.date,
+    required this.waktuMulaiPenggunaan,
+    required this.waktuSelesaiPenggunaan,
     required this.kegiatan,
-    required this.perlengkapan,
-    required this.lain,
+    required this.proyektor,
+    required this.laptop,
+    required this.mikrofon,
+    required this.speaker,
+    required this.meja,
+    required this.kursi,
+    required this.papanTulis,
+    required this.spidol,
+    required this.lainLain,
     required this.status,
     required this.keterangan,
     required this.updatedAt,
     required this.createdAt,
     required this.updatedBy,
-    required this.user,
+    required this.createdBy,
   });
 
   Session copyWith({
     int? idSession,
-    int? userId,
+    String? idUser,
+    int? idOrmawa,
+    String? tanggalMulai,
+    String? tanggalSelesai,
     String? ruangan,
     String? gedung,
-    int? idOrmawa,
-    String? startTime,
-    String? endTime,
-    DateTime? date,
+    String? waktuMulaiPenggunaan,
+    String? waktuSelesaiPenggunaan,
     String? kegiatan,
-    String? perlengkapan,
-    String? lain,
+    int? proyektor,
+    int? laptop,
+    int? mikrofon,
+    int? speaker,
+    int? meja,
+    int? kursi,
+    int? papanTulis,
+    int? spidol,
+    String? lainLain,
     String? status,
     String? keterangan,
-    DateTime? updatedAt,
-    DateTime? createdAt,
+    String? updatedAt,
+    String? createdAt,
     String? updatedBy,
-    MipokaUser? user,
+    String? createdBy,
   }) =>
       Session(
         idSession: idSession ?? this.idSession,
-        userId: userId ?? this.userId,
+        idUser: idUser ?? this.idUser,
+        idOrmawa: idOrmawa ?? this.idOrmawa,
+        tanggalMulai: tanggalMulai ?? this.tanggalMulai,
+        tanggalSelesai: tanggalSelesai ?? this.tanggalSelesai,
         ruangan: ruangan ?? this.ruangan,
         gedung: gedung ?? this.gedung,
-        idOrmawa: idOrmawa ?? this.idOrmawa,
-        startTime: startTime ?? this.startTime,
-        endTime: endTime ?? this.endTime,
-        date: date ?? this.date,
+        waktuMulaiPenggunaan: waktuMulaiPenggunaan ?? this.waktuMulaiPenggunaan,
+        waktuSelesaiPenggunaan: waktuSelesaiPenggunaan ?? this.waktuSelesaiPenggunaan,
         kegiatan: kegiatan ?? this.kegiatan,
-        perlengkapan: perlengkapan ?? this.perlengkapan,
-        lain: lain ?? this.lain,
+        proyektor: proyektor ?? this.proyektor,
+        laptop: laptop ?? this.laptop,
+        mikrofon: mikrofon ?? this.mikrofon,
+        speaker: speaker ?? this.speaker,
+        meja: meja ?? this.meja,
+        kursi: kursi ?? this.kursi,
+        papanTulis: papanTulis ?? this.papanTulis,
+        spidol: spidol ?? this.spidol,
+        lainLain: lainLain ?? this.lainLain,
         status: status ?? this.status,
         keterangan: keterangan ?? this.keterangan,
         updatedAt: updatedAt ?? this.updatedAt,
         createdAt: createdAt ?? this.createdAt,
         updatedBy: updatedBy ?? this.updatedBy,
-        user: user ?? this.user,
+        createdBy: createdBy ?? this.createdBy,
       );
 
   @override
   List<Object?> get props => [
     idSession,
-    userId,
+    idUser,
+    idOrmawa,
+    tanggalMulai,
+    tanggalSelesai,
     ruangan,
     gedung,
-    idOrmawa,
-    startTime,
-    endTime,
-    date,
+    waktuMulaiPenggunaan,
+    waktuSelesaiPenggunaan,
     kegiatan,
-    perlengkapan,
-    lain,
+    proyektor,
+    laptop,
+    mikrofon,
+    speaker,
+    meja,
+    kursi,
+    papanTulis,
+    spidol,
+    lainLain,
     status,
     keterangan,
     updatedAt,
     createdAt,
     updatedBy,
-    user,
+    createdBy,
   ];
 }
-
