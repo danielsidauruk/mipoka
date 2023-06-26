@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mipoka/mipoka/domain/entities/kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/use_cases/kegiatan_use_case.dart';
 
 part 'kegiatan_event.dart';

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:mipoka/mipoka/domain/entities/kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/user.dart';
 
 // => Just Updated

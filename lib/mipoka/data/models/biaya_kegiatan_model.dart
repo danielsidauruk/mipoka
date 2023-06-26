@@ -9,6 +9,10 @@ class BiayaKegiatanModel extends BiayaKegiatan {
     required super.hargaSatuan,
     required super.total,
     required super.keterangan,
+    required super.createdAt,
+    required super.createdBy,
+    required super.updatedAt,
+    required super.updatedBy,
   });
 
   factory BiayaKegiatanModel.fromEntity(BiayaKegiatan rincianBiayaKegiatan) {
@@ -19,6 +23,10 @@ class BiayaKegiatanModel extends BiayaKegiatan {
       hargaSatuan: rincianBiayaKegiatan.hargaSatuan,
       total: rincianBiayaKegiatan.total,
       keterangan: rincianBiayaKegiatan.keterangan,
+      createdAt: rincianBiayaKegiatan.createdAt,
+      createdBy: rincianBiayaKegiatan.createdBy,
+      updatedAt: rincianBiayaKegiatan.updatedAt,
+      updatedBy: rincianBiayaKegiatan.updatedBy,
     );
   }
 
@@ -29,6 +37,10 @@ class BiayaKegiatanModel extends BiayaKegiatan {
     hargaSatuan: json["harga_satuan"],
     total: json["total"],
     keterangan: json["keterangan"],
+    createdAt: json["created_at"],
+    createdBy: json["created_by"],
+    updatedAt: json["updated_at"],
+    updatedBy: json["updated_by"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -38,5 +50,9 @@ class BiayaKegiatanModel extends BiayaKegiatan {
     "harga_satuan": hargaSatuan,
     "total": total,
     "keterangan": keterangan,
+    "created_at": createdAt,
+    "created_by": createdBy,
+    "updated_at": updatedAt,
+    "updated_by": updatedBy,
   };
 }

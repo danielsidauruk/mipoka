@@ -39,7 +39,7 @@
       "updated_by": "John Doe"
     }
   ],
-  "biaya_kegiatan": [
+  "rincian_biaya_kegiatan": [
     {
       "id_rincian_biaya_kegiatan": 432134223,
       "laporan": "Isi laporan rincian biaya kegiatan",

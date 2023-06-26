@@ -1,54 +1,62 @@
-import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
-import 'package:mipoka/mipoka/data/models/periode_model.dart';
-import 'package:mipoka/mipoka/domain/entities/kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/kegiatan_mpt.dart';
 
-// ==> Just Updated
-class KegiatanModel extends Kegiatan {
-  final PeriodeModel periodeModel;
-  final OrmawaModel ormawaModel;
+// ==> Just Updated 26 / 06 / 2023
+class KegiatanMptModel extends KegiatanMpt{
+  const KegiatanMptModel({
+    required super.idKegiatanMpt,
+    required super.jenisKegiatanMpt,
+    required super.namaKegiatanMpt,
+    required super.idPeriodeMpt,
+    required super.tanggalMulaiKegiatanMpt,
+    required super.tanggalSelesaiKegiatanMpt,
+    required super.pointMptDiperoleh,
+    required super.createdAt,
+    required super.createdBy,
+    required super.updatedAt,
+    required super.updatedBy,
+  });
 
-  const KegiatanModel({
-    required super.idKegiatan,
-    required super.jenisKegiatan,
-    required super.namaKegiatan,
-    required this.periodeModel,
-    required super.pointMpt,
-    required this.ormawaModel,
-    required super.keterangan,
-  }) : super(
-    periode: periodeModel,
-    ormawa: ormawaModel,
-  );
-
-  factory KegiatanModel.fromEntity(Kegiatan kegiatan) {
-    return KegiatanModel(
-      idKegiatan: kegiatan.idKegiatan,
-      jenisKegiatan: kegiatan.jenisKegiatan,
-      namaKegiatan: kegiatan.namaKegiatan,
-      periodeModel: PeriodeModel.fromEntity(kegiatan.periode),
-      pointMpt: kegiatan.pointMpt,
-      ormawaModel: OrmawaModel.fromEntity(kegiatan.ormawa),
-      keterangan: kegiatan.keterangan,
+  factory KegiatanMptModel.fromEntity(KegiatanMpt kegiatanMpt) {
+    return KegiatanMptModel(
+      idKegiatanMpt: kegiatanMpt.idKegiatanMpt,
+      jenisKegiatanMpt: kegiatanMpt.jenisKegiatanMpt,
+      namaKegiatanMpt: kegiatanMpt.namaKegiatanMpt,
+      idPeriodeMpt: kegiatanMpt.idPeriodeMpt,
+      tanggalMulaiKegiatanMpt: kegiatanMpt.tanggalMulaiKegiatanMpt,
+      tanggalSelesaiKegiatanMpt: kegiatanMpt.tanggalSelesaiKegiatanMpt,
+      pointMptDiperoleh: kegiatanMpt.pointMptDiperoleh,
+      createdAt: kegiatanMpt.createdAt,
+      createdBy: kegiatanMpt.createdBy,
+      updatedAt: kegiatanMpt.updatedAt,
+      updatedBy: kegiatanMpt.updatedBy,
     );
   }
 
-  factory KegiatanModel.fromJson(Map<String, dynamic> json) => KegiatanModel(
-    idKegiatan: json["idKegiatan"],
-    jenisKegiatan: json["jenisKegiatan"],
-    namaKegiatan: json["namaKegiatan"],
-    periodeModel: PeriodeModel.fromJson(json["idPeriode"]),
-    pointMpt: json["pointMpt"],
-    ormawaModel: OrmawaModel.fromJson(json["ormawa"]),
-    keterangan: json["keterangan"],
+  factory KegiatanMptModel.fromJson(Map<String, dynamic> json) => KegiatanMptModel(
+    idKegiatanMpt: json["id_kegiatan_mpt"],
+    jenisKegiatanMpt: json["jenis_kegiatan_mpt"],
+    namaKegiatanMpt: json["nama_kegiatan_mpt"],
+    idPeriodeMpt: json["id_periode_mpt"],
+    tanggalMulaiKegiatanMpt: json["tanggal_mulai_kegiatan_mpt"],
+    tanggalSelesaiKegiatanMpt: json["tanggal_selesai_kegiatan_mpt"],
+    pointMptDiperoleh: json["point_mpt_diperoleh"],
+    createdAt: json["created_at"],
+    createdBy: json["created_by"],
+    updatedAt: json["updated_at"],
+    updatedBy: json["updated_by"],
   );
 
   Map<String, dynamic> toJson() => {
-    "idKegiatan": idKegiatan,
-    "jenisKegiatan": jenisKegiatan,
-    "namaKegiatan": namaKegiatan,
-    "idPeriode": periodeModel.toJson(),
-    "pointMpt": pointMpt,
-    "ormawa": ormawaModel.toJson(),
-    "keterangan": keterangan,
+    "id_kegiatan_mpt": idKegiatanMpt,
+    "jenis_kegiatan_mpt": jenisKegiatanMpt,
+    "nama_kegiatan_mpt": namaKegiatanMpt,
+    "id_periode_mpt": idPeriodeMpt,
+    "tanggal_mulai_kegiatan_mpt": tanggalMulaiKegiatanMpt,
+    "tanggal_selesai_kegiatan_mpt": tanggalSelesaiKegiatanMpt,
+    "point_mpt_diperoleh": pointMptDiperoleh,
+    "created_at": createdAt,
+    "created_by": createdBy,
+    "updated_at": updatedAt,
+    "updated_by": updatedBy,
   };
 }

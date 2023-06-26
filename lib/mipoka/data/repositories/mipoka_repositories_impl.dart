@@ -25,7 +25,7 @@ import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
 import 'package:mipoka/mipoka/domain/entities/admin.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
-import 'package:mipoka/mipoka/domain/entities/kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/lampiran.dart';
 import 'package:mipoka/mipoka/domain/entities/lampiran_laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
