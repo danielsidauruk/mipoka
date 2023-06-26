@@ -19,7 +19,7 @@ import 'package:mipoka/mipoka/data/models/rincian_laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/riwayat_mpt_model.dart';
 import 'package:mipoka/mipoka/data/models/session_model.dart';
 import 'package:mipoka/mipoka/data/models/tertib_acara_model.dart';
-import 'package:mipoka/mipoka/data/models/user_model.dart';
+import 'package:mipoka/mipoka/data/models/mipoka_user_model.dart';
 import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
 
 abstract class MipokaDataSources {

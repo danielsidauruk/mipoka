@@ -1,105 +1,100 @@
 import 'package:equatable/equatable.dart';
-import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 
-// Just updated
 class MipokaUser extends Equatable{
-  final String idUser;
-  final int idOrmawa;
-  final int idOrmawaB;
+  final int idUser;
+  final List<int> idOrmawa;
   final String email;
   final String namaLengkap;
   final String nim;
   final String noHp;
   final String image;
-  final int mpt;
-  final String semester;
+  final int pointMpt;
+  final int semester;
   final String kelas;
   final String periodeMpt;
-  final String status;
+  final String statusMpt;
   final String prodi;
   final String createdAt;
   final String updatedAt;
-  final Ormawa ormawa;
+  final String createdBy;
+  final String updatedBy;
 
   const MipokaUser({
     required this.idUser,
     required this.idOrmawa,
-    required this.idOrmawaB,
     required this.email,
     required this.namaLengkap,
     required this.nim,
     required this.noHp,
     required this.image,
-    required this.mpt,
+    required this.pointMpt,
     required this.semester,
     required this.kelas,
     required this.periodeMpt,
-    required this.status,
+    required this.statusMpt,
     required this.prodi,
     required this.createdAt,
     required this.updatedAt,
-    required this.ormawa
+    required this.createdBy,
+    required this.updatedBy,
   });
 
   MipokaUser copyWith({
-    String? idUser,
-    int? idOrmawa,
-    int? idOrmawaB,
+    int? idUser,
+    List<int>? idOrmawa,
     String? email,
-    String? username,
-    String? password,
     String? namaLengkap,
     String? nim,
     String? noHp,
     String? image,
-    int? mpt,
-    String? semester,
+    int? pointMpt,
+    int? semester,
     String? kelas,
     String? periodeMpt,
-    String? status,
+    String? statusMpt,
     String? prodi,
     String? createdAt,
     String? updatedAt,
-    Ormawa? ormawa,
+    String? createdBy,
+    String? updatedBy,
   }) =>
       MipokaUser(
         idUser: idUser ?? this.idUser,
         idOrmawa: idOrmawa ?? this.idOrmawa,
-        idOrmawaB: idOrmawaB ?? this.idOrmawaB,
         email: email ?? this.email,
         namaLengkap: namaLengkap ?? this.namaLengkap,
         nim: nim ?? this.nim,
         noHp: noHp ?? this.noHp,
         image: image ?? this.image,
-        mpt: mpt ?? this.mpt,
+        pointMpt: pointMpt ?? this.pointMpt,
         semester: semester ?? this.semester,
         kelas: kelas ?? this.kelas,
         periodeMpt: periodeMpt ?? this.periodeMpt,
-        status: status ?? this.status,
+        statusMpt: statusMpt ?? this.statusMpt,
         prodi: prodi ?? this.prodi,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
-        ormawa: ormawa ?? this.ormawa
+        createdBy: createdBy ?? this.createdBy,
+        updatedBy: updatedBy ?? this.updatedBy,
       );
 
   @override
   List<Object?> get props => [
-    idUser,
     idOrmawa,
-    idOrmawaB,
     email,
     namaLengkap,
     nim,
     noHp,
     image,
-    mpt,
+    pointMpt,
     semester,
     kelas,
     periodeMpt,
-    status,
+    statusMpt,
     prodi,
     createdAt,
     updatedAt,
-    ormawa,
+    createdBy,
+    updatedBy,
   ];
 }
