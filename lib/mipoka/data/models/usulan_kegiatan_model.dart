@@ -1,14 +1,8 @@
-import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
-import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
-import 'package:mipoka/mipoka/data/models/tertib_acara_model.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 
 class UsulanKegiatanModel extends UsulanKegiatan {
-  final List<PartisipanModel> partisipanModel;
-  final List<BiayaKegiatanModel> biayaKegiatanModel;
-  final List<TertibAcaraModel> tertibAcaraModel;
 
-  const UsulanKegiatanModel({
+  UsulanKegiatanModel({
     required super.idUsulan,
     required super.idUser,
     required super.idOrmawa,
@@ -30,8 +24,8 @@ class UsulanKegiatanModel extends UsulanKegiatan {
     required super.kategoriTotalPendanaan,
     required super.keterangan,
     required super.tandaTanganOrmawa,
-    required this.partisipanModel,
-    required this.biayaKegiatanModel,
+    required super.partisipan,
+    required super.biayaKegiatan,
     required super.namaTtKetuaOrmawa,
     required super.namaTtPembina,
     required super.latarBelakang,
@@ -41,7 +35,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
     required super.targetPencapaianKegiatan,
     required super.waktuDanTempatPelaksanaan,
     required super.rencanaAnggaranKegiatan,
-    required this.tertibAcaraModel,
+    required super.tertibAcara,
     required super.perlengkapanDanPeralatan,
     required super.penutup,
     required super.fotoPostinganKegiatan,
@@ -57,67 +51,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
     required super.updatedAt,
     required super.createdBy,
     required super.updatedBy,
-  }) : super(
-    partisipan: partisipanModel,
-    biayaKegiatan: biayaKegiatanModel,
-    tertibAcara: tertibAcaraModel,
-  );
-
-  factory UsulanKegiatanModel.fromEntity(UsulanKegiatan usulanKegiatan) {
-    return UsulanKegiatanModel(
-        idUsulan: usulanKegiatan.idUsulan,
-        idUser: usulanKegiatan.idUser,
-        idOrmawa: usulanKegiatan.idOrmawa,
-        pembiayaan: usulanKegiatan.pembiayaan,
-        namaKegiatan: usulanKegiatan.namaKegiatan,
-        bentukKegiatan: usulanKegiatan.bentukKegiatan,
-        kategoriBentukKegiatan: usulanKegiatan.kategoriBentukKegiatan,
-        deskripsiKegiatan: usulanKegiatan.deskripsiKegiatan,
-        tanggalMulaiKegiatan: usulanKegiatan.tanggalMulaiKegiatan,
-        tanggalSelesaiKegiatan: usulanKegiatan.tanggalSelesaiKegiatan,
-        waktuMulaiKegiatan: usulanKegiatan.waktuMulaiKegiatan,
-        waktuSelesaiKegiatan: usulanKegiatan.waktuSelesaiKegiatan,
-        tanggalKeberangkatan: usulanKegiatan.tanggalKeberangkatan,
-        tanggalKepulangan: usulanKegiatan.tanggalKepulangan,
-        jumlahPartisipan: usulanKegiatan.jumlahPartisipan,
-        kategoriJumlahPartisipan: usulanKegiatan.kategoriJumlahPartisipan,
-        targetKegiatan: usulanKegiatan.targetKegiatan,
-        totalPendanaan: usulanKegiatan.totalPendanaan,
-        kategoriTotalPendanaan: usulanKegiatan.kategoriTotalPendanaan,
-        keterangan: usulanKegiatan.keterangan,
-        tandaTanganOrmawa: usulanKegiatan.tandaTanganOrmawa,
-        partisipanModel: usulanKegiatan.partisipan.map((partisipan) =>
-            PartisipanModel.fromEntity(partisipan)).toList(),
-        biayaKegiatanModel: usulanKegiatan.biayaKegiatan.map((biayaKegiatan) =>
-            BiayaKegiatanModel.fromEntity(biayaKegiatan)).toList(),
-        namaTtKetuaOrmawa: usulanKegiatan.namaTtKetuaOrmawa,
-        namaTtPembina: usulanKegiatan.namaTtPembina,
-        latarBelakang: usulanKegiatan.latarBelakang,
-        tujuanKegiatan: usulanKegiatan.tujuanKegiatan,
-        manfaatKegiatan: usulanKegiatan.manfaatKegiatan,
-        bentukPelaksanaanKegiatan: usulanKegiatan.bentukPelaksanaanKegiatan,
-        targetPencapaianKegiatan: usulanKegiatan.targetPencapaianKegiatan,
-        waktuDanTempatPelaksanaan: usulanKegiatan.waktuDanTempatPelaksanaan,
-        rencanaAnggaranKegiatan: usulanKegiatan.rencanaAnggaranKegiatan,
-        tertibAcaraModel: usulanKegiatan.tertibAcara.map((usulanKegiatan) =>
-            TertibAcaraModel.fromEntity(usulanKegiatan)).toList(),
-        perlengkapanDanPeralatan: usulanKegiatan.perlengkapanDanPeralatan,
-        penutup: usulanKegiatan.penutup,
-        fotoPostinganKegiatan: usulanKegiatan.fotoPostinganKegiatan,
-        fotoSuratUndanganKegiatan: usulanKegiatan.fotoSuratUndanganKegiatan,
-        fotoLinimasaKegiatan: usulanKegiatan.fotoLinimasaKegiatan,
-        fotoTempatKegiatan: usulanKegiatan.fotoTempatKegiatan,
-        fileUsulanKegiatan: usulanKegiatan.fileUsulanKegiatan,
-        validasiPembina: usulanKegiatan.validasiPembina,
-        tandaTanganPembina: usulanKegiatan.tandaTanganPembina,
-        statusUsulan: usulanKegiatan.statusUsulan,
-        roles: usulanKegiatan.roles,
-        createdAt: usulanKegiatan.createdAt,
-        updatedAt: usulanKegiatan.updatedAt,
-        createdBy: usulanKegiatan.createdAt,
-        updatedBy: usulanKegiatan.updatedBy,
-    );
-  }
+  });
 
   factory UsulanKegiatanModel.fromJson(Map<String, dynamic> json) => UsulanKegiatanModel(
     idUsulan: json["id_usulan"],
@@ -141,8 +75,8 @@ class UsulanKegiatanModel extends UsulanKegiatan {
     kategoriTotalPendanaan: json["kategori_total_pendanaan"],
     keterangan: json["keterangan"],
     tandaTanganOrmawa: json["tanda_tangan_ormawa"],
-    partisipanModel: List<PartisipanModel>.from(json["partisipan"].map((x) => PartisipanModel.fromJson(x))),
-    biayaKegiatanModel: List<BiayaKegiatanModel>.from(json["biaya_kegiatan"].map((x) => BiayaKegiatanModel.fromJson(x))),
+    partisipan: List<Partisipan>.from(json["partisipan"].map((x) => Partisipan.fromJson(x))),
+    biayaKegiatan: List<BiayaKegiatan>.from(json["biaya_kegiatan"].map((x) => BiayaKegiatan.fromJson(x))),
     namaTtKetuaOrmawa: json["nama_tt_ketua_ormawa"],
     namaTtPembina: json["nama_tt_pembina"],
     latarBelakang: json["latar_belakang"],
@@ -152,7 +86,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
     targetPencapaianKegiatan: json["target_pencapaian_kegiatan"],
     waktuDanTempatPelaksanaan: json["waktu_dan_tempat_pelaksanaan"],
     rencanaAnggaranKegiatan: json["rencana_anggaran_kegiatan"],
-    tertibAcaraModel: List<TertibAcaraModel>.from(json["tertib_acara"].map((x) => TertibAcaraModel.fromJson(x))),
+    tertibAcara: List<TertibAcara>.from(json["tertib_acara"].map((x) => TertibAcara.fromJson(x))),
     perlengkapanDanPeralatan: json["perlengkapan_dan_peralatan"],
     penutup: json["penutup"],
     fotoPostinganKegiatan: json["foto_postingan_kegiatan"],
@@ -192,8 +126,8 @@ class UsulanKegiatanModel extends UsulanKegiatan {
     "kategori_total_pendanaan": kategoriTotalPendanaan,
     "keterangan": keterangan,
     "tanda_tangan_ormawa": tandaTanganOrmawa,
-    "partisipan": List<dynamic>.from(partisipanModel.map((x) => x.toJson())),
-    "biaya_kegiatan": List<dynamic>.from(biayaKegiatanModel.map((x) => x.toJson())),
+    "partisipan": List<dynamic>.from(partisipan.map((x) => x.toJson())),
+    "biaya_kegiatan": List<dynamic>.from(biayaKegiatan.map((x) => x.toJson())),
     "nama_tt_ketua_ormawa": namaTtKetuaOrmawa,
     "nama_tt_pembina": namaTtPembina,
     "latar_belakang": latarBelakang,
@@ -203,7 +137,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
     "target_pencapaian_kegiatan": targetPencapaianKegiatan,
     "waktu_dan_tempat_pelaksanaan": waktuDanTempatPelaksanaan,
     "rencana_anggaran_kegiatan": rencanaAnggaranKegiatan,
-    "tertib_acara": List<dynamic>.from(tertibAcaraModel.map((x) => x.toJson())),
+    "tertib_acara": List<dynamic>.from(tertibAcara.map((x) => x.toJson())),
     "perlengkapan_dan_peralatan": perlengkapanDanPeralatan,
     "penutup": penutup,
     "foto_postingan_kegiatan": fotoPostinganKegiatan,

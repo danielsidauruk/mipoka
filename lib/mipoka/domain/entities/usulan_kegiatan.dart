@@ -1,12 +1,9 @@
 import 'package:equatable/equatable.dart';
-import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
-import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
 import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
 import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
-import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 
-// Just updated 26 / 06 / 2023
-class UsulanKegiatan extends Equatable {
+class UsulanKegiatan extends Equatable{
   final int idUsulan;
   final String idUser;
   final int idOrmawa;
@@ -56,7 +53,7 @@ class UsulanKegiatan extends Equatable {
   final String createdBy;
   final String updatedBy;
 
-  const UsulanKegiatan({
+  UsulanKegiatan({
     required this.idUsulan,
     required this.idUser,
     required this.idOrmawa,
@@ -156,58 +153,57 @@ class UsulanKegiatan extends Equatable {
     String? updatedAt,
     String? createdBy,
     String? updatedBy,
-  }) {
-    return UsulanKegiatan(
-      idUsulan: idUsulan ?? this.idUsulan,
-      idUser: idUser ?? this.idUser,
-      idOrmawa: idOrmawa ?? this.idOrmawa,
-      pembiayaan: pembiayaan ?? this.pembiayaan,
-      namaKegiatan: namaKegiatan ?? this.namaKegiatan,
-      bentukKegiatan: bentukKegiatan ?? this.bentukKegiatan,
-      kategoriBentukKegiatan: kategoriBentukKegiatan ?? this.kategoriBentukKegiatan,
-      deskripsiKegiatan: deskripsiKegiatan ?? this.deskripsiKegiatan,
-      tanggalMulaiKegiatan: tanggalMulaiKegiatan ?? this.tanggalMulaiKegiatan,
-      tanggalSelesaiKegiatan: tanggalSelesaiKegiatan ?? this.tanggalSelesaiKegiatan,
-      waktuMulaiKegiatan: waktuMulaiKegiatan ?? this.waktuMulaiKegiatan,
-      waktuSelesaiKegiatan: waktuSelesaiKegiatan ?? this.waktuSelesaiKegiatan,
-      tanggalKeberangkatan: tanggalKeberangkatan ?? this.tanggalKeberangkatan,
-      tanggalKepulangan: tanggalKepulangan ?? this.tanggalKepulangan,
-      jumlahPartisipan: jumlahPartisipan ?? this.jumlahPartisipan,
-      kategoriJumlahPartisipan: kategoriJumlahPartisipan ?? this.kategoriJumlahPartisipan,
-      targetKegiatan: targetKegiatan ?? this.targetKegiatan,
-      totalPendanaan: totalPendanaan ?? this.totalPendanaan,
-      kategoriTotalPendanaan: kategoriTotalPendanaan ?? this.kategoriTotalPendanaan,
-      keterangan: keterangan ?? this.keterangan,
-      tandaTanganOrmawa: tandaTanganOrmawa ?? this.tandaTanganOrmawa,
-      partisipan: partisipan ?? this.partisipan,
-      biayaKegiatan: biayaKegiatan ?? this.biayaKegiatan,
-      namaTtKetuaOrmawa: namaTtKetuaOrmawa ?? this.namaTtKetuaOrmawa,
-      namaTtPembina: namaTtPembina ?? this.namaTtPembina,
-      latarBelakang: latarBelakang ?? this.latarBelakang,
-      tujuanKegiatan: tujuanKegiatan ?? this.tujuanKegiatan,
-      manfaatKegiatan: manfaatKegiatan ?? this.manfaatKegiatan,
-      bentukPelaksanaanKegiatan: bentukPelaksanaanKegiatan ?? this.bentukPelaksanaanKegiatan,
-      targetPencapaianKegiatan: targetPencapaianKegiatan ?? this.targetPencapaianKegiatan,
-      waktuDanTempatPelaksanaan: waktuDanTempatPelaksanaan ?? this.waktuDanTempatPelaksanaan,
-      rencanaAnggaranKegiatan: rencanaAnggaranKegiatan ?? this.rencanaAnggaranKegiatan,
-      tertibAcara: tertibAcara ?? this.tertibAcara,
-      perlengkapanDanPeralatan: perlengkapanDanPeralatan ?? this.perlengkapanDanPeralatan,
-      penutup: penutup ?? this.penutup,
-      fotoPostinganKegiatan: fotoPostinganKegiatan ?? this.fotoPostinganKegiatan,
-      fotoSuratUndanganKegiatan: fotoSuratUndanganKegiatan ?? this.fotoSuratUndanganKegiatan,
-      fotoLinimasaKegiatan: fotoLinimasaKegiatan ?? this.fotoLinimasaKegiatan,
-      fotoTempatKegiatan: fotoTempatKegiatan ?? this.fotoTempatKegiatan,
-      fileUsulanKegiatan: fileUsulanKegiatan ?? this.fileUsulanKegiatan,
-      validasiPembina: validasiPembina ?? this.validasiPembina,
-      tandaTanganPembina: tandaTanganPembina ?? this.tandaTanganPembina,
-      statusUsulan: statusUsulan ?? this.statusUsulan,
-      roles: roles ?? this.roles,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-      createdBy: createdBy ?? this.createdBy,
-      updatedBy: updatedBy ?? this.updatedBy,
-    );
-  }
+  }) =>
+      UsulanKegiatan(
+        idUsulan: idUsulan ?? this.idUsulan,
+        idUser: idUser ?? this.idUser,
+        idOrmawa: idOrmawa ?? this.idOrmawa,
+        pembiayaan: pembiayaan ?? this.pembiayaan,
+        namaKegiatan: namaKegiatan ?? this.namaKegiatan,
+        bentukKegiatan: bentukKegiatan ?? this.bentukKegiatan,
+        kategoriBentukKegiatan: kategoriBentukKegiatan ?? this.kategoriBentukKegiatan,
+        deskripsiKegiatan: deskripsiKegiatan ?? this.deskripsiKegiatan,
+        tanggalMulaiKegiatan: tanggalMulaiKegiatan ?? this.tanggalMulaiKegiatan,
+        tanggalSelesaiKegiatan: tanggalSelesaiKegiatan ?? this.tanggalSelesaiKegiatan,
+        waktuMulaiKegiatan: waktuMulaiKegiatan ?? this.waktuMulaiKegiatan,
+        waktuSelesaiKegiatan: waktuSelesaiKegiatan ?? this.waktuSelesaiKegiatan,
+        tanggalKeberangkatan: tanggalKeberangkatan ?? this.tanggalKeberangkatan,
+        tanggalKepulangan: tanggalKepulangan ?? this.tanggalKepulangan,
+        jumlahPartisipan: jumlahPartisipan ?? this.jumlahPartisipan,
+        kategoriJumlahPartisipan: kategoriJumlahPartisipan ?? this.kategoriJumlahPartisipan,
+        targetKegiatan: targetKegiatan ?? this.targetKegiatan,
+        totalPendanaan: totalPendanaan ?? this.totalPendanaan,
+        kategoriTotalPendanaan: kategoriTotalPendanaan ?? this.kategoriTotalPendanaan,
+        keterangan: keterangan ?? this.keterangan,
+        tandaTanganOrmawa: tandaTanganOrmawa ?? this.tandaTanganOrmawa,
+        partisipan: partisipan ?? this.partisipan,
+        biayaKegiatan: biayaKegiatan ?? this.biayaKegiatan,
+        namaTtKetuaOrmawa: namaTtKetuaOrmawa ?? this.namaTtKetuaOrmawa,
+        namaTtPembina: namaTtPembina ?? this.namaTtPembina,
+        latarBelakang: latarBelakang ?? this.latarBelakang,
+        tujuanKegiatan: tujuanKegiatan ?? this.tujuanKegiatan,
+        manfaatKegiatan: manfaatKegiatan ?? this.manfaatKegiatan,
+        bentukPelaksanaanKegiatan: bentukPelaksanaanKegiatan ?? this.bentukPelaksanaanKegiatan,
+        targetPencapaianKegiatan: targetPencapaianKegiatan ?? this.targetPencapaianKegiatan,
+        waktuDanTempatPelaksanaan: waktuDanTempatPelaksanaan ?? this.waktuDanTempatPelaksanaan,
+        rencanaAnggaranKegiatan: rencanaAnggaranKegiatan ?? this.rencanaAnggaranKegiatan,
+        tertibAcara: tertibAcara ?? this.tertibAcara,
+        perlengkapanDanPeralatan: perlengkapanDanPeralatan ?? this.perlengkapanDanPeralatan,
+        penutup: penutup ?? this.penutup,
+        fotoPostinganKegiatan: fotoPostinganKegiatan ?? this.fotoPostinganKegiatan,
+        fotoSuratUndanganKegiatan: fotoSuratUndanganKegiatan ?? this.fotoSuratUndanganKegiatan,
+        fotoLinimasaKegiatan: fotoLinimasaKegiatan ?? this.fotoLinimasaKegiatan,
+        fotoTempatKegiatan: fotoTempatKegiatan ?? this.fotoTempatKegiatan,
+        fileUsulanKegiatan: fileUsulanKegiatan ?? this.fileUsulanKegiatan,
+        validasiPembina: validasiPembina ?? this.validasiPembina,
+        tandaTanganPembina: tandaTanganPembina ?? this.tandaTanganPembina,
+        statusUsulan: statusUsulan ?? this.statusUsulan,
+        roles: roles ?? this.roles,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+        createdBy: createdBy ?? this.createdBy,
+        updatedBy: updatedBy ?? this.updatedBy,
+      );
 
   @override
   List<Object?> get props => [
