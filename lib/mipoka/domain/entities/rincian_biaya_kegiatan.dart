@@ -1,8 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class RincianBiayaKegiatan extends Equatable{
-  final int idBiayaKegiatan;
-  final String idLaporan;
+class RincianBiayaKegiatan extends Equatable {
+  final int idRincianBiayaKegiatan;
   final String namaBiaya;
   final String keterangan;
   final int kuantitas;
@@ -13,10 +12,13 @@ class RincianBiayaKegiatan extends Equatable{
   final int totalUsulan;
   final int totalRealisasi;
   final int totalSelisih;
+  final String createdAt;
+  final String createdBy;
+  final String updatedAt;
+  final String updatedBy;
 
   const RincianBiayaKegiatan({
-    required this.idBiayaKegiatan,
-    required this.idLaporan,
+    required this.idRincianBiayaKegiatan,
     required this.namaBiaya,
     required this.keterangan,
     required this.kuantitas,
@@ -27,11 +29,14 @@ class RincianBiayaKegiatan extends Equatable{
     required this.totalUsulan,
     required this.totalRealisasi,
     required this.totalSelisih,
+    required this.createdAt,
+    required this.createdBy,
+    required this.updatedAt,
+    required this.updatedBy,
   });
 
   RincianBiayaKegiatan copyWith({
-    int? idBiayaKegiatan,
-    String? idLaporan,
+    int? idRincianBiayaKegiatan,
     String? namaBiaya,
     String? keterangan,
     int? kuantitas,
@@ -42,10 +47,13 @@ class RincianBiayaKegiatan extends Equatable{
     int? totalUsulan,
     int? totalRealisasi,
     int? totalSelisih,
+    String? createdAt,
+    String? createdBy,
+    String? updatedAt,
+    String? updatedBy,
   }) =>
       RincianBiayaKegiatan(
-        idBiayaKegiatan: idBiayaKegiatan ?? this.idBiayaKegiatan,
-        idLaporan: idLaporan ?? this.idLaporan,
+        idRincianBiayaKegiatan: idRincianBiayaKegiatan ?? this.idRincianBiayaKegiatan,
         namaBiaya: namaBiaya ?? this.namaBiaya,
         keterangan: keterangan ?? this.keterangan,
         kuantitas: kuantitas ?? this.kuantitas,
@@ -56,12 +64,15 @@ class RincianBiayaKegiatan extends Equatable{
         totalUsulan: totalUsulan ?? this.totalUsulan,
         totalRealisasi: totalRealisasi ?? this.totalRealisasi,
         totalSelisih: totalSelisih ?? this.totalSelisih,
+        createdAt: createdAt ?? this.createdAt,
+        createdBy: createdBy ?? this.createdBy,
+        updatedAt: updatedAt ?? this.updatedAt,
+        updatedBy: updatedBy ?? this.updatedBy,
       );
 
   @override
   List<Object?> get props => [
-    idBiayaKegiatan,
-    idLaporan,
+    idRincianBiayaKegiatan,
     namaBiaya,
     keterangan,
     kuantitas,
@@ -72,5 +83,9 @@ class RincianBiayaKegiatan extends Equatable{
     totalUsulan,
     totalRealisasi,
     totalSelisih,
+    createdAt,
+    createdBy,
+    updatedAt,
+    updatedBy,
   ];
 }
