@@ -75,4 +75,3 @@ class RincianBiayaKegiatanModel extends RincianBiayaKegiatan {
     "updated_by": updatedBy,
   };
 }
-}
