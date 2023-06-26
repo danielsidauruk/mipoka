@@ -1,34 +1,53 @@
 import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
 
-// => Just Updated
 class PesertaKegiatanLaporanModel extends PesertaKegiatanLaporan {
-  PesertaKegiatanLaporanModel({
+  const PesertaKegiatanLaporanModel({
     required super.idPesertaKegiatanLaporan,
+    required super.laporan,
     required super.nim,
     required super.namaLengkap,
     required super.peran,
+    required super.createdAt,
+    required super.createdBy,
+    required super.updatedAt,
+    required super.updatedBy,
   });
 
   factory PesertaKegiatanLaporanModel.fromEntity(PesertaKegiatanLaporan pesertaKegiatanLaporan) {
     return PesertaKegiatanLaporanModel(
       idPesertaKegiatanLaporan: pesertaKegiatanLaporan.idPesertaKegiatanLaporan,
+      laporan: pesertaKegiatanLaporan.laporan,
       nim: pesertaKegiatanLaporan.nim,
       namaLengkap: pesertaKegiatanLaporan.namaLengkap,
       peran: pesertaKegiatanLaporan.peran,
+      createdAt: pesertaKegiatanLaporan.createdAt,
+      createdBy: pesertaKegiatanLaporan.createdBy,
+      updatedAt: pesertaKegiatanLaporan.updatedAt,
+      updatedBy: pesertaKegiatanLaporan.updatedBy,
     );
   }
 
   factory PesertaKegiatanLaporanModel.fromJson(Map<String, dynamic> json) => PesertaKegiatanLaporanModel(
-    idPesertaKegiatanLaporan: json["idPesertaKegiatanLaporan"],
+    idPesertaKegiatanLaporan: json["id_peserta_kegiatan_laporan"],
+    laporan: json["laporan"],
     nim: json["nim"],
-    namaLengkap: json["namaLengkap"],
+    namaLengkap: json["nama_lengkap"],
     peran: json["peran"],
+    createdAt: json["created_at"],
+    createdBy: json["created_by"],
+    updatedAt: json["updated_at"],
+    updatedBy: json["updated_by"],
   );
 
   Map<String, dynamic> toJson() => {
-    "idPesertaKegiatanLaporan": idPesertaKegiatanLaporan,
+    "id_peserta_kegiatan_laporan": idPesertaKegiatanLaporan,
+    "laporan": laporan,
     "nim": nim,
-    "namaLengkap": namaLengkap,
+    "nama_lengkap": namaLengkap,
     "peran": peran,
+    "created_at": createdAt,
+    "created_by": createdBy,
+    "updated_at": updatedAt,
+    "updated_by": updatedBy,
   };
 }

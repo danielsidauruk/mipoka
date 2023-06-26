@@ -1,6 +1,5 @@
-import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
-import 'package:mipoka/mipoka/data/models/rincian_biaya_kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/peserta_kegiatan_laporan_model.dart';
+import 'package:mipoka/mipoka/data/models/rincian_biaya_kegiatan_model.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 
 class LaporanModel extends Laporan {
