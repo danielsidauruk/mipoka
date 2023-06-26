@@ -24,17 +24,17 @@ class EditDataPesertaDalamKota extends StatefulWidget {
 }
 
 class _EditDataPesertaDalamKotaState extends State<EditDataPesertaDalamKota> {
-  final TextEditingController _nimNipController = TextEditingController();
-  final TextEditingController _namaLengkapController = TextEditingController();
-  final TextEditingController _peranController = TextEditingController();
+  final TextEditingController _noIndukController = TextEditingController();
+  final TextEditingController _namaPartisipanController = TextEditingController();
+  final TextEditingController _peranPartisipanController = TextEditingController();
   final TextEditingController _dasarPengirimanController = TextEditingController();
 
   @override
   void initState() {
-    _nimNipController.text = widget.multipleArgs.partisipan.nim;
-    _namaLengkapController.text = widget.multipleArgs.partisipan.namaLengkap;
-    _peranController.text = widget.multipleArgs.partisipan.peran;
-    _dasarPengirimanController.text = widget.multipleArgs.partisipan.dasarKirim;
+    _noIndukController.text = widget.multipleArgs.partisipan.noInduk;
+    _namaPartisipanController.text = widget.multipleArgs.partisipan.namaPartisipan;
+    _peranPartisipanController.text = widget.multipleArgs.partisipan.peranPartisipan;
+    _dasarPengirimanController.text = widget.multipleArgs.partisipan.dasarPengiriman;
     super.initState();
   }
 
@@ -65,19 +65,19 @@ class _EditDataPesertaDalamKotaState extends State<EditDataPesertaDalamKota> {
 
                   buildTitle('NIM/NIP'),
                   CustomTextField(
-                    controller: _nimNipController,
+                    controller: _noIndukController,
                     textInputType: TextInputType.number,
                   ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Nama Lengkap'),
-                  CustomTextField(controller: _namaLengkapController),
+                  CustomTextField(controller: _namaPartisipanController),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Peran'),
-                  CustomTextField(controller: _peranController),
+                  CustomTextField(controller: _peranPartisipanController),
 
                   const CustomFieldSpacer(),
 
@@ -101,10 +101,10 @@ class _EditDataPesertaDalamKotaState extends State<EditDataPesertaDalamKota> {
                           BlocProvider.of<PartisipanBloc>(context, listen: false).add(
                             UpdatePartisipanEvent(
                               widget.multipleArgs.partisipan.copyWith(
-                                nim: _nimNipController.text,
-                                namaLengkap: _namaLengkapController.text,
-                                peran: _peranController.text,
-                                dasarKirim: _dasarPengirimanController.text,
+                                noInduk: _noIndukController.text,
+                                namaPartisipan: _namaPartisipanController.text,
+                                peranPartisipan: _peranPartisipanController.text,
+                                dasarPengiriman: _dasarPengirimanController.text,
                               ),
                             ),
                           );

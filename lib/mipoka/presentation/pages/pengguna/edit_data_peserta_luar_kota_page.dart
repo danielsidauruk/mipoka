@@ -25,23 +25,23 @@ class EditDataPesertaLuarKotaPage extends StatefulWidget {
 }
 
 class _EditDataPesertaLuarKotaPageState extends State<EditDataPesertaLuarKotaPage> {
-  final TextEditingController _nimNipController = TextEditingController();
-  final TextEditingController _namaLengkapController = TextEditingController();
+  final TextEditingController _noIndukController = TextEditingController();
+  final TextEditingController _namaPartisipanController = TextEditingController();
   final TextEditingController _nikController = TextEditingController();
   final TextEditingController _tempatLahirController = TextEditingController();
-  final TextEditingController _peranController = TextEditingController();
+  final TextEditingController _peranPartisipanController = TextEditingController();
   final TextEditingController _dasarPengirimanController = TextEditingController();
-  final TextEditingController _tanggalLahirController = TextEditingController();
+  final TextEditingController _tglLahirController = TextEditingController();
 
   @override
   void initState() {
-    _nimNipController.text = widget.partisipanArgs.partisipan.nim;
-    _namaLengkapController.text = widget.partisipanArgs.partisipan.namaLengkap;
+    _noIndukController.text = widget.partisipanArgs.partisipan.noInduk;
+    _namaPartisipanController.text = widget.partisipanArgs.partisipan.namaPartisipan;
     _nikController.text = widget.partisipanArgs.partisipan.nik;
     _tempatLahirController.text = widget.partisipanArgs.partisipan.tempatLahir;
-    _peranController.text = widget.partisipanArgs.partisipan.peran;
-    _dasarPengirimanController.text = widget.partisipanArgs.partisipan.dasarKirim;
-    _tanggalLahirController.text = widget.partisipanArgs.partisipan.tglLahir;
+    _peranPartisipanController.text = widget.partisipanArgs.partisipan.peranPartisipan;
+    _dasarPengirimanController.text = widget.partisipanArgs.partisipan.dasarPengiriman;
+    _tglLahirController.text = widget.partisipanArgs.partisipan.tglLahir;
     super.initState();
   }
 
@@ -70,14 +70,14 @@ class _EditDataPesertaLuarKotaPageState extends State<EditDataPesertaLuarKotaPag
 
                   buildTitle('NIM/NIP'),
                   CustomTextField(
-                    controller: _nimNipController,
+                    controller: _noIndukController,
                     textInputType: TextInputType.number,
                   ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Nama Lengkap'),
-                  CustomTextField(controller: _namaLengkapController),
+                  CustomTextField(controller: _namaPartisipanController),
 
                   const CustomFieldSpacer(),
 
@@ -93,13 +93,13 @@ class _EditDataPesertaLuarKotaPageState extends State<EditDataPesertaLuarKotaPag
 
                   buildTitle('Tanggal Lahir'),
                   CustomDatePickerField(
-                    controller: _tanggalLahirController,
+                    controller: _tglLahirController,
                   ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Peran'),
-                  CustomTextField(controller: _peranController),
+                  CustomTextField(controller: _peranPartisipanController),
 
                   const CustomFieldSpacer(),
 
@@ -123,13 +123,13 @@ class _EditDataPesertaLuarKotaPageState extends State<EditDataPesertaLuarKotaPag
                           BlocProvider.of<PartisipanBloc>(context, listen: false).add(
                             UpdatePartisipanEvent(
                               widget.partisipanArgs.partisipan.copyWith(
-                                nim: _nimNipController.text,
-                                namaLengkap: _namaLengkapController.text,
+                                noInduk: _noIndukController.text,
+                                namaPartisipan: _namaPartisipanController.text,
                                 nik: _nikController.text,
                                 tempatLahir: _tempatLahirController.text,
-                                tglLahir: _tanggalLahirController.text,
-                                peran: _peranController.text,
-                                dasarKirim: _dasarPengirimanController.text,
+                                tglLahir: _tglLahirController.text,
+                                peranPartisipan: _peranPartisipanController.text,
+                                dasarPengiriman: _dasarPengirimanController.text,
                               ),
                             ),
                           );
