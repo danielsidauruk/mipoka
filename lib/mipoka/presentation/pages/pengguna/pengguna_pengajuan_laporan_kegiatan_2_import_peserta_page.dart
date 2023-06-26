@@ -47,7 +47,10 @@ class _PenggunaPengajuanLaporanKegiatan2ImportPesertaState extends State<Penggun
 
                   buildTitle('Unggah'),
                   CustomFilePickerButton(
-                    onTap: () => FileUploader.selectAndUploadFile('importPeserta'),
+                    onTap: () => selectAndUploadFile(
+                      'importPeserta',
+                      1
+                    ),
                   ),
 
                   const CustomFieldSpacer(),

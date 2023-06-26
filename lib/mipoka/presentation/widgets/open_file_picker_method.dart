@@ -1,9 +1,34 @@
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class FileUploader {
-  static Map<String, String?> filePaths = {};
 
-  static Future<void> selectAndUploadFile(String buttonName) async {
+
+
+  // static Future<void> uploadFileToDatabase(PlatformFile file) async {
+  //   // Logika untuk mengunggah file ke database lokal atau database remote
+  //   // ...
+  //   // Misalnya, Anda dapat menggunakan package http untuk mengunggah ke database remote
+  //   // atau menyimpan file ke storage lokal menggunakan package path_provider
+  //
+  //   // Contoh penggunaan package http untuk mengunggah ke database remote
+  //   // var url = 'http://example.com/upload';
+  //   // var request = http.MultipartRequest('POST', Uri.parse(url));
+  //   // request.files.add(http.MultipartFile.fromPath('file', file.path));
+  //   //
+  //   // var response = await request.send();
+  //   // if (response.statusCode == 200) {
+  //   //   print('File uploaded successfully');
+  //   // } else {
+  //   //   print('Failed to upload file');
+  //   // }
+  // }
+}
+
+Future<String?> selectAndUploadFile(String buttonName, int id) async {
+  try {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
@@ -13,35 +38,34 @@ class FileUploader {
       print('File size: ${file.size}');
       print('File extension: ${file.extension}');
 
-      filePaths[buttonName] = file.path;
+      String downloadUrl = await uploadFileToFirebase(file, id);
+      print(downloadUrl);
 
-      // Panggil fungsi untuk mengunggah file ke database lokal atau database remote
-      await uploadFileToDatabase(file);
-
-      // Membuat map yang berisi informasi file
-      // String fileInfo = '${file.name} - ${file.size}';
-      // return fileInfo;
+      return downloadUrl;
     } else {
-      print('Method error');
+      return null;
     }
+  } catch (error) {
+    print('Kesalahan saat memilih dan mengunggah file: $error');
+    return null;
   }
+}
 
-  static Future<void> uploadFileToDatabase(PlatformFile file) async {
-    // Logika untuk mengunggah file ke database lokal atau database remote
-    // ...
-    // Misalnya, Anda dapat menggunakan package http untuk mengunggah ke database remote
-    // atau menyimpan file ke storage lokal menggunakan package path_provider
+Future<String> uploadFileToFirebase(PlatformFile file, int id) async {
+  try {
+    // Buat referensi ke Firebase Storage
+    final Reference storageRef = FirebaseStorage.instance.ref().child('nama_file');
 
-    // Contoh penggunaan package http untuk mengunggah ke database remote
-    // var url = 'http://example.com/upload';
-    // var request = http.MultipartRequest('POST', Uri.parse(url));
-    // request.files.add(http.MultipartFile.fromPath('file', file.path));
-    //
-    // var response = await request.send();
-    // if (response.statusCode == 200) {
-    //   print('File uploaded successfully');
-    // } else {
-    //   print('Failed to upload file');
-    // }
+    // Unggah file ke Firebase Storage
+    final UploadTask uploadTask = storageRef.putFile(File(file.path!));
+    final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+
+    // Dapatkan URL unduhan file dari Firebase Storage
+    final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+    return downloadUrl;
+  } catch (error) {
+    print('Kesalahan saat mengunggah file: $error');
+    rethrow;
   }
 }

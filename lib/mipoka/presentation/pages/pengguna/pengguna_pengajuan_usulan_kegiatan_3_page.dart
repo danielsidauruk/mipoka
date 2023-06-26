@@ -348,8 +348,11 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildDescription(
                             'Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
                         CustomFilePickerButton(
-                            onTap: () => FileUploader.selectAndUploadFile(
-                                'postingKegiatanButton')),
+                          onTap: () => selectAndUploadFile(
+                            'postingKegiatanButton',
+                            widget.idUsulanKegiatan,
+                          ),
+                        ),
 
                         const CustomFieldSpacer(),
 
@@ -357,8 +360,11 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildDescription(
                             'Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
                         CustomFilePickerButton(
-                            onTap: () => FileUploader.selectAndUploadFile(
-                                'postingKegiatanButton')),
+                            onTap: () => selectAndUploadFile(
+                              'postingKegiatanButton',
+                              widget.idUsulanKegiatan,
+                            ),
+                        ),
 
                         const CustomFieldSpacer(),
 
@@ -366,8 +372,11 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildDescription(
                             'Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
                         CustomFilePickerButton(
-                            onTap: () => FileUploader.selectAndUploadFile(
-                                'suratUndanganKegiatanButton')),
+                            onTap: () => selectAndUploadFile(
+                              'suratUndanganKegiatanButton',
+                              widget.idUsulanKegiatan,
+                            ),
+                        ),
 
                         const CustomFieldSpacer(),
 
@@ -375,8 +384,11 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildDescription(
                             'Unggah foto linimasa kegiatan yang akan dilaksanakan.'),
                         CustomFilePickerButton(
-                            onTap: () => FileUploader.selectAndUploadFile(
-                                'linimasaKegiatanButton')),
+                          onTap: () => selectAndUploadFile(
+                            'linimasaKegiatanButton',
+                            widget.idUsulanKegiatan,
+                          ),
+                        ),
 
                         const CustomFieldSpacer(),
 
@@ -384,8 +396,11 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildDescription(
                             'Unggah foto tempat kegiatan yang akan dilaksanakan.'),
                         CustomFilePickerButton(
-                            onTap: () => FileUploader.selectAndUploadFile(
-                                'tempatKegiatanButton')),
+                          onTap: () => selectAndUploadFile(
+                            'tempatKegiatanButton',
+                            widget.idUsulanKegiatan,
+                          ),
+                        ),
 
                         const CustomFieldSpacer(),
 

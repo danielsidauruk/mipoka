@@ -84,8 +84,10 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                     controller: _postinganKegiatanController,
                   ),
                   CustomIconButton(
-                    onTap: () => FileUploader.selectAndUploadFile(
-                        'postingLaporanKegiatanButton'),
+                    onTap: () => selectAndUploadFile(
+                      'postingLaporanKegiatanButton',
+                      1
+                    ),
                     text: 'postingan_kegiatan.pdf',
                     icon: Icons.picture_as_pdf,
                   ),
@@ -96,8 +98,10 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                     controller: _dokumentasiKegiatanController,
                   ),
                   CustomIconButton(
-                    onTap: () => FileUploader.selectAndUploadFile(
-                        'dokumentasiKegiatanButton'),
+                    onTap: () => selectAndUploadFile(
+                      'dokumentasiKegiatanButton',
+                      1,
+                    ),
                     text: 'dokumentasi_kegiatan.pdf',
                     icon: Icons.picture_as_pdf,
                   ),
@@ -108,8 +112,10 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                     controller: _tabulasiHasilController,
                   ),
                   CustomIconButton(
-                    onTap: () =>
-                        FileUploader.selectAndUploadFile('tabulasiHasilButton'),
+                    onTap: () => selectAndUploadFile(
+                      'tabulasiHasilButton',
+                      1,
+                    ),
                     text: 'tabulasi_hasil.pdf',
                     icon: Icons.picture_as_pdf,
                   ),
@@ -120,8 +126,10 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                     controller: _fakturpembayaranController,
                   ),
                   CustomIconButton(
-                    onTap: () => FileUploader.selectAndUploadFile(
-                        'fakturPembayaranButton'),
+                    onTap: () => selectAndUploadFile(
+                      'fakturPembayaranButton',
+                      1
+                    ),
                     text: 'tabulasi_hasil.pdf',
                     icon: Icons.picture_as_pdf,
                   ),

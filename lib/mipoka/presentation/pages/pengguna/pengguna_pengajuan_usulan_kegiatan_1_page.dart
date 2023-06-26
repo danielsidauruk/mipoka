@@ -4,11 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/domain/utils/delete_file.dart';
-import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
-import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
-import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
-import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -385,6 +380,12 @@ class _PenggunaPengajuanUsulanKegiatan1State
     super.initState();
   }
 
+  @override
+  void dispose() {
+    BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).close();
+    super.dispose();
+  }
+
   String? _namaOrmawaController;
   String? _pembiayaanController;
   final TextEditingController _namaKegiatanController = TextEditingController();
@@ -677,25 +678,24 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                 if (kDebugMode) {
                                   print(_bentukKegiatanSwitchController);
                                 }
+                                // Navigator.pushNamed(
+                                //   context,
+                                //   penggunaPengajuanUsulanKegiatan2LKPageRoute,
+                                //   arguments: widget.idUsulanKegiatan,
+                                // );
+
+                                context.read<UsulanKegiatanBloc>().add(
+                                  UpdateUsulanKegiatanEvent(
+                                    usulanKegiatan: state.usulanKegiatan.copyWith(
+                                      namaKegiatan: _namaKegiatanController.text,
+                                    ),
+                                  ),
+                                );
                                 Navigator.pushNamed(
                                   context,
                                   penggunaPengajuanUsulanKegiatan2DKPageRoute,
                                   arguments: widget.idUsulanKegiatan,
                                 );
-                                Navigator.pushNamed(
-                                  context,
-                                  penggunaPengajuanUsulanKegiatan2LKPageRoute,
-                                  arguments: widget.idUsulanKegiatan,
-                                );
-
-                                context.read<UsulanKegiatanBloc>().add(
-                                      UpdateUsulanKegiatanEvent(
-                                        usulanKegiatan: state.usulanKegiatan.copyWith(
-                                          namaKegiatan: _namaKegiatanController.text,
-
-                                        ),
-                                      ),
-                                    );
                               },
                               text: 'Berikutnya',
                             ),

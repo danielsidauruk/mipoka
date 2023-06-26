@@ -159,8 +159,10 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                   buildDescription(
                       'Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
                   CustomIconButton(
-                    onTap: () => FileUploader.selectAndUploadFile(
-                        'postingKegiatanButton'),
+                    onTap: () => selectAndUploadFile(
+                      'postingKegiatanButton',
+                      1,
+                    ),
                     text: 'postingan_kegiatan.pdf',
                     icon: Icons.picture_as_pdf,
                   ),
@@ -171,8 +173,10 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                   buildDescription(
                       'Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
                   CustomIconButton(
-                    onTap: () => FileUploader.selectAndUploadFile(
-                        'suratUndanganKegiatanButton'),
+                    onTap: () => selectAndUploadFile(
+                      'suratUndanganKegiatanButton',
+                      1,
+                    ),
                     text: 'surat_undangan.pdf',
                     icon: Icons.picture_as_pdf,
                   ),
@@ -183,8 +187,10 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                   buildDescription(
                       'Unggah foto linimasa kegiatan yang akan dilaksanakan.'),
                   CustomIconButton(
-                    onTap: () => FileUploader.selectAndUploadFile(
-                        'linimasaKegiatanButton'),
+                    onTap: () => selectAndUploadFile(
+                      'linimasaKegiatanButton',
+                      1
+                    ),
                     text: 'linimasa_kegiatan.pdf',
                     icon: Icons.picture_as_pdf,
                   ),
@@ -195,8 +201,10 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                   buildDescription(
                       'Unggah foto tempat kegiatan yang akan dilaksanakan.'),
                   CustomIconButton(
-                    onTap: () => FileUploader.selectAndUploadFile(
-                        'tempatKegiatanButton'),
+                    onTap: () => selectAndUploadFile(
+                      'tempatKegiatanButton',
+                      1
+                    ),
                     text: 'tempat_kegiatan.pdf',
                     icon: Icons.picture_as_pdf,
                   ),
