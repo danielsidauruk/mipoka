@@ -1,43 +1,66 @@
 import 'package:equatable/equatable.dart';
 
-// Just updated 26 / 06 / 2023
-class TertibAcara extends Equatable {
+class TertibAcara extends Equatable{
   final int idTertibAcara;
+  final String usulan;
   final String waktuMulai;
   final String waktuSelesai;
   final String aktivitas;
   final String keterangan;
+  final String createdAt;
+  final String createdBy;
+  final String updatedAt;
+  final String updatedBy;
 
   const TertibAcara({
     required this.idTertibAcara,
+    required this.usulan,
     required this.waktuMulai,
     required this.waktuSelesai,
     required this.aktivitas,
     required this.keterangan,
+    required this.createdAt,
+    required this.createdBy,
+    required this.updatedAt,
+    required this.updatedBy,
   });
 
   TertibAcara copyWith({
     int? idTertibAcara,
+    String? usulan,
     String? waktuMulai,
     String? waktuSelesai,
     String? aktivitas,
     String? keterangan,
-  }) {
-    return TertibAcara(
-      idTertibAcara: idTertibAcara ?? this.idTertibAcara,
-      waktuMulai: waktuMulai ?? this.waktuMulai,
-      waktuSelesai: waktuSelesai ?? this.waktuSelesai,
-      aktivitas: aktivitas ?? this.aktivitas,
-      keterangan: keterangan ?? this.keterangan,
-    );
-  }
+    String? createdAt,
+    String? createdBy,
+    String? updatedAt,
+    String? updatedBy,
+  }) =>
+      TertibAcara(
+        idTertibAcara: idTertibAcara ?? this.idTertibAcara,
+        usulan: usulan ?? this.usulan,
+        waktuMulai: waktuMulai ?? this.waktuMulai,
+        waktuSelesai: waktuSelesai ?? this.waktuSelesai,
+        aktivitas: aktivitas ?? this.aktivitas,
+        keterangan: keterangan ?? this.keterangan,
+        createdAt: createdAt ?? this.createdAt,
+        createdBy: createdBy ?? this.createdBy,
+        updatedAt: updatedAt ?? this.updatedAt,
+        updatedBy: updatedBy ?? this.updatedBy,
+      );
 
   @override
   List<Object?> get props => [
     idTertibAcara,
+    usulan,
     waktuMulai,
     waktuSelesai,
     aktivitas,
     keterangan,
+    createdAt,
+    createdBy,
+    updatedAt,
+    updatedBy,
   ];
 }
