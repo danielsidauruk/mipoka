@@ -1,5 +1,6 @@
 import 'package:mipoka/mipoka/domain/entities/panitia_peserta_laporan.dart';
 
+// => BLM UPDATE
 class PanitiaPesertaLaporanModel extends PanitiaPesertaLaporan {
   const PanitiaPesertaLaporanModel({
     required int idPanitiaPesertaLaporan,

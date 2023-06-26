@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-//=> Just updated
+//=> BLM UPDATE
 class PanitiaPesertaLaporan extends Equatable {
   final int idPanitiaPesertaL;
   final int idLaporan;

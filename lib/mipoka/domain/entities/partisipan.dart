@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-// Just updated 26 / 06 / 2023
-class Partisipan extends Equatable {
+class Partisipan extends Equatable{
   final int idPartisipan;
   final String noInduk;
   final String namaPartisipan;
@@ -10,6 +9,10 @@ class Partisipan extends Equatable {
   final String tglLahir;
   final String peranPartisipan;
   final String dasarPengiriman;
+  final String createdAt;
+  final String createdBy;
+  final String updatedAt;
+  final String updatedBy;
 
   const Partisipan({
     required this.idPartisipan,
@@ -20,6 +23,10 @@ class Partisipan extends Equatable {
     required this.tglLahir,
     required this.peranPartisipan,
     required this.dasarPengiriman,
+    required this.createdAt,
+    required this.createdBy,
+    required this.updatedAt,
+    required this.updatedBy,
   });
 
   Partisipan copyWith({
@@ -31,18 +38,25 @@ class Partisipan extends Equatable {
     String? tglLahir,
     String? peranPartisipan,
     String? dasarPengiriman,
-  }) {
-    return Partisipan(
-      idPartisipan: idPartisipan ?? this.idPartisipan,
-      noInduk: noInduk ?? this.noInduk,
-      namaPartisipan: namaPartisipan ?? this.namaPartisipan,
-      nik: nik ?? this.nik,
-      tempatLahir: tempatLahir ?? this.tempatLahir,
-      tglLahir: tglLahir ?? this.tglLahir,
-      peranPartisipan: peranPartisipan ?? this.peranPartisipan,
-      dasarPengiriman: dasarPengiriman ?? this.dasarPengiriman,
-    );
-  }
+    String? createdAt,
+    String? createdBy,
+    String? updatedAt,
+    String? updatedBy,
+  }) =>
+      Partisipan(
+        idPartisipan: idPartisipan ?? this.idPartisipan,
+        noInduk: noInduk ?? this.noInduk,
+        namaPartisipan: namaPartisipan ?? this.namaPartisipan,
+        nik: nik ?? this.nik,
+        tempatLahir: tempatLahir ?? this.tempatLahir,
+        tglLahir: tglLahir ?? this.tglLahir,
+        peranPartisipan: peranPartisipan ?? this.peranPartisipan,
+        dasarPengiriman: dasarPengiriman ?? this.dasarPengiriman,
+        createdAt: createdAt ?? this.createdAt,
+        createdBy: createdBy ?? this.createdBy,
+        updatedAt: updatedAt ?? this.updatedAt,
+        updatedBy: updatedBy ?? this.updatedBy,
+      );
 
   @override
   List<Object?> get props => [
@@ -54,5 +68,9 @@ class Partisipan extends Equatable {
     tglLahir,
     peranPartisipan,
     dasarPengiriman,
+    createdAt,
+    createdBy,
+    updatedAt,
+    updatedBy,
   ];
 }
