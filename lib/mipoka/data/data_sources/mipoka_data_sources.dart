@@ -149,7 +149,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<BeritaModel> readBerita(int idBerita) async {
     final String response =
-    await rootBundle.loadString('assets/json_file/berita_object.json');
+    await rootBundle.loadString('assets/json_file/berita.json');
     dynamic jsonDecode = json.decode(response);
 
     BeritaModel result = BeritaModel.fromJson(jsonDecode);
@@ -160,7 +160,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<BeritaModel>> readAllBerita() async {
     final String response =
-        await rootBundle.loadString('assets/json_file/berita.json');
+        await rootBundle.loadString('assets/json_file/berita_list.json');
     List<dynamic> resultList = json.decode(response);
 
     List<BeritaModel> result =
@@ -200,7 +200,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<AdminModel>> readAdmin() async {
     final String response =
-        await rootBundle.loadString('assets/json_file/admin.json');
+        await rootBundle.loadString('assets/json_file/admin_list.json');
     List<dynamic> resultList = json.decode(response);
 
     List<AdminModel> result =
@@ -284,7 +284,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<KegiatanModel>> readKegiatan() async {
     final String response =
-        await rootBundle.loadString('assets/json_file/kegiatan.json');
+        await rootBundle.loadString('assets/json_file/kegiatan_mpt.json');
     List<dynamic> resultList = json.decode(response);
 
     List<KegiatanModel> result = resultList
@@ -576,7 +576,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<PeriodeModel>> readPeriode() async {
     final String response =
-        await rootBundle.loadString('assets/json_file/periode.json');
+        await rootBundle.loadString('assets/json_file/periode_mpt.json');
     List<dynamic> resultList = json.decode(response);
 
     List<PeriodeModel> result = resultList
@@ -911,7 +911,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<MipokaUserModel>> readUser() async {
     final String response =
-        await rootBundle.loadString('assets/json_file/user.json');
+        await rootBundle.loadString('assets/json_file/mipoka_user.json');
     List<dynamic> resultList = json.decode(response);
 
     List<MipokaUserModel> result = resultList
@@ -953,7 +953,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<UsulanKegiatanModel> readUsulanKegiatan(int idUsulanKegiatan) async {
     final String response = await rootBundle
-        .loadString('assets/json_file/usulan_kegiatan_object.json');
+        .loadString('assets/json_file/usulan_kegiatan_list.json');
 
     dynamic jsonResult = json.decode(response);
     UsulanKegiatanModel result = UsulanKegiatanModel.fromJson(jsonResult);

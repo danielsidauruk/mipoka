@@ -1,30 +1,14 @@
-[
-  {
-    "idRiwayatMpt": 1,
-    "idKegiatan": 1001,
-    "idUser": 2001,
-    "status": "Selesai",
-    "file": "mpt1.pdf",
-    "hash": "abcde12345",
-    "keteranganA": "Riwayat MPT Semester 1",
-    "keteranganB": "Laporan MPT Mahasiswa",
-    "mulai": "2023-01-01T08:00:00Z",
-    "akhir": "2023-01-15T16:00:00Z",
-    "updatedAt": "2023-01-15T16:30:00Z",
-    "createdAt": "2023-01-15T16:30:00Z"
-  },
-  {
-    "idRiwayatMpt": 2,
-    "idKegiatan": 1002,
-    "idUser": 2002,
-    "status": "Menunggu",
-    "file": "mpt2.pdf",
-    "hash": "fghij67890",
-    "keteranganA": "Riwayat MPT Semester 2",
-    "keteranganB": "Laporan MPT Mahasiswa",
-    "mulai": "2023-07-01T08:00:00Z",
-    "akhir": "2023-07-15T16:00:00Z",
-    "updatedAt": "2023-07-15T16:30:00Z",
-    "createdAt": "2023-07-15T16:30:00Z"
-  }
-]
+{
+  "id_riwayat_mpt": "1",
+  "id_kegiatan_mpt": "123",
+  "id_user": "456",
+  "status_mpt": "Selesai",
+  "file_sertifikat_mpt": "sertifikat_mpt.pdf",
+  "hash": "eef85b6a47c314d7b50c3a518f9d3e08",
+  "keterangan_mhs": "Peserta aktif",
+  "keterangan_sa": "Terverifikasi",
+  "created_at": "2023-06-26",
+  "created_by": "John Doe",
+  "updated_at": "2023-06-26",
+  "updated_by": "Jane Smith"
+}

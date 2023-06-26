@@ -66,16 +66,16 @@ flutter:
     - assets/icons/light-mode.png
     - assets/icons/dark-mode.png
 
-    - assets/json_file/admin.json
-    - assets/json_file/berita.json
+    - assets/json_file/admin_list.json
+    - assets/json_file/berita_list.json
     - assets/json_file/biaya.json
-    - assets/json_file/kegiatan.json
+    - assets/json_file/kegiatan_mpt.json
     - assets/json_file/lampiran.json
     - assets/json_file/laporan.json
     - assets/json_file/ormawa.json
     - assets/json_file/panitia_peserta_laporan.json
     - assets/json_file/partisipan.json
-    - assets/json_file/periode.json
+    - assets/json_file/periode_mpt.json
     - assets/json_file/peserta.json
     - assets/json_file/prestasi.json
     - assets/json_file/rincian_biaya_kegiatan.json
@@ -83,9 +83,9 @@ flutter:
     - assets/json_file/riwayat_mpt.json
     - assets/json_file/session.json
     - assets/json_file/tertib_acara.json
-    - assets/json_file/user.json
+    - assets/json_file/mipoka_user.json
     - assets/json_file/usulan_kegiatan.json
-    - assets/json_file/usulan_kegiatan_object.json
+    - assets/json_file/usulan_kegiatan_list.json
 
     - assets/docx_template/usulan_template.docx
     - assets/docx_template/template.docx

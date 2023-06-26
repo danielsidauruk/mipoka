@@ -1,23 +1,7 @@
-[
-  {
-    "idBerita": 1,
-    "jenisKegiatan": "Olahraga",
-    "penulis": "John Doe",
-    "gambar": "https://random-d.uk/api/randomimg?t=1686482823678",
-    "teks": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-  },
-  {
-    "idBerita": 2,
-    "jenisKegiatan": "Seni",
-    "penulis": "Jane Smith",
-    "gambar": "https://random-d.uk/api/randomimg?t=1686482823678",
-    "teks": "Praesent varius quam et lectus hendrerit posuere."
-  },
-  {
-    "idBerita": 3,
-    "jenisKegiatan": "Seni",
-    "penulis": "Jane Smith",
-    "gambar": "https://random-d.uk/api/randomimg?t=1686482823678",
-    "teks": "Praesent varius quam et lectus hendrerit posuere."
-  }
-]
+{
+  "idBerita": 3,
+  "jenisKegiatan": "Seni",
+  "penulis": "Jane Smith",
+  "gambar": "https://random-d.uk/api/randomimg?t=1686482823678",
+  "teks": "Praesent varius quam et lectus hendrerit posuere."
+}

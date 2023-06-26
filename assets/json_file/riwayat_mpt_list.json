@@ -1,0 +1,30 @@
+[
+  {
+    "id_riwayat_mpt": "1",
+    "id_kegiatan_mpt": "123",
+    "id_user": "456",
+    "status_mpt": "Selesai",
+    "file_sertifikat_mpt": "sertifikat_mpt.pdf",
+    "hash": "eef85b6a47c314d7b50c3a518f9d3e08",
+    "keterangan_mhs": "Peserta aktif",
+    "keterangan_sa": "Terverifikasi",
+    "created_at": "2023-06-26",
+    "created_by": "John Doe",
+    "updated_at": "2023-06-26",
+    "updated_by": "Jane Smith"
+  },
+  {
+    "id_riwayat_mpt": "1",
+    "id_kegiatan_mpt": "123",
+    "id_user": "456",
+    "status_mpt": "Selesai",
+    "file_sertifikat_mpt": "sertifikat_mpt.pdf",
+    "hash": "eef85b6a47c314d7b50c3a518f9d3e08",
+    "keterangan_mhs": "Peserta aktif",
+    "keterangan_sa": "Terverifikasi",
+    "created_at": "2023-06-26",
+    "created_by": "John Doe",
+    "updated_at": "2023-06-26",
+    "updated_by": "Jane Smith"
+  }
+]

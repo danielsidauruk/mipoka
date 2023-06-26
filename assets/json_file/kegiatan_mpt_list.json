@@ -1,0 +1,41 @@
+[
+  {
+    "id_kegiatan_mpt": 342421,
+    "jenis_kegiatan_mpt": "Pelayanan Masyarakat",
+    "nama_kegiatan_mpt": "Pembersihan Lingkungan",
+    "id_periode_mpt": 43123,
+    "tanggal_mulai_kegiatan_mpt": "2023-06-26",
+    "tanggal_selesai_kegiatan_mpt": "2023-06-27",
+    "point_mpt_diperoleh": 5,
+    "created_at": "2023-06-26",
+    "created_by": "John Doe",
+    "updated_at": "2023-06-26",
+    "updated_by": "Jane Smith"
+  },
+  {
+    "id_kegiatan_mpt": 342421,
+    "jenis_kegiatan_mpt": "Pelayanan Masyarakat",
+    "nama_kegiatan_mpt": "Pembersihan Lingkungan",
+    "id_periode_mpt": 43123,
+    "tanggal_mulai_kegiatan_mpt": "2023-06-26",
+    "tanggal_selesai_kegiatan_mpt": "2023-06-27",
+    "point_mpt_diperoleh": 5,
+    "created_at": "2023-06-26",
+    "created_by": "John Doe",
+    "updated_at": "2023-06-26",
+    "updated_by": "Jane Smith"
+  },
+  {
+    "id_kegiatan_mpt": 342421,
+    "jenis_kegiatan_mpt": "Pelayanan Masyarakat",
+    "nama_kegiatan_mpt": "Pembersihan Lingkungan",
+    "id_periode_mpt": 43123,
+    "tanggal_mulai_kegiatan_mpt": "2023-06-26",
+    "tanggal_selesai_kegiatan_mpt": "2023-06-27",
+    "point_mpt_diperoleh": 5,
+    "created_at": "2023-06-26",
+    "created_by": "John Doe",
+    "updated_at": "2023-06-26",
+    "updated_by": "Jane Smith"
+  }
+]

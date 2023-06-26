@@ -1,28 +1,19 @@
-[
-  {
-    "idOrmawa": 1,
-    "namaOrmawa": "Ormawa A",
-    "pembina": "Pembina A",
-    "ketua": "Ketua A",
-    "wakil": "Wakil A",
-    "bendahara": "Bendahara A",
-    "jumlahAnggota": 50,
-    "fotoPembina": "https://random-d.uk/api/randomimg?t=1686482823678",
-    "fotoKetua": "https://random-d.uk/api/randomimg?t=1686482823678",
-    "fotoWakil": "https://random-d.uk/api/randomimg?t=1686482823678",
-    "fotoBendahara": "https://random-d.uk/api/randomimg?t=1686482823678"
-  },
-  {
-    "idOrmawa": 2,
-    "namaOrmawa": "Ormawa B",
-    "pembina": "Pembina B",
-    "ketua": "Ketua B",
-    "wakil": "Wakil B",
-    "bendahara": "Bendahara B",
-    "jumlahAnggota": 30,
-    "fotoPembina": "https://random-d.uk/api/randomimg?t=1686482823678",
-    "fotoKetua": "https://random-d.uk/api/randomimg?t=1686482823678",
-    "fotoWakil": "https://random-d.uk/api/randomimg?t=1686482823678",
-    "fotoBendahara": "https://random-d.uk/api/randomimg?t=1686482823678"
-  }
-]
+{
+  "id_ormawa": 123456,
+  "nama_ormawa": "Nama Ormawa",
+  "pembina": "Pembina Ormawa",
+  "ketua": "Ketua Ormawa",
+  "wakil": "Wakil Ketua Ormawa",
+  "sekretaris": "Sekretaris Ormawa",
+  "bendahara": "Bendahara Ormawa",
+  "jumlah_anggota": 50,
+  "foto_pembina": "link_foto_pembina",
+  "foto_ketua": "link_foto_ketua",
+  "foto_wakil": "link_foto_wakil",
+  "foto_sekretaris": "link_foto_sekretaris",
+  "foto_bendahara": "link_foto_bendahara",
+  "created_at": "2023-06-26",
+  "created_by": "John Doe",
+  "updated_by": "Jane Smith",
+  "updated_at": "2023-06-26"
+}
