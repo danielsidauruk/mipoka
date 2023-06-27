@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -114,46 +113,51 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 LoginButton(
                   title: 'Daftar',
                   onTap:() async {
-                    try {
-                      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                        email: _emailController.text,
-                        password: _passwordController.text,
-                      );
-                      User? user = FirebaseAuth.instance.currentUser;
+                    if(_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty &&
+                    _namaLengkapController.text.isNotEmpty && _nimController.text.isNotEmpty &&
+                    _noHpController.text.isNotEmpty && _semesterController.text.isNotEmpty &&
+                    _kelasController.text.isNotEmpty && _prodiController.text.isNotEmpty) {
+                      try {
+                        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                        );
+                        User? user = FirebaseAuth.instance.currentUser;
 
-                      context.read<MipokaUserBloc>().add(
-                        CreateMipokaUserEvent(
-                          mipokaUser: MipokaUser(
-                            idUser: user!.uid,
-                            idOrmawa: const [],
-                            email: _emailController.text,
-                            namaLengkap: _namaLengkapController.text,
-                            nim: _nimController.text,
-                            noHp: _noHpController.text,
-                            image: "",
-                            pointMpt: 0,
-                            semester: 0,
-                            kelas: "",
-                            periodeMpt: "",
-                            statusMpt: "",
-                            prodi: "",
-                            createdAt: DateFormat('dd-MM-yyyy').format(DateTime.now()),
-                            updatedAt: DateFormat('dd-MM-yyyy').format(DateTime.now()),
-                            createdBy: _emailController.text,
-                            updatedBy: _emailController.text,
+                        context.read<MipokaUserBloc>().add(
+                          CreateMipokaUserEvent(
+                            mipokaUser: MipokaUser(
+                              idUser: user!.uid,
+                              idOrmawa: const [],
+                              email: _emailController.text,
+                              namaLengkap: _namaLengkapController.text,
+                              nim: _nimController.text,
+                              noHp: _noHpController.text,
+                              image: "",
+                              pointMpt: 0,
+                              semester: int.parse(_semesterController.text),
+                              kelas: _kelasController.text,
+                              periodeMpt: "",
+                              statusMpt: "",
+                              prodi: _prodiController.text,
+                              createdAt: DateFormat('dd-MM-yyyy').format(DateTime.now()),
+                              updatedAt: DateFormat('dd-MM-yyyy').format(DateTime.now()),
+                              createdBy: _emailController.text,
+                              updatedBy: _emailController.text,
+                            ),
                           ),
-                        ),
-                      );
-                      // Navigator.pushNamed(context, loginPageRoute);
-                    } catch (e) {
-                      if (kDebugMode) {
-                        final errorMessage = e.toString();
-                        final int startIndex;
-                        if (e.toString().contains('Firebase:')) {
-                          startIndex = errorMessage.indexOf("Firebase:");
-                          print(errorMessage.substring(startIndex));
-                        } else {
-                          print(errorMessage);
+                        );
+                        // Navigator.pushNamed(context, loginPageRoute);
+                      } catch (e) {
+                        if (kDebugMode) {
+                          final errorMessage = e.toString();
+                          final int startIndex;
+                          if (e.toString().contains('Firebase:')) {
+                            startIndex = errorMessage.indexOf("Firebase:");
+                            print(errorMessage.substring(startIndex));
+                          } else {
+                            print(errorMessage);
+                          }
                         }
                       }
                     }
