@@ -11,13 +11,22 @@ class PrestasiEmpty extends PrestasiState {}
 
 class PrestasiLoading extends PrestasiState {}
 
-class PrestasiHasData extends PrestasiState {
+class AllPrestasiHasData extends PrestasiState {
   final List<Prestasi> prestasiList;
 
-  const PrestasiHasData({required this.prestasiList});
+  const AllPrestasiHasData({required this.prestasiList});
 
   @override
   List<Object> get props => [prestasiList];
+}
+
+class PrestasiHasData extends PrestasiState {
+  final Prestasi prestasi;
+
+  const PrestasiHasData({required this.prestasi});
+
+  @override
+  List<Object> get props => [prestasi];
 }
 
 class PrestasiSuccessMessage extends PrestasiState {

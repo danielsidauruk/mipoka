@@ -23,7 +23,7 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
   void initState() {
     super.initState();
     BlocProvider.of<PrestasiBloc>(context, listen: false)
-        .add(ReadPrestasiEvent());
+        .add(ReadAllPrestasiEvent());
   }
 
   @override
@@ -38,7 +38,7 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
         builder: (context, state) {
           if (state is PrestasiLoading) {
             return const Text('Loading');
-          } else if (state is PrestasiHasData) {
+          } else if (state is AllPrestasiHasData) {
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(

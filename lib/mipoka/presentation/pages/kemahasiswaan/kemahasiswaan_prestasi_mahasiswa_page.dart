@@ -26,7 +26,7 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
   void initState() {
     super.initState();
     BlocProvider.of<PrestasiBloc>(context, listen: false)
-        .add(ReadPrestasiEvent());
+        .add(ReadAllPrestasiEvent());
   }
 
   @override
@@ -38,7 +38,7 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
         builder: (context, state) {
           if (state is PrestasiLoading) {
             return const Text('Loading');
-          } else if (state is PrestasiHasData) {
+          } else if (state is AllPrestasiHasData) {
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),

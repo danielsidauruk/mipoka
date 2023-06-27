@@ -10,14 +10,26 @@ class PrestasiBloc extends Bloc<PrestasiEvent, PrestasiState> {
   final PrestasiUseCase prestasiUseCase;
 
   PrestasiBloc({required this.prestasiUseCase}) : super(PrestasiEmpty()) {
-    on<ReadPrestasiEvent>((event, emit) async {
+
+    on<ReadAllPrestasiEvent>((event, emit) async {
       emit(PrestasiLoading());
 
       final result = await prestasiUseCase.readAllPrestasi();
 
       result.fold(
             (failure) => emit(PrestasiError(message: failure.message)),
-            (prestasiList) => emit(PrestasiHasData(prestasiList: prestasiList)),
+            (prestasiList) => emit(AllPrestasiHasData(prestasiList: prestasiList)),
+      );
+    });
+
+    on<ReadPrestasiEvent>((event, emit) async {
+      emit(PrestasiLoading());
+
+      final result = await prestasiUseCase.readPrestasi(event.idPrestasi);
+
+      result.fold(
+            (failure) => emit(PrestasiError(message: failure.message)),
+            (prestasi) => emit(PrestasiHasData(prestasi: prestasi)),
       );
     });
 
@@ -31,7 +43,7 @@ class PrestasiBloc extends Bloc<PrestasiEvent, PrestasiState> {
             (message) => emit(PrestasiSuccessMessage(message: message)),
       );
 
-      add(ReadPrestasiEvent());
+      add(ReadAllPrestasiEvent());
     });
 
     on<UpdatePrestasiEvent>((event, emit) async {
@@ -44,7 +56,7 @@ class PrestasiBloc extends Bloc<PrestasiEvent, PrestasiState> {
             (message) => emit(PrestasiSuccessMessage(message: message)),
       );
 
-      add(ReadPrestasiEvent());
+      add(ReadAllPrestasiEvent());
     });
 
     on<DeletePrestasiEvent>((event, emit) async {
@@ -57,7 +69,7 @@ class PrestasiBloc extends Bloc<PrestasiEvent, PrestasiState> {
             (message) => emit(PrestasiSuccessMessage(message: message)),
       );
 
-      add(ReadPrestasiEvent());
+      add(ReadAllPrestasiEvent());
     });
   }
 }
