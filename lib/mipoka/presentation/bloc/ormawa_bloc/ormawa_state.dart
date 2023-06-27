@@ -20,13 +20,22 @@ class OrmawaError extends OrmawaState {
   List<Object> get props => [message];
 }
 
-class OrmawaHasData extends OrmawaState {
-  const OrmawaHasData({required this.ormawaList});
+class AllOrmawaHasData extends OrmawaState {
+  const AllOrmawaHasData({required this.ormawaList});
 
   final List<Ormawa> ormawaList;
 
   @override
   List<Object> get props => [ormawaList];
+}
+
+class OrmawaHasData extends OrmawaState {
+  const OrmawaHasData({required this.ormawa});
+
+  final Ormawa ormawa;
+
+  @override
+  List<Object> get props => [ormawa];
 }
 
 class OrmawaSuccessMessage extends OrmawaState {

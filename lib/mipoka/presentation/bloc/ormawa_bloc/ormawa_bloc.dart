@@ -19,18 +19,27 @@ class OrmawaBloc extends Bloc<OrmawaEvent, OrmawaState> {
             (failure) => emit(OrmawaError(message: failure.message)),
             (message) => emit(OrmawaSuccessMessage(message: message)),
       );
-
-      add(ReadOrmawaEvent());
     });
 
-    on<ReadOrmawaEvent>((event, emit) async {
+    on<ReadAllOrmawaEvent>((event, emit) async {
       emit(OrmawaLoading());
 
       final result = await ormawaUseCase.readAllOrmawa();
 
       result.fold(
             (failure) => emit(OrmawaError(message: failure.message)),
-            (ormawaList) => emit(OrmawaHasData(ormawaList: ormawaList)),
+            (ormawaList) => emit(AllOrmawaHasData(ormawaList: ormawaList)),
+      );
+    });
+
+    on<ReadOrmawaEvent>((event, emit) async {
+      emit(OrmawaLoading());
+
+      final result = await ormawaUseCase.readOrmawa(event.idOrmawa);
+
+      result.fold(
+            (failure) => emit(OrmawaError(message: failure.message)),
+            (ormawa) => emit(OrmawaHasData(ormawa: ormawa)),
       );
     });
 
@@ -44,7 +53,7 @@ class OrmawaBloc extends Bloc<OrmawaEvent, OrmawaState> {
             (message) => emit(OrmawaSuccessMessage(message: message)),
       );
 
-      add(ReadOrmawaEvent());
+      add(ReadAllOrmawaEvent());
     });
 
     on<DeleteOrmawaEvent>((event, emit) async {
@@ -57,7 +66,7 @@ class OrmawaBloc extends Bloc<OrmawaEvent, OrmawaState> {
             (message) => emit(OrmawaSuccessMessage(message: message)),
       );
 
-      add(ReadOrmawaEvent());
+      add(ReadAllOrmawaEvent());
     });
   }
 }

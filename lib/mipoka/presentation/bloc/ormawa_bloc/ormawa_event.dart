@@ -16,7 +16,13 @@ class CreateOrmawaEvent extends OrmawaEvent {
   List<Object?> get props => [ormawa];
 }
 
-class ReadOrmawaEvent extends OrmawaEvent {}
+class ReadAllOrmawaEvent extends OrmawaEvent {}
+
+class ReadOrmawaEvent extends OrmawaEvent {
+  final int idOrmawa;
+
+  const ReadOrmawaEvent({required this.idOrmawa});
+}
 
 class UpdateOrmawaEvent extends OrmawaEvent {
   final Ormawa ormawa;

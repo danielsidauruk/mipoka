@@ -23,7 +23,7 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
   void initState() {
     super.initState();
     BlocProvider.of<OrmawaBloc>(context, listen: false)
-        .add(ReadOrmawaEvent());
+        .add(ReadAllOrmawaEvent());
   }
 
   @override
@@ -38,7 +38,7 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
           builder: (context, state) {
             if (state is OrmawaLoading) {
               return const Text('Loading');
-            } else if (state is OrmawaHasData) {
+            } else if (state is AllOrmawaHasData) {
               return Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
