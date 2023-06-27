@@ -122,7 +122,7 @@ class _TambahTertibAcaraPageState extends State<TambahTertibAcaraPage> {
                                         aktivitas: _aktivitasController.text,
                                         keterangan: _keteranganController.text,
                                       ),
-                                      user: MipokaUser(
+                                      mipokaUser: MipokaUser(
                                         idUser: "",
                                         idOrmawa: 0,
                                         idOrmawaB: 0,

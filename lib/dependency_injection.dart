@@ -39,7 +39,7 @@ import 'package:mipoka/mipoka/presentation/bloc/rincian_laporan_bloc/rincian_lap
 import 'package:mipoka/mipoka/presentation/bloc/riwayat_mpt_bloc/riwayat_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/user_bloc/user_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 
 final locator = GetIt.instance;

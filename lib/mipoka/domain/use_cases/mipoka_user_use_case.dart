@@ -24,7 +24,7 @@ class MipokaUserUseCase {
     return mipokaRepositories.updateMipokaUser(mipokaUser);
   }
 
-  Future<Either<Failure, String>> deleteUser(String idMipokaUser) {
+  Future<Either<Failure, String>> deleteMipokaUser(String idMipokaUser) {
     return mipokaRepositories.deleteMipokaUser(idMipokaUser);
   }
 }

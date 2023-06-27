@@ -660,7 +660,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                         CustomSignaturePad(
                           signatureUrl: _customUrlController,
                           fileName:
-                              'https://storage.googleapis.com/mipoka_bucket/signature${state.usulanKegiatan.user.nim}.png',
+                              'https://storage.googleapis.com/mipoka_bucket/signature${state.usulanKegiatan.mipokaUser.nim}.png',
                         ),
 
                         const CustomFieldSpacer(),

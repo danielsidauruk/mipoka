@@ -374,7 +374,7 @@ class _PenggunaDaftarPengajuanKegiatanState
                                   Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      usulanKegiatan.user.namaLengkap,
+                                      usulanKegiatan.mipokaUser.namaLengkap,
                                     ),
                                   ),
                                 ),
@@ -425,7 +425,7 @@ class _PenggunaDaftarPengajuanKegiatanState
                             CreateUsulanKegiatanEvent(
                               usulanKegiatan: UsulanKegiatan(
                                 idUsulan: id,
-                                user: MipokaUser(
+                                mipokaUser: MipokaUser(
                                   idUser: "",
                                   idOrmawa: 0,
                                   idOrmawaB: 0,

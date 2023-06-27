@@ -168,7 +168,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                     Align(
                                       alignment: Alignment.center,
                                       child: Text(
-                                        session.user.namaLengkap,
+                                        session.mipokaUser.namaLengkap,
                                       ),
                                     ),
                                   ),
