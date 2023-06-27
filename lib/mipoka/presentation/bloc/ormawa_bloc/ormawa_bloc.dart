@@ -26,7 +26,7 @@ class OrmawaBloc extends Bloc<OrmawaEvent, OrmawaState> {
     on<ReadOrmawaEvent>((event, emit) async {
       emit(OrmawaLoading());
 
-      final result = await ormawaUseCase.readOrmawa();
+      final result = await ormawaUseCase.readAllOrmawa();
 
       result.fold(
             (failure) => emit(OrmawaError(message: failure.message)),

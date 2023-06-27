@@ -7,13 +7,13 @@ part 'peserta_event.dart';
 part 'peserta_state.dart';
 
 class PesertaBloc extends Bloc<PesertaEvent, PesertaState> {
-  final PesertaUseCase pesertaUseCase;
+  final PesertaKegiatanLaporanUseCase pesertaUseCase;
 
   PesertaBloc({required this.pesertaUseCase}) : super(PesertaEmpty()) {
     on<ReadPesertaEvent>((event, emit) async {
       emit(PesertaLoading());
 
-      final result = await pesertaUseCase.readPeserta();
+      final result = await pesertaUseCase.readAllPesertaKegiatanLaporan();
 
       result.fold(
             (failure) => emit(PesertaError(message: failure.message)),
@@ -24,7 +24,7 @@ class PesertaBloc extends Bloc<PesertaEvent, PesertaState> {
     on<CreatePesertaEvent>((event, emit) async {
       emit(PesertaLoading());
 
-      final result = await pesertaUseCase.createPeserta(event.peserta);
+      final result = await pesertaUseCase.createPesertaKegiatanLaporan(event.peserta);
 
       result.fold(
             (failure) => emit(PesertaError(message: failure.message)),
@@ -37,7 +37,7 @@ class PesertaBloc extends Bloc<PesertaEvent, PesertaState> {
     on<UpdatePesertaEvent>((event, emit) async {
       emit(PesertaLoading());
 
-      final result = await pesertaUseCase.updatePeserta(event.peserta);
+      final result = await pesertaUseCase.updatePesertaKegiatanLaporan(event.peserta);
 
       result.fold(
             (failure) => emit(PesertaError(message: failure.message)),
@@ -50,7 +50,7 @@ class PesertaBloc extends Bloc<PesertaEvent, PesertaState> {
     on<DeletePesertaEvent>((event, emit) async {
       emit(PesertaLoading());
 
-      final result = await pesertaUseCase.deletePeserta(event.idPeserta);
+      final result = await pesertaUseCase.deletePesertaKegiatanLaporan(event.idPeserta);
 
       result.fold(
             (failure) => emit(PesertaError(message: failure.message)),

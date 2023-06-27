@@ -7,13 +7,13 @@ part 'periode_event.dart';
 part 'periode_state.dart';
 
 class PeriodeBloc extends Bloc<PeriodeEvent, PeriodeState> {
-  final PeriodeUseCase periodeUseCase;
+  final PeriodeMptUseCase periodeUseCase;
 
   PeriodeBloc({required this.periodeUseCase}) : super(PeriodeEmpty()) {
     on<ReadPeriodeEvent>((event, emit) async {
       emit(PeriodeLoading());
 
-      final result = await periodeUseCase.readPeriode();
+      final result = await periodeUseCase.readAllPeriodeMpt();
 
       result.fold(
             (failure) => emit(PeriodeError(message: failure.message)),

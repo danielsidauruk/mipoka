@@ -8,12 +8,12 @@ class UsulanKegiatanUseCase {
 
   UsulanKegiatanUseCase({required this.mipokaRepositories});
 
-  Future<Either<Failure, UsulanKegiatan>> readUsulanKegiatan(int idUsulanKegiatan) {
-    return mipokaRepositories.readUsulanKegiatan(idUsulanKegiatan);
-  }
-
   Future<Either<Failure, List<UsulanKegiatan>>> readAllUsulanKegiatan() {
     return mipokaRepositories.readAllUsulanKegiatan();
+  }
+
+  Future<Either<Failure, UsulanKegiatan>> readUsulanKegiatan(int idUsulanKegiatan) {
+    return mipokaRepositories.readUsulanKegiatan(idUsulanKegiatan);
   }
 
   Future<Either<Failure, String>> createUsulanKegiatan(

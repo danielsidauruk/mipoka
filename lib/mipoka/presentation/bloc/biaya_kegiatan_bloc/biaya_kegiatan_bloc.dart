@@ -27,7 +27,7 @@ class BiayaKegiatanBloc extends Bloc<BiayaKegiatanEvent, BiayaKegiatanState> {
     on<ReadBiayaKegiatanEvent>((event, emit) async {
       emit(BiayaKegiatanLoading());
 
-      final result = await biayaKegiatanUseCase.readBiayaKegiatan();
+      final result = await biayaKegiatanUseCase.readAllBiayaKegiatan();
 
       result.fold(
             (failure) => emit(BiayaKegiatanError(message: failure.message)),

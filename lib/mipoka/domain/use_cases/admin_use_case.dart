@@ -8,8 +8,8 @@ class AdminUseCase {
 
   AdminUseCase({required this.mipokaRepositories});
 
-  Future<Either<Failure, List<Admin>>> readAdmin() {
-    return mipokaRepositories.readAdmin();
+  Future<Either<Failure, Admin>> readAdmin(int idAdmin) {
+    return mipokaRepositories.readAdmin(idAdmin);
   }
 
   Future<Either<Failure, String>> createAdmin(Admin admin) {

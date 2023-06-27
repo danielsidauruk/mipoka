@@ -13,7 +13,7 @@ class TertibAcaraBloc extends Bloc<TertibAcaraEvent, TertibAcaraState> {
     on<ReadTertibAcaraEvent>((event, emit) async {
       emit(TertibAcaraLoading());
 
-      final result = await tertibAcaraUseCase.readTertibAcara();
+      final result = await tertibAcaraUseCase.readAllTertibAcara();
 
       result.fold(
             (failure) => emit(TertibAcaraError(message: failure.message)),

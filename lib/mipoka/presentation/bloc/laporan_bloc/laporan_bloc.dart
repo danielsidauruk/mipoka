@@ -26,7 +26,7 @@ class LaporanBloc extends Bloc<LaporanEvent, LaporanState> {
     on<ReadLaporanEvent>((event, emit) async {
       emit(LaporanLoading());
 
-      final result = await laporanUseCase.readLaporan();
+      final result = await laporanUseCase.readAllLaporan();
 
       result.fold(
             (failure) => emit(LaporanError(message: failure.message)),

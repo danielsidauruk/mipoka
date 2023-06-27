@@ -8,8 +8,12 @@ class RiwayatMptUseCase {
 
   RiwayatMptUseCase({required this.mipokaRepositories});
 
-  Future<Either<Failure, List<RiwayatMpt>>> readRiwayatMpt() {
+  Future<Either<Failure, List<RiwayatMpt>>> readAllRiwayatMpt() {
     return mipokaRepositories.readAllRiwayatMpt();
+  }
+
+  Future<Either<Failure, RiwayatMpt>> readRiwayatMpt(int idRiwayatMpt) {
+    return mipokaRepositories.readRiwayatMpt(idRiwayatMpt);
   }
 
   Future<Either<Failure, String>> createRiwayatMpt(RiwayatMpt riwayatMpt) {

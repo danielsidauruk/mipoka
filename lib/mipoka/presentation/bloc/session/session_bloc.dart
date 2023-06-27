@@ -13,7 +13,7 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
     on<ReadSessionEvent>((event, emit) async {
       emit(SessionLoading());
 
-      final result = await sessionUseCase.readSession();
+      final result = await sessionUseCase.readAllSession();
 
       result.fold(
             (failure) => emit(SessionError(message: failure.message)),

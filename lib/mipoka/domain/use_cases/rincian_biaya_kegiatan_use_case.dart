@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:mipoka/domain/utils/failure.dart';
-import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/repositories/mipoka_repositories.dart';
 
 class RincianBiayaKegiatanUseCase {
@@ -8,19 +8,19 @@ class RincianBiayaKegiatanUseCase {
 
   RincianBiayaKegiatanUseCase({required this.mipokaRepositories});
 
-  Future<Either<Failure, List<BiayaKegiatan>>> readRincianBiayaKegiatan() {
-    return mipokaRepositories.readRincianBiayaKegiatan();
+  Future<Either<Failure, RincianBiayaKegiatan>> readRincianBiayaKegiatan(int idRincianBiayaKegiatan) {
+    return mipokaRepositories.readRincianBiayaKegiatan(idRincianBiayaKegiatan);
   }
 
-  Future<Either<Failure, String>> createRincianBiayaKegiatan(BiayaKegiatan rincianBiayaKegiatan) {
+  Future<Either<Failure, void>> createRincianBiayaKegiatan(RincianBiayaKegiatan rincianBiayaKegiatan) {
     return mipokaRepositories.createRincianBiayaKegiatan(rincianBiayaKegiatan);
   }
 
-  Future<Either<Failure, String>> updateRincianBiayaKegiatan(BiayaKegiatan rincianBiayaKegiatan) {
+  Future<Either<Failure, void>> updateRincianBiayaKegiatan(RincianBiayaKegiatan rincianBiayaKegiatan) {
     return mipokaRepositories.updateRincianBiayaKegiatan(rincianBiayaKegiatan);
   }
 
-  Future<Either<Failure, String>> deleteRincianBiayaKegiatan(int idRincianBiayaKegiatan) {
-    return mipokaRepositories.deleteRincianBiayaKegiatan(idRincianBiayaKegiatan);
+  Future<Either<Failure, void>> deleteRincianBiayaKegiatan(RincianBiayaKegiatan rincianBiayaKegiatan) {
+    return mipokaRepositories.deleteRincianBiayaKegiatan(rincianBiayaKegiatan);
   }
 }

@@ -8,8 +8,12 @@ class PrestasiUseCase {
 
   PrestasiUseCase({required this.mipokaRepositories});
 
-  Future<Either<Failure, List<Prestasi>>> readPrestasi() {
+  Future<Either<Failure, List<Prestasi>>> readAllPrestasi() {
     return mipokaRepositories.readAllPrestasi();
+  }
+
+  Future<Either<Failure, Prestasi>> readPrestasi(int idPrestasi) {
+    return mipokaRepositories.readPrestasi(idPrestasi);
   }
 
   Future<Either<Failure, String>> createPrestasi(Prestasi prestasi) {

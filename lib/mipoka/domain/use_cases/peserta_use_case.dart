@@ -3,24 +3,28 @@ import 'package:mipoka/domain/utils/failure.dart';
 import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
 import 'package:mipoka/mipoka/domain/repositories/mipoka_repositories.dart';
 
-class PesertaUseCase {
+class PesertaKegiatanLaporanUseCase {
   final MipokaRepositories mipokaRepositories;
 
-  PesertaUseCase({required this.mipokaRepositories});
+  PesertaKegiatanLaporanUseCase({required this.mipokaRepositories});
 
-  Future<Either<Failure, List<Peserta>>> readPeserta() {
+  Future<Either<Failure, List<PesertaKegiatanLaporan>>> readAllPesertaKegiatanLaporan() {
     return mipokaRepositories.readAllPesertaKegiatanLaporan();
   }
 
-  Future<Either<Failure, String>> createPeserta(Peserta peserta) {
-    return mipokaRepositories.createPesertaKegiatanLaporan(peserta);
+  Future<Either<Failure, PesertaKegiatanLaporan>> readPesertaKegiatanLaporan(int idPesertaKegiatanLaporan) {
+    return mipokaRepositories.readPesertaKegiatanLaporan(idPesertaKegiatanLaporan);
   }
 
-  Future<Either<Failure, String>> updatePeserta(Peserta peserta) {
-    return mipokaRepositories.updatePesertaKegiatanLaporan(peserta);
+  Future<Either<Failure, String>> createPesertaKegiatanLaporan(PesertaKegiatanLaporan pesertaKegiatanLaporan) {
+    return mipokaRepositories.createPesertaKegiatanLaporan(pesertaKegiatanLaporan);
   }
 
-  Future<Either<Failure, String>> deletePeserta(int idPeserta) {
-    return mipokaRepositories.deletePesertaKegiatanLaporan(idPeserta);
+  Future<Either<Failure, String>> updatePesertaKegiatanLaporan(PesertaKegiatanLaporan pesertaKegiatanLaporan) {
+    return mipokaRepositories.updatePesertaKegiatanLaporan(pesertaKegiatanLaporan);
+  }
+
+  Future<Either<Failure, String>> deletePesertaKegiatanLaporan(int idPesertaKegiatanLaporan) {
+    return mipokaRepositories.deletePesertaKegiatanLaporan(idPesertaKegiatanLaporan);
   }
 }

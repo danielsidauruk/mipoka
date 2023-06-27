@@ -191,7 +191,7 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, List<Kegiatan>>> readKegiatanMpt() async {
+  Future<Either<Failure, List<Kegiatan>>> readAllKegiatanMpt() async {
     try {
       return Right(await mipokaDataSources.readKegiatan());
     } on ServerException {
@@ -798,7 +798,7 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, List<MipokaUser>>> readMipokaUser() async {
+  Future<Either<Failure, List<MipokaUser>>> readAllMipokaUser() async {
     try {
       return Right(await mipokaDataSources.readUser());
     } on ServerException {

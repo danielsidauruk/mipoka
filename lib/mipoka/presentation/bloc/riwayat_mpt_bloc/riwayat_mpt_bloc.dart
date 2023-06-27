@@ -13,7 +13,7 @@ class RiwayatMptBloc extends Bloc<RiwayatMptEvent, RiwayatMptState> {
     on<ReadRiwayatMptEvent>((event, emit) async {
       emit(RiwayatMptLoading());
 
-      final result = await riwayatMptUseCase.readRiwayatMpt();
+      final result = await riwayatMptUseCase.readAllRiwayatMpt();
 
       result.fold(
             (failure) => emit(RiwayatMptError(message: failure.message)),

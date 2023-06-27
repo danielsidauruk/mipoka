@@ -4,6 +4,9 @@ class OrmawaModel extends Ormawa {
   const OrmawaModel({
     required super.idOrmawa,
     required super.namaOrmawa,
+    required super.namaSingkatanOrmawa,
+    required super.logoOrmawa,
+    required super.listAnggota,
     required super.pembina,
     required super.ketua,
     required super.wakil,
@@ -25,6 +28,9 @@ class OrmawaModel extends Ormawa {
     return OrmawaModel(
       idOrmawa: ormawa.idOrmawa,
       namaOrmawa: ormawa.namaOrmawa,
+      namaSingkatanOrmawa: ormawa.namaSingkatanOrmawa,
+      logoOrmawa: ormawa.namaSingkatanOrmawa,
+      listAnggota: ormawa.listAnggota,
       pembina: ormawa.pembina,
       ketua: ormawa.ketua,
       wakil: ormawa.wakil,
@@ -46,6 +52,9 @@ class OrmawaModel extends Ormawa {
   factory OrmawaModel.fromJson(Map<String, dynamic> json) => OrmawaModel(
     idOrmawa: json["id_ormawa"],
     namaOrmawa: json["nama_ormawa"],
+    namaSingkatanOrmawa: json["nama_singkatan_ormawa"],
+    logoOrmawa: json["logo_ormawa"],
+    listAnggota: List<String>.from(json["list_anggota"].map((x) => x)),
     pembina: json["pembina"],
     ketua: json["ketua"],
     wakil: json["wakil"],
@@ -66,6 +75,9 @@ class OrmawaModel extends Ormawa {
   Map<String, dynamic> toJson() => {
     "id_ormawa": idOrmawa,
     "nama_ormawa": namaOrmawa,
+    "nama_singkatan_ormawa": namaSingkatanOrmawa,
+    "logo_ormawa": logoOrmawa,
+    "list_anggota": List<dynamic>.from(listAnggota.map((x) => x)),
     "pembina": pembina,
     "ketua": ketua,
     "wakil": wakil,

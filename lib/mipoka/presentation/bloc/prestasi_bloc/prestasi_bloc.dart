@@ -13,7 +13,7 @@ class PrestasiBloc extends Bloc<PrestasiEvent, PrestasiState> {
     on<ReadPrestasiEvent>((event, emit) async {
       emit(PrestasiLoading());
 
-      final result = await prestasiUseCase.readPrestasi();
+      final result = await prestasiUseCase.readAllPrestasi();
 
       result.fold(
             (failure) => emit(PrestasiError(message: failure.message)),
