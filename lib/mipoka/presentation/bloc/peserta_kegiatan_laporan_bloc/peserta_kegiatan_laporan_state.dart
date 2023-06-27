@@ -1,38 +1,47 @@
 part of 'peserta_kegiatan_laporan_bloc.dart';
 
-abstract class PesertaState extends Equatable {
-  const PesertaState();
+abstract class PesertaKegiatanLaporanState extends Equatable {
+  const PesertaKegiatanLaporanState();
 
   @override
   List<Object> get props => [];
 }
 
-class PesertaEmpty extends PesertaState {}
+class PesertaKegiatanLaporanEmpty extends PesertaKegiatanLaporanState {}
 
-class PesertaLoading extends PesertaState {}
+class PesertaKegiatanLaporanLoading extends PesertaKegiatanLaporanState {}
 
-class PesertaHasData extends PesertaState {
-  final List<Peserta> pesertaList;
+class AllPesertaKegiatanLaporanHasData extends PesertaKegiatanLaporanState {
+  final List<PesertaKegiatanLaporan> pesertaKegiatanLaporanList;
 
-  const PesertaHasData({required this.pesertaList});
+  const AllPesertaKegiatanLaporanHasData({required this.pesertaKegiatanLaporanList});
 
   @override
-  List<Object> get props => [pesertaList];
+  List<Object> get props => [pesertaKegiatanLaporanList];
 }
 
-class PesertaSuccessMessage extends PesertaState {
+class PesertaKegiatanLaporanHasData extends PesertaKegiatanLaporanState {
+  final PesertaKegiatanLaporan pesertaKegiatanLaporan;
+
+  const PesertaKegiatanLaporanHasData({required this.pesertaKegiatanLaporan});
+
+  @override
+  List<Object> get props => [pesertaKegiatanLaporan];
+}
+
+class PesertaKegiatanLaporanSuccessMessage extends PesertaKegiatanLaporanState {
   final String message;
 
-  const PesertaSuccessMessage({required this.message});
+  const PesertaKegiatanLaporanSuccessMessage({required this.message});
 
   @override
   List<Object> get props => [message];
 }
 
-class PesertaError extends PesertaState {
+class PesertaKegiatanLaporanError extends PesertaKegiatanLaporanState {
   final String message;
 
-  const PesertaError({required this.message});
+  const PesertaKegiatanLaporanError({required this.message});
 
   @override
   List<Object> get props => [message];

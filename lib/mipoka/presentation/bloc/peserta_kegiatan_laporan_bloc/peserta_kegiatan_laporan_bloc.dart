@@ -1,62 +1,75 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
 import 'package:mipoka/mipoka/domain/use_cases/peserta_kegiatan_laporan_use_case.dart';
 
 part 'peserta_kegiatan_laporan_event.dart';
 part 'peserta_kegiatan_laporan_state.dart';
 
-class PesertaBloc extends Bloc<PesertaEvent, PesertaState> {
-  final PesertaKegiatanLaporanUseCase pesertaUseCase;
+class PesertaKegiatanLaporanBloc extends Bloc<PesertaKegiatanLaporanEvent, PesertaKegiatanLaporanState> {
+  final PesertaKegiatanLaporanUseCase pesertaKegiatanLaporanUseCase;
 
-  PesertaBloc({required this.pesertaUseCase}) : super(PesertaEmpty()) {
-    on<ReadPesertaEvent>((event, emit) async {
-      emit(PesertaLoading());
+  PesertaKegiatanLaporanBloc({required this.pesertaKegiatanLaporanUseCase}) : super(PesertaKegiatanLaporanEmpty()) {
 
-      final result = await pesertaUseCase.readAllPesertaKegiatanLaporan();
+    on<ReadAllPesertaKegiatanLaporanEvent>((event, emit) async {
+      emit(PesertaKegiatanLaporanLoading());
+
+      final result = await pesertaKegiatanLaporanUseCase.readAllPesertaKegiatanLaporan();
 
       result.fold(
-            (failure) => emit(PesertaError(message: failure.message)),
-            (pesertaList) => emit(PesertaHasData(pesertaList: pesertaList)),
+            (failure) => emit(PesertaKegiatanLaporanError(message: failure.message)),
+            (pesertaKegiatanLaporanList) => emit(AllPesertaKegiatanLaporanHasData(pesertaKegiatanLaporanList: pesertaKegiatanLaporanList)),
       );
     });
 
-    on<CreatePesertaEvent>((event, emit) async {
-      emit(PesertaLoading());
+    on<ReadPesertaKegiatanLaporanEvent>((event, emit) async {
+      emit(PesertaKegiatanLaporanLoading());
 
-      final result = await pesertaUseCase.createPesertaKegiatanLaporan(event.peserta);
+      final result = await pesertaKegiatanLaporanUseCase.readPesertaKegiatanLaporan(event.idPesertaKegiatanLaporan);
 
       result.fold(
-            (failure) => emit(PesertaError(message: failure.message)),
-            (message) => emit(PesertaSuccessMessage(message: message)),
+            (failure) => emit(PesertaKegiatanLaporanError(message: failure.message)),
+            (pesertaKegiatanLaporan) => emit(PesertaKegiatanLaporanHasData(pesertaKegiatanLaporan: pesertaKegiatanLaporan)),
       );
-
-      add(ReadPesertaEvent());
     });
 
-    on<UpdatePesertaEvent>((event, emit) async {
-      emit(PesertaLoading());
+    on<CreatePesertaKegiatanLaporanEvent>((event, emit) async {
+      emit(PesertaKegiatanLaporanLoading());
 
-      final result = await pesertaUseCase.updatePesertaKegiatanLaporan(event.peserta);
+      final result = await pesertaKegiatanLaporanUseCase.createPesertaKegiatanLaporan(event.pesertaKegiatanLaporan);
 
       result.fold(
-            (failure) => emit(PesertaError(message: failure.message)),
-            (message) => emit(PesertaSuccessMessage(message: message)),
+            (failure) => emit(PesertaKegiatanLaporanError(message: failure.message)),
+            (message) => emit(PesertaKegiatanLaporanSuccessMessage(message: message)),
       );
 
-      add(ReadPesertaEvent());
+      add(ReadAllPesertaKegiatanLaporanEvent());
     });
 
-    on<DeletePesertaEvent>((event, emit) async {
-      emit(PesertaLoading());
+    on<UpdatePesertaKegiatanLaporanEvent>((event, emit) async {
+      emit(PesertaKegiatanLaporanLoading());
 
-      final result = await pesertaUseCase.deletePesertaKegiatanLaporan(event.idPeserta);
+      final result = await pesertaKegiatanLaporanUseCase.updatePesertaKegiatanLaporan(event.pesertaKegiatanLaporan);
 
       result.fold(
-            (failure) => emit(PesertaError(message: failure.message)),
-            (message) => emit(PesertaSuccessMessage(message: message)),
+            (failure) => emit(PesertaKegiatanLaporanError(message: failure.message)),
+            (message) => emit(PesertaKegiatanLaporanSuccessMessage(message: message)),
       );
 
-      add(ReadPesertaEvent());
+      add(ReadAllPesertaKegiatanLaporanEvent());
+    });
+
+    on<DeletePesertaKegiatanLaporanEvent>((event, emit) async {
+      emit(PesertaKegiatanLaporanLoading());
+
+      final result = await pesertaKegiatanLaporanUseCase.deletePesertaKegiatanLaporan(event.idPesertaKegiatanLaporan);
+
+      result.fold(
+            (failure) => emit(PesertaKegiatanLaporanError(message: failure.message)),
+            (message) => emit(PesertaKegiatanLaporanSuccessMessage(message: message)),
+      );
+
+      add(ReadAllPesertaKegiatanLaporanEvent());
     });
   }
 }

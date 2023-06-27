@@ -1,37 +1,44 @@
 part of 'peserta_kegiatan_laporan_bloc.dart';
 
-abstract class PesertaEvent extends Equatable {
-  const PesertaEvent();
+abstract class PesertaKegiatanLaporanEvent extends Equatable {
+  const PesertaKegiatanLaporanEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class ReadPesertaEvent extends PesertaEvent {}
+class ReadAllPesertaKegiatanLaporanEvent extends PesertaKegiatanLaporanEvent {}
 
-class CreatePesertaEvent extends PesertaEvent {
-  final Peserta peserta;
+class ReadPesertaKegiatanLaporanEvent extends PesertaKegiatanLaporanEvent {
+  final int idPesertaKegiatanLaporan;
 
-  const CreatePesertaEvent(this.peserta);
-
-  @override
-  List<Object> get props => [peserta];
+  const ReadPesertaKegiatanLaporanEvent({required this.idPesertaKegiatanLaporan});
 }
 
-class UpdatePesertaEvent extends PesertaEvent {
-  final Peserta peserta;
+class CreatePesertaKegiatanLaporanEvent extends PesertaKegiatanLaporanEvent {
+  final PesertaKegiatanLaporan pesertaKegiatanLaporan;
 
-  const UpdatePesertaEvent(this.peserta);
-
-  @override
-  List<Object> get props => [peserta];
-}
-
-class DeletePesertaEvent extends PesertaEvent {
-  final int idPeserta;
-
-  const DeletePesertaEvent(this.idPeserta);
+  const CreatePesertaKegiatanLaporanEvent(this.pesertaKegiatanLaporan);
 
   @override
-  List<Object> get props => [idPeserta];
+  List<Object> get props => [pesertaKegiatanLaporan];
 }
+
+class UpdatePesertaKegiatanLaporanEvent extends PesertaKegiatanLaporanEvent {
+  final PesertaKegiatanLaporan pesertaKegiatanLaporan;
+
+  const UpdatePesertaKegiatanLaporanEvent(this.pesertaKegiatanLaporan);
+
+  @override
+  List<Object> get props => [pesertaKegiatanLaporan];
+}
+
+class DeletePesertaKegiatanLaporanEvent extends PesertaKegiatanLaporanEvent {
+  final int idPesertaKegiatanLaporan;
+
+  const DeletePesertaKegiatanLaporanEvent(this.idPesertaKegiatanLaporan);
+
+  @override
+  List<Object> get props => [idPesertaKegiatanLaporan];
+}
+
