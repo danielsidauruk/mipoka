@@ -36,7 +36,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
       BlocProvider.of<UsulanKegiatanBloc>(context, listen: false)
           .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
       BlocProvider.of<PartisipanBloc>(context, listen: false)
-          .add(ReadPartisipanEvent());
+          .add(ReadAllPartisipanEvent());
       BlocProvider.of<BiayaKegiatanBloc>(context, listen: false)
           .add(ReadBiayaKegiatanEvent());
     });
@@ -73,7 +73,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                     builder: (context, state) {
                       if (state is PartisipanLoading) {
                         return const Text('Loading');
-                      } else if (state is PartisipanHasData) {
+                      } else if (state is AllPartisipanHasData) {
                         return Expanded(
                           child: SingleChildScrollView(
                             scrollDirection: Axis.vertical,

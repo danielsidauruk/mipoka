@@ -11,13 +11,22 @@ class PartisipanEmpty extends PartisipanState {}
 
 class PartisipanLoading extends PartisipanState {}
 
-class PartisipanHasData extends PartisipanState {
+class AllPartisipanHasData extends PartisipanState {
   final List<Partisipan> partisipanList;
 
-  const PartisipanHasData({required this.partisipanList});
+  const AllPartisipanHasData({required this.partisipanList});
 
   @override
   List<Object> get props => [partisipanList];
+}
+
+class PartisipanHasData extends PartisipanState {
+  final Partisipan partisipan;
+
+  const PartisipanHasData({required this.partisipan});
+
+  @override
+  List<Object> get props => [partisipan];
 }
 
 class PartisipanSuccessMessage extends PartisipanState {

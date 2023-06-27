@@ -7,7 +7,13 @@ abstract class PartisipanEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ReadPartisipanEvent extends PartisipanEvent {}
+class ReadAllPartisipanEvent extends PartisipanEvent {}
+
+class ReadPartisipanEvent extends PartisipanEvent {
+  final int idPartisipan;
+
+  const ReadPartisipanEvent({required this.idPartisipan});
+}
 
 class CreatePartisipanEvent extends PartisipanEvent {
   final Partisipan partisipan;

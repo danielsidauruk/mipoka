@@ -10,14 +10,26 @@ class PartisipanBloc extends Bloc<PartisipanEvent, PartisipanState> {
   final PartisipanUseCase partisipanUseCase;
 
   PartisipanBloc({required this.partisipanUseCase}) : super(PartisipanEmpty()) {
-    on<ReadPartisipanEvent>((event, emit) async {
+
+    on<ReadAllPartisipanEvent>((event, emit) async {
       emit(PartisipanLoading());
 
-      final result = await partisipanUseCase.readPartisipan();
+      final result = await partisipanUseCase.readAllPartisipan();
 
       result.fold(
             (failure) => emit(PartisipanError(message: failure.message)),
-            (partisipanList) => emit(PartisipanHasData(partisipanList: partisipanList)),
+            (partisipanList) => emit(AllPartisipanHasData(partisipanList: partisipanList)),
+      );
+    });
+
+    on<ReadPartisipanEvent>((event, emit) async {
+      emit(PartisipanLoading());
+
+      final result = await partisipanUseCase.readPartisipan(event.idPartisipan);
+
+      result.fold(
+            (failure) => emit(PartisipanError(message: failure.message)),
+            (partisipan) => emit(PartisipanHasData(partisipan: partisipan)),
       );
     });
 
@@ -31,7 +43,7 @@ class PartisipanBloc extends Bloc<PartisipanEvent, PartisipanState> {
             (message) => emit(PartisipanSuccessMessage(message: message)),
       );
 
-      add(ReadPartisipanEvent());
+      add(ReadAllPartisipanEvent());
     });
 
     on<UpdatePartisipanEvent>((event, emit) async {
@@ -44,7 +56,7 @@ class PartisipanBloc extends Bloc<PartisipanEvent, PartisipanState> {
             (message) => emit(PartisipanSuccessMessage(message: message)),
       );
 
-      add(ReadPartisipanEvent());
+      add(ReadAllPartisipanEvent());
     });
 
     on<DeletePartisipanEvent>((event, emit) async {
@@ -57,7 +69,7 @@ class PartisipanBloc extends Bloc<PartisipanEvent, PartisipanState> {
             (message) => emit(PartisipanSuccessMessage(message: message)),
       );
 
-      add(ReadPartisipanEvent());
+      add(ReadAllPartisipanEvent());
     });
   }
 }
