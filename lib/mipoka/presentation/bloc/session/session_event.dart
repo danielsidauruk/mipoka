@@ -7,7 +7,13 @@ abstract class SessionEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ReadSessionEvent extends SessionEvent {}
+class ReadAllSessionEvent extends SessionEvent {}
+
+class ReadSessionEvent extends SessionEvent {
+  final int idSession;
+
+  const ReadSessionEvent({required this.idSession});
+}
 
 class CreateSessionEvent extends SessionEvent {
   final Session session;

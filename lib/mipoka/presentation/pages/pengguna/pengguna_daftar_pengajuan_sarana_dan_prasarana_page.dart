@@ -25,7 +25,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
   void initState() {
     super.initState();
     BlocProvider.of<SessionBloc>(context, listen: false)
-        .add(ReadSessionEvent());
+        .add(ReadAllSessionEvent());
   }
   
   @override
@@ -44,7 +44,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
               builder: (context, state) {
                 if (state is SessionLoading) {
                   return const Text('Loading');
-                } else if (state is SessionHasData) {
+                } else if (state is AllSessionHasData) {
                   return CustomContentBox(
                     children: [
                       customBoxTitle('Status'),

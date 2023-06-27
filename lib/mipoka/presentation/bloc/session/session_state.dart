@@ -11,13 +11,22 @@ class SessionEmpty extends SessionState {}
 
 class SessionLoading extends SessionState {}
 
-class SessionHasData extends SessionState {
+class AllSessionHasData extends SessionState {
   final List<Session> sessionList;
 
-  const SessionHasData({required this.sessionList});
+  const AllSessionHasData({required this.sessionList});
 
   @override
   List<Object> get props => [sessionList];
+}
+
+class SessionHasData extends SessionState {
+  final Session session;
+
+  const SessionHasData({required this.session});
+
+  @override
+  List<Object> get props => [session];
 }
 
 class SessionError extends SessionState {

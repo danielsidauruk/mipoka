@@ -10,14 +10,26 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
   final SessionUseCase sessionUseCase;
 
   SessionBloc({required this.sessionUseCase}) : super(SessionEmpty()) {
-    on<ReadSessionEvent>((event, emit) async {
+
+    on<ReadAllSessionEvent>((event, emit) async {
       emit(SessionLoading());
 
       final result = await sessionUseCase.readAllSession();
 
       result.fold(
             (failure) => emit(SessionError(message: failure.message)),
-            (sessionList) => emit(SessionHasData(sessionList: sessionList)),
+            (sessionList) => emit(AllSessionHasData(sessionList: sessionList)),
+      );
+    });
+
+    on<ReadSessionEvent>((event, emit) async {
+      emit(SessionLoading());
+
+      final result = await sessionUseCase.readSession(event.idSession);
+
+      result.fold(
+            (failure) => emit(SessionError(message: failure.message)),
+            (session) => emit(SessionHasData(session: session)),
       );
     });
 
@@ -31,7 +43,7 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
             (message) => emit(SessionSuccessMessage(message: message)),
       );
 
-      add(ReadSessionEvent());
+      add(ReadAllSessionEvent());
     });
 
     on<UpdateSessionEvent>((event, emit) async {
@@ -44,7 +56,7 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
             (message) => emit(SessionSuccessMessage(message: message)),
       );
 
-      add(ReadSessionEvent());
+      add(ReadAllSessionEvent());
     });
 
     on<DeleteSessionEvent>((event, emit) async {
@@ -57,7 +69,7 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
             (message) => emit(SessionSuccessMessage(message: message)),
       );
 
-      add(ReadSessionEvent());
+      add(ReadAllSessionEvent());
     });
   }
 }

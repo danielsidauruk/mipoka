@@ -37,7 +37,7 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
   @override
   void initState() {
     BlocProvider.of<SessionBloc>(context, listen: false)
-        .add(ReadSessionEvent());
+        .add(ReadAllSessionEvent());
     super.initState();
   }
 
@@ -62,7 +62,7 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
         builder: (context, state) {
           if (state is SessionLoading) {
             return const Text('Loading');
-          } else if (state is SessionHasData) {
+          } else if (state is AllSessionHasData) {
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),

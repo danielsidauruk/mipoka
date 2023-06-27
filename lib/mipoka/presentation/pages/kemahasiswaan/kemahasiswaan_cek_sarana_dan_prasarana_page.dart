@@ -23,7 +23,7 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
   void initState() {
     super.initState();
     BlocProvider.of<SessionBloc>(context, listen: false)
-        .add(ReadSessionEvent());
+        .add(ReadAllSessionEvent());
   }
   
   @override
@@ -35,7 +35,7 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
         builder: (context, state) {
           if (state is SessionLoading) {
             return const Text('Loading');
-          } else if (state is SessionHasData) {
+          } else if (state is AllSessionHasData) {
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
