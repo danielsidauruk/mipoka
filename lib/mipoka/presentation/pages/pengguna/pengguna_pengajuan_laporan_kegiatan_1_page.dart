@@ -28,7 +28,7 @@ class _PenggunaPengajuanLaporanKegiatan1State
   @override
   void initState() {
     BlocProvider.of<LaporanBloc>(context, listen: false).add(
-      ReadLaporanEvent(),
+      ReadAllLaporanEvent(),
     );
     super.initState();
   }

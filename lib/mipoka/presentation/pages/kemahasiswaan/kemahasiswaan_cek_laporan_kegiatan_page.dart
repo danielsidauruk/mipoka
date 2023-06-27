@@ -23,7 +23,7 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
   void initState() {
     super.initState();
     BlocProvider.of<LaporanBloc>(context, listen: false)
-        .add(ReadLaporanEvent());
+        .add(ReadAllLaporanEvent());
   }
 
   @override
@@ -36,7 +36,7 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
         builder: (context, state) {
           if (state is LaporanLoading) {
             return const Text('Loading');
-          } else if (state is LaporanHasData) {
+          } else if (state is AllLaporanHasData) {
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(

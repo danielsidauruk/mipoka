@@ -20,13 +20,22 @@ class LaporanError extends LaporanState {
   List<Object> get props => [message];
 }
 
-class LaporanHasData extends LaporanState {
-  const LaporanHasData({required this.laporanList});
+class AllLaporanHasData extends LaporanState {
+  const AllLaporanHasData({required this.laporanList});
 
   final List<Laporan> laporanList;
 
   @override
   List<Object> get props => [laporanList];
+}
+
+class LaporanHasData extends LaporanState {
+  final Laporan laporan;
+
+  const LaporanHasData({required this.laporan});
+
+  @override
+  List<Object> get props => [laporan];
 }
 
 class LaporanSuccessMessage extends LaporanState {

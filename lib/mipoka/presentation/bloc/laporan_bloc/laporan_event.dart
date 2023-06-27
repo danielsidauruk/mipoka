@@ -16,7 +16,13 @@ class CreateLaporanEvent extends LaporanEvent {
   List<Object?> get props => [laporan];
 }
 
-class ReadLaporanEvent extends LaporanEvent {}
+class ReadAllLaporanEvent extends LaporanEvent {}
+
+class ReadLaporanEvent extends LaporanEvent {
+  final int idLaporan;
+
+  const ReadLaporanEvent({required this.idLaporan});
+}
 
 class UpdateLaporanEvent extends LaporanEvent {
   final Laporan laporan;

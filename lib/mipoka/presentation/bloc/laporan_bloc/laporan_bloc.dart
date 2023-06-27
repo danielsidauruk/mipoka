@@ -22,18 +22,27 @@ class LaporanBloc extends Bloc<LaporanEvent, LaporanState> {
       );
     });
 
-    on<ReadLaporanEvent>((event, emit) async {
+    on<ReadAllLaporanEvent>((event, emit) async {
       emit(LaporanLoading());
 
       final result = await laporanUseCase.readAllLaporan();
 
       result.fold(
             (failure) => emit(LaporanError(message: failure.message)),
-            (laporanList) => emit(LaporanHasData(laporanList: laporanList)),
+            (laporanList) => emit(AllLaporanHasData(laporanList: laporanList)),
       );
     });
 
+    on<ReadLaporanEvent>((event, emit) async {
+      emit(LaporanLoading());
 
+      final result = await laporanUseCase.readLaporan(event.idLaporan);
+
+      result.fold(
+            (failure) => emit(LaporanError(message: failure.message)),
+            (laporan) => emit(LaporanHasData(laporan: laporan)),
+      );
+    });
 
     on<UpdateLaporanEvent>((event, emit) async {
       emit(LaporanLoading());
