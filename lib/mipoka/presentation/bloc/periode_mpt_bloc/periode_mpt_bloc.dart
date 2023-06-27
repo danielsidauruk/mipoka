@@ -49,7 +49,7 @@ class PeriodeMptBloc extends Bloc<PeriodeMptEvent, PeriodeMptState> {
     on<UpdatePeriodeMptEvent>((event, emit) async {
       emit(PeriodeMptLoading());
 
-      final result = await periodeMptUseCase.updatePeriode(event.periodeMpt);
+      final result = await periodeMptUseCase.updatePeriodeMpt(event.periodeMpt);
 
       result.fold(
             (failure) => emit(PeriodeMptError(message: failure.message)),
@@ -62,7 +62,7 @@ class PeriodeMptBloc extends Bloc<PeriodeMptEvent, PeriodeMptState> {
     on<DeletePeriodeMptEvent>((event, emit) async {
       emit(PeriodeMptLoading());
 
-      final result = await periodeMptUseCase.deletePeriode(event.idPeriodeMpt);
+      final result = await periodeMptUseCase.deletePeriodeMpt(event.idPeriodeMpt);
 
       result.fold(
             (failure) => emit(PeriodeMptError(message: failure.message)),

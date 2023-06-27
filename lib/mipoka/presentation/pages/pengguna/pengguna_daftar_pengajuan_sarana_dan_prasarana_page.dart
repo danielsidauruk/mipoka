@@ -23,9 +23,9 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
 
   @override
   void initState() {
-    super.initState();
     BlocProvider.of<SessionBloc>(context, listen: false)
         .add(ReadAllSessionEvent());
+    super.initState();
   }
   
   @override
@@ -160,7 +160,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                     Align(
                                       alignment: Alignment.center,
                                       child: Text(
-                                        DateFormat('dd-MM-yyyy').format(session.createdAt),
+                                        session.createdAt,
                                       ),
                                     ),
                                   ),
@@ -168,7 +168,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                     Align(
                                       alignment: Alignment.center,
                                       child: Text(
-                                        session.mipokaUser.namaLengkap,
+                                        "",
                                       ),
                                     ),
                                   ),
@@ -192,7 +192,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                     Align(
                                       alignment: Alignment.center,
                                       child: Text(
-                                        DateFormat('dd-MM-yyyy').format(session.date),
+                                          session.tanggalMulai
                                       ),
                                     ),
                                   ),
@@ -216,7 +216,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                     Align(
                                       alignment: Alignment.center,
                                       child: Text(
-                                        session.lain,
+                                        "session.lain,"
                                       ),
                                     ),
                                   ),

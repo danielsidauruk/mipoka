@@ -1,11 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
-import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
-import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
 import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
-import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -61,11 +59,13 @@ class _EditTertibAcaraPageState extends State<EditTertibAcaraPage> {
                   if (state is UsulanKegiatanLoading) {
                     return const Text('Loading ...');
                   } else if (state is UsulanKegiatanHasData) {
+                    final usulanKegiatan = state.usulanKegiatan;
+                    final tertibAcara = state.usulanKegiatan.tertibAcara[0];
 
-                    _waktuMulaiController.text = widget.usulanKegiatan.tertibAcara.waktuMulai;
-                    _waktuSelesaiController.text = widget.usulanKegiatan.tertibAcara.waktuSelesai;
-                    _aktivitasController.text  = widget.usulanKegiatan.tertibAcara.aktivitas;
-                    _keteranganController.text = widget.usulanKegiatan.tertibAcara.keterangan;
+                    _waktuMulaiController.text = tertibAcara.waktuMulai;
+                    _waktuSelesaiController.text = tertibAcara.waktuSelesai;
+                    _aktivitasController.text  = tertibAcara.aktivitas;
+                    _keteranganController.text = tertibAcara.keterangan;
 
                     return CustomContentBox(
                       children: [
@@ -109,16 +109,27 @@ class _EditTertibAcaraPageState extends State<EditTertibAcaraPage> {
 
                             CustomMipokaButton(
                               onTap: () {
+                                int newId = DateTime.now().millisecondsSinceEpoch;
+                                User? user = FirebaseAuth.instance.currentUser;
+                                String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
                                 Navigator.pop(context);
                                 context.read<UsulanKegiatanBloc>().add(
-                                  CreateUsulanKegiatanEvent(
-                                    usulanKegiatan: widget.usulanKegiatan.copyWith(
-                                      tertibAcara: widget.usulanKegiatan.tertibAcara.copyWith(
-                                        waktuMulai: _waktuMulaiController.text,
-                                        waktuSelesai: _waktuSelesaiController.text,
-                                        aktivitas: _aktivitasController.text,
-                                        keterangan: _keteranganController.text,
-                                      ),
+                                  UpdateUsulanKegiatanEvent(
+                                    usulanKegiatan: usulanKegiatan.copyWith(
+                                      tertibAcara: [
+                                        TertibAcara(
+                                          idTertibAcara: newId,
+                                          waktuMulai: _waktuMulaiController.text,
+                                          waktuSelesai: _waktuSelesaiController.text,
+                                          aktivitas: _aktivitasController.text,
+                                          keterangan: _keteranganController.text,
+                                          createdAt: currentDate,
+                                          createdBy: user?.email ?? "unknown",
+                                          updatedAt: currentDate,
+                                          updatedBy: user?.email ?? "unknown",
+                                        ),
+                                      ]
                                     ),
                                   ),
                                 );

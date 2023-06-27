@@ -72,7 +72,7 @@ flutter:
     - assets/json_file/berita.json
     - assets/json_file/berita_list.json
 
-    - assets/json_file/kegiatan_mpt_json
+    - assets/json_file/kegiatan_mpt.json
     - assets/json_file/kegiatan_mpt_list.json
 
     - assets/json_file/laporan.json

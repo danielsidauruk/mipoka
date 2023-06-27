@@ -112,14 +112,14 @@ class _PenggunaPengajuanUsulanKegiatan3State
                       selection: const TextSelection.collapsed(offset: 0),
                     );
                     _perlengkapanDanPeralatanController = QuillController(
-                      document: Document()..insert(0, usulanKegiatan.perlengkapan),
+                      document: Document()..insert(0, usulanKegiatan.perlengkapanDanPeralatan),
                       selection: const TextSelection.collapsed(offset: 0),
                     );
                     _penutupController = QuillController(
                       document: Document()..insert(0, usulanKegiatan.penutup),
                       selection: const TextSelection.collapsed(offset: 0),
                     );
-                    _postinganKegiatanController = usulanKegiatan.postinganKegiatan;
+                    _postinganKegiatanController = usulanKegiatan.fotoPostinganKegiatan;
                     _suratUndanganKegiatanController = "Surat undangan";
                     _linimasaKegiatan = "usulanKegiatan.linimasaKegiatan";
                     _fotoTempatKegiatanController = "usulanKegiatan.tempatKegiatan";
@@ -248,8 +248,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                           ),
                                         ),
                                       ],
-                                      rows: List<DataRow>.generate(1, (int index) {
-                                        final tertibAcara = usulanKegiatan.tertibAcara;
+                                      rows: List<DataRow>.generate(usulanKegiatan.tertibAcara.length, (int index) {
+                                        final tertibAcara = usulanKegiatan.tertibAcara[index];
                                         return DataRow(
                                           cells: [
                                             DataCell(

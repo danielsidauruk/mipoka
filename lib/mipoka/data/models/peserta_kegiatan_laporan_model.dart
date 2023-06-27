@@ -3,7 +3,6 @@ import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
 class PesertaKegiatanLaporanModel extends PesertaKegiatanLaporan {
   const PesertaKegiatanLaporanModel({
     required super.idPesertaKegiatanLaporan,
-    required super.laporan,
     required super.nim,
     required super.namaLengkap,
     required super.peran,
@@ -16,7 +15,6 @@ class PesertaKegiatanLaporanModel extends PesertaKegiatanLaporan {
   factory PesertaKegiatanLaporanModel.fromEntity(PesertaKegiatanLaporan pesertaKegiatanLaporan) {
     return PesertaKegiatanLaporanModel(
       idPesertaKegiatanLaporan: pesertaKegiatanLaporan.idPesertaKegiatanLaporan,
-      laporan: pesertaKegiatanLaporan.laporan,
       nim: pesertaKegiatanLaporan.nim,
       namaLengkap: pesertaKegiatanLaporan.namaLengkap,
       peran: pesertaKegiatanLaporan.peran,
@@ -29,7 +27,6 @@ class PesertaKegiatanLaporanModel extends PesertaKegiatanLaporan {
 
   factory PesertaKegiatanLaporanModel.fromJson(Map<String, dynamic> json) => PesertaKegiatanLaporanModel(
     idPesertaKegiatanLaporan: json["id_peserta_kegiatan_laporan"],
-    laporan: json["laporan"],
     nim: json["nim"],
     namaLengkap: json["nama_lengkap"],
     peran: json["peran"],
@@ -41,7 +38,6 @@ class PesertaKegiatanLaporanModel extends PesertaKegiatanLaporan {
 
   Map<String, dynamic> toJson() => {
     "id_peserta_kegiatan_laporan": idPesertaKegiatanLaporan,
-    "laporan": laporan,
     "nim": nim,
     "nama_lengkap": namaLengkap,
     "peran": peran,

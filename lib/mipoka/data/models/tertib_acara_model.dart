@@ -3,7 +3,6 @@ import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
 class TertibAcaraModel extends TertibAcara {
   const TertibAcaraModel({
     required super.idTertibAcara,
-    required super.usulan,
     required super.waktuMulai,
     required super.waktuSelesai,
     required super.aktivitas,
@@ -17,7 +16,6 @@ class TertibAcaraModel extends TertibAcara {
   factory TertibAcaraModel.fromEntity(TertibAcara tertibAcara) {
     return TertibAcaraModel(
       idTertibAcara: tertibAcara.idTertibAcara,
-      usulan: tertibAcara.usulan,
       waktuMulai: tertibAcara.waktuMulai,
       waktuSelesai: tertibAcara.waktuSelesai,
       aktivitas: tertibAcara.aktivitas,
@@ -31,7 +29,6 @@ class TertibAcaraModel extends TertibAcara {
 
   factory TertibAcaraModel.fromJson(Map<String, dynamic> json) => TertibAcaraModel(
     idTertibAcara: json["id_tertib_acara"],
-    usulan: json["usulan"],
     waktuMulai: json["waktu_mulai"],
     waktuSelesai: json["waktu_selesai"],
     aktivitas: json["aktivitas"],
@@ -44,7 +41,6 @@ class TertibAcaraModel extends TertibAcara {
 
   Map<String, dynamic> toJson() => {
     "id_tertib_acara": idTertibAcara,
-    "usulan": usulan,
     "waktu_mulai": waktuMulai,
     "waktu_selesai": waktuSelesai,
     "aktivitas": aktivitas,

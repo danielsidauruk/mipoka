@@ -192,18 +192,18 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
 
                       CustomMipokaButton(
                         onTap: () {
-                          context.read<BeritaBloc>().add(
-                            UpdateBeritaEvent(
-                              widget.berita.updateWith(
-                                // jenisKegiatan: _judulBeritaController.text,
-                                jenisKegiatan: _timeController.text,
-                                penulis: _penulisController.text,
-                                gambar: "https://random-d.uk/api/randomimg?t=1686482823678",
-                                // teks: _textBeritaController.getPlainText(),
-                                teks: _textBeritaController.text,
-                              ),
-                            ),
-                          );
+                          // context.read<BeritaBloc>().add(
+                          //   UpdateBeritaEvent(
+                          //     widget.berita.updateWith(
+                          //       // jenisKegiatan: _judulBeritaController.text,
+                          //       jenisKegiatan: _timeController.text,
+                          //       penulis: _penulisController.text,
+                          //       gambar: "https://random-d.uk/api/randomimg?t=1686482823678",
+                          //       // teks: _textBeritaController.getPlainText(),
+                          //       teks: _textBeritaController.text,
+                          //     ),
+                          //   ),
+                          // );
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Berita has been deleted successfully.'), duration: Duration(seconds: 1)),
                           );

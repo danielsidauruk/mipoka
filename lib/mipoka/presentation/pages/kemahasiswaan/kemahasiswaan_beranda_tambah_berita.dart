@@ -95,18 +95,18 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                         builder: (context, state) {
                           return CustomMipokaButton(
                             onTap: () {
-                              context.read<BeritaBloc>().add(
-                                CreateBeritaEvent(
-                                  Berita(
-                                    idBerita: 1234,
-                                    jenisKegiatan: _judulBeritaController.text,
-                                    penulis: _penulisController.text,
-                                    gambar: "https://random-d.uk/api/randomimg?t=1686482823678",
-                                    // teks: _textBeritaController.getPlainText(),
-                                    teks: _textBeritaController.text,
-                                  ),
-                                ),
-                              );
+                              // context.read<BeritaBloc>().add(
+                              //   CreateBeritaEvent(
+                              //     Berita(
+                              //       idBerita: 1234,
+                              //       jenisKegiatan: _judulBeritaController.text,
+                              //       penulis: _penulisController.text,
+                              //       gambar: "https://random-d.uk/api/randomimg?t=1686482823678",
+                              //       // teks: _textBeritaController.getPlainText(),
+                              //       teks: _textBeritaController.text,
+                              //     ),
+                              //   ),
+                              // );
                             },
                             text: 'Simpan',
                           );

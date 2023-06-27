@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 
 class TertibAcara extends Equatable{
   final int idTertibAcara;
-  final String usulan;
   final String waktuMulai;
   final String waktuSelesai;
   final String aktivitas;
@@ -14,7 +13,6 @@ class TertibAcara extends Equatable{
 
   const TertibAcara({
     required this.idTertibAcara,
-    required this.usulan,
     required this.waktuMulai,
     required this.waktuSelesai,
     required this.aktivitas,
@@ -27,7 +25,6 @@ class TertibAcara extends Equatable{
 
   TertibAcara copyWith({
     int? idTertibAcara,
-    String? usulan,
     String? waktuMulai,
     String? waktuSelesai,
     String? aktivitas,
@@ -39,7 +36,6 @@ class TertibAcara extends Equatable{
   }) =>
       TertibAcara(
         idTertibAcara: idTertibAcara ?? this.idTertibAcara,
-        usulan: usulan ?? this.usulan,
         waktuMulai: waktuMulai ?? this.waktuMulai,
         waktuSelesai: waktuSelesai ?? this.waktuSelesai,
         aktivitas: aktivitas ?? this.aktivitas,
@@ -53,7 +49,6 @@ class TertibAcara extends Equatable{
   @override
   List<Object?> get props => [
     idTertibAcara,
-    usulan,
     waktuMulai,
     waktuSelesai,
     aktivitas,

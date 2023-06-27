@@ -86,20 +86,20 @@ class _TambahDataPesertaDalamKotaState extends State<TambahDataPesertaDalamKota>
 
                       CustomMipokaButton(
                         onTap: () {
-                          BlocProvider.of<PartisipanBloc>(context).add(
-                              CreatePartisipanEvent(
-                                Partisipan(
-                                  idPartisipan: 1,
-                                  nim: _nimNipController.text,
-                                  namaLengkap: _namaLengkapController.text,
-                                  nik: "",
-                                  tempatLahir: "",
-                                  tglLahir: "",
-                                  peran: _peranController.text,
-                                  dasarKirim: _dasarPengirimanController.text,
-                                ),
-                              ),
-                          );
+                          // BlocProvider.of<PartisipanBloc>(context).add(
+                          //     // CreatePartisipanEvent(
+                          //     //   // Partisipan(
+                          //     //   //   idPartisipan: 1,
+                          //     //   //   nim: _nimNipController.text,
+                          //     //   //   namaLengkap: _namaLengkapController.text,
+                          //     //   //   nik: "",
+                          //     //   //   tempatLahir: "",
+                          //     //   //   tglLahir: "",
+                          //     //   //   peran: _peranController.text,
+                          //     //   //   dasarKirim: _dasarPengirimanController.text,
+                          //     //   // ),
+                          //     // )
+                          // );
                           Navigator.pop(context);
                         },
                         text: 'Tambahkan Peserta',

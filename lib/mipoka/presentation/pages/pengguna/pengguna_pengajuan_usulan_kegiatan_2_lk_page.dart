@@ -5,7 +5,6 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/partisipan_bloc/partisipan_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/rincian_biaya_kegiatan_bloc/rincian_biaya_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -152,7 +151,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                                           child: Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              dataPartisipan.nim,
+                                              dataPartisipan.noInduk,
                                               textAlign: TextAlign.center,
                                               style: const TextStyle(color: Colors.blue),
                                             ),
@@ -173,7 +172,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                                         Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            dataPartisipan.namaLengkap,
+                                            dataPartisipan.namaPartisipan,
                                             textAlign: TextAlign.center,
                                           ),
                                         ),
@@ -200,7 +199,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                                         Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            dataPartisipan.peran,
+                                            dataPartisipan.peranPartisipan,
                                             textAlign: TextAlign.center,
                                           ),
                                         ),
@@ -209,7 +208,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                                         Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            dataPartisipan.dasarKirim,
+                                            dataPartisipan.dasarPengiriman,
                                             textAlign: TextAlign.center,
                                           ),
                                         ),

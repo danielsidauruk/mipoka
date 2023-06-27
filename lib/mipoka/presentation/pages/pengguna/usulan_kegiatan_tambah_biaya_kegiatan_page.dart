@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
-import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/cubit/pengajuan_kegiatan_cubit.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -93,12 +92,16 @@ class _UsulanKegiatanTambahBiayaKegiatanPageState extends State<UsulanKegiatanTa
                                   BlocProvider.of<BiayaKegiatanBloc>(context).add(
                                     CreateBiayaKegiatanEvent(
                                       BiayaKegiatan(
-                                        idRincianBiayaKegiatan: 1,
+                                        idBiayaKegiatan: 1,
                                         namaBiayaKegiatan: _namaBiayaKegiatanController.text,
                                         kuantiti: int.parse(_kuantitiController.text),
                                         hargaSatuan: int.parse(_hargaSatuanController.text),
                                         total: int.parse(_kuantitiController.text) * int.parse(_hargaSatuanController.text),
                                         keterangan: _keteranganController.text,
+                                        createdAt: '',
+                                        createdBy: '',
+                                        updatedAt: '',
+                                        updatedBy: '',
                                       ),
                                     ),
                                   );

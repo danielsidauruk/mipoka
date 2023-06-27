@@ -68,7 +68,7 @@ class LaporanModel extends Laporan {
     idUsulan: json["id_usulan"],
     pencapaian: json["pencapaian"],
     pesertaKegiatanLaporanModel: List<PesertaKegiatanLaporanModel>.from(json["peserta_kegiatan_laporan"].map((x) => PesertaKegiatanLaporanModel.fromJson(x))),
-    rincianBiayaKegiatanModel: List<RincianBiayaKegiatanModel>.from(json["biaya_kegiatan"].map((x) => RincianBiayaKegiatanModel.fromJson(x))),
+    rincianBiayaKegiatanModel: List<RincianBiayaKegiatanModel>.from(json["rincian_biaya_kegiatan"].map((x) => RincianBiayaKegiatanModel.fromJson(x))),
     latarBelakang: json["latar_belakang"],
     hasilKegiatan: json["hasil_kegiatan"],
     penutup: json["penutup"],

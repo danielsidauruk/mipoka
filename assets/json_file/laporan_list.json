@@ -8,7 +8,6 @@
     "peserta_kegiatan_laporan": [
       {
         "id_peserta_kegiatan_laporan": 123543,
-        "laporan": "Isi laporan kegiatan",
         "nim": "1234567890",
         "nama_lengkap": "John Doe",
         "peran": "Peserta",
@@ -19,7 +18,6 @@
       },
       {
         "id_peserta_kegiatan_laporan": 1223543,
-        "laporan": "Isi laporan kegiatan 2",
         "nim": "1234567890",
         "nama_lengkap": "John Doe",
         "peran": "Peserta",
@@ -30,7 +28,6 @@
       },
       {
         "id_peserta_kegiatan_laporan": 12543543,
-        "laporan": "Isi laporan kegiatan3",
         "nim": "1234567890",
         "nama_lengkap": "John Doe",
         "peran": "Peserta",
@@ -43,7 +40,6 @@
     "rincian_biaya_kegiatan": [
       {
         "id_rincian_biaya_kegiatan": 432134223,
-        "laporan": "Isi laporan rincian biaya kegiatan",
         "nama_biaya": "Transportasi",
         "keterangan": "Biaya transportasi peserta",
         "kuantitas": 10,
@@ -61,7 +57,95 @@
       },
       {
         "id_rincian_biaya_kegiatan": 432765123,
-        "laporan": "Isi laporan rincian biaya kegiatan",
+        "nama_biaya": "Transportasi",
+        "keterangan": "Biaya transportasi peserta",
+        "kuantitas": 10,
+        "harga_satuan": 50000,
+        "usulan_anggaran": 500000,
+        "realisasi_anggaran": 450000,
+        "selisih": 50000,
+        "total_usulan": 1500000,
+        "total_realisasi": 1400000,
+        "total_selisih": 100000,
+        "created_at": "2023-06-26",
+        "created_by": "Jane Smith",
+        "updated_at": "2023-06-26",
+        "updated_by": "John Doe"
+      }
+    ],
+    "latar_belakang": "Lorem ipsum dolor sit amet",
+    "hasil_kegiatan": "Lorem ipsum dolor sit amet",
+    "penutup": "Lorem ipsum dolor sit amet",
+    "foto_postingan_kegiatan": "http://example.com/foto-postingan.jpg",
+    "foto_dokumentasi_kegiatan": ["http://example.com/foto1.jpg", "http://example.com/foto2.jpg"],
+    "foto_tabulasi_hasil": "http://example.com/foto-tabulasi.jpg",
+    "foto_faktur_pembayaran": "http://example.com/foto-faktur.jpg",
+    "file_laporan_kegiatan": "http://example.com/file-laporan.pdf",
+    "validasi_pembina": true,
+    "status_laporan": "Diterima",
+    "created_at": "2023-06-26",
+    "created_by": "John Doe",
+    "updated_at": "2023-06-26",
+    "updated_by": "Jane Smith"
+  },
+  {
+    "id_laporan": 432241,
+    "id_ormawa": 123,
+    "id_user": "423fds56",
+    "id_usulan": 32432789,
+    "pencapaian": "Lorem ipsum dolor sit amet",
+    "peserta_kegiatan_laporan": [
+      {
+        "id_peserta_kegiatan_laporan": 123543,
+        "nim": "1234567890",
+        "nama_lengkap": "John Doe",
+        "peran": "Peserta",
+        "created_at": "2023-06-26",
+        "created_by": "Jane Smith",
+        "updated_at": "2023-06-26",
+        "updated_by": "John Doe"
+      },
+      {
+        "id_peserta_kegiatan_laporan": 1223543,
+        "nim": "1234567890",
+        "nama_lengkap": "John Doe",
+        "peran": "Peserta",
+        "created_at": "2023-06-26",
+        "created_by": "Jane Smith",
+        "updated_at": "2023-06-26",
+        "updated_by": "John Doe"
+      },
+      {
+        "id_peserta_kegiatan_laporan": 12543543,
+        "nim": "1234567890",
+        "nama_lengkap": "John Doe",
+        "peran": "Peserta",
+        "created_at": "2023-06-26",
+        "created_by": "Jane Smith",
+        "updated_at": "2023-06-26",
+        "updated_by": "John Doe"
+      }
+    ],
+    "rincian_biaya_kegiatan": [
+      {
+        "id_rincian_biaya_kegiatan": 432134223,
+        "nama_biaya": "Transportasi",
+        "keterangan": "Biaya transportasi peserta",
+        "kuantitas": 10,
+        "harga_satuan": 50000,
+        "usulan_anggaran": 500000,
+        "realisasi_anggaran": 450000,
+        "selisih": 50000,
+        "total_usulan": 1500000,
+        "total_realisasi": 1400000,
+        "total_selisih": 100000,
+        "created_at": "2023-06-26",
+        "created_by": "Jane Smith",
+        "updated_at": "2023-06-26",
+        "updated_by": "John Doe"
+      },
+      {
+        "id_rincian_biaya_kegiatan": 432765123,
         "nama_biaya": "Transportasi",
         "keterangan": "Biaya transportasi peserta",
         "kuantitas": 10,
@@ -103,7 +187,6 @@
     "peserta_kegiatan_laporan": [
       {
         "id_peserta_kegiatan_laporan": 123543,
-        "laporan": "Isi laporan kegiatan",
         "nim": "1234567890",
         "nama_lengkap": "John Doe",
         "peran": "Peserta",
@@ -114,7 +197,6 @@
       },
       {
         "id_peserta_kegiatan_laporan": 1223543,
-        "laporan": "Isi laporan kegiatan 2",
         "nim": "1234567890",
         "nama_lengkap": "John Doe",
         "peran": "Peserta",
@@ -125,7 +207,6 @@
       },
       {
         "id_peserta_kegiatan_laporan": 12543543,
-        "laporan": "Isi laporan kegiatan3",
         "nim": "1234567890",
         "nama_lengkap": "John Doe",
         "peran": "Peserta",
@@ -138,7 +219,6 @@
     "rincian_biaya_kegiatan": [
       {
         "id_rincian_biaya_kegiatan": 432134223,
-        "laporan": "Isi laporan rincian biaya kegiatan",
         "nama_biaya": "Transportasi",
         "keterangan": "Biaya transportasi peserta",
         "kuantitas": 10,
@@ -156,102 +236,6 @@
       },
       {
         "id_rincian_biaya_kegiatan": 432765123,
-        "laporan": "Isi laporan rincian biaya kegiatan",
-        "nama_biaya": "Transportasi",
-        "keterangan": "Biaya transportasi peserta",
-        "kuantitas": 10,
-        "harga_satuan": 50000,
-        "usulan_anggaran": 500000,
-        "realisasi_anggaran": 450000,
-        "selisih": 50000,
-        "total_usulan": 1500000,
-        "total_realisasi": 1400000,
-        "total_selisih": 100000,
-        "created_at": "2023-06-26",
-        "created_by": "Jane Smith",
-        "updated_at": "2023-06-26",
-        "updated_by": "John Doe"
-      }
-
-    ],
-    "latar_belakang": "Lorem ipsum dolor sit amet",
-    "hasil_kegiatan": "Lorem ipsum dolor sit amet",
-    "penutup": "Lorem ipsum dolor sit amet",
-    "foto_postingan_kegiatan": "http://example.com/foto-postingan.jpg",
-    "foto_dokumentasi_kegiatan": ["http://example.com/foto1.jpg", "http://example.com/foto2.jpg"],
-    "foto_tabulasi_hasil": "http://example.com/foto-tabulasi.jpg",
-    "foto_faktur_pembayaran": "http://example.com/foto-faktur.jpg",
-    "file_laporan_kegiatan": "http://example.com/file-laporan.pdf",
-    "validasi_pembina": true,
-    "status_laporan": "Diterima",
-    "created_at": "2023-06-26",
-    "created_by": "John Doe",
-    "updated_at": "2023-06-26",
-    "updated_by": "Jane Smith"
-  },
-  {
-    "id_laporan": 432241,
-    "id_ormawa": 123,
-    "id_user": "423fds56",
-    "id_usulan": 32432789,
-    "pencapaian": "Lorem ipsum dolor sit amet",
-    "peserta_kegiatan_laporan": [
-      {
-        "id_peserta_kegiatan_laporan": 123543,
-        "laporan": "Isi laporan kegiatan",
-        "nim": "1234567890",
-        "nama_lengkap": "John Doe",
-        "peran": "Peserta",
-        "created_at": "2023-06-26",
-        "created_by": "Jane Smith",
-        "updated_at": "2023-06-26",
-        "updated_by": "John Doe"
-      },
-      {
-        "id_peserta_kegiatan_laporan": 1223543,
-        "laporan": "Isi laporan kegiatan 2",
-        "nim": "1234567890",
-        "nama_lengkap": "John Doe",
-        "peran": "Peserta",
-        "created_at": "2023-06-26",
-        "created_by": "Jane Smith",
-        "updated_at": "2023-06-26",
-        "updated_by": "John Doe"
-      },
-      {
-        "id_peserta_kegiatan_laporan": 12543543,
-        "laporan": "Isi laporan kegiatan3",
-        "nim": "1234567890",
-        "nama_lengkap": "John Doe",
-        "peran": "Peserta",
-        "created_at": "2023-06-26",
-        "created_by": "Jane Smith",
-        "updated_at": "2023-06-26",
-        "updated_by": "John Doe"
-      }
-    ],
-    "rincian_biaya_kegiatan": [
-      {
-        "id_rincian_biaya_kegiatan": 432134223,
-        "laporan": "Isi laporan rincian biaya kegiatan",
-        "nama_biaya": "Transportasi",
-        "keterangan": "Biaya transportasi peserta",
-        "kuantitas": 10,
-        "harga_satuan": 50000,
-        "usulan_anggaran": 500000,
-        "realisasi_anggaran": 450000,
-        "selisih": 50000,
-        "total_usulan": 1500000,
-        "total_realisasi": 1400000,
-        "total_selisih": 100000,
-        "created_at": "2023-06-26",
-        "created_by": "Jane Smith",
-        "updated_at": "2023-06-26",
-        "updated_by": "John Doe"
-      },
-      {
-        "id_rincian_biaya_kegiatan": 432765123,
-        "laporan": "Isi laporan rincian biaya kegiatan",
         "nama_biaya": "Transportasi",
         "keterangan": "Biaya transportasi peserta",
         "kuantitas": 10,

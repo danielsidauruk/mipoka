@@ -425,18 +425,18 @@ class _PenggunaPengajuanUsulanKegiatan1State
           if (state is UsulanKegiatanLoading) {
             return const Text('Loading');
           } else if (state is UsulanKegiatanHasData) {
-            _namaOrmawaController = state.usulanKegiatan.ormawa.namaOrmawa;
+            _namaOrmawaController = 'Ormawa A';
             _namaKegiatanController.text = state.usulanKegiatan.namaKegiatan;
             _deskripsiKegiatanController.text =
                 state.usulanKegiatan.deskripsiKegiatan;
             _tempatKegiatanController.text =
-                state.usulanKegiatan.tempatKegiatan;
+                state.usulanKegiatan.fotoTempatKegiatan;
             _jumlahParsitipanController.text =
                 state.usulanKegiatan.jumlahPartisipan.toString();
             _targetKegiatanController.text =
                 state.usulanKegiatan.targetKegiatan;
             _totalPendanaanController.text =
-                state.usulanKegiatan.totalPendana.toString();
+                state.usulanKegiatan.totalPendanaan;
 
             // _customUrlController = state.usulanKegiatan.tandaTanganOrmawa;
             _customUrlController = "";
@@ -660,7 +660,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                         CustomSignaturePad(
                           signatureUrl: _customUrlController,
                           fileName:
-                              'https://storage.googleapis.com/mipoka_bucket/signature${state.usulanKegiatan.mipokaUser.nim}.png',
+                              'https://storage.googleapis.com/mipoka_bucket/signature${DateTime.now().millisecondsSinceEpoch}.png',
                         ),
 
                         const CustomFieldSpacer(),
