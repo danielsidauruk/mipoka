@@ -1,6 +1,13 @@
 {
   "id_ormawa": 123456,
   "nama_ormawa": "Nama Ormawa",
+  "nama_singkatan_ormawa": "ME",
+  "logo_ormawa": "link_photo",
+  "list_anggota": [
+    "wfqfeq",
+    "1314321",
+    "12343r1r2"
+  ],
   "pembina": "Pembina Ormawa",
   "ketua": "Ketua Ormawa",
   "wakil": "Wakil Ketua Ormawa",
