@@ -18,6 +18,8 @@ import 'package:mipoka/mipoka/presentation/bloc/partisipan_bloc/partisipan_bloc.
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/peserta_kegiatan_laporan_bloc/peserta_kegiatan_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/revisi_laporan_bloc/revisi_laporan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/revisi_usulan_bloc/revisi_usulan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/rincian_biaya_kegiatan_bloc/rincian_biaya_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/riwayat_mpt_bloc/riwayat_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
@@ -118,6 +120,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<PeriodeMptBloc>()),
         BlocProvider(create: (_) => di.locator<PesertaKegiatanLaporanBloc>()),
         BlocProvider(create: (_) => di.locator<PrestasiBloc>()),
+        BlocProvider(create: (_) => di.locator<RevisiLaporanBloc>()),
+        BlocProvider(create: (_) => di.locator<RevisiUsulanBloc>()),
         BlocProvider(create: (_) => di.locator<RincianBiayaKegiatanBloc>()),
         BlocProvider(create: (_) => di.locator<RiwayatMptBloc>()),
         BlocProvider(create: (_) => di.locator<SessionBloc>()),

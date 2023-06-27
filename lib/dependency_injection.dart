@@ -32,6 +32,8 @@ import 'package:mipoka/mipoka/presentation/bloc/partisipan_bloc/partisipan_bloc.
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/peserta_kegiatan_laporan_bloc/peserta_kegiatan_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/revisi_laporan_bloc/revisi_laporan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/revisi_usulan_bloc/revisi_usulan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/rincian_biaya_kegiatan_bloc/rincian_biaya_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/riwayat_mpt_bloc/riwayat_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
@@ -55,6 +57,8 @@ Future<void> init() async {
   locator.registerFactory(() => PeriodeMptBloc(periodeMptUseCase: locator()));
   locator.registerFactory(() => PesertaKegiatanLaporanBloc(pesertaKegiatanLaporanUseCase: locator()));
   locator.registerFactory(() => PrestasiBloc(prestasiUseCase: locator()));
+  locator.registerFactory(() => RevisiLaporanBloc(revisiLaporanUseCase: locator()));
+  locator.registerFactory(() => RevisiUsulanBloc(revisiUsulanUseCase: locator()));
   locator.registerFactory(() => RincianBiayaKegiatanBloc(rincianBiayaKegiatanUseCase: locator()));
   locator.registerFactory(() => RiwayatMptBloc(riwayatMptUseCase: locator()));
   locator.registerFactory(() => SessionBloc(sessionUseCase: locator()));
