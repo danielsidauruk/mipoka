@@ -12,12 +12,12 @@ class RincianBiayaKegiatanEmpty extends RincianBiayaKegiatanState {}
 class RincianBiayaKegiatanLoading extends RincianBiayaKegiatanState {}
 
 class RincianBiayaKegiatanHasData extends RincianBiayaKegiatanState {
-  final List<BiayaKegiatan> rincianBiayaKegiatanList;
+  final RincianBiayaKegiatan rincianBiayaKegiatan;
 
-  const RincianBiayaKegiatanHasData({required this.rincianBiayaKegiatanList});
+  const RincianBiayaKegiatanHasData({required this.rincianBiayaKegiatan});
 
   @override
-  List<Object> get props => [rincianBiayaKegiatanList];
+  List<Object> get props => [rincianBiayaKegiatan];
 }
 
 class RincianBiayaKegiatanError extends RincianBiayaKegiatanState {
@@ -29,11 +29,4 @@ class RincianBiayaKegiatanError extends RincianBiayaKegiatanState {
   List<Object> get props => [message];
 }
 
-class RincianBiayaKegiatanSuccessMessage extends RincianBiayaKegiatanState {
-  final String message;
-
-  const RincianBiayaKegiatanSuccessMessage({required this.message});
-
-  @override
-  List<Object> get props => [message];
-}
+class RincianBiayaKegiatanSuccess extends RincianBiayaKegiatanState {}

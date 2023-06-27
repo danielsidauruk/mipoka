@@ -7,10 +7,14 @@ abstract class RincianBiayaKegiatanEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ReadRincianBiayaKegiatanEvent extends RincianBiayaKegiatanEvent {}
+class ReadRincianBiayaKegiatanEvent extends RincianBiayaKegiatanEvent {
+  final int idRincianBiayaKegiatan;
+
+  const ReadRincianBiayaKegiatanEvent({required this.idRincianBiayaKegiatan});
+}
 
 class CreateRincianBiayaKegiatanEvent extends RincianBiayaKegiatanEvent {
-  final BiayaKegiatan rincianBiayaKegiatan;
+  final RincianBiayaKegiatan rincianBiayaKegiatan;
 
   const CreateRincianBiayaKegiatanEvent({required this.rincianBiayaKegiatan});
 
@@ -19,7 +23,7 @@ class CreateRincianBiayaKegiatanEvent extends RincianBiayaKegiatanEvent {
 }
 
 class UpdateRincianBiayaKegiatanEvent extends RincianBiayaKegiatanEvent {
-  final BiayaKegiatan rincianBiayaKegiatan;
+  final RincianBiayaKegiatan rincianBiayaKegiatan;
 
   const UpdateRincianBiayaKegiatanEvent({required this.rincianBiayaKegiatan});
 
