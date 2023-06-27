@@ -21,12 +21,12 @@ class AdminError extends AdminState {
 }
 
 class AdminHasData extends AdminState {
-  const AdminHasData({required this.adminList});
+  const AdminHasData({required this.admin});
 
-  final List<Admin> adminList;
+  final Admin admin;
 
   @override
-  List<Object> get props => [adminList];
+  List<Object> get props => [admin];
 }
 
 class AdminSuccessMessage extends AdminState {

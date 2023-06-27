@@ -16,7 +16,11 @@ class CreateAdminEvent extends AdminEvent {
   List<Object?> get props => [admin];
 }
 
-class ReadAdminEvent extends AdminEvent {}
+class ReadAdminEvent extends AdminEvent {
+  final int idAdmin;
+
+  const ReadAdminEvent({required this.idAdmin});
+}
 
 class UpdateAdminEvent extends AdminEvent {
   final Admin admin;

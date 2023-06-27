@@ -19,18 +19,16 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
             (failure) => emit(AdminError(message: failure.message)),
             (message) => emit(AdminSuccessMessage(message: message)),
       );
-
-      add(ReadAdminEvent());
     });
 
     on<ReadAdminEvent>((event, emit) async {
       emit(AdminLoading());
 
-      final result = await adminUseCase.readAdmin();
+      final result = await adminUseCase.readAdmin(event.idAdmin);
 
       result.fold(
             (failure) => emit(AdminError(message: failure.message)),
-            (adminList) => emit(AdminHasData(adminList: adminList)),
+            (admin) => emit(AdminHasData(admin: admin)),
       );
     });
 
@@ -43,8 +41,6 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
             (failure) => emit(AdminError(message: failure.message)),
             (message) => emit(AdminSuccessMessage(message: message)),
       );
-
-      add(ReadAdminEvent());
     });
 
     on<DeleteAdminEvent>((event, emit) async {
@@ -56,8 +52,6 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
             (failure) => emit(AdminError(message: failure.message)),
             (message) => emit(AdminSuccessMessage(message: message)),
       );
-
-      add(ReadAdminEvent());
     });
   }
 }
