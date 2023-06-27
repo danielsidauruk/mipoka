@@ -11,13 +11,22 @@ class PeriodeMptEmpty extends PeriodeMptState {}
 
 class PeriodeMptLoading extends PeriodeMptState {}
 
-class PeriodeMptHasData extends PeriodeMptState {
+class AllPeriodeMptHasData extends PeriodeMptState {
   final List<PeriodeMpt> periodeMptList;
 
-  const PeriodeMptHasData({required this.periodeMptList});
+  const AllPeriodeMptHasData({required this.periodeMptList});
 
   @override
   List<Object> get props => [periodeMptList];
+}
+
+class PeriodeMptHasData extends PeriodeMptState {
+  final PeriodeMpt periodeMpt;
+
+  const PeriodeMptHasData({required this.periodeMpt});
+
+  @override
+  List<Object> get props => [periodeMpt];
 }
 
 class PeriodeMptSuccessMessage extends PeriodeMptState {

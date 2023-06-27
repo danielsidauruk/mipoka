@@ -7,7 +7,13 @@ abstract class PeriodeMptEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ReadPeriodeMptEvent extends PeriodeMptEvent {}
+class ReadAllPeriodeMptEvent extends PeriodeMptEvent {}
+
+class ReadPeriodeMptEvent extends PeriodeMptEvent {
+  final int idPeriodeMpt;
+
+  const ReadPeriodeMptEvent({required this.idPeriodeMpt});
+}
 
 class CreatePeriodeMptEvent extends PeriodeMptEvent {
   final PeriodeMpt periodeMpt;

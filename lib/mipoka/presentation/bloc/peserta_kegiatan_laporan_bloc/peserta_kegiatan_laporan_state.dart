@@ -1,4 +1,4 @@
-part of 'peserta_bloc.dart';
+part of 'peserta_kegiatan_laporan_bloc.dart';
 
 abstract class PesertaState extends Equatable {
   const PesertaState();
