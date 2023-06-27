@@ -1,17 +1,17 @@
-part of 'kegiatan_bloc.dart';
+part of 'kegiatan_mpt_bloc.dart';
 
-abstract class KegiatanState extends Equatable {
-  const KegiatanState();
+abstract class KegiatanMptState extends Equatable {
+  const KegiatanMptState();
 
   @override
   List<Object> get props => [];
 }
 
-class KegiatanEmpty extends KegiatanState {}
+class KegiatanEmpty extends KegiatanMptState {}
 
-class KegiatanLoading extends KegiatanState {}
+class KegiatanLoading extends KegiatanMptState {}
 
-class KegiatanError extends KegiatanState {
+class KegiatanError extends KegiatanMptState {
   final String message;
 
   const KegiatanError({required this.message});
@@ -20,7 +20,7 @@ class KegiatanError extends KegiatanState {
   List<Object> get props => [message];
 }
 
-class KegiatanHasData extends KegiatanState {
+class KegiatanHasData extends KegiatanMptState {
   const KegiatanHasData({required this.kegiatanList});
 
   final List<Kegiatan> kegiatanList;
@@ -29,7 +29,7 @@ class KegiatanHasData extends KegiatanState {
   List<Object> get props => [kegiatanList];
 }
 
-class KegiatanSuccessMessage extends KegiatanState {
+class KegiatanSuccessMessage extends KegiatanMptState {
   const KegiatanSuccessMessage({required this.message});
 
   final String message;

@@ -24,7 +24,7 @@ import 'package:mipoka/mipoka/domain/use_cases/usulan_kegiatan_use_case.dart';
 import 'package:mipoka/mipoka/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiatan_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/kegiatan_bloc/kegiatan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/kegiatan_bloc/kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/lampiran_bloc/lampiran_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/lampiran_laporan_bloc/lampiran_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
