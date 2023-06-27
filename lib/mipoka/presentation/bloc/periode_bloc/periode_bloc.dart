@@ -24,7 +24,7 @@ class PeriodeBloc extends Bloc<PeriodeEvent, PeriodeState> {
     on<CreatePeriodeEvent>((event, emit) async {
       emit(PeriodeLoading());
 
-      final result = await periodeUseCase.createPeriode(event.periode);
+      final result = await periodeUseCase.createPeriodeMpt(event.periode);
 
       result.fold(
             (failure) => emit(PeriodeError(message: failure.message)),

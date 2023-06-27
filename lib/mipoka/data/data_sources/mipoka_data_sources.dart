@@ -5,17 +5,16 @@ import 'package:http/http.dart' as http;
 import 'package:mipoka/mipoka/data/models/admin_model.dart';
 import 'package:mipoka/mipoka/data/models/berita_model.dart';
 import 'package:mipoka/mipoka/data/models/kegiatan_model.dart';
-import 'package:mipoka/mipoka/data/models/lampiran_laporan_model.dart';
-import 'package:mipoka/mipoka/data/models/lampiran_model.dart';
 import 'package:mipoka/mipoka/data/models/laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
-import 'package:mipoka/mipoka/data/models/panitia_peserta_laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
 import 'package:mipoka/mipoka/data/models/periode_mpt_model.dart';
 import 'package:mipoka/mipoka/data/models/peserta_kegiatan_laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/prestasi_model.dart';
 import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
-import 'package:mipoka/mipoka/data/models/rincian_laporan_model.dart';
+import 'package:mipoka/mipoka/data/models/revisi_laporan_model.dart';
+import 'package:mipoka/mipoka/data/models/revisi_usulan_model.dart';
+import 'package:mipoka/mipoka/data/models/rincian_biaya_kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/riwayat_mpt_model.dart';
 import 'package:mipoka/mipoka/data/models/session_model.dart';
 import 'package:mipoka/mipoka/data/models/tertib_acara_model.dart';
@@ -34,99 +33,95 @@ abstract class MipokaDataSources {
   Future<String> updateAdmin(AdminModel adminModel);
   Future<String> deleteAdmin(int adminId);
 
-  Future<List<BiayaKegiatanModel>> readBiayaKegiatan();
+  Future<List<BiayaKegiatanModel>> readAllBiayaKegiatan();
+  Future<BiayaKegiatanModel> readBiayaKegiatan(int biayaKegiatan);
   Future<String> createBiayaKegiatan(BiayaKegiatanModel biayaKegiatanModel);
   Future<String> updateBiayaKegiatan(BiayaKegiatanModel biayaKegiatanModel);
-  Future<String> deleteBiayaKegiatan(int biayaKegiatanId);
+  Future<String> deleteBiayaKegiatan(int idBiayaKegiatan);
 
-  Future<List<KegiatanModel>> readKegiatan();
-  Future<String> createKegiatan(KegiatanModel kegiatanModel);
-  Future<String> updateKegiatan(KegiatanModel kegiatanModel);
-  Future<String> deleteKegiatan(int kegiatanId);
+  Future<List<KegiatanMptModel>> readAllKegiatanMpt();
+  Future<KegiatanMptModel> readKegiatanMpt(int idKegiatanMpt);
+  Future<String> createKegiatanMpt(KegiatanMptModel kegiatanMptModel);
+  Future<String> updateKegiatanMpt(KegiatanMptModel kegiatanMptModel);
+  Future<String> deleteKegiatanMpt(int idKegiatanMpt);
 
-  Future<List<LampiranLaporanModel>> readLampiranLaporan();
-  Future<String> createLampiranLaporan(
-      LampiranLaporanModel lampiranLaporanModel);
-  Future<String> updateLampiranLaporan(
-      LampiranLaporanModel lampiranLaporanModel);
-  Future<String> deleteLampiranLaporan(int lampiranLaporanId);
-
-  Future<List<LampiranModel>> readLampiran();
-  Future<String> createLampiran(LampiranModel lampiranModel);
-  Future<String> updateLampiran(LampiranModel lampiranModel);
-  Future<String> deleteLampiran(int idLampiran);
-
-  Future<List<LaporanModel>> readLaporan();
+  Future<List<LaporanModel>> readAllLaporan();
+  Future<LaporanModel> readLaporan(int idLaporan);
   Future<String> createLaporan(LaporanModel laporanModel);
   Future<String> updateLaporan(LaporanModel laporanModel);
   Future<String> deleteLaporan(int laporanId);
 
-  Future<List<OrmawaModel>> readOrmawa();
+  Future<List<OrmawaModel>> readAllOrmawa();
+  Future<OrmawaModel> readOrmawa(int idOrmawa);
   Future<String> createOrmawa(OrmawaModel ormawaModel);
   Future<String> updateOrmawa(OrmawaModel ormawaModel);
   Future<String> deleteOrmawa(int idOrmawa);
 
-  Future<List<PanitiaPesertaLaporanModel>> readPanitiaPesertaL();
-  Future<String> createPanitiaPesertaL(
-      PanitiaPesertaLaporanModel panitiaPesertaLaporanModel);
-  Future<String> updatePanitiaPesertaL(
-      PanitiaPesertaLaporanModel panitiaPesertaLaporanModel);
-  Future<String> deletePanitiaPesertaL(int idPanitiaPesertaLaporan);
-
-  Future<List<PartisipanModel>> readPartisipan();
+  Future<List<PartisipanModel>> readAllPartisipan();
+  Future<PartisipanModel> readPartisipan(int idPartisipan);
   Future<String> createPartisipan(PartisipanModel partisipanModel);
   Future<String> updatePartisipan(PartisipanModel partisipanModel);
   Future<String> deletePartisipan(int idPartisipan);
 
-  Future<List<PeriodeModel>> readPeriode();
-  Future<String> createPeriode(PeriodeModel periodeModel);
-  Future<String> updatePeriode(PeriodeModel periodeModel);
-  Future<String> deletePeriode(int idPeriode);
+  Future<List<PeriodeMptModel>> readAllPeriodeMpt();
+  Future<PeriodeMptModel> readPeriodeMpt(int idPeriode);
+  Future<String> createPeriodeMpt(PeriodeMptModel periodeMptModel);
+  Future<String> updatePeriodeMpt(PeriodeMptModel periodeMptModel);
+  Future<String> deletePeriodeMpt(int idPeriode);
 
-  Future<List<PesertaModel>> readPeserta();
-  Future<String> createPeserta(PesertaModel pesertaModel);
-  Future<String> updatePeserta(PesertaModel pesertaModel);
-  Future<String> deletePeserta(int idPeserta);
+  Future<List<PesertaKegiatanLaporanModel>> readAllPesertaKegiatanLaporan();
+  Future<PesertaKegiatanLaporanModel> readPesertaKegiatanLaporan(int idPesertaKegiatanLaporan);
+  Future<String> createPesertaKegiatanLaporan(PesertaKegiatanLaporanModel pesertaKegiatanLaporanModel);
+  Future<String> updatePesertaKegiatanLaporan(PesertaKegiatanLaporanModel pesertaKegiatanLaporanModel);
+  Future<String> deletePeserta(int idPesertaKegiatanLaporan);
 
-  Future<List<PrestasiModel>> readPrestasi();
+  Future<List<PrestasiModel>> readAllPrestasi();
+  Future<PrestasiModel> readPrestasi(int idPrestasi);
   Future<String> createPrestasi(PrestasiModel prestasiModel);
   Future<String> updatePrestasi(PrestasiModel prestasiModel);
   Future<String> deletePrestasi(int idPrestasi);
 
-  Future<List<BiayaKegiatanModel>> readRincianBiayaKegiatan();
-  Future<String> createRincianBiayaKegiatan(
-      BiayaKegiatanModel rincianBiayaKegiatanModel);
-  Future<String> updateRincianBiayaKegiatan(
-      BiayaKegiatanModel rincianBiayaKegiatanModel);
-  Future<String> deleteRincianBiayaKegiatan(int idRincianBiayaKegiatan);
+  Future<RevisiLaporanModel> readRevisiLaporan(int idRevisiLaporan);
+  Future<void> createRevisiLaporan(RevisiLaporanModel revisiLaporanModel);
+  Future<void> updateRevisiLaporan(RevisiLaporanModel revisiLaporanModel);
+  Future<void> deleteRevisiLaporan(int idRevisiLaporan);
 
-  Future<List<RincianLaporanModel>> readRincianLaporan();
-  Future<String> createRincianLaporan(RincianLaporanModel rincianLaporanModel);
-  Future<String> updateRincianLaporan(RincianLaporanModel rincianLaporanModel);
-  Future<String> deleteRincianLaporan(int idRincianL);
+  Future<RevisiUsulanModel> readRevisiUsulan(int idRevisiUsulan);
+  Future<void> createRevisiUsulan(RevisiUsulanModel revisiUsulanModel);
+  Future<void> updateRevisiUsulan(RevisiUsulanModel revisiUsulanModel);
+  Future<void> deleteRevisiUsulan(int idRevisiUsulan);
 
-  Future<List<RiwayatMptModel>> readRiwayatMpt();
+  Future<RincianBiayaKegiatanModel> readRincianBiayaKegiatan(int idRincianBiayaKegiatan);
+  Future<void> createRincianBiayaKegiatan(RincianBiayaKegiatanModel rincianBiayaKegiatanModel);
+  Future<void> updateRincianBiayaKegiata(RincianBiayaKegiatanModel rincianBiayaKegiatanModel);
+  Future<void> deleteRincianBiayaKegiatan(int idRincianBiayaKegiatan);
+
+  Future<List<RiwayatMptModel>> readAllRiwayatMpt();
+  Future<RiwayatMptModel> readRiwayatMpt(int idRiwayatMpt);
   Future<String> createRiwayatMpt(RiwayatMptModel riwayatMptModel);
   Future<String> updateRiwayatMpt(RiwayatMptModel riwayatMptModel);
   Future<String> deleteRiwayatMpt(int idRiwayatMpt);
 
-  Future<List<SessionModel>> readSession();
+  Future<List<SessionModel>> readAllSession();
+  Future<SessionModel> readSession(int idSession);
   Future<String> createSession(SessionModel sessionModel);
   Future<String> updateSession(SessionModel sessionModel);
   Future<String> deleteSession(int idSession);
 
-  Future<List<TertibAcaraModel>> readTertibAcara();
+  Future<List<TertibAcaraModel>> readAllTertibAcara();
+  Future<TertibAcaraModel> readTertibAcara(int idTertibAcara);
   Future<String> createTertibAcara(TertibAcaraModel tertibAcaraModel);
   Future<String> updateTertibAcara(TertibAcaraModel tertibAcaraModel);
   Future<String> deleteTertibAcara(int idTertibAcara);
 
-  Future<List<MipokaUserModel>> readUser();
-  Future<String> createUser(MipokaUserModel userModel);
-  Future<String> updateUser(MipokaUserModel userModel);
-  Future<String> deleteUser(int idUser);
+  Future<List<MipokaUserModel>> readAllMipokaUser();
+  Future<MipokaUserModel> readMipokaUser(int idUser);
+  Future<String> createMipokaUser(MipokaUserModel mipokaUserModel);
+  Future<String> updateMipokaUser(MipokaUserModel mipokaUserModel);
+  Future<String> deleteMipokaUser(int idUser);
 
-  Future<UsulanKegiatanModel> readUsulanKegiatan(int idUsulanKegiatan);
   Future<List<UsulanKegiatanModel>> readAllUsulanKegiatan();
+  Future<UsulanKegiatanModel> readUsulanKegiatan(int idUsulanKegiatan);
   Future<String> createUsulanKegiatan(UsulanKegiatanModel usulanKegiatanModel);
   Future<String> updateUsulanKegiatan(UsulanKegiatanModel usulanKegiatanModel);
   Future<String> deleteUsulanKegiatan(int idUsulan);
@@ -229,7 +224,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   // => Biaya kegiatanModel
   @override
-  Future<List<BiayaKegiatanModel>> readBiayaKegiatan() async {
+  Future<List<BiayaKegiatanModel>> readAllBiayaKegiatan() async {
     final String response =
         await rootBundle.loadString('assets/json_file/biaya.json');
     List<dynamic> resultList = json.decode(response);
@@ -273,7 +268,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   // => kegiatanModel
   @override
-  Future<String> createKegiatan(KegiatanModel kegiatanModel) async {
+  Future<String> createKegiatanMpt(KegiatanModel kegiatanModel) async {
     if (kDebugMode) {
       print(kegiatanModel.toJson());
     }
@@ -282,7 +277,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<KegiatanModel>> readKegiatan() async {
+  Future<List<KegiatanModel>> readAllKegiatanMpt() async {
     final String response =
         await rootBundle.loadString('assets/json_file/kegiatan_mpt.json');
     List<dynamic> resultList = json.decode(response);
@@ -295,7 +290,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<String> updateKegiatan(KegiatanModel kegiatanModel) async {
+  Future<String> updateKegiatanMpt(KegiatanModel kegiatanModel) async {
     if (kDebugMode) {
       print(kegiatanModel.toJson());
     }
@@ -304,7 +299,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<String> deleteKegiatan(int kegiatanId) async {
+  Future<String> deleteKegiatanMpt(int kegiatanId) async {
     if (kDebugMode) {
       print('Kegiatan with ID $kegiatanId has been deleted successfully.');
     }
@@ -408,7 +403,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<LaporanModel>> readLaporan() async {
+  Future<List<LaporanModel>> readAllLaporan() async {
     final String response =
         await rootBundle.loadString('assets/json_file/laporan.json');
     List<dynamic> resultList = json.decode(response);
@@ -449,7 +444,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<OrmawaModel>> readOrmawa() async {
+  Future<List<OrmawaModel>> readAllOrmawa() async {
     final String response =
         await rootBundle.loadString('assets/json_file/ormawa.json');
     List<dynamic> resultList = json.decode(response);
@@ -533,7 +528,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<PartisipanModel>> readPartisipan() async {
+  Future<List<PartisipanModel>> readAllPartisipan() async {
     final String response =
         await rootBundle.loadString('assets/json_file/partisipan.json');
     List<dynamic> resultList = json.decode(response);
@@ -565,7 +560,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   // => Periode
   @override
-  Future<String> createPeriode(PeriodeModel periodeModel) async {
+  Future<String> createPeriodeMpt(PeriodeModel periodeModel) async {
     if (kDebugMode) {
       print(periodeModel.toJson());
     }
@@ -574,7 +569,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<PeriodeModel>> readPeriode() async {
+  Future<List<PeriodeModel>> readAllPeriodeMpt() async {
     final String response =
         await rootBundle.loadString('assets/json_file/periode_mpt.json');
     List<dynamic> resultList = json.decode(response);
@@ -587,7 +582,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<String> updatePeriode(PeriodeModel periodeModel) async {
+  Future<String> updatePeriodeMpt(PeriodeModel periodeModel) async {
     if (kDebugMode) {
       print(periodeModel.toJson());
     }
@@ -596,7 +591,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<String> deletePeriode(int idPeriode) async {
+  Future<String> deletePeriodeMpt(int idPeriode) async {
     if (kDebugMode) {
       print('Periode with ID $idPeriode has been deleted successfully.');
     }
@@ -606,7 +601,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   // => pesertaModel
   @override
-  Future<String> createPeserta(PesertaModel pesertaModel) async {
+  Future<String> createPesertaKegiatanLaporan(PesertaModel pesertaModel) async {
     if (kDebugMode) {
       print(pesertaModel.toJson());
     }
@@ -615,7 +610,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<PesertaModel>> readPeserta() async {
+  Future<List<PesertaModel>> readAllPesertaKegiatanLaporan() async {
     final String response =
         await rootBundle.loadString('assets/json_file/peserta.json');
     List<dynamic> resultList = json.decode(response);
@@ -628,7 +623,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<String> updatePeserta(PesertaModel pesertaModel) async {
+  Future<String> updatePesertaKegiatanLaporan(PesertaModel pesertaModel) async {
     if (kDebugMode) {
       print(pesertaModel.toJson());
     }
@@ -656,7 +651,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<PrestasiModel>> readPrestasi() async {
+  Future<List<PrestasiModel>> readAllPrestasi() async {
     final String response =
         await rootBundle.loadString('assets/json_file/prestasi.json');
     List<dynamic> resultList = json.decode(response);
@@ -785,7 +780,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<RiwayatMptModel>> readRiwayatMpt() async {
+  Future<List<RiwayatMptModel>> readAllRiwayatMpt() async {
     final String response =
         await rootBundle.loadString('assets/json_file/riwayat_mpt.json');
     List<dynamic> resultList = json.decode(response);
@@ -826,7 +821,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<SessionModel>> readSession() async {
+  Future<List<SessionModel>> readAllSession() async {
     final String response =
         await rootBundle.loadString('assets/json_file/session.json');
     List<dynamic> resultList = json.decode(response);
@@ -867,7 +862,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<TertibAcaraModel>> readTertibAcara() async {
+  Future<List<TertibAcaraModel>> readAllTertibAcara() async {
     final String response =
         await rootBundle.loadString('assets/json_file/tertib_acara.json');
     List<dynamic> resultList = json.decode(response);
@@ -900,7 +895,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   // => UserModel
   @override
-  Future<String> createUser(MipokaUserModel userModel) async {
+  Future<String> createMipokaUser(MipokaUserModel userModel) async {
     if (kDebugMode) {
       print(userModel.toJson());
     }
@@ -909,7 +904,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<MipokaUserModel>> readUser() async {
+  Future<List<MipokaUserModel>> readAllMipokaUser() async {
     final String response =
         await rootBundle.loadString('assets/json_file/mipoka_user.json');
     List<dynamic> resultList = json.decode(response);
@@ -922,7 +917,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<String> updateUser(MipokaUserModel userModel) async {
+  Future<String> updateMipokaUser(MipokaUserModel userModel) async {
     if (kDebugMode) {
       print(userModel.toJson());
     }
@@ -931,7 +926,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<String> deleteUser(int idUser) async {
+  Future<String> deleteMipokaUser(int idUser) async {
     if (kDebugMode) {
       print('User with ID $idUser has been deleted successfully.');
     }
