@@ -24,7 +24,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _namaLengkapController = TextEditingController();
   final TextEditingController _nimController = TextEditingController();
-  final TextEditingController _noTelController = TextEditingController();
+  final TextEditingController _noHpController = TextEditingController();
   final TextEditingController _semesterController = TextEditingController();
   final TextEditingController _kelasController = TextEditingController();
   final TextEditingController _prodiController = TextEditingController();
@@ -90,7 +90,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
 
                 RegisterTextField(
-                  controller: _noTelController,
+                  controller: _noHpController,
                   title: "Nomor Telepon",
                   textInputType: TextInputType.phone,
                 ),
@@ -114,70 +114,36 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 LoginButton(
                   title: 'Daftar',
                   onTap:() async {
-                    // if (_emailController.text.isEmpty || _passwordController.text.isEmpty ||
-                    //     _namaLengkapController.text.isEmpty || _nimController.text.isEmpty ||
-                    //     _noTelController.text.isEmpty || _semesterController.text.isEmpty ||
-                    //     _kelasController.text.isEmpty || _prodiController.text.isEmpty) {
-                    //   print('Please fill all field');
-                    // } else {
-                    //   try {
-                    //     UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                    //       email: _emailController.text,
-                    //       password: _passwordController.text,
-                    //     );
-                    //   } catch (e) {
-                    //     if (kDebugMode) {
-                    //       final errorMessage = e.toString();
-                    //       final startIndex = errorMessage.indexOf("Firebase:");
-                    //       final errorText = errorMessage.substring(startIndex);
-                    //
-                    //       print(errorText);
-                    //     }
-                    //   }
-                    // }
                     try {
                       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
                         email: _emailController.text,
                         password: _passwordController.text,
                       );
-
                       User? user = FirebaseAuth.instance.currentUser;
+
                       context.read<MipokaUserBloc>().add(
-                        CreateUserEvent(
+                        CreateMipokaUserEvent(
                           mipokaUser: MipokaUser(
-                            idUser: user?.uid ?? "",
-                            idOrmawa: 0,
-                            idOrmawaB: 0,
-                            email: user?.email ?? "",
+                            idUser: user!.uid,
+                            idOrmawa: const [],
+                            email: _emailController.text,
                             namaLengkap: _namaLengkapController.text,
                             nim: _nimController.text,
-                            noHp: _noTelController.text,
+                            noHp: _noHpController.text,
                             image: "",
-                            mpt: 0,
-                            semester: _semesterController.text,
-                            kelas: _kelasController.text,
+                            pointMpt: 0,
+                            semester: 0,
+                            kelas: "",
                             periodeMpt: "",
-                            status: "",
-                            prodi: _prodiController.text,
-                            createdAt: DateFormat('dd-MM-yyyy').format(DateTime.now()).toString(),
-                            updatedAt: DateFormat('dd-MM-yyyy').format(DateTime.now()).toString(),
-                            ormawa: Ormawa(
-                              idOrmawa: 0,
-                              namaOrmawa: "",
-                              pembina: "",
-                              ketua: "",
-                              wakil: "",
-                              bendahara: "",
-                              jumlahAnggota: 0,
-                              fotoPembina: "",
-                              fotoKetua: "",
-                              fotoWakil: "",
-                              fotoBendahara: "",
-                            ),
+                            statusMpt: "",
+                            prodi: "",
+                            createdAt: DateFormat('dd-MM-yyyy').format(DateTime.now()),
+                            updatedAt: DateFormat('dd-MM-yyyy').format(DateTime.now()),
+                            createdBy: _emailController.text,
+                            updatedBy: _emailController.text,
                           ),
                         ),
                       );
-
                       // Navigator.pushNamed(context, loginPageRoute);
                     } catch (e) {
                       if (kDebugMode) {

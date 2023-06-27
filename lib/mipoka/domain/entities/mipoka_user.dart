@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class MipokaUser extends Equatable{
-  final int idUser;
+  final String idUser;
   final List<int> idOrmawa;
   final String email;
   final String namaLengkap;
@@ -40,7 +40,7 @@ class MipokaUser extends Equatable{
   });
 
   MipokaUser copyWith({
-    int? idUser,
+    String? idUser,
     List<int>? idOrmawa,
     String? email,
     String? namaLengkap,
