@@ -11,13 +11,22 @@ class RiwayatMptEmpty extends RiwayatMptState {}
 
 class RiwayatMptLoading extends RiwayatMptState {}
 
-class RiwayatMptHasData extends RiwayatMptState {
+class AllRiwayatMptHasData extends RiwayatMptState {
   final List<RiwayatMpt> riwayatMptList;
 
-  const RiwayatMptHasData({required this.riwayatMptList});
+  const AllRiwayatMptHasData({required this.riwayatMptList});
 
   @override
   List<Object> get props => [riwayatMptList];
+}
+
+class RiwayatMptHasData extends RiwayatMptState {
+  final RiwayatMpt riwayatMpt;
+
+  const RiwayatMptHasData({required this.riwayatMpt});
+
+  @override
+  List<Object> get props => [riwayatMpt];
 }
 
 class RiwayatMptError extends RiwayatMptState {

@@ -24,7 +24,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
   void initState() {
     super.initState();
     BlocProvider.of<RiwayatMptBloc>(context, listen: false)
-        .add(ReadRiwayatMptEvent());
+        .add(ReadAllRiwayatMptEvent());
   }
 
   @override
@@ -37,7 +37,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
           builder: (context, state) {
             if (state is RiwayatMptLoading) {
               return const Text('Loading');
-            } else if (state is RiwayatMptHasData) {
+            } else if (state is AllRiwayatMptHasData) {
               return Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(

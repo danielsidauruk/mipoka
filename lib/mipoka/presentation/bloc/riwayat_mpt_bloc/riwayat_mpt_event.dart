@@ -7,7 +7,13 @@ abstract class RiwayatMptEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ReadRiwayatMptEvent extends RiwayatMptEvent {}
+class ReadAllRiwayatMptEvent extends RiwayatMptEvent {}
+
+class ReadRiwayatMptEvent extends RiwayatMptEvent {
+  final int idRiwayatMptEvent;
+
+  const ReadRiwayatMptEvent({required this.idRiwayatMptEvent});
+}
 
 class CreateRiwayatMptEvent extends RiwayatMptEvent {
   final RiwayatMpt riwayatMpt;

@@ -10,7 +10,8 @@ class RiwayatMptBloc extends Bloc<RiwayatMptEvent, RiwayatMptState> {
   final RiwayatMptUseCase riwayatMptUseCase;
 
   RiwayatMptBloc({required this.riwayatMptUseCase}) : super(RiwayatMptEmpty()) {
-    on<ReadRiwayatMptEvent>((event, emit) async {
+
+    on<ReadAllRiwayatMptEvent>((event, emit) async {
       emit(RiwayatMptLoading());
 
       final result = await riwayatMptUseCase.readAllRiwayatMpt();
@@ -18,7 +19,18 @@ class RiwayatMptBloc extends Bloc<RiwayatMptEvent, RiwayatMptState> {
       result.fold(
             (failure) => emit(RiwayatMptError(message: failure.message)),
             (riwayatMptList) =>
-            emit(RiwayatMptHasData(riwayatMptList: riwayatMptList)),
+            emit(AllRiwayatMptHasData(riwayatMptList: riwayatMptList)),
+      );
+    });
+
+    on<ReadRiwayatMptEvent>((event, emit) async {
+      emit(RiwayatMptLoading());
+
+      final result = await riwayatMptUseCase.readRiwayatMpt(event.idRiwayatMptEvent);
+
+      result.fold(
+            (failure) => emit(RiwayatMptError(message: failure.message)),
+            (riwayatMpt) => emit(RiwayatMptHasData(riwayatMpt: riwayatMpt)),
       );
     });
 
@@ -33,7 +45,7 @@ class RiwayatMptBloc extends Bloc<RiwayatMptEvent, RiwayatMptState> {
             (message) => emit(RiwayatMptSuccessMessage(message: message)),
       );
 
-      add(ReadRiwayatMptEvent());
+      add(ReadAllRiwayatMptEvent());
     });
 
     on<UpdateRiwayatMptEvent>((event, emit) async {
@@ -47,7 +59,7 @@ class RiwayatMptBloc extends Bloc<RiwayatMptEvent, RiwayatMptState> {
             (message) => emit(RiwayatMptSuccessMessage(message: message)),
       );
 
-      add(ReadRiwayatMptEvent());
+      add(ReadAllRiwayatMptEvent());
     });
 
     on<DeleteRiwayatMptEvent>((event, emit) async {
@@ -61,7 +73,7 @@ class RiwayatMptBloc extends Bloc<RiwayatMptEvent, RiwayatMptState> {
             (message) => emit(RiwayatMptSuccessMessage(message: message)),
       );
 
-      add(ReadRiwayatMptEvent());
+      add(ReadAllRiwayatMptEvent());
     });
   }
 }
