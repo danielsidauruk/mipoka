@@ -28,10 +28,10 @@ abstract class MipokaDataSources {
   Future<String> updateBerita(BeritaModel beritaModel);
   Future<String> deleteBerita(int beritaId);
 
-  Future<List<AdminModel>> readAdmin();
+  Future<AdminModel> readAdmin(int idAdmin);
   Future<String> createAdmin(AdminModel adminModel);
   Future<String> updateAdmin(AdminModel adminModel);
-  Future<String> deleteAdmin(int adminId);
+  Future<String> deleteAdmin(int idAdmin);
 
   Future<List<BiayaKegiatanModel>> readAllBiayaKegiatan();
   Future<BiayaKegiatanModel> readBiayaKegiatan(int biayaKegiatan);
@@ -93,7 +93,7 @@ abstract class MipokaDataSources {
 
   Future<RincianBiayaKegiatanModel> readRincianBiayaKegiatan(int idRincianBiayaKegiatan);
   Future<void> createRincianBiayaKegiatan(RincianBiayaKegiatanModel rincianBiayaKegiatanModel);
-  Future<void> updateRincianBiayaKegiata(RincianBiayaKegiatanModel rincianBiayaKegiatanModel);
+  Future<void> updateRincianBiayaKegiatan(RincianBiayaKegiatanModel rincianBiayaKegiatanModel);
   Future<void> deleteRincianBiayaKegiatan(int idRincianBiayaKegiatan);
 
   Future<List<RiwayatMptModel>> readAllRiwayatMpt();
@@ -133,12 +133,15 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   // => BeritaModel Repositories
   @override
-  Future<String> createBerita(BeritaModel beritaModel) async {
-    if (kDebugMode) {
-      print(beritaModel.toJson());
-    }
+  Future<List<BeritaModel>> readAllBerita() async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/berita_list.json');
+    List<dynamic> resultList = json.decode(response);
 
-    return "Berita has been created successfully.";
+    List<BeritaModel> result =
+    resultList.map((resultMap) => BeritaModel.fromJson(resultMap)).toList();
+
+    return result;
   }
 
   @override
@@ -153,15 +156,12 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<BeritaModel>> readAllBerita() async {
-    final String response =
-        await rootBundle.loadString('assets/json_file/berita_list.json');
-    List<dynamic> resultList = json.decode(response);
+  Future<String> createBerita(BeritaModel beritaModel) async {
+    if (kDebugMode) {
+      print(beritaModel.toJson());
+    }
 
-    List<BeritaModel> result =
-        resultList.map((resultMap) => BeritaModel.fromJson(resultMap)).toList();
-
-    return result;
+    return "Berita has been created successfully.";
   }
 
   @override
@@ -193,13 +193,12 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<AdminModel>> readAdmin() async {
+  Future<AdminModel> readAdmin(int idAdmin) async {
     final String response =
-        await rootBundle.loadString('assets/json_file/admin_list.json');
-    List<dynamic> resultList = json.decode(response);
+        await rootBundle.loadString('assets/json_file/admin.json');
+    dynamic jsonResult = json.decode(response);
 
-    List<AdminModel> result =
-        resultList.map((resultMap) => AdminModel.fromJson(resultMap)).toList();
+    AdminModel result = AdminModel.fromJson(jsonResult);
 
     return result;
   }
@@ -222,7 +221,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     return "Berita has been deleted successfully.";
   }
 
-  // => Biaya kegiatanModel
+  // => Biaya kegiatanModel (~)
   @override
   Future<List<BiayaKegiatanModel>> readAllBiayaKegiatan() async {
     final String response =
@@ -232,6 +231,17 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     List<BiayaKegiatanModel> result = resultList
         .map((resultMap) => BiayaKegiatanModel.fromJson(resultMap))
         .toList();
+
+    return result;
+  }
+
+  @override
+  Future<BiayaKegiatanModel> readBiayaKegiatan(int biayaKegiatan) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/kegiatan_mpt.json');
+    dynamic jsonResult = json.decode(response);
+
+    BiayaKegiatanModel result = BiayaKegiatanModel.fromJson(jsonResult);
 
     return result;
   }
@@ -268,31 +278,42 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   // => kegiatanModel
   @override
-  Future<String> createKegiatanMpt(KegiatanModel kegiatanModel) async {
+  Future<String> createKegiatanMpt(KegiatanMptModel kegiatanMptModel) async {
     if (kDebugMode) {
-      print(kegiatanModel.toJson());
+      print(kegiatanMptModel.toJson());
     }
 
     return "Kegiatan has been created successfully.";
   }
 
   @override
-  Future<List<KegiatanModel>> readAllKegiatanMpt() async {
+  Future<KegiatanMptModel> readKegiatanMpt(int idKegiatanMpt) async {
     final String response =
-        await rootBundle.loadString('assets/json_file/kegiatan_mpt.json');
+    await rootBundle.loadString('assets/json_file/kegiatan_mpt.json');
+    dynamic jsonResult = json.decode(response);
+
+    KegiatanMptModel result = KegiatanMptModel.fromJson(jsonResult);
+
+    return result;
+  }
+
+  @override
+  Future<List<KegiatanMptModel>> readAllKegiatanMpt() async {
+    final String response =
+        await rootBundle.loadString('assets/json_file/kegiatan_mpt_list.json');
     List<dynamic> resultList = json.decode(response);
 
-    List<KegiatanModel> result = resultList
-        .map((resultMap) => KegiatanModel.fromJson(resultMap))
+    List<KegiatanMptModel> result = resultList
+        .map((resultMap) => KegiatanMptModel.fromJson(resultMap))
         .toList();
 
     return result;
   }
 
   @override
-  Future<String> updateKegiatanMpt(KegiatanModel kegiatanModel) async {
+  Future<String> updateKegiatanMpt(KegiatanMptModel kegiatanMptModel) async {
     if (kDebugMode) {
-      print(kegiatanModel.toJson());
+      print(kegiatanMptModel.toJson());
     }
 
     return "Kegiatan has been updated successfully.";
@@ -305,91 +326,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     }
 
     return "Berita has been deleted successfully.";
-  }
-
-  // => LampiranModel Laporan
-  @override
-  Future<String> createLampiranLaporan(
-      LampiranLaporanModel lampiranLaporanModel) async {
-    if (kDebugMode) {
-      print(lampiranLaporanModel.toJson());
-    }
-
-    return "Lampiran Laporan has been created successfully.";
-  }
-
-  @override
-  Future<List<LampiranLaporanModel>> readLampiranLaporan() async {
-    final String response =
-        await rootBundle.loadString('assets/json_file/lampiran.json');
-    List<dynamic> resultList = json.decode(response);
-
-    List<LampiranLaporanModel> result = resultList
-        .map((resultMap) => LampiranLaporanModel.fromJson(resultMap))
-        .toList();
-
-    return result;
-  }
-
-  @override
-  Future<String> updateLampiranLaporan(
-      LampiranLaporanModel lampiranLaporanModel) async {
-    if (kDebugMode) {
-      print(lampiranLaporanModel.toJson());
-    }
-
-    return "Lampiran Laporan has been updated successfully.";
-  }
-
-  @override
-  Future<String> deleteLampiranLaporan(int lampiranLaporanId) async {
-    if (kDebugMode) {
-      print(
-          'Lampiran Laporan with ID $lampiranLaporanId has been deleted successfully.');
-    }
-
-    return "Lampiran has been deleted successfully.";
-  }
-
-  // => LampiranModel
-  @override
-  Future<String> createLampiran(LampiranModel lampiranModel) async {
-    if (kDebugMode) {
-      print(lampiranModel.toJson());
-    }
-
-    return "Lampiran has been created successfully.";
-  }
-
-  @override
-  Future<List<LampiranModel>> readLampiran() async {
-    final String response =
-        await rootBundle.loadString('assets/json_file/lampiran.json');
-    List<dynamic> resultList = json.decode(response);
-
-    List<LampiranModel> result = resultList
-        .map((resultMap) => LampiranModel.fromJson(resultMap))
-        .toList();
-
-    return result;
-  }
-
-  @override
-  Future<String> updateLampiran(LampiranModel lampiranModel) async {
-    if (kDebugMode) {
-      print(lampiranModel.toJson());
-    }
-
-    return "Lampiran has been updated successfully.";
-  }
-
-  @override
-  Future<String> deleteLampiran(int idLampiran) async {
-    if (kDebugMode) {
-      print('Lampiran with ID $idLampiran has been deleted successfully.');
-    }
-
-    return "Lampiran has been deleted successfully.";
   }
 
   // Laporan
@@ -405,12 +341,23 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<LaporanModel>> readAllLaporan() async {
     final String response =
-        await rootBundle.loadString('assets/json_file/laporan.json');
+        await rootBundle.loadString('assets/json_file/laporan_list.json');
     List<dynamic> resultList = json.decode(response);
 
     List<LaporanModel> result = resultList
         .map((resultMap) => LaporanModel.fromJson(resultMap))
         .toList();
+
+    return result;
+  }
+
+  @override
+  Future<LaporanModel> readLaporan(int idLaporan) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/laporan.json');
+    dynamic jsonResult = json.decode(response);
+
+    LaporanModel result = LaporanModel.fromJson(jsonResult);
 
     return result;
   }
@@ -446,11 +393,22 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<OrmawaModel>> readAllOrmawa() async {
     final String response =
-        await rootBundle.loadString('assets/json_file/ormawa.json');
+        await rootBundle.loadString('assets/json_file/ormawa_list.json');
     List<dynamic> resultList = json.decode(response);
 
     List<OrmawaModel> result =
         resultList.map((resultMap) => OrmawaModel.fromJson(resultMap)).toList();
+
+    return result;
+  }
+
+  @override
+  Future<OrmawaModel> readOrmawa(int idOrmawa) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/ormawa.json');
+    dynamic jsonResult = json.decode(response);
+
+    OrmawaModel result = OrmawaModel.fromJson(jsonResult);
 
     return result;
   }
@@ -473,50 +431,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     return "Ormawa has been deleted successfully.";
   }
 
-  // => Panitia pesertaModel Laporan
-  @override
-  Future<String> createPanitiaPesertaL(
-      PanitiaPesertaLaporanModel panitiaPesertaLaporanModel) async {
-    if (kDebugMode) {
-      print(panitiaPesertaLaporanModel.toJson());
-    }
-
-    return "Panitia Peserta Laporan has been created successfully.";
-  }
-
-  @override
-  Future<List<PanitiaPesertaLaporanModel>> readPanitiaPesertaL() async {
-    final String response = await rootBundle
-        .loadString('assets/json_file/panitia_peserta_laporan.json');
-    List<dynamic> resultList = json.decode(response);
-
-    List<PanitiaPesertaLaporanModel> result = resultList
-        .map((resultMap) => PanitiaPesertaLaporanModel.fromJson(resultMap))
-        .toList();
-
-    return result;
-  }
-
-  @override
-  Future<String> updatePanitiaPesertaL(
-      PanitiaPesertaLaporanModel panitiaPesertaLaporanModel) async {
-    if (kDebugMode) {
-      print(panitiaPesertaLaporanModel.toJson());
-    }
-
-    return "Panitia Peserta Laporan has been updated successfully.";
-  }
-
-  @override
-  Future<String> deletePanitiaPesertaL(int idPanitiaPesertaLaporan) async {
-    if (kDebugMode) {
-      print(
-          'Panitia Peserta Laporan with ID $idPanitiaPesertaLaporan has been deleted successfully.');
-    }
-
-    return "Panitia Peserta Laporan has been deleted successfully.";
-  }
-
   // => PartisipanModel
   @override
   Future<String> createPartisipan(PartisipanModel partisipanModel) async {
@@ -530,12 +444,23 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<PartisipanModel>> readAllPartisipan() async {
     final String response =
-        await rootBundle.loadString('assets/json_file/partisipan.json');
+        await rootBundle.loadString('assets/json_file/partisipan_list.json');
     List<dynamic> resultList = json.decode(response);
 
     List<PartisipanModel> result = resultList
         .map((resultMap) => PartisipanModel.fromJson(resultMap))
         .toList();
+
+    return result;
+  }
+
+  @override
+  Future<PartisipanModel> readPartisipan(int idPartisipan) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/partisipan.json');
+    dynamic jsonResult = json.decode(response);
+
+    PartisipanModel result = PartisipanModel.fromJson(jsonResult);
 
     return result;
   }
@@ -560,31 +485,42 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   // => Periode
   @override
-  Future<String> createPeriodeMpt(PeriodeModel periodeModel) async {
+  Future<String> createPeriodeMpt(PeriodeMptModel periodeMptModel) async {
     if (kDebugMode) {
-      print(periodeModel.toJson());
+      print(periodeMptModel.toJson());
     }
 
     return "Periode has been created successfully.";
   }
 
   @override
-  Future<List<PeriodeModel>> readAllPeriodeMpt() async {
+  Future<List<PeriodeMptModel>> readAllPeriodeMpt() async {
     final String response =
-        await rootBundle.loadString('assets/json_file/periode_mpt.json');
+        await rootBundle.loadString('assets/json_file/periode_mpt_list.json');
     List<dynamic> resultList = json.decode(response);
 
-    List<PeriodeModel> result = resultList
-        .map((resultMap) => PeriodeModel.fromJson(resultMap))
+    List<PeriodeMptModel> result = resultList
+        .map((resultMap) => PeriodeMptModel.fromJson(resultMap))
         .toList();
 
     return result;
   }
 
   @override
-  Future<String> updatePeriodeMpt(PeriodeModel periodeModel) async {
+  Future<PeriodeMptModel> readPeriodeMpt(int idPeriode) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/periode_mpt.json');
+    dynamic jsonResult = json.decode(response);
+
+    PeriodeMptModel result = PeriodeMptModel.fromJson(jsonResult);
+
+    return result;
+  }
+
+  @override
+  Future<String> updatePeriodeMpt(PeriodeMptModel periodeMptModel) async {
     if (kDebugMode) {
-      print(periodeModel.toJson());
+      print(periodeMptModel.toJson());
     }
 
     return "Periode has been updated successfully.";
@@ -599,33 +535,44 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     return "Periode has been deleted successfully.";
   }
 
-  // => pesertaModel
+  // => pesertaKegiatanLaporanModel
   @override
-  Future<String> createPesertaKegiatanLaporan(PesertaModel pesertaModel) async {
+  Future<String> createPesertaKegiatanLaporan(PesertaKegiatanLaporanModel pesertaKegiatanLaporanModel) async {
     if (kDebugMode) {
-      print(pesertaModel.toJson());
+      print(pesertaKegiatanLaporanModel.toJson());
     }
 
     return "Peserta has been created successfully.";
   }
 
   @override
-  Future<List<PesertaModel>> readAllPesertaKegiatanLaporan() async {
+  Future<List<PesertaKegiatanLaporanModel>> readAllPesertaKegiatanLaporan() async {
     final String response =
         await rootBundle.loadString('assets/json_file/peserta.json');
     List<dynamic> resultList = json.decode(response);
 
-    List<PesertaModel> result = resultList
-        .map((resultMap) => PesertaModel.fromJson(resultMap))
+    List<PesertaKegiatanLaporanModel> result = resultList
+        .map((resultMap) => PesertaKegiatanLaporanModel.fromJson(resultMap))
         .toList();
 
     return result;
   }
 
   @override
-  Future<String> updatePesertaKegiatanLaporan(PesertaModel pesertaModel) async {
+  Future<PesertaKegiatanLaporanModel> readPesertaKegiatanLaporan(int idPesertaKegiatanLaporan) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/periode_mpt.json');
+    dynamic jsonResult = json.decode(response);
+
+    PesertaKegiatanLaporanModel result = PesertaKegiatanLaporanModel.fromJson(jsonResult);
+
+    return result;
+  }
+
+  @override
+  Future<String> updatePesertaKegiatanLaporan(PesertaKegiatanLaporanModel pesertaKegiatanLaporanModel) async {
     if (kDebugMode) {
-      print(pesertaModel.toJson());
+      print(pesertaKegiatanLaporanModel.toJson());
     }
 
     return "Peserta has been updated successfully.";
@@ -664,6 +611,17 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
+  Future<PrestasiModel> readPrestasi(int idPrestasi) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/prestasi.json');
+    dynamic jsonResult = json.decode(response);
+
+    PrestasiModel result = PrestasiModel.fromJson(jsonResult);
+
+    return result;
+  }
+
+  @override
   Future<String> updatePrestasi(PrestasiModel prestasiModel) async {
     if (kDebugMode) {
       print(prestasiModel.toJson());
@@ -681,92 +639,106 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     return "Prestasi has been deleted successfully.";
   }
 
-  // => Rincian Biaya kegiatanModel
+  // => Revisi Laporan Model
   @override
-  Future<String> createRincianBiayaKegiatan(
-      BiayaKegiatanModel rincianBiayaKegiatanModel) async {
-    if (kDebugMode) {
-      print(rincianBiayaKegiatanModel.toJson());
-    }
+  Future<RevisiLaporanModel> readRevisiLaporan(int idRevisiLaporan) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/revisi_laporan.json');
+    dynamic jsonResult = json.decode(response);
 
-    return "Rincian Biaya Kegiatan has been created successfully.";
-  }
-
-  @override
-  Future<List<BiayaKegiatanModel>> readRincianBiayaKegiatan() async {
-    final String response = await rootBundle
-        .loadString('assets/json_file/biaya.json');
-    List<dynamic> resultList = json.decode(response);
-
-    List<BiayaKegiatanModel> result = resultList
-        .map((resultMap) => BiayaKegiatanModel.fromJson(resultMap))
-        .toList();
+    RevisiLaporanModel result = RevisiLaporanModel.fromJson(jsonResult);
 
     return result;
   }
 
   @override
-  Future<String> updateRincianBiayaKegiatan(
-      BiayaKegiatanModel rincianBiayaKegiatanModel) async {
+  Future<void> createRevisiLaporan(RevisiLaporanModel revisiLaporanModel) async {
     if (kDebugMode) {
-      print(rincianBiayaKegiatanModel.toJson());
+      print(revisiLaporanModel.toJson());
     }
-
-    return "Rincian Biaya Kegiatan has been updated successfully.";
   }
 
   @override
-  Future<String> deleteRincianBiayaKegiatan(int idRincianBiayaKegiatan) async {
+  Future<void> updateRevisiLaporan(RevisiLaporanModel revisiLaporanModel) async {
+    if (kDebugMode) {
+      print(revisiLaporanModel.toJson());
+    }
+  }
+
+  @override
+  Future<void> deleteRevisiLaporan(int idRevisiLaporan) async {
+    if (kDebugMode) {
+      print(
+          'Rincian Biaya Kegiatan with ID $idRevisiLaporan has been deleted successfully.');
+    }
+  }
+
+
+  // => Revisi Usulan
+  @override
+  Future<RevisiUsulanModel> readRevisiUsulan(int idRevisiUsulan) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/revisi_usulan.json');
+    dynamic jsonResult = json.decode(response);
+
+    RevisiUsulanModel result = RevisiUsulanModel.fromJson(jsonResult);
+
+    return result;
+  }
+
+  @override
+  Future<void> createRevisiUsulan(RevisiUsulanModel revisiUsulanModel) async {
+    if (kDebugMode) {
+      print(revisiUsulanModel.toJson());
+    }
+  }
+
+  @override
+  Future<void> updateRevisiUsulan(RevisiUsulanModel revisiUsulanModel) async {
+    if (kDebugMode) {
+      print(revisiUsulanModel.toJson());
+    }
+  }
+  @override
+  Future<void> deleteRevisiUsulan(int idRevisiUsulan) async {
+    if (kDebugMode) {
+      print(
+          'Rincian Biaya Kegiatan with ID $idRevisiUsulan has been deleted successfully.');
+    }
+  }
+
+  // => Rincian Biaya kegiatanModel (~)
+  @override
+  Future<RincianBiayaKegiatanModel> readRincianBiayaKegiatan(int idRincianBiayaKegiatan) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/revisi_usulan.json');
+    dynamic jsonResult = json.decode(response);
+
+    RincianBiayaKegiatanModel result = RincianBiayaKegiatanModel.fromJson(jsonResult);
+
+    return result;
+  }
+
+  @override
+  Future<void> createRincianBiayaKegiatan(RincianBiayaKegiatanModel rincianBiayaKegiatanModel)async {
+    if (kDebugMode) {
+      print(rincianBiayaKegiatanModel.toJson());
+    }
+  }
+
+  @override
+  Future<void> updateRincianBiayaKegiatan(RincianBiayaKegiatanModel rincianBiayaKegiatanModel) async {
+    if (kDebugMode) {
+      print(rincianBiayaKegiatanModel.toJson());
+    }
+  }
+
+  @override
+  Future<void> deleteRincianBiayaKegiatan(int idRincianBiayaKegiatan) async {
     if (kDebugMode) {
       print(
           'Rincian Biaya Kegiatan with ID $idRincianBiayaKegiatan has been deleted successfully.');
     }
-
-    return "Rincian Biaya Kegiatan has been deleted successfully.";
-  }
-
-  // => Rincian Laporan
-  @override
-  Future<String> createRincianLaporan(
-      RincianLaporanModel rincianLaporanModel) async {
-    if (kDebugMode) {
-      print(rincianLaporanModel.toJson());
-    }
-
-    return "Rincian Laporan has been created successfully.";
-  }
-
-  @override
-  Future<List<RincianLaporanModel>> readRincianLaporan() async {
-    final String response =
-        await rootBundle.loadString('assets/json_file/rincian_laporan.json');
-    List<dynamic> resultList = json.decode(response);
-
-    List<RincianLaporanModel> result = resultList
-        .map((resultMap) => RincianLaporanModel.fromJson(resultMap))
-        .toList();
-
-    return result;
-  }
-
-  @override
-  Future<String> updateRincianLaporan(
-      RincianLaporanModel rincianLaporanModel) async {
-    if (kDebugMode) {
-      print(rincianLaporanModel.toJson());
-    }
-
-    return "Rincian Laporan has been updated successfully.";
-  }
-
-  @override
-  Future<String> deleteRincianLaporan(int idRincianL) async {
-    if (kDebugMode) {
-      print(
-          'Rincian Laporan with ID $idRincianL has been deleted successfully.');
-    }
-
-    return "Rincian Laporan has been deleted successfully.";
   }
 
   // => Riwayat MPT
@@ -782,12 +754,23 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<RiwayatMptModel>> readAllRiwayatMpt() async {
     final String response =
-        await rootBundle.loadString('assets/json_file/riwayat_mpt.json');
+        await rootBundle.loadString('assets/json_file/riwayat_mpt_list.json');
     List<dynamic> resultList = json.decode(response);
 
     List<RiwayatMptModel> result = resultList
         .map((resultMap) => RiwayatMptModel.fromJson(resultMap))
         .toList();
+
+    return result;
+  }
+
+  @override
+  Future<RiwayatMptModel> readRiwayatMpt(int idRiwayatMpt) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/revisi_usulan.json');
+    dynamic jsonResult = json.decode(response);
+
+    RiwayatMptModel result = RiwayatMptModel.fromJson(jsonResult);
 
     return result;
   }
@@ -823,12 +806,23 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<SessionModel>> readAllSession() async {
     final String response =
-        await rootBundle.loadString('assets/json_file/session.json');
+        await rootBundle.loadString('assets/json_file/session_list.json');
     List<dynamic> resultList = json.decode(response);
 
     List<SessionModel> result = resultList
         .map((resultMap) => SessionModel.fromJson(resultMap))
         .toList();
+
+    return result;
+  }
+
+  @override
+  Future<SessionModel> readSession(int idSession) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/session.json');
+    dynamic jsonResult = json.decode(response);
+
+    SessionModel result = SessionModel.fromJson(jsonResult);
 
     return result;
   }
@@ -851,7 +845,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     return "Session has been deleted successfully.";
   }
 
-  // => Tertib Acara
+  // => Tertib Acara (~)
   @override
   Future<String> createTertibAcara(TertibAcaraModel tertibAcaraModel) async {
     if (kDebugMode) {
@@ -875,6 +869,17 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
+  Future<TertibAcaraModel> readTertibAcara(int idTertibAcara) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/session.json');
+    dynamic jsonResult = json.decode(response);
+
+    TertibAcaraModel result = TertibAcaraModel.fromJson(jsonResult);
+
+    return result;
+  }
+
+  @override
   Future<String> updateTertibAcara(TertibAcaraModel tertibAcaraModel) async {
     if (kDebugMode) {
       print(tertibAcaraModel.toJson());
@@ -893,7 +898,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     return "Tertib Acara has been deleted successfully.";
   }
 
-  // => UserModel
+  // => MipokaUserModel
   @override
   Future<String> createMipokaUser(MipokaUserModel userModel) async {
     if (kDebugMode) {
@@ -906,12 +911,23 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<MipokaUserModel>> readAllMipokaUser() async {
     final String response =
-        await rootBundle.loadString('assets/json_file/mipoka_user.json');
+        await rootBundle.loadString('assets/json_file/mipoka_user_list.json');
     List<dynamic> resultList = json.decode(response);
 
     List<MipokaUserModel> result = resultList
         .map((resultMap) => MipokaUserModel.fromJson(resultMap))
         .toList();
+
+    return result;
+  }
+
+  @override
+  Future<MipokaUserModel> readMipokaUser(int idUser) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/mipoka_user.json');
+    dynamic jsonResult = json.decode(response);
+
+    MipokaUserModel result = MipokaUserModel.fromJson(jsonResult);
 
     return result;
   }
@@ -948,7 +964,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<UsulanKegiatanModel> readUsulanKegiatan(int idUsulanKegiatan) async {
     final String response = await rootBundle
-        .loadString('assets/json_file/usulan_kegiatan_list.json');
+        .loadString('assets/json_file/usulan_kegiatan.json');
 
     dynamic jsonResult = json.decode(response);
     UsulanKegiatanModel result = UsulanKegiatanModel.fromJson(jsonResult);
@@ -963,7 +979,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<UsulanKegiatanModel>> readAllUsulanKegiatan() async {
     final String response =
-        await rootBundle.loadString('assets/json_file/usulan_kegiatan.json');
+        await rootBundle.loadString('assets/json_file/usulan_kegiatan_list.json');
     List<dynamic> resultList = json.decode(response);
 
     List<UsulanKegiatanModel> result = resultList
