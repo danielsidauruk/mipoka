@@ -10,6 +10,7 @@ class LaporanBloc extends Bloc<LaporanEvent, LaporanState> {
   final LaporanUseCase laporanUseCase;
 
   LaporanBloc({required this.laporanUseCase}) : super(LaporanEmpty()) {
+
     on<CreateLaporanEvent>((event, emit) async {
       emit(LaporanLoading());
 
@@ -19,8 +20,6 @@ class LaporanBloc extends Bloc<LaporanEvent, LaporanState> {
             (failure) => emit(LaporanError(message: failure.message)),
             (message) => emit(LaporanSuccessMessage(message: message)),
       );
-
-      add(ReadLaporanEvent());
     });
 
     on<ReadLaporanEvent>((event, emit) async {
@@ -34,6 +33,8 @@ class LaporanBloc extends Bloc<LaporanEvent, LaporanState> {
       );
     });
 
+
+
     on<UpdateLaporanEvent>((event, emit) async {
       emit(LaporanLoading());
 
@@ -43,8 +44,6 @@ class LaporanBloc extends Bloc<LaporanEvent, LaporanState> {
             (failure) => emit(LaporanError(message: failure.message)),
             (message) => emit(LaporanSuccessMessage(message: message)),
       );
-
-      add(ReadLaporanEvent());
     });
 
     on<DeleteLaporanEvent>((event, emit) async {
@@ -56,8 +55,6 @@ class LaporanBloc extends Bloc<LaporanEvent, LaporanState> {
             (failure) => emit(LaporanError(message: failure.message)),
             (message) => emit(LaporanSuccessMessage(message: message)),
       );
-
-      add(ReadLaporanEvent());
     });
   }
 }

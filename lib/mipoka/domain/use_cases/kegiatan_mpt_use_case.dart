@@ -8,7 +8,7 @@ class KegiatanMptUseCase {
 
   KegiatanMptUseCase({required this.mipokaRepositories});
 
-  Future<Either<Failure, List<KegiatanMpt>>> readAllKegiatan() {
+  Future<Either<Failure, List<KegiatanMpt>>> readAllKegiatanMpt() {
     return mipokaRepositories.readAllKegiatanMpt();
   }
 
@@ -20,11 +20,11 @@ class KegiatanMptUseCase {
     return mipokaRepositories.createKegiatanMpt(kegiatan);
   }
 
-  Future<Either<Failure, String>> updateKegiatan(KegiatanMpt kegiatan) {
+  Future<Either<Failure, String>> updateKegiatanMpt(KegiatanMpt kegiatan) {
     return mipokaRepositories.updateKegiatanMpt(kegiatan);
   }
 
-  Future<Either<Failure, String>> deleteKegiatan(int idKegiatan) {
+  Future<Either<Failure, String>> deleteKegiatanMpt(int idKegiatan) {
     return mipokaRepositories.deleteKegiatanMpt(idKegiatan);
   }
 }

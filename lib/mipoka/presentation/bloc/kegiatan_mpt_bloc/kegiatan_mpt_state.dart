@@ -20,13 +20,22 @@ class KegiatanMptError extends KegiatanMptState {
   List<Object> get props => [message];
 }
 
-class KegiatanMptHasData extends KegiatanMptState {
-  const KegiatanMptHasData({required this.kegiatanList});
+class AllKegiatanMptHasData extends KegiatanMptState {
+  const AllKegiatanMptHasData({required this.kegiatanList});
 
   final List<KegiatanMpt> kegiatanList;
 
   @override
   List<Object> get props => [kegiatanList];
+}
+
+class KegiatanMptHasData extends KegiatanMptState {
+  const KegiatanMptHasData({required this.kegiatan});
+
+  final KegiatanMpt kegiatan;
+
+  @override
+  List<Object> get props => [kegiatan];
 }
 
 class KegiatanMptSuccessMessage extends KegiatanMptState {

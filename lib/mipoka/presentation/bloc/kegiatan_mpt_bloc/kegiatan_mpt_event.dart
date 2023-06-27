@@ -16,7 +16,13 @@ class CreateKegiatanMptEvent extends KegiatanMptEvent {
   List<Object?> get props => [kegiatanMpt];
 }
 
-class ReadKegiatanMptEvent extends KegiatanMptEvent {}
+class ReadAllKegiatanMptEvent extends KegiatanMptEvent {}
+
+class ReadKegiatanMptEvent extends KegiatanMptEvent {
+  final int idKegiatanMpt;
+
+  const ReadKegiatanMptEvent({required this.idKegiatanMpt});
+}
 
 class UpdateKegiatanMptEvent extends KegiatanMptEvent {
   final KegiatanMpt kegiatanMpt;

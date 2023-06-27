@@ -20,45 +20,50 @@ class KegiatanMptBloc extends Bloc<KegiatanMptEvent, KegiatanMptState> {
             (failure) => emit(KegiatanMptError(message: failure.message)),
             (message) => emit(KegiatanMptSuccessMessage(message: message)),
       );
+    });
 
-      add(ReadKegiatanMptEvent());
+    on<ReadAllKegiatanMptEvent>((event, emit) async {
+      emit(KegiatanMptLoading());
+
+      final result = await kegiatanMptUseCase.readAllKegiatanMpt();
+
+      result.fold(
+            (failure) => emit(KegiatanMptError(message: failure.message)),
+            (kegiatanList) => emit(AllKegiatanMptHasData(kegiatanList: kegiatanList)),
+      );
     });
 
     on<ReadKegiatanMptEvent>((event, emit) async {
       emit(KegiatanMptLoading());
 
-      final result = await kegiatanMptUseCase.readAllKegiatan();
+      final result = await kegiatanMptUseCase.readKegiatanMpt(event.idKegiatanMpt);
 
       result.fold(
             (failure) => emit(KegiatanMptError(message: failure.message)),
-            (kegiatanList) => emit(KegiatanMptHasData(kegiatanList: kegiatanList)),
+            (kegiatan) => emit(KegiatanMptHasData(kegiatan: kegiatan)),
       );
     });
 
     on<UpdateKegiatanMptEvent>((event, emit) async {
       emit(KegiatanMptLoading());
 
-      final result = await kegiatanMptUseCase.updateKegiatan(event.kegiatanMpt);
+      final result = await kegiatanMptUseCase.updateKegiatanMpt(event.kegiatanMpt);
 
       result.fold(
             (failure) => emit(KegiatanMptError(message: failure.message)),
             (message) => emit(KegiatanMptSuccessMessage(message: message)),
       );
-
-      add(ReadKegiatanMptEvent());
     });
 
     on<DeleteKegiatanMptEvent>((event, emit) async {
       emit(KegiatanMptLoading());
 
-      final result = await kegiatanMptUseCase.deleteKegiatan(event.idKegiatanMpt);
+      final result = await kegiatanMptUseCase.deleteKegiatanMpt(event.idKegiatanMpt);
 
       result.fold(
             (failure) => emit(KegiatanMptError(message: failure.message)),
             (message) => emit(KegiatanMptSuccessMessage(message: message)),
       );
-
-      add(ReadKegiatanMptEvent());
     });
   }
 }
