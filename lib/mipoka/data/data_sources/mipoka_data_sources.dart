@@ -115,16 +115,16 @@ abstract class MipokaDataSources {
   Future<String> deleteTertibAcara(int idTertibAcara);
 
   Future<List<MipokaUserModel>> readAllMipokaUser();
-  Future<MipokaUserModel> readMipokaUser(int idUser);
+  Future<MipokaUserModel> readMipokaUser(String idMipokaUser);
   Future<String> createMipokaUser(MipokaUserModel mipokaUserModel);
   Future<String> updateMipokaUser(MipokaUserModel mipokaUserModel);
-  Future<String> deleteMipokaUser(int idUser);
+  Future<String> deleteMipokaUser(String idUser);
 
   Future<List<UsulanKegiatanModel>> readAllUsulanKegiatan();
   Future<UsulanKegiatanModel> readUsulanKegiatan(int idUsulanKegiatan);
   Future<String> createUsulanKegiatan(UsulanKegiatanModel usulanKegiatanModel);
   Future<String> updateUsulanKegiatan(UsulanKegiatanModel usulanKegiatanModel);
-  Future<String> deleteUsulanKegiatan(int idUsulan);
+  Future<String> deleteUsulanKegiatan(int idMipokaUser);
 }
 
 class MipokaDataSourcesImpl implements MipokaDataSources {
@@ -922,7 +922,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<MipokaUserModel> readMipokaUser(int idUser) async {
+  Future<MipokaUserModel> readMipokaUser(String idUser) async {
     final String response =
     await rootBundle.loadString('assets/json_file/mipoka_user.json');
     dynamic jsonResult = json.decode(response);
@@ -942,9 +942,9 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<String> deleteMipokaUser(int idUser) async {
+  Future<String> deleteMipokaUser(String idMipokaUser) async {
     if (kDebugMode) {
-      print('User with ID $idUser has been deleted successfully.');
+      print('User with ID $idMipokaUser has been deleted successfully.');
     }
 
     return "User has been deleted successfully.";
