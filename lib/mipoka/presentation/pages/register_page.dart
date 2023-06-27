@@ -158,6 +158,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           }
                         }
                       }
+                    } else {
+                      if (kDebugMode) {
+                        print('Please fill in all fields.');
+                      }
                     }
                   },
                 ),
