@@ -12,12 +12,12 @@ class TertibAcaraEmpty extends TertibAcaraState {}
 class TertibAcaraLoading extends TertibAcaraState {}
 
 class TertibAcaraHasData extends TertibAcaraState {
-  final List<TertibAcara> tertibAcaraList;
+  final TertibAcara tertibAcara;
 
-  const TertibAcaraHasData({required this.tertibAcaraList});
+  const TertibAcaraHasData({required this.tertibAcara});
 
   @override
-  List<Object> get props => [tertibAcaraList];
+  List<Object> get props => [tertibAcara];
 }
 
 class TertibAcaraError extends TertibAcaraState {

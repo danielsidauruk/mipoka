@@ -10,14 +10,15 @@ class TertibAcaraBloc extends Bloc<TertibAcaraEvent, TertibAcaraState> {
   final TertibAcaraUseCase tertibAcaraUseCase;
 
   TertibAcaraBloc({required this.tertibAcaraUseCase}) : super(TertibAcaraEmpty()) {
+
     on<ReadTertibAcaraEvent>((event, emit) async {
       emit(TertibAcaraLoading());
 
-      final result = await tertibAcaraUseCase.readAllTertibAcara();
+      final result = await tertibAcaraUseCase.readTertibAcara(event.idTertibAcara);
 
       result.fold(
             (failure) => emit(TertibAcaraError(message: failure.message)),
-            (tertibAcaraList) => emit(TertibAcaraHasData(tertibAcaraList: tertibAcaraList)),
+            (tertibAcara) => emit(TertibAcaraHasData(tertibAcara: tertibAcara)),
       );
     });
 
@@ -30,8 +31,6 @@ class TertibAcaraBloc extends Bloc<TertibAcaraEvent, TertibAcaraState> {
             (failure) => emit(TertibAcaraError(message: failure.message)),
             (message) => emit(TertibAcaraSuccessMessage(message: message)),
       );
-
-      add(ReadTertibAcaraEvent());
     });
 
     on<UpdateTertibAcaraEvent>((event, emit) async {
@@ -43,8 +42,6 @@ class TertibAcaraBloc extends Bloc<TertibAcaraEvent, TertibAcaraState> {
             (failure) => emit(TertibAcaraError(message: failure.message)),
             (message) => emit(TertibAcaraSuccessMessage(message: message)),
       );
-
-      add(ReadTertibAcaraEvent());
     });
 
     on<DeleteTertibAcaraEvent>((event, emit) async {
@@ -56,8 +53,6 @@ class TertibAcaraBloc extends Bloc<TertibAcaraEvent, TertibAcaraState> {
             (failure) => emit(TertibAcaraError(message: failure.message)),
             (message) => emit(TertibAcaraSuccessMessage(message: message)),
       );
-
-      add(ReadTertibAcaraEvent());
     });
   }
 }
