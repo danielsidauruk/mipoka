@@ -10,22 +10,18 @@ import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiatan_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/kegiatan_bloc/kegiatan_mpt_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/lampiran_bloc/lampiran_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/lampiran_laporan_bloc/lampiran_laporan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/kegiatan_mpt_bloc/kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/panitia_peserta_laporan_bloc/panitia_peserta_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/partisipan_bloc/partisipan_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/periode_bloc/periode_mpt_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/peserta_bloc/peserta_kegiatan_laporan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/peserta_kegiatan_laporan_bloc/peserta_kegiatan_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/rincian_biaya_kegiatan_bloc/rincian_biaya_kegiatan_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/rincian_laporan_bloc/rincian_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/riwayat_mpt_bloc/riwayat_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/ganti_password_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_prestasi_mahasiswa_tambah_page.dart';
@@ -114,22 +110,18 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<AdminBloc>()),
         BlocProvider(create: (_) => di.locator<BeritaBloc>()),
         BlocProvider(create: (_) => di.locator<BiayaKegiatanBloc>()),
-        BlocProvider(create: (_) => di.locator<KegiatanBloc>()),
-        BlocProvider(create: (_) => di.locator<LampiranLaporanBloc>()),
-        BlocProvider(create: (_) => di.locator<LampiranBloc>()),
+        BlocProvider(create: (_) => di.locator<KegiatanMptBloc>()),
         BlocProvider(create: (_) => di.locator<LaporanBloc>()),
+        BlocProvider(create: (_) => di.locator<MipokaUserBloc>()),
         BlocProvider(create: (_) => di.locator<OrmawaBloc>()),
-        BlocProvider(create: (_) => di.locator<PanitiaPesertaLaporanBloc>()),
         BlocProvider(create: (_) => di.locator<PartisipanBloc>()),
-        BlocProvider(create: (_) => di.locator<PeriodeBloc>()),
-        BlocProvider(create: (_) => di.locator<PesertaBloc>()),
+        BlocProvider(create: (_) => di.locator<PeriodeMptBloc>()),
+        BlocProvider(create: (_) => di.locator<PesertaKegiatanLaporanBloc>()),
         BlocProvider(create: (_) => di.locator<PrestasiBloc>()),
         BlocProvider(create: (_) => di.locator<RincianBiayaKegiatanBloc>()),
-        BlocProvider(create: (_) => di.locator<RincianLaporanBloc>()),
         BlocProvider(create: (_) => di.locator<RiwayatMptBloc>()),
         BlocProvider(create: (_) => di.locator<SessionBloc>()),
         BlocProvider(create: (_) => di.locator<TertibAcaraBloc>()),
-        BlocProvider(create: (_) => di.locator<UserBloc>()),
         BlocProvider(create: (_) => di.locator<UsulanKegiatanBloc>()),
       ],
       child: MaterialApp(

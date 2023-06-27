@@ -7,14 +7,9 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
-import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/user_bloc/mipoka_user_bloc.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/login_button.dart';
-import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_login_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/register_textfield.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -147,7 +142,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       );
 
                       User? user = FirebaseAuth.instance.currentUser;
-                      context.read<UserBloc>().add(
+                      context.read<MipokaUserBloc>().add(
                         CreateUserEvent(
                           mipokaUser: MipokaUser(
                             idUser: user?.uid ?? "",
