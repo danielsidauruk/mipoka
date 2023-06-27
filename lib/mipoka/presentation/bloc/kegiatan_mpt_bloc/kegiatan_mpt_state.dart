@@ -7,30 +7,30 @@ abstract class KegiatanMptState extends Equatable {
   List<Object> get props => [];
 }
 
-class KegiatanEmpty extends KegiatanMptState {}
+class KegiatanMptEmpty extends KegiatanMptState {}
 
-class KegiatanLoading extends KegiatanMptState {}
+class KegiatanMptLoading extends KegiatanMptState {}
 
-class KegiatanError extends KegiatanMptState {
+class KegiatanMptError extends KegiatanMptState {
   final String message;
 
-  const KegiatanError({required this.message});
+  const KegiatanMptError({required this.message});
 
   @override
   List<Object> get props => [message];
 }
 
-class KegiatanHasData extends KegiatanMptState {
-  const KegiatanHasData({required this.kegiatanList});
+class KegiatanMptHasData extends KegiatanMptState {
+  const KegiatanMptHasData({required this.kegiatanList});
 
-  final List<Kegiatan> kegiatanList;
+  final List<KegiatanMpt> kegiatanList;
 
   @override
   List<Object> get props => [kegiatanList];
 }
 
-class KegiatanSuccessMessage extends KegiatanMptState {
-  const KegiatanSuccessMessage({required this.message});
+class KegiatanMptSuccessMessage extends KegiatanMptState {
+  const KegiatanMptSuccessMessage({required this.message});
 
   final String message;
 

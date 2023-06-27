@@ -10,10 +10,11 @@ class KegiatanMptBloc extends Bloc<KegiatanMptEvent, KegiatanMptState> {
   final KegiatanMptUseCase kegiatanMptUseCase;
 
   KegiatanMptBloc({required this.kegiatanMptUseCase}) : super(KegiatanMptEmpty()) {
-    on<CreateKegiatanMptEvent>((event, emit) async {
-      emit(KegiatanLoading());
 
-      final result = await kegiatanMptUseCase.createKegiatan(event.kegiatan);
+    on<CreateKegiatanMptEvent>((event, emit) async {
+      emit(KegiatanMptLoading());
+
+      final result = await kegiatanMptUseCase.createKegiatan(event.kegiatanMpt);
 
       result.fold(
             (failure) => emit(KegiatanMptError(message: failure.message)),
@@ -24,20 +25,20 @@ class KegiatanMptBloc extends Bloc<KegiatanMptEvent, KegiatanMptState> {
     });
 
     on<ReadKegiatanMptEvent>((event, emit) async {
-      emit(KegiatanLoading());
+      emit(KegiatanMptLoading());
 
       final result = await kegiatanMptUseCase.readAllKegiatan();
 
       result.fold(
             (failure) => emit(KegiatanMptError(message: failure.message)),
-            (kegiatanList) => emit(KegiatanHasData(kegiatanList: kegiatanList)),
+            (kegiatanList) => emit(KegiatanMptHasData(kegiatanList: kegiatanList)),
       );
     });
 
     on<UpdateKegiatanMptEvent>((event, emit) async {
-      emit(KegiatanLoading());
+      emit(KegiatanMptLoading());
 
-      final result = await kegiatanMptUseCase.updateKegiatan(event.kegiatan);
+      final result = await kegiatanMptUseCase.updateKegiatan(event.kegiatanMpt);
 
       result.fold(
             (failure) => emit(KegiatanMptError(message: failure.message)),
@@ -48,9 +49,9 @@ class KegiatanMptBloc extends Bloc<KegiatanMptEvent, KegiatanMptState> {
     });
 
     on<DeleteKegiatanMptEvent>((event, emit) async {
-      emit(KegiatanLoading());
+      emit(KegiatanMptLoading());
 
-      final result = await kegiatanMptUseCase.deleteKegiatan(event.idKegiatan);
+      final result = await kegiatanMptUseCase.deleteKegiatan(event.idKegiatanMpt);
 
       result.fold(
             (failure) => emit(KegiatanMptError(message: failure.message)),
