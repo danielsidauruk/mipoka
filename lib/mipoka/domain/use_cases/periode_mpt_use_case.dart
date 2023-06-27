@@ -20,11 +20,11 @@ class PeriodeMptUseCase {
     return mipokaRepositories.createPeriodeMpt(periodeMpt);
   }
 
-  Future<Either<Failure, String>> updatePeriode(PeriodeMpt periodeMpt) {
+  Future<Either<Failure, String>> updatePeriodeMpt(PeriodeMpt periodeMpt) {
     return mipokaRepositories.updatePeriodeMpt(periodeMpt);
   }
 
-  Future<Either<Failure, String>> deletePeriode(int idPeriodeMpt) {
+  Future<Either<Failure, String>> deletePeriodeMpt(int idPeriodeMpt) {
     return mipokaRepositories.deletePeriodeMpt(idPeriodeMpt);
   }
 }

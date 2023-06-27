@@ -31,7 +31,7 @@ import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/panitia_peserta_laporan_bloc/panitia_peserta_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/partisipan_bloc/partisipan_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/periode_bloc/periode_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/periode_bloc/periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/peserta_bloc/peserta_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/rincian_biaya_kegiatan_bloc/rincian_biaya_kegiatan_bloc.dart';
