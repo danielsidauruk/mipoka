@@ -9,7 +9,7 @@ class SessionUseCase {
   SessionUseCase({required this.mipokaRepositories});
 
   Future<Either<Failure, List<Session>>> readSession() {
-    return mipokaRepositories.readSession();
+    return mipokaRepositories.readAllSession();
   }
 
   Future<Either<Failure, String>> createSession(Session session) {

@@ -9,7 +9,7 @@ class LaporanUseCase {
   LaporanUseCase({required this.mipokaRepositories});
 
   Future<Either<Failure, List<Laporan>>> readLaporan() {
-    return mipokaRepositories.readLaporan();
+    return mipokaRepositories.readAllLaporan();
   }
 
   Future<Either<Failure, String>> createLaporan(Laporan laporan) {

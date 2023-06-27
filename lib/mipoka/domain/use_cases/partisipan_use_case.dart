@@ -9,7 +9,7 @@ class PartisipanUseCase {
   PartisipanUseCase({required this.mipokaRepositories});
 
   Future<Either<Failure, List<Partisipan>>> readPartisipan() {
-    return mipokaRepositories.readPartisipan();
+    return mipokaRepositories.readAllPartisipan();
   }
 
   Future<Either<Failure, String>> createPartisipan(Partisipan partisipan) {

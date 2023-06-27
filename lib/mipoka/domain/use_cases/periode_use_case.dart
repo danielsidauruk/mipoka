@@ -9,18 +9,18 @@ class PeriodeUseCase {
   PeriodeUseCase({required this.mipokaRepositories});
 
   Future<Either<Failure, List<Periode>>> readPeriode() {
-    return mipokaRepositories.readPeriode();
+    return mipokaRepositories.readAllPeriodeMpt();
   }
 
   Future<Either<Failure, String>> createPeriode(Periode periode) {
-    return mipokaRepositories.createPeriode(periode);
+    return mipokaRepositories.createPeriodeMpt(periode);
   }
 
   Future<Either<Failure, String>> updatePeriode(Periode periode) {
-    return mipokaRepositories.updatePeriode(periode);
+    return mipokaRepositories.updatePeriodeMpt(periode);
   }
 
   Future<Either<Failure, String>> deletePeriode(int idPeriode) {
-    return mipokaRepositories.deletePeriode(idPeriode);
+    return mipokaRepositories.deletePeriodeMpt(idPeriode);
   }
 }

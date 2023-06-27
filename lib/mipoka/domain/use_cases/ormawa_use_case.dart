@@ -9,7 +9,7 @@ class OrmawaUseCase {
   OrmawaUseCase({required this.mipokaRepositories});
 
   Future<Either<Failure, List<Ormawa>>> readOrmawa() {
-    return mipokaRepositories.readOrmawa();
+    return mipokaRepositories.readAllOrmawa();
   }
 
   Future<Either<Failure, String>> createOrmawa(Ormawa ormawa) {

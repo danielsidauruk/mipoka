@@ -9,18 +9,18 @@ class PesertaUseCase {
   PesertaUseCase({required this.mipokaRepositories});
 
   Future<Either<Failure, List<Peserta>>> readPeserta() {
-    return mipokaRepositories.readPeserta();
+    return mipokaRepositories.readAllPesertaKegiatanLaporan();
   }
 
   Future<Either<Failure, String>> createPeserta(Peserta peserta) {
-    return mipokaRepositories.createPeserta(peserta);
+    return mipokaRepositories.createPesertaKegiatanLaporan(peserta);
   }
 
   Future<Either<Failure, String>> updatePeserta(Peserta peserta) {
-    return mipokaRepositories.updatePeserta(peserta);
+    return mipokaRepositories.updatePesertaKegiatanLaporan(peserta);
   }
 
   Future<Either<Failure, String>> deletePeserta(int idPeserta) {
-    return mipokaRepositories.deletePeserta(idPeserta);
+    return mipokaRepositories.deletePesertaKegiatanLaporan(idPeserta);
   }
 }

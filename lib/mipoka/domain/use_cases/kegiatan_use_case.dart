@@ -9,18 +9,18 @@ class KegiatanUseCase {
   KegiatanUseCase({required this.mipokaRepositories});
 
   Future<Either<Failure, List<Kegiatan>>> readKegiatan() {
-    return mipokaRepositories.readKegiatan();
+    return mipokaRepositories.readKegiatanMpt();
   }
 
   Future<Either<Failure, String>> createKegiatan(Kegiatan kegiatan) {
-    return mipokaRepositories.createKegiatan(kegiatan);
+    return mipokaRepositories.createKegiatanMpt(kegiatan);
   }
 
   Future<Either<Failure, String>> updateKegiatan(Kegiatan kegiatan) {
-    return mipokaRepositories.updateKegiatan(kegiatan);
+    return mipokaRepositories.updateKegiatanMpt(kegiatan);
   }
 
   Future<Either<Failure, String>> deleteKegiatan(int idKegiatan) {
-    return mipokaRepositories.deleteKegiatan(idKegiatan);
+    return mipokaRepositories.deleteKegiatanMpt(idKegiatan);
   }
 }

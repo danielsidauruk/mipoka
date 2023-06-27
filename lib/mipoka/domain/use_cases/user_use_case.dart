@@ -9,18 +9,18 @@ class UserUseCase {
   UserUseCase({required this.mipokaRepositories});
 
   Future<Either<Failure, List<MipokaUser>>> readUser() {
-    return mipokaRepositories.readUser();
+    return mipokaRepositories.readMipokaUser();
   }
 
   Future<Either<Failure, String>> createUser(MipokaUser user) {
-    return mipokaRepositories.createUser(user);
+    return mipokaRepositories.createMipokaUser(user);
   }
 
   Future<Either<Failure, String>> updateUser(MipokaUser user) {
-    return mipokaRepositories.updateUser(user);
+    return mipokaRepositories.updateMipokaUser(user);
   }
 
   Future<Either<Failure, String>> deleteUser(int idUser) {
-    return mipokaRepositories.deleteUser(idUser);
+    return mipokaRepositories.deleteMipokaUser(idUser);
   }
 }

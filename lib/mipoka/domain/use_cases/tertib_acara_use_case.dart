@@ -9,7 +9,7 @@ class TertibAcaraUseCase {
   TertibAcaraUseCase({required this.mipokaRepositories});
 
   Future<Either<Failure, List<TertibAcara>>> readTertibAcara() {
-    return mipokaRepositories.readTertibAcara();
+    return mipokaRepositories.readAllTertibAcara();
   }
 
   Future<Either<Failure, String>> createTertibAcara(TertibAcara tertibAcara) {
