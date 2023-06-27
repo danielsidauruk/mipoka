@@ -20,7 +20,7 @@ class RincianBiayaKegiatanUseCase {
     return mipokaRepositories.updateRincianBiayaKegiatan(rincianBiayaKegiatan);
   }
 
-  Future<Either<Failure, void>> deleteRincianBiayaKegiatan(RincianBiayaKegiatan rincianBiayaKegiatan) {
-    return mipokaRepositories.deleteRincianBiayaKegiatan(rincianBiayaKegiatan);
+  Future<Either<Failure, void>> deleteRincianBiayaKegiatan(int idRincianBiayaKegiatan) {
+    return mipokaRepositories.deleteRincianBiayaKegiatan(idRincianBiayaKegiatan);
   }
 }
