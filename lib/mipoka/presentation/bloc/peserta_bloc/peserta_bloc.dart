@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
-import 'package:mipoka/mipoka/domain/use_cases/peserta_use_case.dart';
+import 'package:mipoka/mipoka/domain/use_cases/peserta_kegiatan_laporan_use_case.dart';
 
 part 'peserta_event.dart';
 part 'peserta_state.dart';
