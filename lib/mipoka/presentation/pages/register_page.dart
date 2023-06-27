@@ -31,8 +31,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
   
   @override
   Widget build(BuildContext context) {
-    bool darkMode = false;
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
