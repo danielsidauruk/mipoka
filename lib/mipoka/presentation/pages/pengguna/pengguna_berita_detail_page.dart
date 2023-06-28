@@ -41,20 +41,23 @@ class _PenggunaBerandaDetailPageState extends State<PenggunaBerandaDetailPage> {
               CustomContentBox(
                 children: [
 
-                  buildDetailBeritaTitle('widget.berita.judulBerita',),
+                  buildDetailBeritaTitle(widget.berita.judul),
 
                   const CustomFieldSpacer(height: 4),
 
                   Text(
-                    'Diterbitkan: 14 April 2023 | Oleh: ${widget.berita.penulis}',
+                    'Diterbitkan: ${widget.berita.tglTerbit} | Oleh: ${widget.berita.penulis}',
                     style: const TextStyle(color: Colors.grey),
                   ),
 
                   const CustomFieldSpacer(),
 
                   Container(
-                    height: 200,
-                    color: Colors.grey,
+                    margin: const EdgeInsets.all(4.0),
+                    child: Image.network(
+                      widget.berita.gambar,
+                      height: 200,
+                    ),
                   ),
 
                   const CustomFieldSpacer(),
