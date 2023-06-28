@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/login_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_login_text_field.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -87,32 +89,30 @@ class _LoginPageState extends State<LoginPage> {
                 LoginButton(
                   title: 'Log in - Pengguna',
                   onTap:() async {
-                    Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                    // try {
-                    //   String email = _emailController.text;
-                    //   String password = _passwordController.text;
-                    //
-                    //   if (email.isNotEmpty && password.isNotEmpty) {
-                    //     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                    //       email: email,
-                    //       password: password,
-                    //     );
-                    //
-                    //     User? user = FirebaseAuth.instance.currentUser;
-                    //
-                    //     Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                    //     // Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute),
-                    //     // Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute),
-                    //   } else {
-                    //     if (kDebugMode) {
-                    //       print('Email and Password cannot be empty.');
-                    //     }
-                    //   }
-                    // } catch (e) {
-                    //   if (kDebugMode) {
-                    //     print('Failed to sign in. Please check your email and password.');
-                    //   }
-                    // }
+                    // Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                    try {
+                      String email = _emailController.text;
+                      String password = _passwordController.text;
+
+                      if (email.isNotEmpty && password.isNotEmpty) {
+                        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: email,
+                          password: password,
+                        );
+
+                        User? user = FirebaseAuth.instance.currentUser;
+
+                        Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                        // Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute),
+                        // Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute),
+                      } else {
+                        mipokaCustomToast("Email and Password cannot be empty.");
+                      }
+                    } catch (e) {
+                      mipokaCustomToast(
+                        "Failed to sign in. Please check your email and password.",
+                      );
+                    }
                   },
                 ),
 

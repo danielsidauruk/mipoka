@@ -9,6 +9,7 @@ import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/login_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/register_textfield.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -145,23 +146,23 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             ),
                           ),
                         );
-                        // Navigator.pushNamed(context, loginPageRoute);
+                        mipokaCustomToast('Your account has been registered.');
+                        Navigator.pushNamed(context, penggunaBerandaPageRoute);
                       } catch (e) {
                         if (kDebugMode) {
                           final errorMessage = e.toString();
                           final int startIndex;
                           if (e.toString().contains('Firebase:')) {
                             startIndex = errorMessage.indexOf("Firebase:");
-                            print(errorMessage.substring(startIndex));
+                            // print();
+                            mipokaCustomToast(errorMessage.substring(startIndex));
                           } else {
-                            print(errorMessage);
+                            mipokaCustomToast(errorMessage);
                           }
                         }
                       }
                     } else {
-                      if (kDebugMode) {
-                        print('Please fill in all fields.');
-                      }
+                      mipokaCustomToast("all fields cannot be empty");
                     }
                   },
                 ),

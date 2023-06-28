@@ -4,6 +4,7 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class MobileCustomPenggunaDrawerWidget extends StatefulWidget {
   const MobileCustomPenggunaDrawerWidget({super.key});
@@ -148,6 +149,7 @@ class _MobileCustomPenggunaDrawerWidgetState
                               IconButton(
                                 onPressed: () {
                                   Navigator.pushNamed(context, loginPageRoute);
+                                  mipokaCustomToast("You have been logged out");
                                   logoutUser();
                                 },
                                 icon: const Icon(Icons.exit_to_app),
