@@ -127,7 +127,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           CreateMipokaUserEvent(
                             mipokaUser: MipokaUser(
                               idUser: user!.uid,
-                              idOrmawa: const [],
+                              ormawa: const [],
                               email: _emailController.text,
                               namaLengkap: _namaLengkapController.text,
                               nim: _nimController.text,

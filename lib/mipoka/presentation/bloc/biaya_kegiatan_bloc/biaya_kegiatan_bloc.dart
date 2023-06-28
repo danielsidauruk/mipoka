@@ -42,21 +42,17 @@ class BiayaKegiatanBloc extends Bloc<BiayaKegiatanEvent, BiayaKegiatanState> {
             (failure) => emit(BiayaKegiatanError(message: failure.message)),
             (message) => emit(BiayaKegiatanSuccessMessage(message: message)),
       );
-
-      add(ReadBiayaKegiatanEvent());
     });
 
     on<DeleteBiayaKegiatanEvent>((event, emit) async {
       emit(BiayaKegiatanLoading());
 
-      final result = await biayaKegiatanUseCase.deleteBiayaKegiatan(event.idNamaBiayaKegiatan);
+      final result = await biayaKegiatanUseCase.deleteBiayaKegiatan(event.idBiayaKegiatan);
 
       result.fold(
             (failure) => emit(BiayaKegiatanError(message: failure.message)),
             (message) => emit(BiayaKegiatanSuccessMessage(message: message)),
       );
-
-      add(ReadBiayaKegiatanEvent());
     });
   }
 }

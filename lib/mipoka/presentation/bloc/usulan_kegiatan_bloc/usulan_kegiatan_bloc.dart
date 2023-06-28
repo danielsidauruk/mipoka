@@ -72,8 +72,22 @@ class UsulanKegiatanBloc
         (failure) => emit(UsulanKegiatanError(message: failure.message)),
         (message) => emit(UsulanKegiatanSuccessMessage(message: message)),
       );
+    });
 
-      add(ReadAllUsulanKegiatanEvent());
+    on<DeleteUsulanPartisipanEvent>((event, emit) async {
+      emit(UsulanKegiatanLoading());
+
+      final result = await usulanKegiatanUseCase.deleteUsulanPartisipan(
+        idUsulanKegiatan: event.idUsulanKegiatan,
+        idPartisipan: event.idPartisipan,
+      );
+
+      result.fold(
+            (failure) => emit(UsulanKegiatanError(message: failure.message)),
+            (message) => emit(UsulanKegiatanSuccessMessage(message: message)),
+      );
+
+      // add(ReadUsulanKegiatanEvent(idUsulanKegiatan: event.idUsulanKegiatan));
     });
   }
 }

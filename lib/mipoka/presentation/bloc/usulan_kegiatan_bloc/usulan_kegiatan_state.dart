@@ -46,3 +46,5 @@ class UsulanKegiatanSuccessMessage extends UsulanKegiatanState {
   @override
   List<Object> get props => [message];
 }
+
+

@@ -860,6 +860,18 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
+  Future<Either<Failure, String>> deleteUsulanPartisipan({required int idUsulanKegiatan, required int idPartisipan}) async {
+    try{
+      return Right(await mipokaDataSources.deleteUsulanPartisipan(
+        idUsulanKegiatan: idUsulanKegiatan,
+        idPartisipan: idPartisipan,
+      ));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+  @override
   Future<Either<Failure, String>> updateUsulanKegiatan(
       UsulanKegiatan usulanKegiatan) async {
     try {

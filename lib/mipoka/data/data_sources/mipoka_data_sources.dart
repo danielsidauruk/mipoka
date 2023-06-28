@@ -125,6 +125,7 @@ abstract class MipokaDataSources {
   Future<String> createUsulanKegiatan(UsulanKegiatanModel usulanKegiatanModel);
   Future<String> updateUsulanKegiatan(UsulanKegiatanModel usulanKegiatanModel);
   Future<String> deleteUsulanKegiatan(int idMipokaUser);
+  Future<String> deleteUsulanPartisipan({required int idUsulanKegiatan, required int idPartisipan});
 }
 
 class MipokaDataSourcesImpl implements MipokaDataSources {
@@ -267,10 +268,10 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<String> deleteBiayaKegiatan(int biayaKegiatanId) async {
+  Future<String> deleteBiayaKegiatan(int idBiayaKegiatan) async {
     if (kDebugMode) {
       print(
-          'Biaya Kegiatan with ID $biayaKegiatanId has been deleted successfully.');
+          'Biaya Kegiatan with ID $idBiayaKegiatan has been deleted successfully.');
     }
 
     return "Biaya Kegiatan has been deleted successfully.";
@@ -444,7 +445,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<PartisipanModel>> readAllPartisipan() async {
     final String response =
-        await rootBundle.loadString('assets/json_file/partisipan_list.json');
+        await rootBundle.loadString('assets/json_file/partisipan.json');
     List<dynamic> resultList = json.decode(response);
 
     List<PartisipanModel> result = resultList
@@ -1006,5 +1007,39 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     }
 
     return "Usulan Kegiatan has been deleted successfully.";
+  }
+
+  @override
+  Future<String> deleteUsulanPartisipan({required int idUsulanKegiatan, required int idPartisipan}) async {
+    print('Partisipan with ID $idPartisipan in Usulan $idUsulanKegiatan has been deleted successfully.');
+
+    return "Partisipan has been deleted successfully.";
+    // try {
+    //   final String response = await rootBundle
+    //       .loadString('assets/json_file/usulan_kegiatan.json');
+    //
+    //   final Map<String, dynamic> jsonData = json.decode(response);
+    //   UsulanKegiatanModel usulanKegiatan = UsulanKegiatanModel.fromJson(jsonData);
+    //
+    //   // Cari index partisipan berdasarkan idPartisipan
+    //   int partisipanIndex = usulanKegiatan.partisipan
+    //       .indexWhere((partisipan) => partisipan.idPartisipan == idPartisipan);
+    //
+    //   if (partisipanIndex != -1) {
+    //     // // Hapus partisipan dari list partisipan
+    //     // usulanKegiatan.partisipan.removeAt(partisipanIndex);
+    //     //
+    //     // // Update file JSON dengan data yang telah diubah
+    //     // String updatedJson = json.encode(usulanKegiatan.toJson());
+    //     // // Simpan kembali file JSON
+    //     // // ...
+    //
+    //     return "Partisipan berhasil dihapus";
+    //   } else {
+    //     return "Partisipan tidak ditemukan";
+    //   }
+    // } catch (e) {
+    //   return "Terjadi kesalahan saat menghapus partisipan";
+    // }
   }
 }

@@ -3,7 +3,7 @@ import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 class MipokaUserModel extends MipokaUser {
   const MipokaUserModel({
     required super.idUser,
-    required super.idOrmawa,
+    required super.ormawa,
     required super.email,
     required super.namaLengkap,
     required super.nim,
@@ -21,31 +21,31 @@ class MipokaUserModel extends MipokaUser {
     required super.updatedBy,
   });
 
-  factory MipokaUserModel.fromEntity(MipokaUser entity) {
+  factory MipokaUserModel.fromEntity(MipokaUser mipokaUser) {
     return MipokaUserModel(
-      idUser: entity.idUser,
-      idOrmawa: entity.idOrmawa,
-      email: entity.email,
-      namaLengkap: entity.namaLengkap,
-      nim: entity.nim,
-      noHp: entity.noHp,
-      image: entity.image,
-      pointMpt: entity.pointMpt,
-      semester: entity.semester,
-      kelas: entity.kelas,
-      periodeMpt: entity.periodeMpt,
-      statusMpt: entity.statusMpt,
-      prodi: entity.prodi,
-      createdAt: entity.createdAt,
-      updatedAt: entity.updatedAt,
-      createdBy: entity.createdBy,
-      updatedBy: entity.updatedBy,
+      idUser: mipokaUser.idUser,
+      ormawa: mipokaUser.ormawa,
+      email: mipokaUser.email,
+      namaLengkap: mipokaUser.namaLengkap,
+      nim: mipokaUser.nim,
+      noHp: mipokaUser.noHp,
+      image: mipokaUser.image,
+      pointMpt: mipokaUser.pointMpt,
+      semester: mipokaUser.semester,
+      kelas: mipokaUser.kelas,
+      periodeMpt: mipokaUser.periodeMpt,
+      statusMpt: mipokaUser.statusMpt,
+      prodi: mipokaUser.prodi,
+      createdAt: mipokaUser.createdAt,
+      updatedAt: mipokaUser.updatedAt,
+      createdBy: mipokaUser.createdBy,
+      updatedBy: mipokaUser.updatedBy,
     );
   }
 
   factory MipokaUserModel.fromJson(Map<String, dynamic> json) => MipokaUserModel(
     idUser: json["id_user"],
-    idOrmawa: List<int>.from(json["id_ormawa"].map((x) => x)),
+    ormawa: List<int>.from(json["id_ormawa"].map((x) => x)),
     email: json["email"],
     namaLengkap: json["nama_lengkap"],
     nim: json["nim"],
@@ -65,7 +65,7 @@ class MipokaUserModel extends MipokaUser {
 
   Map<String, dynamic> toJson() => {
     "id_user": idUser,
-    "id_ormawa": List<dynamic>.from(idOrmawa.map((x) => x)),
+    "id_ormawa": List<dynamic>.from(ormawa.map((x) => x)),
     "email": email,
     "nama_lengkap": namaLengkap,
     "nim": nim,

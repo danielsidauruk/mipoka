@@ -28,10 +28,10 @@ class UpdateBiayaKegiatanEvent extends BiayaKegiatanEvent {
 }
 
 class DeleteBiayaKegiatanEvent extends BiayaKegiatanEvent {
-  final int idNamaBiayaKegiatan;
+  final int idBiayaKegiatan;
 
-  const DeleteBiayaKegiatanEvent(this.idNamaBiayaKegiatan);
+  const DeleteBiayaKegiatanEvent(this.idBiayaKegiatan);
 
   @override
-  List<Object?> get props => [idNamaBiayaKegiatan];
+  List<Object?> get props => [idBiayaKegiatan];
 }

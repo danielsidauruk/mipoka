@@ -29,4 +29,12 @@ class UsulanKegiatanUseCase {
   Future<Either<Failure, String>> deleteUsulanKegiatan(int idUsulan) {
     return mipokaRepositories.deleteUsulanKegiatan(idUsulan);
   }
+
+  Future<Either<Failure, String>> deleteUsulanPartisipan
+      ({required int idUsulanKegiatan, required int idPartisipan}) {
+    return mipokaRepositories.deleteUsulanPartisipan(
+      idUsulanKegiatan: idUsulanKegiatan,
+      idPartisipan: idPartisipan,
+    );
+  }
 }

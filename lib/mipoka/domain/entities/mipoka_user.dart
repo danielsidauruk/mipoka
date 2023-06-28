@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class MipokaUser extends Equatable{
   final String idUser;
-  final List<int> idOrmawa;
+  final List<int> ormawa;
   final String email;
   final String namaLengkap;
   final String nim;
@@ -21,7 +21,7 @@ class MipokaUser extends Equatable{
 
   const MipokaUser({
     required this.idUser,
-    required this.idOrmawa,
+    required this.ormawa,
     required this.email,
     required this.namaLengkap,
     required this.nim,
@@ -41,7 +41,7 @@ class MipokaUser extends Equatable{
 
   MipokaUser copyWith({
     String? idUser,
-    List<int>? idOrmawa,
+    List<int>? ormawa,
     String? email,
     String? namaLengkap,
     String? nim,
@@ -60,7 +60,7 @@ class MipokaUser extends Equatable{
   }) =>
       MipokaUser(
         idUser: idUser ?? this.idUser,
-        idOrmawa: idOrmawa ?? this.idOrmawa,
+        ormawa: ormawa ?? this.ormawa,
         email: email ?? this.email,
         namaLengkap: namaLengkap ?? this.namaLengkap,
         nim: nim ?? this.nim,
@@ -80,7 +80,8 @@ class MipokaUser extends Equatable{
 
   @override
   List<Object?> get props => [
-    idOrmawa,
+    idUser,
+    ormawa,
     email,
     namaLengkap,
     nim,

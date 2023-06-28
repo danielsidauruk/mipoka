@@ -5,6 +5,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/partisipan_bloc/partisipan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/rincian_biaya_kegiatan_bloc/rincian_biaya_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -33,16 +34,10 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
     Future.microtask(() {
       BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).add(
           ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
-      BlocProvider.of<PartisipanBloc>(context, listen: false)
-          .add(ReadAllPartisipanEvent());
-      BlocProvider.of<BiayaKegiatanBloc>(context, listen: false)
-          .add(ReadBiayaKegiatanEvent());
       },
     );
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -57,15 +52,15 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
             const CustomMobileTitle(
                 text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
             const SizedBox(height: 8.0),
-            BlocBuilder<PartisipanBloc, PartisipanState>(
+            BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
               builder: (context, state) {
-                if (state is PartisipanLoading) {
+                if (state is UsulanKegiatanLoading) {
                   return const Text('Loading ...');
-                } else if (state is AllPartisipanHasData) {
+                } else if (state is UsulanKegiatanHasData) {
                   return Expanded(
                     child: CustomContentBox(
                       children: [
-                        buildTitle('Data Peserta Kegiatan (Dalam Kota)'),
+                        buildTitle('Data Partisipan Kegiatan (Dalam Kota)'),
                         CustomAddButton(
                           buttonText: 'Data Partisipan',
                           onPressed: () => Navigator.pushNamed(
@@ -119,10 +114,18 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
+                                    DataColumn(
+                                      label: Text(
+                                        '',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
                                   ],
                                   rows: List<DataRow>
-                                      .generate(state.partisipanList.length, (int index) {
-                                    final dataPartisipan = state.partisipanList[index];
+                                      .generate(state.usulanKegiatan.partisipan.length, (int index) {
+                                    final partisipan = state.usulanKegiatan.partisipan[index];
                                     return DataRow(
                                       cells: [
                                         DataCell(
@@ -139,7 +142,7 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                             child: Align(
                                               alignment: Alignment.center,
                                               child: Text(
-                                                dataPartisipan.noInduk,
+                                                partisipan.noInduk,
                                                 textAlign: TextAlign.center,
                                                 style: const TextStyle(color: Colors.blue),
                                               ),
@@ -149,7 +152,7 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                                 context,
                                                 editDataPesertaDalamKotaPageRoute,
                                                 arguments: PartisipanArgs(
-                                                  partisipan: state.partisipanList[index],
+                                                  partisipan: partisipan,
                                                   id: widget.idUsulanKegiatan,
                                                 ),
                                               );
@@ -160,7 +163,7 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                           Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              dataPartisipan.namaPartisipan,
+                                              partisipan.namaPartisipan,
                                               textAlign: TextAlign.center,
                                             ),
                                           ),
@@ -169,7 +172,7 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                           Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              dataPartisipan.peranPartisipan,
+                                              partisipan.peranPartisipan,
                                               textAlign: TextAlign.center,
                                             ),
                                           ),
@@ -178,8 +181,30 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                           Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              dataPartisipan.dasarPengiriman,
+                                              partisipan.dasarPengiriman,
                                               textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          InkWell(
+                                            onTap: (){
+                                              context.read<UsulanKegiatanBloc>().add(
+                                                DeleteUsulanPartisipanEvent(
+                                                  idUsulanKegiatan: state.usulanKegiatan.idUsulan,
+                                                  idPartisipan: partisipan.idPartisipan,
+                                                ),
+                                              );
+                                              context.read<UsulanKegiatanBloc>().add(
+                                                ReadUsulanKegiatanEvent(idUsulanKegiatan: state.usulanKegiatan.idUsulan),
+                                              );
+                                            },
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: Image.asset(
+                                                'assets/icons/delete.png',
+                                                width: 24,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -206,150 +231,162 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                           child: Column(
                             children: [
                               Expanded(
-                                child: BlocBuilder<BiayaKegiatanBloc, BiayaKegiatanState>(
-                                  builder: (context, state) {
-                                    if (state is BiayaKegiatanLoading) {
-                                      return const Text('Loading');
-                                    } else if (state is BiayaKegiatanHasData) {
-                                      return SingleChildScrollView(
-                                        scrollDirection: Axis.vertical,
-                                        child: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: DataTable(
-                                            columnSpacing: 40,
-                                            border: TableBorder.all(color: Colors.white),
-                                            columns: const [
-                                              DataColumn(
-                                                label: Text(
-                                                  'No.',
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                              DataColumn(
-                                                label: Text(
-                                                  'Nama Biaya',
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                              DataColumn(
-                                                label: Text(
-                                                  'Qty',
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                              DataColumn(
-                                                label: Text(
-                                                  'Harga Satuan',
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                              DataColumn(
-                                                label: Text(
-                                                  'Total',
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                              DataColumn(
-                                                label: Text(
-                                                  'Keterangan',
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                            ],
-                                            rows: List.generate(state.biayaKegiatanList.length, (int index) {
-                                              final rincianBiayaKegiatan = state.biayaKegiatanList[index];
-                                              return DataRow(
-                                                cells: [
-                                                  DataCell(
-                                                    Align(
-                                                      alignment: Alignment.center,
-                                                      child: Text(
-                                                        '${index + 1}',
-                                                        textAlign: TextAlign.center,
-                                                      ),
-                                                    ),
-                                                  ),
-
-                                                  DataCell(
-                                                    InkWell(
-                                                      onTap: () => Navigator.pushNamed(
-                                                          context,
-                                                          usulanKegiatanEditBiayaKegiatanPageRoute,
-                                                          arguments: BiayaKegiatanArgs(
-                                                              biayaKegiatan: rincianBiayaKegiatan,
-                                                              id: widget.idUsulanKegiatan,
-                                                          ),
-                                                      ),
-                                                      child: Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text(
-                                                          rincianBiayaKegiatan.namaBiayaKegiatan,
-                                                          textAlign: TextAlign.center,
-                                                          style: const TextStyle(color: Colors.blue),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  DataCell(
-                                                    Align(
-                                                      alignment: Alignment.center,
-                                                      child: Text(
-                                                        rincianBiayaKegiatan.kuantiti.toString(),
-                                                        textAlign: TextAlign.center,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  DataCell(
-                                                    Align(
-                                                      alignment: Alignment.center,
-                                                      child: Text(
-                                                        rincianBiayaKegiatan.hargaSatuan.toString(),
-                                                        textAlign: TextAlign.center,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  DataCell(
-                                                    Align(
-                                                      alignment: Alignment.center,
-                                                      child: Text(
-                                                        rincianBiayaKegiatan.total.toString(),
-                                                        textAlign: TextAlign.center,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  DataCell(
-                                                    Align(
-                                                      alignment: Alignment.center,
-                                                      child: Text(
-                                                        rincianBiayaKegiatan.keterangan,
-                                                        textAlign: TextAlign.center,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              );
-                                            }),
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: DataTable(
+                                      columnSpacing: 40,
+                                      border: TableBorder.all(color: Colors.white),
+                                      columns: const [
+                                        DataColumn(
+                                          label: Text(
+                                            'No.',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
                                           ),
                                         ),
-                                      );
-                                    } else if (state is BiayaKegiatanError) {
-                                      return Text(state.message);
-                                    } else {
-                                      return const Text('YNTKTS');
-                                    }
-                                  },
+                                        DataColumn(
+                                          label: Text(
+                                            'Nama Biaya',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          label: Text(
+                                            'Qty',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          label: Text(
+                                            'Harga Satuan',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          label: Text(
+                                            'Total',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          label: Text(
+                                            'Keterangan',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          label: Text(
+                                            '',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ],
+                                      rows: List.generate(state.usulanKegiatan.biayaKegiatan.length, (int index) {
+                                        final biayaKegiatan = state.usulanKegiatan.biayaKegiatan[index];
+                                        return DataRow(
+                                          cells: [
+                                            DataCell(
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  '${index + 1}',
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+
+                                            DataCell(
+                                              InkWell(
+                                                onTap: () => Navigator.pushNamed(
+                                                  context,
+                                                  usulanKegiatanEditBiayaKegiatanPageRoute,
+                                                  arguments: BiayaKegiatanArgs(
+                                                    biayaKegiatan: biayaKegiatan,
+                                                    id: widget.idUsulanKegiatan,
+                                                  ),
+                                                ),
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    biayaKegiatan.namaBiayaKegiatan,
+                                                    textAlign: TextAlign.center,
+                                                    style: const TextStyle(color: Colors.blue),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  biayaKegiatan.kuantiti.toString(),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  biayaKegiatan.hargaSatuan.toString(),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  biayaKegiatan.total.toString(),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  biayaKegiatan.keterangan,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              InkWell(
+                                                onTap: (){
+                                                  context.read<BiayaKegiatanBloc>().add(
+                                                    DeleteBiayaKegiatanEvent(biayaKegiatan.idBiayaKegiatan),
+                                                  );
+                                                },
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: Image.asset(
+                                                    'assets/icons/delete.png',
+                                                    width: 24,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      }),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -377,10 +414,10 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                       ],
                     ),
                   );
-                } else if (state is PartisipanError) {
+                } else if (state is UsulanKegiatanError) {
                   return Text(state.message);
                 } else {
-                  return const Text('YNTKTS');
+                  return const Text('UsulanKegiatanBloc has not been triggered');
                 }
               },
             ),
