@@ -12,15 +12,15 @@ class AdminUseCase {
     return mipokaRepositories.readAdmin(idAdmin);
   }
 
-  Future<Either<Failure, String>> createAdmin(Admin admin) {
+  Future<Either<Failure, void>> createAdmin(Admin admin) {
     return mipokaRepositories.createAdmin(admin);
   }
 
-  Future<Either<Failure, String>> updateAdmin(Admin admin) {
+  Future<Either<Failure, void>> updateAdmin(Admin admin) {
     return mipokaRepositories.updateAdmin(admin);
   }
 
-  Future<Either<Failure, String>> deleteAdmin(int adminId) {
+  Future<Either<Failure, void>> deleteAdmin(int adminId) {
     return mipokaRepositories.deleteAdmin(adminId);
   }
 }
