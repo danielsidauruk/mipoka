@@ -50,7 +50,9 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   @override
   Future<Either<Failure, void>> createBerita(Berita berita) async {
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createBerita(
+          BeritaModel.fromEntity(berita)),
+      );
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -58,9 +60,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deleteBerita(int beritaId) async {
-    // TODO: implement deleteBerita
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deleteBerita(beritaId));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -68,9 +69,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, List<Berita>>> readAllBerita() async {
-    // TODO: implement readAllBerita
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readAllBerita());
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -78,9 +78,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, Berita>> readBerita(int idBerita) async {
-    // TODO: implement readBerita
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readBerita(idBerita));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -88,9 +87,9 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updateBerita(Berita berita) async {
-    // TODO: implement updateBerita
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updateBerita(
+          BeritaModel.fromEntity(berita)),);
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -100,9 +99,10 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 // TODO: => Berita Repositories
   @override
   Future<Either<Failure, void>> createAdmin(Admin admin) async {
-    // TODO: implement createAdmin
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createAdmin(
+          AdminModel.fromEntity(admin)),
+      );
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -110,9 +110,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deleteAdmin(int adminId) async {
-    // TODO: implement deleteAdmin
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deleteAdmin(adminId));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -122,7 +121,7 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   Future<Either<Failure, Admin>> readAdmin(int idAdmin) async {
     // TODO: implement readAdmin
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readAdmin(idAdmin));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -130,9 +129,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updateAdmin(Admin admin) async {
-    // TODO: implement updateAdmin
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updateAdmin(AdminModel.fromEntity(admin)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -141,10 +139,15 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
 // TODO: => BiayaKegiatan Repositories
   @override
-  Future<Either<Failure, void>> createBiayaKegiatan({required int idUsulanKegiatan, required BiayaKegiatan biayaKegiatan}) async {
-    // TODO: implement createBiayaKegiatan
+  Future<Either<Failure, void>> createBiayaKegiatan({
+    required int idUsulanKegiatan,
+    required BiayaKegiatan biayaKegiatan,
+  }) async {
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createBiayaKegiatan(
+        idUsulanKegiatan: idUsulanKegiatan,
+        biayaKegiatanModel: BiayaKegiatanModel.fromEntity(biayaKegiatan),
+      ));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -152,9 +155,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deleteBiayaKegiatan(int idNamaBiayaKegiatan) async {
-    // TODO: implement deleteBiayaKegiatan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deleteBiayaKegiatan(idNamaBiayaKegiatan));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -162,9 +164,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updateBiayaKegiatan(BiayaKegiatan biayaKegiatan) async {
-    // TODO: implement updateBiayaKegiatan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updateBiayaKegiatan(BiayaKegiatanModel.fromEntity(biayaKegiatan)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -174,9 +175,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 // TODO: => KegiatanMpt Repositories
   @override
   Future<Either<Failure, void>> createKegiatanMpt(KegiatanMpt kegiatanMpt) async {
-    // TODO: implement createKegiatanMpt
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createKegiatanMpt(KegiatanMptModel.fromEntity(kegiatanMpt)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -184,9 +184,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deleteKegiatanMpt(int idKegiatanMpt) async {
-    // TODO: implement deleteKegiatanMpt
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deleteKegiatanMpt(idKegiatanMpt));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -194,9 +193,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, List<KegiatanMpt>>> readAllKegiatanMpt() async {
-    // TODO: implement readAllKegiatanMpt
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readAllKegiatanMpt());
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -204,9 +202,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, KegiatanMpt>> readKegiatanMpt(int idKegiatanMpt) async {
-    // TODO: implement readKegiatanMpt
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readKegiatanMpt(idKegiatanMpt));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -214,9 +211,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updateKegiatanMpt(KegiatanMpt kegiatanMpt) async {
-    // TODO: implement updateKegiatanMpt
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updateKegiatanMpt(KegiatanMptModel.fromEntity(kegiatanMpt)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -226,9 +222,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 // TODO: => KegiatanMpt Repositories
   @override
   Future<Either<Failure, void>> createLaporan(Laporan laporan) async {
-    // TODO: implement createLaporan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createLaporan(LaporanModel.fromEntity(laporan)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -236,9 +231,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deleteLaporan(int idLaporan) async {
-    // TODO: implement deleteLaporan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deleteLaporan(idLaporan));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -246,9 +240,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, List<Laporan>>> readAllLaporan() async {
-    // TODO: implement readAllLaporan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readAllLaporan());
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -256,9 +249,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, Laporan>> readLaporan(int idLaporan) async {
-    // TODO: implement readLaporan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readLaporan(idLaporan));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -266,9 +258,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updateLaporan(Laporan laporan) async {
-    // TODO: implement updateLaporan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updateLaporan(LaporanModel.fromEntity(laporan)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -278,9 +269,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 // TODO: => Ormawa Repositories
   @override
   Future<Either<Failure, void>> createOrmawa(Ormawa ormawa) async {
-    // TODO: implement createOrmawa
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createOrmawa(OrmawaModel.fromEntity(ormawa)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -288,9 +278,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deleteOrmawa(int idOrmawa) async {
-    // TODO: implement deleteOrmawa
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deleteOrmawa(idOrmawa));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -298,9 +287,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, List<Ormawa>>> readAllOrmawa() async {
-    // TODO: implement readAllOrmawa
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readAllOrmawa());
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -308,9 +296,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, Ormawa>> readOrmawa(int idOrmawa) async {
-    // TODO: implement readOrmawa
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readOrmawa(idOrmawa));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -318,9 +305,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updateOrmawa(Ormawa ormawa) async {
-    // TODO: implement updateOrmawa
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updateOrmawa(OrmawaModel.fromEntity(ormawa)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -330,9 +316,11 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 // TODO: => Partisipan Repositories
   @override
   Future<Either<Failure, void>> createPartisipan({required int idUsulanKegiatan, required Partisipan partisipan}) async {
-    // TODO: implement createPartisipan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createPartisipan(
+        idUsulanKegiatan: idUsulanKegiatan,
+        partisipanModel: PartisipanModel.fromEntity(partisipan),
+      ));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -340,9 +328,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deletePartisipan(int idPartisipan) async {
-    // TODO: implement deletePartisipan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deletePartisipan(idPartisipan));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -350,9 +337,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updatePartisipan(Partisipan partisipan) async {
-    // TODO: implement updatePartisipan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updatePartisipan(PartisipanModel.fromEntity(partisipan)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -361,9 +347,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 // TODO: => PeriodeMpt Repositories
   @override
   Future<Either<Failure, void>> createPeriodeMpt(PeriodeMpt periodeMpt) async {
-    // TODO: implement createPeriodeMpt
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createPeriodeMpt(PeriodeMptModel.fromEntity(periodeMpt)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -371,9 +356,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deletePeriodeMpt(int idPeriode) async {
-    // TODO: implement deletePeriodeMpt
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deletePeriodeMpt(idPeriode));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -381,9 +365,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, List<PeriodeMpt>>> readAllPeriodeMpt() async {
-    // TODO: implement readAllPeriodeMpt
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readAllPeriodeMpt());
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -391,9 +374,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, PeriodeMpt>> readPeriodeMpt(int idPeriodeMpt) async {
-    // TODO: implement readPeriodeMpt
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readPeriodeMpt(idPeriodeMpt));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -401,9 +383,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updatePeriodeMpt(PeriodeMpt periodeMpt) async {
-    // TODO: implement updatePeriodeMpt
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updatePeriodeMpt(PeriodeMptModel.fromEntity(periodeMpt)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -412,9 +393,11 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 // TODO: => PesertaKegiatanMpt Repositories
   @override
   Future<Either<Failure, void>> createPesertaKegiatanLaporan({required int idLaporan, required PesertaKegiatanLaporan pesertaKegiatanLaporan}) async {
-    // TODO: implement createPesertaKegiatanLaporan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createPesertaKegiatanLaporan(
+        idLaporan: idLaporan,
+        pesertaKegiatanLaporanModel: PesertaKegiatanLaporanModel.fromEntity(pesertaKegiatanLaporan),
+      ));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -422,9 +405,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deletePesertaKegiatanLaporan(int idPeserta) async {
-    // TODO: implement deletePesertaKegiatanLaporan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deletePesertaKegiatanLaporan(idPeserta));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -432,9 +414,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updatePesertaKegiatanLaporan(PesertaKegiatanLaporan pesertaKegiatanLaporan) async {
-    // TODO: implement updatePesertaKegiatanLaporan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updatePesertaKegiatanLaporan(PesertaKegiatanLaporanModel.fromEntity(pesertaKegiatanLaporan)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -444,9 +425,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 // TODO: => Prestasi Repositories
   @override
   Future<Either<Failure, void>> createPrestasi(Prestasi prestasi) async {
-    // TODO: implement createPrestasi
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createPrestasi(PrestasiModel.fromEntity(prestasi)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -454,9 +434,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deletePrestasi(int idPrestasi) async {
-    // TODO: implement deletePrestasi
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deletePrestasi(idPrestasi));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -464,9 +443,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, List<Prestasi>>> readAllPrestasi() async {
-    // TODO: implement readAllPrestasi
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readAllPrestasi());
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -474,9 +452,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, Prestasi>> readPrestasi(int idPrestasi) async {
-    // TODO: implement readPrestasi
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readPrestasi(idPrestasi));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -484,9 +461,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updatePrestasi(Prestasi prestasi) async {
-    // TODO: implement updatePrestasi
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updatePrestasi(PrestasiModel.fromEntity(prestasi)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -496,9 +472,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 // TODO: => RevisiLaporan Repositories
   @override
   Future<Either<Failure, void>> createRevisiLaporan(RevisiLaporan revisiLaporan) async {
-    // TODO: implement createRevisiLaporan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createRevisiLaporan(RevisiLaporanModel.fromEntity(revisiLaporan)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -506,9 +481,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deleteRevisiLaporan(int idRevisiLaporan) async {
-    // TODO: implement deleteRevisiLaporan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deleteRevisiLaporan(idRevisiLaporan));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -516,9 +490,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, RevisiLaporan>> readRevisiLaporan(int idRevisiLaporan) async {
-    // TODO: implement readRevisiLaporan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readRevisiLaporan(idRevisiLaporan));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -526,9 +499,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updateRevisiLaporan(RevisiLaporan revisiLaporan) async {
-    // TODO: implement updateRevisiLaporan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updateRevisiLaporan(RevisiLaporanModel.fromEntity(revisiLaporan)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -538,9 +510,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 // TODO: => RevisiUsulan Repositories
   @override
   Future<Either<Failure, void>> createRevisiUsulan(RevisiUsulan revisiUsulan) async {
-    // TODO: implement createRevisiUsulan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createRevisiUsulan(RevisiUsulanModel.fromEntity(revisiUsulan)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -548,9 +519,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deleteRevisiUsulan(int idRevisiUsulan) async {
-    // TODO: implement deleteRevisiUsulan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deleteRevisiUsulan(idRevisiUsulan));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -558,9 +528,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, RevisiUsulan>> readRevisiUsulan(int idRevisiUsulan) async {
-    // TODO: implement readRevisiUsulan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readRevisiUsulan(idRevisiUsulan));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -568,9 +537,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updateRevisiUsulan(RevisiUsulan revisiUsulan) async {
-    // TODO: implement updateRevisiUsulan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updateRevisiUsulan(RevisiUsulanModel.fromEntity(revisiUsulan)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -580,9 +548,11 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 // TODO: => RincianBiayaKegiatan Repositories
   @override
   Future<Either<Failure, void>> createRincianBiayaKegiatan({required int idLaporan, required RincianBiayaKegiatan rincianBiayaKegiatan}) async {
-    // TODO: implement createRincianBiayaKegiatan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createRincianBiayaKegiatan(
+          idLaporan: idLaporan,
+          rincianBiayaKegiatanModel: RincianBiayaKegiatanModel.fromEntity(rincianBiayaKegiatan)),
+      );
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -590,9 +560,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deleteRincianBiayaKegiatan(int idRincianBiayaKegiatan) async {
-    // TODO: implement deleteRincianBiayaKegiatan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deleteRincianBiayaKegiatan(idRincianBiayaKegiatan));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -600,9 +569,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updateRincianBiayaKegiatan(RincianBiayaKegiatan rincianBiayaKegiatan) async {
-    // TODO: implement updateRincianBiayaKegiatan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updateRincianBiayaKegiatan(RincianBiayaKegiatanModel.fromEntity(rincianBiayaKegiatan)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -612,9 +580,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 // TODO: => RiwayatMpt Repositories
   @override
   Future<Either<Failure, void>> createRiwayatMpt(RiwayatMpt riwayatMpt) async {
-    // TODO: implement createRiwayatMpt
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createRiwayatMpt(RiwayatMptModel.fromEntity(riwayatMpt)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -622,9 +589,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deleteRiwayatMpt(int idRiwayatMpt) async {
-    // TODO: implement deleteRiwayatMpt
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deleteRiwayatMpt(idRiwayatMpt));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -632,9 +598,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, List<RiwayatMpt>>> readAllRiwayatMpt() async {
-    // TODO: implement readAllRiwayatMpt
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readAllRiwayatMpt());
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -642,9 +607,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, RiwayatMpt>> readRiwayatMpt(int idRiwayatMpt) async {
-    // TODO: implement readRiwayatMpt
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readRiwayatMpt(idRiwayatMpt));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -652,9 +616,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updateRiwayatMpt(RiwayatMpt riwayatMpt) async {
-    // TODO: implement updateRiwayatMpt
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updateRiwayatMpt(RiwayatMptModel.fromEntity(riwayatMpt)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -664,9 +627,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 // TODO: => Session Repositories
   @override
   Future<Either<Failure, void>> createSession(Session session) async {
-    // TODO: implement createSession
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createSession(SessionModel.fromEntity(session)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -674,9 +636,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deleteSession(int idSession) async {
-    // TODO: implement deleteSession
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deleteSession(idSession));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -684,9 +645,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, List<Session>>> readAllSession() async {
-    // TODO: implement readAllSession
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readAllSession());
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -694,9 +654,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, Session>> readSession(int idSession) async {
-    // TODO: implement readSession
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readSession(idSession));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -704,9 +663,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updateSession(Session session) async {
-    // TODO: implement updateSession
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updateSession(SessionModel.fromEntity(session)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -716,9 +674,11 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 // TODO: => TertibAcara Repositories
   @override
   Future<Either<Failure, void>> createTertibAcara({required int idUsulanKegiatan, required TertibAcara tertibAcara}) async {
-    // TODO: implement createTertibAcara
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createTertibAcara(
+        idUsulanKegiatan: idUsulanKegiatan,
+        tertibAcaraModel: TertibAcaraModel.fromEntity(tertibAcara),
+      ));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -726,9 +686,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deleteTertibAcara(int idTertibAcara) async {
-    // TODO: implement deleteTertibAcara
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deleteTertibAcara(idTertibAcara));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -736,9 +695,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updateTertibAcara(TertibAcara tertibAcara) async {
-    // TODO: implement updateTertibAcara
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updateTertibAcara(TertibAcaraModel.fromEntity(tertibAcara)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -748,9 +706,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 // TODO: => MipokaUser Repositories
   @override
   Future<Either<Failure, void>> createMipokaUser(MipokaUser mipokaUser) async {
-    // TODO: implement createMipokaUser
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createMipokaUser(MipokaUserModel.fromEntity(mipokaUser)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -758,9 +715,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deleteMipokaUser(String idMipokaUser) async {
-    // TODO: implement deleteMipokaUser
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deleteMipokaUser(idMipokaUser));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -768,9 +724,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, List<MipokaUser>>> readAllMipokaUser() async {
-    // TODO: implement readAllMipokaUser
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readAllMipokaUser());
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -778,9 +733,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, MipokaUser>> readMipokaUser(String idMipokaUser) async {
-    // TODO: implement readMipokaUser
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readMipokaUser(idMipokaUser));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -788,9 +742,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updateMipokaUser(MipokaUser mipokaUser) async {
-    // TODO: implement updateMipokaUser
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updateMipokaUser(MipokaUserModel.fromEntity(mipokaUser)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -800,9 +753,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 // TODO: => UsulanKegiatan Repositories
   @override
   Future<Either<Failure, void>> createUsulanKegiatan(UsulanKegiatan usulanKegiatan) async {
-    // TODO: implement createUsulanKegiatan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.createUsulanKegiatan(UsulanKegiatanModel.fromEntity(usulanKegiatan)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -810,9 +762,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> deleteUsulanKegiatan(int idUsulan) async {
-    // TODO: implement deleteUsulanKegiatan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.deleteUsulanKegiatan(idUsulan));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -820,9 +771,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, List<UsulanKegiatan>>> readAllUsulanKegiatan() async {
-    // TODO: implement readAllUsulanKegiatan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readAllUsulanKegiatan());
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -830,9 +780,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, UsulanKegiatan>> readUsulanKegiatan(int idUsulanKegiatan) async {
-    // TODO: implement readUsulanKegiatan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.readUsulanKegiatan(idUsulanKegiatan));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -840,9 +789,8 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, void>> updateUsulanKegiatan(UsulanKegiatan usulanKegiatan) async {
-    // TODO: implement updateUsulanKegiatan
     try {
-      return Right(await mipokaDataSources.);
+      return Right(await mipokaDataSources.updateUsulanKegiatan(UsulanKegiatanModel.fromEntity(usulanKegiatan)));
     } on ServerException {
       return const Left(ServerFailure());
     }

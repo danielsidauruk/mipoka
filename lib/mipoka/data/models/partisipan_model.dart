@@ -16,20 +16,20 @@ class PartisipanModel extends Partisipan {
     required super.updatedBy,
   });
 
-  factory PartisipanModel.fromEntity(Partisipan entity) {
+  factory PartisipanModel.fromEntity(Partisipan partisipan) {
     return PartisipanModel(
-      idPartisipan: entity.idPartisipan,
-      noInduk: entity.noInduk,
-      namaPartisipan: entity.namaPartisipan,
-      nik: entity.nik,
-      tempatLahir: entity.tempatLahir,
-      tglLahir: entity.tglLahir,
-      peranPartisipan: entity.peranPartisipan,
-      dasarPengiriman: entity.dasarPengiriman,
-      createdAt: entity.createdAt,
-      createdBy: entity.createdBy,
-      updatedAt: entity.updatedAt,
-      updatedBy: entity.updatedBy,
+      idPartisipan: partisipan.idPartisipan,
+      noInduk: partisipan.noInduk,
+      namaPartisipan: partisipan.namaPartisipan,
+      nik: partisipan.nik,
+      tempatLahir: partisipan.tempatLahir,
+      tglLahir: partisipan.tglLahir,
+      peranPartisipan: partisipan.peranPartisipan,
+      dasarPengiriman: partisipan.dasarPengiriman,
+      createdAt: partisipan.createdAt,
+      createdBy: partisipan.createdBy,
+      updatedAt: partisipan.updatedAt,
+      updatedBy: partisipan.updatedBy,
     );
   }
 

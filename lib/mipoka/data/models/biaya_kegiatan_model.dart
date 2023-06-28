@@ -15,18 +15,18 @@ class BiayaKegiatanModel extends BiayaKegiatan {
     required super.updatedBy,
   });
 
-  factory BiayaKegiatanModel.fromEntity(BiayaKegiatan rincianBiayaKegiatan) {
+  factory BiayaKegiatanModel.fromEntity(BiayaKegiatan biayaKegiatan) {
     return BiayaKegiatanModel(
-      idBiayaKegiatan: rincianBiayaKegiatan.idBiayaKegiatan,
-      namaBiayaKegiatan: rincianBiayaKegiatan.namaBiayaKegiatan,
-      kuantiti: rincianBiayaKegiatan.kuantiti,
-      hargaSatuan: rincianBiayaKegiatan.hargaSatuan,
-      total: rincianBiayaKegiatan.total,
-      keterangan: rincianBiayaKegiatan.keterangan,
-      createdAt: rincianBiayaKegiatan.createdAt,
-      createdBy: rincianBiayaKegiatan.createdBy,
-      updatedAt: rincianBiayaKegiatan.updatedAt,
-      updatedBy: rincianBiayaKegiatan.updatedBy,
+      idBiayaKegiatan: biayaKegiatan.idBiayaKegiatan,
+      namaBiayaKegiatan: biayaKegiatan.namaBiayaKegiatan,
+      kuantiti: biayaKegiatan.kuantiti,
+      hargaSatuan: biayaKegiatan.hargaSatuan,
+      total: biayaKegiatan.total,
+      keterangan: biayaKegiatan.keterangan,
+      createdAt: biayaKegiatan.createdAt,
+      createdBy: biayaKegiatan.createdBy,
+      updatedAt: biayaKegiatan.updatedAt,
+      updatedBy: biayaKegiatan.updatedBy,
     );
   }
 
