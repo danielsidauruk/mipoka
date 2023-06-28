@@ -90,11 +90,11 @@ class _LoginPageState extends State<LoginPage> {
                   title: 'Log in - Pengguna',
                   onTap:() async {
                     // Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                    try {
-                      String email = _emailController.text;
-                      String password = _passwordController.text;
+                    String email = _emailController.text;
+                    String password = _passwordController.text;
 
-                      if (email.isNotEmpty && password.isNotEmpty) {
+                    if (email.isNotEmpty && password.isNotEmpty) {
+                      try {
                         UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
                           email: email,
                           password: password,
@@ -105,13 +105,13 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.pushNamed(context, penggunaBerandaPageRoute);
                         // Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute),
                         // Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute),
-                      } else {
-                        mipokaCustomToast("Email and Password cannot be empty.");
+                      } catch (e) {
+                        mipokaCustomToast(
+                          "Failed to sign in. Please check your email and password.",
+                        );
                       }
-                    } catch (e) {
-                      mipokaCustomToast(
-                        "Failed to sign in. Please check your email and password.",
-                      );
+                    } else {
+                      mipokaCustomToast("Email and Password cannot be empty.");
                     }
                   },
                 ),
