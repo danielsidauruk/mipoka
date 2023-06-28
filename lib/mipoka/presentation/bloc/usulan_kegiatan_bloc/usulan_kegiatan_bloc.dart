@@ -26,7 +26,7 @@ class UsulanKegiatanBloc
     on<ReadAllUsulanKegiatanEvent>((event, emit) async {
       emit(UsulanKegiatanLoading());
 
-      final result = await usulanKegiatanUseCase.readAllUsulanKegiatan();
+      final result = await usulanKegiatanUseCase.readAllUsulanKegiatan(event.filter);
 
       result.fold(
         (failure) => emit(UsulanKegiatanError(message: failure.message)),

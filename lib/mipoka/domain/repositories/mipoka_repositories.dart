@@ -124,7 +124,7 @@ abstract class MipokaRepositories {
   Future<Either<Failure, void>> updateMipokaUser(MipokaUser mipokaUser);
   Future<Either<Failure, void>> deleteMipokaUser(String idMipokaUser);
 
-  Future<Either<Failure, List<UsulanKegiatan>>> readAllUsulanKegiatan();
+  Future<Either<Failure, List<UsulanKegiatan>>> readAllUsulanKegiatan(String filter);
   Future<Either<Failure, UsulanKegiatan>> readUsulanKegiatan(int idUsulanKegiatan);
   Future<Either<Failure, void>> createUsulanKegiatan(UsulanKegiatan usulanKegiatan);
   Future<Either<Failure, void>> updateUsulanKegiatan(UsulanKegiatan usulanKegiatan);

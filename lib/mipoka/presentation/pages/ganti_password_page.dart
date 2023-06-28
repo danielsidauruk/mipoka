@@ -44,50 +44,26 @@ class _GantiPasswordPageState extends State<GantiPasswordPage> {
 
               const CustomFieldSpacer(),
 
-              // CustomContentBox(
-              //   children: [
-              //     buildTitle('Masukkan Kata Sandi Lama'),
-              //     CustomTextField(controller: _kataSandiLamaController),
-              //
-              //     const CustomFieldSpacer(),
-              //
-              //     buildTitle('Masukkan Kata Sandi Baru'),
-              //     CustomTextField(controller: _kataSandiBaruController),
-              //
-              //     const CustomFieldSpacer(),
-              //
-              //     buildTitle('Ulangi Kata Sandi Baru'),
-              //     CustomTextField(controller: _kataSandiBaru2Controller),
-              //
-              //     const CustomFieldSpacer(),
-              //
-              //     CustomMipokaButton(
-              //       onTap: () => Navigator.pop(context),
-              //       text: 'Ganti Password',
-              //     ),
-              //   ],
-              // ),
               CustomContentBox(
                 children: [
-                  buildTitle('Masukkan Alamat Email'),
-                  CustomTextField(controller: _emailController),
+                  buildTitle('Masukkan Kata Sandi Lama'),
+                  CustomTextField(controller: _kataSandiLamaController),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Masukkan Kata Sandi Baru'),
+                  CustomTextField(controller: _kataSandiBaruController),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Ulangi Kata Sandi Baru'),
+                  CustomTextField(controller: _kataSandiBaru2Controller),
 
                   const CustomFieldSpacer(),
 
                   CustomMipokaButton(
-                    onTap: () async {
-                      String email = _emailController.text;
-
-                      try {
-                        await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-                        // Email untuk reset password berhasil dikirim
-                        // Tampilkan pesan sukses atau tindakan yang sesuai
-                      } catch (e) {
-                        // Terjadi kesalahan dalam mengirim email reset password
-                        // Tampilkan pesan kesalahan atau tindakan yang sesuai
-                      }
-                    },
-                    text: 'Reset Password',
+                    onTap: () => Navigator.pop(context),
+                    text: 'Ganti Password',
                   ),
                 ],
               ),
