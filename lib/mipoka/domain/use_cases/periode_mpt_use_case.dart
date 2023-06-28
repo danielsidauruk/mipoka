@@ -16,15 +16,15 @@ class PeriodeMptUseCase {
     return mipokaRepositories.readPeriodeMpt(idPeriodeMpt);
   }
 
-  Future<Either<Failure, String>> createPeriodeMpt(PeriodeMpt periodeMpt) {
+  Future<Either<Failure, void>> createPeriodeMpt(PeriodeMpt periodeMpt) {
     return mipokaRepositories.createPeriodeMpt(periodeMpt);
   }
 
-  Future<Either<Failure, String>> updatePeriodeMpt(PeriodeMpt periodeMpt) {
+  Future<Either<Failure, void>> updatePeriodeMpt(PeriodeMpt periodeMpt) {
     return mipokaRepositories.updatePeriodeMpt(periodeMpt);
   }
 
-  Future<Either<Failure, String>> deletePeriodeMpt(int idPeriodeMpt) {
+  Future<Either<Failure, void>> deletePeriodeMpt(int idPeriodeMpt) {
     return mipokaRepositories.deletePeriodeMpt(idPeriodeMpt);
   }
 }

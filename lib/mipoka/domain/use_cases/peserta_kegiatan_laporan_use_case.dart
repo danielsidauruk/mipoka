@@ -8,23 +8,21 @@ class PesertaKegiatanLaporanUseCase {
 
   PesertaKegiatanLaporanUseCase({required this.mipokaRepositories});
 
-  Future<Either<Failure, List<PesertaKegiatanLaporan>>> readAllPesertaKegiatanLaporan() {
-    return mipokaRepositories.readAllPesertaKegiatanLaporan();
+  Future<Either<Failure, void>> createPesertaKegiatanLaporan({
+    required int idLaporan,
+    required PesertaKegiatanLaporan pesertaKegiatanLaporan,
+  }) {
+    return mipokaRepositories.createPesertaKegiatanLaporan(
+      idLaporan: idLaporan,
+      pesertaKegiatanLaporan: pesertaKegiatanLaporan,
+    );
   }
 
-  Future<Either<Failure, PesertaKegiatanLaporan>> readPesertaKegiatanLaporan(int idPesertaKegiatanLaporan) {
-    return mipokaRepositories.readPesertaKegiatanLaporan(idPesertaKegiatanLaporan);
-  }
-
-  Future<Either<Failure, String>> createPesertaKegiatanLaporan(PesertaKegiatanLaporan pesertaKegiatanLaporan) {
-    return mipokaRepositories.createPesertaKegiatanLaporan(pesertaKegiatanLaporan);
-  }
-
-  Future<Either<Failure, String>> updatePesertaKegiatanLaporan(PesertaKegiatanLaporan pesertaKegiatanLaporan) {
+  Future<Either<Failure, void>> updatePesertaKegiatanLaporan(PesertaKegiatanLaporan pesertaKegiatanLaporan) {
     return mipokaRepositories.updatePesertaKegiatanLaporan(pesertaKegiatanLaporan);
   }
 
-  Future<Either<Failure, String>> deletePesertaKegiatanLaporan(int idPesertaKegiatanLaporan) {
+  Future<Either<Failure, void>> deletePesertaKegiatanLaporan(int idPesertaKegiatanLaporan) {
     return mipokaRepositories.deletePesertaKegiatanLaporan(idPesertaKegiatanLaporan);
   }
 }

@@ -16,15 +16,15 @@ class RiwayatMptUseCase {
     return mipokaRepositories.readRiwayatMpt(idRiwayatMpt);
   }
 
-  Future<Either<Failure, String>> createRiwayatMpt(RiwayatMpt riwayatMpt) {
+  Future<Either<Failure, void>> createRiwayatMpt(RiwayatMpt riwayatMpt) {
     return mipokaRepositories.createRiwayatMpt(riwayatMpt);
   }
 
-  Future<Either<Failure, String>> updateRiwayatMpt(RiwayatMpt riwayatMpt) {
+  Future<Either<Failure, void>> updateRiwayatMpt(RiwayatMpt riwayatMpt) {
     return mipokaRepositories.updateRiwayatMpt(riwayatMpt);
   }
 
-  Future<Either<Failure, String>> deleteRiwayatMpt(int idRiwayatMpt) {
+  Future<Either<Failure, void>> deleteRiwayatMpt(int idRiwayatMpt) {
     return mipokaRepositories.deleteRiwayatMpt(idRiwayatMpt);
   }
 }

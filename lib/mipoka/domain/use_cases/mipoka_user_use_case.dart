@@ -16,15 +16,15 @@ class MipokaUserUseCase {
     return mipokaRepositories.readMipokaUser(idMipokaUser);
   }
 
-  Future<Either<Failure, String>> createMipokaUser(MipokaUser mipokaUser) {
+  Future<Either<Failure, void>> createMipokaUser(MipokaUser mipokaUser) {
     return mipokaRepositories.createMipokaUser(mipokaUser);
   }
 
-  Future<Either<Failure, String>> updateMipokaUser(MipokaUser mipokaUser) {
+  Future<Either<Failure, void>> updateMipokaUser(MipokaUser mipokaUser) {
     return mipokaRepositories.updateMipokaUser(mipokaUser);
   }
 
-  Future<Either<Failure, String>> deleteMipokaUser(String idMipokaUser) {
+  Future<Either<Failure, void>> deleteMipokaUser(String idMipokaUser) {
     return mipokaRepositories.deleteMipokaUser(idMipokaUser);
   }
 }

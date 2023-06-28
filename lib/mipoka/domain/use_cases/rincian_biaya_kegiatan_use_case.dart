@@ -8,12 +8,14 @@ class RincianBiayaKegiatanUseCase {
 
   RincianBiayaKegiatanUseCase({required this.mipokaRepositories});
 
-  Future<Either<Failure, RincianBiayaKegiatan>> readRincianBiayaKegiatan(int idRincianBiayaKegiatan) {
-    return mipokaRepositories.readRincianBiayaKegiatan(idRincianBiayaKegiatan);
-  }
-
-  Future<Either<Failure, void>> createRincianBiayaKegiatan(RincianBiayaKegiatan rincianBiayaKegiatan) {
-    return mipokaRepositories.createRincianBiayaKegiatan(rincianBiayaKegiatan);
+  Future<Either<Failure, void>> createRincianBiayaKegiatan({
+    required int idLaporan,
+    required RincianBiayaKegiatan rincianBiayaKegiatan,
+  }) {
+    return mipokaRepositories.createRincianBiayaKegiatan(
+      idLaporan: idLaporan,
+      rincianBiayaKegiatan: rincianBiayaKegiatan,
+    );
   }
 
   Future<Either<Failure, void>> updateRincianBiayaKegiatan(RincianBiayaKegiatan rincianBiayaKegiatan) {

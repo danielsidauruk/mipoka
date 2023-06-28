@@ -16,15 +16,15 @@ class PrestasiUseCase {
     return mipokaRepositories.readPrestasi(idPrestasi);
   }
 
-  Future<Either<Failure, String>> createPrestasi(Prestasi prestasi) {
+  Future<Either<Failure, void>> createPrestasi(Prestasi prestasi) {
     return mipokaRepositories.createPrestasi(prestasi);
   }
 
-  Future<Either<Failure, String>> updatePrestasi(Prestasi prestasi) {
+  Future<Either<Failure, void>> updatePrestasi(Prestasi prestasi) {
     return mipokaRepositories.updatePrestasi(prestasi);
   }
 
-  Future<Either<Failure, String>> deletePrestasi(int idPrestasi) {
+  Future<Either<Failure, void>> deletePrestasi(int idPrestasi) {
     return mipokaRepositories.deletePrestasi(idPrestasi);
   }
 }

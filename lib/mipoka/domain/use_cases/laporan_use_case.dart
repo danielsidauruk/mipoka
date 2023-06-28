@@ -16,15 +16,15 @@ class LaporanUseCase {
     return mipokaRepositories.readLaporan(idLaporan);
   }
 
-  Future<Either<Failure, String>> createLaporan(Laporan laporan) {
+  Future<Either<Failure, void>> createLaporan(Laporan laporan) {
     return mipokaRepositories.createLaporan(laporan);
   }
 
-  Future<Either<Failure, String>> updateLaporan(Laporan laporan) {
+  Future<Either<Failure, void>> updateLaporan(Laporan laporan) {
     return mipokaRepositories.updateLaporan(laporan);
   }
 
-  Future<Either<Failure, String>> deleteLaporan(int idLaporan) {
+  Future<Either<Failure, void>> deleteLaporan(int idLaporan) {
     return mipokaRepositories.deleteLaporan(idLaporan);
   }
 }

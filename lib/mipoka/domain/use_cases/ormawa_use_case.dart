@@ -16,15 +16,15 @@ class OrmawaUseCase {
     return mipokaRepositories.readOrmawa(idOrmawa);
   }
 
-  Future<Either<Failure, String>> createOrmawa(Ormawa ormawa) {
+  Future<Either<Failure, void>> createOrmawa(Ormawa ormawa) {
     return mipokaRepositories.createOrmawa(ormawa);
   }
 
-  Future<Either<Failure, String>> updateOrmawa(Ormawa ormawa) {
+  Future<Either<Failure, void>> updateOrmawa(Ormawa ormawa) {
     return mipokaRepositories.updateOrmawa(ormawa);
   }
 
-  Future<Either<Failure, String>> deleteOrmawa(int idOrmawa) {
+  Future<Either<Failure, void>> deleteOrmawa(int idOrmawa) {
     return mipokaRepositories.deleteOrmawa(idOrmawa);
   }
 }

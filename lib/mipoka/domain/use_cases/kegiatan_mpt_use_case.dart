@@ -16,15 +16,15 @@ class KegiatanMptUseCase {
     return mipokaRepositories.readKegiatanMpt(idKegiatanMpt);
   }
 
-  Future<Either<Failure, String>> createKegiatan(KegiatanMpt kegiatan) {
+  Future<Either<Failure, void>> createKegiatan(KegiatanMpt kegiatan) {
     return mipokaRepositories.createKegiatanMpt(kegiatan);
   }
 
-  Future<Either<Failure, String>> updateKegiatanMpt(KegiatanMpt kegiatan) {
+  Future<Either<Failure, void>> updateKegiatanMpt(KegiatanMpt kegiatan) {
     return mipokaRepositories.updateKegiatanMpt(kegiatan);
   }
 
-  Future<Either<Failure, String>> deleteKegiatanMpt(int idKegiatan) {
+  Future<Either<Failure, void>> deleteKegiatanMpt(int idKegiatan) {
     return mipokaRepositories.deleteKegiatanMpt(idKegiatan);
   }
 }

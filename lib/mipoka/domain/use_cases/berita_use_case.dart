@@ -15,15 +15,15 @@ class BeritaUseCase {
     return mipokaRepositories.readAllBerita();
   }
 
-  Future<Either<Failure, String>> createBerita(Berita berita) {
+  Future<Either<Failure, void>> createBerita(Berita berita) {
     return mipokaRepositories.createBerita(berita);
   }
 
-  Future<Either<Failure, String>> updateBerita(Berita berita) {
+  Future<Either<Failure, void>> updateBerita(Berita berita) {
     return mipokaRepositories.updateBerita(berita);
   }
 
-  Future<Either<Failure, String>> deleteBerita(int beritaId) {
+  Future<Either<Failure, void>> deleteBerita(int beritaId) {
     return mipokaRepositories.deleteBerita(beritaId);
   }
 }

@@ -16,33 +16,17 @@ class UsulanKegiatanUseCase {
     return mipokaRepositories.readUsulanKegiatan(idUsulanKegiatan);
   }
 
-  Future<Either<Failure, String>> createUsulanKegiatan(
+  Future<Either<Failure, void>> createUsulanKegiatan(
       UsulanKegiatan usulanKegiatan) {
     return mipokaRepositories.createUsulanKegiatan(usulanKegiatan);
   }
 
-  Future<Either<Failure, String>> updateUsulanKegiatan(
+  Future<Either<Failure, void>> updateUsulanKegiatan(
       UsulanKegiatan usulanKegiatan) {
     return mipokaRepositories.updateUsulanKegiatan(usulanKegiatan);
   }
 
-  Future<Either<Failure, String>> deleteUsulanKegiatan(int idUsulan) {
+  Future<Either<Failure, void>> deleteUsulanKegiatan(int idUsulan) {
     return mipokaRepositories.deleteUsulanKegiatan(idUsulan);
-  }
-
-  Future<Either<Failure, void>> deletePartisipan
-      ({required int idUsulanKegiatan, required int idPartisipan}) {
-    return mipokaRepositories.deletePartisipan(
-      idUsulanKegiatan: idUsulanKegiatan,
-      idPartisipan: idPartisipan,
-    );
-  }
-
-  Future<Either<Failure, void>> deleteBiayaKegiatan
-      ({required int idUsulanKegiatan, required int idBiayaKegiatan}) {
-    return mipokaRepositories.deleteBiayaKegiatan(
-      idUsulanKegiatan: idUsulanKegiatan,
-      idBiayaKegiatan: idBiayaKegiatan,
-    );
   }
 }

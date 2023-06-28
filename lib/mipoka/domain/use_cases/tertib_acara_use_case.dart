@@ -16,15 +16,15 @@ class TertibAcaraUseCase {
   //   return mipokaRepositories.readTertibAcara(idTertibAcara);
   // }
   //
-  // Future<Either<Failure, String>> createTertibAcara(TertibAcara tertibAcara) {
+  // Future<Either<Failure, void>> createTertibAcara(TertibAcara tertibAcara) {
   //   return mipokaRepositories.createTertibAcara(tertibAcara);
   // }
   //
-  // Future<Either<Failure, String>> updateTertibAcara(TertibAcara tertibAcara) {
+  // Future<Either<Failure, void>> updateTertibAcara(TertibAcara tertibAcara) {
   //   return mipokaRepositories.updateTertibAcara(tertibAcara);
   // }
   //
-  // Future<Either<Failure, String>> deleteTertibAcara(int idTertibAcara) {
+  // Future<Either<Failure, void>> deleteTertibAcara(int idTertibAcara) {
   //   return mipokaRepositories.deleteTertibAcara(idTertibAcara);
   // }
 }

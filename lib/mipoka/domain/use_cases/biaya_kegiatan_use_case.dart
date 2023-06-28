@@ -16,15 +16,15 @@ class BiayaKegiatanUseCase {
   //   return mipokaRepositories.readBiayaKegiatan(biayaKegiatan);
   // }
   //
-  // Future<Either<Failure, String>> createBiayaKegiatan(BiayaKegiatan biayaKegiatan) {
+  // Future<Either<Failure, void>> createBiayaKegiatan(BiayaKegiatan biayaKegiatan) {
   //   return mipokaRepositories.createBiayaKegiatan(biayaKegiatan);
   // }
   //
-  // Future<Either<Failure, String>> updateBiayaKegiatan(BiayaKegiatan biayaKegiatan) {
+  // Future<Either<Failure, void>> updateBiayaKegiatan(BiayaKegiatan biayaKegiatan) {
   //   return mipokaRepositories.updateBiayaKegiatan(biayaKegiatan);
   // }
   //
-  // Future<Either<Failure, String>> deleteBiayaKegiatan(int idNamaBiayaKegiatan) {
+  // Future<Either<Failure, void>> deleteBiayaKegiatan(int idNamaBiayaKegiatan) {
   //   return mipokaRepositories.deleteBiayaKegiatan(idNamaBiayaKegiatan);
   // }
 }

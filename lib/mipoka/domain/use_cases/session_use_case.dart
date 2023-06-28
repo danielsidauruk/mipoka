@@ -16,15 +16,15 @@ class SessionUseCase {
     return mipokaRepositories.readSession(idSession);
   }
 
-  Future<Either<Failure, String>> createSession(Session session) {
+  Future<Either<Failure, void>> createSession(Session session) {
     return mipokaRepositories.createSession(session);
   }
 
-  Future<Either<Failure, String>> updateSession(Session session) {
+  Future<Either<Failure, void>> updateSession(Session session) {
     return mipokaRepositories.updateSession(session);
   }
 
-  Future<Either<Failure, String>> deleteSession(int idSession) {
+  Future<Either<Failure, void>> deleteSession(int idSession) {
     return mipokaRepositories.deleteSession(idSession);
   }
 }

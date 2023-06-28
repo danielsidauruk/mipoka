@@ -16,15 +16,15 @@ class PartisipanUseCase {
   //   return mipokaRepositories.readPartisipan(idPartisipan);
   // }
   //
-  // Future<Either<Failure, String>> createPartisipan(Partisipan partisipan) {
+  // Future<Either<Failure, void>> createPartisipan(Partisipan partisipan) {
   //   return mipokaRepositories.createPartisipan(partisipan);
   // }
   //
-  // Future<Either<Failure, String>> updatePartisipan(Partisipan partisipan) {
+  // Future<Either<Failure, void>> updatePartisipan(Partisipan partisipan) {
   //   return mipokaRepositories.updatePartisipan(partisipan);
   // }
   //
-  // Future<Either<Failure, String>> deletePartisipan(int idPartisipan) {
+  // Future<Either<Failure, void>> deletePartisipan(int idPartisipan) {
   //   return mipokaRepositories.deletePartisipan(idPartisipan);
   // }
 }
