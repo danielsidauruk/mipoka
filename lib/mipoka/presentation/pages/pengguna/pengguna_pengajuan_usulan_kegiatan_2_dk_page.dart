@@ -14,6 +14,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class PenggunaPengajuanUsulanKegiatan2DK extends StatefulWidget {
   const PenggunaPengajuanUsulanKegiatan2DK({
@@ -195,6 +196,7 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                                   idPartisipan: partisipan.idPartisipan,
                                                 ),
                                               );
+                                              mipokaCustomToast('${partisipan.namaPartisipan} has been deleted.');
                                               context.read<UsulanKegiatanBloc>().add(
                                                 ReadUsulanKegiatanEvent(idUsulanKegiatan: state.usulanKegiatan.idUsulan),
                                               );

@@ -47,4 +47,4 @@ class UsulanKegiatanSuccessMessage extends UsulanKegiatanState {
   List<Object> get props => [message];
 }
 
-
+class DeleteUsulanKegiatan extends UsulanKegiatanState {}

@@ -87,7 +87,11 @@ class UsulanKegiatanBloc
             (message) => emit(UsulanKegiatanSuccessMessage(message: message)),
       );
 
-      // add(ReadUsulanKegiatanEvent(idUsulanKegiatan: event.idUsulanKegiatan));
+      add(ReadUsulanKegiatanEvent(idUsulanKegiatan: event.idUsulanKegiatan));
+    });
+
+    on<DeleteUsulanKegiatanEvent>((event, emit) async {
+
     });
   }
 }
