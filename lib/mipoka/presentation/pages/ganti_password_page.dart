@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
@@ -18,9 +19,11 @@ class GantiPasswordPage extends StatefulWidget {
 }
 
 class _GantiPasswordPageState extends State<GantiPasswordPage> {
-  TextEditingController _kataSandiLamaController = TextEditingController();
-  TextEditingController _kataSandiBaruController = TextEditingController();
-  TextEditingController _kataSandiBaru2Controller = TextEditingController();
+  final TextEditingController _kataSandiLamaController = TextEditingController();
+  final TextEditingController _kataSandiBaruController = TextEditingController();
+  final TextEditingController _kataSandiBaru2Controller = TextEditingController();
+
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,29 +44,54 @@ class _GantiPasswordPageState extends State<GantiPasswordPage> {
 
               const CustomFieldSpacer(),
 
+              // CustomContentBox(
+              //   children: [
+              //     buildTitle('Masukkan Kata Sandi Lama'),
+              //     CustomTextField(controller: _kataSandiLamaController),
+              //
+              //     const CustomFieldSpacer(),
+              //
+              //     buildTitle('Masukkan Kata Sandi Baru'),
+              //     CustomTextField(controller: _kataSandiBaruController),
+              //
+              //     const CustomFieldSpacer(),
+              //
+              //     buildTitle('Ulangi Kata Sandi Baru'),
+              //     CustomTextField(controller: _kataSandiBaru2Controller),
+              //
+              //     const CustomFieldSpacer(),
+              //
+              //     CustomMipokaButton(
+              //       onTap: () => Navigator.pop(context),
+              //       text: 'Ganti Password',
+              //     ),
+              //   ],
+              // ),
               CustomContentBox(
                 children: [
-                  buildTitle('Masukkan Kata Sandi Lama'),
-                  CustomTextField(controller: _kataSandiLamaController),
+                  buildTitle('Masukkan Alamat Email'),
+                  CustomTextField(controller: _emailController),
 
                   const CustomFieldSpacer(),
 
-                  buildTitle('Masukkan Kata Sandi Baru'),
-                  CustomTextField(controller: _kataSandiBaruController),
-
-                  const CustomFieldSpacer(),
-
-                  buildTitle('Ulangi Kata Sandi Baru'),
-                  CustomTextField(controller: _kataSandiBaru2Controller),
-
-                  const CustomFieldSpacer(),
-                  
                   CustomMipokaButton(
-                    onTap: () => Navigator.pop(context),
-                    text: 'Ganti Password',
+                    onTap: () async {
+                      String email = _emailController.text;
+
+                      try {
+                        await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+                        // Email untuk reset password berhasil dikirim
+                        // Tampilkan pesan sukses atau tindakan yang sesuai
+                      } catch (e) {
+                        // Terjadi kesalahan dalam mengirim email reset password
+                        // Tampilkan pesan kesalahan atau tindakan yang sesuai
+                      }
+                    },
+                    text: 'Reset Password',
                   ),
                 ],
               ),
+
             ],
           ),
         ),

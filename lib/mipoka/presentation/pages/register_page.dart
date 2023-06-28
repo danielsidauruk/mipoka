@@ -149,16 +149,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         mipokaCustomToast('Your account has been registered.');
                         Navigator.pushNamed(context, penggunaBerandaPageRoute);
                       } catch (e) {
-                        if (kDebugMode) {
-                          final errorMessage = e.toString();
-                          final int startIndex;
-                          if (e.toString().contains('Firebase:')) {
-                            startIndex = errorMessage.indexOf("Firebase:");
-                            // print();
-                            mipokaCustomToast(errorMessage.substring(startIndex));
-                          } else {
-                            mipokaCustomToast(errorMessage);
-                          }
+                        final errorMessage = e.toString();
+                        final int startIndex;
+                        if (e.toString().contains('Firebase:')) {
+                          startIndex = errorMessage.indexOf("Firebase:");
+                          mipokaCustomToast(errorMessage.substring(startIndex));
+                        } else {
+                          mipokaCustomToast(errorMessage);
                         }
                       }
                     } else {

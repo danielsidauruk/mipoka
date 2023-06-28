@@ -91,7 +91,8 @@ class _UsulanKegiatanTambahBiayaKegiatanPageState extends State<UsulanKegiatanTa
                                     _hargaSatuanController.text.isNotEmpty && _keteranganController.text.isNotEmpty) {
                                   BlocProvider.of<BiayaKegiatanBloc>(context).add(
                                     CreateBiayaKegiatanEvent(
-                                      BiayaKegiatan(
+                                      idUsulanKegiatan: widget.idUsulanKegiatan,
+                                      biayaKegiatan: BiayaKegiatan(
                                         idBiayaKegiatan: 1,
                                         namaBiayaKegiatan: _namaBiayaKegiatanController.text,
                                         kuantiti: int.parse(_kuantitiController.text),
