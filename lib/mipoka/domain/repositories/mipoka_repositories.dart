@@ -31,8 +31,6 @@ abstract class MipokaRepositories {
   Future<Either<Failure, void>> updateAdmin(Admin admin);
   Future<Either<Failure, void>> deleteAdmin(int adminId);
 
-  // Future<Either<Failure, List<BiayaKegiatan>>> readAllBiayaKegiatan();
-  // Future<Either<Failure, BiayaKegiatan>> readBiayaKegiatan(int biayaKegiatan);
   Future<Either<Failure, void>> createBiayaKegiatan({
     required int idUsulanKegiatan,
     required BiayaKegiatan biayaKegiatan,
@@ -58,8 +56,6 @@ abstract class MipokaRepositories {
   Future<Either<Failure, void>> updateOrmawa(Ormawa ormawa);
   Future<Either<Failure, void>> deleteOrmawa(int idOrmawa);
 
-  // Future<Either<Failure, List<Partisipan>>> readAllPartisipan();
-  // Future<Either<Failure, Partisipan>> readPartisipan(int idPartisipan);
   Future<Either<Failure, void>> createPartisipan({
     required int idUsulanKegiatan,
     required Partisipan partisipan,
@@ -73,8 +69,6 @@ abstract class MipokaRepositories {
   Future<Either<Failure, void>> updatePeriodeMpt(PeriodeMpt periodeMpt);
   Future<Either<Failure, void>> deletePeriodeMpt(int idPeriode);
 
-  // Future<Either<Failure, List<PesertaKegiatanLaporan>>> readAllPesertaKegiatanLaporan();
-  // Future<Either<Failure, PesertaKegiatanLaporan>> readPesertaKegiatanLaporan(int idPesertaKegiatanLaporan);
   Future<Either<Failure, void>> createPesertaKegiatanLaporan({
     required int idLaporan,
     required PesertaKegiatanLaporan pesertaKegiatanLaporan,
@@ -98,7 +92,6 @@ abstract class MipokaRepositories {
   Future<Either<Failure, void>> updateRevisiUsulan(RevisiUsulan revisiUsulan);
   Future<Either<Failure, void>> deleteRevisiUsulan(int idRevisiUsulan);
 
-  // Future<Either<Failure, RincianBiayaKegiatan>> readRincianBiayaKegiatan(int idRincianBiayaKegiatan);
   Future<Either<Failure, void>> createRincianBiayaKegiatan({
     required int idLaporan,
     required RincianBiayaKegiatan rincianBiayaKegiatan,
@@ -118,8 +111,6 @@ abstract class MipokaRepositories {
   Future<Either<Failure, void>> updateSession(Session session);
   Future<Either<Failure, void>> deleteSession(int idSession);
 
-  // Future<Either<Failure, List<TertibAcara>>> readAllTertibAcara();
-  // Future<Either<Failure, TertibAcara>> readTertibAcara(int idTertibAcara);
   Future<Either<Failure, void>> createTertibAcara({
     required int idUsulanKegiatan,
     required TertibAcara tertibAcara,
