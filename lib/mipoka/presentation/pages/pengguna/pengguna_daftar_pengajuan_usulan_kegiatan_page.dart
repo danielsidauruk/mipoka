@@ -248,7 +248,7 @@ class _PenggunaDaftarPengajuanKegiatanState
   void initState() {
     Future.microtask(() {
       BlocProvider.of<UsulanKegiatanBloc>(context, listen: false)
-          .add(ReadAllUsulanKegiatanEvent());
+          .add(const ReadAllUsulanKegiatanEvent());
     });
     super.initState();
   }
@@ -284,131 +284,137 @@ class _PenggunaDaftarPengajuanKegiatanState
                       MipokaCustomDropdown(
                         items: listStatus,
                         onValueChanged: (value) {
+                          context.read<UsulanKegiatanBloc>().add(
+                            ReadAllUsulanKegiatanEvent(filter: value!),
+                          );
                         },
                       ),
                       const CustomFieldSpacer(),
                       SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: DataTable(
-                          columnSpacing: 40,
-                          border: TableBorder.all(color: Colors.white),
-                          columns: const [
-                            DataColumn(
-                              label: Text(
-                                'No.',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
+                        scrollDirection: Axis.vertical,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: DataTable(
+                            columnSpacing: 40,
+                            border: TableBorder.all(color: Colors.white),
+                            columns: const [
+                              DataColumn(
+                                label: Text(
+                                  'No.',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Tanggal Mengirim Usulan Kegiatan',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
+                              DataColumn(
+                                label: Text(
+                                  'Tanggal Mengirim Usulan Kegiatan',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Nama Pengusul',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
+                              DataColumn(
+                                label: Text(
+                                  'Nama Pengusul',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Nama Kegiatan',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
+                              DataColumn(
+                                label: Text(
+                                  'Nama Kegiatan',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Usulan Kegiatan',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
+                              DataColumn(
+                                label: Text(
+                                  'Usulan Kegiatan',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Validasi Pembina',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
+                              DataColumn(
+                                label: Text(
+                                  'Validasi Pembina',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Status',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
+                              DataColumn(
+                                label: Text(
+                                  'Status',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                          ],
-                          rows: List<DataRow>.generate(
-                              state.usulanKegiatanList.length, (int index) {
-                            final usulanKegiatan =
-                                state.usulanKegiatanList[index];
-                            return DataRow(
-                              cells: [
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      '${index + 1}',
+                            ],
+                            rows: List<DataRow>.generate(
+                                state.usulanKegiatanList.length, (int index) {
+                              final usulanKegiatan =
+                                  state.usulanKegiatanList[index];
+                              return DataRow(
+                                cells: [
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        '${index + 1}',
+                                      ),
                                     ),
                                   ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      usulanKegiatan.createdAt,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        usulanKegiatan.createdAt,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      usulanKegiatan.createdBy,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        usulanKegiatan.createdBy,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      usulanKegiatan.namaKegiatan,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        usulanKegiatan.namaKegiatan,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Image.asset(
-                                      'assets/icons/word.png',
-                                      width: 24,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Image.asset(
+                                        'assets/icons/word.png',
+                                        width: 24,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      usulanKegiatan.validasiPembina,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        usulanKegiatan.validasiPembina,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      usulanKegiatan.statusUsulan,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        usulanKegiatan.statusUsulan,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            );
-                          }),
+                                ],
+                              );
+                            }),
+                          ),
                         ),
                       ),
                       const CustomFieldSpacer(),

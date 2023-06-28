@@ -688,9 +688,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                   const SizedBox(width: 8.0),
                                   CustomMipokaButton(
                                     onTap: () {
-                                      if (kDebugMode) {
-                                        print(_bentukKegiatanSwitchController);
-                                      }
+
                                       // Navigator.pushNamed(
                                       //   context,
                                       //   penggunaPengajuanUsulanKegiatan2LKPageRoute,
@@ -704,6 +702,13 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                           ),
                                         ),
                                       );
+
+                                      _tempatKegiatanSwitchController == true ?
+                                      Navigator.pushNamed(
+                                        context,
+                                        penggunaPengajuanUsulanKegiatan2LKPageRoute,
+                                        arguments: widget.idUsulanKegiatan,
+                                      ) :
                                       Navigator.pushNamed(
                                         context,
                                         penggunaPengajuanUsulanKegiatan2DKPageRoute,
