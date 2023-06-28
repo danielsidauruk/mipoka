@@ -37,7 +37,6 @@ abstract class MipokaDataSources {
   Future<BiayaKegiatanModel> readBiayaKegiatan(int biayaKegiatan);
   Future<String> createBiayaKegiatan(BiayaKegiatanModel biayaKegiatanModel);
   Future<String> updateBiayaKegiatan(BiayaKegiatanModel biayaKegiatanModel);
-  Future<String> deleteBiayaKegiatan(int idBiayaKegiatan);
 
   Future<List<KegiatanMptModel>> readAllKegiatanMpt();
   Future<KegiatanMptModel> readKegiatanMpt(int idKegiatanMpt);
@@ -57,11 +56,10 @@ abstract class MipokaDataSources {
   Future<String> updateOrmawa(OrmawaModel ormawaModel);
   Future<String> deleteOrmawa(int idOrmawa);
 
-  Future<List<PartisipanModel>> readAllPartisipan();
-  Future<PartisipanModel> readPartisipan(int idPartisipan);
-  Future<String> createPartisipan(PartisipanModel partisipanModel);
-  Future<String> updatePartisipan(PartisipanModel partisipanModel);
-  Future<String> deletePartisipan(int idPartisipan);
+  // Future<List<PartisipanModel>> readAllPartisipan();
+  // Future<PartisipanModel> readPartisipan(int idPartisipan);
+  // Future<String> createPartisipan(PartisipanModel partisipanModel);
+  // Future<String> updatePartisipan(PartisipanModel partisipanModel);
 
   Future<List<PeriodeMptModel>> readAllPeriodeMpt();
   Future<PeriodeMptModel> readPeriodeMpt(int idPeriode);
@@ -112,7 +110,6 @@ abstract class MipokaDataSources {
   Future<TertibAcaraModel> readTertibAcara(int idTertibAcara);
   Future<String> createTertibAcara(TertibAcaraModel tertibAcaraModel);
   Future<String> updateTertibAcara(TertibAcaraModel tertibAcaraModel);
-  Future<String> deleteTertibAcara(int idTertibAcara);
 
   Future<List<MipokaUserModel>> readAllMipokaUser();
   Future<MipokaUserModel> readMipokaUser(String idMipokaUser);
@@ -125,7 +122,9 @@ abstract class MipokaDataSources {
   Future<String> createUsulanKegiatan(UsulanKegiatanModel usulanKegiatanModel);
   Future<String> updateUsulanKegiatan(UsulanKegiatanModel usulanKegiatanModel);
   Future<String> deleteUsulanKegiatan(int idMipokaUser);
-  Future<String> deleteUsulanPartisipan({required int idUsulanKegiatan, required int idPartisipan});
+  Future<void> deletePartisipan(int idPartisipan);
+  Future<void> deleteBiayaKegiatan(int idBiayaKegiatan);
+  Future<void> deleteTertibAcara(int idTertibAcara);
 }
 
 class MipokaDataSourcesImpl implements MipokaDataSources {
@@ -265,16 +264,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     }
 
     return "Biaya Kegiatan has been updated successfully.";
-  }
-
-  @override
-  Future<String> deleteBiayaKegiatan(int idBiayaKegiatan) async {
-    if (kDebugMode) {
-      print(
-          'Biaya Kegiatan with ID $idBiayaKegiatan has been deleted successfully.');
-    }
-
-    return "Biaya Kegiatan has been deleted successfully.";
   }
 
   // => kegiatanModel
@@ -473,15 +462,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     }
 
     return "Partisipan has been updated successfully.";
-  }
-
-  @override
-  Future<String> deletePartisipan(int idPartisipan) async {
-    if (kDebugMode) {
-      print('Partisipan with ID $idPartisipan has been deleted successfully.');
-    }
-
-    return "Partisipan has been deleted successfully.";
   }
 
   // => Periode
@@ -889,16 +869,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     return "Tertib Acara has been updated successfully.";
   }
 
-  @override
-  Future<String> deleteTertibAcara(int idTertibAcara) async {
-    if (kDebugMode) {
-      print(
-          'Tertib Acara with ID $idTertibAcara has been deleted successfully.');
-    }
-
-    return "Tertib Acara has been deleted successfully.";
-  }
-
   // => MipokaUserModel
   @override
   Future<String> createMipokaUser(MipokaUserModel userModel) async {
@@ -1010,36 +980,19 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<String> deleteUsulanPartisipan({required int idUsulanKegiatan, required int idPartisipan}) async {
-    print('Partisipan with ID $idPartisipan in Usulan $idUsulanKegiatan has been deleted successfully.');
-
-    return "Partisipan has been deleted successfully.";
-    // try {
-    //   final String response = await rootBundle
-    //       .loadString('assets/json_file/usulan_kegiatan.json');
-    //
-    //   final Map<String, dynamic> jsonData = json.decode(response);
-    //   UsulanKegiatanModel usulanKegiatan = UsulanKegiatanModel.fromJson(jsonData);
-    //
-    //   // Cari index partisipan berdasarkan idPartisipan
-    //   int partisipanIndex = usulanKegiatan.partisipan
-    //       .indexWhere((partisipan) => partisipan.idPartisipan == idPartisipan);
-    //
-    //   if (partisipanIndex != -1) {
-    //     // // Hapus partisipan dari list partisipan
-    //     // usulanKegiatan.partisipan.removeAt(partisipanIndex);
-    //     //
-    //     // // Update file JSON dengan data yang telah diubah
-    //     // String updatedJson = json.encode(usulanKegiatan.toJson());
-    //     // // Simpan kembali file JSON
-    //     // // ...
-    //
-    //     return "Partisipan berhasil dihapus";
-    //   } else {
-    //     return "Partisipan tidak ditemukan";
-    //   }
-    // } catch (e) {
-    //   return "Terjadi kesalahan saat menghapus partisipan";
-    // }
+  Future<void> deletePartisipan(int idPartisipan) async {
+    if (kDebugMode) {
+      print('Partisipan with ID $idPartisipan has been deleted successfully.');
+    }
   }
+
+  @override
+  Future<void> deleteBiayaKegiatan(int idBiayaKegiatan) async {
+    if (kDebugMode) {
+      print(
+          'Biaya Kegiatan with ID $idBiayaKegiatan has been deleted successfully.');
+    }
+  }
+
+
 }

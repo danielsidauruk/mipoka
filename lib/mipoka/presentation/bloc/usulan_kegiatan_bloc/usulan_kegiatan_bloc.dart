@@ -77,7 +77,7 @@ class UsulanKegiatanBloc
     on<DeleteUsulanPartisipanEvent>((event, emit) async {
       emit(UsulanKegiatanLoading());
 
-      final result = await usulanKegiatanUseCase.deleteUsulanPartisipan(
+      final result = await usulanKegiatanUseCase.deletePartisipan(
         idUsulanKegiatan: event.idUsulanKegiatan,
         idPartisipan: event.idPartisipan,
       );

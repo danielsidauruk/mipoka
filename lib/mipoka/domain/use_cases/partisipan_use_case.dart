@@ -8,23 +8,23 @@ class PartisipanUseCase {
 
   PartisipanUseCase({required this.mipokaRepositories});
 
-  Future<Either<Failure, List<Partisipan>>> readAllPartisipan() {
-    return mipokaRepositories.readAllPartisipan();
-  }
-
-  Future<Either<Failure, Partisipan>> readPartisipan(int idPartisipan){
-    return mipokaRepositories.readPartisipan(idPartisipan);
-  }
-
-  Future<Either<Failure, String>> createPartisipan(Partisipan partisipan) {
-    return mipokaRepositories.createPartisipan(partisipan);
-  }
-
-  Future<Either<Failure, String>> updatePartisipan(Partisipan partisipan) {
-    return mipokaRepositories.updatePartisipan(partisipan);
-  }
-
-  Future<Either<Failure, String>> deletePartisipan(int idPartisipan) {
-    return mipokaRepositories.deletePartisipan(idPartisipan);
-  }
+  // Future<Either<Failure, List<Partisipan>>> readAllPartisipan() {
+  //   return mipokaRepositories.readAllPartisipan();
+  // }
+  //
+  // Future<Either<Failure, Partisipan>> readPartisipan(int idPartisipan){
+  //   return mipokaRepositories.readPartisipan(idPartisipan);
+  // }
+  //
+  // Future<Either<Failure, String>> createPartisipan(Partisipan partisipan) {
+  //   return mipokaRepositories.createPartisipan(partisipan);
+  // }
+  //
+  // Future<Either<Failure, String>> updatePartisipan(Partisipan partisipan) {
+  //   return mipokaRepositories.updatePartisipan(partisipan);
+  // }
+  //
+  // Future<Either<Failure, String>> deletePartisipan(int idPartisipan) {
+  //   return mipokaRepositories.deletePartisipan(idPartisipan);
+  // }
 }
