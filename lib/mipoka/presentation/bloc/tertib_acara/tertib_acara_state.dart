@@ -32,7 +32,7 @@ class TertibAcaraError extends TertibAcaraState {
 class TertibAcaraSuccessMessage extends TertibAcaraState {
   final String message;
 
-  const TertibAcaraSuccessMessage({required this.message});
+  const TertibAcaraSuccessMessage({this.message = "Data has changed"});
 
   @override
   List<Object> get props => [message];

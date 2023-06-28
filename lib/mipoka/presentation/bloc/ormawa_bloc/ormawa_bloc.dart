@@ -52,8 +52,6 @@ class OrmawaBloc extends Bloc<OrmawaEvent, OrmawaState> {
             (failure) => emit(OrmawaError(message: failure.message)),
             (_) => emit(const OrmawaSuccessMessage()),
       );
-
-      add(ReadAllOrmawaEvent());
     });
 
     on<DeleteOrmawaEvent>((event, emit) async {
@@ -65,8 +63,6 @@ class OrmawaBloc extends Bloc<OrmawaEvent, OrmawaState> {
             (failure) => emit(OrmawaError(message: failure.message)),
             (_) => emit(const OrmawaSuccessMessage()),
       );
-
-      add(ReadAllOrmawaEvent());
     });
   }
 }

@@ -42,8 +42,6 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
             (failure) => emit(SessionError(message: failure.message)),
             (_) => emit(const SessionSuccessMessage()),
       );
-
-      add(ReadAllSessionEvent());
     });
 
     on<UpdateSessionEvent>((event, emit) async {
@@ -55,8 +53,6 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
             (failure) => emit(SessionError(message: failure.message)),
             (_) => emit(const SessionSuccessMessage()),
       );
-
-      add(ReadAllSessionEvent());
     });
 
     on<DeleteSessionEvent>((event, emit) async {
@@ -68,8 +64,6 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
             (failure) => emit(SessionError(message: failure.message)),
             (_) => emit(const SessionSuccessMessage()),
       );
-
-      add(ReadAllSessionEvent());
     });
   }
 }

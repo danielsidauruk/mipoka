@@ -10,9 +10,10 @@ class UsulanKegiatanBloc
     extends Bloc<UsulanKegiatanEvent, UsulanKegiatanState> {
   final UsulanKegiatanUseCase usulanKegiatanUseCase;
 
-  UsulanKegiatanBloc({required this.usulanKegiatanUseCase})
+  UsulanKegiatanBloc({
+    required this.usulanKegiatanUseCase,
+  })
       : super(UsulanKegiatanEmpty()) {
-
     on<ReadUsulanKegiatanEvent>((event, emit) async {
       emit(UsulanKegiatanLoading());
 
@@ -44,8 +45,6 @@ class UsulanKegiatanBloc
         (failure) => emit(UsulanKegiatanError(message: failure.message)),
         (message) => emit(const UsulanKegiatanSuccessMessage()),
       );
-
-      add(ReadAllUsulanKegiatanEvent());
     });
 
     on<UpdateUsulanKegiatanEvent>((event, emit) async {
@@ -58,8 +57,6 @@ class UsulanKegiatanBloc
         (failure) => emit(UsulanKegiatanError(message: failure.message)),
         (message) => emit(const UsulanKegiatanSuccessMessage()),
       );
-
-      add(const ReadUsulanKegiatanEvent(idUsulanKegiatan: 1));
     });
 
     on<DeleteUsulanKegiatanEvent>((event, emit) async {
@@ -73,27 +70,5 @@ class UsulanKegiatanBloc
         (message) => emit(const UsulanKegiatanSuccessMessage()),
       );
     });
-
-
-
-    // on<DeleteUsulanPartisipanEvent>((event, emit) async {
-    //   emit(UsulanKegiatanLoading());
-    //
-    //   final result = await usulanKegiatanUseCase.deletePartisipan(
-    //     idUsulanKegiatan: event.idUsulanKegiatan,
-    //     idPartisipan: event.idPartisipan,
-    //   );
-    //
-    //   result.fold(
-    //         (failure) => emit(UsulanKegiatanError(message: failure.message)),
-    //         (message) => emit(UsulanKegiatanSuccessMessage(message: message)),
-    //   );
-    //
-    //   add(ReadUsulanKegiatanEvent(idUsulanKegiatan: event.idUsulanKegiatan));
-    // });
-    //
-    // on<DeleteUsulanKegiatanEvent>((event, emit) async {
-    //
-    // });
   }
 }

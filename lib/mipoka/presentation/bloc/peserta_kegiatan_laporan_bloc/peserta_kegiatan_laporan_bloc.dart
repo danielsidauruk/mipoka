@@ -14,14 +14,15 @@ class PesertaKegiatanLaporanBloc extends Bloc<PesertaKegiatanLaporanEvent, Peser
     on<CreatePesertaKegiatanLaporanEvent>((event, emit) async {
       emit(PesertaKegiatanLaporanLoading());
 
-      final result = await pesertaKegiatanLaporanUseCase.createPesertaKegiatanLaporan(event.pesertaKegiatanLaporan);
+      final result = await pesertaKegiatanLaporanUseCase.createPesertaKegiatanLaporan(
+        idLaporan: event.idUsulanKegiatan,
+        pesertaKegiatanLaporan: event.pesertaKegiatanLaporan,
+      );
 
       result.fold(
             (failure) => emit(PesertaKegiatanLaporanError(message: failure.message)),
-            (message) => emit(PesertaKegiatanLaporanSuccessMessage(message: message)),
+            (_) => emit(const PesertaKegiatanLaporanSuccessMessage()),
       );
-
-      add(ReadAllPesertaKegiatanLaporanEvent());
     });
 
     on<UpdatePesertaKegiatanLaporanEvent>((event, emit) async {
@@ -31,10 +32,8 @@ class PesertaKegiatanLaporanBloc extends Bloc<PesertaKegiatanLaporanEvent, Peser
 
       result.fold(
             (failure) => emit(PesertaKegiatanLaporanError(message: failure.message)),
-            (message) => emit(PesertaKegiatanLaporanSuccessMessage(message: message)),
+            (_) => emit(const PesertaKegiatanLaporanSuccessMessage()),
       );
-
-      add(ReadAllPesertaKegiatanLaporanEvent());
     });
 
     on<DeletePesertaKegiatanLaporanEvent>((event, emit) async {
@@ -44,10 +43,8 @@ class PesertaKegiatanLaporanBloc extends Bloc<PesertaKegiatanLaporanEvent, Peser
 
       result.fold(
             (failure) => emit(PesertaKegiatanLaporanError(message: failure.message)),
-            (message) => emit(PesertaKegiatanLaporanSuccessMessage(message: message)),
+            (_) => emit(const PesertaKegiatanLaporanSuccessMessage()),
       );
-
-      add(ReadAllPesertaKegiatanLaporanEvent());
     });
   }
 }

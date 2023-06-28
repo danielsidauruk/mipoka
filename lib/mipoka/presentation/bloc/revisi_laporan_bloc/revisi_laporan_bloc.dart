@@ -28,7 +28,7 @@ class RevisiLaporanBloc extends Bloc<RevisiLaporanEvent, RevisiLaporanState> {
 
       result.fold(
             (failure) => emit(RevisiLaporanError(message: failure.message)),
-            (_) => emit(RevisiLaporanSuccess()),
+            (_) => emit(const RevisiLaporanSuccess()),
       );
     });
 
@@ -39,7 +39,7 @@ class RevisiLaporanBloc extends Bloc<RevisiLaporanEvent, RevisiLaporanState> {
 
       result.fold(
             (failure) => emit(RevisiLaporanError(message: failure.message)),
-            (_) => emit(RevisiLaporanSuccess()),
+            (_) => emit(const RevisiLaporanSuccess()),
       );
     });
 
@@ -50,7 +50,7 @@ class RevisiLaporanBloc extends Bloc<RevisiLaporanEvent, RevisiLaporanState> {
 
       result.fold(
             (failure) => emit(RevisiLaporanError(message: failure.message)),
-            (_) => emit(RevisiLaporanSuccess()),
+            (_) => emit(const RevisiLaporanSuccess()),
       );
     });
   }

@@ -14,9 +14,13 @@ class ReadRincianBiayaKegiatanEvent extends RincianBiayaKegiatanEvent {
 }
 
 class CreateRincianBiayaKegiatanEvent extends RincianBiayaKegiatanEvent {
+  final int idLaporan;
   final RincianBiayaKegiatan rincianBiayaKegiatan;
 
-  const CreateRincianBiayaKegiatanEvent({required this.rincianBiayaKegiatan});
+  const CreateRincianBiayaKegiatanEvent({
+    required this.idLaporan,
+    required this.rincianBiayaKegiatan,
+  });
 
   @override
   List<Object> get props => [rincianBiayaKegiatan];

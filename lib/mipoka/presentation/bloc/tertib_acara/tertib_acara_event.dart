@@ -15,9 +15,13 @@ class ReadTertibAcaraEvent extends TertibAcaraEvent {
 
 
 class CreateTertibAcaraEvent extends TertibAcaraEvent {
+  final int idUsulanKegiatan;
   final TertibAcara tertibAcara;
 
-  const CreateTertibAcaraEvent({required this.tertibAcara});
+  const CreateTertibAcaraEvent({
+    required this.idUsulanKegiatan,
+    required this.tertibAcara,
+  });
 
   @override
   List<Object> get props => [tertibAcara];

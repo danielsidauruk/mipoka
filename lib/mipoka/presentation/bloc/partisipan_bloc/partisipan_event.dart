@@ -16,9 +16,13 @@ class ReadPartisipanEvent extends PartisipanEvent {
 }
 
 class CreatePartisipanEvent extends PartisipanEvent {
+  final int idUsulanKegiatan;
   final Partisipan partisipan;
 
-  const CreatePartisipanEvent(this.partisipan);
+  const CreatePartisipanEvent({
+    required this.idUsulanKegiatan,
+    required this.partisipan,
+  });
 
   @override
   List<Object> get props => [partisipan];

@@ -32,7 +32,7 @@ class PartisipanHasData extends PartisipanState {
 class PartisipanSuccessMessage extends PartisipanState {
   final String message;
 
-  const PartisipanSuccessMessage({required this.message});
+  const PartisipanSuccessMessage({this.message = "Data has changed"});
 
   @override
   List<Object> get props => [message];

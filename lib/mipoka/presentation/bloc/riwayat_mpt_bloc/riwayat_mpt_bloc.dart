@@ -44,8 +44,6 @@ class RiwayatMptBloc extends Bloc<RiwayatMptEvent, RiwayatMptState> {
             (failure) => emit(RiwayatMptError(message: failure.message)),
             (_) => emit(const RiwayatMptSuccessMessage()),
       );
-
-      add(ReadAllRiwayatMptEvent());
     });
 
     on<UpdateRiwayatMptEvent>((event, emit) async {
@@ -58,8 +56,6 @@ class RiwayatMptBloc extends Bloc<RiwayatMptEvent, RiwayatMptState> {
             (failure) => emit(RiwayatMptError(message: failure.message)),
             (_) => emit(const RiwayatMptSuccessMessage()),
       );
-
-      add(ReadAllRiwayatMptEvent());
     });
 
     on<DeleteRiwayatMptEvent>((event, emit) async {
@@ -72,8 +68,6 @@ class RiwayatMptBloc extends Bloc<RiwayatMptEvent, RiwayatMptState> {
             (failure) => emit(RiwayatMptError(message: failure.message)),
             (_) => emit(const RiwayatMptSuccessMessage()),
       );
-
-      add(ReadAllRiwayatMptEvent());
     });
   }
 }

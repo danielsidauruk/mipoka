@@ -42,8 +42,6 @@ class PrestasiBloc extends Bloc<PrestasiEvent, PrestasiState> {
             (failure) => emit(PrestasiError(message: failure.message)),
             (_) => emit(const PrestasiSuccessMessage()),
       );
-
-      add(ReadAllPrestasiEvent());
     });
 
     on<UpdatePrestasiEvent>((event, emit) async {
@@ -55,8 +53,6 @@ class PrestasiBloc extends Bloc<PrestasiEvent, PrestasiState> {
             (failure) => emit(PrestasiError(message: failure.message)),
             (_) => emit(const PrestasiSuccessMessage()),
       );
-
-      add(ReadAllPrestasiEvent());
     });
 
     on<DeletePrestasiEvent>((event, emit) async {
@@ -68,8 +64,6 @@ class PrestasiBloc extends Bloc<PrestasiEvent, PrestasiState> {
             (failure) => emit(PrestasiError(message: failure.message)),
             (_) => emit(const PrestasiSuccessMessage()),
       );
-
-      add(ReadAllPrestasiEvent());
     });
   }
 }

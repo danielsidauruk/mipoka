@@ -8,9 +8,13 @@ abstract class BiayaKegiatanEvent extends Equatable {
 }
 
 class CreateBiayaKegiatanEvent extends BiayaKegiatanEvent {
+  final int idUsulanKegiatan;
   final BiayaKegiatan biayaKegiatan;
 
-  const CreateBiayaKegiatanEvent(this.biayaKegiatan);
+  const CreateBiayaKegiatanEvent({
+    required this.idUsulanKegiatan,
+    required this.biayaKegiatan,
+  });
 
   @override
   List<Object?> get props => [biayaKegiatan];

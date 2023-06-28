@@ -30,7 +30,7 @@ class BiayaKegiatanHasData extends BiayaKegiatanState {
 }
 
 class BiayaKegiatanSuccessMessage extends BiayaKegiatanState {
-  const BiayaKegiatanSuccessMessage({required this.message});
+  const BiayaKegiatanSuccessMessage({this.message = "Data has changed"});
 
   final String message;
 

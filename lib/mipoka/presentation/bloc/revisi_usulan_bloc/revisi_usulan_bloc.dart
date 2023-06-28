@@ -29,7 +29,7 @@ class RevisiUsulanBloc extends Bloc<RevisiUsulanEvent, RevisiUsulanState> {
 
       result.fold(
             (failure) => emit(RevisiUsulanError(message: failure.message)),
-            (_) => emit(RevisiUsulanSuccess()),
+            (_) => emit(const RevisiUsulanSuccess()),
       );
     });
 
@@ -40,7 +40,7 @@ class RevisiUsulanBloc extends Bloc<RevisiUsulanEvent, RevisiUsulanState> {
 
       result.fold(
             (failure) => emit(RevisiUsulanError(message: failure.message)),
-            (_) => emit(RevisiUsulanSuccess()),
+            (_) => emit(const RevisiUsulanSuccess()),
       );
     });
 
@@ -51,7 +51,7 @@ class RevisiUsulanBloc extends Bloc<RevisiUsulanEvent, RevisiUsulanState> {
 
       result.fold(
             (failure) => emit(RevisiUsulanError(message: failure.message)),
-            (_) => emit(RevisiUsulanSuccess()),
+            (_) => emit(const RevisiUsulanSuccess()),
       );
     });
   }

@@ -18,7 +18,10 @@ class RincianBiayaKegiatanBloc
       emit(RincianBiayaKegiatanLoading());
 
       final result =
-      await rincianBiayaKegiatanUseCase.createRincianBiayaKegiatan(event.rincianBiayaKegiatan);
+      await rincianBiayaKegiatanUseCase.createRincianBiayaKegiatan(
+        idLaporan: event.idLaporan,
+        rincianBiayaKegiatan: event.rincianBiayaKegiatan,
+      );
 
       result.fold(
             (failure) => emit(RincianBiayaKegiatanError(message: failure.message)),

@@ -11,6 +11,20 @@ class BiayaKegiatanBloc extends Bloc<BiayaKegiatanEvent, BiayaKegiatanState> {
 
   BiayaKegiatanBloc({required this.biayaKegiatanUseCase}) : super(BiayaKegiatanEmpty()) {
 
+    on<CreateBiayaKegiatanEvent>((event, emit) async {
+      emit(BiayaKegiatanEmpty());
+
+      final result = await biayaKegiatanUseCase.createBiayaKegiatan(
+        idUsulanKegiatan: event.idUsulanKegiatan,
+        biayaKegiatan: event.biayaKegiatan,
+      );
+
+      result.fold(
+            (failure) => emit(BiayaKegiatanError(message: failure.message)),
+            (_) => emit(const BiayaKegiatanSuccessMessage()),
+      );
+    });
+
     on<UpdateBiayaKegiatanEvent>((event, emit) async {
       emit(BiayaKegiatanLoading());
 
@@ -18,7 +32,7 @@ class BiayaKegiatanBloc extends Bloc<BiayaKegiatanEvent, BiayaKegiatanState> {
 
       result.fold(
             (failure) => emit(BiayaKegiatanError(message: failure.message)),
-            (message) => emit(BiayaKegiatanSuccessMessage(message: message)),
+            (_) => emit(const BiayaKegiatanSuccessMessage()),
       );
     });
 
@@ -29,7 +43,7 @@ class BiayaKegiatanBloc extends Bloc<BiayaKegiatanEvent, BiayaKegiatanState> {
 
       result.fold(
             (failure) => emit(BiayaKegiatanError(message: failure.message)),
-            (message) => emit(BiayaKegiatanSuccessMessage(message: message)),
+            (_) => emit(const BiayaKegiatanSuccessMessage()),
       );
     });
   }

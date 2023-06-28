@@ -14,11 +14,14 @@ class TertibAcaraBloc extends Bloc<TertibAcaraEvent, TertibAcaraState> {
     on<CreateTertibAcaraEvent>((event, emit) async {
       emit(TertibAcaraLoading());
 
-      final result = await tertibAcaraUseCase.createTertibAcara(event.tertibAcara);
+      final result = await tertibAcaraUseCase.createTertibAcara(
+        idUsulanKegiatan: event.idUsulanKegiatan,
+        tertibAcara: event.tertibAcara,
+      );
 
       result.fold(
             (failure) => emit(TertibAcaraError(message: failure.message)),
-            (message) => emit(TertibAcaraSuccessMessage(message: message)),
+            (_) => emit(const TertibAcaraSuccessMessage()),
       );
     });
 
@@ -29,7 +32,7 @@ class TertibAcaraBloc extends Bloc<TertibAcaraEvent, TertibAcaraState> {
 
       result.fold(
             (failure) => emit(TertibAcaraError(message: failure.message)),
-            (message) => emit(TertibAcaraSuccessMessage(message: message)),
+            (_) => emit(const TertibAcaraSuccessMessage()),
       );
     });
 
@@ -40,7 +43,7 @@ class TertibAcaraBloc extends Bloc<TertibAcaraEvent, TertibAcaraState> {
 
       result.fold(
             (failure) => emit(TertibAcaraError(message: failure.message)),
-            (message) => emit(TertibAcaraSuccessMessage(message: message)),
+            (_) => emit(const TertibAcaraSuccessMessage()),
       );
     });
   }

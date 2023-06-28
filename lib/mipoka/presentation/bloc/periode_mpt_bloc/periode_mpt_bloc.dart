@@ -42,8 +42,6 @@ class PeriodeMptBloc extends Bloc<PeriodeMptEvent, PeriodeMptState> {
             (failure) => emit(PeriodeMptError(message: failure.message)),
             (_) => emit(const PeriodeMptSuccessMessage()),
       );
-
-      add(ReadAllPeriodeMptEvent());
     });
 
     on<UpdatePeriodeMptEvent>((event, emit) async {
@@ -55,8 +53,6 @@ class PeriodeMptBloc extends Bloc<PeriodeMptEvent, PeriodeMptState> {
             (failure) => emit(PeriodeMptError(message: failure.message)),
             (_) => emit(const PeriodeMptSuccessMessage()),
       );
-
-      add(ReadAllPeriodeMptEvent());
     });
 
     on<DeletePeriodeMptEvent>((event, emit) async {
@@ -68,8 +64,6 @@ class PeriodeMptBloc extends Bloc<PeriodeMptEvent, PeriodeMptState> {
             (failure) => emit(PeriodeMptError(message: failure.message)),
             (_) => emit(const PeriodeMptSuccessMessage()),
       );
-
-      add(ReadAllPeriodeMptEvent());
     });
   }
 }

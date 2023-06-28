@@ -163,6 +163,9 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<void> updateBerita(BeritaModel beritaModel) async {
+    int a;
+
+    a = beritaModel.idBerita;
     // TODO: implement updateBerita
     throw UnimplementedError();
   }

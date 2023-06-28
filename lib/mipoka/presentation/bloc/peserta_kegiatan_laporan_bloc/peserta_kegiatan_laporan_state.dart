@@ -32,7 +32,7 @@ class PesertaKegiatanLaporanHasData extends PesertaKegiatanLaporanState {
 class PesertaKegiatanLaporanSuccessMessage extends PesertaKegiatanLaporanState {
   final String message;
 
-  const PesertaKegiatanLaporanSuccessMessage({required this.message});
+  const PesertaKegiatanLaporanSuccessMessage({this.message = "Data has changed"});
 
   @override
   List<Object> get props => [message];

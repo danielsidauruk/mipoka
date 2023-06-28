@@ -14,14 +14,15 @@ class PartisipanBloc extends Bloc<PartisipanEvent, PartisipanState> {
     on<CreatePartisipanEvent>((event, emit) async {
       emit(PartisipanLoading());
 
-      final result = await partisipanUseCase.createPartisipan(event.partisipan);
+      final result = await partisipanUseCase.createPartisipan(
+        idUsulanKegiatan: event.idUsulanKegiatan,
+        partisipan: event.partisipan,
+      );
 
       result.fold(
             (failure) => emit(PartisipanError(message: failure.message)),
-            (message) => emit(PartisipanSuccessMessage(message: message)),
+            (_) => emit(const PartisipanSuccessMessage()),
       );
-
-      add(ReadAllPartisipanEvent());
     });
 
     on<UpdatePartisipanEvent>((event, emit) async {
@@ -31,10 +32,8 @@ class PartisipanBloc extends Bloc<PartisipanEvent, PartisipanState> {
 
       result.fold(
             (failure) => emit(PartisipanError(message: failure.message)),
-            (message) => emit(PartisipanSuccessMessage(message: message)),
+            (_) => emit(const PartisipanSuccessMessage()),
       );
-
-      add(ReadAllPartisipanEvent());
     });
 
     on<DeletePartisipanEvent>((event, emit) async {
@@ -44,10 +43,8 @@ class PartisipanBloc extends Bloc<PartisipanEvent, PartisipanState> {
 
       result.fold(
             (failure) => emit(PartisipanError(message: failure.message)),
-            (message) => emit(PartisipanSuccessMessage(message: message)),
+            (_) => emit(const PartisipanSuccessMessage()),
       );
-
-      add(ReadAllPartisipanEvent());
     });
   }
 }
