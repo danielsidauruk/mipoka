@@ -8,23 +8,21 @@ class TertibAcaraUseCase {
 
   TertibAcaraUseCase({required this.mipokaRepositories});
 
-  // Future<Either<Failure, List<TertibAcara>>> readAllTertibAcara() {
-  //   return mipokaRepositories.readAllTertibAcara();
-  // }
-  //
-  // Future<Either<Failure, TertibAcara>> readTertibAcara(int idTertibAcara) {
-  //   return mipokaRepositories.readTertibAcara(idTertibAcara);
-  // }
-  //
-  // Future<Either<Failure, void>> createTertibAcara(TertibAcara tertibAcara) {
-  //   return mipokaRepositories.createTertibAcara(tertibAcara);
-  // }
-  //
-  // Future<Either<Failure, void>> updateTertibAcara(TertibAcara tertibAcara) {
-  //   return mipokaRepositories.updateTertibAcara(tertibAcara);
-  // }
-  //
-  // Future<Either<Failure, void>> deleteTertibAcara(int idTertibAcara) {
-  //   return mipokaRepositories.deleteTertibAcara(idTertibAcara);
-  // }
+  Future<Either<Failure, void>> createTertibAcara({
+    required int idUsulanKegiatan,
+    required TertibAcara tertibAcara,
+  }) {
+    return mipokaRepositories.createTertibAcara(
+      idUsulanKegiatan: idUsulanKegiatan,
+      tertibAcara: tertibAcara,
+    );
+  }
+
+  Future<Either<Failure, void>> updateTertibAcara(TertibAcara tertibAcara) {
+    return mipokaRepositories.updateTertibAcara(tertibAcara);
+  }
+
+  Future<Either<Failure, void>> deleteTertibAcara(int idTertibAcara) {
+    return mipokaRepositories.deleteTertibAcara(idTertibAcara);
+  }
 }

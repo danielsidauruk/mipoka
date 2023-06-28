@@ -8,23 +8,21 @@ class BiayaKegiatanUseCase {
 
   BiayaKegiatanUseCase({required this.mipokaRepositories});
 
-  // Future<Either<Failure, List<BiayaKegiatan>>> readAllBiayaKegiatan() {
-  //   return mipokaRepositories.readAllBiayaKegiatan();
-  // }
-  //
-  // Future<Either<Failure, BiayaKegiatan>> readBiayaKegiatan(int biayaKegiatan) {
-  //   return mipokaRepositories.readBiayaKegiatan(biayaKegiatan);
-  // }
-  //
-  // Future<Either<Failure, void>> createBiayaKegiatan(BiayaKegiatan biayaKegiatan) {
-  //   return mipokaRepositories.createBiayaKegiatan(biayaKegiatan);
-  // }
-  //
-  // Future<Either<Failure, void>> updateBiayaKegiatan(BiayaKegiatan biayaKegiatan) {
-  //   return mipokaRepositories.updateBiayaKegiatan(biayaKegiatan);
-  // }
-  //
-  // Future<Either<Failure, void>> deleteBiayaKegiatan(int idNamaBiayaKegiatan) {
-  //   return mipokaRepositories.deleteBiayaKegiatan(idNamaBiayaKegiatan);
-  // }
+  Future<Either<Failure, void>> createBiayaKegiatan({
+    required int idUsulanKegiatan,
+    required BiayaKegiatan biayaKegiatan,
+  }) {
+    return mipokaRepositories.createBiayaKegiatan(
+      idUsulanKegiatan: idUsulanKegiatan,
+      biayaKegiatan: biayaKegiatan,
+    );
+  }
+
+  Future<Either<Failure, void>> updateBiayaKegiatan(BiayaKegiatan biayaKegiatan) {
+    return mipokaRepositories.updateBiayaKegiatan(biayaKegiatan);
+  }
+
+  Future<Either<Failure, void>> deleteBiayaKegiatan(int idNamaBiayaKegiatan) {
+    return mipokaRepositories.deleteBiayaKegiatan(idNamaBiayaKegiatan);
+  }
 }
