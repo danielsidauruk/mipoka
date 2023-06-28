@@ -32,7 +32,7 @@ class PrestasiHasData extends PrestasiState {
 class PrestasiSuccessMessage extends PrestasiState {
   final String message;
 
-  const PrestasiSuccessMessage({required this.message});
+  const PrestasiSuccessMessage({this.message = "Data has changed"});
 
   @override
   List<Object> get props => [message];

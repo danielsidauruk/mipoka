@@ -41,7 +41,7 @@ class SessionError extends SessionState {
 class SessionSuccessMessage extends SessionState {
   final String message;
 
-  const SessionSuccessMessage({required this.message});
+  const SessionSuccessMessage({this.message = "Data has changed"});
 
   @override
   List<Object> get props => [message];

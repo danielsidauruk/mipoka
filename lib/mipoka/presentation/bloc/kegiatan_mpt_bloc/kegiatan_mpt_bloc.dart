@@ -18,7 +18,7 @@ class KegiatanMptBloc extends Bloc<KegiatanMptEvent, KegiatanMptState> {
 
       result.fold(
             (failure) => emit(KegiatanMptError(message: failure.message)),
-            (message) => emit(KegiatanMptSuccessMessage(message: message)),
+            (_) => emit(const KegiatanMptSuccessMessage()),
       );
     });
 
@@ -51,7 +51,7 @@ class KegiatanMptBloc extends Bloc<KegiatanMptEvent, KegiatanMptState> {
 
       result.fold(
             (failure) => emit(KegiatanMptError(message: failure.message)),
-            (message) => emit(KegiatanMptSuccessMessage(message: message)),
+            (_) => emit(const KegiatanMptSuccessMessage()),
       );
     });
 
@@ -62,7 +62,7 @@ class KegiatanMptBloc extends Bloc<KegiatanMptEvent, KegiatanMptState> {
 
       result.fold(
             (failure) => emit(KegiatanMptError(message: failure.message)),
-            (message) => emit(KegiatanMptSuccessMessage(message: message)),
+            (_) => emit(const KegiatanMptSuccessMessage()),
       );
     });
   }

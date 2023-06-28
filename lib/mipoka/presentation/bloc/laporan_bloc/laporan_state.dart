@@ -39,7 +39,7 @@ class LaporanHasData extends LaporanState {
 }
 
 class LaporanSuccessMessage extends LaporanState {
-  const LaporanSuccessMessage({required this.message});
+  const LaporanSuccessMessage({this.message = "Data has changed"});
 
   final String message;
 

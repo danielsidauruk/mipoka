@@ -30,7 +30,7 @@ class AdminHasData extends AdminState {
 }
 
 class AdminSuccessMessage extends AdminState {
-  const AdminSuccessMessage({required this.message});
+  const AdminSuccessMessage({this.message = "Data has changed"});
 
   final String message;
 

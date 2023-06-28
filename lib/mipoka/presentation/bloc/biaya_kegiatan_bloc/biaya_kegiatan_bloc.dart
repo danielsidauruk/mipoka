@@ -11,28 +11,6 @@ class BiayaKegiatanBloc extends Bloc<BiayaKegiatanEvent, BiayaKegiatanState> {
 
   BiayaKegiatanBloc({required this.biayaKegiatanUseCase}) : super(BiayaKegiatanEmpty()) {
 
-    on<CreateBiayaKegiatanEvent>((event, emit) async {
-      emit(BiayaKegiatanLoading());
-
-      final result = await biayaKegiatanUseCase.createBiayaKegiatan(event.biayaKegiatan);
-
-      result.fold(
-            (failure) => emit(BiayaKegiatanError(message: failure.message)),
-            (message) => emit(BiayaKegiatanSuccessMessage(message: message)),
-      );
-    });
-
-    on<ReadBiayaKegiatanEvent>((event, emit) async {
-      emit(BiayaKegiatanLoading());
-
-      final result = await biayaKegiatanUseCase.readAllBiayaKegiatan();
-
-      result.fold(
-            (failure) => emit(BiayaKegiatanError(message: failure.message)),
-            (biayaKegiatanList) => emit(BiayaKegiatanHasData(biayaKegiatanList: biayaKegiatanList)),
-      );
-    });
-
     on<UpdateBiayaKegiatanEvent>((event, emit) async {
       emit(BiayaKegiatanLoading());
 

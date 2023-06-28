@@ -18,7 +18,7 @@ class BeritaBloc extends Bloc<BeritaEvent, BeritaState> {
 
       berita.fold(
         (failure) => emit(BeritaError(message: failure.message)),
-        (message) => emit(BeritaSuccessMessage(message: message)),
+        (_) => emit(const BeritaSuccessMessage()),
       );
     });
 
@@ -51,7 +51,7 @@ class BeritaBloc extends Bloc<BeritaEvent, BeritaState> {
 
       berita.fold(
         (failure) => emit(BeritaError(message: failure.message)),
-        (message) => emit(BeritaSuccessMessage(message: message)),
+        (_) => emit(const BeritaSuccessMessage()),
       );
     });
 
@@ -62,7 +62,7 @@ class BeritaBloc extends Bloc<BeritaEvent, BeritaState> {
 
       berita.fold(
         (failure) => emit(BeritaError(message: failure.message)),
-        (message) => emit(BeritaSuccessMessage(message: message)),
+        (_) => emit(const BeritaSuccessMessage()),
       );
     });
   }

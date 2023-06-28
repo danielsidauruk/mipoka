@@ -11,17 +11,6 @@ class TertibAcaraBloc extends Bloc<TertibAcaraEvent, TertibAcaraState> {
 
   TertibAcaraBloc({required this.tertibAcaraUseCase}) : super(TertibAcaraEmpty()) {
 
-    on<ReadTertibAcaraEvent>((event, emit) async {
-      emit(TertibAcaraLoading());
-
-      final result = await tertibAcaraUseCase.readTertibAcara(event.idTertibAcara);
-
-      result.fold(
-            (failure) => emit(TertibAcaraError(message: failure.message)),
-            (tertibAcara) => emit(TertibAcaraHasData(tertibAcara: tertibAcara)),
-      );
-    });
-
     on<CreateTertibAcaraEvent>((event, emit) async {
       emit(TertibAcaraLoading());
 

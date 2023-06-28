@@ -39,7 +39,7 @@ class KegiatanMptHasData extends KegiatanMptState {
 }
 
 class KegiatanMptSuccessMessage extends KegiatanMptState {
-  const KegiatanMptSuccessMessage({required this.message});
+  const KegiatanMptSuccessMessage({this.message = "Data has changed"});
 
   final String message;
 

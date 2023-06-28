@@ -13,17 +13,6 @@ class RincianBiayaKegiatanBloc
   RincianBiayaKegiatanBloc({required this.rincianBiayaKegiatanUseCase})
       : super(RincianBiayaKegiatanEmpty()) {
 
-    on<ReadRincianBiayaKegiatanEvent>((event, emit) async {
-      emit(RincianBiayaKegiatanLoading());
-
-      final result = await rincianBiayaKegiatanUseCase.readRincianBiayaKegiatan(event.idRincianBiayaKegiatan);
-
-      result.fold(
-            (failure) => emit(RincianBiayaKegiatanError(message: failure.message)),
-            (rincianBiayaKegiatan) => emit(
-                RincianBiayaKegiatanHasData(rincianBiayaKegiatan: rincianBiayaKegiatan)),
-      );
-    });
 
     on<CreateRincianBiayaKegiatanEvent>((event, emit) async {
       emit(RincianBiayaKegiatanLoading());

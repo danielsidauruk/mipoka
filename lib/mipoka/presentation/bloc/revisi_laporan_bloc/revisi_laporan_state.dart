@@ -29,4 +29,11 @@ class RevisiLaporanHasData extends RevisiLaporanState {
   List<Object> get props => [revisiLaporan];
 }
 
-class RevisiLaporanSuccess extends RevisiLaporanState {}
+class RevisiLaporanSuccess extends RevisiLaporanState {
+  final String message;
+
+  const RevisiLaporanSuccess({this.message = "Data has changed"});
+
+  @override
+  List<Object> get props => [message];
+}

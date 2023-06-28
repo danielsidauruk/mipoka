@@ -11,28 +11,6 @@ class PesertaKegiatanLaporanBloc extends Bloc<PesertaKegiatanLaporanEvent, Peser
 
   PesertaKegiatanLaporanBloc({required this.pesertaKegiatanLaporanUseCase}) : super(PesertaKegiatanLaporanEmpty()) {
 
-    on<ReadAllPesertaKegiatanLaporanEvent>((event, emit) async {
-      emit(PesertaKegiatanLaporanLoading());
-
-      final result = await pesertaKegiatanLaporanUseCase.readAllPesertaKegiatanLaporan();
-
-      result.fold(
-            (failure) => emit(PesertaKegiatanLaporanError(message: failure.message)),
-            (pesertaKegiatanLaporanList) => emit(AllPesertaKegiatanLaporanHasData(pesertaKegiatanLaporanList: pesertaKegiatanLaporanList)),
-      );
-    });
-
-    on<ReadPesertaKegiatanLaporanEvent>((event, emit) async {
-      emit(PesertaKegiatanLaporanLoading());
-
-      final result = await pesertaKegiatanLaporanUseCase.readPesertaKegiatanLaporan(event.idPesertaKegiatanLaporan);
-
-      result.fold(
-            (failure) => emit(PesertaKegiatanLaporanError(message: failure.message)),
-            (pesertaKegiatanLaporan) => emit(PesertaKegiatanLaporanHasData(pesertaKegiatanLaporan: pesertaKegiatanLaporan)),
-      );
-    });
-
     on<CreatePesertaKegiatanLaporanEvent>((event, emit) async {
       emit(PesertaKegiatanLaporanLoading());
 

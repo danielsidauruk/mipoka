@@ -10,6 +10,7 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
   final AdminUseCase adminUseCase;
 
   AdminBloc({required this.adminUseCase}) : super(AdminEmpty()) {
+
     on<CreateAdminEvent>((event, emit) async {
       emit(AdminLoading());
 
@@ -17,7 +18,7 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
 
       result.fold(
             (failure) => emit(AdminError(message: failure.message)),
-            (message) => emit(AdminSuccessMessage(message: message)),
+            (_) => emit(const AdminSuccessMessage()),
       );
     });
 
@@ -39,7 +40,7 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
 
       result.fold(
             (failure) => emit(AdminError(message: failure.message)),
-            (message) => emit(AdminSuccessMessage(message: message)),
+            (_) => emit(const AdminSuccessMessage()),
       );
     });
 
@@ -50,7 +51,7 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
 
       result.fold(
             (failure) => emit(AdminError(message: failure.message)),
-            (message) => emit(AdminSuccessMessage(message: message)),
+            (_) => emit(const AdminSuccessMessage()),
       );
     });
   }

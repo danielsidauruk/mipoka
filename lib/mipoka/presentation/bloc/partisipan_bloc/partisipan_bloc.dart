@@ -11,28 +11,6 @@ class PartisipanBloc extends Bloc<PartisipanEvent, PartisipanState> {
 
   PartisipanBloc({required this.partisipanUseCase}) : super(PartisipanEmpty()) {
 
-    on<ReadAllPartisipanEvent>((event, emit) async {
-      emit(PartisipanLoading());
-
-      final result = await partisipanUseCase.readAllPartisipan();
-
-      result.fold(
-            (failure) => emit(PartisipanError(message: failure.message)),
-            (partisipanList) => emit(AllPartisipanHasData(partisipanList: partisipanList)),
-      );
-    });
-
-    on<ReadPartisipanEvent>((event, emit) async {
-      emit(PartisipanLoading());
-
-      final result = await partisipanUseCase.readPartisipan(event.idPartisipan);
-
-      result.fold(
-            (failure) => emit(PartisipanError(message: failure.message)),
-            (partisipan) => emit(PartisipanHasData(partisipan: partisipan)),
-      );
-    });
-
     on<CreatePartisipanEvent>((event, emit) async {
       emit(PartisipanLoading());
 

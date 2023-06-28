@@ -39,7 +39,7 @@ class OrmawaHasData extends OrmawaState {
 }
 
 class OrmawaSuccessMessage extends OrmawaState {
-  const OrmawaSuccessMessage({required this.message});
+  const OrmawaSuccessMessage({this.message = "Data has changed"});
 
   final String message;
 

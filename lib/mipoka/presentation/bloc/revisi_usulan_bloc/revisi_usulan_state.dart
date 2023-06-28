@@ -29,4 +29,11 @@ class RevisiUsulanHasData extends RevisiUsulanState {
   List<Object> get props => [revisiUsulan];
 }
 
-class RevisiUsulanSuccess extends RevisiUsulanState {}
+class RevisiUsulanSuccess extends RevisiUsulanState {
+  final String message;
+
+  const RevisiUsulanSuccess ({this.message = "Data has changed"});
+
+  @override
+  List<Object> get props => [message];
+}

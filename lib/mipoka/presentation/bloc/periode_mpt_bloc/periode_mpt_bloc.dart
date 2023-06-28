@@ -40,7 +40,7 @@ class PeriodeMptBloc extends Bloc<PeriodeMptEvent, PeriodeMptState> {
 
       result.fold(
             (failure) => emit(PeriodeMptError(message: failure.message)),
-            (message) => emit(PeriodeMptSuccessMessage(message: message)),
+            (_) => emit(const PeriodeMptSuccessMessage()),
       );
 
       add(ReadAllPeriodeMptEvent());
@@ -53,7 +53,7 @@ class PeriodeMptBloc extends Bloc<PeriodeMptEvent, PeriodeMptState> {
 
       result.fold(
             (failure) => emit(PeriodeMptError(message: failure.message)),
-            (message) => emit(PeriodeMptSuccessMessage(message: message)),
+            (_) => emit(const PeriodeMptSuccessMessage()),
       );
 
       add(ReadAllPeriodeMptEvent());
@@ -66,7 +66,7 @@ class PeriodeMptBloc extends Bloc<PeriodeMptEvent, PeriodeMptState> {
 
       result.fold(
             (failure) => emit(PeriodeMptError(message: failure.message)),
-            (message) => emit(PeriodeMptSuccessMessage(message: message)),
+            (_) => emit(const PeriodeMptSuccessMessage()),
       );
 
       add(ReadAllPeriodeMptEvent());

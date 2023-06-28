@@ -41,7 +41,7 @@ class RiwayatMptError extends RiwayatMptState {
 class RiwayatMptSuccessMessage extends RiwayatMptState {
   final String message;
 
-  const RiwayatMptSuccessMessage({required this.message});
+  const RiwayatMptSuccessMessage({this.message = "Data has changed"});
 
   @override
   List<Object> get props => [message];

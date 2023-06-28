@@ -41,7 +41,7 @@ class MipokaUserError extends MipokaUserState {
 class MipokaUserSuccessMessage extends MipokaUserState {
   final String message;
 
-  const MipokaUserSuccessMessage({required this.message});
+  const MipokaUserSuccessMessage({this.message = "Data has changed"});
 
   @override
   List<Object> get props => [message];

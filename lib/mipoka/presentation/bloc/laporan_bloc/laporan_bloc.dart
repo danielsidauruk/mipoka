@@ -18,7 +18,7 @@ class LaporanBloc extends Bloc<LaporanEvent, LaporanState> {
 
       result.fold(
             (failure) => emit(LaporanError(message: failure.message)),
-            (message) => emit(LaporanSuccessMessage(message: message)),
+            (_) => emit(const LaporanSuccessMessage()),
       );
     });
 
@@ -51,7 +51,7 @@ class LaporanBloc extends Bloc<LaporanEvent, LaporanState> {
 
       result.fold(
             (failure) => emit(LaporanError(message: failure.message)),
-            (message) => emit(LaporanSuccessMessage(message: message)),
+            (_) => emit(const LaporanSuccessMessage()),
       );
     });
 
@@ -62,7 +62,7 @@ class LaporanBloc extends Bloc<LaporanEvent, LaporanState> {
 
       result.fold(
             (failure) => emit(LaporanError(message: failure.message)),
-            (message) => emit(LaporanSuccessMessage(message: message)),
+            (_) => emit(const LaporanSuccessMessage()),
       );
     });
   }

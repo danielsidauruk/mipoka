@@ -37,7 +37,7 @@ class BeritaHasData extends BeritaState {
 }
 
 class BeritaSuccessMessage extends BeritaState {
-  const BeritaSuccessMessage({required this.message});
+  const BeritaSuccessMessage({this.message = "Data has changed"});
   final String message;
 
   @override

@@ -42,7 +42,7 @@ class UsulanKegiatanBloc
 
       result.fold(
         (failure) => emit(UsulanKegiatanError(message: failure.message)),
-        (message) => emit(UsulanKegiatanSuccessMessage(message: message)),
+        (message) => emit(const UsulanKegiatanSuccessMessage()),
       );
 
       add(ReadAllUsulanKegiatanEvent());
@@ -56,7 +56,7 @@ class UsulanKegiatanBloc
 
       result.fold(
         (failure) => emit(UsulanKegiatanError(message: failure.message)),
-        (message) => emit(UsulanKegiatanSuccessMessage(message: message)),
+        (message) => emit(const UsulanKegiatanSuccessMessage()),
       );
 
       add(const ReadUsulanKegiatanEvent(idUsulanKegiatan: 1));
@@ -70,28 +70,30 @@ class UsulanKegiatanBloc
 
       result.fold(
         (failure) => emit(UsulanKegiatanError(message: failure.message)),
-        (message) => emit(UsulanKegiatanSuccessMessage(message: message)),
+        (message) => emit(const UsulanKegiatanSuccessMessage()),
       );
     });
 
-    on<DeleteUsulanPartisipanEvent>((event, emit) async {
-      emit(UsulanKegiatanLoading());
 
-      final result = await usulanKegiatanUseCase.deletePartisipan(
-        idUsulanKegiatan: event.idUsulanKegiatan,
-        idPartisipan: event.idPartisipan,
-      );
 
-      result.fold(
-            (failure) => emit(UsulanKegiatanError(message: failure.message)),
-            (message) => emit(UsulanKegiatanSuccessMessage(message: message)),
-      );
-
-      add(ReadUsulanKegiatanEvent(idUsulanKegiatan: event.idUsulanKegiatan));
-    });
-
-    on<DeleteUsulanKegiatanEvent>((event, emit) async {
-
-    });
+    // on<DeleteUsulanPartisipanEvent>((event, emit) async {
+    //   emit(UsulanKegiatanLoading());
+    //
+    //   final result = await usulanKegiatanUseCase.deletePartisipan(
+    //     idUsulanKegiatan: event.idUsulanKegiatan,
+    //     idPartisipan: event.idPartisipan,
+    //   );
+    //
+    //   result.fold(
+    //         (failure) => emit(UsulanKegiatanError(message: failure.message)),
+    //         (message) => emit(UsulanKegiatanSuccessMessage(message: message)),
+    //   );
+    //
+    //   add(ReadUsulanKegiatanEvent(idUsulanKegiatan: event.idUsulanKegiatan));
+    // });
+    //
+    // on<DeleteUsulanKegiatanEvent>((event, emit) async {
+    //
+    // });
   }
 }

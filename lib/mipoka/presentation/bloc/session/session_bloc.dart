@@ -40,7 +40,7 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
 
       result.fold(
             (failure) => emit(SessionError(message: failure.message)),
-            (message) => emit(SessionSuccessMessage(message: message)),
+            (_) => emit(const SessionSuccessMessage()),
       );
 
       add(ReadAllSessionEvent());
@@ -53,7 +53,7 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
 
       result.fold(
             (failure) => emit(SessionError(message: failure.message)),
-            (message) => emit(SessionSuccessMessage(message: message)),
+            (_) => emit(const SessionSuccessMessage()),
       );
 
       add(ReadAllSessionEvent());
@@ -66,7 +66,7 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
 
       result.fold(
             (failure) => emit(SessionError(message: failure.message)),
-            (message) => emit(SessionSuccessMessage(message: message)),
+            (_) => emit(const SessionSuccessMessage()),
       );
 
       add(ReadAllSessionEvent());

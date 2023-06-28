@@ -42,7 +42,7 @@ class RiwayatMptBloc extends Bloc<RiwayatMptEvent, RiwayatMptState> {
 
       result.fold(
             (failure) => emit(RiwayatMptError(message: failure.message)),
-            (message) => emit(RiwayatMptSuccessMessage(message: message)),
+            (_) => emit(const RiwayatMptSuccessMessage()),
       );
 
       add(ReadAllRiwayatMptEvent());
@@ -56,7 +56,7 @@ class RiwayatMptBloc extends Bloc<RiwayatMptEvent, RiwayatMptState> {
 
       result.fold(
             (failure) => emit(RiwayatMptError(message: failure.message)),
-            (message) => emit(RiwayatMptSuccessMessage(message: message)),
+            (_) => emit(const RiwayatMptSuccessMessage()),
       );
 
       add(ReadAllRiwayatMptEvent());
@@ -70,7 +70,7 @@ class RiwayatMptBloc extends Bloc<RiwayatMptEvent, RiwayatMptState> {
 
       result.fold(
             (failure) => emit(RiwayatMptError(message: failure.message)),
-            (message) => emit(RiwayatMptSuccessMessage(message: message)),
+            (_) => emit(const RiwayatMptSuccessMessage()),
       );
 
       add(ReadAllRiwayatMptEvent());
