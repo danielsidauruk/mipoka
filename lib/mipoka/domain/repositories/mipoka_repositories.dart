@@ -33,8 +33,10 @@ abstract class MipokaRepositories {
 
   // Future<Either<Failure, List<BiayaKegiatan>>> readAllBiayaKegiatan();
   // Future<Either<Failure, BiayaKegiatan>> readBiayaKegiatan(int biayaKegiatan);
-  Future<Either<Failure, void>> createBiayaKegiatan
-      ({required int idUsulanKegiatan, required BiayaKegiatan biayaKegiatan});
+  Future<Either<Failure, void>> createBiayaKegiatan({
+    required int idUsulanKegiatan,
+    required BiayaKegiatan biayaKegiatan,
+  });
   Future<Either<Failure, void>> updateBiayaKegiatan(BiayaKegiatan biayaKegiatan);
   Future<Either<Failure, void>> deleteBiayaKegiatan(int idNamaBiayaKegiatan);
 
