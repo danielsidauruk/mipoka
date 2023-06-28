@@ -139,499 +139,690 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<void> createBerita(BeritaModel beritaModel) async {
-    // TODO: implement createBerita
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(beritaModel.toJson());
+    }
   }
 
   @override
-  Future<void> deleteBerita(int beritaId) async {
-    // TODO: implement deleteBerita
-    throw UnimplementedError();
+  Future<void> deleteBerita(int idBerita) async {
+    if (kDebugMode) {
+      print("Berita with id $idBerita has been deleted.");
+    }
   }
 
   @override
   Future<List<BeritaModel>> readAllBerita() async {
-    // TODO: implement readAllBerita
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/berita_list.json');
+    List<dynamic> resultList = json.decode(response);
+
+    List<BeritaModel> result =
+    resultList.map((resultMap) => BeritaModel.fromJson(resultMap)).toList();
+
+    return result;
   }
 
   @override
   Future<BeritaModel> readBerita(int idBerita) async {
-    // TODO: implement readBerita
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/berita.json');
+    dynamic jsonDecode = json.decode(response);
+
+    BeritaModel result = BeritaModel.fromJson(jsonDecode);
+
+    return result;
   }
 
   @override
   Future<void> updateBerita(BeritaModel beritaModel) async {
-    int a;
-
-    a = beritaModel.idBerita;
-    // TODO: implement updateBerita
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(beritaModel.toJson());
+    }
   }
 
 
-  // TODO: => Admin DataSources
+  /* => Admin DataSources */
   @override
   Future<void> createAdmin(AdminModel adminModel) async {
-    // TODO: implement createAdmin
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(adminModel.toJson());
+    }
   }
 
   @override
-  Future<void> deleteAdmin(int adminId) async {
-    // TODO: implement deleteAdmin
-    throw UnimplementedError();
+  Future<void> deleteAdmin(int idAdmin) async {
+    if (kDebugMode) {
+      print("Admin with id $idAdmin has been deleted.");
+    }
   }
 
   @override
   Future<AdminModel> readAdmin(int idAdmin) async {
-    // TODO: implement readAdmin
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/admin.json');
+    dynamic jsonDecode = json.decode(response);
+
+    AdminModel result = AdminModel.fromJson(jsonDecode);
+
+    return result;
   }
 
   @override
   Future<void> updateAdmin(AdminModel adminModel) async {
-    // TODO: implement updateAdmin
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(adminModel.toJson());
+    }
   }
 
 
-  // TODO: => BiayaKegiatan DataSources
+  /* => BiayaKegiatan DataSources */
   @override
-  Future<void> createBiayaKegiatan({required int idUsulanKegiatan, required BiayaKegiatanModel biayaKegiatanModel}) async {
-    // TODO: implement createBiayaKegiatan
-    throw UnimplementedError();
+  Future<void> createBiayaKegiatan({
+    required int idUsulanKegiatan,
+    required BiayaKegiatanModel biayaKegiatanModel,
+  }) async {
+    if (kDebugMode) {
+      print(biayaKegiatanModel.toJson());
+    }
   }
 
   @override
-  Future<void> deleteBiayaKegiatan(int idNamaBiayaKegiatan) async {
-    // TODO: implement deleteBiayaKegiatan
-    throw UnimplementedError();
+  Future<void> deleteBiayaKegiatan(int idBiayaKegiatan) async {
+    if (kDebugMode) {
+      print("BiayaKegiatan with id $idBiayaKegiatan has been deleted.");
+    }
   }
 
   @override
   Future<void> updateBiayaKegiatan(BiayaKegiatanModel biayaKegiatanModel) async {
-    // TODO: implement updateBiayaKegiatan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(biayaKegiatanModel.toJson());
+    }
   }
 
 
   // TODO : KegiatanMPT DataSources
   @override
   Future<void> createKegiatanMpt(KegiatanMptModel kegiatanMptModel) async {
-    // TODO: implement createKegiatanMpt
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(kegiatanMptModel.toJson());
+    }
   }
 
   @override
   Future<void> deleteKegiatanMpt(int idKegiatanMpt) async {
-    // TODO: implement deleteKegiatanMpt
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print("KegiatanMpt with id $idKegiatanMpt has been deleted.");
+    }
   }
 
   @override
   Future<List<KegiatanMptModel>> readAllKegiatanMpt() async {
-    // TODO: implement readAllKegiatanMpt
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/kegiatan_mpt_list.json');
+    List<dynamic> resultList = json.decode(response);
+
+    List<KegiatanMptModel> result =
+    resultList.map((resultMap) => KegiatanMptModel.fromJson(resultMap)).toList();
+
+    return result;
   }
 
   @override
   Future<KegiatanMptModel> readKegiatanMpt(int idKegiatanMpt) async {
-    // TODO: implement readKegiatanMpt
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/kegiatan_mpt.json');
+    dynamic jsonDecode = json.decode(response);
+
+    KegiatanMptModel result = KegiatanMptModel.fromJson(jsonDecode);
+
+    return result;
   }
 
   @override
   Future<void> updateKegiatanMpt(KegiatanMptModel kegiatanMptModel) async {
-    // TODO: implement updateKegiatanMpt
-    throw UnimplementedError();
-  }
+    if (kDebugMode) {
+      print(kegiatanMptModel.toJson());
+
+    }}
 
 
-  // TODO: => Berita DataSources
+  /* => Berita DataSources */
   @override
   Future<void> createLaporan(LaporanModel laporanModel) async {
-    // TODO: implement createLaporan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(laporanModel.toJson());
+    }
   }
 
   @override
   Future<void> deleteLaporan(int idLaporan) async {
-    // TODO: implement deleteLaporan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print("Laporan with id $idLaporan has been deleted.");
+    }
   }
 
   @override
   Future<List<LaporanModel>> readAllLaporan() async {
-    // TODO: implement readAllLaporan
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/laporan_list.json');
+    List<dynamic> resultList = json.decode(response);
+
+    List<LaporanModel> result =
+    resultList.map((resultMap) => LaporanModel.fromJson(resultMap)).toList();
+
+    return result;
   }
 
   @override
   Future<LaporanModel> readLaporan(int idLaporan) async {
-    // TODO: implement readLaporan
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/laporan.json');
+    dynamic jsonDecode = json.decode(response);
+
+    LaporanModel result = LaporanModel.fromJson(jsonDecode);
+
+    return result;
   }
 
   @override
   Future<void> updateLaporan(LaporanModel laporanModel) async {
-    // TODO: implement updateLaporan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(laporanModel.toJson());
+    }
   }
 
 
-  // TODO: => Ormawa DataSources
+  //* => Ormawa DataSources */
   @override
   Future<void> createOrmawa(OrmawaModel ormawaModel) async {
-    // TODO: implement createOrmawa
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(ormawaModel.toJson());
+    }
   }
 
   @override
   Future<void> deleteOrmawa(int idOrmawa) async {
-    // TODO: implement deleteOrmawa
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print("Ormawa with id $idOrmawa has been deleted.");
+    }
   }
 
   @override
   Future<List<OrmawaModel>> readAllOrmawa() async {
-    // TODO: implement readAllOrmawa
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/ormawa_list.json');
+    List<dynamic> resultList = json.decode(response);
+
+    List<OrmawaModel> result =
+    resultList.map((resultMap) => OrmawaModel.fromJson(resultMap)).toList();
+
+    return result;
   }
 
   @override
   Future<OrmawaModel> readOrmawa(int idOrmawa) async {
-    // TODO: implement readOrmawa
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/ormawa.json');
+    dynamic jsonDecode = json.decode(response);
+
+    OrmawaModel result = OrmawaModel.fromJson(jsonDecode);
+
+    return result;
   }
 
   @override
   Future<void> updateOrmawa(OrmawaModel ormawaModel) async {
-    // TODO: implement updateOrmawa
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(ormawaModel.toJson());
+    }
   }
 
 
-  // TODO: => Partisipan DataSources
+  /* => Partisipan DataSources */
   @override
-  Future<void> createPartisipan({required int idUsulanKegiatan, required PartisipanModel partisipanModel}) async {
-    // TODO: implement createPartisipan
-    throw UnimplementedError();
+  Future<void> createPartisipan({
+    required int idUsulanKegiatan,
+    required PartisipanModel partisipanModel
+  }) async {
+    if (kDebugMode) {
+      print(partisipanModel.toJson());
+    }
   }
 
   @override
   Future<void> deletePartisipan(int idPartisipan) async {
-    // TODO: implement deletePartisipan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print("Partisipan with id $idPartisipan has been deleted.");
+    }
   }
 
   @override
   Future<void> updatePartisipan(PartisipanModel partisipanModel) async {
-    // TODO: implement updatePartisipan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(partisipanModel);
+    }
   }
 
 
-  // TODO: => PeriodeMpt DataSources
+  /* PeriodeMpt DataSources */
   @override
   Future<void> createPeriodeMpt(PeriodeMptModel periodeMptModel) async {
-    // TODO: implement createPeriodeMpt
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(periodeMptModel.toJson());
+    }
   }
 
   @override
   Future<void> deletePeriodeMpt(int idPeriode) async {
-    // TODO: implement deletePeriodeMpt
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print("Periode with id $idPeriode has been deleted.");
+    }
   }
 
   @override
   Future<List<PeriodeMptModel>> readAllPeriodeMpt() async {
-    // TODO: implement readAllPeriodeMpt
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/periode_list.json');
+    List<dynamic> resultList = json.decode(response);
+
+    List<PeriodeMptModel> result =
+    resultList.map((resultMap) => PeriodeMptModel.fromJson(resultMap)).toList();
+
+    return result;
   }
 
   @override
   Future<PeriodeMptModel> readPeriodeMpt(int idPeriodeMpt) async {
-    // TODO: implement readPeriodeMpt
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/periode.json');
+    dynamic jsonDecode = json.decode(response);
+
+    PeriodeMptModel result = PeriodeMptModel.fromJson(jsonDecode);
+
+    return result;
   }
 
   @override
   Future<void> updatePeriodeMpt(PeriodeMptModel periodeMptModel) async {
-    // TODO: implement updatePeriodeMpt
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(periodeMptModel.toJson());
+    }
   }
 
 
-  // TODO: => PesertaKegiatanLaporan
+  /* => PesertaKegiatanLaporan */
   @override
-  Future<void> createPesertaKegiatanLaporan({required int idLaporan, required PesertaKegiatanLaporanModel pesertaKegiatanLaporanModel}) async {
-    // TODO: implement createPesertaKegiatanLaporan
-    throw UnimplementedError();
+  Future<void> createPesertaKegiatanLaporan({
+    required int idLaporan,
+    required PesertaKegiatanLaporanModel pesertaKegiatanLaporanModel
+  }) async {
+    if (kDebugMode) {
+      print(pesertaKegiatanLaporanModel.toJson());
+    }
   }
 
   @override
   Future<void> deletePesertaKegiatanLaporan(int idPeserta) async {
-    // TODO: implement deletePesertaKegiatanLaporan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print("Peserta with id $idPeserta has been deleted.");
+    }
   }
 
   @override
   Future<void> updatePesertaKegiatanLaporan(PesertaKegiatanLaporanModel pesertaKegiatanLaporanModel) async {
-    // TODO: implement updatePesertaKegiatanLaporan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(pesertaKegiatanLaporanModel.toJson());
+    }
   }
 
 
-  // TODO: => Prestasi DataSources
+  /* Prestasi DataSources */
   @override
   Future<void> createPrestasi(PrestasiModel prestasiModel) async {
-    // TODO: implement createPrestasi
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(prestasiModel.toJson());
+    }
   }
 
   @override
   Future<void> deletePrestasi(int idPrestasi) async {
-    // TODO: implement deletePrestasi
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print("Prestasi with id $idPrestasi has been deleted.");
+    }
   }
 
   @override
   Future<List<PrestasiModel>> readAllPrestasi() async {
-    // TODO: implement readAllPrestasi
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/prestasi_list.json');
+    List<dynamic> resultList = json.decode(response);
+
+    List<PrestasiModel> result =
+    resultList.map((resultMap) => PrestasiModel.fromJson(resultMap)).toList();
+
+    return result;
   }
 
   @override
   Future<PrestasiModel> readPrestasi(int idPrestasi) async {
-    // TODO: implement readPrestasi
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/prestasi.json');
+    dynamic jsonDecode = json.decode(response);
+
+    PrestasiModel result = PrestasiModel.fromJson(jsonDecode);
+
+    return result;
   }
 
   @override
   Future<void> updatePrestasi(PrestasiModel prestasiModel) async {
-    // TODO: implement updatePrestasi
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(prestasiModel.toJson());
+    }
   }
 
 
-  // TODO: => RevisiLaporan DataSources
+  /* => RevisiLaporan DataSources */
   @override
   Future<void> createRevisiLaporan(RevisiLaporanModel revisiLaporanModel) async {
-    // TODO: implement createRevisiLaporan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(revisiLaporanModel.toJson());
+    }
   }
 
   @override
   Future<void> deleteRevisiLaporan(int idRevisiLaporan) async {
-    // TODO: implement deleteRevisiLaporan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print("RevisiLaporan with id $idRevisiLaporan has been deleted.");
+    }
   }
 
   @override
   Future<RevisiLaporanModel> readRevisiLaporan(int idRevisiLaporan) async {
-    // TODO: implement readRevisiLaporan
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/revisi_laporan.json');
+    dynamic jsonDecode = json.decode(response);
+
+    RevisiLaporanModel result = RevisiLaporanModel.fromJson(jsonDecode);
+
+    return result;
   }
 
   @override
   Future<void> updateRevisiLaporan(RevisiLaporanModel revisiLaporanModel) async {
-    // TODO: implement updateRevisiLaporan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(revisiLaporanModel.toJson());
+    }
   }
 
 
-  // TODO: => RevisiUsulan DataSources
+  /* => RevisiUsulan DataSources */
   @override
   Future<void> createRevisiUsulan(RevisiUsulanModel revisiUsulanModel) async {
-    // TODO: implement createRevisiUsulan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(revisiUsulanModel.toJson());
+    }
   }
 
   @override
   Future<void> deleteRevisiUsulan(int idRevisiUsulan) async {
-    // TODO: implement deleteRevisiUsulan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print("RevisiUsulan with id $idRevisiUsulan has been deleted.");
+    }
   }
 
   @override
   Future<RevisiUsulanModel> readRevisiUsulan(int idRevisiUsulan) async {
-    // TODO: implement readRevisiUsulan
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/revisi_usulan.json');
+    dynamic jsonDecode = json.decode(response);
+
+    RevisiUsulanModel result = RevisiUsulanModel.fromJson(jsonDecode);
+
+    return result;
   }
 
   @override
   Future<void> updateRevisiUsulan(RevisiUsulanModel revisiUsulanModel) async {
-    // TODO: implement updateRevisiUsulan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(revisiUsulanModel.toJson());
+    }
   }
 
 
-  // TODO: => RincianBiayaKegiatan DataSources
+  /* => RincianBiayaKegiatan DataSources */
   @override
-  Future<void> createRincianBiayaKegiatan({required int idLaporan, required RincianBiayaKegiatanModel rincianBiayaKegiatanModel}) async {
-    // TODO: implement createRincianBiayaKegiatan
-    throw UnimplementedError();
+  Future<void> createRincianBiayaKegiatan({
+    required int idLaporan,
+    required RincianBiayaKegiatanModel rincianBiayaKegiatanModel
+  }) async {
+    if (kDebugMode) {
+      print(rincianBiayaKegiatanModel.toJson());
+    }
   }
 
   @override
   Future<void> deleteRincianBiayaKegiatan(int idRincianBiayaKegiatan) async {
-    // TODO: implement deleteRincianBiayaKegiatan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print("RincianBiayaKegiatan with id $idRincianBiayaKegiatan has been deleted.");
+    }
   }
 
   @override
   Future<void> updateRincianBiayaKegiatan(RincianBiayaKegiatanModel rincianBiayaKegiatanModel) async {
-    // TODO: implement updateRincianBiayaKegiatan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(rincianBiayaKegiatanModel.toJson());
+    }
   }
 
 
-  // TODO: => RiwayatMpt
+  /* => RiwayatMpt */
   @override
   Future<void> createRiwayatMpt(RiwayatMptModel riwayatMptModel) async {
-    // TODO: implement createRiwayatMpt
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(riwayatMptModel.toJson());
+    }
   }
 
   @override
   Future<void> deleteRiwayatMpt(int idRiwayatMpt) async {
-    // TODO: implement deleteRiwayatMpt
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print("RiwayatMpt with id $idRiwayatMpt has been deleted.");
+    }
   }
 
   @override
   Future<List<RiwayatMptModel>> readAllRiwayatMpt() async {
-    // TODO: implement readAllRiwayatMpt
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/riwayat_mpt_list.json');
+    List<dynamic> resultList = json.decode(response);
+
+    List<RiwayatMptModel> result =
+    resultList.map((resultMap) => RiwayatMptModel.fromJson(resultMap)).toList();
+
+    return result;
   }
 
   @override
   Future<RiwayatMptModel> readRiwayatMpt(int idRiwayatMpt) async {
-    // TODO: implement readRiwayatMpt
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/riwayat_mpt.json');
+    dynamic jsonDecode = json.decode(response);
+
+    RiwayatMptModel result = RiwayatMptModel.fromJson(jsonDecode);
+
+    return result;
   }
 
   @override
   Future<void> updateRiwayatMpt(RiwayatMptModel riwayatMptModel) async {
-    // TODO: implement updateRiwayatMpt
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(riwayatMptModel.toJson());
+    }
   }
 
 
-  // TODO: => Session DataSources
+  /* => Session DataSources */
   @override
   Future<void> createSession(SessionModel sessionModel) async {
-    // TODO: implement createSession
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(sessionModel.toJson());
+    }
   }
 
   @override
   Future<void> deleteSession(int idSession) async {
-    // TODO: implement deleteSession
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print("Session with id $idSession has been deleted.");
+    }
   }
 
   @override
   Future<List<SessionModel>> readAllSession() async {
-    // TODO: implement readAllSession
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/session_list.json');
+    List<dynamic> resultList = json.decode(response);
+
+    List<SessionModel> result =
+    resultList.map((resultMap) => SessionModel.fromJson(resultMap)).toList();
+
+    return result;
   }
 
   @override
   Future<SessionModel> readSession(int idSession) async {
-    // TODO: implement readSession
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/session.json');
+    dynamic jsonDecode = json.decode(response);
+
+    SessionModel result = SessionModel.fromJson(jsonDecode);
+
+    return result;
   }
 
   @override
   Future<void> updateSession(SessionModel sessionModel) async {
-    // TODO: implement updateSession
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(sessionModel.toJson());
+    }
   }
 
 
-  // TODO: => TertibAcara
+  /* => TertibAcara */
   @override
-  Future<void> createTertibAcara({required int idUsulanKegiatan, required TertibAcaraModel tertibAcaraModel}) async {
-    // TODO: implement createTertibAcara
-    throw UnimplementedError();
+  Future<void> createTertibAcara({
+    required int idUsulanKegiatan,
+    required TertibAcaraModel tertibAcaraModel
+  }) async {
+    if (kDebugMode) {
+      print(tertibAcaraModel.toJson());
+    }
   }
 
   @override
   Future<void> deleteTertibAcara(int idTertibAcara) async {
-    // TODO: implement deleteTertibAcara
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print("TertibAcara with id $idTertibAcara has been deleted.");
+    }
   }
 
   @override
   Future<void> updateTertibAcara(TertibAcaraModel tertibAcaraModel) async {
-    // TODO: implement updateTertibAcara
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(tertibAcaraModel.toJson());
+    }
   }
 
 
-  // TODO: => MipokaUser DataSources
+  /* => MipokaUser DataSources */
   @override
   Future<void> createMipokaUser(MipokaUserModel mipokaUserModel) async {
-    // TODO: implement createMipokaUser
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(mipokaUserModel.toJson());
+    }
   }
 
   @override
   Future<void> deleteMipokaUser(String idMipokaUser) async {
-    // TODO: implement deleteMipokaUser
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print("MipokaUser with id $idMipokaUser has been deleted.");
+    }
   }
 
   @override
   Future<List<MipokaUserModel>> readAllMipokaUser() async {
-    // TODO: implement readAllMipokaUser
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/mipoka_user_list.json');
+    List<dynamic> resultList = json.decode(response);
+
+    List<MipokaUserModel> result =
+    resultList.map((resultMap) => MipokaUserModel.fromJson(resultMap)).toList();
+
+    return result;
   }
 
   @override
   Future<MipokaUserModel> readMipokaUser(String idMipokaUser) async {
-    // TODO: implement readMipokaUser
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/mipoka_user.json');
+    dynamic jsonDecode = json.decode(response);
+
+    MipokaUserModel result = MipokaUserModel.fromJson(jsonDecode);
+
+    return result;
   }
 
   @override
   Future<void> updateMipokaUser(MipokaUserModel mipokaUserModel) async {
-    // TODO: implement updateMipokaUser
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(mipokaUserModel.toJson());
+    }
   }
 
   @override
   Future<void> createUsulanKegiatan(UsulanKegiatanModel usulanKegiatanModel) async {
-    // TODO: implement createUsulanKegiatan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(usulanKegiatanModel.toJson());
+    }
   }
 
   @override
   Future<void> deleteUsulanKegiatan(int idUsulan) async {
-    // TODO: implement deleteUsulanKegiatan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print("UsulanKegiatan with id $idUsulan has been deleted.");
+    }
   }
 
   @override
   Future<List<UsulanKegiatanModel>> readAllUsulanKegiatan() async {
-    // TODO: implement readAllUsulanKegiatan
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/usulan_kegiatan_list.json');
+    List<dynamic> resultList = json.decode(response);
+
+    List<UsulanKegiatanModel> result =
+    resultList.map((resultMap) => UsulanKegiatanModel.fromJson(resultMap)).toList();
+
+    return result;
   }
 
   @override
   Future<UsulanKegiatanModel> readUsulanKegiatan(int idUsulanKegiatan) async {
-    // TODO: implement readUsulanKegiatan
-    throw UnimplementedError();
+    final String response =
+    await rootBundle.loadString('assets/json_file/usulan_kegiatan.json');
+    dynamic jsonDecode = json.decode(response);
+
+    UsulanKegiatanModel result = UsulanKegiatanModel.fromJson(jsonDecode);
+
+    return result;
   }
 
   @override
   Future<void> updateUsulanKegiatan(UsulanKegiatanModel usulanKegiatanModel) async {
-    // TODO: implement updateUsulanKegiatan
-    throw UnimplementedError();
+    if (kDebugMode) {
+      print(usulanKegiatanModel.toJson());
+    }
   }
 
   // // => BeritaModel Repositories
