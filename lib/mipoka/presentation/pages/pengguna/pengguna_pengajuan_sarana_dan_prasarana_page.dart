@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
@@ -8,18 +10,21 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_check_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_date_picker_field.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
-import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_rich_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_time_picker_field.dart';
 
 class PenggunaPengajuanSaranaDanPrasarana extends StatefulWidget {
-  const PenggunaPengajuanSaranaDanPrasarana({super.key});
+  const PenggunaPengajuanSaranaDanPrasarana({
+    required this.idSession,
+    super.key
+  });
 
+  final int idSession;
   @override
   State<PenggunaPengajuanSaranaDanPrasarana> createState() =>
       _PenggunaPengajuanSaranaDanPrasaranaState();
@@ -28,30 +33,31 @@ class PenggunaPengajuanSaranaDanPrasarana extends StatefulWidget {
 class _PenggunaPengajuanSaranaDanPrasaranaState
     extends State<PenggunaPengajuanSaranaDanPrasarana> {
 
-  final TextEditingController _tanggalMulaiController = TextEditingController();
-  final TextEditingController _tanggalSelesaiController = TextEditingController();
-
-  final TextEditingController _waktuMulaiController = TextEditingController();
-  final TextEditingController _waktuSelesaiController = TextEditingController();
-
   @override
   void initState() {
     BlocProvider.of<SessionBloc>(context, listen: false)
-        .add(ReadAllSessionEvent());
+        .add(ReadSessionEvent(idSession: widget.idSession));
     super.initState();
   }
 
   bool isChecked = false;
+  final TextEditingController _namaOrmawaController = TextEditingController();
+  final TextEditingController _tanggalMulaiController = TextEditingController();
+  final TextEditingController _tanggalSelesaiController = TextEditingController();
+  final TextEditingController _gedungController = TextEditingController();
+  final TextEditingController _ruangController = TextEditingController();
+  final TextEditingController _waktuMulaiController = TextEditingController();
+  final TextEditingController _waktuSelesaiController = TextEditingController();
 
   final TextEditingController _proyektorLcdController = TextEditingController();
   final TextEditingController _laptopController = TextEditingController();
   final TextEditingController _mikrofonController = TextEditingController();
   final TextEditingController _speakerController = TextEditingController();
-  final TextEditingController _tvController = TextEditingController();
-  final TextEditingController _lampuController = TextEditingController();
-
-  final QuillController _kegiatanController = QuillController.basic();
-  final QuillController _lainController = QuillController.basic();
+  final TextEditingController _mejaController = TextEditingController();
+  final TextEditingController _kursiController = TextEditingController();
+  final TextEditingController _papanTulisController = TextEditingController();
+  final TextEditingController _spidolController = TextEditingController();
+  final TextEditingController _lainController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +68,27 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
         builder: (context, state) {
           if (state is SessionLoading) {
             return const Text('Loading');
-          } else if (state is AllSessionHasData) {
+          } else if (state is SessionHasData) {
+            final session = state.session;
+
+            _namaOrmawaController.text = "OrmawaA";
+            _tanggalMulaiController.text = session.tanggalMulai;
+            _tanggalSelesaiController.text = session.tanggalSelesai;
+            _gedungController.text = session.gedung;
+            _ruangController.text = session.ruangan;
+            _waktuMulaiController.text = session.waktuMulaiPenggunaan;
+            _waktuSelesaiController.text = session.waktuSelesaiPenggunaan;
+
+            _proyektorLcdController.text = session.proyektor.toString();
+            _laptopController.text = session.laptop.toString();
+            _mikrofonController.text = session.mikrofon.toString();
+            _speakerController.text = session.speaker.toString();
+            _mejaController.text = session.meja.toString();
+            _kursiController.text = session.kursi.toString();
+            _papanTulisController.text = session.papanTulis.toString();
+            _spidolController.text = session.spidol.toString();
+            _lainController.text = session.lainLain;
+
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -144,30 +170,76 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                         ),
                         const SizedBox(height: 4.0),
                         CustomCheckBox(
-                          title: 'TV',
-                          controller: _tvController,
+                          title: 'Meja',
+                          controller: _mejaController,
                         ),
                         const SizedBox(height: 4.0),
                         CustomCheckBox(
-                          title: 'Lampu',
-                          controller: _lampuController,
+                          title: 'Kursi',
+                          controller: _kursiController,
+                        ),
+                        const SizedBox(height: 4.0),
+                        CustomCheckBox(
+                          title: 'Papan Tulis',
+                          controller: _papanTulisController,
+                        ),
+                        const SizedBox(height: 4.0),
+                        CustomCheckBox(
+                          title: 'Spidol',
+                          controller: _spidolController,
                         ),
                         const CustomFieldSpacer(),
                         buildTitle('Lain - lain'),
-                        CustomRichTextField(controller: _lainController),
+
+                        CustomTextField(controller: _lainController),
+
                         const CustomFieldSpacer(),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             CustomMipokaButton(
-                              onTap: () => Navigator.pop(context),
+                              onTap: () {
+                                context.read<SessionBloc>().add(
+                                  DeleteSessionEvent(idSession: widget.idSession),
+                                );
+                                Navigator.pop(context);
+                              },
                               text: 'Batal',
                             ),
                             const SizedBox(width: 8.0),
                             CustomMipokaButton(
                               onTap: () {
-                                Navigator.pushNamed(context,
-                                    penggunaDaftarPengajuanKegiatanPageRoute);
+                                User? user = FirebaseAuth.instance.currentUser;
+                                String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                                context.read<SessionBloc>().add(
+                                  UpdateSessionEvent(
+                                    session: session.copyWith(
+                                      // idOrmawa: _namaOrmawaController,
+                                      tanggalMulai: _tanggalMulaiController.text,
+                                      tanggalSelesai: _tanggalSelesaiController.text,
+                                      gedung: _gedungController.text,
+                                      ruangan: _ruangController.text,
+                                      waktuMulaiPenggunaan: _waktuMulaiController.text,
+                                      waktuSelesaiPenggunaan: _waktuSelesaiController.text,
+                                      proyektor: int.parse(_proyektorLcdController.text),
+                                      laptop: int.parse(_laptopController.text),
+                                      mikrofon: int.parse(_mikrofonController.text),
+                                      speaker: int.parse(_speakerController.text),
+                                      meja: int.parse(_mejaController.text),
+                                      kursi: int.parse(_kursiController.text),
+                                      papanTulis: int.parse(_papanTulisController.text),
+                                      spidol: int.parse(_spidolController.text),
+                                      lainLain: _lainController.text,
+                                      updatedBy: user?.email ?? "unknown",
+                                      updatedAt: currentDate,
+                                    ),
+                                  )
+                                );
+                                Navigator.pushNamed(
+                                  context,
+                                  penggunaDaftarPengajuanSaranaDanPrasaranaPageRoute,
+                                );
                               },
                               text: 'Kirim',
                             ),

@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/session.dart';
 import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -120,13 +123,6 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Lama Penggunaan',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
                                   'Lain - lain',
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                   textAlign: TextAlign.center,
@@ -171,7 +167,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                     Align(
                                       alignment: Alignment.center,
                                       child: Text(
-                                        "",
+                                        session.idUser,
                                       ),
                                     ),
                                   ),
@@ -179,7 +175,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                     Align(
                                       alignment: Alignment.center,
                                       child: Text(
-                                        'session.nama ormawa',
+                                        session.idOrmawa.toString(),
                                       ),
                                     ),
                                   ),
@@ -211,23 +207,19 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                     Align(
                                       alignment: Alignment.center,
                                       child: Text(
-                                        'session',
+                                        session.lainLain
                                       ),
                                     ),
                                   ),
                                   DataCell(
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "session.lain,"
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'File ${index + 1}',
+                                    InkWell(
+                                      onTap: () => {},
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Image.asset(
+                                          'assets/icons/word.png',
+                                          width: 24,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -260,10 +252,49 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           InkWell(
-                            onTap: () => Navigator.pushNamed(
-                              context,
-                              penggunaPengajuanSaranaDanPrasaranaPageRoute,
-                            ),
+                            onTap: () {
+                              int newId = DateTime.now().microsecondsSinceEpoch;
+                              User? user = FirebaseAuth.instance.currentUser;
+                              String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
+                              context.read<SessionBloc>().add(
+                                CreateSessionEvent(
+                                  session: Session(
+                                    idSession: newId,
+                                    idUser: user?.uid ?? "unknown",
+                                    idOrmawa: 0,
+                                    tanggalMulai: "",
+                                    tanggalSelesai: "",
+                                    ruangan: "",
+                                    gedung: "",
+                                    waktuMulaiPenggunaan: "",
+                                    waktuSelesaiPenggunaan: "",
+                                    kegiatan: "",
+                                    proyektor: 0,
+                                    laptop: 0,
+                                    mikrofon: 0,
+                                    speaker: 0,
+                                    meja: 0,
+                                    kursi: 0,
+                                    papanTulis: 0,
+                                    spidol: 0,
+                                    lainLain: "",
+                                    status: "",
+                                    keterangan: "",
+                                    updatedAt: currentDate,
+                                    createdAt: currentDate,
+                                    updatedBy: user?.email ?? "unknown",
+                                    createdBy: user?.email ?? "unknown",
+                                  ),
+                                ),
+                              );
+
+                              Navigator.pushNamed(
+                                context,
+                                penggunaPengajuanSaranaDanPrasaranaPageRoute,
+                                arguments: newId,
+                              );
+                            },
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 24),

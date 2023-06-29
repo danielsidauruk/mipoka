@@ -15,7 +15,18 @@ class CustomCheckBox extends StatefulWidget {
 }
 
 class _CustomCheckBoxState extends State<CustomCheckBox> {
-  bool isChecked = false;
+
+  late bool isChecked;
+
+  @override
+  void initState() {
+    if(widget.controller.text != "0") {
+      isChecked = true;
+    } else {
+      isChecked = false;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +38,9 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
           onChanged: (value) {
             setState(() {
               isChecked = value!;
+              if(isChecked = false) {
+                widget.controller.text = "0";
+              }
             });
           },
         ),
