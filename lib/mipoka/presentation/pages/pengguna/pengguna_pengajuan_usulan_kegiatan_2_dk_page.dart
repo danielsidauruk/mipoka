@@ -137,25 +137,23 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                           ),
                                         ),
                                         DataCell(
-                                          InkWell(
-                                            child: Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                partisipan.noInduk,
-                                                textAlign: TextAlign.center,
-                                                style: const TextStyle(color: Colors.blue),
+                                          onTap: () {
+                                            Navigator.pushNamed(
+                                              context,
+                                              editDataPesertaDalamKotaPageRoute,
+                                              arguments: PartisipanArgs(
+                                                partisipan: partisipan,
+                                                id: widget.idUsulanKegiatan,
                                               ),
+                                            );
+                                          },
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              partisipan.noInduk,
+                                              textAlign: TextAlign.center,
+                                              style: const TextStyle(color: Colors.blue),
                                             ),
-                                            onTap: () {
-                                              Navigator.pushNamed(
-                                                context,
-                                                editDataPesertaDalamKotaPageRoute,
-                                                arguments: PartisipanArgs(
-                                                  partisipan: partisipan,
-                                                  id: widget.idUsulanKegiatan,
-                                                ),
-                                              );
-                                            },
                                           ),
                                         ),
                                         DataCell(
@@ -257,7 +255,7 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                         ),
                                         DataColumn(
                                           label: Text(
-                                            'Qty',
+                                            'Kuantitas',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold),
                                             textAlign: TextAlign.center,

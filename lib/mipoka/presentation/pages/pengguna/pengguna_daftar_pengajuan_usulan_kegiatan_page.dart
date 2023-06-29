@@ -222,6 +222,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -244,7 +245,6 @@ class PenggunaDaftarPengajuanKegiatan extends StatefulWidget {
 class _PenggunaDaftarPengajuanKegiatanState
     extends State<PenggunaDaftarPengajuanKegiatan> {
   @override
-
   void initState() {
     Future.microtask(() {
       BlocProvider.of<UsulanKegiatanBloc>(context, listen: false)
@@ -351,7 +351,11 @@ class _PenggunaDaftarPengajuanKegiatanState
                             rows: List<DataRow>.generate(
                                 state.usulanKegiatanList.length, (int index) {
                               final usulanKegiatan =
-                                  state.usulanKegiatanList[index];
+                              state.usulanKegiatanList[index];
+
+                              context.read<MipokaUserBloc>().add(
+                                ReadMipokaUserEvent(idMipokaUser: usulanKegiatan.idUser),
+                              );
                               return DataRow(
                                 cells: [
                                   DataCell(
@@ -371,11 +375,18 @@ class _PenggunaDaftarPengajuanKegiatanState
                                     ),
                                   ),
                                   DataCell(
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        usulanKegiatan.createdBy,
-                                      ),
+                                    BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                      builder: (context, mipokaUserState) {
+                                        if (mipokaUserState is MipokaUserLoading) {
+                                          return const Text('Loading ...');
+                                        } else if (mipokaUserState is MipokaUserHasData) {
+                                          return Text(mipokaUserState.mipokaUser.namaLengkap);
+                                        } else if (mipokaUserState is MipokaUserError) {
+                                          return Text(mipokaUserState.message);
+                                        } else {
+                                          return const Text("MipokaUserBloc hasn't been triggered.");
+                                        }
+                                      },
                                     ),
                                   ),
                                   DataCell(
@@ -420,9 +431,12 @@ class _PenggunaDaftarPengajuanKegiatanState
                       const CustomFieldSpacer(),
                       CustomMipokaButton(
                         onTap: () {
-                          int newId = DateTime.now().millisecondsSinceEpoch;
+                          int newId = DateTime
+                              .now()
+                              .millisecondsSinceEpoch;
                           User? user = FirebaseAuth.instance.currentUser;
-                          String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                          String currentDate = DateFormat('dd-MM-yyyy').format(
+                              DateTime.now());
 
                           context.read<UsulanKegiatanBloc>().add(
                             CreateUsulanKegiatanEvent(

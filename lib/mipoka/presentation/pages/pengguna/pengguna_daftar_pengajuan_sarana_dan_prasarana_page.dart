@@ -5,7 +5,10 @@ import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/session.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -25,9 +28,18 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
 
   @override
   void initState() {
-    BlocProvider.of<SessionBloc>(context, listen: false)
-        .add(const ReadAllSessionEvent());
+    // BlocProvider.of<SessionBloc>(context, listen: false)
+    //     .add(const ReadAllSessionEvent());
+    context.read<SessionBloc>().add(const ReadAllSessionEvent());
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    context.read<SessionBloc>().close();
+    context.read<MipokaUserBloc>().close();
+    context.read<OrmawaBloc>().close();
+    super.dispose();
   }
   
   @override
@@ -145,6 +157,12 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                             ],
                             rows: List<DataRow>.generate(state.sessionList.length, (int index) {
                               final session = state.sessionList[index];
+                              
+                              context.read<MipokaUserBloc>().add(
+                                ReadMipokaUserEvent(idMipokaUser: session.idUser)
+                              );
+                              context.read<OrmawaBloc>().add(
+                                  ReadOrmawaEvent(idOrmawa: session.idOrmawa));
                               return DataRow(
                                 cells: [
                                   DataCell(
@@ -164,19 +182,43 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                     ),
                                   ),
                                   DataCell(
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        session.idUser,
-                                      ),
+                                    BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                      builder: (context, state) {
+                                        if (state is MipokaUserLoading) {
+                                          return const Text("Loading ...");
+                                        } else if (state is MipokaUserHasData) {
+                                          return Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              state.mipokaUser.namaLengkap,
+                                            ),
+                                          );
+                                        } else if (state is MipokaUserError) {
+                                          return Text(state.message);
+                                        } else {
+                                          return const Text("MipokaUserBloc hasn't been triggered.");
+                                        }
+                                      },
                                     ),
                                   ),
                                   DataCell(
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        session.idOrmawa.toString(),
-                                      ),
+                                    BlocBuilder<OrmawaBloc, OrmawaState>(
+                                      builder: (context, state) {
+                                        if (state is OrmawaLoading) {
+                                          return const Text('Loading ...');
+                                        } else if (state is OrmawaHasData) {
+                                          return Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              state.ormawa.namaOrmawa,
+                                            ),
+                                          );
+                                        } else if (state is OrmawaError) {
+                                          return Text(state.message);
+                                        } else {
+                                          return const Text("Ormawa hasn't been triggered");
+                                        }
+                                      },
                                     ),
                                   ),
                                   DataCell(

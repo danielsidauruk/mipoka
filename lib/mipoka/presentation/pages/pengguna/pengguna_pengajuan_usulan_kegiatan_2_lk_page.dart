@@ -254,7 +254,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                                         ),
                                         DataColumn(
                                           label: Text(
-                                            'Qty',
+                                            'Kuantitas',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold),
                                             textAlign: TextAlign.center,

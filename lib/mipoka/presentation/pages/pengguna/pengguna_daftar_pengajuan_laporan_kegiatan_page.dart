@@ -36,6 +36,7 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
   @override
   void dispose() {
     BlocProvider.of<LaporanBloc>(context, listen: false).close();
+    BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).close();
     super.dispose();
   }
 
@@ -46,237 +47,243 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
       drawer: const MobileCustomPenggunaDrawerWidget(),
       body: BlocBuilder<LaporanBloc, LaporanState>(
         builder: (context, laporanState) {
-          return BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
-            builder: (context, usulanState) {
-              if (laporanState is LaporanLoading) {
-                return const Text('Loading');
-              } else if (laporanState is AllLaporanHasData) {
-                return Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+          if (laporanState is LaporanLoading) {
+            return const Text('Loading');
+          } else if (laporanState is AllLaporanHasData) {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+
+                  const CustomMobileTitle(
+                      text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
+
+                  const CustomFieldSpacer(),
+
+                  CustomContentBox(
                     children: [
+                      customBoxTitle('Status'),
 
-                      const CustomMobileTitle(
-                          text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
+                      const CustomFieldSpacer(height: 4.0),
 
+                      MipokaCustomDropdown(
+                        items: listStatus,
+                        onValueChanged: (value) {
+                          context.read<LaporanBloc>().add(
+                              ReadAllLaporanEvent(filter: value!));
+                        },
+                      ),
                       const CustomFieldSpacer(),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: DataTable(
+                            columnSpacing: 40,
+                            border: TableBorder.all(color: Colors.white),
+                            columns: const [
+                              DataColumn(
+                                label: Text(
+                                  'No.',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Tanggal Mengirim Laporan Kegiatan',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Nama Pelapor',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Nama Kegiatan',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Laporan Kegiatan',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Validasi Pembina',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Status',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                            rows: List<DataRow>.generate(laporanState.laporanList.length, (int index) {
+                              final laporan = laporanState.laporanList[index];
 
-                      CustomContentBox(
-                        children: [
-                          customBoxTitle('Status'),
+                              BlocProvider.of<UsulanKegiatanBloc>(context, listen: false)
+                                  .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: laporan.idUsulan));
 
-                          const CustomFieldSpacer(height: 4.0),
-
-                          MipokaCustomDropdown(
-                            items: listStatus,
-                            onValueChanged: (value) {
-                              context.read<LaporanBloc>().add(
-                                  ReadAllLaporanEvent(filter: value!));
-                            },
-                          ),
-                          const CustomFieldSpacer(),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: DataTable(
-                                columnSpacing: 40,
-                                border: TableBorder.all(color: Colors.white),
-                                columns: const [
-                                  DataColumn(
-                                    label: Text(
-                                      'No.',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                              return DataRow(
+                                cells: [
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text('${index + 1}',),
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Tanggal Mengirim Laporan Kegiatan',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        laporan.createdAt,
+                                      ),
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Nama Pelapor',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        laporan.createdBy,
+                                      ),
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Nama Kegiatan',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                  DataCell(
+                                    BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+                                      builder: (context, state) {
+                                        if (state is UsulanKegiatanLoading) {
+                                          return const Text('Loading ...');
+                                        } else if (state is UsulanKegiatanHasData) {
+                                          return Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              state.usulanKegiatan.namaKegiatan,
+                                            ),
+                                          );
+                                        } else if (state is UsulanKegiatanError) {
+                                          return Text(state.message);
+                                        } else {
+                                          return const Text("UsulanKegiatanBloc hasn't been triggered");
+                                        }
+                                      },
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Laporan Kegiatan',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                  DataCell(
+                                    InkWell(
+                                      onTap: () => {},
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Image.asset(
+                                          'assets/icons/word.png',
+                                          width: 24,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Validasi Pembina',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: laporan.validasiPembina == true ?
+                                      Image.asset(
+                                        'assets/icons/approve.png',
+                                        width: 24,
+                                      ) :
+                                      Image.asset(
+                                        'assets/icons/close.png',
+                                        width: 24,
+                                      ),
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Status',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                  DataCell(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        laporan.statusLaporan,
+                                      ),
                                     ),
                                   ),
                                 ],
-                                rows: List<DataRow>.generate(laporanState.laporanList.length, (int index) {
-                                  final laporan = laporanState.laporanList[index];
+                              );
+                            }),
+                          ),
+                        ),
+                      ),
 
-                                  // setState(() {
-                                  //   BlocProvider.of<UsulanKegiatanBloc>(context, listen: false)
-                                  //       .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: laporan.idUsulan));
-                                  // });
+                      const CustomFieldSpacer(),
+                      CustomMipokaButton(
+                        onTap: () {
+                          int newId = DateTime.now().millisecondsSinceEpoch;
+                          User? user = FirebaseAuth.instance.currentUser;
+                          String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
-                                  return DataRow(
-                                    cells: [
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text('${index + 1}',),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            laporan.createdAt,
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            laporan.createdBy,
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            "usulanState.usulanKegiatan.namaKegiatan",
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        InkWell(
-                                          onTap: () => {},
-                                          child: Align(
-                                            alignment: Alignment.center,
-                                            child: Image.asset(
-                                              'assets/icons/word.png',
-                                              width: 24,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: laporan.validasiPembina == true ?
-                                          Image.asset(
-                                            'assets/icons/approve.png',
-                                            width: 24,
-                                          ) :
-                                          Image.asset(
-                                            'assets/icons/close.png',
-                                            width: 24,
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            laporan.statusLaporan,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                }),
+                          if (kDebugMode) {
+                            print (currentDate);
+                          }
+
+                          context.read<LaporanBloc>().add(
+                            CreateLaporanEvent(
+                              Laporan(
+                                idLaporan: newId,
+                                idOrmawa: 0,
+                                idUser: user?.uid ?? "unknown",
+                                idUsulan: 0,
+                                pencapaian: "",
+                                pesertaKegiatanLaporan: [],
+                                rincianBiayaKegiatan: [],
+                                totalUsulan: 0,
+                                totalRealisasi: 0,
+                                totalSelisih: 0,
+                                latarBelakang: "",
+                                hasilKegiatan: "",
+                                penutup: "",
+                                fotoPostinganKegiatan: "",
+                                fotoDokumentasiKegiatan: [],
+                                fotoTabulasiHasil: "",
+                                fotoFakturPembayaran: "",
+                                fileLaporanKegiatan: "",
+                                validasiPembina: false,
+                                statusLaporan: "",
+                                createdAt: currentDate,
+                                createdBy: user?.email ?? "unknown",
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "unknown",
                               ),
                             ),
-                          ),
+                          );
 
-                          const CustomFieldSpacer(),
-                          CustomMipokaButton(
-                            onTap: () {
-                              int newId = DateTime.now().millisecondsSinceEpoch;
-                              User? user = FirebaseAuth.instance.currentUser;
-                              String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
-                              if (kDebugMode) {
-                                print (currentDate);
-                              }
-
-                              context.read<LaporanBloc>().add(
-                                CreateLaporanEvent(
-                                  Laporan(
-                                    idLaporan: newId,
-                                    idOrmawa: 0,
-                                    idUser: user?.uid ?? "unknown",
-                                    idUsulan: 0,
-                                    pencapaian: "",
-                                    pesertaKegiatanLaporan: [],
-                                    rincianBiayaKegiatan: [],
-                                    totalUsulan: 0,
-                                    totalRealisasi: 0,
-                                    totalSelisih: 0,
-                                    latarBelakang: "",
-                                    hasilKegiatan: "",
-                                    penutup: "",
-                                    fotoPostinganKegiatan: "",
-                                    fotoDokumentasiKegiatan: [],
-                                    fotoTabulasiHasil: "",
-                                    fotoFakturPembayaran: "",
-                                    fileLaporanKegiatan: "",
-                                    validasiPembina: false,
-                                    statusLaporan: "",
-                                    createdAt: currentDate,
-                                    createdBy: user?.email ?? "unknown",
-                                    updatedAt: currentDate,
-                                    updatedBy: user?.email ?? "unknown",
-                                  ),
-                                ),
-                              );
-
-                              Navigator.pushNamed(
-                                context,
-                                penggunaPengajuanLaporanKegiatanPage1Route,
-                                arguments: newId,
-                              );
-                            },
-                            text: 'Laporkan Kegiatan',
-                          ),
-                        ],
+                          Navigator.pushNamed(
+                            context,
+                            penggunaPengajuanLaporanKegiatanPage1Route,
+                            arguments: newId,
+                          );
+                        },
+                        text: 'Laporkan Kegiatan',
                       ),
                     ],
                   ),
-                );
-              } else if (laporanState is LaporanError) {
-                return Text(laporanState.message);
-              } else {
-                return const Text('IDK');
-              }
-            }
-          );
+                ],
+              ),
+            );
+          } else if (laporanState is LaporanError) {
+            return Text(laporanState.message);
+          } else {
+            return const Text('IDK');
+          }
         },
       ),
     );
