@@ -8,6 +8,7 @@ import 'package:mipoka/dependency_injection.dart' as di;
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
+import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
@@ -66,6 +67,7 @@ import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_u
 import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_data_peserta_dalam_kota_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_data_peserta_luar_kota_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_tertib_acara_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/laporan_kegiatan_edit_biaya_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_berita_detail_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_daftar_pengajuan_laporan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_daftar_pengajuan_sarana_dan_prasarana_page.dart';
@@ -283,6 +285,11 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) =>
                       LaporanKegiatanTambahBiayaKegiatanPage(idLaporan: idLaporan));
+            case laporanKegiatanEditBiayaKegiatanPageRoute:
+              final rincianBiayaKegiatan = settings.arguments as RincianBiayaKegiatan;
+              return MaterialPageRoute(
+                  builder: (_) =>
+                      LaporanKegiatanEditBiayaKegiatanPage(rincianBiayaLaporan: rincianBiayaKegiatan));
             case importPesertaLaporanPageRoute:
               final idLaporan = settings.arguments as int;
               return MaterialPageRoute(

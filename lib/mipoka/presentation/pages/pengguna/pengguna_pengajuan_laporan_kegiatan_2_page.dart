@@ -190,7 +190,7 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                           label: Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              'Qty',
+                                              'Kuantitas',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             ),
@@ -240,10 +240,20 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                               ),
                                             ),
                                             DataCell(
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  rincianBiayaKegiatan.namaBiaya,
+                                              InkWell(
+                                                onTap: () => Navigator.pushNamed(
+                                                  context,
+                                                  laporanKegiatanEditBiayaKegiatanPageRoute,
+                                                  arguments: rincianBiayaKegiatan,
+                                                ),
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    rincianBiayaKegiatan.namaBiaya,
+                                                    style: const TextStyle(
+                                                      color: Colors.blue,
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ),
