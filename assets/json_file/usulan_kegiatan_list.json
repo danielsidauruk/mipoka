@@ -79,6 +79,7 @@
         "updated_by": "Jane Smith"
       }
     ],
+    "total_biaya": 20000,
     "nama_tt_ketua_ormawa": "John Doe",
     "nama_tt_pembina": "Jane Smith",
     "latar_belakang": "Minat seni rupa di kalangan mahasiswa meningkat",
@@ -208,6 +209,7 @@
         "updated_by": "Jane Smith"
       }
     ],
+    "total_biaya": 20000,
     "nama_tt_ketua_ormawa": "John Doe",
     "nama_tt_pembina": "Jane Smith",
     "latar_belakang": "Minat seni rupa di kalangan mahasiswa meningkat",
@@ -337,6 +339,7 @@
         "updated_by": "Jane Smith"
       }
     ],
+    "total_biaya": 20000,
     "nama_tt_ketua_ormawa": "John Doe",
     "nama_tt_pembina": "Jane Smith",
     "latar_belakang": "Minat seni rupa di kalangan mahasiswa meningkat",

@@ -27,6 +27,7 @@ class UsulanKegiatan extends Equatable{
   final String tandaTanganOrmawa;
   final List<Partisipan> partisipan;
   final List<BiayaKegiatan> biayaKegiatan;
+  final int totalBiaya;
   final String namaTtKetuaOrmawa;
   final String namaTtPembina;
   final String latarBelakang;
@@ -53,7 +54,7 @@ class UsulanKegiatan extends Equatable{
   final String createdBy;
   final String updatedBy;
 
-  UsulanKegiatan({
+  const UsulanKegiatan({
     required this.idUsulan,
     required this.idUser,
     required this.idOrmawa,
@@ -77,6 +78,7 @@ class UsulanKegiatan extends Equatable{
     required this.tandaTanganOrmawa,
     required this.partisipan,
     required this.biayaKegiatan,
+    required this.totalBiaya,
     required this.namaTtKetuaOrmawa,
     required this.namaTtPembina,
     required this.latarBelakang,
@@ -128,6 +130,7 @@ class UsulanKegiatan extends Equatable{
     String? tandaTanganOrmawa,
     List<Partisipan>? partisipan,
     List<BiayaKegiatan>? biayaKegiatan,
+    int? totalBiaya,
     String? namaTtKetuaOrmawa,
     String? namaTtPembina,
     String? latarBelakang,
@@ -178,6 +181,7 @@ class UsulanKegiatan extends Equatable{
         tandaTanganOrmawa: tandaTanganOrmawa ?? this.tandaTanganOrmawa,
         partisipan: partisipan ?? this.partisipan,
         biayaKegiatan: biayaKegiatan ?? this.biayaKegiatan,
+        totalBiaya: totalBiaya ?? this.totalBiaya,
         namaTtKetuaOrmawa: namaTtKetuaOrmawa ?? this.namaTtKetuaOrmawa,
         namaTtPembina: namaTtPembina ?? this.namaTtPembina,
         latarBelakang: latarBelakang ?? this.latarBelakang,

@@ -9,7 +9,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
   final List<BiayaKegiatanModel> biayaKegiatanModel;
   final List<TertibAcaraModel> tertibAcaraModel;
 
-  UsulanKegiatanModel({
+  const UsulanKegiatanModel({
     required super.idUsulan,
     required super.idUser,
     required super.idOrmawa,
@@ -33,6 +33,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
     required super.tandaTanganOrmawa,
     required this.partisipanModel,
     required this.biayaKegiatanModel,
+    required super.totalBiaya,
     required super.namaTtKetuaOrmawa,
     required super.namaTtPembina,
     required super.latarBelakang,
@@ -91,6 +92,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
           PartisipanModel.fromEntity(partisipan)).toList(),
       biayaKegiatanModel: usulanKegiatan.biayaKegiatan.map((biayaKegiatan) =>
           BiayaKegiatanModel.fromEntity(biayaKegiatan)).toList(),
+      totalBiaya: usulanKegiatan.totalBiaya,
       namaTtKetuaOrmawa: usulanKegiatan.namaTtKetuaOrmawa,
       namaTtPembina: usulanKegiatan.namaTtPembina,
       latarBelakang: usulanKegiatan.latarBelakang,
@@ -144,6 +146,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
     tandaTanganOrmawa: json["tanda_tangan_ormawa"],
     partisipanModel: List<PartisipanModel>.from(json["partisipan"].map((x) => PartisipanModel.fromJson(x))),
     biayaKegiatanModel: List<BiayaKegiatanModel>.from(json["biaya_kegiatan"].map((x) => BiayaKegiatanModel.fromJson(x))),
+    totalBiaya: json["total_biaya"],
     namaTtKetuaOrmawa: json["nama_tt_ketua_ormawa"],
     namaTtPembina: json["nama_tt_pembina"],
     latarBelakang: json["latar_belakang"],
@@ -195,6 +198,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
     "tanda_tangan_ormawa": tandaTanganOrmawa,
     "partisipan": List<dynamic>.from(partisipanModel.map((x) => x.toJson())),
     "biaya_kegiatan": List<dynamic>.from(biayaKegiatanModel.map((x) => x.toJson())),
+    "total_biaya": totalBiaya,
     "nama_tt_ketua_ormawa": namaTtKetuaOrmawa,
     "nama_tt_pembina": namaTtPembina,
     "latar_belakang": latarBelakang,
