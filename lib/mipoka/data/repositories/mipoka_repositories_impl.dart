@@ -644,9 +644,9 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, List<Session>>> readAllSession() async {
+  Future<Either<Failure, List<Session>>> readAllSession(String filter) async {
     try {
-      return Right(await mipokaDataSources.readAllSession());
+      return Right(await mipokaDataSources.readAllSession(filter));
     } on ServerException {
       return const Left(ServerFailure());
     }

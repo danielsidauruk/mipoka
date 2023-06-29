@@ -16,6 +16,7 @@ class UsulanKegiatan extends Equatable{
   final String tanggalSelesaiKegiatan;
   final String waktuMulaiKegiatan;
   final String waktuSelesaiKegiatan;
+  final String tempatKegiatan;
   final String tanggalKeberangkatan;
   final String tanggalKepulangan;
   final String jumlahPartisipan;
@@ -28,8 +29,6 @@ class UsulanKegiatan extends Equatable{
   final List<Partisipan> partisipan;
   final List<BiayaKegiatan> biayaKegiatan;
   final int totalBiaya;
-  final String namaTtKetuaOrmawa;
-  final String namaTtPembina;
   final String latarBelakang;
   final String tujuanKegiatan;
   final String manfaatKegiatan;
@@ -67,6 +66,7 @@ class UsulanKegiatan extends Equatable{
     required this.tanggalSelesaiKegiatan,
     required this.waktuMulaiKegiatan,
     required this.waktuSelesaiKegiatan,
+    required this.tempatKegiatan,
     required this.tanggalKeberangkatan,
     required this.tanggalKepulangan,
     required this.jumlahPartisipan,
@@ -79,8 +79,6 @@ class UsulanKegiatan extends Equatable{
     required this.partisipan,
     required this.biayaKegiatan,
     required this.totalBiaya,
-    required this.namaTtKetuaOrmawa,
-    required this.namaTtPembina,
     required this.latarBelakang,
     required this.tujuanKegiatan,
     required this.manfaatKegiatan,
@@ -119,6 +117,7 @@ class UsulanKegiatan extends Equatable{
     String? tanggalSelesaiKegiatan,
     String? waktuMulaiKegiatan,
     String? waktuSelesaiKegiatan,
+    String? tempatKegiatan,
     String? tanggalKeberangkatan,
     String? tanggalKepulangan,
     String? jumlahPartisipan,
@@ -131,8 +130,6 @@ class UsulanKegiatan extends Equatable{
     List<Partisipan>? partisipan,
     List<BiayaKegiatan>? biayaKegiatan,
     int? totalBiaya,
-    String? namaTtKetuaOrmawa,
-    String? namaTtPembina,
     String? latarBelakang,
     String? tujuanKegiatan,
     String? manfaatKegiatan,
@@ -170,6 +167,7 @@ class UsulanKegiatan extends Equatable{
         tanggalSelesaiKegiatan: tanggalSelesaiKegiatan ?? this.tanggalSelesaiKegiatan,
         waktuMulaiKegiatan: waktuMulaiKegiatan ?? this.waktuMulaiKegiatan,
         waktuSelesaiKegiatan: waktuSelesaiKegiatan ?? this.waktuSelesaiKegiatan,
+        tempatKegiatan: tempatKegiatan ?? this.tempatKegiatan,
         tanggalKeberangkatan: tanggalKeberangkatan ?? this.tanggalKeberangkatan,
         tanggalKepulangan: tanggalKepulangan ?? this.tanggalKepulangan,
         jumlahPartisipan: jumlahPartisipan ?? this.jumlahPartisipan,
@@ -182,8 +180,6 @@ class UsulanKegiatan extends Equatable{
         partisipan: partisipan ?? this.partisipan,
         biayaKegiatan: biayaKegiatan ?? this.biayaKegiatan,
         totalBiaya: totalBiaya ?? this.totalBiaya,
-        namaTtKetuaOrmawa: namaTtKetuaOrmawa ?? this.namaTtKetuaOrmawa,
-        namaTtPembina: namaTtPembina ?? this.namaTtPembina,
         latarBelakang: latarBelakang ?? this.latarBelakang,
         tujuanKegiatan: tujuanKegiatan ?? this.tujuanKegiatan,
         manfaatKegiatan: manfaatKegiatan ?? this.manfaatKegiatan,
@@ -223,6 +219,7 @@ class UsulanKegiatan extends Equatable{
     tanggalSelesaiKegiatan,
     waktuMulaiKegiatan,
     waktuSelesaiKegiatan,
+    tempatKegiatan,
     tanggalKeberangkatan,
     tanggalKepulangan,
     jumlahPartisipan,
@@ -234,8 +231,6 @@ class UsulanKegiatan extends Equatable{
     tandaTanganOrmawa,
     partisipan,
     biayaKegiatan,
-    namaTtKetuaOrmawa,
-    namaTtPembina,
     latarBelakang,
     tujuanKegiatan,
     manfaatKegiatan,

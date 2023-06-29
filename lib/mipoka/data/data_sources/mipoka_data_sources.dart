@@ -107,7 +107,7 @@ abstract class MipokaDataSources {
   Future<void> updateRiwayatMpt(RiwayatMptModel riwayatMptMode);
   Future<void> deleteRiwayatMpt(int idRiwayatMpt);
 
-  Future<List<SessionModel>> readAllSession();
+  Future<List<SessionModel>> readAllSession(String filter);
   Future<SessionModel> readSession(int idSession);
   Future<void> createSession(SessionModel sessionModel);
   Future<void> updateSession(SessionModel sessionModel);
@@ -684,7 +684,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<SessionModel>> readAllSession() async {
+  Future<List<SessionModel>> readAllSession(String filter) async {
     final String response =
     await rootBundle.loadString('assets/json_file/session_list.json');
     List<dynamic> resultList = json.decode(response);

@@ -105,7 +105,7 @@ abstract class MipokaRepositories {
   Future<Either<Failure, void>> updateRiwayatMpt(RiwayatMpt riwayatMpt);
   Future<Either<Failure, void>> deleteRiwayatMpt(int idRiwayatMpt);
 
-  Future<Either<Failure, List<Session>>> readAllSession();
+  Future<Either<Failure, List<Session>>> readAllSession(String filter);
   Future<Either<Failure, Session>> readSession(int idSession);
   Future<Either<Failure, void>> createSession(Session session);
   Future<Either<Failure, void>> updateSession(Session session);
