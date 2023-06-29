@@ -132,17 +132,17 @@ class _PenggunaPengajuanLaporanKegiatan1State
                                         )
                                       ),
                                     );
-                                    context.read<LaporanBloc>().add(
-                                        ReadLaporanEvent(idLaporan: widget.idLaporan));
+                                    // context.read<LaporanBloc>().add(
+                                    //     ReadLaporanEvent(idLaporan: widget.idLaporan));
+                                    //
+                                    // context.read<UsulanKegiatanBloc>().add(
+                                    //     const ReadAllUsulanKegiatanEvent());
 
-                                    context.read<UsulanKegiatanBloc>().add(
-                                        const ReadAllUsulanKegiatanEvent());
-
-                                    // Navigator.pushNamed(
-                                    //   context,
-                                    //   penggunaPengajuanLaporanKegiatan2PageRoute,
-                                    //   arguments: widget.idLaporan,
-                                    // );
+                                    Navigator.pushNamed(
+                                      context,
+                                      penggunaPengajuanLaporanKegiatan2PageRoute,
+                                      arguments: widget.idLaporan,
+                                    );
                                   },
                                   text: 'Berikutnya',
                                 ),

@@ -7,6 +7,7 @@ import 'package:mipoka/core/utils.dart';
 import 'package:mipoka/dependency_injection.dart' as di;
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
+import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
@@ -73,8 +74,8 @@ import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_mpt_unggah_bu
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_ormawa_ukm_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_laporan_kegiatan_1_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_laporan_kegiatan_2_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_laporan_kegiatan_2_biaya_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_laporan_kegiatan_2_import_peserta_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/laporan_kegiatan_tambah_biaya_kegiatan_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/import_peserta_laporan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_laporan_kegiatan_3_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_sarana_dan_prasarana_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_1_page.dart';
@@ -277,14 +278,16 @@ class MyApp extends StatelessWidget {
               final idLaporan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) => PenggunaPengajuanLaporanKegiatan2(idLaporan: idLaporan));
-            case penggunaPengajuanLaporanKegiatan2BiayaKegiatanPageRoute:
+            case laporanKegiatanTambahBiayaKegiatanPageRoute:
+              final idLaporan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) =>
-                      const PenggunaPengajuanLaporanKegiatan2BiayaKegiatan());
-            case penggunaPengajuanLaporanKegiatan2ImportKegiatanPageRoute:
+                      LaporanKegiatanTambahBiayaKegiatanPage(idLaporan: idLaporan));
+            case importPesertaLaporanPageRoute:
+              final idLaporan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) =>
-                      const PenggunaPengajuanLaporanKegiatan2ImportPeserta());
+                      ImportPesertaLaporanPage(idLaporan: idLaporan));
             case penggunaPengajuanLaporanKegiatan3PageRoute:
               return MaterialPageRoute(
                   builder: (_) => const PenggunaPengajuanLaporanKegiatan3());

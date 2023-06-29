@@ -10,6 +10,9 @@ class Laporan extends Equatable {
   final String pencapaian;
   final List<PesertaKegiatanLaporan> pesertaKegiatanLaporan;
   final List<RincianBiayaKegiatan> rincianBiayaKegiatan;
+  final int totalUsulan;
+  final int totalRealisasi;
+  final int totalSelisih;
   final String latarBelakang;
   final String hasilKegiatan;
   final String penutup;
@@ -33,6 +36,9 @@ class Laporan extends Equatable {
     required this.pencapaian,
     required this.pesertaKegiatanLaporan,
     required this.rincianBiayaKegiatan,
+    required this.totalUsulan,
+    required this.totalRealisasi,
+    required this.totalSelisih,
     required this.latarBelakang,
     required this.hasilKegiatan,
     required this.penutup,
@@ -57,6 +63,9 @@ class Laporan extends Equatable {
     String? pencapaian,
     List<PesertaKegiatanLaporan>? pesertaKegiatanLaporan,
     List<RincianBiayaKegiatan>? rincianBiayaKegiatan,
+    int? totalUsulan,
+    int? totalRealisasi,
+    int? totalSelisih,
     String? latarBelakang,
     String? hasilKegiatan,
     String? penutup,
@@ -80,6 +89,9 @@ class Laporan extends Equatable {
         pencapaian: pencapaian ?? this.pencapaian,
         pesertaKegiatanLaporan: pesertaKegiatanLaporan ?? this.pesertaKegiatanLaporan,
         rincianBiayaKegiatan: rincianBiayaKegiatan ?? this.rincianBiayaKegiatan,
+        totalUsulan: totalUsulan ?? this.totalUsulan,
+        totalRealisasi: totalRealisasi ?? this.totalRealisasi,
+        totalSelisih: totalSelisih ?? this.totalSelisih,
         latarBelakang: latarBelakang ?? this.latarBelakang,
         hasilKegiatan: hasilKegiatan ?? this.hasilKegiatan,
         penutup: penutup ?? this.penutup,
@@ -105,6 +117,9 @@ class Laporan extends Equatable {
     pencapaian,
     pesertaKegiatanLaporan,
     rincianBiayaKegiatan,
+    totalUsulan,
+    totalRealisasi,
+    totalSelisih,
     latarBelakang,
     hasilKegiatan,
     penutup,

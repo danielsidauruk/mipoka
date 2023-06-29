@@ -44,10 +44,9 @@ const penggunaPengajuanLaporanKegiatanPage1Route =
     '/penggunaPengajuanLaporanKegiatanPage1Route';
 const penggunaPengajuanLaporanKegiatan2PageRoute =
     '/penggunaPengajuanLaporanKegiatan2PageRoute';
-const penggunaPengajuanLaporanKegiatan2BiayaKegiatanPageRoute =
+const laporanKegiatanTambahBiayaKegiatanPageRoute =
     '/penggunaPengajuanLaporanKegiatan2BiayaKegiatanPageRoute';
-const penggunaPengajuanLaporanKegiatan2ImportKegiatanPageRoute =
-    '/penggunaPengajuanLaporanKegiatan2ImportKegiatanPageRoute';
+const importPesertaLaporanPageRoute = '/importPesertaLaporanPageRoute';
 const penggunaPengajuanLaporanKegiatan3PageRoute =
     '/penggunaPengajuanLaporanKegiatan3PageRoute';
 

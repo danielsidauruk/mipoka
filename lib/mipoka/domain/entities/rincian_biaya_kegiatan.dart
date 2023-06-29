@@ -9,9 +9,6 @@ class RincianBiayaKegiatan extends Equatable {
   final int usulanAnggaran;
   final int realisasiAnggaran;
   final int selisih;
-  final int totalUsulan;
-  final int totalRealisasi;
-  final int totalSelisih;
   final String createdAt;
   final String createdBy;
   final String updatedAt;
@@ -26,9 +23,6 @@ class RincianBiayaKegiatan extends Equatable {
     required this.usulanAnggaran,
     required this.realisasiAnggaran,
     required this.selisih,
-    required this.totalUsulan,
-    required this.totalRealisasi,
-    required this.totalSelisih,
     required this.createdAt,
     required this.createdBy,
     required this.updatedAt,
@@ -44,9 +38,6 @@ class RincianBiayaKegiatan extends Equatable {
     int? usulanAnggaran,
     int? realisasiAnggaran,
     int? selisih,
-    int? totalUsulan,
-    int? totalRealisasi,
-    int? totalSelisih,
     String? createdAt,
     String? createdBy,
     String? updatedAt,
@@ -61,9 +52,6 @@ class RincianBiayaKegiatan extends Equatable {
         usulanAnggaran: usulanAnggaran ?? this.usulanAnggaran,
         realisasiAnggaran: realisasiAnggaran ?? this.realisasiAnggaran,
         selisih: selisih ?? this.selisih,
-        totalUsulan: totalUsulan ?? this.totalUsulan,
-        totalRealisasi: totalRealisasi ?? this.totalRealisasi,
-        totalSelisih: totalSelisih ?? this.totalSelisih,
         createdAt: createdAt ?? this.createdAt,
         createdBy: createdBy ?? this.createdBy,
         updatedAt: updatedAt ?? this.updatedAt,
@@ -80,9 +68,6 @@ class RincianBiayaKegiatan extends Equatable {
     usulanAnggaran,
     realisasiAnggaran,
     selisih,
-    totalUsulan,
-    totalRealisasi,
-    totalSelisih,
     createdAt,
     createdBy,
     updatedAt,

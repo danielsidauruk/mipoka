@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
+import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/presentation/bloc/peserta_kegiatan_laporan_bloc/peserta_kegiatan_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -9,14 +13,19 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
-class PenggunaPengajuanLaporanKegiatan2ImportPeserta extends StatefulWidget {
-  const PenggunaPengajuanLaporanKegiatan2ImportPeserta({super.key});
+class ImportPesertaLaporanPage extends StatefulWidget {
+  const ImportPesertaLaporanPage({
+    super.key,
+    required this.idLaporan,
+  });
+
+  final int idLaporan;
 
   @override
-  State<PenggunaPengajuanLaporanKegiatan2ImportPeserta> createState() => _PenggunaPengajuanLaporanKegiatan2ImportPesertaState();
+  State<ImportPesertaLaporanPage> createState() => _ImportPesertaLaporanPageState();
 }
 
-class _PenggunaPengajuanLaporanKegiatan2ImportPesertaState extends State<PenggunaPengajuanLaporanKegiatan2ImportPeserta> {
+class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +69,22 @@ class _PenggunaPengajuanLaporanKegiatan2ImportPesertaState extends State<Penggun
                     children: [
                       CustomMipokaButton(
                         onTap: () {
-                          Navigator.pop(context);
                         },
                         text: 'Unduh Templat',
+                      ),
+                    ],
+                  ),
+
+                  const CustomFieldSpacer(),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomMipokaButton(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        text: 'Kembali',
                       ),
 
                       const SizedBox(width: 8.0),
@@ -70,6 +92,21 @@ class _PenggunaPengajuanLaporanKegiatan2ImportPesertaState extends State<Penggun
                       CustomMipokaButton(
                         onTap: () {
                           Navigator.pop(context);
+                          context.read<PesertaKegiatanLaporanBloc>().add(
+                            CreatePesertaKegiatanLaporanEvent(
+                              idUsulanKegiatan: widget.idLaporan,
+                              pesertaKegiatanLaporan: const PesertaKegiatanLaporan(
+                                idPesertaKegiatanLaporan: 0,
+                                nim: "",
+                                namaLengkap: "",
+                                peran: "",
+                                createdAt: "",
+                                createdBy: "",
+                                updatedAt: "",
+                                updatedBy: "",
+                              ),
+                            ),
+                          );
                         },
                         text: 'Proses',
                       ),
