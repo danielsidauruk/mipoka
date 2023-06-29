@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
@@ -24,7 +23,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
   @override
   void initState() {
     BlocProvider.of<SessionBloc>(context, listen: false)
-        .add(ReadAllSessionEvent());
+        .add(const ReadAllSessionEvent());
     super.initState();
   }
   
@@ -53,7 +52,11 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
 
                       MipokaCustomDropdown(
                         items: listStatus,
-                        onValueChanged: (value) {},
+                        onValueChanged: (value) {
+                          context.read<SessionBloc>().add(
+                            ReadAllSessionEvent(filter: value!)
+                          );
+                        },
                       ),
 
                       const CustomFieldSpacer(),

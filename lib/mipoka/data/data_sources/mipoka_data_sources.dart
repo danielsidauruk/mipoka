@@ -692,6 +692,10 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     List<SessionModel> result =
     resultList.map((resultMap) => SessionModel.fromJson(resultMap)).toList();
 
+    if (kDebugMode) {
+      print(filter);
+    }
+
     return result;
   }
 
