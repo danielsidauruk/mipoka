@@ -319,8 +319,10 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                             const SizedBox(width: 8.0),
                             CustomMipokaButton(
                               onTap: () => Navigator.pushNamed(
-                                  context,
-                                  penggunaPengajuanLaporanKegiatan3PageRoute),
+                                context,
+                                penggunaPengajuanLaporanKegiatan3PageRoute,
+                                arguments: widget.idLaporan,
+                              ),
                               text: 'Berikutnya',
                             ),
                           ],

@@ -12,6 +12,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class LaporanKegiatanTambahBiayaKegiatanPage extends StatefulWidget {
   const LaporanKegiatanTambahBiayaKegiatanPage({
@@ -119,7 +120,11 @@ class _LaporanKegiatanTambahBiayaKegiatanPageState extends State<LaporanKegiatan
                           User? user = FirebaseAuth.instance.currentUser;
                           String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
-                          if (_usulanAnggaranController.text.isNotEmpty && _realisasiAnggaranController.text.isNotEmpty) {
+
+                          if (_usulanAnggaranController.text.isNotEmpty && _realisasiAnggaranController.text.isNotEmpty &&
+                              _namaBiayaKegiatanController.text.isNotEmpty && _keteranganController.text.isNotEmpty &&
+                              _kuantitasController.text.isNotEmpty && _hargaSatuanController.text.isNotEmpty) {
+
                             int? usulanAnggaran = int.tryParse(_usulanAnggaranController.text);
                             int? realisasiAnggaran = int.tryParse(_realisasiAnggaranController.text);
 
@@ -128,28 +133,31 @@ class _LaporanKegiatanTambahBiayaKegiatanPageState extends State<LaporanKegiatan
                                   ? usulanAnggaran - realisasiAnggaran
                                   : realisasiAnggaran - usulanAnggaran;
                             }
+
+                            context.read<RincianBiayaKegiatanBloc>().add(
+                              CreateRincianBiayaKegiatanEvent(
+                                idLaporan: widget.idLaporan,
+                                rincianBiayaKegiatan: RincianBiayaKegiatan(
+                                  idRincianBiayaKegiatan: newId,
+                                  namaBiaya: _namaBiayaKegiatanController.text,
+                                  keterangan: _keteranganController.text,
+                                  kuantitas: int.parse(_kuantitasController.text),
+                                  hargaSatuan: int.parse(_hargaSatuanController.text),
+                                  usulanAnggaran: int.parse(_usulanAnggaranController.text),
+                                  realisasiAnggaran: int.parse(_realisasiAnggaranController.text),
+                                  selisih: selisih ?? 0,
+                                  createdAt: currentDate,
+                                  createdBy: user?.email ?? "unknown",
+                                  updatedAt: currentDate,
+                                  updatedBy: user?.email ?? "unknown",
+                                ),
+                              ),
+                            );
+                            Navigator.pop(context);
+                          } else {
+                            mipokaCustomToast('All field cannot be empty');
                           }
 
-                          context.read<RincianBiayaKegiatanBloc>().add(
-                            CreateRincianBiayaKegiatanEvent(
-                              idLaporan: widget.idLaporan,
-                              rincianBiayaKegiatan: RincianBiayaKegiatan(
-                                idRincianBiayaKegiatan: newId,
-                                namaBiaya: _namaBiayaKegiatanController.text,
-                                keterangan: _keteranganController.text,
-                                kuantitas: int.parse(_kuantitasController.text),
-                                hargaSatuan: int.parse(_hargaSatuanController.text),
-                                usulanAnggaran: int.parse(_usulanAnggaranController.text),
-                                realisasiAnggaran: int.parse(_realisasiAnggaranController.text),
-                                selisih: selisih ?? 0,
-                                createdAt: currentDate,
-                                createdBy: user?.email ?? "unknown",
-                                updatedAt: currentDate,
-                                updatedBy: user?.email ?? "unknown",
-                              ),
-                            ),
-                          );
-                          Navigator.pop(context);
                         },
                         text: 'Tambahkan Peserta',
                       ),
