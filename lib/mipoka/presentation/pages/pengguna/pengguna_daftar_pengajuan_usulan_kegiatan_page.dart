@@ -450,6 +450,7 @@ class _PenggunaDaftarPengajuanKegiatanState
                                 tandaTanganOrmawa: "",
                                 partisipan: [],
                                 biayaKegiatan: [],
+                                totalBiaya: 0,
                                 namaTtKetuaOrmawa: "",
                                 namaTtPembina: "",
                                 latarBelakang: "",

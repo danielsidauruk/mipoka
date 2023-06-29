@@ -16,7 +16,14 @@ class CreateLaporanEvent extends LaporanEvent {
   List<Object?> get props => [laporan];
 }
 
-class ReadAllLaporanEvent extends LaporanEvent {}
+class ReadAllLaporanEvent extends LaporanEvent {
+  final String filter;
+
+  const ReadAllLaporanEvent({this.filter = "Semua"});
+
+  @override
+  List<Object?> get props => [filter];
+}
 
 class ReadLaporanEvent extends LaporanEvent {
   final int idLaporan;

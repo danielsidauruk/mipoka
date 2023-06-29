@@ -270,11 +270,13 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) => const PenggunaDaftarLaporanKegiatan());
             case penggunaPengajuanLaporanKegiatanPage1Route:
+              final idLaporan = settings.arguments as int;
               return MaterialPageRoute(
-                  builder: (_) => const PenggunaPengajuanLaporanKegiatan1());
+                  builder: (_) => PenggunaPengajuanLaporanKegiatan1(idLaporan: idLaporan));
             case penggunaPengajuanLaporanKegiatan2PageRoute:
+              final idLaporan = settings.arguments as int;
               return MaterialPageRoute(
-                  builder: (_) => const PenggunaPengajuanLaporanKegiatan2());
+                  builder: (_) => PenggunaPengajuanLaporanKegiatan2(idLaporan: idLaporan));
             case penggunaPengajuanLaporanKegiatan2BiayaKegiatanPageRoute:
               return MaterialPageRoute(
                   builder: (_) =>

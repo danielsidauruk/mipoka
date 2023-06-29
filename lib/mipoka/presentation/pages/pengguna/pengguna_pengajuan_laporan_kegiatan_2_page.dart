@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -10,9 +12,27 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
 // => Fixed ContentBox
+class PenggunaPengajuanLaporanKegiatan2 extends StatefulWidget {
+  const PenggunaPengajuanLaporanKegiatan2({
+    required this.idLaporan,
+    super.key,
+  });
 
-class PenggunaPengajuanLaporanKegiatan2 extends StatelessWidget {
-  const PenggunaPengajuanLaporanKegiatan2({super.key});
+  final int idLaporan;
+
+  @override
+  State<PenggunaPengajuanLaporanKegiatan2> createState() => _PenggunaPengajuanLaporanKegiatan2State();
+}
+
+class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLaporanKegiatan2> {
+
+  @override
+  void initState() {
+    BlocProvider.of<LaporanBloc>(context).add(
+      ReadLaporanEvent(idLaporan: widget.idLaporan)
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,132 +47,27 @@ class PenggunaPengajuanLaporanKegiatan2 extends StatelessWidget {
             const CustomMobileTitle(
                 text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
             const SizedBox(height: 8.0),
-            Expanded(
-              child: CustomContentBox(
-                children: [
-                  buildTitle('Data Peserta Kegiatan'),
-                  CustomAddButton(
-                    buttonText: 'Import Peserta',
-                    onPressed: () => Navigator.pushNamed(context,
-                        penggunaPengajuanLaporanKegiatan2ImportKegiatanPageRoute),
-                  ),
-                  const CustomFieldSpacer(),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                      ),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: DataTable(
-                            columnSpacing: 40,
-                            border: TableBorder.all(color: Colors.white),
-                            columns: const [
-                              DataColumn(
-                                label: Text(
-                                  'No.',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'NIM/NIP',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Nama Lengkap',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Peran',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Dasar Pengiriman',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
-                            rows: List<DataRow>.generate(12, (int index) {
-                              return DataRow(
-                                cells: [
-                                  DataCell(
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        '${index + 1}',
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'NIM/NIP ${index + 1}',
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'Nama Lengkap ${index + 1}',
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'Peran ${index + 1}',
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'Dasar Pengiriman ${index + 1}',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            }),
-                          ),
+            BlocBuilder<LaporanBloc, LaporanState>(
+              builder: (context, state) {
+                if (state is LaporanLoading) {
+                  return const Text('Loading ...');
+                } else if (state is LaporanHasData) {
+                  final laporan = state.laporan;
+                  return Expanded(
+                    child: CustomContentBox(
+                      children: [
+                        buildTitle('Data Peserta Kegiatan'),
+                        CustomAddButton(
+                          buttonText: 'Import Peserta',
+                          onPressed: () => Navigator.pushNamed(context,
+                              penggunaPengajuanLaporanKegiatan2ImportKegiatanPageRoute),
                         ),
-                      ),
-                    ),
-                  ),
-                  const CustomFieldSpacer(),
-                  buildTitle('Realisasi Biaya Kegiatan'),
-                  CustomAddButton(
-                    buttonText: 'Biaya Kegiatan',
-                    onPressed: () => Navigator.pushNamed(context,
-                        penggunaPengajuanLaporanKegiatan2BiayaKegiatanPageRoute),
-                  ),
-                  const CustomFieldSpacer(),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                      ),
-                      child: Column(
-                        children: [
-                          Expanded(
+                        const CustomFieldSpacer(),
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                            ),
                             child: SingleChildScrollView(
                               scrollDirection: Axis.vertical,
                               child: SingleChildScrollView(
@@ -164,107 +79,80 @@ class PenggunaPengajuanLaporanKegiatan2 extends StatelessWidget {
                                     DataColumn(
                                       label: Text(
                                         'No.',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                        style: TextStyle(fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
-                                        'Nama Biaya',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          'Qty',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        'Harga Satuan',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                        'NIM/NIP',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
-                                        'Usulan Anggaran',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                        'Nama Lengkap',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
-                                        'Realisasi Anggaran',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                        'Peran',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
-                                        'Selisih',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                        'Dasar Pengiriman',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                   ],
-                                  rows: List.generate(12, (int index) {
+                                  rows: List<DataRow>.generate(12, (int index) {
                                     return DataRow(
                                       cells: [
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Text('${index + 1}'),
-                                          ),
-                                        ),
-                                        DataCell(
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Text('Biaya $index'),
-                                          ),
-                                        ),
-                                        DataCell(
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Text('Qty $index'),
-                                          ),
-                                        ),
-                                        DataCell(
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Text('Harga Satuan $index'),
-                                          ),
-                                        ),
-                                        DataCell(
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child:
-                                                Text('Usulan Anggaran $index'),
+                                            child: Text(
+                                              '${index + 1}',
+                                            ),
                                           ),
                                         ),
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                                'Realisasi Anggaran $index'),
+                                              'NIM/NIP ${index + 1}',
+                                            ),
                                           ),
                                         ),
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Text('Selisih $index'),
+                                            child: Text(
+                                              'Nama Lengkap ${index + 1}',
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              'Peran ${index + 1}',
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              'Dasar Pengiriman ${index + 1}',
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -274,28 +162,173 @@ class PenggunaPengajuanLaporanKegiatan2 extends StatelessWidget {
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        const CustomFieldSpacer(),
+                        buildTitle('Realisasi Biaya Kegiatan'),
+                        CustomAddButton(
+                          buttonText: 'Biaya Kegiatan',
+                          onPressed: () => Navigator.pushNamed(context,
+                              penggunaPengajuanLaporanKegiatan2BiayaKegiatanPageRoute),
+                        ),
+                        const CustomFieldSpacer(),
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                            ),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: DataTable(
+                                        columnSpacing: 40,
+                                        border: TableBorder.all(color: Colors.white),
+                                        columns: const [
+                                          DataColumn(
+                                            label: Text(
+                                              'No.',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          DataColumn(
+                                            label: Text(
+                                              'Nama Biaya',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          DataColumn(
+                                            label: Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                'Qty',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                          ),
+                                          DataColumn(
+                                            label: Text(
+                                              'Harga Satuan',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          DataColumn(
+                                            label: Text(
+                                              'Usulan Anggaran',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          DataColumn(
+                                            label: Text(
+                                              'Realisasi Anggaran',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          DataColumn(
+                                            label: Text(
+                                              'Selisih',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ],
+                                        rows: List.generate(12, (int index) {
+                                          return DataRow(
+                                            cells: [
+                                              DataCell(
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text('${index + 1}'),
+                                                ),
+                                              ),
+                                              DataCell(
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text('Biaya $index'),
+                                                ),
+                                              ),
+                                              DataCell(
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text('Qty $index'),
+                                                ),
+                                              ),
+                                              DataCell(
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text('Harga Satuan $index'),
+                                                ),
+                                              ),
+                                              DataCell(
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child:
+                                                  Text('Usulan Anggaran $index'),
+                                                ),
+                                              ),
+                                              DataCell(
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                      'Realisasi Anggaran $index'),
+                                                ),
+                                              ),
+                                              DataCell(
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text('Selisih $index'),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        }),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const CustomFieldSpacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            CustomMipokaButton(
+                              onTap: () => Navigator.pop(context),
+                              text: 'Sebelumnya',
+                            ),
+                            const SizedBox(width: 8.0),
+                            CustomMipokaButton(
+                              onTap: () => Navigator.pushNamed(context,
+                                  penggunaPengajuanLaporanKegiatan3PageRoute),
+                              text: 'Berikutnya',
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ),
-                  const CustomFieldSpacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      CustomMipokaButton(
-                        onTap: () => Navigator.pop(context),
-                        text: 'Sebelumnya',
-                      ),
-                      const SizedBox(width: 8.0),
-                      CustomMipokaButton(
-                        onTap: () => Navigator.pushNamed(context,
-                            penggunaPengajuanLaporanKegiatan3PageRoute),
-                        text: 'Berikutnya',
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                  );
+                } else if (state is LaporanError) {
+                  return Text(state.message);
+                } else {
+                  return const Text('LaporanBloc has not been triggered.');
+                }
+              },
             ),
           ],
         ),

@@ -5,6 +5,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -15,7 +16,12 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_rich_text_field.dart';
 
 class PenggunaPengajuanLaporanKegiatan1 extends StatefulWidget {
-  const PenggunaPengajuanLaporanKegiatan1({super.key});
+  const PenggunaPengajuanLaporanKegiatan1({
+    required this.idLaporan,
+    super.key,
+  });
+
+  final int idLaporan;
 
   @override
   State<PenggunaPengajuanLaporanKegiatan1> createState() =>
@@ -28,7 +34,10 @@ class _PenggunaPengajuanLaporanKegiatan1State
   @override
   void initState() {
     BlocProvider.of<LaporanBloc>(context, listen: false).add(
-      ReadAllLaporanEvent(),
+      const ReadAllLaporanEvent(),
+    );
+    BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).add(
+      const ReadAllUsulanKegiatanEvent();
     );
     super.initState();
   }
@@ -60,7 +69,9 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
                   MipokaCustomDropdown(
                     items: listNamaKegiatan,
-                    onValueChanged: (value) {},
+                    onValueChanged: (value) {
+
+                    },
                   ),
 
                   const CustomFieldSpacer(),
@@ -70,12 +81,25 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
                   const CustomFieldSpacer(),
 
-                  CustomMipokaButton(
-                    onTap: () => Navigator.pushNamed(
-                      context,
-                      penggunaPengajuanLaporanKegiatan2PageRoute,
-                    ),
-                    text: 'Berikutnya',
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomMipokaButton(
+                        onTap: () => Navigator.pop(context),
+                        text: 'Batal',
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      CustomMipokaButton(
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          penggunaPengajuanLaporanKegiatan2PageRoute,
+                          arguments: widget.idLaporan,
+                        ),
+                        text: 'Berikutnya',
+                      ),
+                    ],
                   ),
                 ],
               ),
