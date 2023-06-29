@@ -1,8 +1,8 @@
 [
   {
-    "id_usulan": 567235123,
+    "id_usulan": 111,
     "id_user": "USR001",
-    "id_ormawa": 4568,
+    "id_ormawa": 123456,
     "pembiayaan": "1000000",
     "nama_kegiatan": "Workshop Seni Rupa",
     "bentuk_kegiatan": "Workshop",
@@ -130,11 +130,11 @@
     "updated_by": "Admin002"
   },
   {
-    "id_usulan": 535123,
+    "id_usulan": 222,
     "id_user": "USR001",
-    "id_ormawa": 4568,
+    "id_ormawa": 143313456,
     "pembiayaan": "1000000",
-    "nama_kegiatan": "Workshop Seni Rupa",
+    "nama_kegiatan": "Seminar Entrepreneurship and Innovation",
     "bentuk_kegiatan": "Workshop",
     "kategori_bentuk_kegiatan": "Seni",
     "deskripsi_kegiatan": "Workshop seni rupa untuk mengembangkan keterampilan seni peserta",
@@ -260,11 +260,11 @@
     "updated_by": "Admin002"
   },
   {
-    "id_usulan": 56723225123,
+    "id_usulan": 333,
     "id_user": "USR001",
-    "id_ormawa": 4568,
+    "id_ormawa": 125756,
     "pembiayaan": "1000000",
-    "nama_kegiatan": "Workshop Seni Rupa",
+    "nama_kegiatan": "Workshop Digital Marketing Strategies",
     "bentuk_kegiatan": "Workshop",
     "kategori_bentuk_kegiatan": "Seni",
     "deskripsi_kegiatan": "Workshop seni rupa untuk mengembangkan keterampilan seni peserta",

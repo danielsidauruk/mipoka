@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_quill/flutter_quill.dart';
-import 'package:mipoka/core/constanst.dart';
+import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
@@ -34,78 +33,138 @@ class _PenggunaPengajuanLaporanKegiatan1State
   @override
   void initState() {
     BlocProvider.of<LaporanBloc>(context, listen: false).add(
-      const ReadAllLaporanEvent(),
-    );
+      ReadLaporanEvent(idLaporan: widget.idLaporan));
     BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).add(
-      const ReadAllUsulanKegiatanEvent();
-    );
+      const ReadAllUsulanKegiatanEvent());
     super.initState();
   }
 
-  final QuillController _pencapaianController = QuillController.basic();
+  late QuillController _pencapaianController;
+  late String _namaKegiatanController;
+  int? selectedIndex;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomPenggunaDrawerWidget(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const CustomMobileTitle(
-                  text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
-              const CustomFieldSpacer(),
-              CustomContentBox(
-                children: [
-                  buildTitle('Nama Ormawa'),
-                  buildTitle('Mikroskil Esport'),
+      body: BlocBuilder<LaporanBloc, LaporanState>(
+        builder: (context, laporanState) {
+          return BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+            builder: (context, usulanState) {
+              if (laporanState is LaporanLoading && usulanState is UsulanKegiatanLoading) {
+                return const Text('Loading ...');
+              } else if (laporanState is LaporanHasData &&
+                  usulanState is AllUsulanKegiatanHasData){
+                final laporan = laporanState.laporan;
+                final usulan = usulanState.usulanKegiatanList;
 
-                  const CustomFieldSpacer(),
+                List<String> namaKegiatanList = usulan.map(
+                        (usulanKegiatan) => usulanKegiatan.namaKegiatan).toList();
 
-                  buildTitle('Nama Kegiatan'),
+                _pencapaianController =  QuillController(
+                  document: Document()..insert(0, laporan.pencapaian),
+                  selection: const TextSelection.collapsed(offset: 0),
+                );
 
-                  MipokaCustomDropdown(
-                    items: listNamaKegiatan,
-                    onValueChanged: (value) {
+                _namaKegiatanController = usulan[selectedIndex ?? 0].namaKegiatan;
 
-                    },
-                  ),
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const CustomMobileTitle(
+                            text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
+                        const CustomFieldSpacer(),
+                        CustomContentBox(
+                          children: [
+                            // buildTitle('Nama Ormawa'),
+                            // buildTitle(namaOrmawa ?? ""),
 
-                  const CustomFieldSpacer(),
+                            // const CustomFieldSpacer(),
 
-                  buildTitle('Pencapaian'),
-                  CustomRichTextField(controller: _pencapaianController),
+                            buildTitle('Nama Kegiatan'),
 
-                  const CustomFieldSpacer(),
+                            MipokaCustomDropdown(
+                              items: namaKegiatanList,
+                              controller: _namaKegiatanController,
+                              onValueChanged: (value) {
+                                setState(() {
+                                  _namaKegiatanController = value!;
+                                  selectedIndex = namaKegiatanList.indexOf(_namaKegiatanController);
+                                });
+                              },
+                            ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      CustomMipokaButton(
-                        onTap: () => Navigator.pop(context),
-                        text: 'Batal',
-                      ),
+                            const CustomFieldSpacer(),
 
-                      const SizedBox(width: 8),
+                            buildTitle('Pencapaian'),
+                            CustomRichTextField(
+                                controller: _pencapaianController),
 
-                      CustomMipokaButton(
-                        onTap: () => Navigator.pushNamed(
-                          context,
-                          penggunaPengajuanLaporanKegiatan2PageRoute,
-                          arguments: widget.idLaporan,
+                            const CustomFieldSpacer(),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                CustomMipokaButton(
+                                  onTap: () {
+                                    context.read<LaporanBloc>().add(
+                                      DeleteLaporanEvent(widget.idLaporan),
+                                    );
+                                    Navigator.pop(context);
+                                  },
+                                  text: 'Batal',
+                                ),
+
+                                const SizedBox(width: 8),
+
+                                CustomMipokaButton(
+                                  onTap: () {
+                                    context.read<LaporanBloc>().add(
+                                      UpdateLaporanEvent(
+                                        laporan.copyWith(
+                                          idUsulan: usulan[selectedIndex ?? 0].idUsulan,
+                                          idOrmawa: usulan[selectedIndex ?? 0].idOrmawa,
+                                          pencapaian: _pencapaianController.document.toPlainText(),
+                                        )
+                                      ),
+                                    );
+                                    context.read<LaporanBloc>().add(
+                                        ReadLaporanEvent(idLaporan: widget.idLaporan));
+
+                                    context.read<UsulanKegiatanBloc>().add(
+                                        const ReadAllUsulanKegiatanEvent());
+
+                                    // Navigator.pushNamed(
+                                    //   context,
+                                    //   penggunaPengajuanLaporanKegiatan2PageRoute,
+                                    //   arguments: widget.idLaporan,
+                                    // );
+                                  },
+                                  text: 'Berikutnya',
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        text: 'Berikutnya',
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ],
-          ),
-        ),
+                );
+
+              } else if (laporanState is LaporanError) {
+                return Text(laporanState.message);
+              } else if (usulanState is UsulanKegiatanError) {
+                return Text(usulanState.message);
+              } else {
+                return const Text("Bloc hasn't been trigerred.");
+              }
+            },
+          );
+        },
       ),
     );
   }
