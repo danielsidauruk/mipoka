@@ -1,10 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/check_for_duplicated.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
-import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
@@ -15,7 +13,12 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 
 class PenggunaMPTUnggahBuktiPage extends StatefulWidget {
-  const PenggunaMPTUnggahBuktiPage({super.key});
+  const PenggunaMPTUnggahBuktiPage({
+    required this.idKegiatanMpt,
+    super.key,
+  });
+
+  final int idKegiatanMpt;
 
   @override
   State<PenggunaMPTUnggahBuktiPage> createState() => _PenggunaMPTUnggahBuktiPageState();
@@ -53,6 +56,8 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                       await FileUploaderAndCheckDuplicated.selectAndUploadFileForChecker('file1');
                     },
                   ),
+
+
 
                   const CustomFieldSpacer(),
 

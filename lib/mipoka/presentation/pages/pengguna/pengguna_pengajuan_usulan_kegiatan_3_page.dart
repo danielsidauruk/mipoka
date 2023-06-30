@@ -5,6 +5,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_switch.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_upload_file.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -57,9 +58,10 @@ class _PenggunaPengajuanUsulanKegiatan3State
   late QuillController _perlengkapanDanPeralatanController;
   late QuillController _penutupController;
   String? _postinganKegiatanController;
-  late String _suratUndanganKegiatanController;
-  late String _linimasaKegiatan;
-  late String _fotoTempatKegiatanController;
+  String? _suratUndanganKegiatanController;
+  String? _linimasaKegiatan;
+  String? _fotoTempatKegiatanController;
+  String? _suratUndanganKegiatanTitleController;
 
   @override
   Widget build(BuildContext context) {
@@ -120,9 +122,13 @@ class _PenggunaPengajuanUsulanKegiatan3State
                       selection: const TextSelection.collapsed(offset: 0),
                     );
                     _postinganKegiatanController = usulanKegiatan.fotoPostinganKegiatan;
-                    _suratUndanganKegiatanController = "Surat undangan";
-                    _linimasaKegiatan = "usulanKegiatan.linimasaKegiatan";
-                    _fotoTempatKegiatanController = "usulanKegiatan.tempatKegiatan";
+                    if (_suratUndanganKegiatanController == "") {
+                      _suratUndanganKegiatanController = usulanKegiatan.fotoSuratUndanganKegiatan;
+                    }
+                    // _suratUndanganKegiatanTitleController = "";
+
+                    _linimasaKegiatan = usulanKegiatan.fotoLinimasaKegiatan;
+                    _fotoTempatKegiatanController = usulanKegiatan.fotoTempatKegiatan;
 
                     return CustomContentBox(
                       children: [
@@ -369,7 +375,9 @@ class _PenggunaPengajuanUsulanKegiatan3State
                             'Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
                         CustomFilePickerButton(
                           onTap: () async {
-                            String? url = await selectAndUploadFile('postingKegiatanButton', widget.idUsulanKegiatan);
+                            String? url = await selectAndUploadFile('postingKegiatanButton',
+                                // widget.idUsulanKegiatan,
+                            );
                             setState(() {
                               _postinganKegiatanController = url;
                             });
@@ -391,11 +399,18 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildTitle('Surat Undangan Kegiatan'),
                         buildDescription(
                             'Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
+
                         CustomFilePickerButton(
-                            onTap: () => selectAndUploadFile(
-                              'suratUndanganKegiatanButton',
-                              widget.idUsulanKegiatan,
-                            ),
+                          onTap: () async {
+                            String? url = await selectAndUploadFile(
+                              'suratUndanganKegiatan${usulanKegiatan.idUser}',
+                            );
+                            setState(() {
+                              _suratUndanganKegiatanController = url;
+                              print('Surat Undangan : $_suratUndanganKegiatanController}');
+                            });
+                          },
+                          text: _suratUndanganKegiatanController ?? "",
                         ),
 
                         const CustomFieldSpacer(),
@@ -406,7 +421,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         CustomFilePickerButton(
                           onTap: () => selectAndUploadFile(
                             'linimasaKegiatanButton',
-                            widget.idUsulanKegiatan,
                           ),
                         ),
 
@@ -418,12 +432,16 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         CustomFilePickerButton(
                           onTap: () => selectAndUploadFile(
                             'tempatKegiatanButton',
-                            widget.idUsulanKegiatan,
                           ),
                         ),
 
                         const CustomFieldSpacer(),
 
+                        FileUploadPopup(
+                          fileUrlController: _suratUndanganKegiatanController ?? "",
+                        ),
+
+                        const CustomFieldSpacer(),
 
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -447,8 +465,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                   ),
                                 );
 
-                                print('plainText: ${_latarBelakangController.document.toPlainText()}');
-                                print('textStyle: ${_latarBelakangController.document.toDelta()}');
+                                // print('plainText: ${_latarBelakangController.document.toPlainText()}');
+                                // print('textStyle: ${_latarBelakangController.document.toDelta()}');
                                 // // print('document ${_latarBelakangController.document.toDelta()}');
                               },
                               text: 'Kirim',

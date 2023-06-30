@@ -7,7 +7,6 @@ import 'package:mipoka/core/utils.dart';
 import 'package:mipoka/dependency_injection.dart' as di;
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
-import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/admin_bloc/admin_bloc.dart';
@@ -312,8 +311,9 @@ class MyApp extends StatelessWidget {
             case penggunaMPTPageRoute:
               return MaterialPageRoute(builder: (_) => const PenggunaMPTPage());
             case penggunaMPTUnggahBuktiPageRoute:
+              final idKegiatanMpt = settings.arguments as int;
               return MaterialPageRoute(
-                  builder: (_) => const PenggunaMPTUnggahBuktiPage());
+                  builder: (_) => PenggunaMPTUnggahBuktiPage(idKegiatanMpt: idKegiatanMpt));
 
             case penggunaOrmawaUKMPageRoute:
               return MaterialPageRoute(

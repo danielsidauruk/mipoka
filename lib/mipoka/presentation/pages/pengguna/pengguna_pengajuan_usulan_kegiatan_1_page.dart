@@ -377,9 +377,9 @@ class _PenggunaPengajuanUsulanKegiatan1State
   void initState() {
     User? user = FirebaseAuth.instance.currentUser;
     Future.microtask(() {
-      BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).add(
+      context.read<UsulanKegiatanBloc>().add(
           ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
-      BlocProvider.of<MipokaUserBloc>(context, listen: false).add(
+      context.read<MipokaUserBloc>().add(
         ReadMipokaUserEvent(idMipokaUser: user!.uid)
       );
     });

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/domain/entities/kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/kegiatan_mpt_bloc/kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/riwayat_mpt_bloc/riwayat_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -23,9 +22,16 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
 
   @override
   void initState() {
-    context.read<RiwayatMptBloc>().add(ReadAllRiwayatMptEvent());
+    // context.read<RiwayatMptBloc>().add(ReadAllRiwayatMptEvent());
     context.read<KegiatanMptBloc>().add(ReadAllKegiatanMptEvent());
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    context.read<RiwayatMptBloc>().close();
+    context.read<KegiatanMptBloc>().close();
+    super.dispose();
   }
 
   @override
@@ -127,7 +133,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                           } else if (state is KegiatanMptError) {
                                             return Text(state.message);
                                           } else {
-                                            return const Text("KegiatanMptBloc hasn't been triggered");
+                                            return const Text("ReadKegiatanMptEvent hasn't been triggered");
                                           }
                                         },
                                       ),
@@ -147,7 +153,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                           } else if (state is KegiatanMptError) {
                                             return Text(state.message);
                                           } else {
-                                            return const Text("KegiatanMptBloc hasn't been triggered");
+                                            return const Text("ReadKegiatanMptEvent hasn't been triggered");
                                           }
                                         },
                                       ),
@@ -300,8 +306,11 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                       Align(
                                         alignment: Alignment.center,
                                         child: InkWell(
-                                          onTap: () => Navigator.pushNamed(context,
-                                              penggunaMPTUnggahBuktiPageRoute),
+                                          onTap: () => Navigator.pushNamed(
+                                            context,
+                                            penggunaMPTUnggahBuktiPageRoute,
+                                            arguments: kegiatanMpt.idKegiatanMpt,
+                                          ),
                                           child: Image.asset(
                                             'assets/icons/upload.png',
                                             width: 24,
@@ -318,7 +327,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                       } else if (state is KegiatanMptError) {
                         return Text(state.message);
                       } else {
-                        return const Text("KegiatanMptBloc hasn't been triggered.");
+                        return const Text("ReadAllKegiatanMptEvent hasn't been triggered");
                       }
                     },
                   ),

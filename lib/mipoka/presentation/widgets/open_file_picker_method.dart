@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class FileUploader {
 
@@ -28,7 +29,7 @@ class FileUploader {
   // }
 }
 
-Future<String?> selectAndUploadFile(String fileName, int id) async {
+Future<String?> selectAndUploadFile(String fileName) async {
   try {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
@@ -36,10 +37,8 @@ Future<String?> selectAndUploadFile(String fileName, int id) async {
       PlatformFile file = result.files.first;
       print('Path: ${file.path}');
       print('File name: ${file.name}');
-      print('File size: ${file.size}');
-      print('File extension: ${file.extension}');
 
-      String downloadUrl = await uploadFileToFirebase(file, id, fileName);
+      String? downloadUrl = await uploadFileToFirebase(file, fileName);
       print(downloadUrl);
 
       return downloadUrl;
@@ -54,9 +53,9 @@ Future<String?> selectAndUploadFile(String fileName, int id) async {
   }
 }
 
-Future<String> uploadFileToFirebase(PlatformFile file, int id, String fileName) async {
+Future<String?> uploadFileToFirebase(PlatformFile file, String fileName) async {
   try {
-    final Reference storageRef = FirebaseStorage.instance.ref().child('$fileName-$id');
+    final Reference storageRef = FirebaseStorage.instance.ref().child(fileName);
 
     final UploadTask uploadTask = storageRef.putFile(File(file.path!));
     final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
@@ -71,6 +70,18 @@ Future<String> uploadFileToFirebase(PlatformFile file, int id, String fileName) 
     rethrow;
   }
 }
+
+Future<void> deleteFileFromFirebase(String fileUrl) async {
+  try {
+    final Reference storageRef = FirebaseStorage.instance.refFromURL(fileUrl);
+    await storageRef.delete();
+    mipokaCustomToast("File deleted successfully.");
+  } catch (error) {
+    mipokaCustomToast("Failed to delete file.");
+
+  }
+}
+
 
 Future<String> uploadSignatureFileToFirebase(File file, int id, String fileName) async {
   try {

@@ -161,7 +161,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                   CustomIconButton(
                     onTap: () => selectAndUploadFile(
                       'postingKegiatanButton',
-                      1,
+                      // 1,
                     ),
                     text: 'postingan_kegiatan.pdf',
                     icon: Icons.picture_as_pdf,
@@ -175,7 +175,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                   CustomIconButton(
                     onTap: () => selectAndUploadFile(
                       'suratUndanganKegiatanButton',
-                      1,
+                      // 1,
                     ),
                     text: 'surat_undangan.pdf',
                     icon: Icons.picture_as_pdf,
@@ -189,7 +189,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                   CustomIconButton(
                     onTap: () => selectAndUploadFile(
                       'linimasaKegiatanButton',
-                      1
+                      // 1
                     ),
                     text: 'linimasa_kegiatan.pdf',
                     icon: Icons.picture_as_pdf,
@@ -203,7 +203,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                   CustomIconButton(
                     onTap: () => selectAndUploadFile(
                       'tempatKegiatanButton',
-                      1
+                      // 1
                     ),
                     text: 'tempat_kegiatan.pdf',
                     icon: Icons.picture_as_pdf,

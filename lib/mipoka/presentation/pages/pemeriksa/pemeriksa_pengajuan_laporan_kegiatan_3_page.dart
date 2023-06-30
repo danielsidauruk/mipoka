@@ -86,7 +86,7 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                   CustomIconButton(
                     onTap: () => selectAndUploadFile(
                       'postingLaporanKegiatanButton',
-                      1
+                      // 1
                     ),
                     text: 'postingan_kegiatan.pdf',
                     icon: Icons.picture_as_pdf,
@@ -100,7 +100,7 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                   CustomIconButton(
                     onTap: () => selectAndUploadFile(
                       'dokumentasiKegiatanButton',
-                      1,
+                      // 1,
                     ),
                     text: 'dokumentasi_kegiatan.pdf',
                     icon: Icons.picture_as_pdf,
@@ -114,7 +114,7 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                   CustomIconButton(
                     onTap: () => selectAndUploadFile(
                       'tabulasiHasilButton',
-                      1,
+                      // 1,
                     ),
                     text: 'tabulasi_hasil.pdf',
                     icon: Icons.picture_as_pdf,
@@ -128,7 +128,7 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                   CustomIconButton(
                     onTap: () => selectAndUploadFile(
                       'fakturPembayaranButton',
-                      1
+                      // 1
                     ),
                     text: 'tabulasi_hasil.pdf',
                     icon: Icons.picture_as_pdf,
