@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
@@ -5,7 +6,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_switch.dart';
-import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_upload_file.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -84,6 +85,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                     return const Text('Loading');
                   } else if (state is UsulanKegiatanHasData) {
                     final usulanKegiatan = state.usulanKegiatan;
+                    User? user = FirebaseAuth.instance.currentUser;
 
                     _latarBelakangController = QuillController(
                       document: Document()..insert(0, usulanKegiatan.latarBelakang),
@@ -121,7 +123,9 @@ class _PenggunaPengajuanUsulanKegiatan3State
                       document: Document()..insert(0, usulanKegiatan.penutup),
                       selection: const TextSelection.collapsed(offset: 0),
                     );
+
                     _postinganKegiatanController = usulanKegiatan.fotoPostinganKegiatan;
+
                     if (_suratUndanganKegiatanController == "") {
                       _suratUndanganKegiatanController = usulanKegiatan.fotoSuratUndanganKegiatan;
                     }
@@ -403,11 +407,11 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         CustomFilePickerButton(
                           onTap: () async {
                             String? url = await selectAndUploadFile(
-                              'suratUndanganKegiatan${usulanKegiatan.idUser}',
+                              'suratUndanganKegiatan${user?.uid ?? "unknown"}',
                             );
                             setState(() {
                               _suratUndanganKegiatanController = url;
-                              print('Surat Undangan : $_suratUndanganKegiatanController}');
+                              mipokaCustomToast('Surat undangan kegiatan uploaded Successfully');
                             });
                           },
                           text: _suratUndanganKegiatanController ?? "",
@@ -433,12 +437,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                           onTap: () => selectAndUploadFile(
                             'tempatKegiatanButton',
                           ),
-                        ),
-
-                        const CustomFieldSpacer(),
-
-                        FileUploadPopup(
-                          fileUrlController: _suratUndanganKegiatanController ?? "",
                         ),
 
                         const CustomFieldSpacer(),
@@ -496,4 +494,17 @@ String getFileNameFromURL(String url) {
   List<String> segments = path.split("/");
   String fileName = segments.last;
   return fileName;
+}
+
+
+class SuratUndanganCubit extends Cubit<String?> {
+  SuratUndanganCubit() : super("");
+
+  void setSuratUndangan(String? url) {
+    emit(url);
+  }
+
+  void clearSuratUndangan() {
+    emit("");
+  }
 }
