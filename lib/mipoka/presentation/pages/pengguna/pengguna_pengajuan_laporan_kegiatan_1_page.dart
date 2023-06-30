@@ -42,7 +42,6 @@ class _PenggunaPengajuanLaporanKegiatan1State
   late QuillController _pencapaianController;
   late String _namaKegiatanController;
   int? selectedIndex;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

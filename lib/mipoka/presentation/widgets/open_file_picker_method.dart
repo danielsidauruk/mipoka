@@ -35,20 +35,16 @@ Future<String?> selectAndUploadFile(String fileName) async {
 
     if (result != null) {
       PlatformFile file = result.files.first;
-      print('Path: ${file.path}');
-      print('File name: ${file.name}');
 
       String? downloadUrl = await uploadFileToFirebase(file, fileName);
-      print(downloadUrl);
 
+      mipokaCustomToast('File uploaded Successfully');
       return downloadUrl;
     } else {
       return null;
     }
   } catch (error) {
-    if (kDebugMode) {
-      print(error);
-    }
+    mipokaCustomToast(error.toString());
     return null;
   }
 }
@@ -64,9 +60,7 @@ Future<String?> uploadFileToFirebase(PlatformFile file, String fileName) async {
 
     return downloadUrl;
   } catch (error) {
-    if (kDebugMode) {
-      print('Failed while uploading file : $error');
-    }
+    mipokaCustomToast("Failed while uploading file : $error");
     rethrow;
   }
 }

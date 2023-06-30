@@ -132,6 +132,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<SessionBloc>()),
         BlocProvider(create: (_) => di.locator<TertibAcaraBloc>()),
         BlocProvider(create: (_) => di.locator<UsulanKegiatanBloc>()),
+        BlocProvider<TempatKegiatanCubit>(create: (context) => TempatKegiatanCubit()),
+        BlocProvider<SuratUndanganCubit>(create: (context) => SuratUndanganCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

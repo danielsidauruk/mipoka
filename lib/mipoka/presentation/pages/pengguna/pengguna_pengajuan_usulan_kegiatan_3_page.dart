@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -63,6 +65,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
   String? _linimasaKegiatan;
   String? _fotoTempatKegiatanController;
   String? _suratUndanganKegiatanTitleController;
+
+  StreamController<String?> _suratUndanganKegiatanControllerStream = StreamController<String?>();
 
   @override
   Widget build(BuildContext context) {
@@ -385,13 +389,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                             setState(() {
                               _postinganKegiatanController = url;
                             });
-                            // setState(() {
-                            //   selectAndUploadFile(
-                            //     'postingKegiatanButton',
-                            //     widget.idUsulanKegiatan,
-                            //   );
-                            //
-                            // });
                           },
                           text: _postinganKegiatanController != ""
                               ? getFileNameFromURL(_postinganKegiatanController!)
@@ -403,19 +400,41 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildTitle('Surat Undangan Kegiatan'),
                         buildDescription(
                             'Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
-
-                        CustomFilePickerButton(
-                          onTap: () async {
-                            String? url = await selectAndUploadFile(
-                              'suratUndanganKegiatan${user?.uid ?? "unknown"}',
+                        // StreamBuilder<String?>(
+                        //   stream: _suratUndanganKegiatanControllerStream.stream,
+                        //   builder: (context, snapshot) {
+                        //     String text = snapshot.data ?? "";
+                        //     return CustomFilePickerButton2(
+                        //       onTap: () async {
+                        //         String? url = await selectAndUploadFile('suratUndanganKegiatan${user?.uid ?? "unknown"}');
+                        //         _suratUndanganKegiatanController = url;
+                        //         _suratUndanganKegiatanControllerStream.add(url);
+                        //       },
+                        //       text: text,
+                        //       controller: _suratUndanganKegiatanController ?? "",
+                        //     );
+                        //   },
+                        // ),
+                        StreamBuilder<String?>(
+                          stream: _suratUndanganKegiatanControllerStream.stream,
+                          builder: (context, snapshot) {
+                            String text = snapshot.data ?? "";
+                            return CustomFilePickerButton2(
+                              onTap: () async {
+                                String? url = await selectAndUploadFile('suratUndanganKegiatan${user?.uid ?? "unknown"}');
+                                _suratUndanganKegiatanController = url;
+                                _suratUndanganKegiatanControllerStream.add(url);
+                              },
+                              text: text,
+                              controller: _suratUndanganKegiatanController ?? "",
+                              onDelete: () {
+                                _suratUndanganKegiatanController = "";
+                              },
                             );
-                            setState(() {
-                              _suratUndanganKegiatanController = url;
-                              mipokaCustomToast('Surat undangan kegiatan uploaded Successfully');
-                            });
                           },
-                          text: _suratUndanganKegiatanController ?? "",
                         ),
+
+
 
                         const CustomFieldSpacer(),
 
@@ -453,15 +472,17 @@ class _PenggunaPengajuanUsulanKegiatan3State
 
                             CustomMipokaButton(
                               onTap: () {
-                                Navigator.pushNamed(context, penggunaDaftarPengajuanKegiatanPageRoute);
+                                // Navigator.pushNamed(context, penggunaDaftarPengajuanKegiatanPageRoute);
 
-                                context.read<UsulanKegiatanBloc>().add(
-                                  UpdateUsulanKegiatanEvent(
-                                    usulanKegiatan: usulanKegiatan.copyWith(
-                                      latarBelakang: _latarBelakangController.document.toPlainText(),
-                                    ),
-                                  ),
-                                );
+                                // context.read<UsulanKegiatanBloc>().add(
+                                //   UpdateUsulanKegiatanEvent(
+                                //     usulanKegiatan: usulanKegiatan.copyWith(
+                                //       latarBelakang: _latarBelakangController.document.toPlainText(),
+                                //     ),
+                                //   ),
+                                // );
+
+                                print(_suratUndanganKegiatanController);
 
                                 // print('plainText: ${_latarBelakangController.document.toPlainText()}');
                                 // print('textStyle: ${_latarBelakangController.document.toDelta()}');
@@ -496,15 +517,78 @@ String getFileNameFromURL(String url) {
   return fileName;
 }
 
-
 class SuratUndanganCubit extends Cubit<String?> {
-  SuratUndanganCubit() : super("");
+  SuratUndanganCubit() : super('');
 
   void setSuratUndangan(String? url) {
     emit(url);
   }
+}
 
-  void clearSuratUndangan() {
-    emit("");
+
+class CustomFilePickerButton2 extends StatefulWidget {
+  final VoidCallback onTap;
+  late String text;
+  late String controller;
+  final VoidCallback onDelete;
+
+  CustomFilePickerButton2({
+    super.key,
+    required this.onTap,
+    required this.controller,
+    this.text = "",
+    required this.onDelete,
+  });
+
+  @override
+  State<CustomFilePickerButton2> createState() => _CustomFilePickerButton2State();
+}
+
+class _CustomFilePickerButton2State extends State<CustomFilePickerButton2> {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: widget.text == "" ? widget.onTap : null,
+      child: Container(
+        width: double.infinity,
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(8.0),
+        constraints: const BoxConstraints(minHeight: 35.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5.0),
+          border: Border.all(color: Colors.white),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                widget.text,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            if (widget.text == "")
+              Image.asset(
+                'assets/icons/attach.png',
+                width: 24,
+              )
+            else
+              InkWell(
+                onTap: () {
+                  deleteFileFromFirebase(widget.text);
+                  widget.onDelete(); // Memanggil fungsi onDelete untuk mengubah nilai _suratUndanganKegiatanController
+                },
+                child: Image.asset(
+                  "assets/icons/delete.png",
+                  width: 24,
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
   }
 }
+

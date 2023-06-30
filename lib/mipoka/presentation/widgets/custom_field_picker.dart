@@ -4,10 +4,12 @@ import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart'
 class CustomFilePickerButton extends StatefulWidget {
   final VoidCallback onTap;
   late String text;
+  late final String controller;
 
   CustomFilePickerButton({
     super.key,
     required this.onTap,
+    this.controller = "",
     this.text = "",
   });
 
@@ -16,17 +18,6 @@ class CustomFilePickerButton extends StatefulWidget {
 }
 
 class _CustomFilePickerButtonState extends State<CustomFilePickerButton> {
-  late bool isUploaded;
-  @override
-  void initState() {
-    if(widget.text != "") {
-      isUploaded = false;
-    } else {
-      isUploaded = true;
-    }
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -62,6 +53,7 @@ class _CustomFilePickerButtonState extends State<CustomFilePickerButton> {
                 deleteFileFromFirebase(widget.text);
                 setState(() {
                   widget.text = "";
+                  widget.controller = "";
                 });
               },
               child: Image.asset(

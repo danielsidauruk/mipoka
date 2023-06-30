@@ -372,16 +372,16 @@ class PenggunaPengajuanUsulanKegiatan1 extends StatefulWidget {
 
 class _PenggunaPengajuanUsulanKegiatan1State
     extends State<PenggunaPengajuanUsulanKegiatan1> {
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
-    User? user = FirebaseAuth.instance.currentUser;
     Future.microtask(() {
       context.read<UsulanKegiatanBloc>().add(
           ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
       context.read<MipokaUserBloc>().add(
-        ReadMipokaUserEvent(idMipokaUser: user!.uid)
-      );
+        ReadMipokaUserEvent(idMipokaUser: user!.uid));
+      context.read<TempatKegiatanCubit>();
     });
     super.initState();
   }
@@ -558,9 +558,11 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                 option2: 'Luar Kota',
                                 value: _tempatKegiatanSwitchController,
                                 onChanged: (value) {
-                                  setState(() {
-                                    _tempatKegiatanSwitchController = value;
-                                  });
+                                  // setState(() {
+                                  //   _tempatKegiatanSwitchController = value;
+                                  // });
+                                  _tempatKegiatanSwitchController = value;
+                                  context.read<TempatKegiatanCubit>().setTempatKegiatan(value);
                                 },
                               ),
 
@@ -568,25 +570,32 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                               const CustomFieldSpacer(),
 
-                              _tempatKegiatanSwitchController == true
-                                  ? SizedBox(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    buildTitle('Tanggal Keberangkatan'),
-                                    CustomDatePickerField(
-                                      controller:
-                                      _tanggalKeberangkatanController,
-                                    ),
-                                    const CustomFieldSpacer(),
-                                    buildTitle('Tanggal Kepulangan'),
-                                    CustomDatePickerField(
-                                      controller: _tanggalKepulanganController,
-                                    ),
-                                  ],
-                                ),
-                              )
-                                  : const Center(),
+                              BlocProvider<TempatKegiatanCubit>.value(
+                                  value: context.read<TempatKegiatanCubit>(),
+                                  child: BlocBuilder<TempatKegiatanCubit, bool> (
+                                      builder: (context, isTempatKegiatan) {
+                                        return isTempatKegiatan == true ?
+                                        SizedBox(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              buildTitle('Tanggal Keberangkatan'),
+                                              CustomDatePickerField(
+                                                controller:
+                                                _tanggalKeberangkatanController,
+                                              ),
+                                              const CustomFieldSpacer(),
+                                              buildTitle('Tanggal Kepulangan'),
+                                              CustomDatePickerField(
+                                                controller: _tanggalKepulanganController,
+                                              ),
+                                            ],
+                                          ),
+                                        ) :
+                                        const Center();
+                                      }
+                                  )
+                              ),
 
                               MipokaCustomSwitchButton(
                                 title: 'Jumlah Partisipan',
@@ -743,3 +752,10 @@ class _PenggunaPengajuanUsulanKegiatan1State
   }
 }
 
+class TempatKegiatanCubit extends Cubit<bool> {
+  TempatKegiatanCubit() : super(false);
+
+  void setTempatKegiatan(bool value) {
+    emit(value);
+  }
+}
