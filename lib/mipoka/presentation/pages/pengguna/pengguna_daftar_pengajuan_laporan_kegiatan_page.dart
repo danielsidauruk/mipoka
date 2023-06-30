@@ -28,15 +28,14 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
 
   @override
   void initState() {
-    BlocProvider.of<LaporanBloc>(context, listen: false)
-        .add(const ReadAllLaporanEvent());
+    context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
     super.initState();
   }
 
   @override
   void dispose() {
-    BlocProvider.of<LaporanBloc>(context, listen: false).close();
-    BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).close();
+    context.read<LaporanBloc>().close();
+    context.read<UsulanKegiatanBloc>().close();
     super.dispose();
   }
 
@@ -227,7 +226,7 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                       const CustomFieldSpacer(),
                       CustomMipokaButton(
                         onTap: () {
-                          int newId = DateTime.now().millisecondsSinceEpoch;
+                          int newId = DateTime.now().microsecondsSinceEpoch;
                           User? user = FirebaseAuth.instance.currentUser;
                           String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 

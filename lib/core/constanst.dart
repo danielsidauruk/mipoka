@@ -1,5 +1,9 @@
 const listStatus = ['Semua', 'Menunggu', 'Berlansung', 'Ditolak'];
 const listNamaOrmawa = ['Ormawa A', 'Ormawa B', 'Ormawa C', 'Ormawa D', 'Ormawa E'];
+
+const listNamaOrmawa2 = ['Semua', 'Ormawa A', 'Ormawa B', 'Ormawa C', 'Ormawa D', 'Ormawa E'];
+
+
 const listGedung = ['A', 'B', 'C', 'D'];
 const listPembiayaan = ['Mandiri', 'Didanai'];
 const listBentukKegiatan = ['Bakti Sosial', 'Festival', 'Kebaktian', 'Kompetisi', 'Latihan',
@@ -13,6 +17,10 @@ const listNamaKegiatan = [
 ];
 
 const listTingkat = ['Desa/Kelurahan', 'Kecamatan', 'Kabupaten/Kota', 'Provinsi', 'Nasional', 'Internasional'];
+
+const listTingkat2 = ['Semua', 'Desa/Kelurahan', 'Kecamatan', 'Kabupaten/Kota', 'Provinsi', 'Nasional', 'Internasional'];
+
+const years2 = ['Semua', "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014"];
 
 final List<String> years = List.generate(10, (index) =>
     (DateTime.now().year - index).toString(),

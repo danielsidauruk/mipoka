@@ -39,6 +39,8 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
             if (state is OrmawaLoading) {
               return const Text('Loading');
             } else if (state is OrmawaHasData) {
+              final ormawa = state.ormawa;
+
               return Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -57,7 +59,9 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                         MipokaCustomDropdown(
                           items: listNamaOrmawa,
                           onValueChanged: (value) {
-                            print(value);
+                            context.read<OrmawaBloc>().add(
+                              const ReadOrmawaEvent(idOrmawa: 1),
+                            );
                           },
                         ),
 
@@ -73,11 +77,10 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
 
                         const CustomFieldSpacer(),
 
-                        customBoxTitle('Mikroskil Esport'),
-                        Text('Berdiri         : 16 Juli 2021'),
-                        Text('Pendiri         : Tommy Christian Hasibuan'),
-                        Text(
-                          'Jumlah Anggota  : 206',
+                        customBoxTitle("${ormawa.namaOrmawa} (${ormawa.namaSingkatanOrmawa})"),
+                        Text('Berdiri         : "ormawa.tanggalBerdiri"'),
+                        Text('Pendiri         : ${ormawa.ketua}'),
+                        Text('Jumlah Anggota  : ${ormawa.jumlahAnggota}',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
 
@@ -90,7 +93,7 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                           'Dosen',
                           titlePadding: 0.0,
                         ),
-                        Text('Sio Jurnalis Pipin, S.Kom., M.Kom.'),
+                        Text(ormawa.pembina),
 
                         const CustomFieldSpacer(),
 
@@ -101,7 +104,7 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                           'Ketua UKM',
                           titlePadding: 0.0,
                         ),
-                        Text('Stefani Gisella'),
+                        Text(ormawa.ketua),
 
                         const CustomFieldSpacer(height: 4.0),
 
@@ -109,7 +112,7 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                           'Wakil Ketua UKM',
                           titlePadding: 0.0,
                         ),
-                        Text('Jhonsen Antoni Jingga'),
+                        Text(ormawa.wakil),
 
                         const CustomFieldSpacer(height: 4.0),
 
@@ -117,7 +120,7 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                           'Sekretaris UKM',
                           titlePadding: 0.0,
                         ),
-                        Text('Adventus Totti Mariano Simbolon'),
+                        Text(ormawa.sekretaris),
 
                         const CustomFieldSpacer(height: 4.0),
 
@@ -125,7 +128,7 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                           'Bendahara UKM',
                           titlePadding: 0.0,
                         ),
-                        Text('Muhammad Azraqi Syahriza'),
+                        Text(ormawa.bendahara),
 
                       ],
                     ),

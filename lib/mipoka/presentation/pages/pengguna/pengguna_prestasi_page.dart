@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -18,13 +20,22 @@ class PenggunaPrestasiPage extends StatefulWidget {
 }
 
 class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
-
   @override
   void initState() {
+    context.read<PrestasiBloc>().add(ReadAllPrestasiEvent());
     super.initState();
-    BlocProvider.of<PrestasiBloc>(context, listen: false)
-        .add(ReadAllPrestasiEvent());
   }
+
+  @override
+  void dispose() {
+    context.read<PrestasiBloc>().close();
+    context.read<MipokaUserBloc>().close();
+    super.dispose();
+  }
+
+  String ormawa = "semua";
+  String tahun = "semua";
+  String tingkat = "semua";
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +50,8 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
           if (state is PrestasiLoading) {
             return const Text('Loading');
           } else if (state is AllPrestasiHasData) {
+            final allPrestasi = state.prestasiList;
+
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -55,30 +68,40 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
 
                         buildTitle('Nama Ormawa'),
                         MipokaCustomDropdown(
-                          items: listNamaOrmawa,
-                          onValueChanged: (value) {},
+                          items: listNamaOrmawa2,
+                          onValueChanged: (value) {
+                            ormawa = value ?? ormawa;
+                          },
                         ),
 
                         const CustomFieldSpacer(),
 
                         buildTitle('Tahun'),
                         MipokaCustomDropdown(
-                          items: years,
-                          onValueChanged: (value) {},
+                          items: years2,
+                          onValueChanged: (value) {
+                            tahun = value ?? tahun;
+                          },
                         ),
 
                         const CustomFieldSpacer(),
 
                         buildTitle('Tingkat'),
                         MipokaCustomDropdown(
-                          items: listTingkat,
-                          onValueChanged: (value) {},
+                          items: listTingkat2,
+                          onValueChanged: (value) {
+                            tingkat = value ?? tingkat;
+                          },
                         ),
 
                         const CustomFieldSpacer(),
 
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            if (kDebugMode) {
+                              print("$ormawa/$tahun/$tingkat");
+                            }
+                          },
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             constraints: const BoxConstraints(minHeight: 35.0),
@@ -87,7 +110,7 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(5.0),
                             ),
-                            child: Text(
+                            child: const Text(
                               'Saring',
                               style: TextStyle(
                                 color: Colors.black,
@@ -160,7 +183,13 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                                   ),
                                 ],
 
-                                rows: List<DataRow>.generate(12, (int index) {
+                                rows: List<DataRow>.generate(allPrestasi.length, (int index) {
+                                  final prestasi = allPrestasi[index];
+
+                                  context.read<MipokaUserBloc>().add(
+                                    ReadMipokaUserEvent(idMipokaUser: prestasi.idUser),
+                                  );
+
                                   return DataRow(
                                     cells: [
                                       DataCell(
@@ -172,10 +201,50 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                                         ),
                                       ),
                                       DataCell(
+                                        BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                          builder: (context, state) {
+                                            if (state is MipokaUserLoading) {
+                                              return const Text('Loading ...');
+                                            } else if (state is MipokaUserHasData) {
+                                              return Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  state.mipokaUser.nim,
+                                                ),
+                                              );
+                                            } else if (state is MipokaUserError) {
+                                              return Text(state.message);
+                                            } else {
+                                              return const Text("MipokaUserBloc hasn't been triggered");
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                      DataCell(
+                                        BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                          builder: (context, state) {
+                                            if (state is MipokaUserLoading) {
+                                              return const Text('Loading ...');
+                                            } else if (state is MipokaUserHasData) {
+                                              return Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  state.mipokaUser.namaLengkap,
+                                                ),
+                                              );
+                                            } else if (state is MipokaUserError) {
+                                              return Text(state.message);
+                                            } else {
+                                              return const Text("MipokaUserBloc hasn't been triggered");
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                      DataCell(
                                         Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            '19111000${index + 1}',
+                                            prestasi.namaKegiatan
                                           ),
                                         ),
                                       ),
@@ -183,7 +252,7 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                                         Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            'Mahasiswa ${index + 1}',
+                                            prestasi.waktuPenyelenggaraan,
                                           ),
                                         ),
                                       ),
@@ -191,7 +260,7 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                                         Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            'Kegiatan ${index + 1}',
+                                            prestasi.tingkat,
                                           ),
                                         ),
                                       ),
@@ -199,23 +268,7 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                                         Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            '${index + 1} Mei 2023',
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            'Tingkat - ${index + 1}',
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            'Level ${index + 1}',
+                                            prestasi.prestasiDicapai,
                                           ),
                                         ),
                                       ),

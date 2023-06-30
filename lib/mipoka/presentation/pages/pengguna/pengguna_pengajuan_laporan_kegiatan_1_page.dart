@@ -32,11 +32,18 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
   @override
   void initState() {
-    BlocProvider.of<LaporanBloc>(context, listen: false).add(
-      ReadLaporanEvent(idLaporan: widget.idLaporan));
-    BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).add(
-      const ReadAllUsulanKegiatanEvent());
+    context.read<LaporanBloc>().add(
+        ReadLaporanEvent(idLaporan: widget.idLaporan));
+    context.read<UsulanKegiatanBloc>().add(
+        const ReadAllUsulanKegiatanEvent());
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    context.read<LaporanBloc>().close();
+    context.read<UsulanKegiatanBloc>().close();
+    super.dispose();
   }
 
   late QuillController _pencapaianController;

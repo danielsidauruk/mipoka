@@ -69,11 +69,13 @@ class _PenggunaPengajuanUsulanKegiatan3State
   String? _linimasaKegiatanController;
   String? _fotoTempatKegiatanController;
 
-
   final StreamController<String?> _postinganKegiatanStream = StreamController<String?>();
   final StreamController<String?> _suratUndanganKegiatanStream = StreamController<String?>();
   final StreamController<String?> _linimasaKegiatanStream = StreamController<String?>();
   final StreamController<String?> _fotoTempatKegiatanStream = StreamController<String?>();
+
+  String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +98,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                     return const Text('Loading');
                   } else if (state is UsulanKegiatanHasData) {
                     final usulanKegiatan = state.usulanKegiatan;
-                    User? user = FirebaseAuth.instance.currentUser;
 
                     _latarBelakangController = QuillController(
                       document: Document()..insert(0, usulanKegiatan.latarBelakang),
@@ -460,31 +461,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             CustomMipokaButton(
-                              onTap: () => Navigator.pop(context),
-                              text: 'Sebelumnya',
-                            ),
-
-                            const SizedBox(width: 8.0),
-
-                            CustomMipokaButton(
-                              onTap: () {
-                                // Navigator.pushNamed(context, penggunaDaftarPengajuanKegiatanPageRoute);
-
-                                // context.read<UsulanKegiatanBloc>().add(
-                                //   UpdateUsulanKegiatanEvent(
-                                //     usulanKegiatan: usulanKegiatan.copyWith(
-                                //       latarBelakang: _latarBelakangController.document.toPlainText(),
-                                //     ),
-                                //   ),
-                                // );
-
-
-                                // print('plainText: ${_latarBelakangController.document.toPlainText()}');
-                                // print('textStyle: ${_latarBelakangController.document.toDelta()}');
-                                // // print('document ${_latarBelakangController.document.toDelta()}');
-
-                                String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
+                              onTap: () => {
                                 context.read<UsulanKegiatanBloc>().add(
                                   UpdateUsulanKegiatanEvent(
                                     usulanKegiatan: usulanKegiatan.copyWith(
@@ -501,10 +478,47 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                       fotoSuratUndanganKegiatan: _suratUndanganKegiatanController,
                                       fotoLinimasaKegiatan: _linimasaKegiatanController,
                                       fotoTempatKegiatan: _fotoTempatKegiatanController,
-                                      createdAt: currentDate,
                                       updatedAt: currentDate,
                                     ),
                                   ),
+                                ),
+                                Navigator.pop(context),
+                              },
+                              text: 'Sebelumnya',
+                            ),
+
+                            const SizedBox(width: 8.0),
+
+                            CustomMipokaButton(
+                              onTap: () {
+                                context.read<UsulanKegiatanBloc>().add(
+                                  UpdateUsulanKegiatanEvent(
+                                    usulanKegiatan: usulanKegiatan.copyWith(
+                                      latarBelakang: _latarBelakangController.document.toPlainText(),
+                                      tujuanKegiatan: _tujuanKegiatanController.document.toPlainText(),
+                                      manfaatKegiatan: _manfaatKegiatanController.document.toPlainText(),
+                                      bentukKegiatan: _bentukPelaksanaanKegiatanController.document.toPlainText(),
+                                      targetKegiatan: _targetPencapaianKegiatanController.document.toPlainText(),
+                                      waktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.document.toPlainText(),
+                                      rencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.document.toPlainText(),
+                                      perlengkapanDanPeralatan: _perlengkapanDanPeralatanController.document.toPlainText(),
+                                      penutup: _penutupController.document.toPlainText(),
+                                      fotoPostinganKegiatan: _postinganKegiatanController,
+                                      fotoSuratUndanganKegiatan: _suratUndanganKegiatanController,
+                                      fotoLinimasaKegiatan: _linimasaKegiatanController,
+                                      fotoTempatKegiatan: _fotoTempatKegiatanController,
+                                      updatedAt: currentDate,
+                                    ),
+                                  ),
+                                );
+
+                                Navigator.pushNamed(
+                                  context,
+                                  penggunaDaftarPengajuanKegiatanPageRoute,
+                                );
+
+                                context.read<UsulanKegiatanBloc>().add(
+                                  const ReadAllUsulanKegiatanEvent(),
                                 );
                               },
                               text: 'Kirim',

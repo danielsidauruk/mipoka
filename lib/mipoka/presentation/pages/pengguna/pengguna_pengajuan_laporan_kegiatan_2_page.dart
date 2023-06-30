@@ -28,8 +28,8 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
 
   @override
   void initState() {
-    BlocProvider.of<LaporanBloc>(context).add(
-      ReadLaporanEvent(idLaporan: widget.idLaporan)
+    context.read<LaporanBloc>().add(
+        ReadLaporanEvent(idLaporan: widget.idLaporan)
     );
     super.initState();
   }
@@ -291,10 +291,11 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                               Align(
                                                 alignment: Alignment.center,
                                                 child: Text(
-                                                    '${rincianBiayaKegiatan.realisasiAnggaran > rincianBiayaKegiatan.usulanAnggaran ?
-                                                    rincianBiayaKegiatan.realisasiAnggaran - rincianBiayaKegiatan.usulanAnggaran :
-                                                    rincianBiayaKegiatan.usulanAnggaran - rincianBiayaKegiatan.realisasiAnggaran
-                                                    }',
+                                                    // '${rincianBiayaKegiatan.realisasiAnggaran > rincianBiayaKegiatan.usulanAnggaran ?
+                                                    // rincianBiayaKegiatan.realisasiAnggaran - rincianBiayaKegiatan.usulanAnggaran :
+                                                    // rincianBiayaKegiatan.usulanAnggaran - rincianBiayaKegiatan.realisasiAnggaran
+                                                    // }',
+                                                  rincianBiayaKegiatan.selisih.toString(),
                                                 ),
                                               ),
                                             ),
@@ -318,11 +319,13 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                             ),
                             const SizedBox(width: 8.0),
                             CustomMipokaButton(
-                              onTap: () => Navigator.pushNamed(
-                                context,
-                                penggunaPengajuanLaporanKegiatan3PageRoute,
-                                arguments: widget.idLaporan,
-                              ),
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  penggunaPengajuanLaporanKegiatan3PageRoute,
+                                  arguments: widget.idLaporan,
+                                );
+                              },
                               text: 'Berikutnya',
                             ),
                           ],
