@@ -1,6 +1,9 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:equatable/equatable.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/domain/utils/delete_file.dart';
@@ -9,6 +12,8 @@ import 'package:mipoka/mipoka/presentation/bloc/cubit/signature_cubit.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'mipoka_custom_toast.dart';
 //
 // class CustomSignaturePad extends StatelessWidget {
 //   final String customUrl;
@@ -355,5 +360,22 @@ class _CustomSignaturePadState extends State<CustomSignaturePad> {
         },
       ),
     );
+  }
+}
+
+Future<String?> uploadFileFromSignature(PlatformFile file, String fileName) async {
+  try {
+    final Reference storageRef = FirebaseStorage.instance.ref().child(fileName);
+
+    final Uint8List fileBytes = await File(file.path!).readAsBytes();
+    final UploadTask uploadTask = storageRef.putData(fileBytes);
+    final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+
+    final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+    return downloadUrl;
+  } catch (error) {
+    mipokaCustomToast("Failed while uploading file: $error");
+    rethrow;
   }
 }

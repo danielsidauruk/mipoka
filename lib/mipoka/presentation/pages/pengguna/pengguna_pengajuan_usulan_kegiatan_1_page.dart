@@ -1,10 +1,15 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
-import 'package:mipoka/core/routes.dart';
+import 'dart:io';
+import 'dart:ui' as ui;
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/cubit/signature_cubit.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -19,6 +24,10 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_time_picker_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_switch.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
+import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 
 // class PenggunaPengajuanUsulanKegiatan1 extends StatefulWidget {
 //   const PenggunaPengajuanUsulanKegiatan1({super.key});
@@ -372,7 +381,6 @@ class PenggunaPengajuanUsulanKegiatan1 extends StatefulWidget {
 
 class _PenggunaPengajuanUsulanKegiatan1State
     extends State<PenggunaPengajuanUsulanKegiatan1> {
-  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -416,7 +424,24 @@ class _PenggunaPengajuanUsulanKegiatan1State
   final TextEditingController _jumlahParsitipanController = TextEditingController();
   final TextEditingController _totalPendanaanController = TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
-  String? _customUrlController;
+  final StreamController<String?> _ormawaSignatureStream = StreamController<String?>();
+  String? _ormawaSignatureController;
+  User? user = FirebaseAuth.instance.currentUser;
+
+  final GlobalKey<SfSignaturePadState> signatureGlobalKey =
+  GlobalKey<SfSignaturePadState>();
+
+  Future<File> saveSignature() async {
+    final image = await signatureGlobalKey.currentState?.toImage(pixelRatio: 3.0);
+    final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
+    final bytes = byteData?.buffer.asUint8List();
+
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/signature.png');
+    await file.writeAsBytes(bytes!);
+
+    return file;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -429,27 +454,23 @@ class _PenggunaPengajuanUsulanKegiatan1State
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomPenggunaDrawerWidget(),
       body: BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
-        builder: (context, usulanState) {
+        builder: (context, state) {
           return BlocBuilder<MipokaUserBloc, MipokaUserState>(
             builder: (context, mipokaUserState) {
-              if (usulanState is UsulanKegiatanLoading) {
+              if (state is UsulanKegiatanLoading) {
                 return const Text('Loading');
-              } else if (usulanState is UsulanKegiatanHasData) {
-                _namaOrmawaController = 'Ormawa A';
-                _namaKegiatanController.text = usulanState.usulanKegiatan.namaKegiatan;
-                _deskripsiKegiatanController.text =
-                    usulanState.usulanKegiatan.deskripsiKegiatan;
-                _tempatKegiatanController.text =
-                    usulanState.usulanKegiatan.fotoTempatKegiatan;
-                _jumlahParsitipanController.text =
-                    usulanState.usulanKegiatan.jumlahPartisipan.toString();
-                _targetKegiatanController.text =
-                    usulanState.usulanKegiatan.targetKegiatan;
-                _totalPendanaanController.text =
-                    usulanState.usulanKegiatan.totalPendanaan;
+              } else if (state is UsulanKegiatanHasData) {
+                final usulanKegiatan = state.usulanKegiatan;
 
-                // _customUrlController = state.usulanKegiatan.tandaTanganOrmawa;
-                _customUrlController = "";
+                _namaOrmawaController = 'Ormawa A';
+                _namaKegiatanController.text = usulanKegiatan.namaKegiatan;
+                _deskripsiKegiatanController.text = usulanKegiatan.deskripsiKegiatan;
+                _tempatKegiatanController.text = usulanKegiatan.fotoTempatKegiatan;
+                _jumlahParsitipanController.text = usulanKegiatan.jumlahPartisipan.toString();
+                _targetKegiatanController.text = usulanKegiatan.targetKegiatan;
+                _totalPendanaanController.text = usulanKegiatan.totalPendanaan;
+
+                _ormawaSignatureController = "";
 
                 if(mipokaUserState is MipokaUserLoading) {
                   return const Text('Loading');
@@ -640,50 +661,127 @@ class _PenggunaPengajuanUsulanKegiatan1State
                               const CustomFieldSpacer(),
                               buildTitle('Tanda Tangan Ormawa'),
 
-                              // Container(
-                              //   alignment: Alignment.center,
-                              //   padding: const EdgeInsets.all(8.0),
-                              //   decoration: BoxDecoration(
-                              //     borderRadius: BorderRadius.circular(5.0),
-                              //     border: Border.all(color: Colors.white),
-                              //   ),
-                              //   child: _signaturePadController
-                              //       ? Column(
-                              //     children: [
-                              //       Image.network(_customUrlController!),
-                              //       const SizedBox(height: 4.0),
-                              //       InkWell(
-                              //         onTap: () {
-                              //           deleteFile(_customUrlController!);
-                              //           setState(() {
-                              //             _signaturePadController = false;
-                              //           });
-                              //         },
-                              //         child: const Text(
-                              //           'Delete',
-                              //           style: TextStyle(
-                              //             color: Colors.white,
-                              //             fontSize: 16,
-                              //           ),
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   )
-                              //       : CustomSignaturePad(
-                              //     customUrl: 'https://storage.googleapis.com/mipoka_bucket/signatureB.png',
-                              //     onPressed: (value) {
-                              //       setState(() {
-                              //         _signaturePadController = true;
-                              //         // _customUrlController = 'https://storage.googleapis.com/mipoka_bucket/signatureB.png';
-                              //       });
-                              //     },
-                              //   ),
+                              // TODO: CUSTOM SIGNATURE PAD
+
+                              // CustomSignaturePad(
+                              //   signatureUrl: _ormawaSignatureController,
+                              //   fileName: "signature${user?.uid ?? ""}",
                               // ),
 
-                              CustomSignaturePad(
-                                signatureUrl: _customUrlController,
-                                fileName:
-                                'https://storage.googleapis.com/mipoka_bucket/signature${DateTime.now().millisecondsSinceEpoch}.png',
+                              StreamBuilder<String?>(
+                                stream: _ormawaSignatureStream.stream,
+                                builder: (context, snapshot) {
+                                  String text = snapshot.data ?? "";
+                                  return BlocProvider<SignatureCubit>(
+                                    create: (context) => SignatureCubit(),
+                                    child: BlocBuilder<SignatureCubit, SignatureState>(
+                                      builder: (context, state) {
+                                        return InkWell(
+                                          onTap: () => context.read<SignatureCubit>().toggleSignature(),
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            padding: const EdgeInsets.all(8.0),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(5.0),
+                                              border: Border.all(color: Colors.white),
+                                            ),
+                                            child: Column(
+                                              children: [
+                                                if (_ormawaSignatureController == "")
+                                                  !state.isSignatureVisible ?
+                                                  InkWell(
+                                                    onTap: () {
+                                                      context.read<SignatureCubit>().toggleSignature();
+                                                    },
+                                                    child: const Text(
+                                                      'Tekan untuk tanda tangan',
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                  ) :
+                                                  Column(
+                                                    children: [
+                                                      const CustomFieldSpacer(height: 4.0),
+                                                      SfSignaturePad(
+                                                        key: signatureGlobalKey,
+                                                        backgroundColor: Colors.white,
+                                                        strokeColor: Colors.black,
+                                                        minimumStrokeWidth: 1.0,
+                                                        maximumStrokeWidth: 4.0,
+                                                      ),
+                                                      const CustomFieldSpacer(),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                        children: [
+                                                          InkWell(
+                                                            onTap: () async {
+                                                              final file = await saveSignature();
+                                                              // context.read<SignatureCubit>().toggleSignature();
+                                                              _ormawaSignatureController = await uploadFileFromSignature(file, "signature${user?.uid ?? "unknown"}");
+                                                              // uploadFile(file: file, customUrl: widget.fileName);
+                                                            },
+                                                            child: const InkWell(
+                                                              child: Text(
+                                                                'Simpan',
+                                                                style: TextStyle(
+                                                                  color: Colors.white,
+                                                                  fontSize: 16,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          InkWell(
+                                                            onTap: () {
+                                                              context.read<SignatureCubit>().toggleSignature();
+                                                              deleteFileFromFirebase(_ormawaSignatureController ?? "");
+                                                              _ormawaSignatureController = "";
+                                                            },
+                                                            child: const Text(
+                                                              'Batal',
+                                                              style: TextStyle(
+                                                                color: Colors.white,
+                                                                fontSize: 16,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+
+                                                if (_ormawaSignatureController != "")
+                                                  Column(
+                                                    children: [
+                                                      Image.network(_ormawaSignatureController ?? ""),
+
+                                                      const CustomFieldSpacer(),
+
+                                                      InkWell(
+                                                        onTap: () {
+                                                          context.read<SignatureCubit>().toggleSignature();
+                                                          deleteFileFromFirebase(_ormawaSignatureController ?? "");
+                                                          _ormawaSignatureController = "";
+                                                        },
+                                                        child: const Text(
+                                                          'Hapus',
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 16,
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
                               ),
 
                               const CustomFieldSpacer(),
@@ -699,31 +797,33 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                   CustomMipokaButton(
                                     onTap: () {
 
+                                      print(_ormawaSignatureController);
+
                                       // Navigator.pushNamed(
                                       //   context,
                                       //   penggunaPengajuanUsulanKegiatan2LKPageRoute,
                                       //   arguments: widget.idUsulanKegiatan,
                                       // );
 
-                                      context.read<UsulanKegiatanBloc>().add(
-                                        UpdateUsulanKegiatanEvent(
-                                          usulanKegiatan: usulanState.usulanKegiatan.copyWith(
-                                            namaKegiatan: _namaKegiatanController.text,
-                                          ),
-                                        ),
-                                      );
+                                      // context.read<UsulanKegiatanBloc>().add(
+                                      //   UpdateUsulanKegiatanEvent(
+                                      //     usulanKegiatan: state.usulanKegiatan.copyWith(
+                                      //       namaKegiatan: _namaKegiatanController.text,
+                                      //     ),
+                                      //   ),
+                                      // );
 
-                                      _tempatKegiatanSwitchController == true ?
-                                      Navigator.pushNamed(
-                                        context,
-                                        penggunaPengajuanUsulanKegiatan2LKPageRoute,
-                                        arguments: widget.idUsulanKegiatan,
-                                      ) :
-                                      Navigator.pushNamed(
-                                        context,
-                                        penggunaPengajuanUsulanKegiatan2DKPageRoute,
-                                        arguments: widget.idUsulanKegiatan,
-                                      );
+                                      // _tempatKegiatanSwitchController == true ?
+                                      // Navigator.pushNamed(
+                                      //   context,
+                                      //   penggunaPengajuanUsulanKegiatan2LKPageRoute,
+                                      //   arguments: widget.idUsulanKegiatan,
+                                      // ) :
+                                      // Navigator.pushNamed(
+                                      //   context,
+                                      //   penggunaPengajuanUsulanKegiatan2DKPageRoute,
+                                      //   arguments: widget.idUsulanKegiatan,
+                                      // );
                                     },
                                     text: 'Berikutnya',
                                   ),
@@ -740,8 +840,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
                 } else {
                   return const Text('MipokaUserBloc has not been triggered');
                 }
-              } else if (usulanState is UsulanKegiatanError) {
-                return Text('UsulanKegiatanBloc Error : ${usulanState.message}');
+              } else if (state is UsulanKegiatanError) {
+                return Text('UsulanKegiatanBloc Error : ${state.message}');
               } else {
                 return const Text('UsulanKegiatanBloc has not been triggered');
               }
@@ -758,5 +858,22 @@ class TempatKegiatanCubit extends Cubit<bool> {
 
   void setTempatKegiatan(bool value) {
     emit(value);
+  }
+}
+
+Future<String> uploadFileFromSignature(File file, String fileName) async {
+  try {
+    final Reference storageRef = FirebaseStorage.instance.ref().child(fileName);
+
+    final UploadTask uploadTask = storageRef.putFile(file);
+    final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+
+    final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+    mipokaCustomToast('File uploaded successfully');
+    return downloadUrl;
+  } catch (error) {
+    mipokaCustomToast("Failed while uploading file: $error");
+    rethrow;
   }
 }
