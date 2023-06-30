@@ -66,7 +66,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
   String? _fotoTempatKegiatanController;
   String? _suratUndanganKegiatanTitleController;
 
-  StreamController<String?> _suratUndanganKegiatanControllerStream = StreamController<String?>();
+  final StreamController<String?> _suratUndanganKegiatanControllerStream = StreamController<String?>();
 
   @override
   Widget build(BuildContext context) {
@@ -130,10 +130,10 @@ class _PenggunaPengajuanUsulanKegiatan3State
 
                     _postinganKegiatanController = usulanKegiatan.fotoPostinganKegiatan;
 
-                    if (_suratUndanganKegiatanController == "") {
-                      _suratUndanganKegiatanController = usulanKegiatan.fotoSuratUndanganKegiatan;
-                    }
-                    // _suratUndanganKegiatanTitleController = "";
+
+                    _suratUndanganKegiatanController = usulanKegiatan.fotoSuratUndanganKegiatan;
+                    _suratUndanganKegiatanControllerStream.add(usulanKegiatan.fotoSuratUndanganKegiatan);
+
 
                     _linimasaKegiatan = usulanKegiatan.fotoLinimasaKegiatan;
                     _fotoTempatKegiatanController = usulanKegiatan.fotoTempatKegiatan;
@@ -429,6 +429,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                               controller: _suratUndanganKegiatanController ?? "",
                               onDelete: () {
                                 _suratUndanganKegiatanController = "";
+                                _suratUndanganKegiatanControllerStream.add("");
                               },
                             );
                           },
