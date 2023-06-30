@@ -466,8 +466,16 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                   CustomMipokaButton(
                                     onTap: () {
                                       _tempatKegiatanSwitchController == true ?
-                                      Navigator.pushNamed(context, penggunaPengajuanUsulanKegiatan2DKPageRoute) :
-                                      Navigator.pushNamed(context, penggunaPengajuanUsulanKegiatan2LKPageRoute);
+                                      Navigator.pushNamed(
+                                        context,
+                                        penggunaPengajuanUsulanKegiatan2DKPageRoute,
+                                        arguments: widget.idUsulanKegiatan,
+                                      ) :
+                                      Navigator.pushNamed(
+                                        context,
+                                        penggunaPengajuanUsulanKegiatan2LKPageRoute,
+                                        arguments: widget.idUsulanKegiatan,
+                                      );
 
                                       context.read<UsulanKegiatanBloc>().add(
                                         UpdateUsulanKegiatanEvent(
@@ -534,6 +542,8 @@ class TempatKegiatanCubit extends Cubit<bool> {
   }
 }
 
+
+// TODO: Please Edit this fucking code.
 Future<String> uploadFileFromSignature(File file, String fileName) async {
   try {
     final Reference storageRef = FirebaseStorage.instance.ref().child(fileName);
