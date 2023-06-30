@@ -88,9 +88,14 @@ class _MipokaCustomDropdownState extends State<MipokaCustomDropdown> {
 
   @override
   void initState() {
+    String? initialItem;
     super.initState();
-    String initialItem = widget.controller ?? widget.items.first;
-    dropdownBloc = DropdownBloc(initialItem);
+    if(widget.controller == "") {
+      initialItem = widget.items.first;
+    } else {
+      initialItem = widget.controller;
+    }
+    dropdownBloc = DropdownBloc(initialItem ?? widget.items.first);
   }
 
   @override
