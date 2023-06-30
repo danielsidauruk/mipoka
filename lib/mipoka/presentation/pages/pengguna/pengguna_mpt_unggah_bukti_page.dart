@@ -50,30 +50,30 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                 children: [
 
                   buildTitle('Unggah File 1'),
-                  CustomFilePickerButton(
-                    // text: buttonText,
-                    onTap: () async {
-                      await FileUploaderAndCheckDuplicated.selectAndUploadFileForChecker('file1');
-                    },
-                  ),
+                  // CustomFilePickerButton(
+                  //   // text: buttonText,
+                  //   onTap: () async {
+                  //     await FileUploaderAndCheckDuplicated.selectAndUploadFileForChecker('file1');
+                  //   },
+                  // ),
 
 
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Unggah File 2'),
-                  CustomFilePickerButton(
-                    onTap: () async {
-                      await FileUploaderAndCheckDuplicated.selectAndUploadFileForChecker('file2');
-                    },
-                  ),
+                  // CustomFilePickerButton(
+                  //   onTap: () async {
+                  //     await FileUploaderAndCheckDuplicated.selectAndUploadFileForChecker('file2');
+                  //   },
+                  // ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('List File Path'),
-                  CustomFilePickerButton(
-                    onTap: () => print(FileUploaderAndCheckDuplicated.getStoredFiles()),
-                  ),
+                  // CustomFilePickerButton(
+                  //   onTap: () => print(FileUploaderAndCheckDuplicated.getStoredFiles()),
+                  // ),
 
                   const CustomFieldSpacer(),
 

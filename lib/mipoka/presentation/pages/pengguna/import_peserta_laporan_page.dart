@@ -55,12 +55,12 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                   const CustomFieldSpacer(),
 
                   buildTitle('Unggah'),
-                  CustomFilePickerButton(
-                    onTap: () => selectAndUploadFile(
-                      'importPeserta',
-                      // 1
-                    ),
-                  ),
+                  // CustomFilePickerButton(
+                  //   onTap: () => selectAndUploadFile(
+                  //     'importPeserta',
+                  //     // 1
+                  //   ),
+                  // ),
 
                   const CustomFieldSpacer(),
 

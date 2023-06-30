@@ -122,42 +122,42 @@ class _PenggunaPengajuanLaporanKegiatan3State
                             buildTitle('Postingan Kegiatan'),
                             buildDescription(
                                 'Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
-                            CustomFilePickerButton(
-                              onTap: () => selectAndUploadFile(
-                                  'postingLaporanKegiatanButton',
-                                  // 1
-                              ),
-                            ),
+                            // CustomFilePickerButton(
+                            //   onTap: () => selectAndUploadFile(
+                            //       'postingLaporanKegiatanButton',
+                            //       // 1
+                            //   ),
+                            // ),
                             const CustomFieldSpacer(),
                             buildTitle('Dokumentasi Kegiatan'),
                             buildDescription(
                                 'Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
-                            CustomFilePickerButton(
-                              onTap: () => selectAndUploadFile(
-                                'dokumentasiKegiatanButton',
-                                // 1,
-                              ),
-                            ),
+                            // CustomFilePickerButton(
+                            //   onTap: () => selectAndUploadFile(
+                            //     'dokumentasiKegiatanButton',
+                            //     // 1,
+                            //   ),
+                            // ),
                             const CustomFieldSpacer(),
                             buildTitle('Tabulasi Hasil'),
                             buildDescription(
                                 'Unggah foto pencapaian dari kegiatan yang telah dilaksanakan.'),
-                            CustomFilePickerButton(
-                              onTap: () =>selectAndUploadFile(
-                                'tabulasiHasilButton',
-                                // 1,
-                              ),
-                            ),
+                            // CustomFilePickerButton(
+                            //   onTap: () =>selectAndUploadFile(
+                            //     'tabulasiHasilButton',
+                            //     // 1,
+                            //   ),
+                            // ),
                             const CustomFieldSpacer(),
                             buildTitle('Faktur Pembayaran'),
                             buildDescription(
                                 'Unggah bon transaksi kegiatan yang telah dilaksanakan.'),
-                            CustomFilePickerButton(
-                              onTap: () => selectAndUploadFile(
-                                'fakturPembayaranButton',
-                                // 1,
-                              ),
-                            ),
+                            // CustomFilePickerButton(
+                            //   onTap: () => selectAndUploadFile(
+                            //     'fakturPembayaranButton',
+                            //     // 1,
+                            //   ),
+                            // ),
                           ],
                         )
                             : const Center(),

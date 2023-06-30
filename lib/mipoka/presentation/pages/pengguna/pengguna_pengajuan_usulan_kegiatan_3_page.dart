@@ -1,10 +1,13 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_switch.dart';
@@ -60,13 +63,17 @@ class _PenggunaPengajuanUsulanKegiatan3State
   late QuillController _rencanaAnggaranKegiatanController;
   late QuillController _perlengkapanDanPeralatanController;
   late QuillController _penutupController;
+
   String? _postinganKegiatanController;
   String? _suratUndanganKegiatanController;
-  String? _linimasaKegiatan;
+  String? _linimasaKegiatanController;
   String? _fotoTempatKegiatanController;
-  String? _suratUndanganKegiatanTitleController;
 
-  final StreamController<String?> _suratUndanganKegiatanControllerStream = StreamController<String?>();
+
+  final StreamController<String?> _postinganKegiatanStream = StreamController<String?>();
+  final StreamController<String?> _suratUndanganKegiatanStream = StreamController<String?>();
+  final StreamController<String?> _linimasaKegiatanStream = StreamController<String?>();
+  final StreamController<String?> _fotoTempatKegiatanStream = StreamController<String?>();
 
   @override
   Widget build(BuildContext context) {
@@ -129,14 +136,16 @@ class _PenggunaPengajuanUsulanKegiatan3State
                     );
 
                     _postinganKegiatanController = usulanKegiatan.fotoPostinganKegiatan;
-
+                    _postinganKegiatanStream.add(_postinganKegiatanController);
 
                     _suratUndanganKegiatanController = usulanKegiatan.fotoSuratUndanganKegiatan;
-                    _suratUndanganKegiatanControllerStream.add(usulanKegiatan.fotoSuratUndanganKegiatan);
+                    _suratUndanganKegiatanStream.add(_suratUndanganKegiatanController);
 
+                    _linimasaKegiatanController = usulanKegiatan.fotoLinimasaKegiatan;
+                    _linimasaKegiatanStream.add(_linimasaKegiatanController);
 
-                    _linimasaKegiatan = usulanKegiatan.fotoLinimasaKegiatan;
-                    _fotoTempatKegiatanController = usulanKegiatan.fotoTempatKegiatan;
+                    _fotoTempatKegiatanController = usulanKegiatan.tempatKegiatan;
+                    _fotoTempatKegiatanStream.add(_fotoTempatKegiatanController);
 
                     return CustomContentBox(
                       children: [
@@ -202,163 +211,136 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         ),
 
                         tertibAcara == true ?
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                buildDescription(
-                                    'Rincikan alur dari kegiatan yang akan dilaksanakan'),
-                                CustomAddButton(
-                                  buttonText: 'Tertib Acara',
-                                  onPressed: () => Navigator.pushNamed(
-                                    context,
-                                    tambahTertibAcaraPageRoute,
-                                    arguments: widget.idUsulanKegiatan,
-                                  ),
-                                ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            buildDescription(
+                                'Rincikan alur dari kegiatan yang akan dilaksanakan'),
+                            CustomAddButton(
+                              buttonText: 'Tertib Acara',
+                              onPressed: () => Navigator.pushNamed(
+                                context,
+                                tambahTertibAcaraPageRoute,
+                                arguments: widget.idUsulanKegiatan,
+                              ),
+                            ),
 
-                                const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
 
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.vertical,
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: DataTable(
-                                      columnSpacing: 40,
-                                      border: TableBorder.all(color: Colors.white),
-                                      columns: const [
-                                        DataColumn(
-                                          label: Text(
-                                            'No.',
-                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
+                            SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: DataTable(
+                                  columnSpacing: 40,
+                                  border: TableBorder.all(color: Colors.white),
+                                  columns: const [
+                                    DataColumn(
+                                      label: Text(
+                                        'No.',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Aktivitas',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Waktu Mulai',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Waktu Selesai',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Keterangan',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                  rows: List<DataRow>.generate(usulanKegiatan.tertibAcara.length, (int index) {
+                                    final tertibAcara = usulanKegiatan.tertibAcara[index];
+                                    return DataRow(
+                                      cells: [
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              '${index + 1}',
+                                              textAlign: TextAlign.center,
+                                            ),
                                           ),
                                         ),
-                                        DataColumn(
-                                          label: Text(
-                                            'Aktivitas',
-                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
+                                        DataCell(
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.pushNamed(
+                                                context,
+                                                editTertibAcaraPageRoute,
+                                                arguments: usulanKegiatan,
+                                              );
+                                            },
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                tertibAcara.aktivitas,
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  color: Colors.blue,
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                        DataColumn(
-                                          label: Text(
-                                            'Waktu Mulai',
-                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              tertibAcara.waktuMulai,
+                                              textAlign: TextAlign.center,
+                                            ),
                                           ),
                                         ),
-                                        DataColumn(
-                                          label: Text(
-                                            'Waktu Selesai',
-                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              tertibAcara.waktuSelesai,
+                                              textAlign: TextAlign.center,
+                                            ),
                                           ),
                                         ),
-                                        DataColumn(
-                                          label: Text(
-                                            'Keterangan',
-                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              tertibAcara.keterangan,
+                                              textAlign: TextAlign.center,
+                                            ),
                                           ),
                                         ),
                                       ],
-                                      rows: List<DataRow>.generate(usulanKegiatan.tertibAcara.length, (int index) {
-                                        final tertibAcara = usulanKegiatan.tertibAcara[index];
-                                        return DataRow(
-                                          cells: [
-                                            DataCell(
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  '${index + 1}',
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                            ),
-                                            DataCell(
-                                              InkWell(
-                                                onTap: () {
-                                                  Navigator.pushNamed(
-                                                    context,
-                                                    editTertibAcaraPageRoute,
-                                                    arguments: usulanKegiatan,
-                                                  );
-                                                },
-                                                child: Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    tertibAcara.aktivitas,
-                                                    textAlign: TextAlign.center,
-                                                    style: const TextStyle(
-                                                      color: Colors.blue,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            DataCell(
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  tertibAcara.waktuMulai,
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                            ),
-                                            DataCell(
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  tertibAcara.waktuSelesai,
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                            ),
-                                            DataCell(
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  tertibAcara.keterangan,
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      }),
-                                    ),
-                                  ),
+                                    );
+                                  }),
                                 ),
-                              ],
-                            )
-
-                        // InkWell(
-                        //   onTap: () => Navigator.pushNamed(context,
-                        //       penggunaPengajuanUsulanKegiatan3TertibAcaraPageRoute),
-                        //   child: Container(
-                        //     alignment: Alignment.center,
-                        //     padding: const EdgeInsets.all(8.0),
-                        //     constraints: const BoxConstraints(minHeight: 35.0),
-                        //     decoration: BoxDecoration(
-                        //       borderRadius: BorderRadius.circular(5.0),
-                        //       border: Border.all(color: Colors.white),
-                        //     ),
-                        //     child: const Row(
-                        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //       children: [
-                        //         Text(
-                        //           'Detail',
-                        //           style: TextStyle(fontWeight: FontWeight.bold),
-                        //         ),
-                        //         Icon(
-                        //           Icons.arrow_forward_ios,
-                        //           size: 20,
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // )
-                            : const Center(),
+                              ),
+                            ),
+                          ],
+                        ) :
+                        const Center(),
 
                         const CustomFieldSpacer(),
 
@@ -381,18 +363,23 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildTitle('Postingan Kegiatan'),
                         buildDescription(
                             'Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
-                        CustomFilePickerButton(
-                          onTap: () async {
-                            String? url = await selectAndUploadFile('postingKegiatanButton',
-                                // widget.idUsulanKegiatan,
+                        StreamBuilder<String?>(
+                          stream: _postinganKegiatanStream.stream,
+                          builder: (context, snapshot) {
+                            String text = snapshot.data ?? "";
+                            return CustomFilePickerButton(
+                              onTap: () async {
+                                String? url = await selectAndUploadFile('postingKegiatan${user?.uid ?? "unknown"}');
+                                _postinganKegiatanController = url;
+                                _postinganKegiatanStream.add(url);
+                              },
+                              onDelete: () {
+                                _postinganKegiatanStream.add("");
+                                _postinganKegiatanController = "";
+                              },
+                              text: text,
                             );
-                            setState(() {
-                              _postinganKegiatanController = url;
-                            });
                           },
-                          text: _postinganKegiatanController != ""
-                              ? getFileNameFromURL(_postinganKegiatanController!)
-                              : "",
                         ),
 
                         const CustomFieldSpacer(),
@@ -400,51 +387,47 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildTitle('Surat Undangan Kegiatan'),
                         buildDescription(
                             'Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
-                        // StreamBuilder<String?>(
-                        //   stream: _suratUndanganKegiatanControllerStream.stream,
-                        //   builder: (context, snapshot) {
-                        //     String text = snapshot.data ?? "";
-                        //     return CustomFilePickerButton2(
-                        //       onTap: () async {
-                        //         String? url = await selectAndUploadFile('suratUndanganKegiatan${user?.uid ?? "unknown"}');
-                        //         _suratUndanganKegiatanController = url;
-                        //         _suratUndanganKegiatanControllerStream.add(url);
-                        //       },
-                        //       text: text,
-                        //       controller: _suratUndanganKegiatanController ?? "",
-                        //     );
-                        //   },
-                        // ),
                         StreamBuilder<String?>(
-                          stream: _suratUndanganKegiatanControllerStream.stream,
+                          stream: _suratUndanganKegiatanStream.stream,
                           builder: (context, snapshot) {
                             String text = snapshot.data ?? "";
-                            return CustomFilePickerButton2(
+                            return CustomFilePickerButton(
                               onTap: () async {
                                 String? url = await selectAndUploadFile('suratUndanganKegiatan${user?.uid ?? "unknown"}');
                                 _suratUndanganKegiatanController = url;
-                                _suratUndanganKegiatanControllerStream.add(url);
+                                _suratUndanganKegiatanStream.add(url);
+                              },
+                              onDelete: () {
+                                _suratUndanganKegiatanStream.add("");
+                                _suratUndanganKegiatanController = "";
                               },
                               text: text,
-                              onDelete: () {
-                                _suratUndanganKegiatanController = "";
-                                _suratUndanganKegiatanControllerStream.add("");
-                              },
                             );
                           },
                         ),
-
-
 
                         const CustomFieldSpacer(),
 
                         buildTitle('Linimasa Kegiatan'),
                         buildDescription(
                             'Unggah foto linimasa kegiatan yang akan dilaksanakan.'),
-                        CustomFilePickerButton(
-                          onTap: () => selectAndUploadFile(
-                            'linimasaKegiatanButton',
-                          ),
+                        StreamBuilder<String?>(
+                          stream: _linimasaKegiatanStream.stream,
+                          builder: (context, snapshot) {
+                            String text = snapshot.data ?? "";
+                            return CustomFilePickerButton(
+                              onTap: () async {
+                                String? url = await selectAndUploadFile('postingKegiatan${user?.uid ?? "unknown"}');
+                                _linimasaKegiatanController = url;
+                                _linimasaKegiatanStream.add(url);
+                              },
+                              onDelete: () {
+                                _linimasaKegiatanStream.add("");
+                                _linimasaKegiatanController = "";
+                              },
+                              text: text,
+                            );
+                          },
                         ),
 
                         const CustomFieldSpacer(),
@@ -452,10 +435,23 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildTitle('Tempat Kegiatan'),
                         buildDescription(
                             'Unggah foto tempat kegiatan yang akan dilaksanakan.'),
-                        CustomFilePickerButton(
-                          onTap: () => selectAndUploadFile(
-                            'tempatKegiatanButton',
-                          ),
+                        StreamBuilder<String?>(
+                          stream: _fotoTempatKegiatanStream.stream,
+                          builder: (context, snapshot) {
+                            String text = snapshot.data ?? "";
+                            return CustomFilePickerButton(
+                              onTap: () async {
+                                String? url = await selectAndUploadFile('postingKegiatan${user?.uid ?? "unknown"}');
+                                _fotoTempatKegiatanController = url;
+                                _fotoTempatKegiatanStream.add(url);
+                              },
+                              onDelete: () {
+                                _fotoTempatKegiatanStream.add("");
+                                _fotoTempatKegiatanController = "";
+                              },
+                              text: text,
+                            );
+                          },
                         ),
 
                         const CustomFieldSpacer(),
@@ -482,11 +478,34 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                 //   ),
                                 // );
 
-                                print(_suratUndanganKegiatanController);
 
                                 // print('plainText: ${_latarBelakangController.document.toPlainText()}');
                                 // print('textStyle: ${_latarBelakangController.document.toDelta()}');
                                 // // print('document ${_latarBelakangController.document.toDelta()}');
+
+                                String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
+                                context.read<UsulanKegiatanBloc>().add(
+                                  UpdateUsulanKegiatanEvent(
+                                    usulanKegiatan: usulanKegiatan.copyWith(
+                                      latarBelakang: _latarBelakangController.document.toPlainText(),
+                                      tujuanKegiatan: _tujuanKegiatanController.document.toPlainText(),
+                                      manfaatKegiatan: _manfaatKegiatanController.document.toPlainText(),
+                                      bentukKegiatan: _bentukPelaksanaanKegiatanController.document.toPlainText(),
+                                      targetKegiatan: _targetPencapaianKegiatanController.document.toPlainText(),
+                                      waktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.document.toPlainText(),
+                                      rencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.document.toPlainText(),
+                                      perlengkapanDanPeralatan: _perlengkapanDanPeralatanController.document.toPlainText(),
+                                      penutup: _penutupController.document.toPlainText(),
+                                      fotoPostinganKegiatan: _postinganKegiatanController,
+                                      fotoSuratUndanganKegiatan: _suratUndanganKegiatanController,
+                                      fotoLinimasaKegiatan: _linimasaKegiatanController,
+                                      fotoTempatKegiatan: _fotoTempatKegiatanController,
+                                      createdAt: currentDate,
+                                      updatedAt: currentDate,
+                                    ),
+                                  ),
+                                );
                               },
                               text: 'Kirim',
                             ),
@@ -524,69 +543,3 @@ class SuratUndanganCubit extends Cubit<String?> {
     emit(url);
   }
 }
-
-
-class CustomFilePickerButton2 extends StatefulWidget {
-  final VoidCallback onTap;
-  final String text;
-  final VoidCallback onDelete;
-
-  const CustomFilePickerButton2({
-    super.key,
-    required this.onTap,
-    required this.text,
-    required this.onDelete,
-  });
-
-  @override
-  State<CustomFilePickerButton2> createState() => _CustomFilePickerButton2State();
-}
-
-class _CustomFilePickerButton2State extends State<CustomFilePickerButton2> {
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: widget.text == "" ? widget.onTap : null,
-      child: Container(
-        width: double.infinity,
-        alignment: Alignment.center,
-        padding: const EdgeInsets.all(8.0),
-        constraints: const BoxConstraints(minHeight: 35.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-          border: Border.all(color: Colors.white),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                widget.text,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            if (widget.text == "")
-              Image.asset(
-                'assets/icons/attach.png',
-                width: 24,
-              )
-            else
-              InkWell(
-                onTap: () {
-                  deleteFileFromFirebase(widget.text);
-                  widget.onDelete();
-                },
-                child: Image.asset(
-                  "assets/icons/delete.png",
-                  width: 24,
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-

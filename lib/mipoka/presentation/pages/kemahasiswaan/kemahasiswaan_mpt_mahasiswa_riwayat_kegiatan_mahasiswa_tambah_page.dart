@@ -56,7 +56,7 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
                   const CustomFieldSpacer(),
 
                   buildTitle('Import File'),
-                  CustomFilePickerButton(onTap: () {}),
+                  // CustomFilePickerButton(onTap: () {}),
 
                   const CustomFieldSpacer(),
 

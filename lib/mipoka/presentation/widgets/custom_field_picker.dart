@@ -3,14 +3,14 @@ import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart'
 
 class CustomFilePickerButton extends StatefulWidget {
   final VoidCallback onTap;
-  late String text;
-  late final String controller;
+  final VoidCallback onDelete;
+  final String text;
 
-  CustomFilePickerButton({
+  const CustomFilePickerButton({
     super.key,
     required this.onTap,
-    this.controller = "",
-    this.text = "",
+    required this.onDelete,
+    required this.text,
   });
 
   @override
@@ -36,31 +36,29 @@ class _CustomFilePickerButtonState extends State<CustomFilePickerButton> {
           children: [
             Expanded(
               child: Text(
+                // Uri.parse(widget.text).pathSegments.last,
                 widget.text,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
-
-            widget.text == "" ?
-            Image.asset(
-              'assets/icons/attach.png',
-              width: 24,
-            ) :
-            InkWell(
-              onTap: () {
-                deleteFileFromFirebase(widget.text);
-                setState(() {
-                  widget.text = "";
-                  widget.controller = "";
-                });
-              },
-              child: Image.asset(
-                "assets/icons/delete.png",
+            if (widget.text == "")
+              Image.asset(
+                'assets/icons/attach.png',
                 width: 24,
+              )
+            else
+              InkWell(
+                onTap: () {
+                  deleteFileFromFirebase(widget.text);
+                  widget.onDelete();
+                },
+                child: Image.asset(
+                  "assets/icons/delete.png",
+                  width: 24,
+                ),
               ),
-            ),
           ],
         ),
       ),
