@@ -426,7 +426,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                 _suratUndanganKegiatanControllerStream.add(url);
                               },
                               text: text,
-                              controller: _suratUndanganKegiatanController ?? "",
                               onDelete: () {
                                 _suratUndanganKegiatanController = "";
                                 _suratUndanganKegiatanControllerStream.add("");
@@ -529,15 +528,13 @@ class SuratUndanganCubit extends Cubit<String?> {
 
 class CustomFilePickerButton2 extends StatefulWidget {
   final VoidCallback onTap;
-  late String text;
-  late String controller;
+  final String text;
   final VoidCallback onDelete;
 
-  CustomFilePickerButton2({
+  const CustomFilePickerButton2({
     super.key,
     required this.onTap,
-    required this.controller,
-    this.text = "",
+    required this.text,
     required this.onDelete,
   });
 
@@ -579,7 +576,7 @@ class _CustomFilePickerButton2State extends State<CustomFilePickerButton2> {
               InkWell(
                 onTap: () {
                   deleteFileFromFirebase(widget.text);
-                  widget.onDelete(); // Memanggil fungsi onDelete untuk mengubah nilai _suratUndanganKegiatanController
+                  widget.onDelete();
                 },
                 child: Image.asset(
                   "assets/icons/delete.png",
