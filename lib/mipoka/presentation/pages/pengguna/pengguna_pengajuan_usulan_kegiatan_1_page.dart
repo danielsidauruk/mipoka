@@ -388,8 +388,9 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
   @override
   void dispose() {
-    BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).close();
-    BlocProvider.of<MipokaUserBloc>(context, listen: false).close();
+    context.read<UsulanKegiatanBloc>().close();
+    context.read<MipokaUserBloc>().close();
+    context.read<TempatKegiatanCubit>().close();
     super.dispose();
   }
 

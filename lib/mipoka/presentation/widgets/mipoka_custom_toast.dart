@@ -6,7 +6,7 @@ void mipokaCustomToast(String msg) {
     msg: msg,
     toastLength: Toast.LENGTH_SHORT,
     gravity: ToastGravity.BOTTOM,
-    timeInSecForIosWeb: 1,
+    timeInSecForIosWeb: 2,
     backgroundColor: Colors.white,
     textColor: Colors.black,
     fontSize: 16.0,

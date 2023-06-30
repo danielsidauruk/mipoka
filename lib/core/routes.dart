@@ -1,6 +1,7 @@
 // mobile
 const loginPageRoute = '/loginPageRoute';
 const gantiPasswordPageRoute = '/gantiPasswordPageRoute';
+const gantiPasswordPage2Route = '/gantiPassword2PageRoute';
 const lupaPasswordPageRoute = '/lupaPasswordPageRoute';
 const passwordBaruPageRoute = '/passwordBaruPageRoute';
 const notifikasiPageRoute = '/notifikasiPageRoute';

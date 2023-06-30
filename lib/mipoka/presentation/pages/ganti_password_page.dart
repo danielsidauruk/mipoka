@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -22,8 +24,6 @@ class _GantiPasswordPageState extends State<GantiPasswordPage> {
   final TextEditingController _kataSandiLamaController = TextEditingController();
   final TextEditingController _kataSandiBaruController = TextEditingController();
   final TextEditingController _kataSandiBaru2Controller = TextEditingController();
-
-  final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +61,65 @@ class _GantiPasswordPageState extends State<GantiPasswordPage> {
 
                   const CustomFieldSpacer(),
 
-                  CustomMipokaButton(
-                    onTap: () => Navigator.pop(context),
-                    text: 'Ganti Password',
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomMipokaButton(
+                        onTap: () => Navigator.pop(context),
+                        text: "Batal",
+                      ),
+
+                      const SizedBox(width: 8.0),
+
+                      CustomMipokaButton(
+                        onTap: () {
+                          User? user = FirebaseAuth.instance.currentUser;
+                          
+                          if (_kataSandiLamaController.text.isNotEmpty && _kataSandiBaruController.text.isNotEmpty 
+                              && _kataSandiBaru2Controller.text.isNotEmpty) {
+                            if(_kataSandiBaruController.text == _kataSandiBaru2Controller.text) {
+                              AuthCredential credential = EmailAuthProvider.credential(
+                                email: user?.email ?? "",
+                                password: _kataSandiLamaController.text,
+                              );
+
+                              user?.reauthenticateWithCredential(credential).then((result) {
+                                user.updatePassword(_kataSandiBaruController.text)
+                                    .then((_) {
+                                  mipokaCustomToast("Perubahan password berhasil disimpan.");
+                                  Navigator.pushNamed(context, penggunaBerandaPageRoute);})
+                                    .catchError(
+                                      (error) {
+                                    final errorMessage = error.toString();
+                                    final int startIndex;
+                                    if (error.toString().contains('Firebase:')) {
+                                      startIndex = errorMessage.indexOf("Firebase:");
+                                      mipokaCustomToast(errorMessage.substring(startIndex));
+                                    } else {
+                                      mipokaCustomToast(errorMessage);
+                                    }},
+                                );
+                              }).catchError((error) {
+                                final errorMessage = error.toString();
+                                final int startIndex;
+                                if (error.toString().contains('Firebase:')) {
+                                  startIndex = errorMessage.indexOf("Firebase:");
+                                  mipokaCustomToast(errorMessage.substring(startIndex));
+                                } else {
+                                  mipokaCustomToast(errorMessage);
+                                }
+                                // mipokaCustomToast(error.toString());
+                              });
+                            } else {
+                              mipokaCustomToast("Password baru dan Ulang password baru harus sama.");
+                            }
+                          } else {
+                            mipokaCustomToast("Harap isi semua field yang diperlukan.");
+                          }
+                        },
+                        text: 'Ganti Password',
+                      ),
+                    ],
                   ),
                 ],
               ),
