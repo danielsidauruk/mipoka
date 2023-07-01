@@ -94,6 +94,8 @@ const kemahasiswaanBerandaUpdateBeritaPageRoute =
     'kemahasiswaanBerandaUpdateBeritaPageRoute';
 const kemahasiswaanMPTMahasiswaPeriodePageRoute =
     '/kemahasiswaanMPTMahasiswaPeriodePageRoute';
+const kemahasiswaanMPTMahasiswaPeriodeTambahPageRoute =
+    'kemahasiswaanMPTMahasiswaPeriodeTambahPageRoute';
 const kemahasiswaanMPTMahasiswaTambahPeriodePageRoute =
     '/kemahasiswaanMPTMahasiswaTambahPeriodePageRoute';
 const kemahasiswaanMPTMahasiswaJenisKegiatanPageRoute =

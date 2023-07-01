@@ -21,6 +21,7 @@ const listTingkat = ['Desa/Kelurahan', 'Kecamatan', 'Kabupaten/Kota', 'Provinsi'
 const listTingkat2 = ['Semua', 'Desa/Kelurahan', 'Kecamatan', 'Kabupaten/Kota', 'Provinsi', 'Nasional', 'Internasional'];
 
 const years2 = ['Semua', "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014"];
+const periodeYears = ["2030", "2029", "2028", "2027", "2026", "2025", "2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014"];
 
 final List<String> years = List.generate(10, (index) =>
     (DateTime.now().year - index).toString(),

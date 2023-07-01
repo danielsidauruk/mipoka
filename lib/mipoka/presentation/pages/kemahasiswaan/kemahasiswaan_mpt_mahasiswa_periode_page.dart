@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mipoka/core/constanst.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class KemahasiswaanMPTMahasiswaPeriodePage extends StatefulWidget {
   const KemahasiswaanMPTMahasiswaPeriodePage({super.key});
@@ -19,6 +21,13 @@ class KemahasiswaanMPTMahasiswaPeriodePage extends StatefulWidget {
 
 class _KemahasiswaanMPTMahasiswaPeriodePageState
     extends State<KemahasiswaanMPTMahasiswaPeriodePage> {
+
+  @override
+  void initState() {
+    context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,122 +42,147 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
               const CustomMobileTitle(
                   text: 'Kemahasiswaan - MPT Mahasiswa - Periode'),
               const CustomFieldSpacer(),
-              CustomContentBox(
-                children: [
-                  buildTitle('Total Periode : 2'),
-                  CustomAddButton(
-                    buttonText: 'Tambah',
-                    onPressed: () => Navigator.pushNamed(context,
-                        kemahasiswaanMPTMahasiswaTambahPeriodePageRoute),
-                  ),
-                  const CustomFieldSpacer(),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                    ),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: DataTable(
-                          columnSpacing: 40,
-                          border: TableBorder.all(color: Colors.white),
-                          columns: const [
-                            DataColumn(
-                              label: Text(
-                                'Tahun',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Tanggal Mulai',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Tanggal Selesai',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              tooltip: 'Aksi yang akan dilakukan',
-                              label: Text(
-                                'Aksi',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ],
-                          rows: List<DataRow>.generate(6, (int index) {
-                            return DataRow(
-                              cells: [
-                                const DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      '2023',
+              BlocBuilder<PeriodeMptBloc, PeriodeMptState>(
+                builder: (context, state) {
+                  if(state is PeriodeMptLoading) {
+                    return const Text('Loading ...');
+                  } else if (state is AllPeriodeMptHasData) {
+                    final periodeMptList = state.periodeMptList;
+
+                    return CustomContentBox(
+                      children: [
+                        buildTitle('Total Periode : ${periodeMptList.length}'),
+                        CustomAddButton(
+                          buttonText: 'Tambah',
+                          onPressed: () => Navigator.pushNamed(
+                            context,
+                            kemahasiswaanMPTMahasiswaTambahPeriodePageRoute,
+                          ),
+                        ),
+                        const CustomFieldSpacer(),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                          ),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: DataTable(
+                                columnSpacing: 40,
+                                border: TableBorder.all(color: Colors.white),
+                                columns: const [
+                                  DataColumn(
+                                    label: Text(
+                                      'Tahun',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
                                     ),
                                   ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      '1${index + 1} Mei 2023',
+                                  DataColumn(
+                                    label: Text(
+                                      'Tanggal Mulai',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
                                     ),
                                   ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      '1${index + 2} Mei 2023',
+                                  DataColumn(
+                                    label: Text(
+                                      'Tanggal Selesai',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
                                     ),
                                   ),
-                                ),
-                                DataCell(
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {},
-                                        child: Image.asset(
-                                          'assets/icons/edit.png',
-                                          width: 24,
+                                  DataColumn(
+                                    tooltip: 'Aksi yang akan dilakukan',
+                                    label: Text(
+                                      'Aksi',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                                rows: List<DataRow>.generate(periodeMptList.length, (int index) {
+                                  final periodeMpt = periodeMptList[index];
+
+                                  return DataRow(
+                                    cells: [
+                                      DataCell(
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            periodeMpt.tahunPeriodeMpt,
+                                          ),
                                         ),
                                       ),
+                                      DataCell(
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            periodeMpt.tanggalMulaiPeriodeMpt,
+                                          ),
+                                        ),
+                                      ),
+                                      DataCell(
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            periodeMpt.tanggalBerakhirPeriodeMpt,
+                                          ),
+                                        ),
+                                      ),
+                                      DataCell(
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            InkWell(
+                                              onTap: () {},
+                                              child: Image.asset(
+                                                'assets/icons/edit.png',
+                                                width: 24,
+                                              ),
+                                            ),
 
-                                      const SizedBox(width: 16.0,),
+                                            const SizedBox(width: 16.0,),
 
-                                      InkWell(
-                                        onTap: () {},
-                                        child: Image.asset(
-                                          'assets/icons/delete.png',
-                                          width: 24,
+                                            InkWell(
+                                              onTap: () {
+                                                context.read<PeriodeMptBloc>().add(
+                                                  DeletePeriodeMptEvent(periodeMpt.idPeriodeMpt),
+                                                );
+                                                context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+                                                mipokaCustomToast("Periode MPT telah dihapus.");
+                                              },
+                                              child: Image.asset(
+                                                'assets/icons/delete.png',
+                                                width: 24,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
-                                  ),
-                                ),
-                              ],
-                            );
-                          }),
+                                  );
+                                }),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                ],
+                      ],
+                    );
+
+                  } else if (state is PeriodeMptError) {
+                    return Text(state.message);
+                  } else {
+                    return const Text("PeriodeMpt hasn't Triggered yet.");
+                  }
+                },
               ),
             ],
           ),
         ),
-      ),
+    ),
     );
   }
 }

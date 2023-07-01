@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class PeriodeMpt extends Equatable{
   final int idPeriodeMpt;
   final String tahunPeriodeMpt;
-  final String periodeMengulangMpt;
+  final bool periodeMengulangMpt;
   final String tanggalMulaiPeriodeMpt;
   final String tanggalBerakhirPeriodeMpt;
   final String createdAt;
@@ -26,7 +26,7 @@ class PeriodeMpt extends Equatable{
   PeriodeMpt copyWith({
     int? idPeriodeMpt,
     String? tahunPeriodeMpt,
-    String? periodeMengulangMpt,
+    bool? periodeMengulangMpt,
     String? tanggalMulaiPeriodeMpt,
     String? tanggalBerakhirPeriodeMpt,
     String? createdAt,

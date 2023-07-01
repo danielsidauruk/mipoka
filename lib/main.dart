@@ -28,6 +28,7 @@ import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/ganti_password_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_periode_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_prestasi_mahasiswa_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_update_berita.dart';
@@ -384,10 +385,11 @@ class MyApp extends StatelessWidget {
             case kemahasiswaanMPTMahasiswaPeriodePageRoute:
               return MaterialPageRoute(
                   builder: (_) => const KemahasiswaanMPTMahasiswaPeriodePage());
+              // TODO:
             case kemahasiswaanMPTMahasiswaTambahPeriodePageRoute:
               return MaterialPageRoute(
                   builder: (_) =>
-                      const KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage());
+                      const KemahasiswaanMPTMahasiswaPeriodeTambahPage());
             case kemahasiswaanMPTMahasiswaJenisKegiatanPageRoute:
               return MaterialPageRoute(
                   builder: (_) =>

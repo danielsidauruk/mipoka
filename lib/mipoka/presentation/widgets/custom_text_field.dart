@@ -22,7 +22,7 @@ class CustomTextField extends StatelessWidget {
         border: Border.all(color: Colors.white),
       ),
       child: TextField(
-        textInputAction: TextInputAction.newline,
+        // textInputAction: TextInputAction.newline,
         keyboardType: textInputType,
         controller: controller,
         maxLines: null,

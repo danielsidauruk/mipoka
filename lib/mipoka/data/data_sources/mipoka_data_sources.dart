@@ -432,7 +432,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<PeriodeMptModel>> readAllPeriodeMpt() async {
     final String response =
-    await rootBundle.loadString('assets/json_file/periode_list.json');
+    await rootBundle.loadString('assets/json_file/periode_mpt_list.json');
     List<dynamic> resultList = json.decode(response);
 
     List<PeriodeMptModel> result =
