@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/revisi_laporan_bloc/revisi_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_comment_field.dart';
@@ -17,7 +19,12 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 
 class PemeriksaPengajuanLaporanKegiatan3Page extends StatefulWidget {
-  const PemeriksaPengajuanLaporanKegiatan3Page({super.key});
+  const PemeriksaPengajuanLaporanKegiatan3Page({
+    super.key,
+    required this.idRevisiLaporan
+  });
+  
+  final int idRevisiLaporan;
 
   @override
   State<PemeriksaPengajuanLaporanKegiatan3Page> createState() =>
@@ -39,6 +46,14 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
       TextEditingController();
   final TextEditingController _fakturpembayaranController =
       TextEditingController();
+  
+  
+  @override
+  void initState() {
+    context.read<RevisiLaporanBloc>().add(
+        ReadRevisiLaporanEvent(idRevisiLaporan: widget.idRevisiLaporan));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,117 +70,136 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
               const CustomMobileTitle(
                   text: 'Pemeriksa - Kegiatan - Laporan Kegiatan'),
               const CustomFieldSpacer(),
-              CustomContentBox(
-                children: [
-                  CustomCommentWidget(
-                    title: 'Latar Belakang',
-                    mainText:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
-                    controller: _latarBelakangController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentWidget(
-                    title: 'Tujuan Kegiatan',
-                    mainText:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
-                    controller: _hasilKegiatanController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentWidget(
-                    title: 'Penutup',
-                    mainText:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
-                    controller: _penutupController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentForTable(
-                    title: 'Postingan Kegiatan',
-                    description: 'Catatan (Berisi file yang harus direvisi)',
-                    controller: _postinganKegiatanController,
-                  ),
-                  CustomIconButton(
-                    onTap: () => selectAndUploadFile(
-                      'postingLaporanKegiatanButton',
-                      // 1
-                    ),
-                    text: 'postingan_kegiatan.pdf',
-                    icon: Icons.picture_as_pdf,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentForTable(
-                    title: 'Dokumentasi Kegiatan',
-                    description: 'Catatan (Berisi file yang harus direvisi)',
-                    controller: _dokumentasiKegiatanController,
-                  ),
-                  CustomIconButton(
-                    onTap: () => selectAndUploadFile(
-                      'dokumentasiKegiatanButton',
-                      // 1,
-                    ),
-                    text: 'dokumentasi_kegiatan.pdf',
-                    icon: Icons.picture_as_pdf,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentForTable(
-                    title: 'Tabulasi Hasil',
-                    description: 'Catatan (Berisi file yang harus direvisi)',
-                    controller: _tabulasiHasilController,
-                  ),
-                  CustomIconButton(
-                    onTap: () => selectAndUploadFile(
-                      'tabulasiHasilButton',
-                      // 1,
-                    ),
-                    text: 'tabulasi_hasil.pdf',
-                    icon: Icons.picture_as_pdf,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentForTable(
-                    title: 'Faktur Pembayaran',
-                    description: 'Catatan (Berisi file yang harus direvisi)',
-                    controller: _fakturpembayaranController,
-                  ),
-                  CustomIconButton(
-                    onTap: () => selectAndUploadFile(
-                      'fakturPembayaranButton',
-                      // 1
-                    ),
-                    text: 'tabulasi_hasil.pdf',
-                    icon: Icons.picture_as_pdf,
-                  ),
-                  const CustomFieldSpacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      // CustomButton(
-                      //   navigation: () {
-                      //     Navigator.pop(context);
-                      //   },
-                      //   text: 'Sebelumnya',
-                      // ),
-                      //
-                      // const SizedBox(width: 4.0),
+              BlocBuilder<RevisiLaporanBloc, RevisiLaporanState>(
+                builder: (context, state) {
+                  if (state is RevisiLaporanLoading) {
+                    return const Text("Loading ....");
+                  } else if (state is RevisiLaporanHasData) {
+                    final revisiLaporan = state.revisiLaporan;
 
-                      CustomMipokaButton(
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, pemeriksaDaftarLaporanKegiatanPageRoute);
-                        },
-                        text: 'Tolak',
-                      ),
+                    _latarBelakangController.text = revisiLaporan.revisiLatarBelakang;
+                    _hasilKegiatanController.text = revisiLaporan.revisiHasilKegiatan;
+                    _penutupController.text = revisiLaporan.revisiHasilKegiatan;
+                    _postinganKegiatanController.text = revisiLaporan.revisiFotoPostinganKegiatan;
 
-                      const SizedBox(width: 4.0),
+                    return CustomContentBox(
+                      children: [
+                        CustomCommentWidget(
+                          title: 'Latar Belakang',
+                          mainText:
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                          controller: _latarBelakangController,
+                        ),
+                        const CustomFieldSpacer(),
+                        CustomCommentWidget(
+                          title: 'Tujuan Kegiatan',
+                          mainText:
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                          controller: _hasilKegiatanController,
+                        ),
+                        const CustomFieldSpacer(),
+                        CustomCommentWidget(
+                          title: 'Penutup',
+                          mainText:
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                          controller: _penutupController,
+                        ),
+                        const CustomFieldSpacer(),
+                        CustomCommentForTable(
+                          title: 'Postingan Kegiatan',
+                          description: 'Catatan (Berisi file yang harus direvisi)',
+                          controller: _postinganKegiatanController,
+                        ),
+                        CustomIconButton(
+                          onTap: () => selectAndUploadFile(
+                            'postingLaporanKegiatanButton',
+                            // 1
+                          ),
+                          text: 'postingan_kegiatan.pdf',
+                          icon: Icons.picture_as_pdf,
+                        ),
+                        const CustomFieldSpacer(),
+                        CustomCommentForTable(
+                          title: 'Dokumentasi Kegiatan',
+                          description: 'Catatan (Berisi file yang harus direvisi)',
+                          controller: _dokumentasiKegiatanController,
+                        ),
+                        CustomIconButton(
+                          onTap: () => selectAndUploadFile(
+                            'dokumentasiKegiatanButton',
+                            // 1,
+                          ),
+                          text: 'dokumentasi_kegiatan.pdf',
+                          icon: Icons.picture_as_pdf,
+                        ),
+                        const CustomFieldSpacer(),
+                        CustomCommentForTable(
+                          title: 'Tabulasi Hasil',
+                          description: 'Catatan (Berisi file yang harus direvisi)',
+                          controller: _tabulasiHasilController,
+                        ),
+                        CustomIconButton(
+                          onTap: () => selectAndUploadFile(
+                            'tabulasiHasilButton',
+                            // 1,
+                          ),
+                          text: 'tabulasi_hasil.pdf',
+                          icon: Icons.picture_as_pdf,
+                        ),
+                        const CustomFieldSpacer(),
+                        CustomCommentForTable(
+                          title: 'Faktur Pembayaran',
+                          description: 'Catatan (Berisi file yang harus direvisi)',
+                          controller: _fakturpembayaranController,
+                        ),
+                        CustomIconButton(
+                          onTap: () => selectAndUploadFile(
+                            'fakturPembayaranButton',
+                            // 1
+                          ),
+                          text: 'tabulasi_hasil.pdf',
+                          icon: Icons.picture_as_pdf,
+                        ),
+                        const CustomFieldSpacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            // CustomButton(
+                            //   navigation: () {
+                            //     Navigator.pop(context);
+                            //   },
+                            //   text: 'Sebelumnya',
+                            // ),
+                            //
+                            // const SizedBox(width: 4.0),
 
-                      CustomMipokaButton(
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, pemeriksaDaftarLaporanKegiatanPageRoute);
-                        },
-                        text: 'Terima',
-                      ),
-                    ],
-                  )
-                ],
+                            CustomMipokaButton(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, pemeriksaDaftarLaporanKegiatanPageRoute);
+                              },
+                              text: 'Tolak',
+                            ),
+
+                            const SizedBox(width: 4.0),
+
+                            CustomMipokaButton(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, pemeriksaDaftarLaporanKegiatanPageRoute);
+                              },
+                              text: 'Terima',
+                            ),
+                          ],
+                        )
+                      ],
+                    );
+                  } else if (state is RevisiLaporanError) {
+                    return Text(state.message);
+                  } else {
+                    return const Text("RevisiLaporanBloc hasn't been triggered.");
+                  }
+                },
               )
             ],
           ),

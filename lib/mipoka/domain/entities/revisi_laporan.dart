@@ -6,8 +6,8 @@ class RevisiLaporan extends Equatable {
   final int idLaporan;
   final int idUsulan;
   final String revisiPencapaian;
-  final List<String> revisiIdPesertaKegiatanLaporan;
-  final List<String> revisiIdBiayaKegiatan;
+  final String revisiPesertaKegiatanLaporan;
+  final String revisiBiayaKegiatan;
   final String revisiLatarBelakang;
   final String revisiHasilKegiatan;
   final String revisiPenutup;
@@ -26,8 +26,8 @@ class RevisiLaporan extends Equatable {
     required this.idLaporan,
     required this.idUsulan,
     required this.revisiPencapaian,
-    required this.revisiIdPesertaKegiatanLaporan,
-    required this.revisiIdBiayaKegiatan,
+    required this.revisiPesertaKegiatanLaporan,
+    required this.revisiBiayaKegiatan,
     required this.revisiLatarBelakang,
     required this.revisiHasilKegiatan,
     required this.revisiPenutup,
@@ -47,8 +47,8 @@ class RevisiLaporan extends Equatable {
     int? idLaporan,
     int? idUsulan,
     String? revisiPencapaian,
-    List<String>? revisiIdPesertaKegiatanLaporan,
-    List<String>? revisiIdBiayaKegiatan,
+    String? revisiPesertaKegiatanLaporan,
+    String? revisiBiayaKegiatan,
     String? revisiLatarBelakang,
     String? revisiHasilKegiatan,
     String? revisiPenutup,
@@ -67,8 +67,8 @@ class RevisiLaporan extends Equatable {
         idLaporan: idLaporan ?? this.idLaporan,
         idUsulan: idUsulan ?? this.idUsulan,
         revisiPencapaian: revisiPencapaian ?? this.revisiPencapaian,
-        revisiIdPesertaKegiatanLaporan: revisiIdPesertaKegiatanLaporan ?? this.revisiIdPesertaKegiatanLaporan,
-        revisiIdBiayaKegiatan: revisiIdBiayaKegiatan ?? this.revisiIdBiayaKegiatan,
+        revisiPesertaKegiatanLaporan: revisiPesertaKegiatanLaporan ?? this.revisiPesertaKegiatanLaporan,
+        revisiBiayaKegiatan: revisiBiayaKegiatan ?? this.revisiBiayaKegiatan,
         revisiLatarBelakang: revisiLatarBelakang ?? this.revisiLatarBelakang,
         revisiHasilKegiatan: revisiHasilKegiatan ?? this.revisiHasilKegiatan,
         revisiPenutup: revisiPenutup ?? this.revisiPenutup,
@@ -89,8 +89,8 @@ class RevisiLaporan extends Equatable {
     idLaporan,
     idUsulan,
     revisiPencapaian,
-    revisiIdPesertaKegiatanLaporan,
-    revisiIdBiayaKegiatan,
+    revisiPesertaKegiatanLaporan,
+    revisiBiayaKegiatan,
     revisiLatarBelakang,
     revisiHasilKegiatan,
     revisiPenutup,
