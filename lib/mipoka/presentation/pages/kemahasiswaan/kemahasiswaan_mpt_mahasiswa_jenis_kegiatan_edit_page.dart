@@ -83,6 +83,7 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanEditPageState extends State<Kemahas
                                 ),
                               )
                           );
+                          context.read<JenisKegiatanMptBloc>().add(ReadAllJenisKegiatanMptEvent());
                           mipokaCustomToast("Jenis Kegiatan MPT berhasil diupdate.");
                           Navigator.pop(context);
                         },

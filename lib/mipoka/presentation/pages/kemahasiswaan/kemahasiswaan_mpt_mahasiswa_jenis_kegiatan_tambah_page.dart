@@ -76,6 +76,7 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanTambahPageState extends State<Kemah
                               )
                             );
                             mipokaCustomToast("Jenis Kegiatan MPT berhasil dibuat.");
+                            context.read<JenisKegiatanMptBloc>().add(ReadAllJenisKegiatanMptEvent());
                             Navigator.pop(context);
                           } else {
                             mipokaCustomToast("Nama Jenis kegiatan tidak boleh kosong");

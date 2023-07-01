@@ -130,9 +130,12 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                                             const SizedBox(width: 8.0),
 
                                             InkWell(
-                                              onTap: () => context.read<JenisKegiatanMptBloc>().add(
-                                                DeleteJenisKegiatanMptEvent(idJenisKegiatan: jenisKegiatanMpt.idJenisKegiatanMpt),
-                                              ),
+                                              onTap: () {
+                                                context.read<JenisKegiatanMptBloc>().add(
+                                                  DeleteJenisKegiatanMptEvent(idJenisKegiatan: jenisKegiatanMpt.idJenisKegiatanMpt),
+                                                );
+                                                context.read<JenisKegiatanMptBloc>().add(ReadAllJenisKegiatanMptEvent());
+                                              },
                                               child: Image.asset(
                                                 'assets/icons/delete.png',
                                                 width: 24,

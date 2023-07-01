@@ -172,7 +172,7 @@ class MyApp extends StatelessWidget {
         ),
         home: user?.email == ""
             ? const LoginPage()
-            : const PenggunaBerandaPage(),
+            : const KemahasiswaanBerandaPage(),
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {

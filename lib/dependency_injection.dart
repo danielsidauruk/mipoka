@@ -7,6 +7,7 @@ import 'package:mipoka/mipoka/domain/use_cases/Periode_mpt_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/admin_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/berita_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/biaya_kegiatan_use_case.dart';
+import 'package:mipoka/mipoka/domain/use_cases/jenis_kegiatan_mpt_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/kegiatan_mpt_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/laporan_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/ormawa_use_case.dart';
@@ -73,6 +74,7 @@ Future<void> init() async {
   locator.registerLazySingleton(() => BeritaUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => BiayaKegiatanUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => KegiatanMptUseCase(mipokaRepositories: locator()));
+  locator.registerLazySingleton(() => JenisKegiatanMptUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => LaporanUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => MipokaUserUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => OrmawaUseCase(mipokaRepositories: locator()));
