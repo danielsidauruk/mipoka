@@ -27,7 +27,7 @@ class CreatePeriodeMptEvent extends PeriodeMptEvent {
 class UpdatePeriodeMptEvent extends PeriodeMptEvent {
   final PeriodeMpt periodeMpt;
 
-  const UpdatePeriodeMptEvent(this.periodeMpt);
+  const UpdatePeriodeMptEvent({required this.periodeMpt});
 
   @override
   List<Object> get props => [periodeMpt];

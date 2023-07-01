@@ -137,7 +137,11 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
                                           MainAxisAlignment.spaceEvenly,
                                           children: [
                                             InkWell(
-                                              onTap: () {},
+                                              onTap: () => Navigator.pushNamed(
+                                                context,
+                                                kemahasiswaanMPTMahasiswaPeriodeEditPageRoute,
+                                                arguments: periodeMpt,
+                                              ),
                                               child: Image.asset(
                                                 'assets/icons/edit.png',
                                                 width: 24,

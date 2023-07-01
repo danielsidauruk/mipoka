@@ -1,3 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
+
 const listStatus = ['Semua', 'Menunggu', 'Berlansung', 'Ditolak'];
 const listNamaOrmawa = ['Ormawa A', 'Ormawa B', 'Ormawa C', 'Ormawa D', 'Ormawa E'];
 
@@ -28,3 +31,7 @@ final List<String> years = List.generate(10, (index) =>
 );
 
 const listProdi = ['Teknik Informatika', 'Manajemen', 'Akuntansi', 'Sistem Informatika'];
+
+int newId = DateTime.now().microsecondsSinceEpoch;
+User? user = FirebaseAuth.instance.currentUser;
+String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());

@@ -98,6 +98,8 @@ const kemahasiswaanMPTMahasiswaPeriodeTambahPageRoute =
     'kemahasiswaanMPTMahasiswaPeriodeTambahPageRoute';
 const kemahasiswaanMPTMahasiswaTambahPeriodePageRoute =
     '/kemahasiswaanMPTMahasiswaTambahPeriodePageRoute';
+const kemahasiswaanMPTMahasiswaPeriodeEditPageRoute =
+    '/kemahasiswaanMPTMahasiswaPeriodeEditPageRoute';
 const kemahasiswaanMPTMahasiswaJenisKegiatanPageRoute =
     '/kemahasiswaanMPTMahasiswaJenisKegiatanPageRoute';
 const kemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute =
