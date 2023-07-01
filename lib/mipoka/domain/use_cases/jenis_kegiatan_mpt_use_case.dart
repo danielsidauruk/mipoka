@@ -8,8 +8,12 @@ class JenisKegiatanMptUseCase {
 
   JenisKegiatanMptUseCase({required this.mipokaRepositories});
 
-  Future<Either<Failure, List<JenisKegiatanMpt>>> readJenisKegiatanMpt() {
-    return mipokaRepositories.readJenisKegiatanMpt();
+  Future<Either<Failure, List<JenisKegiatanMpt>>> readAllJenisKegiatanMpt(String filter) {
+    return mipokaRepositories.readAllJenisKegiatanMpt(filter);
+  }
+
+  Future<Either<Failure, JenisKegiatanMpt>> readJenisKegiatanMpt(int idJenisKegiatanMpt) {
+    return mipokaRepositories.readJenisKegiatanMpt(idJenisKegiatanMpt);
   }
 
   Future<Either<Failure, void>> createJenisKegiatanMpt(JenisKegiatanMpt jenisKegiatanMpt) {

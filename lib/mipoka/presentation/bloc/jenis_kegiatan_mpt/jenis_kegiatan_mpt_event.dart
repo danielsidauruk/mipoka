@@ -7,7 +7,23 @@ abstract class JenisKegiatanMptEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ReadAllJenisKegiatanMptEvent extends JenisKegiatanMptEvent {}
+class ReadAllJenisKegiatanMptEvent extends JenisKegiatanMptEvent {
+  final String filter;
+
+  const ReadAllJenisKegiatanMptEvent({this.filter = "semua"});
+
+  @override
+  List<Object> get props => [filter];
+}
+
+class ReadJenisKegiatanMptEvent extends JenisKegiatanMptEvent {
+  final int idJenisKegiatanMpt;
+
+  const ReadJenisKegiatanMptEvent({required this.idJenisKegiatanMpt});
+
+  @override
+  List<Object> get props => [idJenisKegiatanMpt];
+}
 
 class CreateJenisKegiatanMptEvent extends JenisKegiatanMptEvent {
   final JenisKegiatanMpt jenisKegiatanMpt;

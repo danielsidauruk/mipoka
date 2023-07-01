@@ -361,13 +361,15 @@ class MyApp extends StatelessWidget {
                   builder: (_) =>
                       const PemeriksaPengajuanUsulanKegiatan3TertibAcaraPage());
             case pemeriksaPengajuanLaporanKegiatan1PageRoute:
+              final idLaporan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) =>
-                      const PemeriksaPengajuanLaporanKegiatan1Page());
+                      PemeriksaPengajuanLaporanKegiatan1Page(idLaporan: idLaporan));
             case pemeriksaPengajuanLaporanKegiatan2PageRoute:
+              final idRevisiLaporan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) =>
-                      const PemeriksaPengajuanLaporanKegiatan2Page());
+                      PemeriksaPengajuanLaporanKegiatan2Page(idRevisiLaporan: idRevisiLaporan));
             case pemeriksaPengajuanLaporanKegiatan3PageRoute:
               return MaterialPageRoute(
                   builder: (_) =>
@@ -412,8 +414,8 @@ class MyApp extends StatelessWidget {
             case kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageRoute:
               return MaterialPageRoute(
                   builder: (_) =>
-                      const KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPage());
-            case kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageRoute:
+                      const MPTMahasiswaKegiatanPerJenisKegiatanPage());
+            case MPTMahasiswaKegiatanPerJenisKegiatanTambahPageRoute:
               return MaterialPageRoute(
                   builder: (_) =>
                       const KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPage());

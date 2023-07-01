@@ -16,7 +16,11 @@ class CreateKegiatanMptEvent extends KegiatanMptEvent {
   List<Object?> get props => [kegiatanMpt];
 }
 
-class ReadAllKegiatanMptEvent extends KegiatanMptEvent {}
+class ReadAllKegiatanMptEvent extends KegiatanMptEvent {
+  final String filter;
+
+  const ReadAllKegiatanMptEvent({this.filter = "semua"});
+}
 
 class ReadKegiatanMptEvent extends KegiatanMptEvent {
   final int idKegiatanMpt;

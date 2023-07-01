@@ -8,8 +8,8 @@ class KegiatanMptUseCase {
 
   KegiatanMptUseCase({required this.mipokaRepositories});
 
-  Future<Either<Failure, List<KegiatanMpt>>> readAllKegiatanMpt() {
-    return mipokaRepositories.readAllKegiatanMpt();
+  Future<Either<Failure, List<KegiatanMpt>>> readAllKegiatanMpt(String filter) {
+    return mipokaRepositories.readAllKegiatanMpt(filter);
   }
 
   Future<Either<Failure, KegiatanMpt>> readKegiatanMpt(int idKegiatanMpt) {

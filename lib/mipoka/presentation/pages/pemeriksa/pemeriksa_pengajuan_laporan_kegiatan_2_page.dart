@@ -12,7 +12,12 @@ import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_dr
 // => Fixed ContentBox
 
 class PemeriksaPengajuanLaporanKegiatan2Page extends StatefulWidget {
-  const PemeriksaPengajuanLaporanKegiatan2Page({super.key});
+  const PemeriksaPengajuanLaporanKegiatan2Page({
+    required this.idRevisiLaporan,
+    super.key,
+  });
+
+  final int idRevisiLaporan;
 
   @override
   State<PemeriksaPengajuanLaporanKegiatan2Page> createState() =>

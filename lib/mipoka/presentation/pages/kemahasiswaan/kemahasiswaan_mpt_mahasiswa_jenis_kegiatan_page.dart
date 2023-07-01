@@ -43,7 +43,7 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
         builder: (context, state) {
           if (state is JenisKegiatanMptLoading) {
             return const Text('Loading');
-          } else if (state is JenisKegiatanMptHasData) {
+          } else if (state is JenisAllKegiatanMptHasData) {
             final jenisKegiatanMptList = state.jenisKegiatanMptList;
 
             return SingleChildScrollView(

@@ -39,13 +39,14 @@ abstract class MipokaRepositories {
   Future<Either<Failure, void>> updateBiayaKegiatan(BiayaKegiatan biayaKegiatan);
   Future<Either<Failure, void>> deleteBiayaKegiatan(int idNamaBiayaKegiatan);
 
-  Future<Either<Failure, List<KegiatanMpt>>> readAllKegiatanMpt();
+  Future<Either<Failure, List<KegiatanMpt>>> readAllKegiatanMpt(String filter);
   Future<Either<Failure, KegiatanMpt>> readKegiatanMpt(int idKegiatanMpt);
   Future<Either<Failure, void>> createKegiatanMpt(KegiatanMpt kegiatanMpt);
   Future<Either<Failure, void>> updateKegiatanMpt(KegiatanMpt kegiatanMpt);
   Future<Either<Failure, void>> deleteKegiatanMpt(int idKegiatanMpt);
 
-  Future<Either<Failure, List<JenisKegiatanMpt>>> readJenisKegiatanMpt();
+  Future<Either<Failure, List<JenisKegiatanMpt>>> readAllJenisKegiatanMpt(String filter);
+  Future<Either<Failure, JenisKegiatanMpt>> readJenisKegiatanMpt(int idJenisKegiatanMpt);
   Future<Either<Failure, void>> createJenisKegiatanMpt(JenisKegiatanMpt jenisKegiatanMpt);
   Future<Either<Failure, void>> updateJenisKegiatanMpt(JenisKegiatanMpt jenisKegiatanMpt);
   Future<Either<Failure, void>> deleteJenisKegiatanMpt(int idJenisKegiatanMpt);

@@ -193,9 +193,18 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, List<JenisKegiatanMpt>>> readJenisKegiatanMpt() async {
+  Future<Either<Failure, List<JenisKegiatanMpt>>> readAllJenisKegiatanMpt(String filter) async {
     try {
-      return Right(await mipokaDataSources.readJenisKegiatanMpt());
+      return Right(await mipokaDataSources.readAllJenisKegiatanMpt(filter));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, JenisKegiatanMpt>> readJenisKegiatanMpt(int idJenisKegiatanMpt) async {
+    try {
+      return Right(await mipokaDataSources.readJenisKegiatanMpt(idJenisKegiatanMpt));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -231,9 +240,9 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, List<KegiatanMpt>>> readAllKegiatanMpt() async {
+  Future<Either<Failure, List<KegiatanMpt>>> readAllKegiatanMpt(String filter) async {
     try {
-      return Right(await mipokaDataSources.readAllKegiatanMpt());
+      return Right(await mipokaDataSources.readAllKegiatanMpt(filter));
     } on ServerException {
       return const Left(ServerFailure());
     }

@@ -11,13 +11,22 @@ class JenisKegiatanMptEmpty extends JenisKegiatanMptState {}
 
 class JenisKegiatanMptLoading extends JenisKegiatanMptState {}
 
-class JenisKegiatanMptHasData extends JenisKegiatanMptState {
+class JenisAllKegiatanMptHasData extends JenisKegiatanMptState {
   final List<JenisKegiatanMpt> jenisKegiatanMptList;
 
-  const JenisKegiatanMptHasData({required this.jenisKegiatanMptList});
+  const JenisAllKegiatanMptHasData({required this.jenisKegiatanMptList});
 
   @override
   List<Object> get props => [jenisKegiatanMptList];
+}
+
+class JenisKegiatanMptHasData extends JenisKegiatanMptState {
+  final JenisKegiatanMpt jenisKegiatanMpt;
+
+  const JenisKegiatanMptHasData({required this.jenisKegiatanMpt});
+
+  @override
+  List<Object> get props => [jenisKegiatanMpt];
 }
 
 class JenisKegiatanMptError extends JenisKegiatanMptState {

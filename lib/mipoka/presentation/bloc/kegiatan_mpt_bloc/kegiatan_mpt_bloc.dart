@@ -25,7 +25,7 @@ class KegiatanMptBloc extends Bloc<KegiatanMptEvent, KegiatanMptState> {
     on<ReadAllKegiatanMptEvent>((event, emit) async {
       emit(KegiatanMptLoading());
 
-      final result = await kegiatanMptUseCase.readAllKegiatanMpt();
+      final result = await kegiatanMptUseCase.readAllKegiatanMpt(event.filter);
 
       result.fold(
             (failure) => emit(KegiatanMptError(message: failure.message)),

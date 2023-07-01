@@ -25,11 +25,22 @@ class JenisKegiatanMptBloc extends Bloc<JenisKegiatanMptEvent, JenisKegiatanMptS
     on<ReadAllJenisKegiatanMptEvent>((event, emit) async {
       emit(JenisKegiatanMptLoading());
 
-      final jenisKegiatanMpt = await jenisKegiatanMptUseCase.readJenisKegiatanMpt();
+      final jenisKegiatanMpt = await jenisKegiatanMptUseCase.readAllJenisKegiatanMpt(event.filter);
 
       jenisKegiatanMpt.fold(
             (failure) => emit(JenisKegiatanMptError(message: failure.message)),
-            (jenisKegiatanMptList) => emit(JenisKegiatanMptHasData(jenisKegiatanMptList: jenisKegiatanMptList)),
+            (jenisKegiatanMptList) => emit(JenisAllKegiatanMptHasData(jenisKegiatanMptList: jenisKegiatanMptList)),
+      );
+    });
+
+    on<ReadJenisKegiatanMptEvent>((event, emit) async {
+      emit(JenisKegiatanMptLoading());
+
+      final jenisKegiatanMpt = await jenisKegiatanMptUseCase.readJenisKegiatanMpt(event.idJenisKegiatanMpt);
+
+      jenisKegiatanMpt.fold(
+            (failure) => emit(JenisKegiatanMptError(message: failure.message)),
+            (jenisKegiatanMpt) => emit(JenisKegiatanMptHasData(jenisKegiatanMpt: jenisKegiatanMpt)),
       );
     });
 
