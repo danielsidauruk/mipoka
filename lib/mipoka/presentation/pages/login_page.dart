@@ -87,7 +87,8 @@ class _LoginPageState extends State<LoginPage> {
                 const CustomFieldSpacer(height: 8.0),
 
                 LoginButton(
-                  title: 'Log in - Pengguna',
+                  // title: 'Log in - Pengguna',
+                  title: 'Log in - Kemahasiswaan',
                   onTap:() async {
                     // Navigator.pushNamed(context, penggunaBerandaPageRoute);
                     String email = _emailController.text;
@@ -102,8 +103,8 @@ class _LoginPageState extends State<LoginPage> {
 
                         User? user = FirebaseAuth.instance.currentUser;
 
-                        Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                        // Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute),
+                        // Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                        Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
                         // Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute),
                       } catch (e) {
                         mipokaCustomToast(
