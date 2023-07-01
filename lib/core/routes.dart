@@ -104,6 +104,8 @@ const kemahasiswaanMPTMahasiswaJenisKegiatanPageRoute =
     '/kemahasiswaanMPTMahasiswaJenisKegiatanPageRoute';
 const kemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute =
     '/kemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute';
+const kemahasiswaanMPTMahasiswaJenisKegiatanEditPageRoute =
+    '/kemahasiswaanMPTMahasiswaJenisKegiatanEditPageRoute';
 const kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageRoute =
     '/kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageRoute';
 const kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageRoute =

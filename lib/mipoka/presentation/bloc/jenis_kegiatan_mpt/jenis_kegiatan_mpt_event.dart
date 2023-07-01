@@ -12,7 +12,7 @@ class ReadAllJenisKegiatanMptEvent extends JenisKegiatanMptEvent {}
 class CreateJenisKegiatanMptEvent extends JenisKegiatanMptEvent {
   final JenisKegiatanMpt jenisKegiatanMpt;
 
-  const CreateJenisKegiatanMptEvent(this.jenisKegiatanMpt);
+  const CreateJenisKegiatanMptEvent({required this.jenisKegiatanMpt});
 
   @override
   List<Object> get props => [jenisKegiatanMpt];
@@ -21,7 +21,7 @@ class CreateJenisKegiatanMptEvent extends JenisKegiatanMptEvent {
 class UpdateJenisKegiatanMptEvent extends JenisKegiatanMptEvent {
   final JenisKegiatanMpt jenisKegiatanMpt;
 
-  const UpdateJenisKegiatanMptEvent(this.jenisKegiatanMpt);
+  const UpdateJenisKegiatanMptEvent({required this.jenisKegiatanMpt});
 
   @override
   List<Object> get props => [jenisKegiatanMpt];

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/riwayat_mpt_bloc/riwayat_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -23,7 +24,7 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
 
   @override
   void initState() {
-    context.read<RiwayatMptBloc>().add(ReadAllRiwayatMptEvent());
+    context.read<JenisKegiatanMptBloc>().add(ReadAllJenisKegiatanMptEvent());
     super.initState();
   }
 
@@ -38,12 +39,12 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomKemahasiswaanDrawer(),
-      body: BlocBuilder<RiwayatMptBloc, RiwayatMptState>(
+      body: BlocBuilder<JenisKegiatanMptBloc, JenisKegiatanMptState>(
         builder: (context, state) {
-          if (state is RiwayatMptLoading) {
+          if (state is JenisKegiatanMptLoading) {
             return const Text('Loading');
-          } else if (state is AllRiwayatMptHasData) {
-            final riwayatMpttList = state.riwayatMptList;
+          } else if (state is JenisKegiatanMptHasData) {
+            final jenisKegiatanMptList = state.jenisKegiatanMptList;
 
             return SingleChildScrollView(
               child: Padding(
@@ -96,8 +97,8 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                                     ),
                                   ),
                                 ],
-                                rows: List<DataRow>.generate(riwayatMpttList.length, (int index) {
-                                  final riwayatMpt = riwayatMpttList[index];
+                                rows: List<DataRow>.generate(jenisKegiatanMptList.length, (int index) {
+                                  final jenisKegiatanMpt = jenisKegiatanMptList[index];
 
                                   return DataRow(
                                     cells: [
@@ -105,7 +106,7 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                                         Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            ""
+                                            jenisKegiatanMpt.namaJenisKegiatanMpt,
                                           ),
                                         ),
                                       ),
@@ -115,17 +116,23 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                                           MainAxisAlignment.spaceEvenly,
                                           children: [
                                             InkWell(
-                                              onTap: () {},
+                                              onTap: () => Navigator.pushNamed(
+                                                context,
+                                                kemahasiswaanMPTMahasiswaJenisKegiatanEditPageRoute,
+                                                arguments: jenisKegiatanMpt,
+                                              ),
                                               child: Image.asset(
                                                 'assets/icons/edit.png',
                                                 width: 24,
                                               ),
                                             ),
 
-                                            const SizedBox(width: 16.0,),
+                                            const SizedBox(width: 8.0),
 
                                             InkWell(
-                                              onTap: () {},
+                                              onTap: () => context.read<JenisKegiatanMptBloc>().add(
+                                                DeleteJenisKegiatanMptEvent(idJenisKegiatan: jenisKegiatanMpt.idJenisKegiatanMpt),
+                                              ),
                                               child: Image.asset(
                                                 'assets/icons/delete.png',
                                                 width: 24,
@@ -147,7 +154,7 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                 ),
               ),
             );
-          } else if (state is RiwayatMptError) {
+          } else if (state is JenisKegiatanMptError) {
             return Text(state.message);
           } else {
             return const Text('IDK');

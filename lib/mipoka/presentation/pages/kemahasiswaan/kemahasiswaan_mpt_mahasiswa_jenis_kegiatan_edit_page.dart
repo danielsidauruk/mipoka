@@ -13,15 +13,27 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
-class KemahasiswaanMPTMahasiswaJenisKegiatanTambahPage extends StatefulWidget {
-  const KemahasiswaanMPTMahasiswaJenisKegiatanTambahPage({super.key});
+class KemahasiswaanMPTMahasiswaJenisKegiatanEditPage extends StatefulWidget {
+  const KemahasiswaanMPTMahasiswaJenisKegiatanEditPage({
+    required this.jenisKegiatanMpt,
+    super.key,
+  });
+
+  final JenisKegiatanMpt jenisKegiatanMpt;
+
   @override
-  State<KemahasiswaanMPTMahasiswaJenisKegiatanTambahPage> createState() => _KemahasiswaanMPTMahasiswaJenisKegiatanTambahPageState();
+  State<KemahasiswaanMPTMahasiswaJenisKegiatanEditPage> createState() => _KemahasiswaanMPTMahasiswaJenisKegiatanEditPageState();
 }
 
-class _KemahasiswaanMPTMahasiswaJenisKegiatanTambahPageState extends State<KemahasiswaanMPTMahasiswaJenisKegiatanTambahPage> {
+class _KemahasiswaanMPTMahasiswaJenisKegiatanEditPageState extends State<KemahasiswaanMPTMahasiswaJenisKegiatanEditPage> {
 
   final TextEditingController _namaJenisKegiatanController = TextEditingController();
+
+  @override
+  void initState() {
+    _namaJenisKegiatanController.text = widget.jenisKegiatanMpt.namaJenisKegiatanMpt;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,24 +74,17 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanTambahPageState extends State<Kemah
 
                       CustomMipokaButton(
                         onTap: () {
-                          if (_namaJenisKegiatanController.text != "") {
-                            context.read<JenisKegiatanMptBloc>().add(
-                              CreateJenisKegiatanMptEvent(
-                                jenisKegiatanMpt: JenisKegiatanMpt(
-                                  idJenisKegiatanMpt: newId,
+                          context.read<JenisKegiatanMptBloc>().add(
+                              UpdateJenisKegiatanMptEvent(
+                                jenisKegiatanMpt: widget.jenisKegiatanMpt.copyWith(
                                   namaJenisKegiatanMpt: _namaJenisKegiatanController.text,
-                                  createdAt: currentDate,
-                                  createdBy: user?.email ?? "",
                                   updatedAt: currentDate,
                                   updatedBy: user?.email ?? "",
                                 ),
                               )
-                            );
-                            mipokaCustomToast("Jenis Kegiatan MPT berhasil dibuat.");
-                            Navigator.pop(context);
-                          } else {
-                            mipokaCustomToast("Nama Jenis kegiatan tidak boleh kosong");
-                          }
+                          );
+                          mipokaCustomToast("Jenis Kegiatan MPT berhasil diupdate.");
+                          Navigator.pop(context);
                         },
                         text: 'Simpan',
                       ),
