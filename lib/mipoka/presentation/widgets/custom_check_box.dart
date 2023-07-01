@@ -19,16 +19,6 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
   late bool isChecked;
 
   @override
-  void initState() {
-    if(widget.controller.text != "0") {
-      isChecked = true;
-    } else {
-      isChecked = false;
-    }
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
@@ -38,10 +28,10 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
           onChanged: (value) {
             setState(() {
               isChecked = value!;
-              if(isChecked = false) {
-                widget.controller.text = "0";
-              }
             });
+            isChecked == false ?
+            widget.controller.text = "0" :
+            widget.controller.text;
           },
         ),
         Expanded(
@@ -49,7 +39,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(widget.title),
-              if (isChecked)
+              if (isChecked == true)
                 Column(
                   children: [
                     const SizedBox(height: 2),
