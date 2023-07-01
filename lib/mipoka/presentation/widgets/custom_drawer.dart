@@ -35,8 +35,8 @@ class _MobileCustomPenggunaDrawerWidgetState
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                '${user?.email} (191112857)',
-                style: TextStyle(
+                '${user?.email}',
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
@@ -46,7 +46,7 @@ class _MobileCustomPenggunaDrawerWidgetState
               InkWell(
                 onTap: () =>
                     Navigator.pushNamed(context, gantiPasswordPageRoute),
-                child: Text(
+                child: const Text(
                   'Ganti Password',
                   style: TextStyle(color: Colors.lightBlue),
                 ),
@@ -116,16 +116,13 @@ class _MobileCustomPenggunaDrawerWidgetState
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              // Icon(Icons.person),
-
-                              // SizedBox(width: 8.0),
 
                               Expanded(
                                 child: InkWell(
                                   onTap: () => _showAlertDialog(context),
                                   // onTap: () => Navigator.pushNamed(context, mobileAkunPageRoute),
                                   child: Text(
-                                    '${user?.email} (191112857)',
+                                    '${user?.email}',
                                     style:
                                         const TextStyle(fontWeight: FontWeight.bold),
                                   ),

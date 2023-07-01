@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
+
+import '../custom_drawer.dart';
+import '../mipoka_custom_toast.dart';
 
 class MobileCustomPemeriksaDrawer extends StatefulWidget {
   const MobileCustomPemeriksaDrawer({super.key});
@@ -15,6 +19,7 @@ class MobileCustomPemeriksaDrawer extends StatefulWidget {
 class _MobileCustomPemeriksaDrawerState
     extends State<MobileCustomPemeriksaDrawer> {
   final TextEditingController _queryController = TextEditingController();
+  User? user = FirebaseAuth.instance.currentUser;
 
   void _showAlertDialog(BuildContext context) {
     showDialog(
@@ -118,9 +123,9 @@ class _MobileCustomPemeriksaDrawerState
                                   onTap: () => _showAlertDialog(context),
                                   // onTap: () => Navigator.pushNamed(context, mobileAkunPageRoute),
                                   child: Text(
-                                    'Sio Jurnalis Pipin (Pembina)',
+                                    '${user?.email}',
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                        const TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ),
@@ -140,8 +145,12 @@ class _MobileCustomPemeriksaDrawerState
                                 icon: const Icon(Icons.notifications),
                               ),
                               IconButton(
-                                onPressed: () => Navigator.pushNamed(
-                                    context, loginPageRoute),
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, loginPageRoute);
+                                  mipokaCustomToast("You have been logged out");
+                                  logoutUser();
+                                },
                                 icon: const Icon(Icons.exit_to_app),
                               ),
                             ],

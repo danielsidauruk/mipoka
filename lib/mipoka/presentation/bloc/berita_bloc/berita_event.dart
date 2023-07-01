@@ -13,7 +13,14 @@ class CreateBeritaEvent extends BeritaEvent {
   const CreateBeritaEvent(this.berita);
 }
 
-class ReadAllBeritaEvent extends BeritaEvent {}
+class ReadAllBeritaEvent extends BeritaEvent {
+  final String filter;
+
+  const ReadAllBeritaEvent({this.filter = "semua"});
+
+  @override
+  List<Object?> get props => [filter];
+}
 
 class ReadBeritaEvent extends BeritaEvent {
   final int idBerita;

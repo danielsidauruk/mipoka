@@ -1,18 +1,22 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_quill/flutter_quill.dart' hide Text;
-import 'package:mipoka/core/constanst.dart';
+import 'package:intl/intl.dart';
+import 'package:mipoka/core/routes.dart';
+import 'package:mipoka/mipoka/domain/entities/berita.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
+import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:uuid/uuid.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_rich_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 
@@ -26,8 +30,13 @@ class KemahasiswaanBerandaBeritaPage extends StatefulWidget {
 class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBeritaPage> {
   final TextEditingController _judulBeritaController = TextEditingController();
   final TextEditingController _penulisController = TextEditingController();
-  // final QuillController _textBeritaController = QuillController.basic();
   final TextEditingController _textBeritaController = TextEditingController();
+  final StreamController<String?> _fotoBeritaStream = StreamController<String?>();
+  String? _fotoBerita;
+
+  int newId = DateTime.now().microsecondsSinceEpoch;
+  User? user = FirebaseAuth.instance.currentUser;
+  String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +54,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const CustomMobileTitle(text: 'Kemahasiswaan - Edit Beranda - Tambah'),
+              const CustomMobileTitle(text: 'Kemahasiswaan - Beranda - Tambah Berita'),
 
               const CustomFieldSpacer(),
 
@@ -64,12 +73,28 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                   const CustomFieldSpacer(),
                   
                   buildTitle('Tambah Gambar'),
-                  CustomIconButton(onTap: () {}, icon: Icons.upload),
+                  StreamBuilder<String?>(
+                    stream: _fotoBeritaStream.stream,
+                    builder: (context, snapshot) {
+                      String text = snapshot.data ?? "";
+                      return CustomFilePickerButton(
+                        onTap: () async {
+                          String? url = await selectAndUploadFile('foto$newId');
+                          _fotoBerita = url;
+                          _fotoBeritaStream.add(url);
+                        },
+                        onDelete: () {
+                          _fotoBerita = "";
+                          _fotoBeritaStream.add("");
+                        },
+                        text: text,
+                      );
+                    },
+                  ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Text Berita'),
-                  // CustomRichTextField(controller: _textBeritaController),
                   CustomTextField(controller: _textBeritaController),
 
                   const CustomFieldSpacer(),
@@ -84,33 +109,33 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
 
                       const SizedBox(width: 8.0),
 
-                      BlocConsumer<BeritaBloc, BeritaState>(
-                        listener: (context, state) {
-                          if (state is BeritaSuccessMessage) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(state.message), duration: const Duration(seconds: 5)),
+                      CustomMipokaButton(
+                        onTap: () {
+                          if (_judulBeritaController.text.isNotEmpty && _penulisController.text.isNotEmpty &&
+                              _textBeritaController.text.isNotEmpty) {
+                            context.read<BeritaBloc>().add(
+                              CreateBeritaEvent(
+                                Berita(
+                                  idBerita: newId,
+                                  judul: _judulBeritaController.text,
+                                  penulis: _judulBeritaController.text,
+                                  gambar: _fotoBerita ?? "",
+                                  teks: _textBeritaController.text,
+                                  tglTerbit: currentDate,
+                                  createdAt: currentDate,
+                                  createdBy: user?.email ?? "unknown",
+                                  updatedAt: currentDate,
+                                  updatedBy: user?.email ?? "unknown",
+                                ),
+                              ),
                             );
+                            Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
+                            mipokaCustomToast("Berita berhasil ditambahkan.");
+                          } else {
+                            mipokaCustomToast("Harap isi semua field.");
                           }
                         },
-                        builder: (context, state) {
-                          return CustomMipokaButton(
-                            onTap: () {
-                              // context.read<BeritaBloc>().add(
-                              //   CreateBeritaEvent(
-                              //     Berita(
-                              //       idBerita: 1234,
-                              //       jenisKegiatan: _judulBeritaController.text,
-                              //       penulis: _penulisController.text,
-                              //       gambar: "https://random-d.uk/api/randomimg?t=1686482823678",
-                              //       // teks: _textBeritaController.getPlainText(),
-                              //       teks: _textBeritaController.text,
-                              //     ),
-                              //   ),
-                              // );
-                            },
-                            text: 'Simpan',
-                          );
-                        },
+                        text: 'Simpan',
                       ),
                     ],
                   ),

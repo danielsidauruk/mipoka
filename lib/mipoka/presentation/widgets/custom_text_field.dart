@@ -5,6 +5,7 @@ class CustomTextField extends StatelessWidget {
     super.key,
     required this.controller,
     this.textInputType = TextInputType.text,
+    // this.textInputType = TextInputType.multiline,
   });
 
   final TextEditingController controller;
@@ -21,6 +22,7 @@ class CustomTextField extends StatelessWidget {
         border: Border.all(color: Colors.white),
       ),
       child: TextField(
+        textInputAction: TextInputAction.newline,
         keyboardType: textInputType,
         controller: controller,
         maxLines: null,

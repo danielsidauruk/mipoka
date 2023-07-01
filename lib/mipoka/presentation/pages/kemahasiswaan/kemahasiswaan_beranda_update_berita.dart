@@ -1,10 +1,16 @@
+import 'dart:async';
+
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_date_picker_field.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
+import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:uuid/uuid.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
@@ -34,18 +40,22 @@ class KemahasiswaanBerandaUpdateBeritaPage extends StatefulWidget {
 class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBerandaUpdateBeritaPage> {
   final TextEditingController _judulBeritaController = TextEditingController();
   final TextEditingController _penulisController = TextEditingController();
-  // final QuillController _textBeritaController = QuillController.basic();
   final TextEditingController _textBeritaController = TextEditingController();
-  final TextEditingController _timeController = TextEditingController();
-  final TextEditingController _dateController = TextEditingController();
-  final format = DateFormat("HH:mm");
+  final StreamController<String?> _fotoBeritaStream = StreamController<String?>();
+  User? user = FirebaseAuth.instance.currentUser;
+  String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+  String? _fotoBeritaController;
 
   @override
   void initState() {
-    _judulBeritaController.text = "berita.judulBerita";
+    _judulBeritaController.text = widget.berita.judul;
     _penulisController.text = widget.berita.penulis;
+    _fotoBeritaController = widget.berita.gambar;
     _textBeritaController.text = widget.berita.teks;
-    _timeController.text = "12:08";
+
+    if(_fotoBeritaController != "") {
+      _fotoBeritaStream.add(_fotoBeritaController);
+    }
     super.initState();
   }
 
@@ -74,108 +84,33 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
 
                   const CustomFieldSpacer(),
 
-                  buildTitle('Tanggal Selesai Kegiatan'),
-                  Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.all(8.0),
-                    constraints: const BoxConstraints(minHeight: 35.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      border: Border.all(color: Colors.white),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: DateTimeField(
-                            controller: _timeController,
-                            decoration: const InputDecoration.collapsed(
-                              hintText: 'Input Time',
-                            ),
-                            resetIcon: null,
-                            format: format,
-                            onShowPicker: (context, currentValue) async {
-                              final time = await showTimePicker(
-                                context: context,
-                                initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
-                              );
-                              return DateTimeField.convert(time);
-                            },
-                          ),
-                        ),
-                        const Icon(
-                          Icons.access_time,
-                          size: 20,
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.all(8.0),
-                    constraints: const BoxConstraints(minHeight: 35.0),
-                    height: 35,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      border: Border.all(color: Colors.white),
-                    ),
-                    child: DateTimeField(
-                      controller: _dateController,
-                      decoration: const InputDecoration.collapsed(
-                        hintText: 'Start Time',
-                      ),
-                      resetIcon: null,
-                      format: DateFormat('yyyy-MM-dd'),
-                      onShowPicker: (context, currentValue) async {
-                        final date = await showDatePicker(
-                          context: context,
-                          initialDate: currentValue ?? DateTime.now(),
-                          firstDate: DateTime(2000),
-                          lastDate: DateTime(2100),
-                        );
-                        return date;
-                      },
-                    ),
-                  ),
-                  // SizedBox(
-                  //   width: 300,
-                  //   child:  DateTimeField(
-                  //     controller: _startTimeController,
-                  //     decoration: InputDecoration(
-                  //       enabledBorder: UnderlineInputBorder(
-                  //         borderSide: BorderSide(color: Colors.white),
-                  //       ),
-                  //       focusedBorder: UnderlineInputBorder(
-                  //         borderSide: BorderSide(color: Colors.white),
-                  //       ),
-                  //     ),
-                  //     style: TextStyle(color: Colors.white, fontSize: 32),
-                  //     format: format,
-                  //     onShowPicker: (context, currentValue) async {
-                  //       final time = await showTimePicker(
-                  //         context: context,
-                  //         initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
-                  //       );
-                  //       return DateTimeField.convert(time);
-                  //     },
-                  //   ),
-                  // ),
-
-                  const CustomFieldSpacer(),
-
                   buildTitle('Penulis'),
 
                   CustomTextField(controller: _penulisController),
 
                   const CustomFieldSpacer(),
-
-                  buildTitle('Tambah Gambar'),
-                  CustomIconButton(onTap: () {}, icon: Icons.upload),
+                  StreamBuilder<String?>(
+                    stream: _fotoBeritaStream.stream,
+                    builder: (context, snapshot) {
+                      String text = snapshot.data ?? "";
+                      return CustomFilePickerButton(
+                        onTap: () async {
+                          String? url = await selectAndUploadFile('postingKegiatan${user?.uid ?? "unknown"}');
+                          _fotoBeritaController = url;
+                          _fotoBeritaStream.add(url);
+                        },
+                        onDelete: () {
+                          _fotoBeritaController = "";
+                          _fotoBeritaStream.add("");
+                        },
+                        text: text,
+                      );
+                    },
+                  ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Text Berita'),
-                  // CustomRichTextField(controller: _textBeritaController),
                   CustomTextField(controller: _textBeritaController),
 
                   const CustomFieldSpacer(),
@@ -192,22 +127,20 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
 
                       CustomMipokaButton(
                         onTap: () {
-                          // context.read<BeritaBloc>().add(
-                          //   UpdateBeritaEvent(
-                          //     widget.berita.updateWith(
-                          //       // jenisKegiatan: _judulBeritaController.text,
-                          //       jenisKegiatan: _timeController.text,
-                          //       penulis: _penulisController.text,
-                          //       gambar: "https://random-d.uk/api/randomimg?t=1686482823678",
-                          //       // teks: _textBeritaController.getPlainText(),
-                          //       teks: _textBeritaController.text,
-                          //     ),
-                          //   ),
-                          // );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Berita has been deleted successfully.'), duration: Duration(seconds: 1)),
+                          context.read<BeritaBloc>().add(
+                            UpdateBeritaEvent(
+                              widget.berita.copyWith(
+                                judul: _judulBeritaController.text,
+                                penulis: _penulisController.text,
+                                gambar: _fotoBeritaController,
+                                teks: _textBeritaController.text,
+                                updatedBy: user?.email ?? "unknown",
+                                updatedAt: currentDate,
+                              ),
+                            ),
                           );
                           Navigator.pop(context);
+                          mipokaCustomToast("Berita telah diupdate");
                         },
                         text: 'Simpan',
                       ),

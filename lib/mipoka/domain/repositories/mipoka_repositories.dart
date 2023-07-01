@@ -20,7 +20,7 @@ import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 
 abstract class MipokaRepositories {
-  Future<Either<Failure, List<Berita>>> readAllBerita();
+  Future<Either<Failure, List<Berita>>> readAllBerita(String filter);
   Future<Either<Failure, Berita>> readBerita(int idBerita);
   Future<Either<Failure, void>> createBerita(Berita berita);
   Future<Either<Failure, void>> updateBerita(Berita berita);

@@ -68,9 +68,9 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, List<Berita>>> readAllBerita() async {
+  Future<Either<Failure, List<Berita>>> readAllBerita(String filter) async {
     try {
-      return Right(await mipokaDataSources.readAllBerita());
+      return Right(await mipokaDataSources.readAllBerita(filter));
     } on ServerException {
       return const Left(ServerFailure());
     }

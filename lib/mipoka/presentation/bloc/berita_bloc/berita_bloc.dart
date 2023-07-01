@@ -36,7 +36,7 @@ class BeritaBloc extends Bloc<BeritaEvent, BeritaState> {
     on<ReadAllBeritaEvent>((event, emit) async {
       emit(BeritaLoading());
 
-      final allBerita = await beritaUseCase.readAllBerita();
+      final allBerita = await beritaUseCase.readAllBerita(event.filter);
 
       allBerita.fold(
         (failure) => emit(BeritaError(message: failure.message)),

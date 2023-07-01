@@ -22,7 +22,7 @@ import 'package:mipoka/mipoka/data/models/mipoka_user_model.dart';
 import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
 
 abstract class MipokaDataSources {
-  Future<List<BeritaModel>> readAllBerita();
+  Future<List<BeritaModel>> readAllBerita(String filter);
   Future<BeritaModel> readBerita(int idBerita);
   Future<void> createBerita(BeritaModel beritaModel);
   Future<void> updateBerita(BeritaModel beritaModel);
@@ -152,13 +152,17 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<BeritaModel>> readAllBerita() async {
+  Future<List<BeritaModel>> readAllBerita(String filter) async {
     final String response =
     await rootBundle.loadString('assets/json_file/berita_list.json');
     List<dynamic> resultList = json.decode(response);
 
     List<BeritaModel> result =
     resultList.map((resultMap) => BeritaModel.fromJson(resultMap)).toList();
+
+    if (kDebugMode) {
+      print(filter);
+    }
 
     return result;
   }

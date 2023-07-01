@@ -11,6 +11,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class KemahasiswaanBerandaPage extends StatefulWidget {
   const KemahasiswaanBerandaPage({super.key});
@@ -23,9 +24,8 @@ class KemahasiswaanBerandaPage extends StatefulWidget {
 class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
   @override
   void initState() {
+    context.read<BeritaBloc>().add(ReadAllBeritaEvent());
     super.initState();
-    BlocProvider.of<BeritaBloc>(context, listen: false)
-        .add(ReadAllBeritaEvent());
   }
 
   String dropDownValue = listStatus[0];
@@ -38,8 +38,10 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
       body: BlocBuilder<BeritaBloc, BeritaState>(
         builder: (context, state) {
           if (state is BeritaLoading) {
-            return Text('Loading');
+            return const Text('Loading');
           } else if (state is AllBeritaHasData) {
+            final beritaList = state.allBerita;
+
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -115,8 +117,13 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                         buildTitle('Penulis'),
                         MipokaCustomDropdown(
                           items: listStatus,
-                          onValueChanged: (value) {},
+                          onValueChanged: (value) {
+                            context.read<BeritaBloc>().add(
+                              ReadAllBeritaEvent(filter: value!)
+                            );
+                          },
                         ),
+
                         const CustomFieldSpacer(),
                         Container(
                           decoration: BoxDecoration(
@@ -155,7 +162,6 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                                     ),
                                   ),
                                   DataColumn(
-                                    tooltip: 'Aksi yang akan dilakukan',
                                     label: Text(
                                       'Aksi',
                                       style: TextStyle(
@@ -165,15 +171,16 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                                   ),
                                 ],
                                 rows: List<DataRow>.generate(
-                                    state.allBerita.length, (int index) {
-                                  final berita = state.allBerita[index];
+                                    beritaList.length, (int index) {
+                                  final berita = beritaList[index];
+
                                   return DataRow(
                                     cells: [
                                       DataCell(
                                         Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            '${index + 1} Maret 2023',
+                                            berita.tglTerbit,
                                           ),
                                         ),
                                       ),
@@ -181,7 +188,7 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                                         Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            'Judul ${index + 1}',
+                                            berita.judul,
                                           ),
                                         ),
                                       ),
@@ -216,16 +223,9 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                                             InkWell(
                                               onTap: () {
                                                 context.read<BeritaBloc>().add(
-                                                    DeleteBeritaEvent(
-                                                        berita.idBerita));
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  const SnackBar(
-                                                      content: Text(
-                                                          'Berita has been deleted successfully.'),
-                                                      duration:
-                                                          Duration(seconds: 1)),
+                                                  DeleteBeritaEvent(berita.idBerita),
                                                 );
+                                                mipokaCustomToast("Berita telah dihapus");
                                               },
                                               child: Image.asset(
                                                 'assets/icons/delete.png',

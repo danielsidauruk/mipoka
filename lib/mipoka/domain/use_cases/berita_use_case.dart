@@ -11,8 +11,8 @@ class BeritaUseCase {
     return mipokaRepositories.readBerita(idBerita);
   }
 
-  Future<Either<Failure, List<Berita>>> readAllBerita() {
-    return mipokaRepositories.readAllBerita();
+  Future<Either<Failure, List<Berita>>> readAllBerita(String filter) {
+    return mipokaRepositories.readAllBerita(filter);
   }
 
   Future<Either<Failure, void>> createBerita(Berita berita) {
