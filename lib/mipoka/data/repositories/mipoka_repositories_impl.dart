@@ -22,6 +22,7 @@ import 'package:mipoka/mipoka/data/models/mipoka_user_model.dart';
 import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
 import 'package:mipoka/mipoka/domain/entities/admin.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
+import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
@@ -169,6 +170,32 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
     } on ServerException {
       return const Left(ServerFailure());
     }
+  }
+
+
+  // TODO: => JenisKegiatanMpt Repositories
+  @override
+  Future<Either<Failure, void>> createJenisKegiatanMpt(JenisKegiatanMpt jenisKegiatanMpt) {
+    // TODO: implement createJenisKegiatanMpt
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteJenisKegiatanMpt(int idJenisKegiatanMpt) {
+    // TODO: implement deleteJenisKegiatanMpt
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, List<JenisKegiatanMpt>>> readJenisKegiatanMpt() {
+    // TODO: implement readJenisKegiatanMpt
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, void>> updateJenisKegiatanMpt(JenisKegiatanMpt jenisKegiatanMpt) {
+    // TODO: implement updateJenisKegiatanMpt
+    throw UnimplementedError();
   }
 
 

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:mipoka/mipoka/data/models/admin_model.dart';
 import 'package:mipoka/mipoka/data/models/berita_model.dart';
+import 'package:mipoka/mipoka/data/models/jenis_kegaitan_mpt.dart';
 import 'package:mipoka/mipoka/data/models/kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
@@ -39,6 +40,11 @@ abstract class MipokaDataSources {
   });
   Future<void> updateBiayaKegiatan(BiayaKegiatanModel biayaKegiatanModel);
   Future<void> deleteBiayaKegiatan(int idNamaBiayaKegiatan);
+
+  Future<List<JenisKegiatanMptModel>> readJenisKegiatanMpt();
+  Future<void> createJenisKegiatanMpt(JenisKegiatanMptModel jenisKegiatanMptModel);
+  Future<void> updateJenisKegiatanMpt(JenisKegiatanMptModel jenisKegiatanMptModel);
+  Future<void> deleteJenisKegiatanMpt(int idJenisKegiatanMpt);
 
   Future<List<KegiatanMptModel>> readAllKegiatanMpt();
   Future<KegiatanMptModel> readKegiatanMpt(int idKegiatanMpt);
@@ -246,7 +252,42 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
 
-  // TODO : KegiatanMPT DataSources
+  // => * JenisKegiatanMPT DataSources
+  @override
+  Future<void> createJenisKegiatanMpt(JenisKegiatanMptModel jenisKegiatanMptModel) async {
+    if (kDebugMode) {
+      print(jenisKegiatanMptModel.toJson());
+    }
+  }
+
+  @override
+  Future<void> deleteJenisKegiatanMpt(int idJenisKegiatanMpt) async {
+    if (kDebugMode) {
+      print("JenisKegiatanMpt with id $idJenisKegiatanMpt has been deleted.");
+    }
+  }
+
+  @override
+  Future<List<JenisKegiatanMptModel>> readJenisKegiatanMpt() async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/jenis_kegiatan_mpt_list.json');
+    List<dynamic> resultList = json.decode(response);
+
+    List<JenisKegiatanMptModel> result =
+    resultList.map((resultMap) => JenisKegiatanMptModel.fromJson(resultMap)).toList();
+
+    return result;
+  }
+
+  @override
+  Future<void> updateJenisKegiatanMpt(JenisKegiatanMptModel jenisKegiatanMptModel) async {
+    if (kDebugMode) {
+      print(jenisKegiatanMptModel);
+    }
+  }
+
+
+  // => * KegiatanMPT DataSources
   @override
   Future<void> createKegiatanMpt(KegiatanMptModel kegiatanMptModel) async {
     if (kDebugMode) {

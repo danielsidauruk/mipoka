@@ -147,7 +147,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                             return Align(
                                               alignment: Alignment.center,
                                               child: Text(
-                                                state.kegiatan.jenisKegiatanMpt,
+                                                state.kegiatan.idJenisKegiatanMpt.toString(),
                                               ),
                                             );
                                           } else if (state is KegiatanMptError) {
@@ -281,7 +281,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                     DataCell(
                                       Align(
                                         alignment: Alignment.center,
-                                        child: Text(kegiatanMpt.jenisKegiatanMpt),
+                                        child: Text(kegiatanMpt.idJenisKegiatanMpt.toString()),
                                       ),
                                     ),
                                     DataCell(

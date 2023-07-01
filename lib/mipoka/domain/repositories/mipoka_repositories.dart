@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:mipoka/domain/utils/failure.dart';
 import 'package:mipoka/mipoka/domain/entities/admin.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
+import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
@@ -43,6 +44,11 @@ abstract class MipokaRepositories {
   Future<Either<Failure, void>> createKegiatanMpt(KegiatanMpt kegiatanMpt);
   Future<Either<Failure, void>> updateKegiatanMpt(KegiatanMpt kegiatanMpt);
   Future<Either<Failure, void>> deleteKegiatanMpt(int idKegiatanMpt);
+
+  Future<Either<Failure, List<JenisKegiatanMpt>>> readJenisKegiatanMpt();
+  Future<Either<Failure, void>> createJenisKegiatanMpt(JenisKegiatanMpt jenisKegiatanMpt);
+  Future<Either<Failure, void>> updateJenisKegiatanMpt(JenisKegiatanMpt jenisKegiatanMpt);
+  Future<Either<Failure, void>> deleteJenisKegiatanMpt(int idJenisKegiatanMpt);
 
   Future<Either<Failure, List<Laporan>>> readAllLaporan(String filter);
   Future<Either<Failure, Laporan>> readLaporan(int idLaporan);

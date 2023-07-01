@@ -105,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
 
                         // Navigator.pushNamed(context, penggunaBerandaPageRoute);
                         Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
-                        // Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute),
+                        // Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute);
                       } catch (e) {
                         mipokaCustomToast(
                           "Failed to sign in. Please check your email and password.",

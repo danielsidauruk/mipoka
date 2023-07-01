@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/riwayat_mpt_bloc/riwayat_mpt_bloc.dart';
@@ -24,9 +23,14 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
 
   @override
   void initState() {
+    context.read<RiwayatMptBloc>().add(ReadAllRiwayatMptEvent());
     super.initState();
-    BlocProvider.of<RiwayatMptBloc>(context, listen: false)
-        .add(ReadAllRiwayatMptEvent());
+  }
+
+  @override
+  void dispose() {
+    context.read<RiwayatMptBloc>().close();
+    super.dispose();
   }
 
   @override
@@ -39,6 +43,8 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
           if (state is RiwayatMptLoading) {
             return const Text('Loading');
           } else if (state is AllRiwayatMptHasData) {
+            final riwayatMpttList = state.riwayatMptList;
+
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -54,8 +60,10 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                         CustomAddButton(
                           buttonText: 'Tambah',
                           onPressed: () =>
-                              Navigator.pushNamed(context,
-                                  kemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute),
+                              Navigator.pushNamed(
+                                context,
+                                kemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute,
+                              ),
                         ),
                         const CustomFieldSpacer(height: 8.0),
                         Container(
@@ -88,14 +96,16 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                                     ),
                                   ),
                                 ],
-                                rows: List<DataRow>.generate(6, (int index) {
+                                rows: List<DataRow>.generate(riwayatMpttList.length, (int index) {
+                                  final riwayatMpt = riwayatMpttList[index];
+
                                   return DataRow(
                                     cells: [
                                       DataCell(
                                         Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            'Jenis Kegiatan - ${index + 1}',
+                                            ""
                                           ),
                                         ),
                                       ),
