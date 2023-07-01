@@ -4,6 +4,7 @@ import 'package:mipoka/domain/utils/failure.dart';
 import 'package:mipoka/mipoka/data/data_sources/mipoka_data_sources.dart';
 import 'package:mipoka/mipoka/data/models/admin_model.dart';
 import 'package:mipoka/mipoka/data/models/berita_model.dart';
+import 'package:mipoka/mipoka/data/models/jenis_kegaitan_mpt.dart';
 import 'package:mipoka/mipoka/data/models/kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
@@ -120,7 +121,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   @override
   Future<Either<Failure, Admin>> readAdmin(int idAdmin) async {
-    // TODO: implement readAdmin
     try {
       return Right(await mipokaDataSources.readAdmin(idAdmin));
     } on ServerException {
@@ -173,33 +173,45 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-  // TODO: => JenisKegiatanMpt Repositories
+  // * => JenisKegiatanMpt Repositories
   @override
-  Future<Either<Failure, void>> createJenisKegiatanMpt(JenisKegiatanMpt jenisKegiatanMpt) {
-    // TODO: implement createJenisKegiatanMpt
-    throw UnimplementedError();
+  Future<Either<Failure, void>> createJenisKegiatanMpt(JenisKegiatanMpt jenisKegiatanMpt) async {
+    try {
+      return Right(await mipokaDataSources.createJenisKegiatanMpt(JenisKegiatanMptModel.fromEntity(jenisKegiatanMpt)));
+    } on ServerException {
+    return const Left(ServerFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, void>> deleteJenisKegiatanMpt(int idJenisKegiatanMpt) {
-    // TODO: implement deleteJenisKegiatanMpt
-    throw UnimplementedError();
+  Future<Either<Failure, void>> deleteJenisKegiatanMpt(int idJenisKegiatanMpt) async {
+    try {
+      return Right(await mipokaDataSources.deleteJenisKegiatanMpt(idJenisKegiatanMpt));
+    } on ServerException {
+    return const Left(ServerFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, List<JenisKegiatanMpt>>> readJenisKegiatanMpt() {
-    // TODO: implement readJenisKegiatanMpt
-    throw UnimplementedError();
+  Future<Either<Failure, List<JenisKegiatanMpt>>> readJenisKegiatanMpt() async {
+    try {
+      return Right(await mipokaDataSources.readJenisKegiatanMpt());
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, void>> updateJenisKegiatanMpt(JenisKegiatanMpt jenisKegiatanMpt) {
-    // TODO: implement updateJenisKegiatanMpt
-    throw UnimplementedError();
+  Future<Either<Failure, void>> updateJenisKegiatanMpt(JenisKegiatanMpt jenisKegiatanMpt) async {
+    try {
+      return Right(await mipokaDataSources.updateJenisKegiatanMpt(JenisKegiatanMptModel.fromEntity(jenisKegiatanMpt)));
+    } on ServerException {
+    return const Left(ServerFailure());
+    }
   }
 
 
-// TODO: => KegiatanMpt Repositories
+// * => KegiatanMpt Repositories
   @override
   Future<Either<Failure, void>> createKegiatanMpt(KegiatanMpt kegiatanMpt) async {
     try {
