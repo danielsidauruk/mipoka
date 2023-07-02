@@ -5,8 +5,6 @@ import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart'
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_comment_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
@@ -16,7 +14,12 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 
 class PemeriksaPengajuanUsulanKegiatan3Page extends StatefulWidget {
-  const PemeriksaPengajuanUsulanKegiatan3Page({super.key});
+  const PemeriksaPengajuanUsulanKegiatan3Page({
+    required this.idRevisiUsulan,
+    super.key,
+  });
+
+  final int idRevisiUsulan;
 
   @override
   State<PemeriksaPengajuanUsulanKegiatan3Page> createState() =>

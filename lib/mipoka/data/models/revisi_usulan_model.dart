@@ -125,7 +125,7 @@ class RevisiUsulanModel extends RevisiUsulan {
     revisiTargetPencapaianKegiatan: json["revisi_target_pencapaian_kegiatan"],
     revisiWaktuDanTempatPelaksanaan: json["revisi_waktu_dan_tempat_pelaksanaan"],
     revisiRencanaAnggaranKegiatan: json["revisi_rencana_anggaran_kegiatan"],
-    revisiIdTertibAcara: json["revisi_id_tertib_acara"],
+    revisiIdTertibAcara: json["revisi_tertib_acara"],
     revisiPerlengkapanDanPeralatan: json["revisi_perlengkapan_dan_peralatan"],
     revisiPenutup: json["revisi_penutup"],
     revisiFotoPostinganKegiatan: json["revisi_foto_postingan_kegiatan"],

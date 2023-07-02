@@ -338,26 +338,29 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) => const PemeriksaDaftarPengajuanKegiatanPage());
             case pemeriksaPengajuanUsulanKegiatan1PageRoute:
-              final idUsulanKegiatan = settings.arguments as int;
+              final idRevisiUsulan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) =>
-                      PemeriksaPengajuanUsulanKegiatan1Page(idRevisiUsulan: idUsulanKegiatan));
+                      PemeriksaPengajuanUsulanKegiatan1Page(idRevisiUsulan: idRevisiUsulan));
 
             case pemeriksaDaftarLaporanKegiatanPageRoute:
               return MaterialPageRoute(
                   builder: (_) => const PemeriksaDaftarLaporanKegiatanPage());
             case pemeriksaPengajuanUsulanKegiatan2DKPageRoute:
+              final idRevisiUsulan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) =>
-                      const PemeriksaPengajuanUsulanKegiatan2DKPage());
+                      PemeriksaPengajuanUsulanKegiatan2DKPage(idRevisiUsulan: idRevisiUsulan));
             case pemeriksaPengajuanUsulanKegiatan2LKPageRoute:
+              final idRevisiUsulan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) =>
-                      const PemeriksaPengajuanUsulanKegiatan2LKPage());
+                      PemeriksaPengajuanUsulanKegiatan2LKPage(idRevisiUsulan: idRevisiUsulan));
             case pemeriksaPengajuanUsulanKegiatan3PageRoute:
+              final idRevisiUsulan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) =>
-                      const PemeriksaPengajuanUsulanKegiatan3Page());
+                      PemeriksaPengajuanUsulanKegiatan3Page(idRevisiUsulan: idRevisiUsulan));
             case pemeriksaPengajuanUsulanKegiatan3TertibAcaraPageRoute:
               return MaterialPageRoute(
                   builder: (_) =>

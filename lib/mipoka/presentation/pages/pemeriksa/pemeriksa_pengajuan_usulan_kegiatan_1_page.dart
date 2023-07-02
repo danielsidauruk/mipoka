@@ -239,12 +239,19 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
                                   //   text: 'Kembali',
                                   // ),
 
+                                  CustomMipokaButton(
+                                    onTap: () {
+                                      context.read<RevisiUsulanBloc>().add(
+                                          DeleteRevisiUsulanEvent(idRevisiUsulan: widget.idRevisiUsulan));
+                                      Navigator.pop(context);
+                                    },
+                                    text: 'Batal',
+                                  ),
+
                                   const SizedBox(width: 8.0),
 
                                   CustomMipokaButton(
                                     onTap: () {
-                                      Navigator.pushNamed(context,
-                                          pemeriksaPengajuanUsulanKegiatan2DKPageRoute);
                                       context.read<RevisiUsulanBloc>().add(
                                         UpdateRevisiUsulanEvent(
                                           revisiUsulan: revisiUsulan.copyWith(
@@ -272,25 +279,20 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
                                           ),
                                         ),
                                       );
-                                    },
-                                    text: 'Berikutnya (DK)',
-                                  ),
 
-                                  const SizedBox(width: 8.0),
-
-                                  // CustomMipokaButton(
-                                  //   onTap: () =>
-                                  //       Navigator.pushNamed(context,
-                                  //           pemeriksaPengajuanUsulanKegiatan2LKPageRoute),
-                                  //   text: 'Berikutnya (LK)',
-                                  // ),
-                                  CustomMipokaButton(
-                                    onTap: () {
-                                      context.read<RevisiUsulanBloc>().add(
-                                        DeleteRevisiUsulanEvent(idRevisiUsulan: widget.idRevisiUsulan));
-                                      Navigator.pop(context);
+                                      usulanKegiatan.tanggalKeberangkatan == "" ?
+                                      Navigator.pushNamed(
+                                        context,
+                                        pemeriksaPengajuanUsulanKegiatan2DKPageRoute,
+                                        arguments: widget.idRevisiUsulan,
+                                      ) :
+                                      Navigator.pushNamed(
+                                        context,
+                                        pemeriksaPengajuanUsulanKegiatan2LKPageRoute,
+                                        arguments: widget.idRevisiUsulan,
+                                      );
                                     },
-                                    text: 'Batal',
+                                    text: 'Berikutnya',
                                   ),
                                 ],
                               ),

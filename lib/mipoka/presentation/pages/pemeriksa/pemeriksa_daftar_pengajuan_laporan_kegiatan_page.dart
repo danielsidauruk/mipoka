@@ -61,7 +61,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                         Align(
                           alignment: Alignment.centerRight,
                           child: Text(
-                            "Total Usulan Kegiatan : ${laporanList.length}",
+                            "Total Laporan Kegiatan : ${laporanList.length}",
                             style: const TextStyle(fontSize: 15),
                           ),
                         ),
