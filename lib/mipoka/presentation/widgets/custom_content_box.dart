@@ -14,6 +14,7 @@ class CustomContentBox extends StatelessWidget {
         border: Border.all(color: Colors.white),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: children,

@@ -280,15 +280,21 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
                                         ),
                                       );
 
-                                      usulanKegiatan.tanggalKeberangkatan == "" ?
+                                      // usulanKegiatan.tanggalKeberangkatan == "" ?
+                                      // Navigator.pushNamed(
+                                      //   context,
+                                      //   pemeriksaPengajuanUsulanKegiatan2DKPageRoute,
+                                      //   arguments: widget.idRevisiUsulan,
+                                      // ) :
+                                      // Navigator.pushNamed(
+                                      //   context,
+                                      //   pemeriksaPengajuanUsulanKegiatan2LKPageRoute,
+                                      //   arguments: widget.idRevisiUsulan,
+                                      // );
+
                                       Navigator.pushNamed(
                                         context,
                                         pemeriksaPengajuanUsulanKegiatan2DKPageRoute,
-                                        arguments: widget.idRevisiUsulan,
-                                      ) :
-                                      Navigator.pushNamed(
-                                        context,
-                                        pemeriksaPengajuanUsulanKegiatan2LKPageRoute,
                                         arguments: widget.idRevisiUsulan,
                                       );
                                     },

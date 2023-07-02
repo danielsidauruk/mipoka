@@ -181,120 +181,115 @@ class _PemeriksaPengajuanUsulanKegiatan2DKPageState
                                 controller: _revisiRincianBiayaKegiatanController,
                               ),
                               Expanded(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Expanded(
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis.vertical,
                                         child: SingleChildScrollView(
-                                          scrollDirection: Axis.vertical,
-                                          child: SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
-                                            child: DataTable(
-                                              columnSpacing: 40,
-                                              border: TableBorder.all(color: Colors.white),
-                                              columns: const [
-                                                DataColumn(
-                                                  label: Text(
-                                                    'No.',
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold),
-                                                    textAlign: TextAlign.center,
-                                                  ),
+                                          scrollDirection: Axis.horizontal,
+                                          child: DataTable(
+                                            columnSpacing: 40,
+                                            border: TableBorder.all(color: Colors.white),
+                                            columns: const [
+                                              DataColumn(
+                                                label: Text(
+                                                  'No.',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold),
+                                                  textAlign: TextAlign.center,
                                                 ),
-                                                DataColumn(
-                                                  label: Text(
-                                                    'Nama Biaya',
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold),
-                                                    textAlign: TextAlign.center,
-                                                  ),
+                                              ),
+                                              DataColumn(
+                                                label: Text(
+                                                  'Nama Biaya',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold),
+                                                  textAlign: TextAlign.center,
                                                 ),
-                                                DataColumn(
-                                                  label: Text(
-                                                    'Kuantitas',
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold),
-                                                    textAlign: TextAlign.center,
-                                                  ),
+                                              ),
+                                              DataColumn(
+                                                label: Text(
+                                                  'Kuantitas',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold),
+                                                  textAlign: TextAlign.center,
                                                 ),
-                                                DataColumn(
-                                                  label: Text(
-                                                    'Harga Satuan',
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold),
-                                                    textAlign: TextAlign.center,
-                                                  ),
+                                              ),
+                                              DataColumn(
+                                                label: Text(
+                                                  'Harga Satuan',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold),
+                                                  textAlign: TextAlign.center,
                                                 ),
-                                                DataColumn(
-                                                  label: Text(
-                                                    'Total',
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold),
-                                                    textAlign: TextAlign.center,
-                                                  ),
+                                              ),
+                                              DataColumn(
+                                                label: Text(
+                                                  'Total',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold),
+                                                  textAlign: TextAlign.center,
                                                 ),
-                                                DataColumn(
-                                                  label: Text(
-                                                    'Keterangan',
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold),
-                                                    textAlign: TextAlign.center,
-                                                  ),
+                                              ),
+                                              DataColumn(
+                                                label: Text(
+                                                  'Keterangan',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold),
+                                                  textAlign: TextAlign.center,
                                                 ),
-                                              ],
-                                              rows: List.generate(usulanKegiatanList.biayaKegiatan.length, (int index) {
-                                                final biayaKegiatan = usulanKegiatanList.biayaKegiatan[index];
+                                              ),
+                                            ],
+                                            rows: List.generate(usulanKegiatanList.biayaKegiatan.length, (int index) {
+                                              final biayaKegiatan = usulanKegiatanList.biayaKegiatan[index];
 
-                                                return DataRow(
-                                                  cells: [
-                                                    DataCell(
-                                                      Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text("${index + 1}"),
-                                                      ),
+                                              return DataRow(
+                                                cells: [
+                                                  DataCell(
+                                                    Align(
+                                                      alignment: Alignment.center,
+                                                      child: Text("${index + 1}"),
                                                     ),
-                                                    DataCell(
-                                                      Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text(biayaKegiatan.namaBiayaKegiatan),
-                                                      ),
+                                                  ),
+                                                  DataCell(
+                                                    Align(
+                                                      alignment: Alignment.center,
+                                                      child: Text(biayaKegiatan.namaBiayaKegiatan),
                                                     ),
-                                                    DataCell(
-                                                      Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text("${biayaKegiatan.kuantiti}"),
-                                                      ),
+                                                  ),
+                                                  DataCell(
+                                                    Align(
+                                                      alignment: Alignment.center,
+                                                      child: Text("${biayaKegiatan.kuantiti}"),
                                                     ),
-                                                    DataCell(
-                                                      Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text("${biayaKegiatan.hargaSatuan}"),
-                                                      ),
+                                                  ),
+                                                  DataCell(
+                                                    Align(
+                                                      alignment: Alignment.center,
+                                                      child: Text("${biayaKegiatan.hargaSatuan}"),
                                                     ),
-                                                    DataCell(
-                                                      Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text("${biayaKegiatan.total}"),
-                                                      ),
+                                                  ),
+                                                  DataCell(
+                                                    Align(
+                                                      alignment: Alignment.center,
+                                                      child: Text("${biayaKegiatan.total}"),
                                                     ),
-                                                    DataCell(
-                                                      Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text(biayaKegiatan.keterangan),
-                                                      ),
+                                                  ),
+                                                  DataCell(
+                                                    Align(
+                                                      alignment: Alignment.center,
+                                                      child: Text(biayaKegiatan.keterangan),
                                                     ),
-                                                  ],
-                                                );
-                                              }),
-                                            ),
+                                                  ),
+                                                ],
+                                              );
+                                            }),
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                               const CustomFieldSpacer(),
@@ -307,8 +302,11 @@ class _PemeriksaPengajuanUsulanKegiatan2DKPageState
                                   ),
                                   const SizedBox(width: 8.0),
                                   CustomMipokaButton(
-                                    onTap: () => Navigator.pushNamed(context,
-                                        pemeriksaPengajuanUsulanKegiatan3PageRoute),
+                                    onTap: () => Navigator.pushNamed(
+                                      context,
+                                      pemeriksaPengajuanUsulanKegiatan3PageRoute,
+                                      arguments: widget.idRevisiUsulan,
+                                    ),
                                     text: 'Berikutnya',
                                   ),
                                 ],
