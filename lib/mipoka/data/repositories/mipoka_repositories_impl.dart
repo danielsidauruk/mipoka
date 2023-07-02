@@ -24,7 +24,7 @@ import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
 import 'package:mipoka/mipoka/domain/entities/admin.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
-import 'package:mipoka/mipoka/domain/entities/kegiatan_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
@@ -222,7 +222,7 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
 // * => KegiatanMpt Repositories
   @override
-  Future<Either<Failure, void>> createKegiatanMpt(KegiatanMpt kegiatanMpt) async {
+  Future<Either<Failure, void>> createKegiatanMpt(KegiatanPerPeriodeMpt kegiatanMpt) async {
     try {
       return Right(await mipokaDataSources.createKegiatanMpt(KegiatanMptModel.fromEntity(kegiatanMpt)));
     } on ServerException {
@@ -240,7 +240,7 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, List<KegiatanMpt>>> readAllKegiatanMpt(String filter) async {
+  Future<Either<Failure, List<KegiatanPerPeriodeMpt>>> readAllKegiatanMpt(String filter) async {
     try {
       return Right(await mipokaDataSources.readAllKegiatanMpt(filter));
     } on ServerException {
@@ -249,7 +249,7 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, KegiatanMpt>> readKegiatanMpt(int idKegiatanMpt) async {
+  Future<Either<Failure, KegiatanPerPeriodeMpt>> readKegiatanMpt(int idKegiatanMpt) async {
     try {
       return Right(await mipokaDataSources.readKegiatanMpt(idKegiatanMpt));
     } on ServerException {
@@ -258,7 +258,7 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, void>> updateKegiatanMpt(KegiatanMpt kegiatanMpt) async {
+  Future<Either<Failure, void>> updateKegiatanMpt(KegiatanPerPeriodeMpt kegiatanMpt) async {
     try {
       return Right(await mipokaDataSources.updateKegiatanMpt(KegiatanMptModel.fromEntity(kegiatanMpt)));
     } on ServerException {

@@ -147,7 +147,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                             return Align(
                                               alignment: Alignment.center,
                                               child: Text(
-                                                state.kegiatan.idJenisKegiatanMpt.toString(),
+                                                state.kegiatan.idNamaKegiatanMpt.toString(),
                                               ),
                                             );
                                           } else if (state is KegiatanMptError) {
@@ -281,7 +281,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                     DataCell(
                                       Align(
                                         alignment: Alignment.center,
-                                        child: Text(kegiatanMpt.idJenisKegiatanMpt.toString()),
+                                        child: Text(kegiatanMpt.idNamaKegiatanMpt.toString()),
                                       ),
                                     ),
                                     DataCell(
@@ -309,7 +309,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                           onTap: () => Navigator.pushNamed(
                                             context,
                                             penggunaMPTUnggahBuktiPageRoute,
-                                            arguments: kegiatanMpt.idKegiatanMpt,
+                                            arguments: kegiatanMpt.idKegiatanPerPeriodeMpt,
                                           ),
                                           child: Image.asset(
                                             'assets/icons/upload.png',

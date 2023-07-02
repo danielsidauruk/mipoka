@@ -1,8 +1,7 @@
 {
-  "id_kegiatan_mpt": 342421,
-  "id_jenis_kegiatan_mpt": 1234,
-  "nama_kegiatan_mpt": "Pembersihan Lingkungan",
+  "id_kegiatan_per_periode_mpt": 342421,
   "id_periode_mpt": 43123,
+  "id_nama_kegiatan_mpt": "Pembersihan Lingkungan",
   "tanggal_mulai_kegiatan_mpt": "2023-06-26",
   "tanggal_selesai_kegiatan_mpt": "2023-06-27",
   "point_mpt_diperoleh": 5,

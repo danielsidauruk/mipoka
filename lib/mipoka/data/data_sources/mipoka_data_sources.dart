@@ -346,7 +346,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<KegiatanMptModel> readKegiatanMpt(int idKegiatanMpt) async {
     final String response =
-    await rootBundle.loadString('assets/json_file/kegiatan_mpt.json');
+    await rootBundle.loadString('assets/json_file/kegiatan_per_periode_mpt.json');
     dynamic jsonDecode = json.decode(response);
 
     KegiatanMptModel result = KegiatanMptModel.fromJson(jsonDecode);

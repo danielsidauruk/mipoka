@@ -3,7 +3,7 @@ import 'package:mipoka/domain/utils/failure.dart';
 import 'package:mipoka/mipoka/domain/entities/admin.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
-import 'package:mipoka/mipoka/domain/entities/kegiatan_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
@@ -39,10 +39,10 @@ abstract class MipokaRepositories {
   Future<Either<Failure, void>> updateBiayaKegiatan(BiayaKegiatan biayaKegiatan);
   Future<Either<Failure, void>> deleteBiayaKegiatan(int idNamaBiayaKegiatan);
 
-  Future<Either<Failure, List<KegiatanMpt>>> readAllKegiatanMpt(String filter);
-  Future<Either<Failure, KegiatanMpt>> readKegiatanMpt(int idKegiatanMpt);
-  Future<Either<Failure, void>> createKegiatanMpt(KegiatanMpt kegiatanMpt);
-  Future<Either<Failure, void>> updateKegiatanMpt(KegiatanMpt kegiatanMpt);
+  Future<Either<Failure, List<KegiatanPerPeriodeMpt>>> readAllKegiatanMpt(String filter);
+  Future<Either<Failure, KegiatanPerPeriodeMpt>> readKegiatanMpt(int idKegiatanMpt);
+  Future<Either<Failure, void>> createKegiatanMpt(KegiatanPerPeriodeMpt kegiatanMpt);
+  Future<Either<Failure, void>> updateKegiatanMpt(KegiatanPerPeriodeMpt kegiatanMpt);
   Future<Either<Failure, void>> deleteKegiatanMpt(int idKegiatanMpt);
 
   Future<Either<Failure, List<JenisKegiatanMpt>>> readAllJenisKegiatanMpt(String filter);

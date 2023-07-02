@@ -118,7 +118,7 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                                   final kegiatanMpt = kegiatanMptList[index];
 
                                   context.read<JenisKegiatanMptBloc>().add(
-                                    ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: kegiatanMpt.idJenisKegiatanMpt)
+                                    ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: kegiatanMpt.idNamaKegiatanMpt)
                                   );
 
                                   return DataRow(

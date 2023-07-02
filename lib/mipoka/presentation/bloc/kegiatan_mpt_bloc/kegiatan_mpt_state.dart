@@ -23,7 +23,7 @@ class KegiatanMptError extends KegiatanMptState {
 class AllKegiatanMptHasData extends KegiatanMptState {
   const AllKegiatanMptHasData({required this.kegiatanList});
 
-  final List<KegiatanMpt> kegiatanList;
+  final List<KegiatanPerPeriodeMpt> kegiatanList;
 
   @override
   List<Object> get props => [kegiatanList];
@@ -32,7 +32,7 @@ class AllKegiatanMptHasData extends KegiatanMptState {
 class KegiatanMptHasData extends KegiatanMptState {
   const KegiatanMptHasData({required this.kegiatan});
 
-  final KegiatanMpt kegiatan;
+  final KegiatanPerPeriodeMpt kegiatan;
 
   @override
   List<Object> get props => [kegiatan];

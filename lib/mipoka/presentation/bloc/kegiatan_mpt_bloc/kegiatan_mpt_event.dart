@@ -8,7 +8,7 @@ abstract class KegiatanMptEvent extends Equatable {
 }
 
 class CreateKegiatanMptEvent extends KegiatanMptEvent {
-  final KegiatanMpt kegiatanMpt;
+  final KegiatanPerPeriodeMpt kegiatanMpt;
 
   const CreateKegiatanMptEvent(this.kegiatanMpt);
 
@@ -29,7 +29,7 @@ class ReadKegiatanMptEvent extends KegiatanMptEvent {
 }
 
 class UpdateKegiatanMptEvent extends KegiatanMptEvent {
-  final KegiatanMpt kegiatanMpt;
+  final KegiatanPerPeriodeMpt kegiatanMpt;
 
   const UpdateKegiatanMptEvent(this.kegiatanMpt);
 

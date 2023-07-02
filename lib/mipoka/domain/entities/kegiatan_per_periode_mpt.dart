@@ -1,11 +1,9 @@
 import 'package:equatable/equatable.dart';
-// ==> Just Updated 26 / 06 / 2023
 
-class KegiatanMpt extends Equatable{
-  final int idKegiatanMpt;
-  final int idJenisKegiatanMpt;
-  final String namaKegiatanMpt;
+class KegiatanPerPeriodeMpt extends Equatable{
+  final int idKegiatanPerPeriodeMpt;
   final int idPeriodeMpt;
+  final int idNamaKegiatanMpt;
   final String tanggalMulaiKegiatanMpt;
   final String tanggalSelesaiKegiatanMpt;
   final int pointMptDiperoleh;
@@ -14,10 +12,9 @@ class KegiatanMpt extends Equatable{
   final String updatedAt;
   final String updatedBy;
 
-  const KegiatanMpt({
-    required this.idKegiatanMpt,
-    required this.idJenisKegiatanMpt,
-    required this.namaKegiatanMpt,
+  const KegiatanPerPeriodeMpt({
+    required this.idKegiatanPerPeriodeMpt,
+    required this.idNamaKegiatanMpt,
     required this.idPeriodeMpt,
     required this.tanggalMulaiKegiatanMpt,
     required this.tanggalSelesaiKegiatanMpt,
@@ -28,11 +25,10 @@ class KegiatanMpt extends Equatable{
     required this.updatedBy,
   });
 
-  KegiatanMpt copyWith({
-    int? idKegiatanMpt,
-    int? idJenisKegiatanMpt,
-    String? namaKegiatanMpt,
+  KegiatanPerPeriodeMpt copyWith({
+    int? idKegiatanPerPeriodeMpt,
     int? idPeriodeMpt,
+    int? idNamaKegiatanMpt,
     String? tanggalMulaiKegiatanMpt,
     String? tanggalSelesaiKegiatanMpt,
     int? pointMptDiperoleh,
@@ -41,11 +37,10 @@ class KegiatanMpt extends Equatable{
     String? updatedAt,
     String? updatedBy,
   }) =>
-      KegiatanMpt(
-        idKegiatanMpt: idKegiatanMpt ?? this.idKegiatanMpt,
-        idJenisKegiatanMpt: idJenisKegiatanMpt ?? this.idJenisKegiatanMpt,
-        namaKegiatanMpt: namaKegiatanMpt ?? this.namaKegiatanMpt,
+      KegiatanPerPeriodeMpt(
+        idKegiatanPerPeriodeMpt: idKegiatanPerPeriodeMpt ?? this.idKegiatanPerPeriodeMpt,
         idPeriodeMpt: idPeriodeMpt ?? this.idPeriodeMpt,
+        idNamaKegiatanMpt: idNamaKegiatanMpt ?? this.idNamaKegiatanMpt,
         tanggalMulaiKegiatanMpt: tanggalMulaiKegiatanMpt ?? this.tanggalMulaiKegiatanMpt,
         tanggalSelesaiKegiatanMpt: tanggalSelesaiKegiatanMpt ?? this.tanggalSelesaiKegiatanMpt,
         pointMptDiperoleh: pointMptDiperoleh ?? this.pointMptDiperoleh,
@@ -57,9 +52,8 @@ class KegiatanMpt extends Equatable{
 
   @override
   List<Object?> get props => [
-    idKegiatanMpt,
-    idJenisKegiatanMpt,
-    namaKegiatanMpt,
+    idKegiatanPerPeriodeMpt,
+    idNamaKegiatanMpt,
     idPeriodeMpt,
     tanggalMulaiKegiatanMpt,
     tanggalSelesaiKegiatanMpt,
