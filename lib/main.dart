@@ -17,7 +17,10 @@ import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiat
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mhs_per_periode_mpt_use_cases/mhs_per_periode_mpt_use_cases_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/notifikasi_bloc/notifikasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/partisipan_bloc/partisipan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
@@ -137,6 +140,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<SessionBloc>()),
         BlocProvider(create: (_) => di.locator<TertibAcaraBloc>()),
         BlocProvider(create: (_) => di.locator<UsulanKegiatanBloc>()),
+        BlocProvider(create: (_) => di.locator<MhsPerPeriodeMptBloc>()),
+        BlocProvider(create: (_) => di.locator<NamaKegiatanMptBloc>()),
+        BlocProvider(create: (_) => di.locator<NotifikasiBloc>()),
         BlocProvider<TempatKegiatanCubit>(create: (context) => TempatKegiatanCubit()),
         BlocProvider<SuratUndanganCubit>(create: (context) => SuratUndanganCubit()),
       ],

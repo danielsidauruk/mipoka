@@ -10,6 +10,8 @@ import 'package:mipoka/mipoka/domain/use_cases/biaya_kegiatan_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/jenis_kegiatan_mpt_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/kegiatan_per_periode_mpt_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/laporan_use_case.dart';
+import 'package:mipoka/mipoka/domain/use_cases/mhs_per_periode_mpt_use_cases.dart';
+import 'package:mipoka/mipoka/domain/use_cases/notifikasi_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/ormawa_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/partisipan_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/peserta_kegiatan_laporan_use_case.dart';
@@ -28,7 +30,10 @@ import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiat
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mhs_per_periode_mpt_use_cases/mhs_per_periode_mpt_use_cases_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/notifikasi_bloc/notifikasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/partisipan_bloc/partisipan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
@@ -55,6 +60,7 @@ Future<void> init() async {
   locator.registerFactory(() => JenisKegiatanMptBloc(jenisKegiatanMptUseCase: locator()));
   locator.registerFactory(() => KegiatanPerPeriodeMptBloc(kegiatanPerPeriodeMptUseCase: locator()));
   locator.registerFactory(() => LaporanBloc(laporanUseCase: locator()));
+  locator.registerFactory(() => MhsPerPeriodeMptBloc(mhsPerPeriodeMptUseCase: locator()));
   locator.registerFactory(() => OrmawaBloc(ormawaUseCase: locator()));
   locator.registerFactory(() => PartisipanBloc(partisipanUseCase: locator()));
   locator.registerFactory(() => PeriodeMptBloc(periodeMptUseCase: locator()));
@@ -68,6 +74,8 @@ Future<void> init() async {
   locator.registerFactory(() => TertibAcaraBloc(tertibAcaraUseCase: locator()));
   locator.registerFactory(() => MipokaUserBloc(mipokaUserUseCase: locator()));
   locator.registerFactory(() => UsulanKegiatanBloc(usulanKegiatanUseCase: locator()));
+  locator.registerFactory(() => NamaKegiatanMptBloc(namaKegiatanMptUseCase: locator()));
+  locator.registerFactory(() => NotifikasiBloc(notifikasiUseCase: locator()));
 
   // USE CASE
   locator.registerLazySingleton(() => AdminUseCase(mipokaRepositories: locator()));
@@ -75,8 +83,8 @@ Future<void> init() async {
   locator.registerLazySingleton(() => BiayaKegiatanUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => KegiatanPerPeriodeMptUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => JenisKegiatanMptUseCase(mipokaRepositories: locator()));
-  locator.registerLazySingleton(() => LaporanUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => MipokaUserUseCase(mipokaRepositories: locator()));
+  locator.registerLazySingleton(() => LaporanUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => OrmawaUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => PartisipanUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => PeriodeMptUseCase(mipokaRepositories: locator()));
@@ -89,6 +97,9 @@ Future<void> init() async {
   locator.registerLazySingleton(() => SessionUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => TertibAcaraUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => UsulanKegiatanUseCase(mipokaRepositories: locator()));
+  locator.registerLazySingleton(() => MhsPerPeriodeMptUseCases(mipokaRepositories: locator()));
+  locator.registerLazySingleton(() => NamaKegiatanMptBloc(namaKegiatanMptUseCase: locator()));
+  locator.registerLazySingleton(() => NotifikasiUseCase(mipokaRepositories: locator()));
 
 
   // REPOSITORIES
