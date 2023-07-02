@@ -224,7 +224,7 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   @override
   Future<Either<Failure, void>> createKegiatanPerPeriodeMpt(KegiatanPerPeriodeMpt kegiatanMpt) async {
     try {
-      return Right(await mipokaDataSources.createKegiatanMpt(KegiatanPerPeriodeMptModel.fromEntity(kegiatanMpt)));
+      return Right(await mipokaDataSources.createKegiatanPerPeriodeMpt(KegiatanPerPeriodeMptModel.fromEntity(kegiatanMpt)));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -233,7 +233,7 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   @override
   Future<Either<Failure, void>> deleteKegiatanPerPeriodeMpt(int idKegiatanMpt) async {
     try {
-      return Right(await mipokaDataSources.deleteKegiatanMpt(idKegiatanMpt));
+      return Right(await mipokaDataSources.deleteKegiatanPerPeriodeMpt(idKegiatanMpt));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -242,7 +242,7 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   @override
   Future<Either<Failure, List<KegiatanPerPeriodeMpt>>> readAllKegiatanPerPeriodeMpt(String filter) async {
     try {
-      return Right(await mipokaDataSources.readAllKegiatanMpt(filter));
+      return Right(await mipokaDataSources.readAllKegiatanPerPeriodeMpt(filter));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -251,7 +251,7 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   @override
   Future<Either<Failure, KegiatanPerPeriodeMpt>> readKegiatanPerPeriodeMpt(int idKegiatanMpt) async {
     try {
-      return Right(await mipokaDataSources.readKegiatanMpt(idKegiatanMpt));
+      return Right(await mipokaDataSources.readKegiatanPerPeriodeMpt(idKegiatanMpt));
     } on ServerException {
       return const Left(ServerFailure());
     }
@@ -260,7 +260,7 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   @override
   Future<Either<Failure, void>> updateKegiatanPerPeriodeMpt(KegiatanPerPeriodeMpt kegiatanMpt) async {
     try {
-      return Right(await mipokaDataSources.updateKegiatanMpt(KegiatanPerPeriodeMptModel.fromEntity(kegiatanMpt)));
+      return Right(await mipokaDataSources.updateKegiatanPerPeriodeMpt(KegiatanPerPeriodeMptModel.fromEntity(kegiatanMpt)));
     } on ServerException {
       return const Left(ServerFailure());
     }
