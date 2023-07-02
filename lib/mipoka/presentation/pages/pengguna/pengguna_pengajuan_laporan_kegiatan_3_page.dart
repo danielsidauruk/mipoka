@@ -37,9 +37,14 @@ class _PenggunaPengajuanLaporanKegiatan3State
   
   @override
   void initState() {
-    BlocProvider.of<LaporanBloc>(context, listen: false).add(
-        ReadLaporanEvent(idLaporan: widget.idLaporan));
+    context.read<LaporanBloc>().add(ReadLaporanEvent(idLaporan: widget.idLaporan));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    context.read<LaporanBloc>().close();
+    super.dispose();
   }
   
   bool tempatKegiatan = false;
@@ -226,6 +231,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                       fotoPostinganKegiatan: _postinganKegiatanController,
                                       fotoDokumentasiKegiatan: fotoDokumentasiKegiatanList,
                                       fotoTabulasiHasil: _tabulasiHasilKegiatanController,
+                                      fotoFakturPembayaran: _fakturPembayaranController,
 
                                     ),
                                   ),
@@ -248,6 +254,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                       fotoPostinganKegiatan: _postinganKegiatanController,
                                       fotoDokumentasiKegiatan: fotoDokumentasiKegiatanList,
                                       fotoTabulasiHasil: _tabulasiHasilKegiatanController,
+                                      fotoFakturPembayaran: _fakturPembayaranController,
                                     ),
                                   ),
                                 );

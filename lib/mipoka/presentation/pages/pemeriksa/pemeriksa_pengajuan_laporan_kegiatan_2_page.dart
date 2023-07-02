@@ -89,88 +89,83 @@ class _PemeriksaPengajuanLaporanKegiatan2PageState
                                 controller: _dataPesertaKegiatanController,
                               ),
                               Expanded(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                  ),
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
                                   child: SingleChildScrollView(
-                                    scrollDirection: Axis.vertical,
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: DataTable(
-                                        columnSpacing: 40,
-                                        border: TableBorder.all(color: Colors.white),
-                                        columns: const [
-                                          DataColumn(
-                                            label: Text(
-                                              'No.',
-                                              style: TextStyle(fontWeight: FontWeight.bold),
-                                              textAlign: TextAlign.center,
-                                            ),
+                                    scrollDirection: Axis.horizontal,
+                                    child: DataTable(
+                                      columnSpacing: 40,
+                                      border: TableBorder.all(color: Colors.white),
+                                      columns: const [
+                                        DataColumn(
+                                          label: Text(
+                                            'No.',
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
                                           ),
-                                          DataColumn(
-                                            label: Text(
-                                              'NIM/NIP',
-                                              style: TextStyle(fontWeight: FontWeight.bold),
-                                              textAlign: TextAlign.center,
-                                            ),
+                                        ),
+                                        DataColumn(
+                                          label: Text(
+                                            'NIM/NIP',
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
                                           ),
-                                          DataColumn(
-                                            label: Text(
-                                              'Nama Lengkap',
-                                              style: TextStyle(fontWeight: FontWeight.bold),
-                                              textAlign: TextAlign.center,
-                                            ),
+                                        ),
+                                        DataColumn(
+                                          label: Text(
+                                            'Nama Lengkap',
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
                                           ),
-                                          DataColumn(
-                                            label: Text(
-                                              'Peran',
-                                              style: TextStyle(fontWeight: FontWeight.bold),
-                                              textAlign: TextAlign.center,
-                                            ),
+                                        ),
+                                        DataColumn(
+                                          label: Text(
+                                            'Peran',
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
                                           ),
-                                        ],
-                                        rows: List<DataRow>.generate(laporan.pesertaKegiatanLaporan.length, (int index) {
-                                          final peserta = laporan.pesertaKegiatanLaporan[index];
+                                        ),
+                                      ],
+                                      rows: List<DataRow>.generate(laporan.pesertaKegiatanLaporan.length, (int index) {
+                                        final peserta = laporan.pesertaKegiatanLaporan[index];
 
-                                          return DataRow(
-                                            cells: [
-                                              DataCell(
-                                                Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    '${index + 1}',
-                                                  ),
+                                        return DataRow(
+                                          cells: [
+                                            DataCell(
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  '${index + 1}',
                                                 ),
                                               ),
-                                              DataCell(
-                                                Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    peserta.nim,
-                                                  ),
+                                            ),
+                                            DataCell(
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  peserta.nim,
                                                 ),
                                               ),
-                                              DataCell(
-                                                Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    peserta.namaLengkap,
-                                                  ),
+                                            ),
+                                            DataCell(
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  peserta.namaLengkap,
                                                 ),
                                               ),
-                                              DataCell(
-                                                Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                   peserta.peran,
-                                                  ),
+                                            ),
+                                            DataCell(
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                 peserta.peran,
                                                 ),
                                               ),
-                                            ],
-                                          );
-                                        }),
-                                      ),
+                                            ),
+                                          ],
+                                        );
+                                      }),
                                     ),
                                   ),
                                 ),
@@ -181,137 +176,132 @@ class _PemeriksaPengajuanLaporanKegiatan2PageState
                                 controller: _realisasiBiayaKegiatanController,
                               ),
                               Expanded(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Expanded(
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis.vertical,
                                         child: SingleChildScrollView(
-                                          scrollDirection: Axis.vertical,
-                                          child: SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
-                                            child: DataTable(
-                                              columnSpacing: 40,
-                                              border: TableBorder.all(color: Colors.white),
-                                              columns: const [
-                                                DataColumn(
-                                                  label: Text(
-                                                    'No.',
+                                          scrollDirection: Axis.horizontal,
+                                          child: DataTable(
+                                            columnSpacing: 40,
+                                            border: TableBorder.all(color: Colors.white),
+                                            columns: const [
+                                              DataColumn(
+                                                label: Text(
+                                                  'No.',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                              DataColumn(
+                                                label: Text(
+                                                  'Nama Biaya',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                              DataColumn(
+                                                label: Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    'Kuantitas',
                                                     style: TextStyle(
                                                         fontWeight: FontWeight.bold),
-                                                    textAlign: TextAlign.center,
                                                   ),
                                                 ),
-                                                DataColumn(
-                                                  label: Text(
-                                                    'Nama Biaya',
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold),
-                                                    textAlign: TextAlign.center,
-                                                  ),
+                                              ),
+                                              DataColumn(
+                                                label: Text(
+                                                  'Harga Satuan',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold),
+                                                  textAlign: TextAlign.center,
                                                 ),
-                                                DataColumn(
-                                                  label: Align(
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                      'Kuantitas',
-                                                      style: TextStyle(
-                                                          fontWeight: FontWeight.bold),
-                                                    ),
-                                                  ),
+                                              ),
+                                              DataColumn(
+                                                label: Text(
+                                                  'Usulan Anggaran',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold),
+                                                  textAlign: TextAlign.center,
                                                 ),
-                                                DataColumn(
-                                                  label: Text(
-                                                    'Harga Satuan',
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold),
-                                                    textAlign: TextAlign.center,
-                                                  ),
+                                              ),
+                                              DataColumn(
+                                                label: Text(
+                                                  'Realisasi Anggaran',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold),
+                                                  textAlign: TextAlign.center,
                                                 ),
-                                                DataColumn(
-                                                  label: Text(
-                                                    'Usulan Anggaran',
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold),
-                                                    textAlign: TextAlign.center,
-                                                  ),
+                                              ),
+                                              DataColumn(
+                                                label: Text(
+                                                  'Selisih',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold),
+                                                  textAlign: TextAlign.center,
                                                 ),
-                                                DataColumn(
-                                                  label: Text(
-                                                    'Realisasi Anggaran',
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ),
-                                                DataColumn(
-                                                  label: Text(
-                                                    'Selisih',
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ),
-                                              ],
-                                              rows: List.generate(laporan.rincianBiayaKegiatan.length, (int index) {
-                                                final rincianBiaya = laporan.rincianBiayaKegiatan[index];
+                                              ),
+                                            ],
+                                            rows: List.generate(laporan.rincianBiayaKegiatan.length, (int index) {
+                                              final rincianBiaya = laporan.rincianBiayaKegiatan[index];
 
-                                                return DataRow(
-                                                  cells: [
-                                                    DataCell(
-                                                      Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text('${index + 1}'),
-                                                      ),
+                                              return DataRow(
+                                                cells: [
+                                                  DataCell(
+                                                    Align(
+                                                      alignment: Alignment.center,
+                                                      child: Text('${index + 1}'),
                                                     ),
-                                                    DataCell(
-                                                      Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text(rincianBiaya.namaBiaya),
-                                                      ),
+                                                  ),
+                                                  DataCell(
+                                                    Align(
+                                                      alignment: Alignment.center,
+                                                      child: Text(rincianBiaya.namaBiaya),
                                                     ),
-                                                    DataCell(
-                                                      Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text("${rincianBiaya.kuantitas}"),
-                                                      ),
+                                                  ),
+                                                  DataCell(
+                                                    Align(
+                                                      alignment: Alignment.center,
+                                                      child: Text("${rincianBiaya.kuantitas}"),
                                                     ),
-                                                    DataCell(
-                                                      Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text("${rincianBiaya.hargaSatuan}"),
-                                                      ),
+                                                  ),
+                                                  DataCell(
+                                                    Align(
+                                                      alignment: Alignment.center,
+                                                      child: Text("${rincianBiaya.hargaSatuan}"),
                                                     ),
-                                                    DataCell(
-                                                      Align(
-                                                        alignment: Alignment.center,
-                                                        child:
-                                                        Text("${rincianBiaya.usulanAnggaran}"),
-                                                      ),
+                                                  ),
+                                                  DataCell(
+                                                    Align(
+                                                      alignment: Alignment.center,
+                                                      child:
+                                                      Text("${rincianBiaya.usulanAnggaran}"),
                                                     ),
-                                                    DataCell(
-                                                      Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text("${rincianBiaya.realisasiAnggaran}")
-                                                      ),
+                                                  ),
+                                                  DataCell(
+                                                    Align(
+                                                      alignment: Alignment.center,
+                                                      child: Text("${rincianBiaya.realisasiAnggaran}")
                                                     ),
-                                                    DataCell(
-                                                      Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text("${rincianBiaya.selisih}"),
-                                                      ),
+                                                  ),
+                                                  DataCell(
+                                                    Align(
+                                                      alignment: Alignment.center,
+                                                      child: Text("${rincianBiaya.selisih}"),
                                                     ),
-                                                  ],
-                                                );
-                                              }),
-                                            ),
+                                                  ),
+                                                ],
+                                              );
+                                            }),
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                               const CustomFieldSpacer(),

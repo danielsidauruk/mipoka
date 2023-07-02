@@ -28,7 +28,7 @@ class CreateRevisiLaporanEvent extends RevisiLaporanEvent {
 class UpdateRevisiLaporanEvent extends RevisiLaporanEvent {
   final RevisiLaporan revisiLaporan;
 
-  const UpdateRevisiLaporanEvent(this.revisiLaporan);
+  const UpdateRevisiLaporanEvent({required this.revisiLaporan});
 
   @override
   List<Object?> get props => [revisiLaporan];
