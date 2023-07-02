@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:mipoka/mipoka/data/models/admin_model.dart';
 import 'package:mipoka/mipoka/data/models/berita_model.dart';
 import 'package:mipoka/mipoka/data/models/jenis_kegaitan_mpt.dart';
-import 'package:mipoka/mipoka/data/models/kegiatan_model.dart';
+import 'package:mipoka/mipoka/data/models/kegiatan_per_periode_mpt_model.dart';
 import 'package:mipoka/mipoka/data/models/laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
@@ -47,10 +47,10 @@ abstract class MipokaDataSources {
   Future<void> updateJenisKegiatanMpt(JenisKegiatanMptModel jenisKegiatanMptModel);
   Future<void> deleteJenisKegiatanMpt(int idJenisKegiatanMpt);
 
-  Future<List<KegiatanMptModel>> readAllKegiatanMpt(String filter);
-  Future<KegiatanMptModel> readKegiatanMpt(int idKegiatanMpt);
-  Future<void> createKegiatanMpt(KegiatanMptModel kegiatanMptModel);
-  Future<void> updateKegiatanMpt(KegiatanMptModel kegiatanMptModel);
+  Future<List<KegiatanPerPeriodeMptModel>> readAllKegiatanMpt(String filter);
+  Future<KegiatanPerPeriodeMptModel> readKegiatanMpt(int idKegiatanMpt);
+  Future<void> createKegiatanMpt(KegiatanPerPeriodeMptModel kegiatanMptModel);
+  Future<void> updateKegiatanMpt(KegiatanPerPeriodeMptModel kegiatanMptModel);
   Future<void> deleteKegiatanMpt(int idKegiatanMpt);
 
   Future<List<LaporanModel>> readAllLaporan(String filter);
@@ -313,7 +313,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   // => * KegiatanMPT DataSources
   @override
-  Future<void> createKegiatanMpt(KegiatanMptModel kegiatanMptModel) async {
+  Future<void> createKegiatanMpt(KegiatanPerPeriodeMptModel kegiatanMptModel) async {
     if (kDebugMode) {
       print(kegiatanMptModel.toJson());
     }
@@ -327,13 +327,13 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<KegiatanMptModel>> readAllKegiatanMpt(String filter) async {
+  Future<List<KegiatanPerPeriodeMptModel>> readAllKegiatanMpt(String filter) async {
     final String response =
     await rootBundle.loadString('assets/json_file/kegiatan_mpt_list.json');
     List<dynamic> resultList = json.decode(response);
 
-    List<KegiatanMptModel> result =
-    resultList.map((resultMap) => KegiatanMptModel.fromJson(resultMap))
+    List<KegiatanPerPeriodeMptModel> result =
+    resultList.map((resultMap) => KegiatanPerPeriodeMptModel.fromJson(resultMap))
         .toList();
 
     if (kDebugMode) {
@@ -344,18 +344,18 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<KegiatanMptModel> readKegiatanMpt(int idKegiatanMpt) async {
+  Future<KegiatanPerPeriodeMptModel> readKegiatanMpt(int idKegiatanMpt) async {
     final String response =
     await rootBundle.loadString('assets/json_file/kegiatan_per_periode_mpt.json');
     dynamic jsonDecode = json.decode(response);
 
-    KegiatanMptModel result = KegiatanMptModel.fromJson(jsonDecode);
+    KegiatanPerPeriodeMptModel result = KegiatanPerPeriodeMptModel.fromJson(jsonDecode);
 
     return result;
   }
 
   @override
-  Future<void> updateKegiatanMpt(KegiatanMptModel kegiatanMptModel) async {
+  Future<void> updateKegiatanMpt(KegiatanPerPeriodeMptModel kegiatanMptModel) async {
     if (kDebugMode) {
       print(kegiatanMptModel.toJson());
     }

@@ -1,8 +1,7 @@
 import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 
-// ==> Just Updated 26 / 06 / 2023
-class KegiatanMptModel extends KegiatanPerPeriodeMpt{
-  const KegiatanMptModel({
+class KegiatanPerPeriodeMptModel extends KegiatanPerPeriodeMpt{
+  const KegiatanPerPeriodeMptModel({
     required super.idKegiatanPerPeriodeMpt,
     required super.idNamaKegiatanMpt,
     required super.idPeriodeMpt,
@@ -15,8 +14,8 @@ class KegiatanMptModel extends KegiatanPerPeriodeMpt{
     required super.updatedBy,
   });
 
-  factory KegiatanMptModel.fromEntity(KegiatanPerPeriodeMpt kegiatanMpt) {
-    return KegiatanMptModel(
+  factory KegiatanPerPeriodeMptModel.fromEntity(KegiatanPerPeriodeMpt kegiatanMpt) {
+    return KegiatanPerPeriodeMptModel(
       idKegiatanPerPeriodeMpt: kegiatanMpt.idKegiatanPerPeriodeMpt,
       idNamaKegiatanMpt: kegiatanMpt.idNamaKegiatanMpt,
       idPeriodeMpt: kegiatanMpt.idPeriodeMpt,
@@ -30,7 +29,7 @@ class KegiatanMptModel extends KegiatanPerPeriodeMpt{
     );
   }
 
-  factory KegiatanMptModel.fromJson(Map<String, dynamic> json) => KegiatanMptModel(
+  factory KegiatanPerPeriodeMptModel.fromJson(Map<String, dynamic> json) => KegiatanPerPeriodeMptModel(
     idKegiatanPerPeriodeMpt: json["id_kegiatan_per_periode_mpt"],
     idPeriodeMpt: json["id_periode_mpt"],
     idNamaKegiatanMpt: json["id_nama_kegiatan_mpt"],

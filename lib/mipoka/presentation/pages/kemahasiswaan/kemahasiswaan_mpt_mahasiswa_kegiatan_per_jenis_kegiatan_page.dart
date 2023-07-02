@@ -4,7 +4,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/kegiatan_mpt_bloc/kegiatan_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/kegiatan_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -55,7 +55,7 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                   if (state is KegiatanMptLoading) {
                     return const Text('Loading ...');
                   } else if (state is AllKegiatanMptHasData) {
-                    final kegiatanMptList = state.kegiatanList;
+                    final kegiatanMptList = state.kegiatanPerPeriodeMptList;
 
                     return CustomContentBox(
                       children: [
