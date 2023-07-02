@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class Admin extends Equatable {
-  final int idAdmin;
+  final String idAdmin;
   final String email;
   final String namaLengkap;
   final String nip;
@@ -28,7 +28,7 @@ class Admin extends Equatable {
   });
 
   Admin copyWith({
-    int? idAdmin,
+    String? idAdmin,
     String? email,
     String? namaLengkap,
     String? nip,

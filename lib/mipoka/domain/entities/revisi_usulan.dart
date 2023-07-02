@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class RevisiUsulan extends Equatable{
   final int idRevisiUsulan;
-  final int idAdmin;
+  final String idAdmin;
   final int idUsulan;
   final String revisiPembiayaan;
   final String revisiNamaKegiatan;
@@ -15,15 +15,15 @@ class RevisiUsulan extends Equatable{
   final String revisiWaktuSelesaiKegiatan;
   final String revisiTanggalKeberangkatan;
   final String revisiTanggalKepulangan;
-  final int revisiJumlahPartisipan;
+  final String revisiJumlahPartisipan;
   final String revisiKategoriJumlahPartisipan;
   final String revisiTargetKegiatan;
-  final int revisiTotalPendanaan;
+  final String revisiTotalPendanaan;
   final String revisiKategoriTotalPendanaan;
   final String revisiKeterangan;
   final String revisiTandaTanganOrmawa;
-  final List<String> revisiIdPartisipan;
-  final List<String> revisiIdRincianBiayaKegiatan;
+  final String revisiIdPartisipan;
+  final String revisiIdRincianBiayaKegiatan;
   final String revisiLatarBelakang;
   final String revisiTujuanKegiatan;
   final String revisiManfaatKegiatan;
@@ -37,13 +37,13 @@ class RevisiUsulan extends Equatable{
   final String revisiFotoPostinganKegiatan;
   final String revisiFotoSuratUndanganKegiatan;
   final String revisiFotoLinimasaKegiatan;
-  final List<String> revisiFotoTempatKegiatan;
+  final String revisiFotoTempatKegiatan;
   final String createdAt;
   final String createdBy;
   final String updatedAt;
   final String updatedBy;
 
-  RevisiUsulan({
+  const RevisiUsulan({
     required this.idRevisiUsulan,
     required this.idAdmin,
     required this.idUsulan,
@@ -89,7 +89,7 @@ class RevisiUsulan extends Equatable{
 
   RevisiUsulan copyWith({
     int? idRevisiUsulan,
-    int? idAdmin,
+    String? idAdmin,
     int? idUsulan,
     String? revisiPembiayaan,
     String? revisiNamaKegiatan,
@@ -102,15 +102,15 @@ class RevisiUsulan extends Equatable{
     String? revisiWaktuSelesaiKegiatan,
     String? revisiTanggalKeberangkatan,
     String? revisiTanggalKepulangan,
-    int? revisiJumlahPartisipan,
+    String? revisiJumlahPartisipan,
     String? revisiKategoriJumlahPartisipan,
     String? revisiTargetKegiatan,
-    int? revisiTotalPendanaan,
+    String? revisiTotalPendanaan,
     String? revisiKategoriTotalPendanaan,
     String? revisiKeterangan,
     String? revisiTandaTanganOrmawa,
-    List<String>? revisiIdPartisipan,
-    List<String>? revisiIdRincianBiayaKegiatan,
+    String? revisiIdPartisipan,
+    String? revisiIdRincianBiayaKegiatan,
     String? revisiLatarBelakang,
     String? revisiTujuanKegiatan,
     String? revisiManfaatKegiatan,
@@ -124,7 +124,7 @@ class RevisiUsulan extends Equatable{
     String? revisiFotoPostinganKegiatan,
     String? revisiFotoSuratUndanganKegiatan,
     String? revisiFotoLinimasaKegiatan,
-    List<String>? revisiFotoTempatKegiatan,
+    String? revisiFotoTempatKegiatan,
     String? createdAt,
     String? createdBy,
     String? updatedAt,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mipoka/core/constanst.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
+import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_comment_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -8,10 +9,14 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
-import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 
 class PemeriksaPengajuanUsulanKegiatan1Page extends StatefulWidget {
-  const PemeriksaPengajuanUsulanKegiatan1Page({super.key});
+  const PemeriksaPengajuanUsulanKegiatan1Page({
+    super.key,
+    required this.idRevisiUsulanKegiatan,
+  });
+
+  final int idRevisiUsulanKegiatan;
 
   @override
   State<PemeriksaPengajuanUsulanKegiatan1Page> createState() =>
@@ -20,50 +25,46 @@ class PemeriksaPengajuanUsulanKegiatan1Page extends StatefulWidget {
 
 class _PemeriksaPengajuanUsulanKegiatan1PageState
     extends State<PemeriksaPengajuanUsulanKegiatan1Page> {
+
   final TextEditingController _commentNamaOrmawaController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _commentPembiayaanController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _commentNamaKegiatanController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _commentBentukKegiatanController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _commentDeskripsiKegiatanController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _commentTanggalMulaiKegiatanController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _commentTanggalSelesaiKegiatanController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _commentWaktuMulaiKegiatanController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _commentWaktuSelesaiKegiatanController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _commentTempatKegiatanController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _commentTanggalKeberangkatanController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _commentTanggalKepulanganController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _commentJumlahParsitipanController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _commentTargetKegiatanController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _commentTotalPendanaanController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _commentKeteranganController =
-      TextEditingController();
+  TextEditingController();
 
-  final GlobalKey<SfSignaturePadState> signatureGlobalKey = GlobalKey();
-
-  bool tandaTangan = false;
 
   @override
   void initState() {
+    context.read<UsulanKegiatanBloc>().add(
+        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idRevisiUsulanKegiatan));
     super.initState();
-  }
-
-  void _handleClearButtonPressed() {
-    signatureGlobalKey.currentState!.clear();
   }
 
   @override
@@ -79,133 +80,141 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
             children: [
               const CustomMobileTitle(
                   text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
+
               const CustomFieldSpacer(),
-              CustomContentBox(
-                children: [
-                  CustomCommentWidget(
-                    title: 'Nama Ormawa',
-                    mainText: 'Mikroskil Esport',
-                    controller: _commentNamaOrmawaController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentWidget(
-                    title: 'Pembiayaan',
-                    mainText: 'Mandiri',
-                    controller: _commentPembiayaanController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentWidget(
-                    title: 'Nama Kegiatan',
-                    mainText: 'Vexana Starlight Tournament - MEL Mar 2023',
-                    controller: _commentNamaKegiatanController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentWidget(
-                    title: 'Bentuk Kegiatan',
-                    mainText: 'Daring, Bakti Sosial',
-                    controller: _commentBentukKegiatanController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentWidget(
-                    title: 'Deskripsi Kegiatan',
-                    mainText:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
-                    controller: _commentDeskripsiKegiatanController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentWidget(
-                    title: 'Tanggal Mulai Kegiatan',
-                    mainText: '11/05/2023',
-                    controller: _commentTanggalMulaiKegiatanController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentWidget(
-                    title: 'Tanggal Selesai Kegiatan',
-                    mainText: '11/05/2023',
-                    controller: _commentTanggalSelesaiKegiatanController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentWidget(
-                    title: 'Waktu Mulai Kegiatan',
-                    mainText: '13.30',
-                    controller: _commentWaktuMulaiKegiatanController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentWidget(
-                    title: 'Waktu Selesai Kegiatan',
-                    mainText: '15.30',
-                    controller: _commentWaktuSelesaiKegiatanController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentWidget(
-                    title: 'Tempat Kegiatan',
-                    mainText: 'Luar Kota, Planet Mars',
-                    controller: _commentTempatKegiatanController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentWidget(
-                    title: 'Tanggal Keberangkatan',
-                    mainText: '10/05/2023',
-                    controller: _commentTanggalKeberangkatanController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentWidget(
-                    title: 'Tanggal Kepulangan',
-                    mainText: '13/05/2023',
-                    controller: _commentTanggalKepulanganController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentWidget(
-                    title: 'Jumlah Parsitipan',
-                    mainText: '15 Orang',
-                    controller: _commentJumlahParsitipanController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentWidget(
-                    title: 'Target Kegiatan',
-                    mainText: 'Lorem Ipsum',
-                    controller: _commentTargetKegiatanController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentWidget(
-                    title: 'Total Pendanaan',
-                    mainText: 'Rp. 20.000.000',
-                    controller: _commentTotalPendanaanController,
-                  ),
-                  const CustomFieldSpacer(),
-                  CustomCommentWidget(
-                    title: 'Keterangan',
-                    mainText:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
-                    controller: _commentKeteranganController,
-                  ),
-                  const CustomFieldSpacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+
+              BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+                builder: (context, state) {
+                  return CustomContentBox(
                     children: [
-                      // CustomButton(
-                      //   navigation: () => Navigator.pop(context),
-                      //   text: 'Kembali',
-                      // ),
-
-                      const SizedBox(width: 8.0),
-
-                      CustomMipokaButton(
-                        onTap: () => Navigator.pushNamed(context,
-                            pemeriksaPengajuanUsulanKegiatan2DKPageRoute),
-                        text: 'Berikutnya (DK)',
+                      CustomCommentWidget(
+                        title: 'Nama Ormawa',
+                        mainText: 'Mikroskil Esport',
+                        controller: _commentNamaOrmawaController,
                       ),
+                      const CustomFieldSpacer(),
+                      CustomCommentWidget(
+                        title: 'Pembiayaan',
+                        mainText: 'Mandiri',
+                        controller: _commentPembiayaanController,
+                      ),
+                      const CustomFieldSpacer(),
+                      CustomCommentWidget(
+                        title: 'Nama Kegiatan',
+                        mainText: 'Vexana Starlight Tournament - MEL Mar 2023',
+                        controller: _commentNamaKegiatanController,
+                      ),
+                      const CustomFieldSpacer(),
+                      CustomCommentWidget(
+                        title: 'Bentuk Kegiatan',
+                        mainText: 'Daring, Bakti Sosial',
+                        controller: _commentBentukKegiatanController,
+                      ),
+                      const CustomFieldSpacer(),
+                      CustomCommentWidget(
+                        title: 'Deskripsi Kegiatan',
+                        mainText:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                        controller: _commentDeskripsiKegiatanController,
+                      ),
+                      const CustomFieldSpacer(),
+                      CustomCommentWidget(
+                        title: 'Tanggal Mulai Kegiatan',
+                        mainText: '11/05/2023',
+                        controller: _commentTanggalMulaiKegiatanController,
+                      ),
+                      const CustomFieldSpacer(),
+                      CustomCommentWidget(
+                        title: 'Tanggal Selesai Kegiatan',
+                        mainText: '11/05/2023',
+                        controller: _commentTanggalSelesaiKegiatanController,
+                      ),
+                      const CustomFieldSpacer(),
+                      CustomCommentWidget(
+                        title: 'Waktu Mulai Kegiatan',
+                        mainText: '13.30',
+                        controller: _commentWaktuMulaiKegiatanController,
+                      ),
+                      const CustomFieldSpacer(),
+                      CustomCommentWidget(
+                        title: 'Waktu Selesai Kegiatan',
+                        mainText: '15.30',
+                        controller: _commentWaktuSelesaiKegiatanController,
+                      ),
+                      const CustomFieldSpacer(),
+                      CustomCommentWidget(
+                        title: 'Tempat Kegiatan',
+                        mainText: 'Luar Kota, Planet Mars',
+                        controller: _commentTempatKegiatanController,
+                      ),
+                      const CustomFieldSpacer(),
+                      CustomCommentWidget(
+                        title: 'Tanggal Keberangkatan',
+                        mainText: '10/05/2023',
+                        controller: _commentTanggalKeberangkatanController,
+                      ),
+                      const CustomFieldSpacer(),
+                      CustomCommentWidget(
+                        title: 'Tanggal Kepulangan',
+                        mainText: '13/05/2023',
+                        controller: _commentTanggalKepulanganController,
+                      ),
+                      const CustomFieldSpacer(),
+                      CustomCommentWidget(
+                        title: 'Jumlah Parsitipan',
+                        mainText: '15 Orang',
+                        controller: _commentJumlahParsitipanController,
+                      ),
+                      const CustomFieldSpacer(),
+                      CustomCommentWidget(
+                        title: 'Target Kegiatan',
+                        mainText: 'Lorem Ipsum',
+                        controller: _commentTargetKegiatanController,
+                      ),
+                      const CustomFieldSpacer(),
+                      CustomCommentWidget(
+                        title: 'Total Pendanaan',
+                        mainText: 'Rp. 20.000.000',
+                        controller: _commentTotalPendanaanController,
+                      ),
+                      const CustomFieldSpacer(),
+                      CustomCommentWidget(
+                        title: 'Keterangan',
+                        mainText:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                        controller: _commentKeteranganController,
+                      ),
+                      const CustomFieldSpacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          // CustomButton(
+                          //   navigation: () => Navigator.pop(context),
+                          //   text: 'Kembali',
+                          // ),
 
-                      const SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
 
-                      CustomMipokaButton(
-                        onTap: () => Navigator.pushNamed(context,
-                            pemeriksaPengajuanUsulanKegiatan2LKPageRoute),
-                        text: 'Berikutnya (LK)',
+                          CustomMipokaButton(
+                            onTap: () =>
+                                Navigator.pushNamed(context,
+                                    pemeriksaPengajuanUsulanKegiatan2DKPageRoute),
+                            text: 'Berikutnya (DK)',
+                          ),
+
+                          const SizedBox(width: 8.0),
+
+                          CustomMipokaButton(
+                            onTap: () =>
+                                Navigator.pushNamed(context,
+                                    pemeriksaPengajuanUsulanKegiatan2LKPageRoute),
+                            text: 'Berikutnya (LK)',
+                          ),
+                        ],
                       ),
                     ],
-                  ),
-                ],
+                  );
+                },
               ),
             ],
           ),

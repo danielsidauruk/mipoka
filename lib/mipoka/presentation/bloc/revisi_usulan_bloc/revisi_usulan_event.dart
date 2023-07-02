@@ -19,7 +19,7 @@ class ReadRevisiUsulanEvent extends RevisiUsulanEvent {
 class CreateRevisiUsulanEvent extends RevisiUsulanEvent {
   final RevisiUsulan revisiUsulan;
 
-  const CreateRevisiUsulanEvent(this.revisiUsulan);
+  const CreateRevisiUsulanEvent({required this.revisiUsulan});
 
   @override
   List<Object?> get props => [revisiUsulan];
@@ -28,7 +28,7 @@ class CreateRevisiUsulanEvent extends RevisiUsulanEvent {
 class UpdateRevisiUsulanEvent extends RevisiUsulanEvent {
   final RevisiUsulan revisiUsulan;
 
-  const UpdateRevisiUsulanEvent(this.revisiUsulan);
+  const UpdateRevisiUsulanEvent({required this.revisiUsulan});
 
   @override
   List<Object?> get props => [revisiUsulan];
@@ -37,7 +37,7 @@ class UpdateRevisiUsulanEvent extends RevisiUsulanEvent {
 class DeleteRevisiUsulanEvent extends RevisiUsulanEvent {
   final int idRevisiUsulan;
 
-  const DeleteRevisiUsulanEvent(this.idRevisiUsulan);
+  const DeleteRevisiUsulanEvent({required this.idRevisiUsulan});
 
   @override
   List<Object?> get props => [idRevisiUsulan];
