@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
@@ -10,15 +9,11 @@ import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegi
 import 'package:mipoka/mipoka/presentation/widgets/custom_comment_for_table.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_load_image.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
-import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_comment_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:flutter_quill/flutter_quill.dart' hide Text;
-import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_rich_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 
@@ -309,7 +304,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
 
                               CustomCommentForTable(
                                 title: "Postingan Kegiatan",
-                                controller: _perlengkapanDanPeralatanController,
+                                controller: _postingKegiatanController,
                               ),
 
                               MipokaCustomLoadImage(
@@ -321,7 +316,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
 
                               CustomCommentForTable(
                                 title: "Surat Undangan Kegiatan",
-                                controller: _perlengkapanDanPeralatanController,
+                                controller: _suratUndanganController,
                               ),
                               MipokaCustomLoadImage(
                                 stream: _suratUndanganStream,
@@ -332,7 +327,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
 
                               CustomCommentForTable(
                                 title: "Linimasa Kegiatan",
-                                controller: _perlengkapanDanPeralatanController,
+                                controller: _linimasaKegiatanController,
                               ),
                               MipokaCustomLoadImage(
                                 stream: _linimasaKegiatanStream,
@@ -343,7 +338,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
 
                               CustomCommentForTable(
                                 title: "Tempat Kegiatan",
-                                controller: _perlengkapanDanPeralatanController,
+                                controller: _tempatKegiatanController,
                               ),
                               MipokaCustomLoadImage(
                                 stream: _fotoTempatKegiatanStream,
@@ -352,33 +347,38 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
 
                               const CustomFieldSpacer(),
 
-                              CustomMipokaButton(
-                                onTap: () {
-                                  context.read<RevisiUsulanBloc>().add(
-                                    UpdateRevisiUsulanEvent(
-                                      revisiUsulan: revisiUsulan.copyWith(
-                                        revisiLatarBelakang: _latarBelakangController.text,
-                                        revisiTujuanKegiatan: _tujuanKegiatanController.text,
-                                        revisiManfaatKegiatan: _manfaatKegiatanController.text,
-                                        revisiBentukPelaksanaanKegiatan: _bentukPelaksanaanKegiatanController.text,
-                                        revisiTargetPencapaianKegiatan: _targetPencapaianKegiatanController.text,
-                                        revisiWaktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
-                                        revisiRencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
-                                        revisiPerlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
-                                        revisiPenutup: _penutupController.text,
-                                        revisiIdTertibAcara: _tertibAcaraController.text,
-                                        updatedBy: user?.email ?? "unknown",
-                                        updatedAt: currentDate,
-                                      ),
-                                    ),
-                                  );
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  CustomMipokaButton(
+                                    onTap: () {
+                                      context.read<RevisiUsulanBloc>().add(
+                                        UpdateRevisiUsulanEvent(
+                                          revisiUsulan: revisiUsulan.copyWith(
+                                            revisiLatarBelakang: _latarBelakangController.text,
+                                            revisiTujuanKegiatan: _tujuanKegiatanController.text,
+                                            revisiManfaatKegiatan: _manfaatKegiatanController.text,
+                                            revisiBentukPelaksanaanKegiatan: _bentukPelaksanaanKegiatanController.text,
+                                            revisiTargetPencapaianKegiatan: _targetPencapaianKegiatanController.text,
+                                            revisiWaktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
+                                            revisiRencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
+                                            revisiPerlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
+                                            revisiPenutup: _penutupController.text,
+                                            revisiIdTertibAcara: _tertibAcaraController.text,
+                                            updatedBy: user?.email ?? "unknown",
+                                            updatedAt: currentDate,
+                                          ),
+                                        ),
+                                      );
 
-                                  mipokaCustomToast("Revisi telah ditamnbahkan.");
+                                      mipokaCustomToast("Revisi telah ditamnbahkan.");
 
-                                  Navigator.pushNamed(
-                                      context, pemeriksaDaftarUsulanKegiatanPageRoute);
-                                },
-                                text: 'Kirim',
+                                      Navigator.pushNamed(
+                                          context, pemeriksaDaftarUsulanKegiatanPageRoute);
+                                    },
+                                    text: 'Kirim',
+                                  ),
+                                ],
                               ),
                             ],
                           );
