@@ -236,7 +236,7 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
 
                           context.read<LaporanBloc>().add(
                             CreateLaporanEvent(
-                              Laporan(
+                              laporan: Laporan(
                                 idLaporan: newId,
                                 idOrmawa: 0,
                                 idUser: user?.uid ?? "unknown",

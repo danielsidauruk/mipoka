@@ -1,13 +1,10 @@
 import 'dart:async';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
-import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_switch.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -46,28 +43,21 @@ class _PenggunaPengajuanLaporanKegiatan3State
     context.read<LaporanBloc>().close();
     super.dispose();
   }
-  
-  bool tempatKegiatan = false;
-  bool isLampiran = false;
 
   late QuillController _latarBelakangController;
   late QuillController _hasilKegiatanController;
   late QuillController _penutupController;
 
   String? _postinganKegiatanController;
-  final StreamController<String?> _postinganKegiatanStream = StreamController<String?>();
-
   String? _dokumentasiKegiatanController;
-  final StreamController<String?> _dokumentasiKegiatanStream = StreamController<String?>();
-
   String? _tabulasiHasilKegiatanController;
-  final StreamController<String?> _tabulasiHasilKegiatanStream = StreamController<String?>();
-
   String? _fakturPembayaranController;
+
+  final StreamController<String?> _postinganKegiatanStream = StreamController<String?>();
+  final StreamController<String?> _dokumentasiKegiatanStream = StreamController<String?>();
+  final StreamController<String?> _tabulasiHasilKegiatanStream = StreamController<String?>();
   final StreamController<String?> _fakturPembayaranStream = StreamController<String?>();
 
-  String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +86,11 @@ class _PenggunaPengajuanLaporanKegiatan3State
               );
 
               List<String> fotoDokumentasiKegiatanList = laporan.fotoDokumentasiKegiatan;
+
+              _postinganKegiatanController = laporan.fotoPostinganKegiatan;
+              _tabulasiHasilKegiatanController = laporan.fotoTabulasiHasil;
+              _fakturPembayaranController = laporan.fotoFakturPembayaran;
+              _dokumentasiKegiatanController = laporan.fotoDokumentasiKegiatan[0];
 
               return Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -132,6 +127,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         buildDescription(
                             'Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
                         StreamBuilder<String?>(
+                          initialData: _postinganKegiatanController,
                           stream: _postinganKegiatanStream.stream,
                           builder: (context, snapshot) {
                             String text = snapshot.data ?? "";
@@ -154,6 +150,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         buildDescription(
                             'Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
                         StreamBuilder<String?>(
+                          initialData: _dokumentasiKegiatanController,
                           stream: _dokumentasiKegiatanStream.stream,
                           builder: (context, snapshot) {
                             String text = snapshot.data ?? "";
@@ -176,6 +173,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         buildDescription(
                             'Unggah foto pencapaian dari kegiatan yang telah dilaksanakan.'),
                         StreamBuilder<String?>(
+                          initialData: _tabulasiHasilKegiatanController,
                           stream: _tabulasiHasilKegiatanStream.stream,
                           builder: (context, snapshot) {
                             String text = snapshot.data ?? "";
@@ -198,6 +196,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         buildDescription(
                             'Unggah bon transaksi kegiatan yang telah dilaksanakan.'),
                         StreamBuilder<String?>(
+                          initialData: _fakturPembayaranController,
                           stream: _fakturPembayaranStream.stream,
                           builder: (context, snapshot) {
                             String text = snapshot.data ?? "";
@@ -224,7 +223,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                               onTap: () {
                                 context.read<LaporanBloc>().add(
                                   UpdateLaporanEvent(
-                                    laporan.copyWith(
+                                    laporan: laporan.copyWith(
                                       latarBelakang: _latarBelakangController.document.toPlainText(),
                                       hasilKegiatan: _hasilKegiatanController.document.toPlainText(),
                                       penutup: _penutupController.document.toPlainText(),
@@ -232,7 +231,6 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                       fotoDokumentasiKegiatan: fotoDokumentasiKegiatanList,
                                       fotoTabulasiHasil: _tabulasiHasilKegiatanController,
                                       fotoFakturPembayaran: _fakturPembayaranController,
-
                                     ),
                                   ),
                                 );
@@ -247,7 +245,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
 
                                 context.read<LaporanBloc>().add(
                                   UpdateLaporanEvent(
-                                    laporan.copyWith(
+                                    laporan: laporan.copyWith(
                                       latarBelakang: _latarBelakangController.document.toPlainText(),
                                       hasilKegiatan: _hasilKegiatanController.document.toPlainText(),
                                       penutup: _penutupController.document.toPlainText(),

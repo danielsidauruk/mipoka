@@ -35,8 +35,7 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
 
   @override
   void initState() {
-    BlocProvider.of<SessionBloc>(context, listen: false)
-        .add(ReadSessionEvent(idSession: widget.idSession));
+    context.read<SessionBloc>().add(ReadSessionEvent(idSession: widget.idSession));
     super.initState();
   }
 

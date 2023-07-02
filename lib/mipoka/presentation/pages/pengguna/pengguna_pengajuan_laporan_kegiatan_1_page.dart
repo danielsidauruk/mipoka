@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
@@ -13,6 +14,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_rich_text_field.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class PenggunaPengajuanLaporanKegiatan1 extends StatefulWidget {
   const PenggunaPengajuanLaporanKegiatan1({
@@ -49,6 +51,7 @@ class _PenggunaPengajuanLaporanKegiatan1State
   late QuillController _pencapaianController;
   late String _namaKegiatanController;
   int? selectedIndex;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,8 +121,8 @@ class _PenggunaPengajuanLaporanKegiatan1State
                                 CustomMipokaButton(
                                   onTap: () {
                                     context.read<LaporanBloc>().add(
-                                      DeleteLaporanEvent(widget.idLaporan),
-                                    );
+                                      DeleteLaporanEvent(idLaporan: widget.idLaporan));
+                                    mipokaCustomToast("Laporan telah dihapus.");
                                     Navigator.pop(context);
                                   },
                                   text: 'Batal',
@@ -131,11 +134,13 @@ class _PenggunaPengajuanLaporanKegiatan1State
                                   onTap: () {
                                     context.read<LaporanBloc>().add(
                                       UpdateLaporanEvent(
-                                        laporan.copyWith(
+                                        laporan: laporan.copyWith(
                                           idUsulan: usulan[selectedIndex ?? 0].idUsulan,
                                           idOrmawa: usulan[selectedIndex ?? 0].idOrmawa,
                                           pencapaian: _pencapaianController.document.toPlainText(),
-                                        )
+                                          updatedAt: currentDate,
+                                          updatedBy: user?.email ?? "unknown",
+                                        ),
                                       ),
                                     );
                                     // context.read<LaporanBloc>().add(

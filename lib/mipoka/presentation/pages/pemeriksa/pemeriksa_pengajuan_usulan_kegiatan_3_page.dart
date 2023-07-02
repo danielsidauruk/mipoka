@@ -40,6 +40,13 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
     super.initState();
   }
 
+  @override
+  void dispose() {
+    context.read<RevisiUsulanBloc>().close();
+    context.read<UsulanKegiatanBloc>().close();
+    super.dispose();
+  }
+
   final TextEditingController _latarBelakangController = TextEditingController();
   final TextEditingController _tujuanKegiatanController = TextEditingController();
   final TextEditingController _manfaatKegiatanController = TextEditingController();
@@ -350,6 +357,37 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
+                                  CustomMipokaButton(
+                                    onTap: () {
+                                      context.read<RevisiUsulanBloc>().add(
+                                        UpdateRevisiUsulanEvent(
+                                          revisiUsulan: revisiUsulan.copyWith(
+                                            revisiLatarBelakang: _latarBelakangController.text,
+                                            revisiTujuanKegiatan: _tujuanKegiatanController.text,
+                                            revisiManfaatKegiatan: _manfaatKegiatanController.text,
+                                            revisiBentukPelaksanaanKegiatan: _bentukPelaksanaanKegiatanController.text,
+                                            revisiTargetPencapaianKegiatan: _targetPencapaianKegiatanController.text,
+                                            revisiWaktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
+                                            revisiRencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
+                                            revisiPerlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
+                                            revisiPenutup: _penutupController.text,
+                                            revisiIdTertibAcara: _tertibAcaraController.text,
+                                            updatedBy: user?.email ?? "unknown",
+                                            updatedAt: currentDate,
+                                          ),
+                                        ),
+                                      );
+
+                                      context.read<RevisiUsulanBloc>().add(
+                                        ReadRevisiUsulanEvent(idRevisiUsulan: widget.idRevisiUsulan));
+
+                                      Navigator.pop(context);
+                                    },
+                                    text: "Kembali",
+                                  ),
+
+                                  const SizedBox(width: 8),
+
                                   CustomMipokaButton(
                                     onTap: () {
                                       context.read<RevisiUsulanBloc>().add(

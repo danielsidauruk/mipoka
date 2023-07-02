@@ -68,7 +68,6 @@ import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_u
 import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_2_dk_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_2_lk_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_3_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_3_tertib_acara_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_data_peserta_dalam_kota_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_data_peserta_luar_kota_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_tertib_acara_page.dart';
@@ -361,10 +360,6 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) =>
                       PemeriksaPengajuanUsulanKegiatan3Page(idRevisiUsulan: idRevisiUsulan));
-            case pemeriksaPengajuanUsulanKegiatan3TertibAcaraPageRoute:
-              return MaterialPageRoute(
-                  builder: (_) =>
-                      const PemeriksaPengajuanUsulanKegiatan3TertibAcaraPage());
             case pemeriksaPengajuanLaporanKegiatan1PageRoute:
               final idLaporan = settings.arguments as int;
               return MaterialPageRoute(

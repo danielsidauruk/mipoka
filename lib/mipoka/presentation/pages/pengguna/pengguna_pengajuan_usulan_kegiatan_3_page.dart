@@ -1,17 +1,13 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_switch.dart';
-import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -41,8 +37,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
 
   @override
   void initState() {
-    BlocProvider.of<UsulanKegiatanBloc>(context)
-        .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
+    context.read<UsulanKegiatanBloc>().add(
+        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
     super.initState();
   }
 
@@ -51,6 +47,16 @@ class _PenggunaPengajuanUsulanKegiatan3State
     BlocProvider.of<UsulanKegiatanBloc>(context)
         .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
     super.didPop();
+  }
+
+  @override
+  void dispose() {
+    context.read<UsulanKegiatanBloc>().close();
+    _postinganKegiatanStream.close();
+    _suratUndanganKegiatanStream.close();
+    _linimasaKegiatanStream.close();
+    _fotoTempatKegiatanStream.close();
+    super.dispose();
   }
 
   bool tertibAcara = false;
@@ -137,16 +143,9 @@ class _PenggunaPengajuanUsulanKegiatan3State
                     );
 
                     _postinganKegiatanController = usulanKegiatan.fotoPostinganKegiatan;
-                    _postinganKegiatanStream.add(_postinganKegiatanController);
-
                     _suratUndanganKegiatanController = usulanKegiatan.fotoSuratUndanganKegiatan;
-                    _suratUndanganKegiatanStream.add(_suratUndanganKegiatanController);
-
                     _linimasaKegiatanController = usulanKegiatan.fotoLinimasaKegiatan;
-                    _linimasaKegiatanStream.add(_linimasaKegiatanController);
-
                     _fotoTempatKegiatanController = usulanKegiatan.tempatKegiatan;
-                    _fotoTempatKegiatanStream.add(_fotoTempatKegiatanController);
 
                     return CustomContentBox(
                       children: [
@@ -365,6 +364,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildDescription(
                             'Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
                         StreamBuilder<String?>(
+                          initialData: _postinganKegiatanController,
                           stream: _postinganKegiatanStream.stream,
                           builder: (context, snapshot) {
                             String text = snapshot.data ?? "";
@@ -389,6 +389,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildDescription(
                             'Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
                         StreamBuilder<String?>(
+                          initialData: _suratUndanganKegiatanController,
                           stream: _suratUndanganKegiatanStream.stream,
                           builder: (context, snapshot) {
                             String text = snapshot.data ?? "";
@@ -413,6 +414,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildDescription(
                             'Unggah foto linimasa kegiatan yang akan dilaksanakan.'),
                         StreamBuilder<String?>(
+                          initialData: _linimasaKegiatanController,
                           stream: _linimasaKegiatanStream.stream,
                           builder: (context, snapshot) {
                             String text = snapshot.data ?? "";
@@ -437,6 +439,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildDescription(
                             'Unggah foto tempat kegiatan yang akan dilaksanakan.'),
                         StreamBuilder<String?>(
+                          initialData: _fotoTempatKegiatanController,
                           stream: _fotoTempatKegiatanStream.stream,
                           builder: (context, snapshot) {
                             String text = snapshot.data ?? "";

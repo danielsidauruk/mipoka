@@ -10,7 +10,7 @@ abstract class LaporanEvent extends Equatable {
 class CreateLaporanEvent extends LaporanEvent {
   final Laporan laporan;
 
-  const CreateLaporanEvent(this.laporan);
+  const CreateLaporanEvent({required this.laporan});
 
   @override
   List<Object?> get props => [laporan];
@@ -34,7 +34,7 @@ class ReadLaporanEvent extends LaporanEvent {
 class UpdateLaporanEvent extends LaporanEvent {
   final Laporan laporan;
 
-  const UpdateLaporanEvent(this.laporan);
+  const UpdateLaporanEvent({required this.laporan});
 
   @override
   List<Object?> get props => [laporan];
@@ -43,7 +43,7 @@ class UpdateLaporanEvent extends LaporanEvent {
 class DeleteLaporanEvent extends LaporanEvent {
   final int idLaporan;
 
-  const DeleteLaporanEvent(this.idLaporan);
+  const DeleteLaporanEvent({required this.idLaporan});
 
   @override
   List<Object?> get props => [idLaporan];

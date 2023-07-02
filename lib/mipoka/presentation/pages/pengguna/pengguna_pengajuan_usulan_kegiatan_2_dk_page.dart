@@ -30,12 +30,15 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
 
   @override
   void initState() {
-    Future.microtask(() {
-      BlocProvider.of<UsulanKegiatanBloc>(context, listen: false).add(
-          ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
-      },
-    );
+    context.read<UsulanKegiatanBloc>().add(
+        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    context.read<UsulanKegiatanBloc>().close();
+    super.dispose();
   }
 
   @override
