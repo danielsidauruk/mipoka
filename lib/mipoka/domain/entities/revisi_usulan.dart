@@ -9,6 +9,7 @@ class RevisiUsulan extends Equatable{
   final String revisiBentukKegiatan;
   final String revisiKategoriBentukKegiatan;
   final String revisiDeskripsiKegiatan;
+  final String revisiTempatKegiatan;
   final String revisiTanggalMulaiKegiatan;
   final String revisiTanggalSelesaiKegiatan;
   final String revisiWaktuMulaiKegiatan;
@@ -22,8 +23,8 @@ class RevisiUsulan extends Equatable{
   final String revisiKategoriTotalPendanaan;
   final String revisiKeterangan;
   final String revisiTandaTanganOrmawa;
-  final String revisiIdPartisipan;
-  final String revisiIdRincianBiayaKegiatan;
+  final String revisiPartisipan;
+  final String revisiRincianBiayaKegiatan;
   final String revisiLatarBelakang;
   final String revisiTujuanKegiatan;
   final String revisiManfaatKegiatan;
@@ -51,6 +52,7 @@ class RevisiUsulan extends Equatable{
     required this.revisiNamaKegiatan,
     required this.revisiBentukKegiatan,
     required this.revisiKategoriBentukKegiatan,
+    required this.revisiTempatKegiatan,
     required this.revisiDeskripsiKegiatan,
     required this.revisiTanggalMulaiKegiatan,
     required this.revisiTanggalSelesaiKegiatan,
@@ -65,8 +67,8 @@ class RevisiUsulan extends Equatable{
     required this.revisiKategoriTotalPendanaan,
     required this.revisiKeterangan,
     required this.revisiTandaTanganOrmawa,
-    required this.revisiIdPartisipan,
-    required this.revisiIdRincianBiayaKegiatan,
+    required this.revisiPartisipan,
+    required this.revisiRincianBiayaKegiatan,
     required this.revisiLatarBelakang,
     required this.revisiTujuanKegiatan,
     required this.revisiManfaatKegiatan,
@@ -96,6 +98,7 @@ class RevisiUsulan extends Equatable{
     String? revisiBentukKegiatan,
     String? revisiKategoriBentukKegiatan,
     String? revisiDeskripsiKegiatan,
+    String? revisiTempatKegiatan,
     String? revisiTanggalMulaiKegiatan,
     String? revisiTanggalSelesaiKegiatan,
     String? revisiWaktuMulaiKegiatan,
@@ -109,8 +112,8 @@ class RevisiUsulan extends Equatable{
     String? revisiKategoriTotalPendanaan,
     String? revisiKeterangan,
     String? revisiTandaTanganOrmawa,
-    String? revisiIdPartisipan,
-    String? revisiIdRincianBiayaKegiatan,
+    String? revisiPartisipan,
+    String? revisiRincianBiayaKegiatan,
     String? revisiLatarBelakang,
     String? revisiTujuanKegiatan,
     String? revisiManfaatKegiatan,
@@ -139,6 +142,7 @@ class RevisiUsulan extends Equatable{
         revisiBentukKegiatan: revisiBentukKegiatan ?? this.revisiBentukKegiatan,
         revisiKategoriBentukKegiatan: revisiKategoriBentukKegiatan ?? this.revisiKategoriBentukKegiatan,
         revisiDeskripsiKegiatan: revisiDeskripsiKegiatan ?? this.revisiDeskripsiKegiatan,
+        revisiTempatKegiatan: revisiTempatKegiatan ?? this.revisiTempatKegiatan,
         revisiTanggalMulaiKegiatan: revisiTanggalMulaiKegiatan ?? this.revisiTanggalMulaiKegiatan,
         revisiTanggalSelesaiKegiatan: revisiTanggalSelesaiKegiatan ?? this.revisiTanggalSelesaiKegiatan,
         revisiWaktuMulaiKegiatan: revisiWaktuMulaiKegiatan ?? this.revisiWaktuMulaiKegiatan,
@@ -152,8 +156,8 @@ class RevisiUsulan extends Equatable{
         revisiKategoriTotalPendanaan: revisiKategoriTotalPendanaan ?? this.revisiKategoriTotalPendanaan,
         revisiKeterangan: revisiKeterangan ?? this.revisiKeterangan,
         revisiTandaTanganOrmawa: revisiTandaTanganOrmawa ?? this.revisiTandaTanganOrmawa,
-        revisiIdPartisipan: revisiIdPartisipan ?? this.revisiIdPartisipan,
-        revisiIdRincianBiayaKegiatan: revisiIdRincianBiayaKegiatan ?? this.revisiIdRincianBiayaKegiatan,
+        revisiPartisipan: revisiPartisipan ?? this.revisiPartisipan,
+        revisiRincianBiayaKegiatan: revisiRincianBiayaKegiatan ?? this.revisiRincianBiayaKegiatan,
         revisiLatarBelakang: revisiLatarBelakang ?? this.revisiLatarBelakang,
         revisiTujuanKegiatan: revisiTujuanKegiatan ?? this.revisiTujuanKegiatan,
         revisiManfaatKegiatan: revisiManfaatKegiatan ?? this.revisiManfaatKegiatan,
@@ -197,8 +201,8 @@ class RevisiUsulan extends Equatable{
     revisiKategoriTotalPendanaan,
     revisiKeterangan,
     revisiTandaTanganOrmawa,
-    revisiIdPartisipan,
-    revisiIdRincianBiayaKegiatan,
+    revisiPartisipan,
+    revisiRincianBiayaKegiatan,
     revisiLatarBelakang,
     revisiTujuanKegiatan,
     revisiManfaatKegiatan,

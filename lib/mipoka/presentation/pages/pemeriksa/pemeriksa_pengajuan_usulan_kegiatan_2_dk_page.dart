@@ -14,6 +14,8 @@ import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_dr
 class PemeriksaPengajuanUsulanKegiatan2DKPage extends StatefulWidget {
   const PemeriksaPengajuanUsulanKegiatan2DKPage({super.key});
 
+
+
   @override
   State<PemeriksaPengajuanUsulanKegiatan2DKPage> createState() =>
       _PemeriksaPengajuanUsulanKegiatan2DKPageState();

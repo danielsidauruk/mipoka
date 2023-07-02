@@ -177,14 +177,14 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                           ),
                                         ),
                                         onTap: () {
-                                          int idRevisiUsulan = int.parse(usulanKegiatan.idUsulan.toString() + newId.toString());
-
-                                          print(idRevisiUsulan);
+                                          int idUsulanUsulan = int.parse(
+                                              usulanKegiatan.idUsulan.toString() +
+                                                  newId.toString());
 
                                           context.read<RevisiUsulanBloc>().add(
                                             CreateRevisiUsulanEvent(
                                               revisiUsulan: RevisiUsulan(
-                                                idRevisiUsulan: idRevisiUsulan,
+                                                idRevisiUsulan: idUsulanUsulan,
                                                 idAdmin: user?.uid ?? "unknown",
                                                 idUsulan: usulanKegiatan.idUsulan,
                                                 revisiPembiayaan: "",
@@ -192,6 +192,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                 revisiBentukKegiatan: "",
                                                 revisiKategoriBentukKegiatan: "",
                                                 revisiDeskripsiKegiatan: "",
+                                                revisiTempatKegiatan: "",
                                                 revisiTanggalMulaiKegiatan: "",
                                                 revisiTanggalSelesaiKegiatan: "",
                                                 revisiWaktuMulaiKegiatan: "",
@@ -205,8 +206,8 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                 revisiKategoriTotalPendanaan: "",
                                                 revisiKeterangan: "",
                                                 revisiTandaTanganOrmawa: "",
-                                                revisiIdPartisipan: "",
-                                                revisiIdRincianBiayaKegiatan: "",
+                                                revisiPartisipan: "",
+                                                revisiRincianBiayaKegiatan: "",
                                                 revisiLatarBelakang: "",
                                                 revisiTujuanKegiatan: "",
                                                 revisiManfaatKegiatan: "",
@@ -226,13 +227,12 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                 updatedAt: currentDate,
                                                 updatedBy: user?.email ?? "unknown",
                                               ),
-                                            )
+                                            ),
                                           );
-
                                           Navigator.pushNamed(
                                             context,
                                             pemeriksaPengajuanUsulanKegiatan1PageRoute,
-                                            arguments: idRevisiUsulan,
+                                            arguments: idUsulanUsulan,
                                           );
 
                                         },

@@ -1,6 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
+import 'package:mipoka/mipoka/domain/entities/revisi_usulan.dart';
+import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/revisi_usulan_bloc/revisi_usulan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_comment_field.dart';
@@ -13,10 +18,10 @@ import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_dr
 class PemeriksaPengajuanUsulanKegiatan1Page extends StatefulWidget {
   const PemeriksaPengajuanUsulanKegiatan1Page({
     super.key,
-    required this.idRevisiUsulanKegiatan,
+    required this.idRevisiUsulan,
   });
 
-  final int idRevisiUsulanKegiatan;
+  final int idRevisiUsulan;
 
   @override
   State<PemeriksaPengajuanUsulanKegiatan1Page> createState() =>
@@ -28,43 +33,51 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
 
   final TextEditingController _commentNamaOrmawaController =
   TextEditingController();
-  final TextEditingController _commentPembiayaanController =
+  final TextEditingController _revisiPembiayaanController =
   TextEditingController();
-  final TextEditingController _commentNamaKegiatanController =
+  final TextEditingController _revisiNamaKegiatanController =
   TextEditingController();
-  final TextEditingController _commentBentukKegiatanController =
+  final TextEditingController _revisiBentukKegiatanController =
   TextEditingController();
-  final TextEditingController _commentDeskripsiKegiatanController =
+  final TextEditingController _revisiDeskripsiKegiatanController =
   TextEditingController();
-  final TextEditingController _commentTanggalMulaiKegiatanController =
+  final TextEditingController _revisiTanggalMulaiKegiatanController =
   TextEditingController();
-  final TextEditingController _commentTanggalSelesaiKegiatanController =
+  final TextEditingController _revisiTanggalSelesaiKegiatanController =
   TextEditingController();
-  final TextEditingController _commentWaktuMulaiKegiatanController =
+  final TextEditingController _revisiWaktuMulaiKegiatanController =
   TextEditingController();
-  final TextEditingController _commentWaktuSelesaiKegiatanController =
+  final TextEditingController _revisiWaktuSelesaiKegiatanController =
   TextEditingController();
-  final TextEditingController _commentTempatKegiatanController =
+  final TextEditingController _revisiTempatKegiatanController =
   TextEditingController();
-  final TextEditingController _commentTanggalKeberangkatanController =
+  final TextEditingController _revisiTanggalKeberangkatanController =
   TextEditingController();
-  final TextEditingController _commentTanggalKepulanganController =
+  final TextEditingController _revisiTanggalKepulanganController =
   TextEditingController();
-  final TextEditingController _commentJumlahParsitipanController =
+  final TextEditingController _revisiJumlahParsitipanController =
   TextEditingController();
-  final TextEditingController _commentTargetKegiatanController =
+  final TextEditingController _revisiTargetKegiatanController =
   TextEditingController();
-  final TextEditingController _commentTotalPendanaanController =
+  final TextEditingController _revisiTotalPendanaanController =
   TextEditingController();
-  final TextEditingController _commentKeteranganController =
+  final TextEditingController _revisiKeteranganController =
   TextEditingController();
 
 
   @override
   void initState() {
-    context.read<UsulanKegiatanBloc>().add(
-        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idRevisiUsulanKegiatan));
+    context.read<RevisiUsulanBloc>().add(
+      ReadRevisiUsulanEvent(idRevisiUsulan: widget.idRevisiUsulan));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    context.read<UsulanKegiatanBloc>().close();
+    context.read<RevisiUsulanBloc>().close();
+    context.read<OrmawaBloc>().close();
+    super.dispose();
   }
 
   @override
@@ -83,137 +96,219 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
 
               const CustomFieldSpacer(),
 
-              BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+              BlocBuilder<RevisiUsulanBloc, RevisiUsulanState>(
                 builder: (context, state) {
-                  return CustomContentBox(
-                    children: [
-                      CustomCommentWidget(
-                        title: 'Nama Ormawa',
-                        mainText: 'Mikroskil Esport',
-                        controller: _commentNamaOrmawaController,
-                      ),
-                      const CustomFieldSpacer(),
-                      CustomCommentWidget(
-                        title: 'Pembiayaan',
-                        mainText: 'Mandiri',
-                        controller: _commentPembiayaanController,
-                      ),
-                      const CustomFieldSpacer(),
-                      CustomCommentWidget(
-                        title: 'Nama Kegiatan',
-                        mainText: 'Vexana Starlight Tournament - MEL Mar 2023',
-                        controller: _commentNamaKegiatanController,
-                      ),
-                      const CustomFieldSpacer(),
-                      CustomCommentWidget(
-                        title: 'Bentuk Kegiatan',
-                        mainText: 'Daring, Bakti Sosial',
-                        controller: _commentBentukKegiatanController,
-                      ),
-                      const CustomFieldSpacer(),
-                      CustomCommentWidget(
-                        title: 'Deskripsi Kegiatan',
-                        mainText:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
-                        controller: _commentDeskripsiKegiatanController,
-                      ),
-                      const CustomFieldSpacer(),
-                      CustomCommentWidget(
-                        title: 'Tanggal Mulai Kegiatan',
-                        mainText: '11/05/2023',
-                        controller: _commentTanggalMulaiKegiatanController,
-                      ),
-                      const CustomFieldSpacer(),
-                      CustomCommentWidget(
-                        title: 'Tanggal Selesai Kegiatan',
-                        mainText: '11/05/2023',
-                        controller: _commentTanggalSelesaiKegiatanController,
-                      ),
-                      const CustomFieldSpacer(),
-                      CustomCommentWidget(
-                        title: 'Waktu Mulai Kegiatan',
-                        mainText: '13.30',
-                        controller: _commentWaktuMulaiKegiatanController,
-                      ),
-                      const CustomFieldSpacer(),
-                      CustomCommentWidget(
-                        title: 'Waktu Selesai Kegiatan',
-                        mainText: '15.30',
-                        controller: _commentWaktuSelesaiKegiatanController,
-                      ),
-                      const CustomFieldSpacer(),
-                      CustomCommentWidget(
-                        title: 'Tempat Kegiatan',
-                        mainText: 'Luar Kota, Planet Mars',
-                        controller: _commentTempatKegiatanController,
-                      ),
-                      const CustomFieldSpacer(),
-                      CustomCommentWidget(
-                        title: 'Tanggal Keberangkatan',
-                        mainText: '10/05/2023',
-                        controller: _commentTanggalKeberangkatanController,
-                      ),
-                      const CustomFieldSpacer(),
-                      CustomCommentWidget(
-                        title: 'Tanggal Kepulangan',
-                        mainText: '13/05/2023',
-                        controller: _commentTanggalKepulanganController,
-                      ),
-                      const CustomFieldSpacer(),
-                      CustomCommentWidget(
-                        title: 'Jumlah Parsitipan',
-                        mainText: '15 Orang',
-                        controller: _commentJumlahParsitipanController,
-                      ),
-                      const CustomFieldSpacer(),
-                      CustomCommentWidget(
-                        title: 'Target Kegiatan',
-                        mainText: 'Lorem Ipsum',
-                        controller: _commentTargetKegiatanController,
-                      ),
-                      const CustomFieldSpacer(),
-                      CustomCommentWidget(
-                        title: 'Total Pendanaan',
-                        mainText: 'Rp. 20.000.000',
-                        controller: _commentTotalPendanaanController,
-                      ),
-                      const CustomFieldSpacer(),
-                      CustomCommentWidget(
-                        title: 'Keterangan',
-                        mainText:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
-                        controller: _commentKeteranganController,
-                      ),
-                      const CustomFieldSpacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          // CustomButton(
-                          //   navigation: () => Navigator.pop(context),
-                          //   text: 'Kembali',
-                          // ),
+                  if (state is RevisiUsulanLoading) {
+                    return const Text("Loading ...");
+                   } else if (state is RevisiUsulanHasData) {
+                    final revisiUsulan = state.revisiUsulan;
+                    context.read<UsulanKegiatanBloc>().add(
+                        ReadUsulanKegiatanEvent(idUsulanKegiatan: revisiUsulan.idUsulan));
 
-                          const SizedBox(width: 8.0),
+                    return BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+                      builder: (context, state) {
+                        if (state is UsulanKegiatanLoading) {
+                          return const Text("Loading ....");
+                        } else if (state is UsulanKegiatanHasData) {
+                          final usulanKegiatan = state.usulanKegiatan;
 
-                          CustomMipokaButton(
-                            onTap: () =>
-                                Navigator.pushNamed(context,
-                                    pemeriksaPengajuanUsulanKegiatan2DKPageRoute),
-                            text: 'Berikutnya (DK)',
-                          ),
+                          context.read<OrmawaBloc>().add(
+                              ReadOrmawaEvent(idOrmawa: usulanKegiatan.idOrmawa));
 
-                          const SizedBox(width: 8.0),
+                          return CustomContentBox(
+                            children: [
+                              BlocBuilder<OrmawaBloc, OrmawaState>(
+                                builder: (context, state) {
+                                  if (state is OrmawaLoading) {
+                                    return const Text("Loading ....");
+                                  } else if (state is OrmawaHasData) {
+                                    return CustomCommentWidget(
+                                      title: 'Nama Ormawa',
+                                      mainText: state.ormawa.namaOrmawa,
+                                      controller: _commentNamaOrmawaController,
+                                    );
+                                  } else if (state is OrmawaError) {
+                                    return Text(state.message);
+                                  } else {
+                                    return const Text("OrmawaBloc hasn't been triggered yet.");
+                                  }
+                                },
+                              ),
 
-                          CustomMipokaButton(
-                            onTap: () =>
-                                Navigator.pushNamed(context,
-                                    pemeriksaPengajuanUsulanKegiatan2LKPageRoute),
-                            text: 'Berikutnya (LK)',
-                          ),
-                        ],
-                      ),
-                    ],
-                  );
+                              const CustomFieldSpacer(),
+
+                              CustomCommentWidget(
+                                title: 'Pembiayaan',
+                                mainText: usulanKegiatan.pembiayaan,
+                                controller: _revisiPembiayaanController,
+                              ),
+                              const CustomFieldSpacer(),
+                              CustomCommentWidget(
+                                title: 'Nama Kegiatan',
+                                mainText: usulanKegiatan.namaKegiatan,
+                                controller: _revisiNamaKegiatanController,
+                              ),
+                              const CustomFieldSpacer(),
+                              CustomCommentWidget(
+                                title: 'Bentuk Kegiatan',
+                                // mainText: 'Daring, Bakti Sosial',
+                                mainText: "${usulanKegiatan.kategoriBentukKegiatan}, ${usulanKegiatan.bentukKegiatan}",
+                                controller: _revisiBentukKegiatanController,
+                              ),
+                              const CustomFieldSpacer(),
+                              CustomCommentWidget(
+                                title: 'Deskripsi Kegiatan',
+                                mainText: usulanKegiatan.deskripsiKegiatan,
+                                controller: _revisiDeskripsiKegiatanController,
+                              ),
+                              const CustomFieldSpacer(),
+                              CustomCommentWidget(
+                                title: 'Tanggal Mulai Kegiatan',
+                                mainText: usulanKegiatan.tanggalMulaiKegiatan,
+                                controller: _revisiTanggalMulaiKegiatanController,
+                              ),
+                              const CustomFieldSpacer(),
+                              CustomCommentWidget(
+                                title: 'Tanggal Selesai Kegiatan',
+                                mainText: usulanKegiatan.tanggalSelesaiKegiatan,
+                                controller: _revisiTanggalSelesaiKegiatanController,
+                              ),
+                              const CustomFieldSpacer(),
+                              CustomCommentWidget(
+                                title: 'Waktu Mulai Kegiatan',
+                                mainText: usulanKegiatan.waktuMulaiKegiatan,
+                                controller: _revisiWaktuMulaiKegiatanController,
+                              ),
+                              const CustomFieldSpacer(),
+                              CustomCommentWidget(
+                                title: 'Waktu Selesai Kegiatan',
+                                mainText: usulanKegiatan.waktuSelesaiKegiatan,
+                                controller: _revisiWaktuSelesaiKegiatanController,
+                              ),
+                              const CustomFieldSpacer(),
+                              CustomCommentWidget(
+                                title: 'Tempat Kegiatan',
+                                // mainText: 'Luar Kota, Planet Mars',
+                                // mainText: "${usulanKegiatan.kategoriTempatKegiatan}",
+                                mainText: usulanKegiatan.tempatKegiatan,
+                                controller: _revisiTempatKegiatanController,
+                              ),
+                              const CustomFieldSpacer(),
+                              CustomCommentWidget(
+                                title: 'Tanggal Keberangkatan',
+                                mainText: usulanKegiatan.tanggalKeberangkatan,
+                                controller: _revisiTanggalKeberangkatanController,
+                              ),
+                              const CustomFieldSpacer(),
+                              CustomCommentWidget(
+                                title: 'Tanggal Kepulangan',
+                                mainText: usulanKegiatan.tanggalKepulangan,
+                                controller: _revisiTanggalKepulanganController,
+                              ),
+                              const CustomFieldSpacer(),
+                              CustomCommentWidget(
+                                title: 'Jumlah Parsitipan',
+                                // mainText: '15 Orang',
+                                mainText: "${usulanKegiatan.jumlahPartisipan} ${usulanKegiatan.kategoriJumlahPartisipan}",
+                                controller: _revisiJumlahParsitipanController,
+                              ),
+                              const CustomFieldSpacer(),
+                              CustomCommentWidget(
+                                title: 'Target Kegiatan',
+                                mainText: usulanKegiatan.targetKegiatan,
+                                controller: _revisiTargetKegiatanController,
+                              ),
+                              const CustomFieldSpacer(),
+                              CustomCommentWidget(
+                                title: 'Total Pendanaan',
+                                mainText: "${usulanKegiatan.totalPendanaan} ${usulanKegiatan.kategoriTotalPendanaan}",
+                                controller: _revisiTotalPendanaanController,
+                              ),
+                              const CustomFieldSpacer(),
+                              CustomCommentWidget(
+                                title: 'Keterangan',
+                                mainText: usulanKegiatan.keterangan,
+                                controller: _revisiKeteranganController,
+                              ),
+                              const CustomFieldSpacer(),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  // CustomButton(
+                                  //   navigation: () => Navigator.pop(context),
+                                  //   text: 'Kembali',
+                                  // ),
+
+                                  const SizedBox(width: 8.0),
+
+                                  CustomMipokaButton(
+                                    onTap: () {
+                                      Navigator.pushNamed(context,
+                                          pemeriksaPengajuanUsulanKegiatan2DKPageRoute);
+                                      context.read<RevisiUsulanBloc>().add(
+                                        UpdateRevisiUsulanEvent(
+                                          revisiUsulan: revisiUsulan.copyWith(
+                                            revisiPembiayaan: _revisiPembiayaanController.text,
+                                            revisiNamaKegiatan: _revisiNamaKegiatanController.text,
+                                            revisiBentukKegiatan: _revisiBentukKegiatanController.text,
+                                            // revisiKategoriBentukKegiatan: ,
+                                            revisiTempatKegiatan: _revisiTempatKegiatanController.text,
+                                            revisiDeskripsiKegiatan: _revisiDeskripsiKegiatanController.text,
+                                            revisiTanggalMulaiKegiatan: _revisiTanggalMulaiKegiatanController.text,
+                                            revisiTanggalSelesaiKegiatan: _revisiTanggalSelesaiKegiatanController.text,
+                                            revisiWaktuMulaiKegiatan: _revisiWaktuMulaiKegiatanController.text,
+                                            revisiWaktuSelesaiKegiatan: _revisiWaktuSelesaiKegiatanController.text,
+                                            revisiTanggalKeberangkatan: _revisiTanggalKeberangkatanController.text,
+                                            revisiTanggalKepulangan: _revisiTanggalKepulanganController.text,
+                                            revisiJumlahPartisipan: _revisiJumlahParsitipanController.text,
+                                            // revisiKategoriJumlahPartisipan: "",
+                                            revisiTargetKegiatan: _revisiTargetKegiatanController.text,
+                                            revisiTotalPendanaan: _revisiTotalPendanaanController.text,
+                                            // revisiKategoriTotalPendanaan: ,
+                                            revisiKeterangan: _revisiKeteranganController.text,
+                                            // revisiTandaTanganOrmawa: "",
+                                            updatedAt: currentDate,
+                                            updatedBy: user?.email ?? "unknown",
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    text: 'Berikutnya (DK)',
+                                  ),
+
+                                  const SizedBox(width: 8.0),
+
+                                  // CustomMipokaButton(
+                                  //   onTap: () =>
+                                  //       Navigator.pushNamed(context,
+                                  //           pemeriksaPengajuanUsulanKegiatan2LKPageRoute),
+                                  //   text: 'Berikutnya (LK)',
+                                  // ),
+                                  CustomMipokaButton(
+                                    onTap: () {
+                                      context.read<RevisiUsulanBloc>().add(
+                                        DeleteRevisiUsulanEvent(idRevisiUsulan: widget.idRevisiUsulan));
+                                      Navigator.pop(context);
+                                    },
+                                    text: 'Batal',
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        } else if (state is UsulanKegiatanError) {
+                          return Text(state.message);
+                        } else {
+                          return const Text(
+                              "UsulanKegiatanBloc hasn't been triggered yet");
+                        }
+                      },
+                    );
+                  } else if (state is RevisiUsulanError) {
+                    return Text("Revisi Usulan Error :${state.message}");
+                  } else {
+                    return const Text("RevisiUsulanBloc hasn't been triggered.");
+                  }
                 },
               ),
             ],
