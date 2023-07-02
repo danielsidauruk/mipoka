@@ -7,6 +7,9 @@ import 'package:mipoka/mipoka/data/models/berita_model.dart';
 import 'package:mipoka/mipoka/data/models/jenis_kegaitan_mpt.dart';
 import 'package:mipoka/mipoka/data/models/kegiatan_per_periode_mpt_model.dart';
 import 'package:mipoka/mipoka/data/models/laporan_model.dart';
+import 'package:mipoka/mipoka/data/models/mhs_per_periode_mpt_model.dart';
+import 'package:mipoka/mipoka/data/models/nama_kegiatan_mpt_model.dart';
+import 'package:mipoka/mipoka/data/models/notifikasi_model.dart';
 import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
 import 'package:mipoka/mipoka/data/models/periode_mpt_model.dart';
@@ -26,6 +29,9 @@ import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
+import 'package:mipoka/mipoka/domain/entities/mhs_per_periode_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/notifikasi.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
 import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
@@ -843,4 +849,147 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
       return const Left(ServerFailure());
     }
   }
+
+
+  // * => MhsPerPeriodeMpt Repositories
+  @override
+  Future<Either<Failure, void>> createMhsPerPeriodeMpt(MhsPerPeriodeMpt mhsPerPeriodeMpt) async {
+    try {
+      return Right(await mipokaDataSources.createMhsPerPeriodeMpt(
+          MhsPerPeriodeMptModel.fromEntity(mhsPerPeriodeMpt)));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteMhsPerPeriodeMpt(int idMhsPerPeriodeMpt) async {
+    try {
+      return Right(await mipokaDataSources.deleteMhsPerPeriodeMpt(idMhsPerPeriodeMpt));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<MhsPerPeriodeMpt>>> readAllMhsPerPeriodeMpt(String filter) async {
+    try {
+      return Right(await mipokaDataSources.readAllMhsPerPeriodeMpt(filter));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, MhsPerPeriodeMpt>> readMhsPerPeriodeMpt(int idMhsPerPeriodeMpt) async {
+    try {
+      return Right(await mipokaDataSources.readMhsPerPeriodeMpt(idMhsPerPeriodeMpt));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateMhsPerPeriodeMpt(MhsPerPeriodeMpt mhsPerPeriodeMpt) async {
+    try {
+      return Right(await mipokaDataSources.updateMhsPerPeriodeMpt(MhsPerPeriodeMptModel.fromEntity(mhsPerPeriodeMpt)));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+
+  // * => NamaKegiatanMpt Repositories
+  @override
+  Future<Either<Failure, void>> createNamaKegiatanMpt(NamaKegiatanMpt namaKegiatanMpt) async {
+    try {
+      return Right(await mipokaDataSources.createNamaKegiatanMpt(NamaKegiatanMptModel.fromEntity(namaKegiatanMpt)));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteNamaKegiatanMpt(int idNamaKegiatanMpt) async {
+    try {
+      return Right(await mipokaDataSources.deleteNamaKegiatanMpt(idNamaKegiatanMpt));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<NamaKegiatanMpt>>> readAllNamaKegiatanMpt(String filter) async {
+    try {
+      return Right(await mipokaDataSources.readAllNamaKegiatanMpt(filter));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, NamaKegiatanMpt>> readNamaKegiatanMpt(int idNamaKegiatanMpt) async {
+    try {
+      return Right(await mipokaDataSources.readNamaKegiatanMpt(idNamaKegiatanMpt));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateNamaKegiatanMpt(NamaKegiatanMpt namaKegiatanMpt) async {
+    try {
+      return Right(await mipokaDataSources.updateNamaKegiatanMpt(NamaKegiatanMptModel.fromEntity(namaKegiatanMpt)));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+
+  // * => Notifikasi Repositories
+  @override
+  Future<Either<Failure, void>> createNotifikasi(Notifikasi notifikasi) async {
+    try {
+      return Right(await mipokaDataSources.createNotifikasi(NotifikasiModel.fromEntity(notifikasi)));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteNotifikasi(int idNotifikasi) async {
+    try {
+      return Right(await mipokaDataSources.deleteNotifikasi(idNotifikasi));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Notifikasi>>> readAllNotifikasi(String filter) async {
+    try {
+      return Right(await mipokaDataSources.readAllNotifikasi(filter));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Notifikasi>> readNotifikasi(int idNotifikasi) async {
+    try {
+      return Right(await mipokaDataSources.readNotifikasi(idNotifikasi));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateNotifikasi(Notifikasi notifikasi) async {
+    try {
+      return Right(await mipokaDataSources.updateNotifikasi(NotifikasiModel.fromEntity(notifikasi)));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
 }

@@ -5,6 +5,9 @@ import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
+import 'package:mipoka/mipoka/domain/entities/mhs_per_periode_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/notifikasi.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
 import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
@@ -136,4 +139,22 @@ abstract class MipokaRepositories {
   Future<Either<Failure, void>> createUsulanKegiatan(UsulanKegiatan usulanKegiatan);
   Future<Either<Failure, void>> updateUsulanKegiatan(UsulanKegiatan usulanKegiatan);
   Future<Either<Failure, void>> deleteUsulanKegiatan(int idUsulan);
+
+  Future<Either<Failure, List<MhsPerPeriodeMpt>>> readAllMhsPerPeriodeMpt(String filter);
+  Future<Either<Failure, MhsPerPeriodeMpt>> readMhsPerPeriodeMpt(int idMhsPerPeriodeMpt);
+  Future<Either<Failure, void>> createMhsPerPeriodeMpt(MhsPerPeriodeMpt mhsPerPeriodeMpt);
+  Future<Either<Failure, void>> updateMhsPerPeriodeMpt(MhsPerPeriodeMpt mhsPerPeriodeMpt);
+  Future<Either<Failure, void>> deleteMhsPerPeriodeMpt(int idMhsPerPeriodeMpt);
+
+  Future<Either<Failure, List<NamaKegiatanMpt>>> readAllNamaKegiatanMpt(String filter);
+  Future<Either<Failure, NamaKegiatanMpt>> readNamaKegiatanMpt(int idNamaKegiatanMpt);
+  Future<Either<Failure, void>> createNamaKegiatanMpt(NamaKegiatanMpt namaKegiatanMpt);
+  Future<Either<Failure, void>> updateNamaKegiatanMpt(NamaKegiatanMpt namaKegiatanMpt);
+  Future<Either<Failure, void>> deleteNamaKegiatanMpt(int idNamaKegiatanMpt);
+
+  Future<Either<Failure, List<Notifikasi>>> readAllNotifikasi(String filter);
+  Future<Either<Failure, Notifikasi>> readNotifikasi(int idNotifikasi);
+  Future<Either<Failure, void>> createNotifikasi(Notifikasi notifikasi);
+  Future<Either<Failure, void>> updateNotifikasi(Notifikasi notifikasi);
+  Future<Either<Failure, void>> deleteNotifikasi(int idNotifikasi);
 }

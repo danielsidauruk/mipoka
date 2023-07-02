@@ -1,0 +1,20 @@
+[
+  {
+    "id_notifikasi": 121334,
+    "teks_notifikasi": "awosdfkawok",
+    "tgl_notifikasi": "awiksdfawok",
+    "created_at": "2023-06-26",
+    "created_by": "John Doe",
+    "updated_at": "2023-06-26",
+    "updated_by": "Jane Smith"
+  },
+  {
+    "id_notifikasi": 1234,
+    "teks_notifikasi": "awoksdfawok",
+    "tgl_notifikasi": "awisdfsfkawok",
+    "created_at": "2023-06-26",
+    "created_by": "John Doe",
+    "updated_at": "2023-06-26",
+    "updated_by": "Jane Smith"
+  }
+]

@@ -7,6 +7,9 @@ import 'package:mipoka/mipoka/data/models/berita_model.dart';
 import 'package:mipoka/mipoka/data/models/jenis_kegaitan_mpt.dart';
 import 'package:mipoka/mipoka/data/models/kegiatan_per_periode_mpt_model.dart';
 import 'package:mipoka/mipoka/data/models/laporan_model.dart';
+import 'package:mipoka/mipoka/data/models/mhs_per_periode_mpt_model.dart';
+import 'package:mipoka/mipoka/data/models/nama_kegiatan_mpt_model.dart';
+import 'package:mipoka/mipoka/data/models/notifikasi_model.dart';
 import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
 import 'package:mipoka/mipoka/data/models/periode_mpt_model.dart';
@@ -138,6 +141,24 @@ abstract class MipokaDataSources {
   Future<void> createUsulanKegiatan(UsulanKegiatanModel usulanKegiatanModel);
   Future<void> updateUsulanKegiatan(UsulanKegiatanModel usulanKegiatanModel);
   Future<void> deleteUsulanKegiatan(int idUsulan);
+
+  Future<List<MhsPerPeriodeMptModel>> readAllMhsPerPeriodeMpt(String filter);
+  Future<MhsPerPeriodeMptModel> readMhsPerPeriodeMpt(int idMhsPerPeriodeMpt);
+  Future<void> createMhsPerPeriodeMpt(MhsPerPeriodeMptModel mhsPerPeriodeMptModel);
+  Future<void> updateMhsPerPeriodeMpt(MhsPerPeriodeMptModel mhsPerPeriodeMptModel);
+  Future<void> deleteMhsPerPeriodeMpt(int idMhsPerPeriodeMpt);
+
+  Future<List<NamaKegiatanMptModel>> readAllNamaKegiatanMpt(String filter);
+  Future<NamaKegiatanMptModel> readNamaKegiatanMpt(int idNamaKegiatanMpt);
+  Future<void> createNamaKegiatanMpt(NamaKegiatanMptModel namaKegiatanMptModel);
+  Future<void> updateNamaKegiatanMpt(NamaKegiatanMptModel namaKegiatanMptModel);
+  Future<void> deleteNamaKegiatanMpt(int idNamaKegiatanMpt);
+
+  Future<List<NotifikasiModel>> readAllNotifikasi(String filter);
+  Future<NotifikasiModel> readNotifikasi(int idNotifikasi);
+  Future<void> createNotifikasi(NotifikasiModel notifikasiModel);
+  Future<void> updateNotifikasi(NotifikasiModel notifikasiModel);
+  Future<void> deleteNotifikasi(int idNotifikasi);
 }
 
 class MipokaDataSourcesImpl implements MipokaDataSources {
@@ -916,6 +937,157 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       UsulanKegiatanModel usulanKegiatanModel) async {
     if (kDebugMode) {
       print(usulanKegiatanModel.toJson());
+    }
+  }
+
+
+  // * => MhsPerPeriodeMpt DataSources
+  @override
+  Future<void> createMhsPerPeriodeMpt(MhsPerPeriodeMptModel mhsPerPeriodeMptModel) async {
+    if (kDebugMode) {
+      print(mhsPerPeriodeMptModel.toJson());
+    }
+  }
+
+  @override
+  Future<void> deleteMhsPerPeriodeMpt(int idMhsPerPeriodeMpt) async {
+    if (kDebugMode) {
+      print("MhsPerPeriodeMpt with id $idMhsPerPeriodeMpt has been deleted.");
+    }
+  }
+
+  @override
+  Future<List<MhsPerPeriodeMptModel>> readAllMhsPerPeriodeMpt(String filter) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/mhs_per_periode_mpt_list.json');
+    List<dynamic> resultList = json.decode(response);
+
+    List<MhsPerPeriodeMptModel> result =
+    resultList.map((resultMap) => MhsPerPeriodeMptModel.fromJson(resultMap))
+        .toList();
+
+    if (kDebugMode) {
+      print(filter);
+    }
+
+    return result;
+  }
+
+  @override
+  Future<MhsPerPeriodeMptModel> readMhsPerPeriodeMpt(int idMhsPerPeriodeMpt) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/mhs_per_periode_mpt.json');
+    dynamic jsonDecode = json.decode(response);
+
+    MhsPerPeriodeMptModel result = MhsPerPeriodeMptModel.fromJson(jsonDecode);
+
+    return result;
+  }
+
+  @override
+  Future<void> updateMhsPerPeriodeMpt(MhsPerPeriodeMptModel mhsPerPeriodeMptModel) async {
+    if (kDebugMode) {
+      print(mhsPerPeriodeMptModel.toJson());
+    }
+  }
+
+
+  // * => NamaKegiatanMpt DataSources
+  @override
+  Future<void> createNamaKegiatanMpt(NamaKegiatanMptModel namaKegiatanMptModel) async {
+    if (kDebugMode) {
+      print(namaKegiatanMptModel.toJson());
+    }
+  }
+
+  @override
+  Future<void> deleteNamaKegiatanMpt(int idNamaKegiatanMpt) async {
+    print("NamaKegiatanMpt with id $idNamaKegiatanMpt has been deleted.");
+  }
+
+  @override
+  Future<List<NamaKegiatanMptModel>> readAllNamaKegiatanMpt(String filter) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/nama_kegiatan_mpt_list.json');
+    List<dynamic> resultList = json.decode(response);
+
+    List<NamaKegiatanMptModel> result =
+    resultList.map((resultMap) => NamaKegiatanMptModel.fromJson(resultMap))
+        .toList();
+
+    if (kDebugMode) {
+      print(filter);
+    }
+
+    return result;
+  }
+
+  @override
+  Future<NamaKegiatanMptModel> readNamaKegiatanMpt(int idNamaKegiatanMpt) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/nama_kegiatan_mpt.json');
+    dynamic jsonDecode = json.decode(response);
+
+    NamaKegiatanMptModel result = NamaKegiatanMptModel.fromJson(jsonDecode);
+
+    return result;
+  }
+
+  @override
+  Future<void> updateNamaKegiatanMpt(NamaKegiatanMptModel namaKegiatanMptModel) async {
+    if (kDebugMode) {
+      print(namaKegiatanMptModel.toJson());
+    }
+  }
+
+
+  // * => Notifikasi DataSources
+  @override
+  Future<void> createNotifikasi(NotifikasiModel notifikasiModel) async {
+    if (kDebugMode) {
+      print(notifikasiModel.toJson());
+    }
+  }
+
+  @override
+  Future<void> deleteNotifikasi(int idNotifikasi) async {
+    if (kDebugMode) {
+      print("Notifikasi with id $idNotifikasi has been deleted.");
+    }
+  }
+
+  @override
+  Future<List<NotifikasiModel>> readAllNotifikasi(String filter) async {
+    final String response =
+        await rootBundle.loadString('assets/json_file/notifikasi_list.json');
+    List<dynamic> resultList = json.decode(response);
+
+    List<NotifikasiModel> result =
+    resultList.map((resultMap) => NotifikasiModel.fromJson(resultMap))
+        .toList();
+
+    if (kDebugMode) {
+      print(filter);
+    }
+
+    return result;
+  }
+
+  @override
+  Future<NotifikasiModel> readNotifikasi(int idNotifikasi) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/notifikasi.json');
+    dynamic jsonDecode = json.decode(response);
+
+    NotifikasiModel result = NotifikasiModel.fromJson(jsonDecode);
+
+    return result;
+  }
+
+  @override
+  Future<void> updateNotifikasi(NotifikasiModel notifikasiModel) async {
+    if (kDebugMode) {
+      print(notifikasiModel.toJson());
     }
   }
 }
