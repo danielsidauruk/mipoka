@@ -10,6 +10,8 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dart';
 
 class KemahasiswaanMPTMahasiswaJenisKegiatanPage extends StatefulWidget {
   const KemahasiswaanMPTMahasiswaJenisKegiatanPage({super.key});
@@ -58,7 +60,6 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                     const CustomFieldSpacer(),
                     CustomContentBox(
                       children: [
-                        buildTitle('Total Jenis Kegiatan : 6'),
                         CustomAddButton(
                           buttonText: 'Tambah',
                           onPressed: () =>
@@ -67,7 +68,13 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                                 kemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute,
                               ),
                         ),
-                        const CustomFieldSpacer(height: 8.0),
+
+                        const CustomFieldSpacer(),
+
+                        MipokaCountText(total: jenisKegiatanMptList.length),
+
+                        const CustomFieldSpacer(),
+
                         Container(
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey),
@@ -135,6 +142,7 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                                                 context.read<JenisKegiatanMptBloc>().add(
                                                   DeleteJenisKegiatanMptEvent(idJenisKegiatan: jenisKegiatanMpt.idJenisKegiatanMpt),
                                                 );
+                                                mipokaCustomToast("${jenisKegiatanMpt.namaJenisKegiatanMpt} telah dihapus.");
                                                 context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
                                               },
                                               child: Image.asset(
