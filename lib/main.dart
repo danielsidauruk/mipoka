@@ -21,6 +21,7 @@ import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mhs_per_periode_mpt_use_cases/mhs_per_periode_mpt_use_cases_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/nama_kegiatan_drop_down_bloc/nama_kegiatan_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/notifikasi_bloc/notifikasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/partisipan_bloc/partisipan_bloc.dart';
@@ -147,6 +148,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<NamaKegiatanMptBloc>()),
         BlocProvider(create: (_) => di.locator<NotifikasiBloc>()),
         BlocProvider(create: (_) => di.locator<PeriodeMptDropDownBloc>()),
+        BlocProvider(create: (_) => di.locator<NamaKegiatanDropDownBloc>()),
         BlocProvider<TempatKegiatanCubit>(create: (context) => TempatKegiatanCubit()),
         BlocProvider<SuratUndanganCubit>(create: (context) => SuratUndanganCubit()),
       ],
