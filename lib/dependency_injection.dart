@@ -28,6 +28,7 @@ import 'package:mipoka/mipoka/domain/use_cases/usulan_kegiatan_use_case.dart';
 import 'package:mipoka/mipoka/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiatan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_drop_down_bloc/jenis_kegiatan_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
@@ -81,6 +82,7 @@ Future<void> init() async {
   locator.registerFactory(() => NotifikasiBloc(notifikasiUseCase: locator()));
   locator.registerFactory(() => PeriodeMptDropDownBloc(periodeMptUseCase: locator()));
   locator.registerFactory(() => NamaKegiatanDropDownBloc(namaKegiatanMptUseCase: locator()));
+  locator.registerFactory(() => JenisKegiatanDropDownBloc(jenisKegiatanMptUseCase: locator()));
 
   // USE CASE
   locator.registerLazySingleton(() => AdminUseCase(mipokaRepositories: locator()));

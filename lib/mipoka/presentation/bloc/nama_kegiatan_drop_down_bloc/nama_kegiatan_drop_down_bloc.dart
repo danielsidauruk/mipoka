@@ -13,7 +13,7 @@ class NamaKegiatanDropDownBloc extends Bloc<NamaKegiatanDropDownEvent, NamaKegia
     on<ReadNamaKegiatanDropDownEvent>((event, emit) async {
       emit(NamaKegiatanDropDownLoading());
 
-      final result = await namaKegiatanMptUseCase.readAllNamaKegiatanMpt("semua");
+      final result = await namaKegiatanMptUseCase.readAllNamaKegiatanMpt(0);
 
       result.fold(
             (failure) => emit(NamaKegiatanDropDownError(message: failure.message)),

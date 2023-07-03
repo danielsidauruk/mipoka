@@ -146,7 +146,7 @@ abstract class MipokaRepositories {
   Future<Either<Failure, void>> updateMhsPerPeriodeMpt(MhsPerPeriodeMpt mhsPerPeriodeMpt);
   Future<Either<Failure, void>> deleteMhsPerPeriodeMpt(int idMhsPerPeriodeMpt);
 
-  Future<Either<Failure, List<NamaKegiatanMpt>>> readAllNamaKegiatanMpt(String filter);
+  Future<Either<Failure, List<NamaKegiatanMpt>>> readAllNamaKegiatanMpt(int id);
   Future<Either<Failure, NamaKegiatanMpt>> readNamaKegiatanMpt(int idNamaKegiatanMpt);
   Future<Either<Failure, void>> createNamaKegiatanMpt(NamaKegiatanMpt namaKegiatanMpt);
   Future<Either<Failure, void>> updateNamaKegiatanMpt(NamaKegiatanMpt namaKegiatanMpt);

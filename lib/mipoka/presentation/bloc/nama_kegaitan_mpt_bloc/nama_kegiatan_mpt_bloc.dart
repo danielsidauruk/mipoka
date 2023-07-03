@@ -26,7 +26,7 @@ class NamaKegiatanMptBloc extends Bloc<NamaKegiatanMptEvent, NamaKegiatanMptStat
     on<ReadAllNamaKegiatanMptEvent>((event, emit) async {
       emit(NamaKegiatanMptLoading());
 
-      final result = await namaKegiatanMptUseCase.readAllNamaKegiatanMpt(event.filter);
+      final result = await namaKegiatanMptUseCase.readAllNamaKegiatanMpt(event.id);
 
       result.fold(
             (failure) => emit(NamaKegiatanMptError(message: failure.message)),

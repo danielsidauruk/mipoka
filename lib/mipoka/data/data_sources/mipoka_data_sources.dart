@@ -148,7 +148,7 @@ abstract class MipokaDataSources {
   Future<void> updateMhsPerPeriodeMpt(MhsPerPeriodeMptModel mhsPerPeriodeMptModel);
   Future<void> deleteMhsPerPeriodeMpt(int idMhsPerPeriodeMpt);
 
-  Future<List<NamaKegiatanMptModel>> readAllNamaKegiatanMpt(String filter);
+  Future<List<NamaKegiatanMptModel>> readAllNamaKegiatanMpt(int id);
   Future<NamaKegiatanMptModel> readNamaKegiatanMpt(int idNamaKegiatanMpt);
   Future<void> createNamaKegiatanMpt(NamaKegiatanMptModel namaKegiatanMptModel);
   Future<void> updateNamaKegiatanMpt(NamaKegiatanMptModel namaKegiatanMptModel);
@@ -1008,7 +1008,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<NamaKegiatanMptModel>> readAllNamaKegiatanMpt(String filter) async {
+  Future<List<NamaKegiatanMptModel>> readAllNamaKegiatanMpt(int id) async {
     final String response =
     await rootBundle.loadString('assets/json_file/nama_kegiatan_mpt_list.json');
     List<dynamic> resultList = json.decode(response);
@@ -1018,7 +1018,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
         .toList();
 
     if (kDebugMode) {
-      print(filter);
+      print(id);
     }
 
     return result;

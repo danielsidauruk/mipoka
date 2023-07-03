@@ -17,12 +17,12 @@ class CreateNamaKegiatanMptEvent extends NamaKegiatanMptEvent {
 }
 
 class ReadAllNamaKegiatanMptEvent extends NamaKegiatanMptEvent {
-  final String filter;
+  final int id;
 
-  const ReadAllNamaKegiatanMptEvent({this.filter = "Semua"});
+  const ReadAllNamaKegiatanMptEvent({this.id = 0});
 
   @override
-  List<Object?> get props => [filter];
+  List<Object?> get props => [id];
 }
 
 class ReadNamaKegiatanMptEvent extends NamaKegiatanMptEvent {

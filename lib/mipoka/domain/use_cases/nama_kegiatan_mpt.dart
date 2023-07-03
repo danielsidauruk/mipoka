@@ -8,8 +8,8 @@ class NamaKegiatanMptUseCase {
 
   NamaKegiatanMptUseCase({required this.mipokaRepositories});
 
-  Future<Either<Failure, List<NamaKegiatanMpt>>> readAllNamaKegiatanMpt(String filter) {
-    return mipokaRepositories.readAllNamaKegiatanMpt(filter);
+  Future<Either<Failure, List<NamaKegiatanMpt>>> readAllNamaKegiatanMpt(int id) {
+    return mipokaRepositories.readAllNamaKegiatanMpt(id);
   }
 
   Future<Either<Failure, NamaKegiatanMpt>> readNamaKegiatanMpt(int idNamaKegiatanMpt) {
