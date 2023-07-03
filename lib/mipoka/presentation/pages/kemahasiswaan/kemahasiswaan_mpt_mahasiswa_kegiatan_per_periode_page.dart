@@ -15,6 +15,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_filter_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage extends StatefulWidget {
   const KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage({super.key});
@@ -28,9 +29,9 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState extends State<Kemaha
   @override
   void initState() {
     context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
-    context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+    // context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+    // context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
     context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
-    context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
     super.initState();
   }
   
@@ -238,12 +239,12 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState extends State<Kemaha
                                 rows: List<DataRow>.generate(kegiatanPerPeriodeMptList.length, (int index) {
                                   final kegiatanPerPeriodeMpt = kegiatanPerPeriodeMptList[index];
                                   
-                                  // context.read<PeriodeMptBloc>().add(
-                                  //   ReadPeriodeMptEvent(idPeriodeMpt: kegiatanPerPeriodeMpt.idPeriodeMpt));
-                                  // context.read<NamaKegiatanMptBloc>().add(
-                                  //   ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: kegiatanPerPeriodeMpt.idNamaKegiatanMpt));
-                                  // context.read<JenisKegiatanMptBloc>().add(
-                                  //   ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: kegiatanPerPeriodeMpt.idJenisKegiatanMpt));
+                                  context.read<PeriodeMptBloc>().add(
+                                    ReadPeriodeMptEvent(idPeriodeMpt: kegiatanPerPeriodeMpt.idPeriodeMpt));
+                                  context.read<NamaKegiatanMptBloc>().add(
+                                    ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: kegiatanPerPeriodeMpt.idNamaKegiatanMpt));
+                                  context.read<JenisKegiatanMptBloc>().add(
+                                    ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: kegiatanPerPeriodeMpt.idJenisKegiatanMpt));
 
                                   return DataRow(
                                     cells: [
@@ -331,10 +332,15 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState extends State<Kemaha
                                           MainAxisAlignment.spaceEvenly,
                                           children: [
                                             InkWell(
-                                              onTap: () => Navigator.pushNamed(
-                                                context,
-                                                kemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageRoute,
-                                              ),
+                                              onTap: () {
+                                                Navigator.pushNamed(
+                                                  context,
+                                                  kemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageRoute,
+                                                  arguments: kegiatanPerPeriodeMpt,
+                                                );
+
+                                                print(kegiatanPerPeriodeMpt);
+                                              },
                                               child: Image.asset(
                                                 'assets/icons/edit.png',
                                                 width: 24,
@@ -344,7 +350,14 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState extends State<Kemaha
                                             const SizedBox(width: 16.0,),
 
                                             InkWell(
-                                              onTap: () {},
+                                              onTap: () {
+                                                context.read<KegiatanPerPeriodeMptBloc>().add(
+                                                    DeleteKegiatanPerPeriodeMptEvent(
+                                                        idKegiatanPerPeriodeMpt: kegiatanPerPeriodeMpt.idKegiatanPerPeriodeMpt));
+
+                                                mipokaCustomToast("Kegiatan per Periode has been deleted.");
+                                                context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
+                                              },
                                               child: Image.asset(
                                                 'assets/icons/delete.png',
                                                 width: 24,

@@ -8,6 +8,7 @@ import 'package:mipoka/dependency_injection.dart' as di;
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
@@ -35,6 +36,7 @@ import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.d
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/ganti_password_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_jenis_kegiatan_edit_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_periode_edit_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_periode_edit_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_periode_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_prestasi_mahasiswa_tambah_page.dart';
@@ -422,7 +424,7 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) =>
                       const MPTMahasiswaKegiatanPerJenisKegiatanPage());
-            case MPTMahasiswaKegiatanPerJenisKegiatanTambahPageRoute:
+            case mptMahasiswaKegiatanPerJenisKegiatanTambahPageRoute:
               return MaterialPageRoute(
                   builder: (_) =>
                       const KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPage());
@@ -434,6 +436,12 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) =>
                       const KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPage());
+            case kemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageRoute:
+              final kegiatanPerPeriodeMpt = settings.arguments as KegiatanPerPeriodeMpt;
+              return MaterialPageRoute(
+                builder: (_) =>
+                    KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPage(kegiatanPerPeriodeMpt: kegiatanPerPeriodeMpt),
+              );
             case kemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageRoute:
               return MaterialPageRoute(
                   builder: (_) =>

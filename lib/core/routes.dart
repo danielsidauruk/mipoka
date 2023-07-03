@@ -108,12 +108,16 @@ const kemahasiswaanMPTMahasiswaJenisKegiatanEditPageRoute =
     '/kemahasiswaanMPTMahasiswaJenisKegiatanEditPageRoute';
 const kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageRoute =
     '/kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageRoute';
-const MPTMahasiswaKegiatanPerJenisKegiatanTambahPageRoute =
+const mptMahasiswaKegiatanPerJenisKegiatanTambahPageRoute =
     '/kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageRoute';
+const mptMahasiswaKegiatanPerJenisKegiatanEditPageRoute =
+    '/mptMahasiswaKegiatanPerJenisKegiatanEditPage';
 const kemahasiswaanMPTMahasiswaKegiatanPerPeriodePageRoute =
     '/kemahasiswaanMPTMahasiswaKegiatanPerPeriodePageRoute';
 const kemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageRoute =
     '/kemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageRoute';
+const kemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageRoute =
+    '/KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPage';
 const kemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageRoute =
     '/kemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageRoute';
 const kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute =

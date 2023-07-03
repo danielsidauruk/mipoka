@@ -66,7 +66,7 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                           buttonText: 'Tambah',
                           onPressed: () => Navigator.pushNamed(
                               context,
-                              MPTMahasiswaKegiatanPerJenisKegiatanTambahPageRoute),
+                              mptMahasiswaKegiatanPerJenisKegiatanTambahPageRoute),
                         ),
                         const CustomFieldSpacer(),
                         buildTitle('Jenis'),

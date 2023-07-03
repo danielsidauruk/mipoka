@@ -22,8 +22,8 @@
     "updated_by": "Jane Smith"
   },
   {
-    "id_periode_mpt": 333,
-    "tahun_periode_mpt": "2000",
+    "id_periode_mpt": 43123,
+    "tahun_periode_mpt": "2020",
     "periode_mengulang_mpt": false,
     "tanggal_mulai_periode_mpt": "2023-01-01",
     "tanggal_berakhir_periode_mpt": "2023-06-30",
