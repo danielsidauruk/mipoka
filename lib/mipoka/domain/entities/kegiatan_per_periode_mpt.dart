@@ -4,6 +4,7 @@ class KegiatanPerPeriodeMpt extends Equatable{
   final int idKegiatanPerPeriodeMpt;
   final int idPeriodeMpt;
   final int idNamaKegiatanMpt;
+  final int idJenisKegiatanMpt;
   final String tanggalMulaiKegiatanPerPeriodeMpt;
   final String tanggalSelesaiKegiatanPerPeriodeMpt;
   final int pointMptDiperoleh;
@@ -16,6 +17,7 @@ class KegiatanPerPeriodeMpt extends Equatable{
     required this.idKegiatanPerPeriodeMpt,
     required this.idNamaKegiatanMpt,
     required this.idPeriodeMpt,
+    required this.idJenisKegiatanMpt,
     required this.tanggalMulaiKegiatanPerPeriodeMpt,
     required this.tanggalSelesaiKegiatanPerPeriodeMpt,
     required this.pointMptDiperoleh,
@@ -29,8 +31,9 @@ class KegiatanPerPeriodeMpt extends Equatable{
     int? idKegiatanPerPeriodeMpt,
     int? idPeriodeMpt,
     int? idNamaKegiatanMpt,
-    String? tanggalMulaiKegiatanMpt,
-    String? tanggalSelesaiKegiatanMpt,
+    int? idJenisKegiatanMpt,
+    String? tanggalMulaiKegiatanPerPeriodeMpt,
+    String? tanggalSelesaiKegiatanPerPeriodeMpt,
     int? pointMptDiperoleh,
     String? createdAt,
     String? createdBy,
@@ -41,8 +44,9 @@ class KegiatanPerPeriodeMpt extends Equatable{
         idKegiatanPerPeriodeMpt: idKegiatanPerPeriodeMpt ?? this.idKegiatanPerPeriodeMpt,
         idPeriodeMpt: idPeriodeMpt ?? this.idPeriodeMpt,
         idNamaKegiatanMpt: idNamaKegiatanMpt ?? this.idNamaKegiatanMpt,
-        tanggalMulaiKegiatanPerPeriodeMpt: tanggalMulaiKegiatanMpt ?? this.tanggalMulaiKegiatanPerPeriodeMpt,
-        tanggalSelesaiKegiatanPerPeriodeMpt: tanggalSelesaiKegiatanMpt ?? this.tanggalSelesaiKegiatanPerPeriodeMpt,
+        idJenisKegiatanMpt: idJenisKegiatanMpt ?? this.idJenisKegiatanMpt,
+        tanggalMulaiKegiatanPerPeriodeMpt: tanggalMulaiKegiatanPerPeriodeMpt ?? this.tanggalMulaiKegiatanPerPeriodeMpt,
+        tanggalSelesaiKegiatanPerPeriodeMpt: tanggalSelesaiKegiatanPerPeriodeMpt ?? this.tanggalSelesaiKegiatanPerPeriodeMpt,
         pointMptDiperoleh: pointMptDiperoleh ?? this.pointMptDiperoleh,
         createdAt: createdAt ?? this.createdAt,
         createdBy: createdBy ?? this.createdBy,

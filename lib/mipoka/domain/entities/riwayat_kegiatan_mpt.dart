@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class RiwayatMpt extends Equatable {
-  final int idRiwayatMpt;
+class RiwayatKegiatanMpt extends Equatable {
+  final int idRiwayatKegiatanMpt;
   final int idNamaKegiatanMpt;
   final String idUser;
   final String statusMpt;
@@ -14,8 +14,8 @@ class RiwayatMpt extends Equatable {
   final String updatedAt;
   final String updatedBy;
 
-  const RiwayatMpt({
-    required this.idRiwayatMpt,
+  const RiwayatKegiatanMpt({
+    required this.idRiwayatKegiatanMpt,
     required this.idNamaKegiatanMpt,
     required this.idUser,
     required this.statusMpt,
@@ -29,8 +29,8 @@ class RiwayatMpt extends Equatable {
     required this.updatedBy,
   });
 
-  RiwayatMpt copyWith({
-    int? idRiwayatMpt,
+  RiwayatKegiatanMpt copyWith({
+    int? idRiwayatKegiatanMpt,
     int? idNamaKegiatanMpt,
     String? idUser,
     String? statusMpt,
@@ -43,8 +43,8 @@ class RiwayatMpt extends Equatable {
     String? updatedAt,
     String? updatedBy,
   }) =>
-      RiwayatMpt(
-        idRiwayatMpt: idRiwayatMpt ?? this.idRiwayatMpt,
+      RiwayatKegiatanMpt(
+        idRiwayatKegiatanMpt: idRiwayatKegiatanMpt ?? this.idRiwayatKegiatanMpt,
         idNamaKegiatanMpt: idNamaKegiatanMpt ?? this.idNamaKegiatanMpt,
         idUser: idUser ?? this.idUser,
         statusMpt: statusMpt ?? this.statusMpt,
@@ -60,6 +60,7 @@ class RiwayatMpt extends Equatable {
 
   @override
   List<Object?> get props => [
+    idRiwayatKegiatanMpt,
     idNamaKegiatanMpt,
     idUser,
     statusMpt,

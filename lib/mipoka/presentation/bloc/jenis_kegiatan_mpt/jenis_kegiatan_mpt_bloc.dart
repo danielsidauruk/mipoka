@@ -29,7 +29,7 @@ class JenisKegiatanMptBloc extends Bloc<JenisKegiatanMptEvent, JenisKegiatanMptS
 
       jenisKegiatanMpt.fold(
             (failure) => emit(JenisKegiatanMptError(message: failure.message)),
-            (jenisKegiatanMptList) => emit(JenisAllKegiatanMptHasData(jenisKegiatanMptList: jenisKegiatanMptList)),
+            (jenisKegiatanMptList) => emit(AllJenisKegiatanMptHasData(jenisKegiatanMptList: jenisKegiatanMptList)),
       );
     });
 

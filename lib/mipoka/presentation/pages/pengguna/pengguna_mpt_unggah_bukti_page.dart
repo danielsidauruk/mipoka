@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/bloc/riwayat_mpt_bloc/riwayat_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/riwayat_kegiatan_mpt_bloc/riwayat_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
@@ -43,13 +43,13 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
 
   @override
   void initState() {
-    context.read<RiwayatMptBloc>().add(ReadAllRiwayatMptEvent());
+    context.read<RiwayatKegiatanMptBloc>().add(ReadAllRiwayatKegiatanMptEvent());
     super.initState();
   }
 
   @override
   void dispose() {
-    context.read<RiwayatMptBloc>().close();
+    context.read<RiwayatKegiatanMptBloc>().close();
     super.dispose();
   }
 
@@ -66,11 +66,11 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: BlocBuilder<RiwayatMptBloc, RiwayatMptState>(
+          child: BlocBuilder<RiwayatKegiatanMptBloc, RiwayatKegiatanMptState>(
             builder: (context, state) {
-              if (state is RiwayatMptLoading) {
+              if (state is RiwayatKegiatanMptLoading) {
                 return const Text('Loading ....');
-              } else if (state is AllRiwayatMptHasData){
+              } else if (state is AllRiwayatKegiatanMptHasData){
 
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -122,7 +122,7 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                     String fileHash = hash;
 
                                     print(hash);
-                                    List<String> hashList = state.riwayatMptList.map((sha256) => sha256.hash).toList();
+                                    List<String> hashList = state.riwayatKegiatanMptList.map((sha256) => sha256.hash).toList();
 
                                     if (hashList.contains(fileHash) == true) {
                                       mipokaCustomToast("Tidak dapat mengunggah file yang sama");
@@ -222,7 +222,7 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                     ),
                   ],
                 );
-              } else if (state is RiwayatMptError) {
+              } else if (state is RiwayatKegiatanMptError) {
                 return Text(state.message);
               } else {
                 return const Text("RiwayatKegiatan hasn't been triggered");

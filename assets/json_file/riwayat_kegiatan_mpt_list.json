@@ -1,6 +1,6 @@
 [
   {
-    "id_riwayat_mpt": 1,
+    "id_riwayat_kegiatan_mpt": 1,
     "id_kegiatan_mpt": 123,
     "id_user": "456",
     "status_mpt": "Selesai",
@@ -14,7 +14,7 @@
     "updated_by": "Jane Smith"
   },
   {
-    "id_riwayat_mpt": 1,
+    "id_riwayat_kegiatan_mpt": 1,
     "id_kegiatan_mpt": 123,
     "id_user": "456",
     "status_mpt": "Selesai",

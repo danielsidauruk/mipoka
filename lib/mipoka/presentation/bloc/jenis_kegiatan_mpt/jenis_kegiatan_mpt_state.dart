@@ -11,10 +11,10 @@ class JenisKegiatanMptEmpty extends JenisKegiatanMptState {}
 
 class JenisKegiatanMptLoading extends JenisKegiatanMptState {}
 
-class JenisAllKegiatanMptHasData extends JenisKegiatanMptState {
+class AllJenisKegiatanMptHasData extends JenisKegiatanMptState {
   final List<JenisKegiatanMpt> jenisKegiatanMptList;
 
-  const JenisAllKegiatanMptHasData({required this.jenisKegiatanMptList});
+  const AllJenisKegiatanMptHasData({required this.jenisKegiatanMptList});
 
   @override
   List<Object> get props => [jenisKegiatanMptList];

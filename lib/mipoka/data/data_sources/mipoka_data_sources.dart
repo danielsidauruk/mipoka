@@ -19,7 +19,7 @@ import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/revisi_laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/revisi_usulan_model.dart';
 import 'package:mipoka/mipoka/data/models/rincian_biaya_kegiatan_model.dart';
-import 'package:mipoka/mipoka/data/models/riwayat_mpt_model.dart';
+import 'package:mipoka/mipoka/data/models/riwayat_kegiatan_mpt_model.dart';
 import 'package:mipoka/mipoka/data/models/session_model.dart';
 import 'package:mipoka/mipoka/data/models/tertib_acara_model.dart';
 import 'package:mipoka/mipoka/data/models/mipoka_user_model.dart';
@@ -350,7 +350,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<KegiatanPerPeriodeMptModel>> readAllKegiatanPerPeriodeMpt(String filter) async {
     final String response =
-    await rootBundle.loadString('assets/json_file/kegiatan_mpt_list.json');
+    await rootBundle.loadString('assets/json_file/kegiatan_per_periode_mpt_list.json');
     List<dynamic> resultList = json.decode(response);
 
     List<KegiatanPerPeriodeMptModel> result =
@@ -535,7 +535,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<PeriodeMptModel> readPeriodeMpt(int idPeriodeMpt) async {
     final String response =
-    await rootBundle.loadString('assets/json_file/periode.json');
+    await rootBundle.loadString('assets/json_file/periode_mpt.json');
     dynamic jsonDecode = json.decode(response);
 
     PeriodeMptModel result = PeriodeMptModel.fromJson(jsonDecode);
@@ -740,7 +740,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<RiwayatMptModel>> readAllRiwayatMpt() async {
     final String response =
-    await rootBundle.loadString('assets/json_file/riwayat_mpt_list.json');
+    await rootBundle.loadString('assets/json_file/riwayat_kegiatan_mpt_list.json');
     List<dynamic> resultList = json.decode(response);
 
     List<RiwayatMptModel> result =
@@ -752,7 +752,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<RiwayatMptModel> readRiwayatMpt(int idRiwayatMpt) async {
     final String response =
-    await rootBundle.loadString('assets/json_file/riwayat_mpt.json');
+    await rootBundle.loadString('assets/json_file/riwayat_kegiatan_mpt.json');
     dynamic jsonDecode = json.decode(response);
 
     RiwayatMptModel result = RiwayatMptModel.fromJson(jsonDecode);
@@ -1002,7 +1002,9 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<void> deleteNamaKegiatanMpt(int idNamaKegiatanMpt) async {
-    print("NamaKegiatanMpt with id $idNamaKegiatanMpt has been deleted.");
+    if (kDebugMode) {
+      print("NamaKegiatanMpt with id $idNamaKegiatanMpt has been deleted.");
+    }
   }
 
   @override

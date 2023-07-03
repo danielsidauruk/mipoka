@@ -29,7 +29,7 @@ import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart
 import 'package:mipoka/mipoka/presentation/bloc/revisi_laporan_bloc/revisi_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/revisi_usulan_bloc/revisi_usulan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/rincian_biaya_kegiatan_bloc/rincian_biaya_kegiatan_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/riwayat_mpt_bloc/riwayat_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/riwayat_kegiatan_mpt_bloc/riwayat_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
@@ -136,7 +136,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<RevisiLaporanBloc>()),
         BlocProvider(create: (_) => di.locator<RevisiUsulanBloc>()),
         BlocProvider(create: (_) => di.locator<RincianBiayaKegiatanBloc>()),
-        BlocProvider(create: (_) => di.locator<RiwayatMptBloc>()),
+        BlocProvider(create: (_) => di.locator<RiwayatKegiatanMptBloc>()),
         BlocProvider(create: (_) => di.locator<SessionBloc>()),
         BlocProvider(create: (_) => di.locator<TertibAcaraBloc>()),
         BlocProvider(create: (_) => di.locator<UsulanKegiatanBloc>()),
@@ -177,8 +177,8 @@ class MyApp extends StatelessWidget {
         ),
         home: user?.email == ""
             ? const LoginPage()
-            // : const KemahasiswaanBerandaPage(),
-        : const PemeriksaDaftarLaporanKegiatanPage(),
+            : const KemahasiswaanBerandaPage(),
+        // : const PemeriksaDaftarLaporanKegiatanPage(),
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {

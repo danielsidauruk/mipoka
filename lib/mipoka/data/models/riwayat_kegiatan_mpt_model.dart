@@ -1,8 +1,8 @@
-import 'package:mipoka/mipoka/domain/entities/riwayat_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
 
-class RiwayatMptModel extends RiwayatMpt {
+class RiwayatMptModel extends RiwayatKegiatanMpt {
   const RiwayatMptModel({
-    required super.idRiwayatMpt,
+    required super.idRiwayatKegiatanMpt,
     required super.idNamaKegiatanMpt,
     required super.idUser,
     required super.statusMpt,
@@ -16,9 +16,9 @@ class RiwayatMptModel extends RiwayatMpt {
     required super.updatedBy,
   });
 
-  factory RiwayatMptModel.fromEntity(RiwayatMpt riwayatMpt) {
+  factory RiwayatMptModel.fromEntity(RiwayatKegiatanMpt riwayatMpt) {
     return RiwayatMptModel(
-      idRiwayatMpt: riwayatMpt.idRiwayatMpt,
+      idRiwayatKegiatanMpt: riwayatMpt.idRiwayatKegiatanMpt,
       idNamaKegiatanMpt: riwayatMpt.idNamaKegiatanMpt,
       idUser: riwayatMpt.idUser,
       statusMpt: riwayatMpt.statusMpt,
@@ -34,7 +34,7 @@ class RiwayatMptModel extends RiwayatMpt {
   }
 
   factory RiwayatMptModel.fromJson(Map<String, dynamic> json) => RiwayatMptModel(
-    idRiwayatMpt: json["id_riwayat_mpt"],
+    idRiwayatKegiatanMpt: json["id_riwayat_kegiatan_mpt"],
     idNamaKegiatanMpt: json["id_nama_kegiatan_mpt"],
     idUser: json["id_user"],
     statusMpt: json["status_mpt"],
@@ -49,7 +49,7 @@ class RiwayatMptModel extends RiwayatMpt {
   );
 
   Map<String, dynamic> toJson() => {
-    "id_riwayat_mpt": idRiwayatMpt,
+    "id_riwayat_kegiatan_mpt": idRiwayatKegiatanMpt,
     "id_nama_kegiatan_mpt": idNamaKegiatanMpt,
     "id_user": idUser,
     "status_mpt": statusMpt,

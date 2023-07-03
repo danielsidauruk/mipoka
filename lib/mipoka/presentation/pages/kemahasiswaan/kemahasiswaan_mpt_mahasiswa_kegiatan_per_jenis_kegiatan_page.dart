@@ -26,6 +26,7 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
   @override
   void initState() {
     context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
+    context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
     super.initState();
   }
 
@@ -60,7 +61,7 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
 
                     return CustomContentBox(
                       children: [
-                        buildTitle('Total Kegiatan per Jenis Kegiatan : 6'),
+                        // buildTitle('Total Kegiatan per Jenis Kegiatan : 6'),
                         CustomAddButton(
                           buttonText: 'Tambah',
                           onPressed: () => Navigator.pushNamed(
@@ -70,16 +71,52 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                         const CustomFieldSpacer(),
                         buildTitle('Jenis'),
 
+                        // BlocBuilder<JenisKegiatanMptBloc, JenisKegiatanMptState>(
+                        //   builder: (context, state) {
+                        //     if (state is JenisKegiatanMptLoading) {
+                        //       return const Text("Loading ....");
+                        //     } else if (state is AllJenisKegiatanMptHasData) {
+                        //
+                        //       List<String> namaJenisKegiatan = state.jenisKegiatanMptList.map(
+                        //               (jenisKegiatanMpt) => jenisKegiatanMpt.namaJenisKegiatanMpt).toList();
+                        //
+                        //       return MipokaCustomDropdown(
+                        //         items: namaJenisKegiatan,
+                        //         onValueChanged: (value) {
+                        //           context.read<KegiatanPerPeriodeMptBloc>().add(
+                        //               ReadAllKegiatanPerPeriodeMptEvent(filter: value!)
+                        //           );
+                        //         },
+                        //       );
+                        //     } else if (state is JenisKegiatanMptError) {
+                        //       return Text(state.message);
+                        //     } else {
+                        //       return const Text("JenisKegiatanMptBloc hasn't been triggered.");
+                        //     }
+                        //   },
+                        // ),
+
                         MipokaCustomDropdown(
                           items: listBentukKegiatan,
                           onValueChanged: (value) {
                             context.read<KegiatanPerPeriodeMptBloc>().add(
-                              ReadAllKegiatanPerPeriodeMptEvent(filter: value!)
+                                ReadAllKegiatanPerPeriodeMptEvent(filter: value!)
                             );
                           },
                         ),
 
                         const CustomFieldSpacer(),
+
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            "Total Kegiatan per Jenis Kegiatan : ${kegiatanMptList.length}",
+                            style: const TextStyle(fontSize: 15),
+                          ),
+                        ),
+
+                        const CustomFieldSpacer(),
+
                         Container(
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey),
@@ -171,7 +208,8 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                                           MainAxisAlignment.spaceEvenly,
                                           children: [
                                             InkWell(
-                                              onTap: () {},
+                                              onTap: () {
+                                              },
                                               child: Image.asset(
                                                 'assets/icons/edit.png',
                                                 width: 24,
@@ -181,7 +219,8 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                                             const SizedBox(width: 16.0,),
 
                                             InkWell(
-                                              onTap: () {},
+                                              onTap: () {
+                                              },
                                               child: Image.asset(
                                                 'assets/icons/delete.png',
                                                 width: 24,

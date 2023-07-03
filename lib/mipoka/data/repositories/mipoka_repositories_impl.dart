@@ -19,7 +19,7 @@ import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/revisi_laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/revisi_usulan_model.dart';
 import 'package:mipoka/mipoka/data/models/rincian_biaya_kegiatan_model.dart';
-import 'package:mipoka/mipoka/data/models/riwayat_mpt_model.dart';
+import 'package:mipoka/mipoka/data/models/riwayat_kegiatan_mpt_model.dart';
 import 'package:mipoka/mipoka/data/models/session_model.dart';
 import 'package:mipoka/mipoka/data/models/tertib_acara_model.dart';
 import 'package:mipoka/mipoka/data/models/mipoka_user_model.dart';
@@ -41,7 +41,7 @@ import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/revisi_laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/revisi_usulan.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
-import 'package:mipoka/mipoka/domain/entities/riwayat_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/session.dart';
 import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
@@ -633,16 +633,16 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
 // TODO: => RiwayatMpt Repositories
   @override
-  Future<Either<Failure, void>> createRiwayatMpt(RiwayatMpt riwayatMpt) async {
+  Future<Either<Failure, void>> createRiwayatKegiatanMpt(RiwayatKegiatanMpt riwayatKegiatanMpt) async {
     try {
-      return Right(await mipokaDataSources.createRiwayatMpt(RiwayatMptModel.fromEntity(riwayatMpt)));
+      return Right(await mipokaDataSources.createRiwayatMpt(RiwayatMptModel.fromEntity(riwayatKegiatanMpt)));
     } on ServerException {
       return const Left(ServerFailure());
     }
   }
 
   @override
-  Future<Either<Failure, void>> deleteRiwayatMpt(int idRiwayatMpt) async {
+  Future<Either<Failure, void>> deleteRiwayatKegiatanMpt(int idRiwayatMpt) async {
     try {
       return Right(await mipokaDataSources.deleteRiwayatMpt(idRiwayatMpt));
     } on ServerException {
@@ -651,7 +651,7 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, List<RiwayatMpt>>> readAllRiwayatMpt() async {
+  Future<Either<Failure, List<RiwayatKegiatanMpt>>> readAllRiwayatKegiatanMpt() async {
     try {
       return Right(await mipokaDataSources.readAllRiwayatMpt());
     } on ServerException {
@@ -660,7 +660,7 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, RiwayatMpt>> readRiwayatMpt(int idRiwayatMpt) async {
+  Future<Either<Failure, RiwayatKegiatanMpt>> readRiwayatKegiatanMpt(int idRiwayatMpt) async {
     try {
       return Right(await mipokaDataSources.readRiwayatMpt(idRiwayatMpt));
     } on ServerException {
@@ -669,9 +669,9 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, void>> updateRiwayatMpt(RiwayatMpt riwayatMpt) async {
+  Future<Either<Failure, void>> updateRiwayatKegiatanMpt(RiwayatKegiatanMpt riwayatKegiatanMpt) async {
     try {
-      return Right(await mipokaDataSources.updateRiwayatMpt(RiwayatMptModel.fromEntity(riwayatMpt)));
+      return Right(await mipokaDataSources.updateRiwayatMpt(RiwayatMptModel.fromEntity(riwayatKegiatanMpt)));
     } on ServerException {
       return const Left(ServerFailure());
     }

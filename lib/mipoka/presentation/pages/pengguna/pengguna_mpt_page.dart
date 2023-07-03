@@ -5,7 +5,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/riwayat_mpt_bloc/riwayat_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/riwayat_kegiatan_mpt_bloc/riwayat_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -30,7 +30,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
 
   @override
   void dispose() {
-    context.read<RiwayatMptBloc>().close();
+    context.read<RiwayatKegiatanMptBloc>().close();
     context.read<KegiatanPerPeriodeMptBloc>().close();
     context.read<NamaKegiatanMptBloc>().close();
     super.dispose();
@@ -53,12 +53,12 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                 children: [
                   customBoxTitle('Kegiatan yang Sudah Diklaim'),
                   const CustomFieldSpacer(),
-                  BlocBuilder<RiwayatMptBloc, RiwayatMptState>(
+                  BlocBuilder<RiwayatKegiatanMptBloc, RiwayatKegiatanMptState>(
                     builder: (context, state) {
-                      if (state is RiwayatMptLoading) {
+                      if (state is RiwayatKegiatanMptLoading) {
                         return const Text('Loading ....');
-                      } else if (state is AllRiwayatMptHasData) {
-                        final riwayatMptList = state.riwayatMptList;
+                      } else if (state is AllRiwayatKegiatanMptHasData) {
+                        final riwayatKegiatanMptList = state.riwayatKegiatanMptList;
 
                         return SingleChildScrollView(
                           scrollDirection: Axis.vertical,
@@ -104,8 +104,8 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                   ),
                                 ),
                               ],
-                              rows: List<DataRow>.generate(riwayatMptList.length, (int index) {
-                                final riwayatMpt = riwayatMptList[index];
+                              rows: List<DataRow>.generate(riwayatKegiatanMptList.length, (int index) {
+                                final riwayatMpt = riwayatKegiatanMptList[index];
 
                                 context.read<KegiatanPerPeriodeMptBloc>().add(
                                     ReadKegiatanPerPeriodeMptEvent(idKegiatanPerPeriodeMpt: riwayatMpt.idNamaKegiatanMpt));
@@ -202,7 +202,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                             ),
                           ),
                         );
-                      } else if (state is RiwayatMptError) {
+                      } else if (state is RiwayatKegiatanMptError) {
                         return Text(state.message);
                       } else {
                         return const Text("RiwayatMptBloc hasn't been triggered");

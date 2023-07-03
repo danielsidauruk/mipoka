@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/riwayat_mpt_bloc/riwayat_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/riwayat_kegiatan_mpt_bloc/riwayat_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -24,13 +24,14 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
 
   @override
   void initState() {
-    context.read<JenisKegiatanMptBloc>().add(ReadAllJenisKegiatanMptEvent());
+    context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
     super.initState();
   }
 
   @override
   void dispose() {
-    context.read<RiwayatMptBloc>().close();
+    context.read<RiwayatKegiatanMptBloc>().close();
+    context.read<JenisKegiatanMptBloc>().close();
     super.dispose();
   }
 
@@ -43,7 +44,7 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
         builder: (context, state) {
           if (state is JenisKegiatanMptLoading) {
             return const Text('Loading');
-          } else if (state is JenisAllKegiatanMptHasData) {
+          } else if (state is AllJenisKegiatanMptHasData) {
             final jenisKegiatanMptList = state.jenisKegiatanMptList;
 
             return SingleChildScrollView(
@@ -134,7 +135,7 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                                                 context.read<JenisKegiatanMptBloc>().add(
                                                   DeleteJenisKegiatanMptEvent(idJenisKegiatan: jenisKegiatanMpt.idJenisKegiatanMpt),
                                                 );
-                                                context.read<JenisKegiatanMptBloc>().add(ReadAllJenisKegiatanMptEvent());
+                                                context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
                                               },
                                               child: Image.asset(
                                                 'assets/icons/delete.png',

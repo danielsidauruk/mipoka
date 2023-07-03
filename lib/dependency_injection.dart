@@ -11,6 +11,7 @@ import 'package:mipoka/mipoka/domain/use_cases/jenis_kegiatan_mpt_use_case.dart'
 import 'package:mipoka/mipoka/domain/use_cases/kegiatan_per_periode_mpt_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/laporan_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/mhs_per_periode_mpt_use_cases.dart';
+import 'package:mipoka/mipoka/domain/use_cases/nama_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/use_cases/notifikasi_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/ormawa_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/partisipan_use_case.dart';
@@ -19,7 +20,7 @@ import 'package:mipoka/mipoka/domain/use_cases/prestasi_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/revisi_laporan_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/revisi_usulan_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/rincian_biaya_kegiatan_use_case.dart';
-import 'package:mipoka/mipoka/domain/use_cases/riwayat_mpt_use_case.dart';
+import 'package:mipoka/mipoka/domain/use_cases/riwayat_kegiatan_mpt_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/session_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/tertib_acara_use_case.dart';
 import 'package:mipoka/mipoka/domain/use_cases/mipoka_user_use_case.dart';
@@ -42,7 +43,7 @@ import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart
 import 'package:mipoka/mipoka/presentation/bloc/revisi_laporan_bloc/revisi_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/revisi_usulan_bloc/revisi_usulan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/rincian_biaya_kegiatan_bloc/rincian_biaya_kegiatan_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/riwayat_mpt_bloc/riwayat_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/riwayat_kegiatan_mpt_bloc/riwayat_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
@@ -69,7 +70,7 @@ Future<void> init() async {
   locator.registerFactory(() => RevisiLaporanBloc(revisiLaporanUseCase: locator()));
   locator.registerFactory(() => RevisiUsulanBloc(revisiUsulanUseCase: locator()));
   locator.registerFactory(() => RincianBiayaKegiatanBloc(rincianBiayaKegiatanUseCase: locator()));
-  locator.registerFactory(() => RiwayatMptBloc(riwayatMptUseCase: locator()));
+  locator.registerFactory(() => RiwayatKegiatanMptBloc(riwayatKegiatanMptUseCase: locator()));
   locator.registerFactory(() => SessionBloc(sessionUseCase: locator()));
   locator.registerFactory(() => TertibAcaraBloc(tertibAcaraUseCase: locator()));
   locator.registerFactory(() => MipokaUserBloc(mipokaUserUseCase: locator()));
@@ -93,12 +94,12 @@ Future<void> init() async {
   locator.registerLazySingleton(() => RevisiLaporanUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => RevisiUsulanUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => RincianBiayaKegiatanUseCase(mipokaRepositories: locator()));
-  locator.registerLazySingleton(() => RiwayatMptUseCase(mipokaRepositories: locator()));
+  locator.registerLazySingleton(() => RiwayatKegiatanMptUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => SessionUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => TertibAcaraUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => UsulanKegiatanUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => MhsPerPeriodeMptUseCases(mipokaRepositories: locator()));
-  locator.registerLazySingleton(() => NamaKegiatanMptBloc(namaKegiatanMptUseCase: locator()));
+  locator.registerLazySingleton(() => NamaKegiatanMptUseCase(mipokaRepositories: locator()));
   locator.registerLazySingleton(() => NotifikasiUseCase(mipokaRepositories: locator()));
 
 

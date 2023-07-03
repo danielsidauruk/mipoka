@@ -10,7 +10,7 @@ abstract class KegiatanPerPeriodeMptEvent extends Equatable {
 class CreateKegiatanPerPeriodeMptEvent extends KegiatanPerPeriodeMptEvent {
   final KegiatanPerPeriodeMpt kegiatanPerPeriodeMpt;
 
-  const CreateKegiatanPerPeriodeMptEvent(this.kegiatanPerPeriodeMpt);
+  const CreateKegiatanPerPeriodeMptEvent({required this.kegiatanPerPeriodeMpt});
 
   @override
   List<Object?> get props => [kegiatanPerPeriodeMpt];
@@ -31,7 +31,7 @@ class ReadKegiatanPerPeriodeMptEvent extends KegiatanPerPeriodeMptEvent {
 class UpdateKegiatanPerPeriodeMptEvent extends KegiatanPerPeriodeMptEvent {
   final KegiatanPerPeriodeMpt kegiatanPerPeriodeMpt;
 
-  const UpdateKegiatanPerPeriodeMptEvent(this.kegiatanPerPeriodeMpt);
+  const UpdateKegiatanPerPeriodeMptEvent({required this.kegiatanPerPeriodeMpt});
 
   @override
   List<Object?> get props => [kegiatanPerPeriodeMpt];
@@ -40,7 +40,7 @@ class UpdateKegiatanPerPeriodeMptEvent extends KegiatanPerPeriodeMptEvent {
 class DeleteKegiatanPerPeriodeMptEvent extends KegiatanPerPeriodeMptEvent {
   final int idKegiatanPerPeriodeMpt;
 
-  const DeleteKegiatanPerPeriodeMptEvent(this.idKegiatanPerPeriodeMpt);
+  const DeleteKegiatanPerPeriodeMptEvent({required this.idKegiatanPerPeriodeMpt});
 
   @override
   List<Object?> get props => [idKegiatanPerPeriodeMpt];

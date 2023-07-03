@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/bloc/riwayat_mpt_bloc/riwayat_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -20,13 +24,18 @@ class KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage extends StatefulWidget {
 }
 
 class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState extends State<KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage> {
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   BlocProvider.of<RiwayatMptBloc>(context, listen: false)
-  //       .add(ReadLaporanEvent());
-  // }
+  
+  @override
+  void initState() {
+    context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
+    super.initState();
+  }
+  
+  @override
+  void dispose() {
+    context.read<KegiatanPerPeriodeMptBloc>().close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,177 +55,258 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState extends State<Kemaha
 
               const CustomFieldSpacer(),
 
-              CustomContentBox(
-                children: [
+              BlocBuilder<KegiatanPerPeriodeMptBloc, KegiatanPerPeriodeMptState>(
+                builder: (context, state) {
+                  if (state is KegiatanPerPeriodeMptLoading) {
+                    return const Text("Loading ....");
+                  } else if (state is AllKegiatanPerPeriodeMptHasData) {
+                    final kegiatanPerPeriodeMptList = state.kegiatanPerPeriodeMptList;
 
-                  buildTitle('Total Kegiatan per Jenis Kegiatan : 6'),
-                  CustomAddButton(
-                    buttonText: 'Tambah',
-                    onPressed: () => Navigator.pushNamed(context, kemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageRoute),
-                  ),
+                    return CustomContentBox(
+                      children: [
 
-                  const CustomFieldSpacer(),
+                        // buildTitle('Total Kegiatan per Jenis Kegiatan : 6'),
+                        CustomAddButton(
+                          buttonText: 'Tambah',
+                          onPressed: () => Navigator.pushNamed(
+                            context,
+                            kemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageRoute,
+                          ),
+                        ),
 
-                  buildTitle('Jenis'),
-                  MipokaCustomDropdown(
-                    items: listBentukKegiatan,
-                    onValueChanged: (value) {},
-                  ),
+                        const CustomFieldSpacer(),
 
-                  const CustomFieldSpacer(),
+                        buildTitle('Jenis'),
+                        MipokaCustomDropdown(
+                          items: listBentukKegiatan,
+                          onValueChanged: (value) {},
+                        ),
 
-                  buildTitle('Kegiatan'),
-                  MipokaCustomDropdown(
-                    items: listNamaKegiatan,
-                    onValueChanged: (value) {},
-                  ),
+                        const CustomFieldSpacer(),
 
-                  const CustomFieldSpacer(),
+                        buildTitle('Kegiatan'),
+                        MipokaCustomDropdown(
+                          items: listNamaKegiatan,
+                          onValueChanged: (value) {},
+                        ),
 
-                  CustomFilterButton(
-                    text: 'Filter',
-                    onPressed: () {},
-                  ),
+                        const CustomFieldSpacer(),
 
-                  const CustomFieldSpacer(),
+                        CustomFilterButton(
+                          text: 'Filter',
+                          onPressed: () {},
+                        ),
 
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                    ),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: DataTable(
-                          columnSpacing: 40,
-                          border: TableBorder.all(color: Colors.white),
-                          columns: const [
-                            DataColumn(
-                              label: Text(
-                                'Periode',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Jenis Kegiatan',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Nama Kegiatan',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Poin',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Waktu Mulai',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Waktu Selesai',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              tooltip: 'Aksi yang akan dilakukan',
-                              label: Text(
-                                'Aksi',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ],
+                        const CustomFieldSpacer(),
 
-                          rows: List<DataRow>.generate(6, (int index) {
-                            return DataRow(
-                              cells: [
-                                const DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('2023 (ulang)',),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            "Total Kegiatan per Jenis Kegiatan : ${kegiatanPerPeriodeMptList.length}",
+                            style: const TextStyle(fontSize: 15),
+                          ),
+                        ),
+
+                        const CustomFieldSpacer(),
+
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                          ),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: DataTable(
+                                columnSpacing: 40,
+                                border: TableBorder.all(color: Colors.white),
+                                columns: const [
+                                  DataColumn(
+                                    label: Text(
+                                      'Periode',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('Jenis Kegiatan - ${index + 1}',),
+                                  DataColumn(
+                                    label: Text(
+                                      'Jenis Kegiatan',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('Nama Kegiatan - ${index + 1}',),
+                                  DataColumn(
+                                    label: Text(
+                                      'Nama Kegiatan',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('${(index + 1) * 2}',),
+                                  DataColumn(
+                                    label: Text(
+                                      'Poin',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('${index + 1} Mei 2023',),
+                                  DataColumn(
+                                    label: Text(
+                                      'Waktu Mulai',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
-                                ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('${index + 3} Mei 2023',),
+                                  DataColumn(
+                                    label: Text(
+                                      'Waktu Selesai',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
-                                ),
+                                  DataColumn(
+                                    tooltip: 'Aksi yang akan dilakukan',
+                                    label: Text(
+                                      'Aksi',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
 
-                                DataCell(
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      InkWell(
-                                        onTap: () => Navigator.pushNamed(context, kemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageRoute),
-                                        child: Image.asset(
-                                          'assets/icons/edit.png',
-                                          width: 24,
+                                rows: List<DataRow>.generate(kegiatanPerPeriodeMptList.length, (int index) {
+                                  final kegiatanPerPeriodeMpt = kegiatanPerPeriodeMptList[index];
+                                  
+                                  context.read<PeriodeMptBloc>().add(
+                                    ReadPeriodeMptEvent(idPeriodeMpt: kegiatanPerPeriodeMpt.idPeriodeMpt));
+                                  context.read<NamaKegiatanMptBloc>().add(
+                                    ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: kegiatanPerPeriodeMpt.idNamaKegiatanMpt));
+                                  context.read<JenisKegiatanMptBloc>().add(
+                                    ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: kegiatanPerPeriodeMpt.idJenisKegiatanMpt));
+
+                                  return DataRow(
+                                    cells: [
+                                      DataCell(
+                                        BlocBuilder<PeriodeMptBloc, PeriodeMptState>(
+                                          builder: (context, state) {
+                                            if (state is PeriodeMptLoading) {
+                                              return const Text("Loading ....");
+                                            } else if (state is PeriodeMptHasData) {
+                                              return Align(
+                                                alignment: Alignment.center,
+                                                child: Text(state.periodeMpt.tahunPeriodeMpt),
+                                              );
+                                            } else if (state is PeriodeMptError) {
+                                              return Text(state.message);
+                                            } else {
+                                              return const Text("PeriodeMptBloc hasn't been triggered yet.");
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                      DataCell(
+                                        BlocBuilder<JenisKegiatanMptBloc, JenisKegiatanMptState>(
+                                          builder: (context, state) {
+                                            if (state is JenisKegiatanMptLoading) {
+                                              return const Text('Loading ....');
+                                            } else if (state is JenisKegiatanMptHasData) {
+                                              return Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  state.jenisKegiatanMpt.namaJenisKegiatanMpt,
+                                                ),
+                                              );
+                                            } else if (state is JenisKegiatanMptError) {
+                                              return Text(state.message);
+                                            } else {
+                                              return const Text("JenisKegiatanMptBloc hasn't triggered yet.");
+                                            }
+                                          },
                                         ),
                                       ),
 
-                                      const SizedBox(width: 16.0,),
+                                      DataCell(
+                                        BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
+                                          builder: (context, state) {
+                                            if (state is NamaKegiatanMptLoading) {
+                                              return const Text('Loading ....');
+                                            } else if (state is NamaKegiatanMptHasData) {
+                                              return Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  state.namaKegiatanMpt.namaKegiatan,
+                                                ),
+                                              );
+                                            } else if (state is NamaKegiatanMptError) {
+                                              return Text(state.message);
+                                            } else {
+                                              return const Text("JenisKegiatanMptBloc hasn't triggered yet.");
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                      DataCell(
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Text("${kegiatanPerPeriodeMpt.pointMptDiperoleh}"),
+                                        ),
+                                      ),
+                                      DataCell(
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Text(kegiatanPerPeriodeMpt.tanggalMulaiKegiatanPerPeriodeMpt),
+                                        ),
+                                      ),
+                                      DataCell(
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Text(kegiatanPerPeriodeMpt.tanggalSelesaiKegiatanPerPeriodeMpt),
+                                        ),
+                                      ),
 
-                                      InkWell(
-                                        onTap: () {},
-                                        child: Image.asset(
-                                          'assets/icons/delete.png',
-                                          width: 24,
+                                      DataCell(
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            InkWell(
+                                              onTap: () => Navigator.pushNamed(
+                                                context,
+                                                kemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageRoute,
+                                              ),
+                                              child: Image.asset(
+                                                'assets/icons/edit.png',
+                                                width: 24,
+                                              ),
+                                            ),
+
+                                            const SizedBox(width: 16.0,),
+
+                                            InkWell(
+                                              onTap: () {},
+                                              child: Image.asset(
+                                                'assets/icons/delete.png',
+                                                width: 24,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
-                                  ),
-                                ),
-                              ],
-                            );
-                          }),
+                                  );
+                                }),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                ],
+                      ],
+                    );
+
+                  } else if (state is KegiatanPerPeriodeMptError) {
+                    return Text(state.message);
+                  } else {
+                    return const Text("KegiatanPeriodeMpt hasn't been triggered yet.");
+                  }
+                },
               ),
             ],
           ),

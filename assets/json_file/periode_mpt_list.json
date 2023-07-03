@@ -1,6 +1,6 @@
 [
   {
-    "id_periode_mpt": 567123,
+    "id_periode_mpt": 111,
     "tahun_periode_mpt": "2023",
     "periode_mengulang_mpt": false,
     "tanggal_mulai_periode_mpt": "2023-01-01",
@@ -11,9 +11,9 @@
     "updated_by": "Jane Smith"
   },
   {
-    "id_periode_mpt": 567123,
-    "tahun_periode_mpt": "2023",
-    "periode_mengulang_mpt": false,
+    "id_periode_mpt": 222,
+    "tahun_periode_mpt": "2022",
+    "periode_mengulang_mpt": true,
     "tanggal_mulai_periode_mpt": "2023-01-01",
     "tanggal_berakhir_periode_mpt": "2023-06-30",
     "created_at": "2023-06-26",
@@ -22,8 +22,8 @@
     "updated_by": "Jane Smith"
   },
   {
-    "id_periode_mpt": 567123,
-    "tahun_periode_mpt": "2023",
+    "id_periode_mpt": 333,
+    "tahun_periode_mpt": "2000",
     "periode_mengulang_mpt": false,
     "tanggal_mulai_periode_mpt": "2023-01-01",
     "tanggal_berakhir_periode_mpt": "2023-06-30",

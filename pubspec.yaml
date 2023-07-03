@@ -75,7 +75,7 @@ flutter:
     - assets/json_file/berita_list.json
 
     - assets/json_file/kegiatan_per_periode_mpt.json
-    - assets/json_file/kegiatan_mpt_list.json
+    - assets/json_file/kegiatan_per_periode_mpt_list.json
 
     - assets/json_file/laporan.json
     - assets/json_file/laporan_list.json
@@ -96,8 +96,8 @@ flutter:
 
     - assets/json_file/revisi_usulan.json
 
-    - assets/json_file/riwayat_mpt.json
-    - assets/json_file/riwayat_mpt_list.json
+    - assets/json_file/riwayat_kegiatan_mpt.json
+    - assets/json_file/riwayat_kegiatan_mpt_list.json
 
     - assets/json_file/session.json
     - assets/json_file/session_list.json
@@ -105,7 +105,11 @@ flutter:
     - assets/json_file/usulan_kegiatan.json
     - assets/json_file/usulan_kegiatan_list.json
 
-    -  assets/json_file/jenis_kegiatan_mpt_list.json
+    - assets/json_file/jenis_kegiatan_mpt_list.json
+    - assets/json_file/jenis_kegiatan_mpt.json
+
+    - assets/json_file/nama_kegiatan_mpt.json
+    - assets/json_file/nama_kegiatan_mpt_list.json
 
     - assets/docx_template/usulan_template.docx
     - assets/docx_template/template.docx
