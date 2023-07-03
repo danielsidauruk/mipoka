@@ -2,10 +2,10 @@
   "id_periode_mpt": 567123,
   "tahun_periode_mpt": "2023",
   "periode_mengulang_mpt": false,
-  "tanggal_mulai_periode_mpt": "2023-01-01",
-  "tanggal_berakhir_periode_mpt": "2023-06-30",
-  "created_at": "2023-06-26",
+  "tanggal_mulai_periode_mpt": "01-01-2023",
+  "tanggal_berakhir_periode_mpt": "01-01-2023",
+  "created_at": "15-01-2023",
   "created_by": "John Doe",
-  "updated_at": "2023-06-26",
+  "updated_at": "15-01-2023",
   "updated_by": "Jane Smith"
 }
