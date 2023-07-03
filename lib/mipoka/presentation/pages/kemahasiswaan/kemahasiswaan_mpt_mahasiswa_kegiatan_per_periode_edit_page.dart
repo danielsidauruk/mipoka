@@ -6,7 +6,9 @@ import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/nama_kegiatan_drop_down_bloc/nama_kegiatan_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_dropdown_bloc/periode_mpt_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_date_picker_field.dart';
@@ -46,8 +48,8 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
     _idPeriodeKegiatanController = widget.kegiatanPerPeriodeMpt.idPeriodeMpt;
     _idJenisKegiatanController = widget.kegiatanPerPeriodeMpt.idJenisKegiatanMpt;
 
-    context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
-    context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+    context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
+    context.read<NamaKegiatanDropDownBloc>().add(ReadNamaKegiatanDropDownEvent());
     context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
     super.initState();
   }
@@ -74,23 +76,23 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                 children: [
 
                   buildTitle('Nama Kegiatan'),
-                  BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
+                  BlocBuilder<NamaKegiatanDropDownBloc, NamaKegiatanDropDownState>(
                     builder: (context, state) {
-                      if (state is NamaKegiatanMptLoading) {
+                      if (state is NamaKegiatanDropDownLoading) {
                         return const Text("Loading ...");
-                      } else if (state is AllNamaKegiatanMptHasData) {
+                      } else if (state is NamaKegiatanDropDownHasData) {
 
-                        List<String> namaKegiatanList = state.namaKegiatanMptList.map(
+                        List<String> namaKegiatanList = state.namaKegiatanList.map(
                                 (namaKegiatanList) => namaKegiatanList.namaKegiatan).toList();
 
-                        List<int> idNamaKegiatanMptList = state.namaKegiatanMptList.map(
+                        List<int> idNamaKegiatanList = state.namaKegiatanList.map(
                                 (namaKegiatanMptList) => namaKegiatanMptList.idNamaKegiatanMpt).toList();
 
-                        List<int> idJenisKegiatanMptList = state.namaKegiatanMptList.map(
+                        List<int> idJenisKegiatanList = state.namaKegiatanList.map(
                                 (jenisKegiatanMpt) => jenisKegiatanMpt.idJenisKegiatanMpt).toList();
 
 
-                        int indexOfNamaKegiatan = idNamaKegiatanMptList.indexOf(_idNamaKegiatanController);
+                        int indexOfNamaKegiatan = idNamaKegiatanList.indexOf(_idNamaKegiatanController);
                         String namaKegiatanController = namaKegiatanList[indexOfNamaKegiatan];
 
                         return MipokaCustomDropdown(
@@ -98,11 +100,11 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                           controller: namaKegiatanController,
                           onValueChanged: (value) {
                             int index = namaKegiatanList.indexOf(value ?? "");
-                            _idNamaKegiatanController = idNamaKegiatanMptList[index];
-                            _idJenisKegiatanController = idJenisKegiatanMptList[index];
+                            _idNamaKegiatanController = idNamaKegiatanList[index];
+                            _idJenisKegiatanController = idJenisKegiatanList[index];
                           },
                         );
-                      } else if (state is NamaKegiatanMptError) {
+                      } else if (state is NamaKegiatanDropDownError) {
                         return Text(state.message);
                       } else {
                         return const Text("NamaKegiatanBloc hasn't been triggered yet.");
@@ -114,11 +116,11 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
 
                   buildTitle('Tahun'),
 
-                  BlocBuilder<PeriodeMptBloc, PeriodeMptState>(
+                  BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
                     builder: (context, state) {
-                      if (state is PeriodeMptLoading) {
+                      if (state is PeriodeMptDropDownLoading) {
                         return const Text("Loading ....");
-                      } else if (state is AllPeriodeMptHasData) {
+                      } else if (state is PeriodeMptDropDownHasData) {
                         List<String> tahunPeriodeMptList = state.periodeMptList.map(
                                 (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
                                 "${periodeMptList.tahunPeriodeMpt} (ulang)" :
@@ -141,7 +143,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                             _idPeriodeKegiatanController = idTahunPeriodeList[index];
                           }
                         );
-                      } else if (state is PeriodeMptError) {
+                      } else if (state is PeriodeMptDropDownError) {
                         return Text(state.message);
                       } else {
                         return const Text("PeriodeMptBloc hasn't been triggered yet.");
@@ -197,7 +199,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                               ),
                             ),
                           );
-                          // Navigator.pop(context);
+                          Navigator.pop(context);
                         },
                         text: 'Simpan',
                       ),

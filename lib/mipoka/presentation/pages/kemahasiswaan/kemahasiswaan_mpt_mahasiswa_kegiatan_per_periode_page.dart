@@ -7,6 +7,7 @@ import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/nama_kegiatan_drop_down_bloc/nama_kegiatan_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_dropdown_bloc/periode_mpt_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
@@ -32,13 +33,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
 
   @override
   void initState() {
-    Future.microtask(() {
-      context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
-      // context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
-      context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
-
-      context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
-    });
+    context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
     super.initState();
   }
 
@@ -49,6 +44,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
     context.read<JenisKegiatanMptBloc>().close();
     context.read<NamaKegiatanMptBloc>().close();
     context.read<PeriodeMptDropDownBloc>().close();
+    context.read<NamaKegiatanDropDownBloc>().close();
     super.dispose();
   }
 
@@ -76,12 +72,13 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                     return const Text("Loading ....");
                   } else if (state is AllKegiatanPerPeriodeMptHasData) {
 
-                    context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
+                    Future.microtask(() {
+                      context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
+                      context.read<NamaKegiatanDropDownBloc>().add(ReadNamaKegiatanDropDownEvent());
+                      context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+                    });
 
                     final kegiatanPerPeriodeMptList = state.kegiatanPerPeriodeMptList;
-
-                    int idPeriodeKegiatanMpt = 0;
-                    int idNamaKegiatanMpt = 0;
 
                     return CustomContentBox(
                       children: [
@@ -111,14 +108,70 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                               List<int> idTahunPeriodeList = state.periodeMptList.map(
                                       (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
 
-                              return MipokaCustomDropdown(
-                                  items: tahunPeriodeMptList,
-                                  onValueChanged: (value) {
-                                    int index = tahunPeriodeMptList.indexOf(value!);
-                                    int idPeriodeMpt = idTahunPeriodeList[index];
+                              int idPeriodeKegiatanMpt = idTahunPeriodeList[0];
 
-                                    idPeriodeKegiatanMpt = idPeriodeMpt;
-                                  }
+
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  MipokaCustomDropdown(
+                                      items: tahunPeriodeMptList,
+                                      onValueChanged: (value) {
+                                        int index = tahunPeriodeMptList.indexOf(value!);
+                                        int idPeriodeMpt = idTahunPeriodeList[index];
+
+                                        idPeriodeKegiatanMpt = idPeriodeMpt;
+                                      }
+                                  ),
+
+                                  const CustomFieldSpacer(),
+
+                                  buildTitle('Nama Kegiatan'),
+                                  BlocBuilder<NamaKegiatanDropDownBloc, NamaKegiatanDropDownState>(
+                                    builder: (context, state) {
+                                      if (state is NamaKegiatanDropDownLoading) {
+                                        return const Text("Loading ...");
+                                      } else if (state is NamaKegiatanDropDownHasData) {
+                                        List<String> namaKegiatanList = state.namaKegiatanList.map(
+                                                (namaKegiatanList) => namaKegiatanList.namaKegiatan).toList();
+
+                                        List<int> idKegiatanList = state.namaKegiatanList.map(
+                                                (namaKegiatanMptList) => namaKegiatanMptList.idNamaKegiatanMpt).toList();
+
+                                        int idNamaKegiatanMpt = idKegiatanList[0];
+
+                                        idNamaKegiatanMpt = idKegiatanList[0];
+
+                                        return Column(
+                                          children: [
+                                            MipokaCustomDropdown(
+                                              items: namaKegiatanList,
+                                              onValueChanged: (value) {
+                                                int index = namaKegiatanList.indexOf(value ?? "");
+                                                idNamaKegiatanMpt = idKegiatanList[index];
+                                              },
+                                            ),
+
+                                            const CustomFieldSpacer(),
+
+                                            CustomFilterButton(
+                                              text: 'Filter',
+                                              onPressed: () {
+                                                context.read<KegiatanPerPeriodeMptBloc>().add(
+                                                    ReadAllKegiatanPerPeriodeMptEvent(filter: "$idPeriodeKegiatanMpt/$idNamaKegiatanMpt")
+                                                );
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      } else if (state is NamaKegiatanDropDownError) {
+                                        return Text(state.message);
+                                      } else {
+                                        return const Text("NamaKegiatanBloc hasn't been triggered yet.");
+                                      }
+                                    },
+                                  ),
+                                ],
                               );
                             } else if (state is PeriodeMptDropDownError) {
                               return Text(state.message);
@@ -128,48 +181,6 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                           },
                         ),
 
-                        const CustomFieldSpacer(),
-
-                        buildTitle('Nama Kegiatan'),
-                        BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
-                          builder: (context, state) {
-                            if (state is NamaKegiatanMptLoading) {
-                              return const Text("Loading ...");
-                            } else if (state is AllNamaKegiatanMptHasData) {
-                              List<String> namaKegiatanList = state.namaKegiatanMptList.map(
-                                      (namaKegiatanList) => namaKegiatanList.namaKegiatan).toList();
-
-                              List<int> idKegiatanMptList = state.namaKegiatanMptList.map(
-                                      (namaKegiatanMptList) => namaKegiatanMptList.idNamaKegiatanMpt).toList();
-
-                              idNamaKegiatanMpt = idKegiatanMptList[0];
-
-                              return MipokaCustomDropdown(
-                                items: namaKegiatanList,
-                                onValueChanged: (value) {
-                                  int index = namaKegiatanList.indexOf(value ?? "");
-                                  idNamaKegiatanMpt = idKegiatanMptList[index];
-
-                                },
-                              );
-                            } else if (state is NamaKegiatanMptError) {
-                              return Text(state.message);
-                            } else {
-                              return const Text("NamaKegiatanBloc hasn't been triggered yet.");
-                            }
-                          },
-                        ),
-
-                        const CustomFieldSpacer(),
-
-                        CustomFilterButton(
-                          text: 'Filter',
-                          onPressed: () {
-                            context.read<KegiatanPerPeriodeMptBloc>().add(
-                              ReadAllKegiatanPerPeriodeMptEvent(filter: "$idPeriodeKegiatanMpt/$idNamaKegiatanMpt")
-                            );
-                          },
-                        ),
 
                         const CustomFieldSpacer(),
 
@@ -343,8 +354,6 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                                                   kemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageRoute,
                                                   arguments: kegiatanPerPeriodeMpt,
                                                 );
-
-                                                print(kegiatanPerPeriodeMpt);
                                               },
                                               child: Image.asset(
                                                 'assets/icons/edit.png',
