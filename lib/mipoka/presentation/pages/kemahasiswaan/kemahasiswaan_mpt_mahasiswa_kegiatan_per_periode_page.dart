@@ -8,6 +8,7 @@ import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiata
 import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_dropdown_bloc/periode_mpt_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -33,8 +34,9 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
   void initState() {
     Future.microtask(() {
       context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
-      context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+      // context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
       context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+
       context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
     });
     super.initState();
@@ -46,6 +48,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
     context.read<PeriodeMptBloc>().close();
     context.read<JenisKegiatanMptBloc>().close();
     context.read<NamaKegiatanMptBloc>().close();
+    context.read<PeriodeMptDropDownBloc>().close();
     super.dispose();
   }
 
@@ -72,6 +75,9 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                   if (state is KegiatanPerPeriodeMptLoading) {
                     return const Text("Loading ....");
                   } else if (state is AllKegiatanPerPeriodeMptHasData) {
+
+                    context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
+
                     final kegiatanPerPeriodeMptList = state.kegiatanPerPeriodeMptList;
 
                     int idPeriodeKegiatanMpt = 0;
@@ -92,11 +98,11 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                         const CustomFieldSpacer(),
 
                         buildTitle('Periode Kegiatan'),
-                        BlocBuilder<PeriodeMptBloc, PeriodeMptState>(
+                        BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
                           builder: (context, state) {
-                            if (state is PeriodeMptLoading) {
+                            if (state is PeriodeMptDropDownLoading) {
                               return const Text("Loading ....");
-                            } else if (state is AllPeriodeMptHasData) {
+                            } else if (state is PeriodeMptDropDownHasData) {
                               List<String> tahunPeriodeMptList = state.periodeMptList.map(
                                       (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
                                   "${periodeMptList.tahunPeriodeMpt} (ulang)" :
@@ -114,7 +120,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                                     idPeriodeKegiatanMpt = idPeriodeMpt;
                                   }
                               );
-                            } else if (state is PeriodeMptError) {
+                            } else if (state is PeriodeMptDropDownError) {
                               return Text(state.message);
                             } else {
                               return const Text("PeriodeMptBloc hasn't been triggered yet.");
