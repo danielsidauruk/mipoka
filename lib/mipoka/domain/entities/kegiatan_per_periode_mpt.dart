@@ -4,8 +4,8 @@ class KegiatanPerPeriodeMpt extends Equatable{
   final int idKegiatanPerPeriodeMpt;
   final int idPeriodeMpt;
   final int idNamaKegiatanMpt;
-  final String tanggalMulaiKegiatanMpt;
-  final String tanggalSelesaiKegiatanMpt;
+  final String tanggalMulaiKegiatanPerPeriodeMpt;
+  final String tanggalSelesaiKegiatanPerPeriodeMpt;
   final int pointMptDiperoleh;
   final String createdAt;
   final String createdBy;
@@ -16,8 +16,8 @@ class KegiatanPerPeriodeMpt extends Equatable{
     required this.idKegiatanPerPeriodeMpt,
     required this.idNamaKegiatanMpt,
     required this.idPeriodeMpt,
-    required this.tanggalMulaiKegiatanMpt,
-    required this.tanggalSelesaiKegiatanMpt,
+    required this.tanggalMulaiKegiatanPerPeriodeMpt,
+    required this.tanggalSelesaiKegiatanPerPeriodeMpt,
     required this.pointMptDiperoleh,
     required this.createdAt,
     required this.createdBy,
@@ -41,8 +41,8 @@ class KegiatanPerPeriodeMpt extends Equatable{
         idKegiatanPerPeriodeMpt: idKegiatanPerPeriodeMpt ?? this.idKegiatanPerPeriodeMpt,
         idPeriodeMpt: idPeriodeMpt ?? this.idPeriodeMpt,
         idNamaKegiatanMpt: idNamaKegiatanMpt ?? this.idNamaKegiatanMpt,
-        tanggalMulaiKegiatanMpt: tanggalMulaiKegiatanMpt ?? this.tanggalMulaiKegiatanMpt,
-        tanggalSelesaiKegiatanMpt: tanggalSelesaiKegiatanMpt ?? this.tanggalSelesaiKegiatanMpt,
+        tanggalMulaiKegiatanPerPeriodeMpt: tanggalMulaiKegiatanMpt ?? this.tanggalMulaiKegiatanPerPeriodeMpt,
+        tanggalSelesaiKegiatanPerPeriodeMpt: tanggalSelesaiKegiatanMpt ?? this.tanggalSelesaiKegiatanPerPeriodeMpt,
         pointMptDiperoleh: pointMptDiperoleh ?? this.pointMptDiperoleh,
         createdAt: createdAt ?? this.createdAt,
         createdBy: createdBy ?? this.createdBy,
@@ -55,8 +55,8 @@ class KegiatanPerPeriodeMpt extends Equatable{
     idKegiatanPerPeriodeMpt,
     idNamaKegiatanMpt,
     idPeriodeMpt,
-    tanggalMulaiKegiatanMpt,
-    tanggalSelesaiKegiatanMpt,
+    tanggalMulaiKegiatanPerPeriodeMpt,
+    tanggalSelesaiKegiatanPerPeriodeMpt,
     pointMptDiperoleh,
     createdAt,
     createdBy,

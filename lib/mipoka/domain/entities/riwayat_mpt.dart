@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class RiwayatMpt extends Equatable {
   final int idRiwayatMpt;
-  final int idKegiatanMpt;
+  final int idNamaKegiatanMpt;
   final String idUser;
   final String statusMpt;
   final String fileSertifikatMpt;
@@ -16,7 +16,7 @@ class RiwayatMpt extends Equatable {
 
   const RiwayatMpt({
     required this.idRiwayatMpt,
-    required this.idKegiatanMpt,
+    required this.idNamaKegiatanMpt,
     required this.idUser,
     required this.statusMpt,
     required this.fileSertifikatMpt,
@@ -31,7 +31,7 @@ class RiwayatMpt extends Equatable {
 
   RiwayatMpt copyWith({
     int? idRiwayatMpt,
-    int? idKegiatanMpt,
+    int? idNamaKegiatanMpt,
     String? idUser,
     String? statusMpt,
     String? fileSertifikatMpt,
@@ -45,7 +45,7 @@ class RiwayatMpt extends Equatable {
   }) =>
       RiwayatMpt(
         idRiwayatMpt: idRiwayatMpt ?? this.idRiwayatMpt,
-        idKegiatanMpt: idKegiatanMpt ?? this.idKegiatanMpt,
+        idNamaKegiatanMpt: idNamaKegiatanMpt ?? this.idNamaKegiatanMpt,
         idUser: idUser ?? this.idUser,
         statusMpt: statusMpt ?? this.statusMpt,
         fileSertifikatMpt: fileSertifikatMpt ?? this.fileSertifikatMpt,
@@ -60,7 +60,7 @@ class RiwayatMpt extends Equatable {
 
   @override
   List<Object?> get props => [
-    idKegiatanMpt,
+    idNamaKegiatanMpt,
     idUser,
     statusMpt,
     fileSertifikatMpt,

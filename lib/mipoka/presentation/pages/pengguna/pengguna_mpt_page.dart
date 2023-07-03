@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/bloc/kegiatan_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/riwayat_mpt_bloc/riwayat_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
@@ -22,15 +24,15 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
 
   @override
   void initState() {
-    // context.read<RiwayatMptBloc>().add(ReadAllRiwayatMptEvent());
-    context.read<KegiatanMptBloc>().add(ReadAllKegiatanMptEvent());
+    context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
     super.initState();
   }
 
   @override
   void dispose() {
     context.read<RiwayatMptBloc>().close();
-    context.read<KegiatanMptBloc>().close();
+    context.read<KegiatanPerPeriodeMptBloc>().close();
+    context.read<NamaKegiatanMptBloc>().close();
     super.dispose();
   }
 
@@ -57,7 +59,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                         return const Text('Loading ....');
                       } else if (state is AllRiwayatMptHasData) {
                         final riwayatMptList = state.riwayatMptList;
-                        
+
                         return SingleChildScrollView(
                           scrollDirection: Axis.vertical,
                           child: SingleChildScrollView(
@@ -104,10 +106,12 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                               ],
                               rows: List<DataRow>.generate(riwayatMptList.length, (int index) {
                                 final riwayatMpt = riwayatMptList[index];
-                                
-                                context.read<KegiatanMptBloc>().add(
-                                  ReadKegiatanMptEvent(idKegiatanMpt: riwayatMpt.idKegiatanMpt));
-                                
+
+                                context.read<KegiatanPerPeriodeMptBloc>().add(
+                                    ReadKegiatanPerPeriodeMptEvent(idKegiatanPerPeriodeMpt: riwayatMpt.idNamaKegiatanMpt));
+                                context.read<NamaKegiatanMptBloc>().add(
+                                  ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: riwayatMpt.idNamaKegiatanMpt));
+
                                 return DataRow(
                                   cells: [
                                     DataCell(
@@ -118,42 +122,60 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                         ),
                                       ),
                                     ),
+
                                     DataCell(
-                                      BlocBuilder<KegiatanMptBloc, KegiatanMptState>(
+                                      BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
                                         builder: (context, state) {
-                                          if (state is KegiatanMptLoading) {
+                                          if (state is NamaKegiatanMptLoading) {
                                             return const Text('Loading ....');
-                                          } else if (state is KegiatanMptHasData) {
+                                          } else if (state is NamaKegiatanMptHasData) {
                                             return Align(
                                               alignment: Alignment.center,
                                               child: Text(
-                                                state.kegiatan.namaKegiatanMpt,
+                                                state.namaKegiatanMpt.namaKegiatan,
                                               ),
                                             );
-                                          } else if (state is KegiatanMptError) {
+                                          } else if (state is NamaKegiatanMptError) {
                                             return Text(state.message);
                                           } else {
-                                            return const Text("ReadKegiatanMptEvent hasn't been triggered");
+                                            return const Text("ReadKegiatanPerPeriodeMptEvent hasn't been triggered");
                                           }
                                         },
                                       ),
                                     ),
                                     DataCell(
-                                      BlocBuilder<KegiatanMptBloc, KegiatanMptState>(
+                                      BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
                                         builder: (context, state) {
-                                          if (state is KegiatanMptLoading) {
+                                          if (state is NamaKegiatanMptLoading) {
                                             return const Text('Loading ....');
-                                          } else if (state is KegiatanMptHasData) {
-                                            return Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                state.kegiatan.idNamaKegiatanMpt.toString(),
-                                              ),
+                                          } else if (state is NamaKegiatanMptHasData) {
+
+                                            context.read<JenisKegiatanMptBloc>().add(
+                                              ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: state.namaKegiatanMpt.idJenisKegiatanMpt));
+
+                                            return BlocBuilder<JenisKegiatanMptBloc, JenisKegiatanMptState>(
+                                              builder: (context, state) {
+                                                if (state is JenisKegiatanMptLoading) {
+                                                  return const Text("Loading ...");
+                                                } else if (state is JenisKegiatanMptHasData) {
+                                                  return Align(
+                                                    alignment: Alignment.center,
+                                                    child: Text(
+                                                      state.jenisKegiatanMpt.namaJenisKegiatanMpt
+                                                    ),
+                                                  );
+                                                } else if (state is JenisKegiatanMptError) {
+                                                  return Text(state.message);
+                                                } else {
+                                                  return const Text("JenisKegiatanBloc Hasn't been triggered yet.");
+                                                }
+                                              },
                                             );
-                                          } else if (state is KegiatanMptError) {
+
+                                          } else if (state is NamaKegiatanMptError) {
                                             return Text(state.message);
                                           } else {
-                                            return const Text("ReadKegiatanMptEvent hasn't been triggered");
+                                            return const Text("ReadKegiatanPerPeriodeMptEvent hasn't been triggered");
                                           }
                                         },
                                       ),
@@ -194,12 +216,12 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
 
                   customBoxTitle('Kegiatan yang Belum Diklaim'),
                   const CustomFieldSpacer(),
-                  BlocBuilder<KegiatanMptBloc, KegiatanMptState>(
+                  BlocBuilder<KegiatanPerPeriodeMptBloc, KegiatanPerPeriodeMptState>(
                     builder: (context, state) {
-                      if (state is KegiatanMptLoading) {
+                      if (state is KegiatanPerPeriodeMptLoading) {
                         return const Text('Loading ....');
-                      } else if (state is AllKegiatanMptHasData) {
-                        final kegiatanMptList = state.kegiatanPerPeriodeMptList;
+                      } else if (state is AllKegiatanPerPeriodeMptHasData) {
+                        final kegiatanPerPeriodeList = state.kegiatanPerPeriodeMptList;
 
                         return SingleChildScrollView(
                           scrollDirection: Axis.vertical,
@@ -261,8 +283,11 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                   ),
                                 ),
                               ],
-                              rows: List.generate(kegiatanMptList.length, (int index) {
-                                final kegiatanMpt = kegiatanMptList[index];
+                              rows: List.generate(kegiatanPerPeriodeList.length, (int index) {
+                                final kegiatanPerPeriode = kegiatanPerPeriodeList[index];
+
+                                context.read<NamaKegiatanMptBloc>().add(
+                                    ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: kegiatanPerPeriode.idNamaKegiatanMpt));
 
                                 return DataRow(
                                   cells: [
@@ -273,33 +298,78 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                       ),
                                     ),
                                     DataCell(
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(kegiatanMpt.namaKegiatanMpt),
+                                      BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
+                                        builder: (context, state) {
+                                          if (state is NamaKegiatanMptLoading) {
+                                            return const Text('Loading ....');
+                                          } else if (state is NamaKegiatanMptHasData) {
+                                            return Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                state.namaKegiatanMpt.namaKegiatan,
+                                              ),
+                                            );
+                                          } else if (state is NamaKegiatanMptError) {
+                                            return Text(state.message);
+                                          } else {
+                                            return const Text("ReadKegiatanPerPeriodeMptEvent hasn't been triggered");
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                    DataCell(
+                                      BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
+                                        builder: (context, state) {
+                                          if (state is NamaKegiatanMptLoading) {
+                                            return const Text('Loading ....');
+                                          } else if (state is NamaKegiatanMptHasData) {
+
+                                            context.read<JenisKegiatanMptBloc>().add(
+                                                ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: state.namaKegiatanMpt.idJenisKegiatanMpt));
+
+                                            return BlocBuilder<JenisKegiatanMptBloc, JenisKegiatanMptState>(
+                                              builder: (context, state) {
+                                                if (state is JenisKegiatanMptLoading) {
+                                                  return const Text("Loading ...");
+                                                } else if (state is JenisKegiatanMptHasData) {
+                                                  return Align(
+                                                    alignment: Alignment.center,
+                                                    child: Text(
+                                                        state.jenisKegiatanMpt.namaJenisKegiatanMpt
+                                                    ),
+                                                  );
+                                                } else if (state is JenisKegiatanMptError) {
+                                                  return Text(state.message);
+                                                } else {
+                                                  return const Text("JenisKegiatanBloc Hasn't been triggered yet.");
+                                                }
+                                              },
+                                            );
+
+                                          } else if (state is NamaKegiatanMptError) {
+                                            return Text(state.message);
+                                          } else {
+                                            return const Text("ReadKegiatanPerPeriodeMptEvent hasn't been triggered");
+                                          }
+                                        },
                                       ),
                                     ),
                                     DataCell(
                                       Align(
                                         alignment: Alignment.center,
-                                        child: Text(kegiatanMpt.idNamaKegiatanMpt.toString()),
+                                        child: Text(kegiatanPerPeriode.pointMptDiperoleh.toString()),
                                       ),
                                     ),
                                     DataCell(
                                       Align(
                                         alignment: Alignment.center,
-                                        child: Text(kegiatanMpt.pointMptDiperoleh.toString()),
+                                        child: Text(kegiatanPerPeriode.tanggalMulaiKegiatanPerPeriodeMpt),
                                       ),
                                     ),
                                     DataCell(
                                       Align(
                                         alignment: Alignment.center,
-                                        child: Text(kegiatanMpt.tanggalMulaiKegiatanMpt),
-                                      ),
-                                    ),
-                                    DataCell(
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(kegiatanMpt.tanggalSelesaiKegiatanMpt),
+                                        child: Text(kegiatanPerPeriode.tanggalSelesaiKegiatanPerPeriodeMpt),
                                       ),
                                     ),
                                     DataCell(
@@ -309,7 +379,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                           onTap: () => Navigator.pushNamed(
                                             context,
                                             penggunaMPTUnggahBuktiPageRoute,
-                                            arguments: kegiatanMpt.idKegiatanPerPeriodeMpt,
+                                            arguments: kegiatanPerPeriode.idKegiatanPerPeriodeMpt,
                                           ),
                                           child: Image.asset(
                                             'assets/icons/upload.png',
@@ -324,10 +394,10 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                             ),
                           ),
                         );
-                      } else if (state is KegiatanMptError) {
+                      } else if (state is KegiatanPerPeriodeMptError) {
                         return Text(state.message);
                       } else {
-                        return const Text("ReadAllKegiatanMptEvent hasn't been triggered");
+                        return const Text("ReadAllKegiatanPerPeriodeMptEvent hasn't been triggered");
                       }
                     },
                   ),

@@ -4,7 +4,8 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/kegiatan_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -24,13 +25,13 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
   
   @override
   void initState() {
-    context.read<KegiatanMptBloc>().add(const ReadAllKegiatanMptEvent());
+    context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
     super.initState();
   }
 
   @override
   void dispose() {
-    context.read<KegiatanMptBloc>().close();
+    context.read<KegiatanPerPeriodeMptBloc>().close();
     context.read<JenisKegiatanMptBloc>().close();
     super.dispose();
   }
@@ -50,11 +51,11 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                   text:
                       'Kemahasiswaan - MPT Mahasiswa - Kegiatan per Jenis Kegiatan'),
               const CustomFieldSpacer(),
-              BlocBuilder<KegiatanMptBloc, KegiatanMptState>(
+              BlocBuilder<KegiatanPerPeriodeMptBloc, KegiatanPerPeriodeMptState>(
                 builder: (context, state) {
-                  if (state is KegiatanMptLoading) {
+                  if (state is KegiatanPerPeriodeMptLoading) {
                     return const Text('Loading ...');
-                  } else if (state is AllKegiatanMptHasData) {
+                  } else if (state is AllKegiatanPerPeriodeMptHasData) {
                     final kegiatanMptList = state.kegiatanPerPeriodeMptList;
 
                     return CustomContentBox(
@@ -72,8 +73,8 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                         MipokaCustomDropdown(
                           items: listBentukKegiatan,
                           onValueChanged: (value) {
-                            context.read<KegiatanMptBloc>().add(
-                              ReadAllKegiatanMptEvent(filter: value!)
+                            context.read<KegiatanPerPeriodeMptBloc>().add(
+                              ReadAllKegiatanPerPeriodeMptEvent(filter: value!)
                             );
                           },
                         ),
@@ -118,8 +119,9 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                                   final kegiatanMpt = kegiatanMptList[index];
 
                                   context.read<JenisKegiatanMptBloc>().add(
-                                    ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: kegiatanMpt.idNamaKegiatanMpt)
-                                  );
+                                    ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: kegiatanMpt.idNamaKegiatanMpt));
+                                  context.read<NamaKegiatanMptBloc>().add(
+                                      ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: kegiatanMpt.idNamaKegiatanMpt));
 
                                   return DataRow(
                                     cells: [
@@ -144,11 +146,23 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                                         ),
                                       ),
                                       DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            kegiatanMpt.namaKegiatanMpt,
-                                          ),
+                                        BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
+                                          builder: (context, state) {
+                                            if (state is NamaKegiatanMptLoading) {
+                                              return const Text('Loading ....');
+                                            } else if (state is NamaKegiatanMptHasData) {
+                                              return Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  state.namaKegiatanMpt.namaKegiatan,
+                                                ),
+                                              );
+                                            } else if (state is NamaKegiatanMptError) {
+                                              return Text(state.message);
+                                            } else {
+                                              return const Text("JenisKegiatanMptBloc hasn't triggered yet.");
+                                            }
+                                          },
                                         ),
                                       ),
                                       DataCell(
@@ -185,7 +199,7 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                         ),
                       ],
                     );
-                  } else if (state is KegiatanMptError) {
+                  } else if (state is KegiatanPerPeriodeMptError) {
                     return Text(state.message);
                   } else {
                     return const Text("KegiatanMptBloc hasn't triggered yet.");
