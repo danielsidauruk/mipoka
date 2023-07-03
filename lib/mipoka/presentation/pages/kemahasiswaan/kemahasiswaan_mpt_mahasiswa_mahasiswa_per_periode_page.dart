@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mhs_per_periode_mpt_use_cases/mhs_per_periode_mpt_use_cases_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -11,6 +13,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dart';
 
 class KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePage extends StatefulWidget {
   const KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePage({super.key});
@@ -26,6 +29,12 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
   String prodiValue = listProdi[0];
   final TextEditingController _jumlahPoinController = TextEditingController();
   final TextEditingController _nimController = TextEditingController();
+  
+  @override
+  void initState() {
+    context.read<MhsPerPeriodeMptBloc>().add(const ReadAllMhsPerPeriodeMptEvent());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,164 +54,172 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
 
               const CustomFieldSpacer(),
 
-              CustomContentBox(
-                children: [
+              BlocBuilder<MhsPerPeriodeMptBloc, MhsPerPeriodeMptState>(
+                builder: (context, state) {
+                  if (state is MhsPerPeriodeMptEmpty) {
+                    return const Text("Loading ....");
+                  } else if (state is AllMhsPerPeriodeMptHasData) {
+                    return CustomContentBox(
+                      children: [
 
-                  buildTitle('Total Kegiatan per Jenis Kegiatan : 6'),
-                  CustomAddButton(
-                    buttonText: 'Tambah',
-                    onPressed: () => Navigator.pushNamed(context, kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute),
-                  ),
+                        CustomAddButton(
+                          buttonText: 'Tambah',
+                          onPressed: () => Navigator.pushNamed(context, kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute),
+                        ),
 
-                  const CustomFieldSpacer(),
+                        const CustomFieldSpacer(),
 
-                  CustomFilterButton(
-                    text: 'Export',
-                    onPressed: (){},
-                  ),
+                        CustomFilterButton(
+                          text: 'Export',
+                          onPressed: (){},
+                        ),
 
-                  const CustomFieldSpacer(),
+                        const CustomFieldSpacer(),
 
-                  buildTitle('Periode'),
-                  MipokaCustomDropdown(
-                    items: years,
-                    onValueChanged: (value) {},
-                  ),
+                        buildTitle('Periode'),
+                        MipokaCustomDropdown(
+                          items: years,
+                          onValueChanged: (value) {},
+                        ),
 
-                  const CustomFieldSpacer(),
+                        const CustomFieldSpacer(),
 
-                  buildTitle('Prodi'),
-                  MipokaCustomDropdown(
-                    items: listProdi,
-                    onValueChanged: (value) {},
-                  ),
+                        buildTitle('Prodi'),
+                        MipokaCustomDropdown(
+                          items: listProdi,
+                          onValueChanged: (value) {},
+                        ),
 
-                  const CustomFieldSpacer(),
+                        const CustomFieldSpacer(),
 
-                  buildTitle('Jumlah Poin'),
-                  CustomTextField(controller: _jumlahPoinController),
+                        buildTitle('Jumlah Poin'),
+                        CustomTextField(controller: _jumlahPoinController),
 
-                  const CustomFieldSpacer(),
+                        const CustomFieldSpacer(),
 
-                  buildTitle('NIM'),
-                  CustomTextField(controller: _nimController),
+                        buildTitle('NIM'),
+                        CustomTextField(controller: _nimController),
 
-                  const CustomFieldSpacer(),
+                        const CustomFieldSpacer(),
 
-                  CustomFilterButton(
-                    text: 'Filter',
-                    onPressed: () {},
-                  ),
+                        CustomFilterButton(
+                          text: 'Filter',
+                          onPressed: () {},
+                        ),
 
-                  const CustomFieldSpacer(),
+                        const CustomFieldSpacer(),
 
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                    ),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: DataTable(
-                          columnSpacing: 40,
-                          border: TableBorder.all(color: Colors.white),
-                          columns: const [
-                            DataColumn(
-                              label: Text(
-                                'Periode',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Periode',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'NIM',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Nama',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                'Poin',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DataColumn(
-                              tooltip: 'Aksi yang akan dilakukan',
-                              label: Text(
-                                'Aksi',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ],
+                        MipokaCountText(total: 1),
 
-                          rows: List<DataRow>.generate(6, (int index) {
-                            return DataRow(
-                              cells: [
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('2023 (ulang)',),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: DataTable(
+                              columnSpacing: 40,
+                              border: TableBorder.all(color: Colors.white),
+                              columns: const [
+                                DataColumn(
+                                  label: Text(
+                                    'Periode',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('Manajemen',),
+                                DataColumn(
+                                  label: Text(
+                                    'Periode',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('21111${index + 1}342',),
+                                DataColumn(
+                                  label: Text(
+                                    'NIM',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('Mahasiswa ${(index + 1) * 2}',),
+                                DataColumn(
+                                  label: Text(
+                                    'Nama',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('${index + 7}',),
+                                DataColumn(
+                                  label: Text(
+                                    'Poin',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
-                                DataCell(
-                                  InkWell(
-                                    onTap: () {},
-                                    child: Image.asset(
-                                      'assets/icons/delete.png',
-                                      width: 24,
-                                    ),
+                                DataColumn(
+                                  tooltip: 'Aksi yang akan dilakukan',
+                                  label: Text(
+                                    'Aksi',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                               ],
-                            );
-                          }),
+
+                              rows: List<DataRow>.generate(6, (int index) {
+                                return DataRow(
+                                  cells: [
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text('2023 (ulang)',),
+                                      ),
+                                    ),
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text('Manajemen',),
+                                      ),
+                                    ),
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text('21111${index + 1}342',),
+                                      ),
+                                    ),
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text('Mahasiswa ${(index + 1) * 2}',),
+                                      ),
+                                    ),
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text('${index + 7}',),
+                                      ),
+                                    ),
+                                    DataCell(
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Image.asset(
+                                          'assets/icons/delete.png',
+                                          width: 24,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                ],
+                      ],
+                    );
+                  } else if (state is MhsPerPeriodeMptError) {
+                    return Text(state.message);
+                  } else {
+                    return const Text("MhsPerPeriodeMptBloc hasn't been triggered yet.");
+                  }
+                },
               ),
             ],
           ),

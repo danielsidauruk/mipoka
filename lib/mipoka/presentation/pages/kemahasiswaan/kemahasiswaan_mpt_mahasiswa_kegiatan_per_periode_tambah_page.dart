@@ -108,9 +108,12 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
                                 (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
                                 "${periodeMptList.tahunPeriodeMpt} (ulang)" :
                                 periodeMptList.tahunPeriodeMpt).toList();
+
+                        tahunPeriodeMptList.insert(0, "semua");
                         
                         List<int> idTahunPeriodeList = state.periodeMptList.map(
                                 (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
+                        idTahunPeriodeList.insert(0, 0);
 
                         idPeriodeMpt = idTahunPeriodeList[0];
 
