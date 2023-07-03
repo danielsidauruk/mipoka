@@ -30,7 +30,7 @@ final List<String> years = List.generate(10, (index) =>
     (DateTime.now().year - index).toString(),
 );
 
-const listProdi = ['Teknik Informatika', 'Manajemen', 'Akuntansi', 'Sistem Informatika'];
+const listProdi = ['semua', 'Teknik Informatika', 'Manajemen', 'Akuntansi', 'Sistem Informatika'];
 
 int newId = DateTime.now().microsecondsSinceEpoch;
 User? user = FirebaseAuth.instance.currentUser;

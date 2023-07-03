@@ -111,6 +111,9 @@ flutter:
     - assets/json_file/nama_kegiatan_mpt.json
     - assets/json_file/nama_kegiatan_mpt_list.json
 
+    - assets/json_file/mhs_per_periode_mpt.json
+    - assets/json_file/mhs_per_periode_mpt_list.json
+
     - assets/docx_template/usulan_template.docx
     - assets/docx_template/template.docx
     - assets/docx_template/test.jpg

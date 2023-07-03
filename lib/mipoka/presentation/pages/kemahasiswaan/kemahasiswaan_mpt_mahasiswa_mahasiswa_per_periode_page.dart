@@ -4,6 +4,9 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mhs_per_periode_mpt_use_cases/mhs_per_periode_mpt_use_cases_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_dropdown_bloc/periode_mpt_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -13,6 +16,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dart';
 
 class KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePage extends StatefulWidget {
@@ -23,15 +27,17 @@ class KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePage extends StatefulWidget {
 }
 
 class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePage> {
-  String yearValue = DateTime.now().year.toString();
-  String bentukKegiatanValue = listBentukKegiatan[0];
-  String namaKegiatanValue = listNamaKegiatan[0];
-  String prodiValue = listProdi[0];
+
   final TextEditingController _jumlahPoinController = TextEditingController();
   final TextEditingController _nimController = TextEditingController();
-  
+  late int idPeriodeKegiatanMpt;
+
   @override
   void initState() {
+    _jumlahPoinController.text = "semua";
+    _nimController.text = "semua";
+    idPeriodeKegiatanMpt = 0;
+
     context.read<MhsPerPeriodeMptBloc>().add(const ReadAllMhsPerPeriodeMptEvent());
     super.initState();
   }
@@ -59,6 +65,14 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                   if (state is MhsPerPeriodeMptEmpty) {
                     return const Text("Loading ....");
                   } else if (state is AllMhsPerPeriodeMptHasData) {
+                    final mhsPerPeriodeMptList = state.mhsPerPeriodeMptList;
+
+                    Future.microtask(() {
+                      context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
+                      // context.read<NamaKegiatanDropDownBloc>().add(ReadNamaKegiatanDropDownEvent());
+                      // context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+                    });
+
                     return CustomContentBox(
                       children: [
 
@@ -76,10 +90,40 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
 
                         const CustomFieldSpacer(),
 
-                        buildTitle('Periode'),
-                        MipokaCustomDropdown(
-                          items: years,
-                          onValueChanged: (value) {},
+                        buildTitle('Periode Kegiatan'),
+                        BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
+                          builder: (context, state) {
+                            if (state is PeriodeMptDropDownLoading) {
+                              return const Text("Loading ....");
+                            } else if (state is PeriodeMptDropDownHasData) {
+
+                              List<String> tahunPeriodeMptList = state.periodeMptList.map(
+                                      (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
+                                  "${periodeMptList.tahunPeriodeMpt} (ulang)" :
+                                  periodeMptList.tahunPeriodeMpt).toList();
+                              tahunPeriodeMptList.insert(0, "semua");
+
+                              List<int> idTahunPeriodeList = state.periodeMptList.map(
+                                      (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
+                              idTahunPeriodeList.insert(0, 0);
+
+                              return MipokaCustomDropdown(
+                                  items: tahunPeriodeMptList,
+                                  onValueChanged: (value) {
+                                    int index = tahunPeriodeMptList.indexOf(value!);
+                                    int idPeriodeMpt = idTahunPeriodeList[index];
+
+                                    // print("$idPeriodeMpt, $value");
+
+                                    idPeriodeKegiatanMpt = idPeriodeMpt;
+                                  }
+                              );
+                            } else if (state is PeriodeMptDropDownError) {
+                              return Text(state.message);
+                            } else {
+                              return const Text("PeriodeMptBloc hasn't been triggered yet.");
+                            }
+                          },
                         ),
 
                         const CustomFieldSpacer(),
@@ -87,7 +131,9 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                         buildTitle('Prodi'),
                         MipokaCustomDropdown(
                           items: listProdi,
-                          onValueChanged: (value) {},
+                          onValueChanged: (value) {
+
+                          },
                         ),
 
                         const CustomFieldSpacer(),
@@ -109,7 +155,9 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
 
                         const CustomFieldSpacer(),
 
-                        MipokaCountText(total: 1),
+                        MipokaCountText(total: mhsPerPeriodeMptList.length),
+
+                        const CustomFieldSpacer(),
 
                         SingleChildScrollView(
                           scrollDirection: Axis.vertical,
@@ -128,7 +176,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                                 ),
                                 DataColumn(
                                   label: Text(
-                                    'Periode',
+                                    'Prodi',
                                     style: TextStyle(fontWeight: FontWeight.bold),
                                     textAlign: TextAlign.center,
                                   ),
@@ -164,42 +212,117 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                                 ),
                               ],
 
-                              rows: List<DataRow>.generate(6, (int index) {
+                              rows: List<DataRow>.generate(mhsPerPeriodeMptList.length, (int index) {
+                                final mhsPerPeriodeMpt = mhsPerPeriodeMptList[index];
+
+                                Future.microtask(() {
+                                  context.read<PeriodeMptBloc>().add(
+                                      ReadPeriodeMptEvent(idPeriodeMpt: mhsPerPeriodeMpt.idPeriodeMpt));
+                                  context.read<MipokaUserBloc>().add(
+                                      ReadMipokaUserEvent(idMipokaUser: mhsPerPeriodeMpt.idUser));
+                                });
+
                                 return DataRow(
                                   cells: [
                                     DataCell(
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text('2023 (ulang)',),
+                                      BlocBuilder<PeriodeMptBloc, PeriodeMptState>(
+                                        builder: (context, state) {
+                                          if (state is PeriodeMptLoading) {
+                                            return const Text("Loading ....");
+                                          } else if (state is PeriodeMptHasData) {
+                                            return Align(
+                                              alignment: Alignment.center,
+                                              child: Text(state.periodeMpt.tahunPeriodeMpt),
+                                            );
+                                          } else if (state is PeriodeMptError) {
+                                            return Text(state.message);
+                                          } else {
+                                            return const Text("PeriodeMptBloc hasn't been triggered yet.");
+                                          }
+                                        },
                                       ),
                                     ),
                                     DataCell(
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text('Manajemen',),
+                                      BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                        builder: (context, state) {
+                                          if (state is MipokaUserLoading) {
+                                            return const Text("Loading ....");
+                                          } else if (state is MipokaUserHasData) {
+                                            return Align(
+                                              alignment: Alignment.center,
+                                              child: Text(state.mipokaUser.prodi),
+                                            );
+                                          } else if (state is MipokaUserError) {
+                                            return Text(state.message);
+                                          } else {
+                                            return const Text("MipokaUserBloc hasn't been triggered yet.");
+                                          }
+                                        },
                                       ),
                                     ),
                                     DataCell(
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text('21111${index + 1}342',),
+                                      BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                        builder: (context, state) {
+                                          if (state is MipokaUserLoading) {
+                                            return const Text("Loading ....");
+                                          } else if (state is MipokaUserHasData) {
+                                            return Align(
+                                              alignment: Alignment.center,
+                                              child: Text(state.mipokaUser.nim),
+                                            );
+                                          } else if (state is MipokaUserError) {
+                                            return Text(state.message);
+                                          } else {
+                                            return const Text("MipokaUserBloc hasn't been triggered yet.");
+                                          }
+                                        },
                                       ),
                                     ),
                                     DataCell(
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text('Mahasiswa ${(index + 1) * 2}',),
+                                      BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                        builder: (context, state) {
+                                          if (state is MipokaUserLoading) {
+                                            return const Text("Loading ....");
+                                          } else if (state is MipokaUserHasData) {
+                                            return Align(
+                                              alignment: Alignment.center,
+                                              child: Text(state.mipokaUser.namaLengkap),
+                                            );
+                                          } else if (state is MipokaUserError) {
+                                            return Text(state.message);
+                                          } else {
+                                            return const Text("MipokaUserBloc hasn't been triggered yet.");
+                                          }
+                                        },
                                       ),
                                     ),
                                     DataCell(
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text('${index + 7}',),
+                                      BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                        builder: (context, state) {
+                                          if (state is MipokaUserLoading) {
+                                            return const Text("Loading ....");
+                                          } else if (state is MipokaUserHasData) {
+                                            return Align(
+                                              alignment: Alignment.center,
+                                              child: Text(state.mipokaUser.pointMpt.toString()),
+                                            );
+                                          } else if (state is MipokaUserError) {
+                                            return Text(state.message);
+                                          } else {
+                                            return const Text("MipokaUserBloc hasn't been triggered yet.");
+                                          }
+                                        },
                                       ),
                                     ),
                                     DataCell(
                                       InkWell(
-                                        onTap: () {},
+                                        onTap: () {
+                                          context.read<MhsPerPeriodeMptBloc>().add(
+                                            DeleteMhsPerPeriodeMptEvent(idMhsPerPeriodeMpt: mhsPerPeriodeMpt.idMhsPerPeriodeMpt));
+                                          context.read<MhsPerPeriodeMptBloc>().add(const ReadAllMhsPerPeriodeMptEvent());
+
+                                          mipokaCustomToast("Mahasiswa per periode telah dihapus");
+                                        },
                                         child: Image.asset(
                                           'assets/icons/delete.png',
                                           width: 24,
