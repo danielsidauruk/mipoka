@@ -28,12 +28,18 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState extends State<Kemaha
   @override
   void initState() {
     context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
+    context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+    context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+    context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
     super.initState();
   }
   
   @override
   void dispose() {
     context.read<KegiatanPerPeriodeMptBloc>().close();
+    context.read<PeriodeMptBloc>().close();
+    context.read<JenisKegiatanMptBloc>().close();
+    context.read<NamaKegiatanMptBloc>().close();
     super.dispose();
   }
 
@@ -62,6 +68,9 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState extends State<Kemaha
                   } else if (state is AllKegiatanPerPeriodeMptHasData) {
                     final kegiatanPerPeriodeMptList = state.kegiatanPerPeriodeMptList;
 
+                    int idPeriodeKegiatanMpt = 0;
+                    int idNamaKegiatanMpt = 0;
+
                     return CustomContentBox(
                       children: [
 
@@ -76,25 +85,78 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState extends State<Kemaha
 
                         const CustomFieldSpacer(),
 
-                        buildTitle('Jenis'),
-                        MipokaCustomDropdown(
-                          items: listBentukKegiatan,
-                          onValueChanged: (value) {},
+                        buildTitle('Periode Kegiatan'),
+                        BlocBuilder<PeriodeMptBloc, PeriodeMptState>(
+                          builder: (context, state) {
+                            if (state is PeriodeMptLoading) {
+                              return const Text("Loading ....");
+                            } else if (state is AllPeriodeMptHasData) {
+                              List<String> tahunPeriodeMptList = state.periodeMptList.map(
+                                      (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
+                                  "${periodeMptList.tahunPeriodeMpt} (ulang)" :
+                                  periodeMptList.tahunPeriodeMpt).toList();
+
+                              List<int> idTahunPeriodeList = state.periodeMptList.map(
+                                      (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
+
+                              return MipokaCustomDropdown(
+                                  items: tahunPeriodeMptList,
+                                  onValueChanged: (value) {
+                                    int index = tahunPeriodeMptList.indexOf(value!);
+                                    int idPeriodeMpt = idTahunPeriodeList[index];
+
+                                    idPeriodeKegiatanMpt = idPeriodeMpt;
+                                  }
+                              );
+                            } else if (state is PeriodeMptError) {
+                              return Text(state.message);
+                            } else {
+                              return const Text("PeriodeMptBloc hasn't been triggered yet.");
+                            }
+                          },
                         ),
 
                         const CustomFieldSpacer(),
 
-                        buildTitle('Kegiatan'),
-                        MipokaCustomDropdown(
-                          items: listNamaKegiatan,
-                          onValueChanged: (value) {},
+                        buildTitle('Nama Kegiatan'),
+                        BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
+                          builder: (context, state) {
+                            if (state is NamaKegiatanMptLoading) {
+                              return const Text("Loading ...");
+                            } else if (state is AllNamaKegiatanMptHasData) {
+                              List<String> namaKegiatanList = state.namaKegiatanMptList.map(
+                                      (namaKegiatanList) => namaKegiatanList.namaKegiatan).toList();
+
+                              List<int> idKegiatanMptList = state.namaKegiatanMptList.map(
+                                      (namaKegiatanMptList) => namaKegiatanMptList.idNamaKegiatanMpt).toList();
+
+                              idNamaKegiatanMpt = idKegiatanMptList[0];
+
+                              return MipokaCustomDropdown(
+                                items: namaKegiatanList,
+                                onValueChanged: (value) {
+                                  int index = namaKegiatanList.indexOf(value ?? "");
+                                  idNamaKegiatanMpt = idKegiatanMptList[index];
+
+                                },
+                              );
+                            } else if (state is NamaKegiatanMptError) {
+                              return Text(state.message);
+                            } else {
+                              return const Text("NamaKegiatanBloc hasn't been triggered yet.");
+                            }
+                          },
                         ),
 
                         const CustomFieldSpacer(),
 
                         CustomFilterButton(
                           text: 'Filter',
-                          onPressed: () {},
+                          onPressed: () {
+                            context.read<KegiatanPerPeriodeMptBloc>().add(
+                              ReadAllKegiatanPerPeriodeMptEvent(filter: "$idPeriodeKegiatanMpt/$idNamaKegiatanMpt")
+                            );
+                          },
                         ),
 
                         const CustomFieldSpacer(),
@@ -176,12 +238,12 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState extends State<Kemaha
                                 rows: List<DataRow>.generate(kegiatanPerPeriodeMptList.length, (int index) {
                                   final kegiatanPerPeriodeMpt = kegiatanPerPeriodeMptList[index];
                                   
-                                  context.read<PeriodeMptBloc>().add(
-                                    ReadPeriodeMptEvent(idPeriodeMpt: kegiatanPerPeriodeMpt.idPeriodeMpt));
-                                  context.read<NamaKegiatanMptBloc>().add(
-                                    ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: kegiatanPerPeriodeMpt.idNamaKegiatanMpt));
-                                  context.read<JenisKegiatanMptBloc>().add(
-                                    ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: kegiatanPerPeriodeMpt.idJenisKegiatanMpt));
+                                  // context.read<PeriodeMptBloc>().add(
+                                  //   ReadPeriodeMptEvent(idPeriodeMpt: kegiatanPerPeriodeMpt.idPeriodeMpt));
+                                  // context.read<NamaKegiatanMptBloc>().add(
+                                  //   ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: kegiatanPerPeriodeMpt.idNamaKegiatanMpt));
+                                  // context.read<JenisKegiatanMptBloc>().add(
+                                  //   ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: kegiatanPerPeriodeMpt.idJenisKegiatanMpt));
 
                                   return DataRow(
                                     cells: [
