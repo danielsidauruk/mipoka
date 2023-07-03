@@ -26,17 +26,20 @@ class KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage extends StatefulWidget {
   State<KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage> createState() => _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState();
 }
 
-class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState extends State<KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage> {
-  
+class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
+    extends State<KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage> {
+
   @override
   void initState() {
-    context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
-    // context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
-    // context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
-    context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+    Future.microtask(() {
+      context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
+      context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+      context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+      context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
+    });
     super.initState();
   }
-  
+
   @override
   void dispose() {
     context.read<KegiatanPerPeriodeMptBloc>().close();
@@ -234,13 +237,13 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState extends State<Kemaha
 
                                 rows: List<DataRow>.generate(kegiatanPerPeriodeMptList.length, (int index) {
                                   final kegiatanPerPeriodeMpt = kegiatanPerPeriodeMptList[index];
-                                  
+
                                   context.read<PeriodeMptBloc>().add(
-                                    ReadPeriodeMptEvent(idPeriodeMpt: kegiatanPerPeriodeMpt.idPeriodeMpt));
+                                      ReadPeriodeMptEvent(idPeriodeMpt: kegiatanPerPeriodeMpt.idPeriodeMpt));
                                   context.read<NamaKegiatanMptBloc>().add(
-                                    ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: kegiatanPerPeriodeMpt.idNamaKegiatanMpt));
+                                      ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: kegiatanPerPeriodeMpt.idNamaKegiatanMpt));
                                   context.read<JenisKegiatanMptBloc>().add(
-                                    ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: kegiatanPerPeriodeMpt.idJenisKegiatanMpt));
+                                      ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: kegiatanPerPeriodeMpt.idJenisKegiatanMpt));
 
                                   return DataRow(
                                     cells: [
