@@ -18,23 +18,27 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
-class KemahasiswaanEditOrmawaTambahPage extends StatefulWidget {
-  const KemahasiswaanEditOrmawaTambahPage({super.key});
+class KemahasiswaanEditOrmawaEditPage extends StatefulWidget {
+  const KemahasiswaanEditOrmawaEditPage({
+    super.key,
+    required this.ormawa,
+  });
+
+  final Ormawa ormawa;
 
   @override
-  State<KemahasiswaanEditOrmawaTambahPage> createState() =>
-      _KemahasiswaanEditOrmawaTambahPageState();
+  State<KemahasiswaanEditOrmawaEditPage> createState() =>
+      _KemahasiswaanEditOrmawaEditPageState();
 }
 
-class _KemahasiswaanEditOrmawaTambahPageState
-    extends State<KemahasiswaanEditOrmawaTambahPage> {
+class _KemahasiswaanEditOrmawaEditPageState
+    extends State<KemahasiswaanEditOrmawaEditPage> {
 
   final TextEditingController _namaOrmawaController = TextEditingController();
   final TextEditingController _namaSingkatanController = TextEditingController();
   String? _logoUrlController;
   final TextEditingController _namaPembinaController = TextEditingController();
   String? _fotoPembinaUrlController;
-  final TextEditingController _targetKegiatanController = TextEditingController();
   final TextEditingController _namaKetuaController = TextEditingController();
   String? _fotoKetuaUrlController;
   final TextEditingController _namaWakilKetuaController = TextEditingController();
@@ -54,31 +58,22 @@ class _KemahasiswaanEditOrmawaTambahPageState
 
   @override
   void initState() {
-
+    _namaOrmawaController.text = widget.ormawa.namaOrmawa;
+    _namaSingkatanController.text = widget.ormawa.namaSingkatanOrmawa;
+    _logoUrlController = widget.ormawa.logoOrmawa;
+    _namaPembinaController.text = widget.ormawa.pembina;
+    _fotoPembinaUrlController = widget.ormawa.fotoPembina;
+    _namaKetuaController.text = widget.ormawa.ketua;
+    _fotoKetuaUrlController = widget.ormawa.fotoKetua;
+    _namaWakilKetuaController.text = widget.ormawa.wakil;
+    _fotoWakilKetuaUrlController = widget.ormawa.fotoWakil;
+    _namaSekretarisController.text = widget.ormawa.sekretaris;
+    _fotoSekretarisUrlController = widget.ormawa.fotoSekretaris;
+    _namaBendaharaController.text = widget.ormawa.bendahara;
+    _fotoBendaharaUrlController = widget.ormawa.fotoBendahara;
     super.initState();
   }
 
-
-  // void _handleSaveButtonPressed() async {
-  //   final data =
-  //   await signatureGlobalKey.currentState!.toImage(pixelRatio: 3.0);
-  //   final bytes = await data.toByteData(format: ui.ImageByteFormat.png);
-  //   await Navigator.of(context).push(
-  //     MaterialPageRoute(
-  //       builder: (BuildContext context) {
-  //         return Scaffold(
-  //           appBar: AppBar(),
-  //           body: Center(
-  //             child: Container(
-  //               color: Colors.grey[300],
-  //               child: Image.memory(bytes!.buffer.asUint8List()),
-  //             ),
-  //           ),
-  //         );
-  //       },
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -109,6 +104,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
                   buildTitle('Logo Ormawa'),
 
                   StreamBuilder<String?>(
+                    initialData: _logoUrlController,
                     stream: _logoUrlStream.stream,
                     builder: (context, snapshot) {
                       String text = snapshot.data ?? "";
@@ -136,6 +132,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
 
                   buildTitle('Foto Pembina'),
                   StreamBuilder<String?>(
+                    initialData: _fotoPembinaUrlController,
                     stream: _fotoPembinaUrlStream.stream,
                     builder: (context, snapshot) {
                       String text = snapshot.data ?? "";
@@ -163,6 +160,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
 
                   buildTitle('Foto Ketua'),
                   StreamBuilder<String?>(
+                    initialData: _fotoKetuaUrlController,
                     stream: _fotoKetuaUrlStream.stream,
                     builder: (context, snapshot) {
                       String text = snapshot.data ?? "";
@@ -190,6 +188,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
 
                   buildTitle('Foto Wakil Ketua'),
                   StreamBuilder<String?>(
+                    initialData: _fotoWakilKetuaUrlController,
                     stream: _fotoWakilKetuaUrlStream.stream,
                     builder: (context, snapshot) {
                       String text = snapshot.data ?? "";
@@ -217,6 +216,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
 
                   buildTitle('Foto Sekretaris'),
                   StreamBuilder<String?>(
+                    initialData: _fotoSekretarisUrlController,
                     stream: _fotoSekretarisUrlStream.stream,
                     builder: (context, snapshot) {
                       String text = snapshot.data ?? "";
@@ -244,6 +244,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
 
                   buildTitle('Foto Bendahara'),
                   StreamBuilder<String?>(
+                    initialData: _fotoBendaharaUrlController,
                     stream: _fotoBendaharaUrlStream.stream,
                     builder: (context, snapshot) {
                       String text = snapshot.data ?? "";
@@ -264,18 +265,13 @@ class _KemahasiswaanEditOrmawaTambahPageState
 
                   const CustomFieldSpacer(),
 
-                  buildTitle('Keterangan'),
-                  CustomTextField(controller: _keteranganController),
-
-                  const CustomFieldSpacer(),
-
                   buildTitle('Impor Anggota'),
                   CustomIconButton(onTap: (){}, icon: Icons.upload),
 
                   const CustomFieldSpacer(),
 
                   CustomFilterButton(text: 'Ekspor Templat', onPressed: (){}),
-                  
+
                   const CustomFieldSpacer(),
 
                   Row(

@@ -11,6 +11,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dart';
 
 class PenggunaPrestasiPage extends StatefulWidget {
   const PenggunaPrestasiPage({super.key});
@@ -50,17 +51,13 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
           if (state is PrestasiLoading) {
             return const Text('Loading');
           } else if (state is AllPrestasiHasData) {
-            final allPrestasi = state.prestasiList;
+            final prestasiList = state.prestasiList;
 
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-
-                  const CustomMobileTitle(text: 'Prestasi'),
-
-                  const CustomFieldSpacer(),
 
                   Expanded(
                     child: CustomContentBox(
@@ -120,6 +117,10 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                             ),
                           ),
                         ),
+
+                        const CustomFieldSpacer(),
+
+                        MipokaCountText(total: prestasiList.length),
 
                         const CustomFieldSpacer(),
 
@@ -183,8 +184,8 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                                   ),
                                 ],
 
-                                rows: List<DataRow>.generate(allPrestasi.length, (int index) {
-                                  final prestasi = allPrestasi[index];
+                                rows: List<DataRow>.generate(prestasiList.length, (int index) {
+                                  final prestasi = prestasiList[index];
 
                                   context.read<MipokaUserBloc>().add(
                                     ReadMipokaUserEvent(idMipokaUser: prestasi.idUser),

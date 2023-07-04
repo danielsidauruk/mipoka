@@ -1,7 +1,14 @@
 [
   {
     "id_ormawa": 123456,
-    "nama_ormawa": "Mikroskil E-sport",
+    "nama_ormawa": "Nama Ormawa 1",
+    "nama_singkatan_ormawa": "ME 1",
+    "logo_ormawa": "link_photo",
+    "list_anggota": [
+      "wfqfeq",
+      "1314321",
+      "12343r1r2"
+    ],
     "pembina": "Pembina Ormawa",
     "ketua": "Ketua Ormawa",
     "wakil": "Wakil Ketua Ormawa",
@@ -19,8 +26,15 @@
     "updated_at": "2023-06-26"
   },
   {
-    "id_ormawa": 143313456,
-    "nama_ormawa": "Mikroskil Singing Club",
+    "id_ormawa": 123456,
+    "nama_ormawa": "Nama Ormawa 2",
+    "nama_singkatan_ormawa": "ME 2",
+    "logo_ormawa": "link_photo",
+    "list_anggota": [
+      "wfqfeq",
+      "1314321",
+      "12343r1r2"
+    ],
     "pembina": "Pembina Ormawa",
     "ketua": "Ketua Ormawa",
     "wakil": "Wakil Ketua Ormawa",
@@ -38,8 +52,15 @@
     "updated_at": "2023-06-26"
   },
   {
-    "id_ormawa": 125756,
-    "nama_ormawa": "Mikroskil Programming Club",
+    "id_ormawa": 123456,
+    "nama_ormawa": "Nama Ormawa 3",
+    "nama_singkatan_ormawa": "ME 3",
+    "logo_ormawa": "link_photo",
+    "list_anggota": [
+      "wfqfeq",
+      "1314321",
+      "12343r1r2"
+    ],
     "pembina": "Pembina Ormawa",
     "ketua": "Ketua Ormawa",
     "wakil": "Wakil Ketua Ormawa",

@@ -108,9 +108,9 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                 final riwayatMpt = riwayatKegiatanMptList[index];
 
                                 context.read<KegiatanPerPeriodeMptBloc>().add(
-                                    ReadKegiatanPerPeriodeMptEvent(idKegiatanPerPeriodeMpt: riwayatMpt.idNamaKegiatanMpt));
+                                    ReadKegiatanPerPeriodeMptEvent(idKegiatanPerPeriodeMpt: riwayatMpt.idKegiatanPerPeriodeMpt));
                                 context.read<NamaKegiatanMptBloc>().add(
-                                  ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: riwayatMpt.idNamaKegiatanMpt));
+                                  ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: riwayatMpt.idKegiatanPerPeriodeMpt));
 
                                 return DataRow(
                                   cells: [

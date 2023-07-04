@@ -18,7 +18,7 @@ class ReadPrestasiEvent extends PrestasiEvent {
 class CreatePrestasiEvent extends PrestasiEvent {
   final Prestasi prestasi;
 
-  const CreatePrestasiEvent(this.prestasi);
+  const CreatePrestasiEvent({required this.prestasi});
 
   @override
   List<Object> get props => [prestasi];
@@ -27,7 +27,7 @@ class CreatePrestasiEvent extends PrestasiEvent {
 class UpdatePrestasiEvent extends PrestasiEvent {
   final Prestasi prestasi;
 
-  const UpdatePrestasiEvent(this.prestasi);
+  const UpdatePrestasiEvent({required this.prestasi});
 
   @override
   List<Object> get props => [prestasi];
@@ -36,7 +36,7 @@ class UpdatePrestasiEvent extends PrestasiEvent {
 class DeletePrestasiEvent extends PrestasiEvent {
   final int idPrestasi;
 
-  const DeletePrestasiEvent(this.idPrestasi);
+  const DeletePrestasiEvent({required this.idPrestasi});
 
   @override
   List<Object> get props => [idPrestasi];

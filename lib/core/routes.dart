@@ -126,11 +126,11 @@ const kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageRoute =
     '/kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageRoute';
 const kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute =
     '/kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute';
-const kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPageRoute =
-    '/kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPageRoute';
+const mptMahasiswaRiwayatKegiatanMahasiswaEditPageRoute =
+    '/mptMahasiswaRiwayatKegiatanMahasiswaEditPageRoute';
 const kemahasiswaanEditOrmawaPageRoute = '/kemahasiswaanEditOrmawaPageRoute';
-const kemahasiswaanEditOrmawaTambahPageRoute =
-    '/kemahasiswaanEditOrmawaTambahPageRoute';
+const kemahasiswaanEditOrmawaTambahPageRoute = '/kemahasiswaanEditOrmawaTambahPageRoute';
+const kemahasiswaanEditOrmawaEditPageRoute = '/kemahasiswaanEditOrmawaEditPageRoute';
 const kemahasiswaanPrestasiMahasiswaPageRoute =
     '/kemahasiswaanPrestasiMahasiswaPageRoute';
 const kemahasiswaanPrestasiMahasiswaTambahPageRoute =

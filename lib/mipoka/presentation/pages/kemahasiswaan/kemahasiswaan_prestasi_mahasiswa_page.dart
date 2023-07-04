@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -12,6 +14,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_filter_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class KemahasiswaanPrestasiMahasiswaPage extends StatefulWidget {
   const KemahasiswaanPrestasiMahasiswaPage({super.key});
@@ -24,9 +27,8 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
 
   @override
   void initState() {
+    context.read<PrestasiBloc>().add(ReadAllPrestasiEvent());
     super.initState();
-    BlocProvider.of<PrestasiBloc>(context, listen: false)
-        .add(ReadAllPrestasiEvent());
   }
 
   @override
@@ -39,6 +41,9 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
           if (state is PrestasiLoading) {
             return const Text('Loading');
           } else if (state is AllPrestasiHasData) {
+
+            final prestasiList = state.prestasiList;
+
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -65,6 +70,39 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                         MipokaCustomDropdown(
                           items: listNamaOrmawa,
                           onValueChanged: (value) {},
+                        ),
+
+                        BlocBuilder<OrmawaBloc, OrmawaState>(
+                          builder: (context, state) {
+                            if (state is OrmawaLoading) {
+                              return const Text("Loading ....");
+                            } else if (state is AllOrmawaHasData) {
+
+                              List<String> ormawaList = state.ormawaList.map(
+                                      (ormawa) => ormawa.namaOrmawa).toList();
+                              ormawaList.insert(0, "semua");
+
+                              List<int> idOrmawaList = state.ormawaList.map(
+                                      (ormawa) => ormawa.idOrmawa).toList();
+                              idOrmawaList.insert(0, 0);
+
+                              return MipokaCustomDropdown(
+                                  items: ormawaList,
+                                  onValueChanged: (value) {
+                                    int index = ormawaList.indexOf(value!);
+                                    int idOrmawa = idOrmawaList[index];
+
+                                    // print("$idPeriodeMpt, $value");
+
+                                    idPeriodeKegiatanMpt = idOrmawa;
+                                  }
+                              );
+                            } else if (state is OrmawaError) {
+                              return Text(state.message);
+                            } else {
+                              return const Text("PeriodeMptBloc hasn't been triggered yet.");
+                            }
+                          },
                         ),
 
                         const CustomFieldSpacer(),
@@ -153,9 +191,21 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
+                                  DataColumn(
+                                    label: Text(
+                                      'Aksi',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
                                 ],
 
-                                rows: List<DataRow>.generate(6, (int index) {
+                                rows: List<DataRow>.generate(prestasiList.length, (int index) {
+                                  final prestasi = prestasiList[index];
+
+                                  context.read<MipokaUserBloc>().add(
+                                    ReadMipokaUserEvent(idMipokaUser: prestasi.idUser));
+
                                   return DataRow(
                                     cells: [
                                       DataCell(
@@ -165,39 +215,97 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                                         ),
                                       ),
                                       DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text('211112${index + 1}87',),
+                                        BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                          builder: (context, state) {
+                                            if (state is MipokaUserLoading) {
+                                              return const Text("Loading ....");
+                                            } else if (state is MipokaUserHasData) {
+                                              return Align(
+                                                alignment: Alignment.center,
+                                                child: Text(state.mipokaUser.nim),
+                                              );
+                                            } else if (state is MipokaUserError) {
+                                              return Text(state.message);
+                                            } else {
+                                              return const Text("MipokaUserBloc hasn't been triggered yet.");
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                      DataCell(
+                                        BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                          builder: (context, state) {
+                                            if (state is MipokaUserLoading) {
+                                              return const Text("Loading ....");
+                                            } else if (state is MipokaUserHasData) {
+                                              return Align(
+                                                alignment: Alignment.center,
+                                                child: Text(state.mipokaUser.namaLengkap),
+                                              );
+                                            } else if (state is MipokaUserError) {
+                                              return Text(state.message);
+                                            } else {
+                                              return const Text("MipokaUserBloc hasn't been triggered yet.");
+                                            }
+                                          },
                                         ),
                                       ),
                                       DataCell(
                                         Align(
                                           alignment: Alignment.center,
-                                          child: Text('Mahasiswa - ${index + 1}',),
+                                          child: Text(prestasi.namaKegiatan),
                                         ),
                                       ),
                                       DataCell(
                                         Align(
                                           alignment: Alignment.center,
-                                          child: Text('Nama Kegiatan - ${index + 1}',),
+                                          child: Text(prestasi.waktuPenyelenggaraan,),
                                         ),
                                       ),
                                       DataCell(
                                         Align(
                                           alignment: Alignment.center,
-                                          child: Text('${index + 1} Mei 2023',),
-                                        ),
-                                      ),
-                                      const DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text('Kabupaten',),
+                                          child: Text(prestasi.tingkat,),
                                         ),
                                       ),
                                       DataCell(
                                         Align(
                                           alignment: Alignment.center,
-                                          child: Text('Prestasi ${index + 1}',),
+                                          child: Text(prestasi.prestasiDicapai),
+                                        ),
+                                      ),
+                                      DataCell(
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            InkWell(
+                                              onTap: () => Navigator.pushNamed(
+                                                context,
+                                                mptMahasiswaRiwayatKegiatanMahasiswaEditPageRoute,
+                                                arguments: prestasi,
+                                              ),
+                                              child: Image.asset(
+                                                'assets/icons/edit.png',
+                                                width: 24,
+                                              ),
+                                            ),
+
+                                            const SizedBox(width: 8.0,),
+
+                                            InkWell(
+                                              onTap: () {
+                                                context.read<PrestasiBloc>().add(
+                                                    DeletePrestasiEvent(idPrestasi: prestasi.idPrestasi));
+                                                context.read<PrestasiBloc>().add(ReadAllPrestasiEvent());
+
+                                                mipokaCustomToast("Ormawa telah dihapus");
+                                              },
+                                              child: Image.asset(
+                                                'assets/icons/delete.png',
+                                                width: 24,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],

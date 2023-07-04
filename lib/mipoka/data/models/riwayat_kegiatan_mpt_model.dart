@@ -3,7 +3,7 @@ import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
 class RiwayatMptModel extends RiwayatKegiatanMpt {
   const RiwayatMptModel({
     required super.idRiwayatKegiatanMpt,
-    required super.idNamaKegiatanMpt,
+    required super.idKegiatanPerPeriodeMpt,
     required super.idUser,
     required super.statusMpt,
     required super.fileSertifikatMpt,
@@ -19,7 +19,7 @@ class RiwayatMptModel extends RiwayatKegiatanMpt {
   factory RiwayatMptModel.fromEntity(RiwayatKegiatanMpt riwayatMpt) {
     return RiwayatMptModel(
       idRiwayatKegiatanMpt: riwayatMpt.idRiwayatKegiatanMpt,
-      idNamaKegiatanMpt: riwayatMpt.idNamaKegiatanMpt,
+      idKegiatanPerPeriodeMpt: riwayatMpt.idKegiatanPerPeriodeMpt,
       idUser: riwayatMpt.idUser,
       statusMpt: riwayatMpt.statusMpt,
       fileSertifikatMpt: riwayatMpt.fileSertifikatMpt,
@@ -35,7 +35,7 @@ class RiwayatMptModel extends RiwayatKegiatanMpt {
 
   factory RiwayatMptModel.fromJson(Map<String, dynamic> json) => RiwayatMptModel(
     idRiwayatKegiatanMpt: json["id_riwayat_kegiatan_mpt"],
-    idNamaKegiatanMpt: json["id_nama_kegiatan_mpt"],
+    idKegiatanPerPeriodeMpt: json["id_kegiatan_per_periode_mpt"],
     idUser: json["id_user"],
     statusMpt: json["status_mpt"],
     fileSertifikatMpt: json["file_sertifikat_mpt"],
@@ -50,7 +50,7 @@ class RiwayatMptModel extends RiwayatKegiatanMpt {
 
   Map<String, dynamic> toJson() => {
     "id_riwayat_kegiatan_mpt": idRiwayatKegiatanMpt,
-    "id_nama_kegiatan_mpt": idNamaKegiatanMpt,
+    "id_kegiatan_per_periode_mpt": idKegiatanPerPeriodeMpt,
     "id_user": idUser,
     "status_mpt": statusMpt,
     "file_sertifikat_mpt": fileSertifikatMpt,

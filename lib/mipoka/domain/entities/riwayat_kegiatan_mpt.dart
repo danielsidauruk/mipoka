@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class RiwayatKegiatanMpt extends Equatable {
   final int idRiwayatKegiatanMpt;
-  final int idNamaKegiatanMpt;
+  final int idKegiatanPerPeriodeMpt;
   final String idUser;
   final String statusMpt;
   final String fileSertifikatMpt;
@@ -16,7 +16,7 @@ class RiwayatKegiatanMpt extends Equatable {
 
   const RiwayatKegiatanMpt({
     required this.idRiwayatKegiatanMpt,
-    required this.idNamaKegiatanMpt,
+    required this.idKegiatanPerPeriodeMpt,
     required this.idUser,
     required this.statusMpt,
     required this.fileSertifikatMpt,
@@ -31,7 +31,7 @@ class RiwayatKegiatanMpt extends Equatable {
 
   RiwayatKegiatanMpt copyWith({
     int? idRiwayatKegiatanMpt,
-    int? idNamaKegiatanMpt,
+    int? idKegiatanPerPeriodeMpt,
     String? idUser,
     String? statusMpt,
     String? fileSertifikatMpt,
@@ -45,7 +45,7 @@ class RiwayatKegiatanMpt extends Equatable {
   }) =>
       RiwayatKegiatanMpt(
         idRiwayatKegiatanMpt: idRiwayatKegiatanMpt ?? this.idRiwayatKegiatanMpt,
-        idNamaKegiatanMpt: idNamaKegiatanMpt ?? this.idNamaKegiatanMpt,
+        idKegiatanPerPeriodeMpt: idKegiatanPerPeriodeMpt ?? this.idKegiatanPerPeriodeMpt,
         idUser: idUser ?? this.idUser,
         statusMpt: statusMpt ?? this.statusMpt,
         fileSertifikatMpt: fileSertifikatMpt ?? this.fileSertifikatMpt,
@@ -61,7 +61,7 @@ class RiwayatKegiatanMpt extends Equatable {
   @override
   List<Object?> get props => [
     idRiwayatKegiatanMpt,
-    idNamaKegiatanMpt,
+    idKegiatanPerPeriodeMpt,
     idUser,
     statusMpt,
     fileSertifikatMpt,

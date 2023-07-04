@@ -9,8 +9,10 @@ import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
@@ -38,10 +40,12 @@ import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/ganti_password_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_edit_ormawa_edit_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_jenis_kegiatan_edit_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_periode_edit_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_periode_edit_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_periode_tambah_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_riwayat_kegiatan_mahasiswa_edit_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_prestasi_mahasiswa_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_update_berita.dart';
@@ -57,12 +61,11 @@ import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_jenis_kegiatan_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_periode_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_periode_tambah_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_mahasiswa_per_periode_detail_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_riwayat_kegiatan_mahasiswa_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_mahasiswa_per_periode_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_mahasiswa_per_periode_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_periode_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_riwayat_kegiatan_mahasiswa_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_riwayat_kegiatan_mahasiswa_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_prestasi_mahasiswa_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/lupa_password_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/notifikasi_page.dart';
@@ -462,18 +465,21 @@ class MyApp extends StatelessWidget {
                       const KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPage());
             case kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute:
               return MaterialPageRoute(
-                  builder: (_) =>
-                      const KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage());
-            case kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPageRoute:
+                  builder: (_) => const KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage());
+            case mptMahasiswaRiwayatKegiatanMahasiswaEditPageRoute:
+              final riwayatKegiatanMpt = settings.arguments as RiwayatKegiatanMpt;
               return MaterialPageRoute(
                   builder: (_) =>
-                      const KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPage());
+                      MahasiswaRiwayatKegiatanMahasiswaEditPage(riwayatKegiatanMpt: riwayatKegiatanMpt,));
             case kemahasiswaanEditOrmawaPageRoute:
               return MaterialPageRoute(
                   builder: (_) => const KemahasiswaanEditOrmawaPage());
             case kemahasiswaanEditOrmawaTambahPageRoute:
               return MaterialPageRoute(
                   builder: (_) => const KemahasiswaanEditOrmawaTambahPage());
+            case kemahasiswaanEditOrmawaEditPageRoute:
+              final ormawa = settings.arguments as Ormawa;
+              return MaterialPageRoute(builder: (_) => KemahasiswaanEditOrmawaEditPage(ormawa: ormawa));
             case kemahasiswaanPrestasiMahasiswaPageRoute:
               return MaterialPageRoute(
                   builder: (_) => const KemahasiswaanPrestasiMahasiswaPage());

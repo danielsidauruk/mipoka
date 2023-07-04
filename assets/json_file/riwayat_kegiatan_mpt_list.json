@@ -1,11 +1,11 @@
 [
   {
     "id_riwayat_kegiatan_mpt": 1,
-    "id_kegiatan_mpt": 123,
+    "id_kegiatan_per_periode_mpt": 123,
     "id_user": "456",
     "status_mpt": "Selesai",
     "file_sertifikat_mpt": "sertifikat_mpt.pdf",
-    "hash": "5d8e8392ecfe77e3c6ab695182eda67b27852a621a3fbd162b497cec1b07d7ef",
+    "hash": "eef85b6a47c314d7b50c3a518f9d3e08",
     "keterangan_mhs": "Peserta aktif",
     "keterangan_sa": "Terverifikasi",
     "created_at": "2023-06-26",
@@ -15,7 +15,7 @@
   },
   {
     "id_riwayat_kegiatan_mpt": 1,
-    "id_kegiatan_mpt": 123,
+    "id_kegiatan_per_periode_mpt": 123,
     "id_user": "456",
     "status_mpt": "Selesai",
     "file_sertifikat_mpt": "sertifikat_mpt.pdf",

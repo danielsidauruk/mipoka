@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -15,21 +16,31 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 
-class KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPage extends StatefulWidget {
-  const KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPage({super.key});
+class MahasiswaRiwayatKegiatanMahasiswaEditPage extends StatefulWidget {
+  const MahasiswaRiwayatKegiatanMahasiswaEditPage({
+    super.key,
+    required this.riwayatKegiatanMpt,
+  });
+
+  final RiwayatKegiatanMpt riwayatKegiatanMpt;
 
   @override
-  State<KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPage> createState() => _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPageState();
+  State<MahasiswaRiwayatKegiatanMahasiswaEditPage> createState() => _MahasiswaRiwayatKegiatanMahasiswaEditPageState();
 }
 
-class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPageState extends State<KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPage> {
-  final TextEditingController _periodeController = TextEditingController();
+class _MahasiswaRiwayatKegiatanMahasiswaEditPageState extends State<MahasiswaRiwayatKegiatanMahasiswaEditPage> {
+  final TextEditingController _idperiodeController = TextEditingController();
   final TextEditingController _nimController = TextEditingController();
   final TextEditingController _namaMahasiswaController = TextEditingController();
   final TextEditingController _jenisKegiatanController = TextEditingController();
   final TextEditingController _keteranganMahasiswaController = TextEditingController();
   final TextEditingController _poinController = TextEditingController();
   bool jenisPartisipan = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +56,14 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaDetailPageState extends 
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
 
-              const CustomMobileTitle(text: 'Kemahasiswaan - MPT Mahasiswa - Detail Mahasiswa per Periode'),
+              const CustomMobileTitle(text: 'Kemahasiswaan - MPT Mahasiswa - Edit  Mahasiswa per Periode'),
 
               const CustomFieldSpacer(),
 
               CustomContentBox(
                 children: [
                   buildTitle('Periode'),
-                  CustomTextField(controller: _periodeController),
+                  CustomTextField(controller: _idperiodeController),
 
                   const CustomFieldSpacer(),
 
