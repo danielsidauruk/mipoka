@@ -1,6 +1,6 @@
 [
   {
-    "id_ormawa": 123456,
+    "id_ormawa": 11111,
     "nama_ormawa": "Nama Ormawa 1",
     "nama_singkatan_ormawa": "ME 1",
     "logo_ormawa": "link_photo",
@@ -26,7 +26,7 @@
     "updated_at": "2023-06-26"
   },
   {
-    "id_ormawa": 123456,
+    "id_ormawa": 22222,
     "nama_ormawa": "Nama Ormawa 2",
     "nama_singkatan_ormawa": "ME 2",
     "logo_ormawa": "link_photo",
@@ -52,7 +52,7 @@
     "updated_at": "2023-06-26"
   },
   {
-    "id_ormawa": 123456,
+    "id_ormawa": 33333,
     "nama_ormawa": "Nama Ormawa 3",
     "nama_singkatan_ormawa": "ME 3",
     "logo_ormawa": "link_photo",

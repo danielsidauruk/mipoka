@@ -171,7 +171,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                               MipokaCustomDropdown(
                                 items: listNamaOrmawa,
-                                controller: _namaOrmawaController,
+                                initialItem: _namaOrmawaController,
                                 onValueChanged: (value) {
                                   if (kDebugMode) {
                                     print(
@@ -187,7 +187,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                               MipokaCustomDropdown(
                                 items: listPembiayaan,
-                                controller: _pembiayaanController,
+                                initialItem: _pembiayaanController,
                                 onValueChanged: (value) {
                                   if (kDebugMode) {
                                     print(
@@ -217,7 +217,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                               MipokaCustomDropdown(
                                 items: listBentukKegiatan,
-                                controller: _bentukKegiatanController ?? "",
+                                initialItem: _bentukKegiatanController ?? "",
                                 onValueChanged: (value) {
                                   if (kDebugMode) {
                                     print('Input "$value" to State Management BLoC');

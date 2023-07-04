@@ -135,6 +135,8 @@ const kemahasiswaanPrestasiMahasiswaPageRoute =
     '/kemahasiswaanPrestasiMahasiswaPageRoute';
 const kemahasiswaanPrestasiMahasiswaTambahPageRoute =
     '/kemahasiswaanPrestasiMahasiswaTambahPageRoute';
+const kemahasiswaanPrestasiMahasiswaEditPageRoute = ''
+    '/kemahasiswaanPrestasiMahasiswaEditPageRoute';
 const kemahasiswaanCekUsulanKegiatanPageRoute =
     '/kemahasiswaanCekUsulanKegiatanPageRoute';
 const kemahasiswaanCekLaporanKegiatanPageRoute =

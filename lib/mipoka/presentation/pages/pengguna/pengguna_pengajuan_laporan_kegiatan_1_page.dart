@@ -98,7 +98,7 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
                             MipokaCustomDropdown(
                               items: namaKegiatanList,
-                              controller: _namaKegiatanController,
+                              initialItem: _namaKegiatanController,
                               onValueChanged: (value) {
                                 setState(() {
                                   _namaKegiatanController = value!;

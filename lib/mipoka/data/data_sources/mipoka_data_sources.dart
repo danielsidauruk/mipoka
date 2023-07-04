@@ -132,6 +132,7 @@ abstract class MipokaDataSources {
 
   Future<List<MipokaUserModel>> readAllMipokaUser();
   Future<MipokaUserModel> readMipokaUser(String idMipokaUser);
+  Future<MipokaUserModel> readMipokaUserByNim(String nim);
   Future<void> createMipokaUser(MipokaUserModel mipokaUserModel);
   Future<void> updateMipokaUser(MipokaUserModel mipokaUserModel);
   Future<void> deleteMipokaUser(String idMipokaUser);
@@ -878,6 +879,19 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     dynamic jsonDecode = json.decode(response);
 
     MipokaUserModel result = MipokaUserModel.fromJson(jsonDecode);
+
+    return result;
+  }
+
+  @override
+  Future<MipokaUserModel> readMipokaUserByNim(String nim) async {
+    final String response =
+    await rootBundle.loadString('assets/json_file/mipoka_user.json');
+    dynamic jsonDecode = json.decode(response);
+
+    MipokaUserModel result = MipokaUserModel.fromJson(jsonDecode);
+
+    print(nim);
 
     return result;
   }

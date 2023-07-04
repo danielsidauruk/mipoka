@@ -130,6 +130,7 @@ abstract class MipokaRepositories {
 
   Future<Either<Failure, List<MipokaUser>>> readAllMipokaUser();
   Future<Either<Failure, MipokaUser>> readMipokaUser(String idMipokaUser);
+  Future<Either<Failure, MipokaUser>> readMipokaUserByNim(String nim);
   Future<Either<Failure, void>> createMipokaUser(MipokaUser mipokaUser);
   Future<Either<Failure, void>> updateMipokaUser(MipokaUser mipokaUser);
   Future<Either<Failure, void>> deleteMipokaUser(String idMipokaUser);

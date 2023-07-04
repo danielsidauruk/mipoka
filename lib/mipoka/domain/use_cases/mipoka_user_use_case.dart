@@ -16,6 +16,10 @@ class MipokaUserUseCase {
     return mipokaRepositories.readMipokaUser(idMipokaUser);
   }
 
+  Future<Either<Failure, MipokaUser>> readMipokaUserByNim(String nim) {
+    return mipokaRepositories.readMipokaUserByNim(nim);
+  }
+
   Future<Either<Failure, void>> createMipokaUser(MipokaUser mipokaUser) {
     return mipokaRepositories.createMipokaUser(mipokaUser);
   }

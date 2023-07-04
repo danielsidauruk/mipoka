@@ -11,6 +11,7 @@ import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/prestasi.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
@@ -46,6 +47,7 @@ import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_periode_edit_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_periode_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_riwayat_kegiatan_mahasiswa_edit_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_prestasi_mahasiswa_edit_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_prestasi_mahasiswa_tambah_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_update_berita.dart';
@@ -487,6 +489,10 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) =>
                       const KemahasiswaanPrestasiMahasiswaTambahPage());
+            case kemahasiswaanPrestasiMahasiswaEditPageRoute:
+              final prestasi = settings.arguments as Prestasi;
+              return MaterialPageRoute(
+                  builder: (_) => KemahasiswaanPrestasiMahasiswaEditPage(prestasi: prestasi));
             case kemahasiswaanCekUsulanKegiatanPageRoute:
               return MaterialPageRoute(
                   builder: (_) => const KemahasiswaanCekUsulanKegiatanPage());

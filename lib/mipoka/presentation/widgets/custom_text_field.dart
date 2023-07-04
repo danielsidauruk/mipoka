@@ -64,6 +64,42 @@ class CustomTextField2 extends StatelessWidget {
   }
 }
 
+class CustomTextFieldForNim extends StatelessWidget {
+  const CustomTextFieldForNim({
+    super.key,
+    required this.controller,
+    this.textInputType = TextInputType.text,
+    required this.onSubmitted,
+    // this.textInputType = TextInputType.multiline,
+  });
+
+  final TextEditingController controller;
+  final TextInputType? textInputType;
+  final Function(String)? onSubmitted;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(8.0),
+      constraints: const BoxConstraints(minHeight: 35),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5.0),
+        border: Border.all(color: Colors.white),
+      ),
+      child: TextField(
+        // textInputAction: TextInputAction.newline,
+        keyboardType: textInputType,
+        controller: controller,
+        onSubmitted: onSubmitted,
+        maxLines: null,
+        style: const TextStyle(),
+        decoration: null,
+      ),
+    );
+  }
+}
+
 
 class CustomTextField3 extends StatelessWidget {
   const CustomTextField3({

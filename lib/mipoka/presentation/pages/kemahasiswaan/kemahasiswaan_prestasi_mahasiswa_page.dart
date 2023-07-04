@@ -25,8 +25,16 @@ class KemahasiswaanPrestasiMahasiswaPage extends StatefulWidget {
 
 class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPrestasiMahasiswaPage> {
 
+  int? idOrmawaController;
+  String? tahun;
+  String? tingkat;
+
   @override
   void initState() {
+    idOrmawaController = 0;
+    tahun = years2[0];
+    tingkat = listTingkat2[0];
+
     context.read<PrestasiBloc>().add(ReadAllPrestasiEvent());
     super.initState();
   }
@@ -41,6 +49,8 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
           if (state is PrestasiLoading) {
             return const Text('Loading');
           } else if (state is AllPrestasiHasData) {
+
+            context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
 
             final prestasiList = state.prestasiList;
 
@@ -61,17 +71,15 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                         buildTitle('Total Prestasi Mahasiswa : 6'),
                         CustomAddButton(
                           buttonText: 'Tambah',
-                          onPressed: () => Navigator.pushNamed(context, kemahasiswaanPrestasiMahasiswaTambahPageRoute),
+                          onPressed: () => Navigator.pushNamed(
+                            context,
+                            kemahasiswaanPrestasiMahasiswaTambahPageRoute,
+                          ),
                         ),
 
                         const CustomFieldSpacer(),
 
                         buildTitle('Nama Ormawa'),
-                        MipokaCustomDropdown(
-                          items: listNamaOrmawa,
-                          onValueChanged: (value) {},
-                        ),
-
                         BlocBuilder<OrmawaBloc, OrmawaState>(
                           builder: (context, state) {
                             if (state is OrmawaLoading) {
@@ -80,7 +88,7 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
 
                               List<String> ormawaList = state.ormawaList.map(
                                       (ormawa) => ormawa.namaOrmawa).toList();
-                              ormawaList.insert(0, "semua");
+                              ormawaList.insert(0, "Semua");
 
                               List<int> idOrmawaList = state.ormawaList.map(
                                       (ormawa) => ormawa.idOrmawa).toList();
@@ -94,13 +102,13 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
 
                                     // print("$idPeriodeMpt, $value");
 
-                                    idPeriodeKegiatanMpt = idOrmawa;
+                                    idOrmawaController = idOrmawa;
                                   }
                               );
                             } else if (state is OrmawaError) {
                               return Text(state.message);
                             } else {
-                              return const Text("PeriodeMptBloc hasn't been triggered yet.");
+                              return const Text("OrmawaBloc hasn't been triggered yet.");
                             }
                           },
                         ),
@@ -109,15 +117,17 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
 
                         buildTitle('Tahun'),
                         MipokaCustomDropdown(
-                          items: years,
-                          onValueChanged: (value) {},
+                          items: years2,
+                          onValueChanged: (value) {
+
+                          },
                         ),
 
                         const CustomFieldSpacer(),
 
                         buildTitle('Tingkat'),
                         MipokaCustomDropdown(
-                          items: listTingkat,
+                          items: listTingkat2,
                           onValueChanged: (value) {},
                         ),
 
@@ -281,7 +291,7 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                                             InkWell(
                                               onTap: () => Navigator.pushNamed(
                                                 context,
-                                                mptMahasiswaRiwayatKegiatanMahasiswaEditPageRoute,
+                                                kemahasiswaanPrestasiMahasiswaEditPageRoute,
                                                 arguments: prestasi,
                                               ),
                                               child: Image.asset(

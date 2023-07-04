@@ -97,7 +97,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
 
                         return MipokaCustomDropdown(
                           items: namaKegiatanList,
-                          controller: namaKegiatanController,
+                          initialItem: namaKegiatanController,
                           onValueChanged: (value) {
                             int index = namaKegiatanList.indexOf(value ?? "");
                             _idNamaKegiatanController = idNamaKegiatanList[index];
@@ -135,7 +135,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
 
                         return MipokaCustomDropdown(
                           items: tahunPeriodeMptList,
-                          controller: tahunPeriodeController,
+                          initialItem: tahunPeriodeController,
                           onValueChanged: (value) {
                             int index = tahunPeriodeMptList.indexOf(value!);
                             // idPeriodeMpt = idTahunPeriodeList[index];

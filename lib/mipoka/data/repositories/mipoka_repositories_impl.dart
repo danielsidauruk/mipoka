@@ -795,6 +795,15 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
+  Future<Either<Failure, MipokaUser>> readMipokaUserByNim(String nim) async {
+    try {
+      return Right(await mipokaDataSources.readMipokaUserByNim(nim));
+    } on ServerException {
+      return const Left(ServerFailure());
+    }
+  }
+
+  @override
   Future<Either<Failure, void>> updateMipokaUser(MipokaUser mipokaUser) async {
     try {
       return Right(await mipokaDataSources.updateMipokaUser(MipokaUserModel.fromEntity(mipokaUser)));

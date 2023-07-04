@@ -15,6 +15,12 @@ class ReadMipokaUserEvent extends MipokaUserEvent {
   const ReadMipokaUserEvent({required this.idMipokaUser});
 }
 
+class ReadMipokaUserByNimEvent extends MipokaUserEvent {
+  final String nim;
+
+  const ReadMipokaUserByNimEvent({required this.nim});
+}
+
 class CreateMipokaUserEvent extends MipokaUserEvent {
   final MipokaUser mipokaUser;
 
