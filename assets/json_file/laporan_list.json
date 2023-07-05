@@ -84,7 +84,7 @@
     "foto_faktur_pembayaran": "http://example.com/foto-faktur.jpg",
     "file_laporan_kegiatan": "http://example.com/file-laporan.pdf",
     "validasi_pembina": true,
-    "status_laporan": "Diterima",
+    "status_laporan": "diterima",
     "created_at": "2023-06-26",
     "created_by": "John Doe",
     "updated_at": "2023-06-26",
