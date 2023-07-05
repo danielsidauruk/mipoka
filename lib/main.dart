@@ -15,6 +15,7 @@ import 'package:mipoka/mipoka/domain/entities/prestasi.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
+import 'package:mipoka/mipoka/presentation/bloc/MipokaUserByNimBloc/mipoka_user_by_nim_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiatan_bloc.dart';
@@ -138,6 +139,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<KegiatanPerPeriodeMptBloc>()),
         BlocProvider(create: (_) => di.locator<LaporanBloc>()),
         BlocProvider(create: (_) => di.locator<MipokaUserBloc>()),
+        BlocProvider(create: (_) => di.locator<MipokaUserByNimBloc>()),
         BlocProvider(create: (_) => di.locator<OrmawaBloc>()),
         BlocProvider(create: (_) => di.locator<PartisipanBloc>()),
         BlocProvider(create: (_) => di.locator<PeriodeMptBloc>()),

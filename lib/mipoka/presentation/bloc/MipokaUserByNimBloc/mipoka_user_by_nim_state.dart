@@ -1,6 +1,30 @@
 part of 'mipoka_user_by_nim_bloc.dart';
 
-@immutable
-abstract class MipokaUserByNimState {}
+abstract class MipokaUserByNimState extends Equatable {
+  const MipokaUserByNimState();
 
-class MipokaUserByNimInitial extends MipokaUserByNimState {}
+  @override
+  List<Object> get props => [];
+}
+
+class MipokaUserByNimEmpty extends MipokaUserByNimState {}
+
+class MipokaUserByNimLoading extends MipokaUserByNimState {}
+
+class MipokaUserByNimByNimHasData extends MipokaUserByNimState {
+  final MipokaUser mipokaUser;
+
+  const MipokaUserByNimByNimHasData({required this.mipokaUser});
+
+  @override
+  List<Object> get props => [mipokaUser];
+}
+
+class MipokaUserByNimError extends MipokaUserByNimState {
+  final String message;
+
+  const MipokaUserByNimError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

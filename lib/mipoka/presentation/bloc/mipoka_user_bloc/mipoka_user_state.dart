@@ -29,15 +29,6 @@ class MipokaUserHasData extends MipokaUserState {
   List<Object> get props => [mipokaUser];
 }
 
-class MipokaUserByNimHasData extends MipokaUserState {
-  final MipokaUser mipokaUser;
-
-  const MipokaUserByNimHasData({required this.mipokaUser});
-
-  @override
-  List<Object> get props => [mipokaUser];
-}
-
 class MipokaUserError extends MipokaUserState {
   final String message;
 

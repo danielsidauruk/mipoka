@@ -33,17 +33,6 @@ class MipokaUserBloc extends Bloc<MipokaUserEvent, MipokaUserState> {
       );
     });
 
-    on<ReadMipokaUserByNimEvent>((event, emit) async {
-      emit(MipokaUserLoading());
-
-      final result = await mipokaUserUseCase.readMipokaUser(event.nim);
-
-      result.fold(
-            (failure) => emit(MipokaUserError(message: failure.message)),
-            (mipokaUser) => emit(MipokaUserHasData(mipokaUser: mipokaUser)),
-      );
-    });
-
     on<CreateMipokaUserEvent>((event, emit) async {
       emit(MipokaUserLoading());
 
