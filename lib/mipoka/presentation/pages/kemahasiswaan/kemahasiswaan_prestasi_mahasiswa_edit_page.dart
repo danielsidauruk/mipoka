@@ -4,6 +4,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/prestasi.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -39,8 +40,8 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
   String? _yearController;
   String? _tingkatController;
 
-  void _handleNimSubmitted(String value) {
-    context.read<MipokaUserBloc>().add(
+  void _triggerNim(String value) {
+    context.read<MipokaUserByNimBloc>().add(
       ReadMipokaUserByNimEvent(nim: value),
     );
   }
@@ -82,11 +83,9 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                     return const Text("Loading ....");
                   } else if (state is MipokaUserHasData) {
 
-                    // _handleNimSubmitted(state.mipokaUser.nim);
                     Future.microtask(() {
-                      context.read<MipokaUserBloc>().add(
-                          ReadMipokaUserByNimEvent(nim: state.mipokaUser.nim));
                       context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
+                      _triggerNim(state.mipokaUser.nim);
                     });
 
                     return CustomContentBox(
@@ -132,16 +131,28 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                         CustomTextFieldForNim(
                           textInputType: TextInputType.number,
                           controller: _nimController,
-                          onSubmitted: _handleNimSubmitted,
+                          onSubmitted: (value) {
+                            print(value);
+                            _triggerNim(value);
+                          },
                         ),
+
 
                         const CustomFieldSpacer(),
 
                         buildTitle('Nama Mahasiswa'),
-                        BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                        BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
                           builder: (context, state) {
-                            if (state is MipokaUserByNimHasData) {
-                              return buildTitle(state.mipokaUser.namaLengkap);
+                            if (state is MipokaUserByNimByNimHasData) {
+
+                              // return buildTitle(state.mipokaUser.namaLengkap);
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  state.mipokaUser.namaLengkap,
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              );
                             } else {
                               return const Text("MipokaUserBlocByNimEvent hasn't been triggered yet");
                             }

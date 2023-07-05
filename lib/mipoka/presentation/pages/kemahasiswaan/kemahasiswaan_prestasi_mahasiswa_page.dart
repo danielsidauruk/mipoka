@@ -15,6 +15,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dart';
 
 class KemahasiswaanPrestasiMahasiswaPage extends StatefulWidget {
   const KemahasiswaanPrestasiMahasiswaPage({super.key});
@@ -68,7 +69,6 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                     CustomContentBox(
                       children: [
 
-                        buildTitle('Total Prestasi Mahasiswa : 6'),
                         CustomAddButton(
                           buttonText: 'Tambah',
                           onPressed: () => Navigator.pushNamed(
@@ -137,6 +137,10 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                           text: 'Filter',
                           onPressed: () {},
                         ),
+
+                        const CustomFieldSpacer(),
+
+                        MipokaCountText(total: prestasiList.length),
 
                         const CustomFieldSpacer(),
 
@@ -308,7 +312,7 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                                                     DeletePrestasiEvent(idPrestasi: prestasi.idPrestasi));
                                                 context.read<PrestasiBloc>().add(ReadAllPrestasiEvent());
 
-                                                mipokaCustomToast("Ormawa telah dihapus");
+                                                mipokaCustomToast("Prestasi telah dihapus");
                                               },
                                               child: Image.asset(
                                                 'assets/icons/delete.png',

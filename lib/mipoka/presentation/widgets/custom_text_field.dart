@@ -66,16 +66,15 @@ class CustomTextField2 extends StatelessWidget {
 
 class CustomTextFieldForNim extends StatelessWidget {
   const CustomTextFieldForNim({
-    super.key,
+    Key? key,
     required this.controller,
     this.textInputType = TextInputType.text,
     required this.onSubmitted,
-    // this.textInputType = TextInputType.multiline,
-  });
+  }) : super(key: key);
 
   final TextEditingController controller;
   final TextInputType? textInputType;
-  final Function(String)? onSubmitted;
+  final void Function(String)? onSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +87,6 @@ class CustomTextFieldForNim extends StatelessWidget {
         border: Border.all(color: Colors.white),
       ),
       child: TextField(
-        // textInputAction: TextInputAction.newline,
         keyboardType: textInputType,
         controller: controller,
         onSubmitted: onSubmitted,
@@ -99,6 +97,7 @@ class CustomTextFieldForNim extends StatelessWidget {
     );
   }
 }
+
 
 
 class CustomTextField3 extends StatelessWidget {
