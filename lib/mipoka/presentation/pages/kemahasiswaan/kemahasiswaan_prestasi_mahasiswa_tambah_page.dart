@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -22,9 +25,31 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
   final TextEditingController _nimController = TextEditingController();
   final TextEditingController _namaMahasiswaController = TextEditingController();
   final TextEditingController _namaKegiatanController = TextEditingController();
-  String tingkatValue = listTingkat[0];
-  String yearValue = DateTime.now().year.toString();
   final TextEditingController _prestasiYangDicapaiController = TextEditingController();
+  late String _tingkatValue;
+  late int _idOrmawa;
+
+  @override
+  void initState() {
+    _idOrmawa = 0;
+    _tingkatValue = listTingkat[0];
+
+    context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    context.read<OrmawaBloc>().close();
+    context.read<MipokaUserByNimBloc>().close();
+    super.dispose();
+  }
+
+  void _triggerNim(String value) {
+    context.read<MipokaUserByNimBloc>().add(
+      ReadMipokaUserByNimEvent(nim: value),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,22 +73,66 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                 children: [
 
                   buildTitle('Nama Ormawa'),
-                  MipokaCustomDropdown(
-                    items: listNamaOrmawa,
-                    onValueChanged: (value) {
-                      print('Input "$value" to State Management BLoC');
+                  BlocBuilder<OrmawaBloc, OrmawaState>(
+                    builder: (context, state) {
+                      if (state is OrmawaLoading) {
+                        return const Text("Loading ....");
+                      } else if (state is AllOrmawaHasData) {
+
+                        List<String> ormawaList = state.ormawaList.map(
+                                (ormawa) => ormawa.namaOrmawa).toList();
+
+                        List<int> idOrmawaList = state.ormawaList.map(
+                                (ormawa) => ormawa.idOrmawa).toList();
+
+                        return MipokaCustomDropdown(
+                            items: ormawaList,
+                            onValueChanged: (value) {
+                              int index = ormawaList.indexOf(value!);
+                              int idOrmawa = idOrmawaList[index];
+
+                              // print("$idPeriodeMpt, $value");
+                              _idOrmawa = idOrmawa;
+                            }
+                        );
+                      } else if (state is OrmawaError) {
+                        return Text(state.message);
+                      } else {
+                        return const Text("OrmawaBloc hasn't been triggered yet.");
+                      }
                     },
                   ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('NIM'),
-                  CustomTextField(controller: _nimController),
+                  CustomTextFieldForNim(
+                    textInputType: TextInputType.number,
+                    controller: _nimController,
+                    onSubmitted: (value) => _triggerNim(value),
+                  ),
+
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Nama Mahasiswa'),
-                  CustomTextField(controller: _namaMahasiswaController),
+                  BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
+                    builder: (context, state) {
+                      if (state is MipokaUserByNimByNimHasData) {
+
+                        // return buildTitle(state.mipokaUser.namaLengkap);
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            state.mipokaUser.namaLengkap,
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        );
+                      } else {
+                        return const Text("Nim belum ditentukan.");
+                      }
+                    },
+                  ),
 
                   const CustomFieldSpacer(),
 

@@ -131,10 +131,7 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                         CustomTextFieldForNim(
                           textInputType: TextInputType.number,
                           controller: _nimController,
-                          onSubmitted: (value) {
-                            print(value);
-                            _triggerNim(value);
-                          },
+                          onSubmitted: (value) => _triggerNim(value),
                         ),
 
 

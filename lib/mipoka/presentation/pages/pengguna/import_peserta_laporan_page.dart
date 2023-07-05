@@ -1,6 +1,10 @@
+import 'package:dio/dio.dart';
+import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/download_file.dart';
 import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/peserta_kegiatan_laporan_bloc/peserta_kegiatan_laporan_bloc.dart';
@@ -12,6 +16,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ImportPesertaLaporanPage extends StatefulWidget {
   const ImportPesertaLaporanPage({
@@ -69,6 +74,8 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                     children: [
                       CustomMipokaButton(
                         onTap: () {
+                          // downloadFile(pesertaKegiatanTemplate);
+                          downloadFileWithDio(pesertaKegiatanTemplate);
                         },
                         text: 'Unduh Templat',
                       ),
@@ -119,5 +126,40 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
         ),
       ),
     );
+  }
+
+  Future<void> downloadFileWithDio(String url) async {
+    try {
+      Map<Permission, PermissionStatus> statuses = await [
+        Permission.storage,
+        // Add more permissions to request here.
+      ].request();
+
+      if (statuses[Permission.storage]!.isGranted) {
+        var dir = await DownloadsPathProvider.downloadsDirectory;
+        if (dir != null) {
+          String fileName = url.split('/').last;
+          String savePath = "${dir.path}/$fileName";
+          print(savePath);
+          // Output: /storage/emulated/0/Download/file.pdf
+
+          await Dio().download(
+            url,
+            savePath,
+            onReceiveProgress: (received, total) {
+              if (total != -1) {
+                print("${(received / total * 100).toStringAsFixed(0)}%");
+                // You can build a progress bar feature too.
+              }
+            },
+          );
+          print("File is saved to the download folder.");
+        }
+      } else {
+        print("No permission to read and write.");
+      }
+    } catch (e) {
+      print('Error while downloading file: $e');
+    }
   }
 }

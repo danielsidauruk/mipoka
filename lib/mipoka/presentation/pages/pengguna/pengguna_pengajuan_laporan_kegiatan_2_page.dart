@@ -45,7 +45,7 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const CustomMobileTitle(
-                text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
+                text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
             const SizedBox(height: 8.0),
             BlocBuilder<LaporanBloc, LaporanState>(
               builder: (context, state) {

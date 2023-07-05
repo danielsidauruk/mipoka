@@ -19,6 +19,8 @@ const listNamaKegiatan = [
   'Lancelot Starlight Tournament - MEL Mar 2023',
 ];
 
+const pesertaKegiatanTemplate = "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/peserta_kegiatan_template.xlsx?alt=media&token=7d0b701b-e387-494b-99e6-31e5a8743efe";
+
 const listTingkat = ['Desa/Kelurahan', 'Kecamatan', 'Kabupaten/Kota', 'Provinsi', 'Nasional', 'Internasional'];
 
 const listTingkat2 = ['Semua', 'Desa/Kelurahan', 'Kecamatan', 'Kabupaten/Kota', 'Provinsi', 'Nasional', 'Internasional'];

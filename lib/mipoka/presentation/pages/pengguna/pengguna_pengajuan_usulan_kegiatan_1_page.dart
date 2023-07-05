@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'dart:io';
@@ -12,6 +10,7 @@ import 'dart:ui' as ui;
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/cubit/signature_cubit.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -52,6 +51,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
       context.read<MipokaUserBloc>().add(
         ReadMipokaUserEvent(idMipokaUser: user!.uid));
       context.read<TempatKegiatanCubit>();
+      context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
     });
     super.initState();
   }
@@ -64,7 +64,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
     super.dispose();
   }
 
-  String? _namaOrmawaController;
+  int? _idOrmawaController;
   String? _pembiayaanController;
   final TextEditingController _namaKegiatanController = TextEditingController();
   String? _bentukKegiatanController;
@@ -89,9 +89,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
   final TextEditingController _totalPendanaanController = TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
   String? _ormawaSignatureController;
-
-  User? user = FirebaseAuth.instance.currentUser;
-  String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
   final GlobalKey<SfSignaturePadState> signatureGlobalKey =
   GlobalKey<SfSignaturePadState>();
@@ -126,7 +123,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
               } else if (state is UsulanKegiatanHasData) {
                 final usulanKegiatan = state.usulanKegiatan;
 
-                _namaOrmawaController = 'Ormawa A';
+                _idOrmawaController = usulanKegiatan.idOrmawa;
                 _pembiayaanController = usulanKegiatan.pembiayaan;
                 _namaKegiatanController.text = usulanKegiatan.namaKegiatan;
                 usulanKegiatan.kategoriBentukKegiatan == "Luring"
@@ -169,15 +166,43 @@ class _PenggunaPengajuanUsulanKegiatan1State
                             children: [
                               buildTitle('Nama Ormawa'),
 
-                              MipokaCustomDropdown(
-                                items: listNamaOrmawa,
-                                initialItem: _namaOrmawaController,
-                                onValueChanged: (value) {
-                                  if (kDebugMode) {
-                                    print(
-                                        'Input $value to State Management BLoC or Database');
+                              // MipokaCustomDropdown(
+                              //   items: listNamaOrmawa,
+                              //   initialItem: _idOrmawaController,
+                              //   onValueChanged: (value) {
+                              //     if (kDebugMode) {
+                              //       print(
+                              //           'Input $value to State Management BLoC or Database');
+                              //     }
+                              //     _idOrmawaController = value;
+                              //   },
+                              // ),
+                              BlocBuilder<OrmawaBloc, OrmawaState>(
+                                builder: (context, state) {
+                                  if (state is OrmawaLoading) {
+                                    return const Text("Loading ....");
+                                  } else if (state is AllOrmawaHasData) {
+
+                                    List<String> ormawaList = state.ormawaList.map(
+                                            (ormawa) => ormawa.namaOrmawa).toList();
+
+                                    List<int> idOrmawaList = state.ormawaList.map(
+                                            (ormawa) => ormawa.idOrmawa).toList();
+
+                                    return MipokaCustomDropdown(
+                                        items: ormawaList,
+                                        onValueChanged: (value) {
+                                          int index = ormawaList.indexOf(value!);
+                                          int idOrmawa = idOrmawaList[index];
+
+                                          _idOrmawaController = idOrmawa;
+                                        }
+                                    );
+                                  } else if (state is OrmawaError) {
+                                    return Text(state.message);
+                                  } else {
+                                    return const Text("OrmawaBloc hasn't been triggered yet.");
                                   }
-                                  _namaOrmawaController = value;
                                 },
                               ),
 
@@ -465,7 +490,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                   const SizedBox(width: 8.0),
                                   CustomMipokaButton(
                                     onTap: () {
-                                      _tempatKegiatanSwitchController == true ?
+                                      _tempatKegiatanSwitchController == false ?
                                       Navigator.pushNamed(
                                         context,
                                         penggunaPengajuanUsulanKegiatan2DKPageRoute,
@@ -477,34 +502,40 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                         arguments: widget.idUsulanKegiatan,
                                       );
 
-                                      context.read<UsulanKegiatanBloc>().add(
-                                        UpdateUsulanKegiatanEvent(
-                                          usulanKegiatan: usulanKegiatan.copyWith(
-                                            idOrmawa: 0,
-                                            pembiayaan: _pembiayaanController,
-                                            namaKegiatan: _namaKegiatanController.text,
-                                            kategoriBentukKegiatan: _bentukKegiatanSwitchController == true ? "Luring" : "Daring",
-                                            bentukKegiatan: _bentukKegiatanController,
-                                            deskripsiKegiatan: _deskripsiKegiatanController.text,
-                                            tanggalMulaiKegiatan: _tanggalMulaiController.text,
-                                            tanggalSelesaiKegiatan: _tanggalSelesaiController.text,
-                                            waktuMulaiKegiatan: _waktuMulaiController.text,
-                                            waktuSelesaiKegiatan: _waktuSelesaiController.text,
-                                            tempatKegiatan: _tempatKegiatanController.text,
-                                            tanggalKeberangkatan: _tempatKegiatanSwitchController == true
-                                                ? _tanggalKeberangkatanController.text : "",
-                                            tanggalKepulangan: _tempatKegiatanSwitchController == true
-                                                ?  _tanggalKepulanganController.text : "",
-                                            kategoriJumlahPartisipan: _jumlahParsitipanSwitchController == true ? "Orang" : "Dll",
-                                            jumlahPartisipan: _jumlahParsitipanController.text,
-                                            targetKegiatan: _targetKegiatanController.text,
-                                            kategoriTotalPendanaan: _totalPendanaanSwitchController == true ? "Dll" : "Orang",
-                                            totalPendanaan: _totalPendanaanController.text,
-                                            tandaTanganOrmawa: _ormawaSignatureController,
-                                            updatedAt: currentDate,
+                                      Future.microtask(() {
+                                        context.read<UsulanKegiatanBloc>().add(
+                                          UpdateUsulanKegiatanEvent(
+                                            usulanKegiatan: usulanKegiatan.copyWith(
+                                              idOrmawa: _idOrmawaController,
+                                              pembiayaan: _pembiayaanController,
+                                              namaKegiatan: _namaKegiatanController.text,
+                                              kategoriBentukKegiatan: _bentukKegiatanSwitchController == true ? "Luring" : "Daring",
+                                              bentukKegiatan: _bentukKegiatanController,
+                                              deskripsiKegiatan: _deskripsiKegiatanController.text,
+                                              tanggalMulaiKegiatan: _tanggalMulaiController.text,
+                                              tanggalSelesaiKegiatan: _tanggalSelesaiController.text,
+                                              waktuMulaiKegiatan: _waktuMulaiController.text,
+                                              waktuSelesaiKegiatan: _waktuSelesaiController.text,
+                                              tempatKegiatan: _tempatKegiatanController.text,
+                                              tanggalKeberangkatan: _tempatKegiatanSwitchController == true
+                                                  ? _tanggalKeberangkatanController.text : "",
+                                              tanggalKepulangan: _tempatKegiatanSwitchController == true
+                                                  ?  _tanggalKepulanganController.text : "",
+                                              kategoriJumlahPartisipan: _jumlahParsitipanSwitchController == true ? "Orang" : "Dll",
+                                              jumlahPartisipan: _jumlahParsitipanController.text,
+                                              targetKegiatan: _targetKegiatanController.text,
+                                              kategoriTotalPendanaan: _totalPendanaanSwitchController == true ? "Dll" : "Orang",
+                                              totalPendanaan: _totalPendanaanController.text,
+                                              tandaTanganOrmawa: _ormawaSignatureController,
+                                              updatedAt: currentDate,
+                                              updatedBy: user?.email ?? "unknown",
+                                            ),
                                           ),
-                                        ),
-                                      );
+                                        );
+
+                                        context.read<UsulanKegiatanBloc>().add(
+                                          ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
+                                      });
                                     },
                                     text: 'Berikutnya',
                                   ),
