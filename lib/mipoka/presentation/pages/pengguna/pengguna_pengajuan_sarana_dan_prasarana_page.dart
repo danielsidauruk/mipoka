@@ -1,10 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_check_box.dart';
@@ -39,14 +39,13 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
     super.initState();
   }
 
-  bool isChecked = false;
-  final TextEditingController _namaOrmawaController = TextEditingController();
   final TextEditingController _tanggalMulaiController = TextEditingController();
   final TextEditingController _tanggalSelesaiController = TextEditingController();
   final TextEditingController _gedungController = TextEditingController();
   final TextEditingController _ruangController = TextEditingController();
   final TextEditingController _waktuMulaiController = TextEditingController();
   final TextEditingController _waktuSelesaiController = TextEditingController();
+  int? _idOrmawaController;
 
   final TextEditingController _proyektorLcdController = TextEditingController();
   final TextEditingController _laptopController = TextEditingController();
@@ -60,6 +59,11 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
 
   @override
   Widget build(BuildContext context) {
+
+    if (kDebugMode) {
+      print("page reloaded");
+    }
+
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomPenggunaDrawerWidget(),
@@ -70,7 +74,9 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
           } else if (state is SessionHasData) {
             final session = state.session;
 
-            _namaOrmawaController.text = "OrmawaA";
+            context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
+
+            _idOrmawaController  = session.idOrmawa;
             _tanggalMulaiController.text = session.tanggalMulai;
             _tanggalSelesaiController.text = session.tanggalSelesai;
             _gedungController.text = session.gedung;
@@ -101,9 +107,35 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
 
                       children: [
                         buildTitle('Nama Ormawa'),
-                        MipokaCustomDropdown(
-                          items: listNamaOrmawa,
-                          onValueChanged: (value) {},
+                        BlocBuilder<OrmawaBloc, OrmawaState>(
+                          builder: (context, state) {
+                            if (state is OrmawaLoading) {
+                              return const Text("Loading ....");
+                            } else if (state is AllOrmawaHasData) {
+
+                              List<String> ormawaList = state.ormawaList.map(
+                                      (ormawa) => ormawa.namaOrmawa).toList();
+
+                              List<int> idOrmawaList = state.ormawaList.map(
+                                      (ormawa) => ormawa.idOrmawa).toList();
+
+                              _idOrmawaController = idOrmawaList[0];
+
+                              return MipokaCustomDropdown(
+                                  items: ormawaList,
+                                  onValueChanged: (value) {
+                                    int index = ormawaList.indexOf(value!);
+                                    int idOrmawa = idOrmawaList[index];
+
+                                    _idOrmawaController = idOrmawa;
+                                  }
+                              );
+                            } else if (state is OrmawaError) {
+                              return Text(state.message);
+                            } else {
+                              return const Text("OrmawaBloc hasn't been triggered yet.");
+                            }
+                          },
                         ),
 
                         const CustomFieldSpacer(),
@@ -209,12 +241,10 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                             const SizedBox(width: 8.0),
                             CustomMipokaButton(
                               onTap: () {
-                                User? user = FirebaseAuth.instance.currentUser;
-                                String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
                                 context.read<SessionBloc>().add(
                                   UpdateSessionEvent(
                                     session: session.copyWith(
-                                      // idOrmawa: _namaOrmawaController,
+                                      idOrmawa: _idOrmawaController,
                                       tanggalMulai: _tanggalMulaiController.text,
                                       tanggalSelesai: _tanggalSelesaiController.text,
                                       gedung: _gedungController.text,

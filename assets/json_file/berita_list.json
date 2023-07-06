@@ -3,7 +3,7 @@
     "id_berita": 123,
     "judul": "Dokter Mengungkapkan Fakta Mengerikan: Makan Brokoli Dapat Membuat Anda Abadi",
     "penulis": "John Doe",
-    "gambar": "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/My%20reaction%20to%20basically%20everything.jpeg?alt=media&token=f4436565-ef70-4b7b-b291-2954829d2990",
+    "gambar": "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/vlcsnap-2023-02-04-20h08m24s955.png?alt=media&token=87e7d7f0-5d9e-464f-b938-f5b8880c7d78",
     "teks": "Jika Anda ingin mengubah state dalam bloc saat terjadi sebuah aksi, seperti saat onTap atau event lainnya, lebih baik menambahkan add di dalamnya.\n\nPemanggilan metode add pada bloc akan mengirimkan event ke bloc, yang akan memicu perubahan state dan memperbarui widget yang terikat dengan BlocBuilder.\n\nMisalnya, jika Anda memiliki sebuah tombol dengan aksi onTap, dan Anda ingin memperbarui state bloc ketika tombol tersebut ditekan, disarankan untuk menambahkan add di dalam fungsi onTap tersebut. Dengan demikian, setiap kali tombol ditekan, event akan dikirim ke bloc melalui add, dan state akan diperbarui sesuai dengan event tersebut.\n\nJadi, intinya, tambahkan add di dalam event yang memicu perubahan state bloc, seperti saat aksi pengguna dilakukan, seperti tombol ditekan, form disubmit, atau event lainnya.",
     "tgl_terbit": "26-06-2023",
     "created_at": "2023-06-26",

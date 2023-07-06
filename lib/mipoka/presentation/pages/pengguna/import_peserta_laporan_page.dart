@@ -8,6 +8,7 @@ import 'package:mipoka/domain/utils/download_file.dart';
 import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/peserta_kegiatan_laporan_bloc/peserta_kegiatan_laporan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -75,7 +76,10 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                       CustomMipokaButton(
                         onTap: () {
                           // downloadFile(pesertaKegiatanTemplate);
-                          downloadFileWithDio(pesertaKegiatanTemplate);
+                          downloadFileWithDio(
+                            url: pesertaKegiatanTemplate,
+                            fileName: "pesertaKegiatan.xlsx"
+                          );
                         },
                         text: 'Unduh Templat',
                       ),
@@ -128,7 +132,7 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
     );
   }
 
-  Future<void> downloadFileWithDio(String url) async {
+  Future<void> downloadFileWithDio({required String url, required String fileName}) async {
     try {
       Map<Permission, PermissionStatus> statuses = await [
         Permission.storage,
@@ -138,7 +142,7 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
       if (statuses[Permission.storage]!.isGranted) {
         var dir = await DownloadsPathProvider.downloadsDirectory;
         if (dir != null) {
-          String fileName = url.split('/').last;
+          // String fileName = url.split('/').last;
           String savePath = "${dir.path}/$fileName";
           print(savePath);
           // Output: /storage/emulated/0/Download/file.pdf
@@ -148,18 +152,20 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
             savePath,
             onReceiveProgress: (received, total) {
               if (total != -1) {
+                // mipokaCustomToast("${(received / total * 100).toStringAsFixed(0)}%");
                 print("${(received / total * 100).toStringAsFixed(0)}%");
                 // You can build a progress bar feature too.
               }
             },
           );
-          print("File is saved to the download folder.");
+          mipokaCustomToast("File is saved to the download folder.");
         }
       } else {
-        print("No permission to read and write.");
+        mipokaCustomToast("No permission to read and write.");
       }
     } catch (e) {
-      print('Error while downloading file: $e');
+      mipokaCustomToast("Error while downloading file: $e");
+      print(e);
     }
   }
 }

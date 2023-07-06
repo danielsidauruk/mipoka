@@ -19,6 +19,12 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
   late bool isChecked;
 
   @override
+  void initState() {
+    isChecked = false;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
