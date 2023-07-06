@@ -1,11 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
+import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/mipoka/domain/entities/session.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
@@ -254,14 +252,15 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                     ),
                                   ),
                                   DataCell(
-                                    InkWell(
-                                      onTap: () => {},
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Image.asset(
-                                          'assets/icons/word.png',
-                                          width: 24,
-                                        ),
+                                    onTap: () => downloadFileWithDio(
+                                      url: "session.fileSession",
+                                      fileName: "session_${session.idSession}",
+                                    ),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Image.asset(
+                                        'assets/icons/word.png',
+                                        width: 24,
                                       ),
                                     ),
                                   ),
@@ -295,10 +294,6 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                         children: [
                           InkWell(
                             onTap: () {
-                              int newId = DateTime.now().microsecondsSinceEpoch;
-                              User? user = FirebaseAuth.instance.currentUser;
-                              String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
                               context.read<SessionBloc>().add(
                                 CreateSessionEvent(
                                   session: Session(

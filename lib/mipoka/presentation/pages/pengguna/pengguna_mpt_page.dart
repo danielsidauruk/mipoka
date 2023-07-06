@@ -25,6 +25,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
   @override
   void initState() {
     context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
+    context.read<RiwayatKegiatanMptBloc>().add(ReadAllRiwayatKegiatanMptEvent());
     super.initState();
   }
 
@@ -107,8 +108,8 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                               rows: List<DataRow>.generate(riwayatKegiatanMptList.length, (int index) {
                                 final riwayatMpt = riwayatKegiatanMptList[index];
 
-                                context.read<KegiatanPerPeriodeMptBloc>().add(
-                                    ReadKegiatanPerPeriodeMptEvent(idKegiatanPerPeriodeMpt: riwayatMpt.idKegiatanPerPeriodeMpt));
+                                // context.read<KegiatanPerPeriodeMptBloc>().add(
+                                //     ReadKegiatanPerPeriodeMptEvent(idKegiatanPerPeriodeMpt: riwayatMpt.idKegiatanPerPeriodeMpt));
                                 context.read<NamaKegiatanMptBloc>().add(
                                   ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: riwayatMpt.idKegiatanPerPeriodeMpt));
 
@@ -373,18 +374,16 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                       ),
                                     ),
                                     DataCell(
+                                      onTap: () => Navigator.pushNamed(
+                                        context,
+                                        penggunaMPTUnggahBuktiPageRoute,
+                                        arguments: kegiatanPerPeriode.idKegiatanPerPeriodeMpt,
+                                      ),
                                       Align(
                                         alignment: Alignment.center,
-                                        child: InkWell(
-                                          onTap: () => Navigator.pushNamed(
-                                            context,
-                                            penggunaMPTUnggahBuktiPageRoute,
-                                            arguments: kegiatanPerPeriode.idKegiatanPerPeriodeMpt,
-                                          ),
-                                          child: Image.asset(
-                                            'assets/icons/upload.png',
-                                            width: 24,
-                                          ),
+                                        child: Image.asset(
+                                          'assets/icons/upload.png',
+                                          width: 24,
                                         ),
                                       ),
                                     ),
