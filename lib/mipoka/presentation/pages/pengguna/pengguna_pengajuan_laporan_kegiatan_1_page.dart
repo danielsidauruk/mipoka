@@ -132,28 +132,30 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
                                 CustomMipokaButton(
                                   onTap: () {
-                                    context.read<LaporanBloc>().add(
-                                      UpdateLaporanEvent(
-                                        laporan: laporan.copyWith(
-                                          idUsulan: usulan[selectedIndex ?? 0].idUsulan,
-                                          idOrmawa: usulan[selectedIndex ?? 0].idOrmawa,
-                                          pencapaian: _pencapaianController.document.toPlainText(),
-                                          updatedAt: currentDate,
-                                          updatedBy: user?.email ?? "unknown",
+                                    Navigator.pushNamed(
+                                      context,
+                                      penggunaPengajuanLaporanKegiatan2PageRoute,
+                                      arguments: widget.idLaporan,
+                                    );
+
+                                    Future.microtask(() =>
+                                        context.read<LaporanBloc>().add(
+                                          UpdateLaporanEvent(
+                                            laporan: laporan.copyWith(
+                                              idUsulan: usulan[selectedIndex ?? 0].idUsulan,
+                                              idOrmawa: usulan[selectedIndex ?? 0].idOrmawa,
+                                              pencapaian: _pencapaianController.document.toPlainText(),
+                                              updatedAt: currentDate,
+                                              updatedBy: user?.email ?? "unknown",
+                                            ),
+                                          ),
                                         ),
-                                      ),
                                     );
                                     // context.read<LaporanBloc>().add(
                                     //     ReadLaporanEvent(idLaporan: widget.idLaporan));
                                     //
                                     // context.read<UsulanKegiatanBloc>().add(
                                     //     const ReadAllUsulanKegiatanEvent());
-
-                                    Navigator.pushNamed(
-                                      context,
-                                      penggunaPengajuanLaporanKegiatan2PageRoute,
-                                      arguments: widget.idLaporan,
-                                    );
                                   },
                                   text: 'Berikutnya',
                                 ),

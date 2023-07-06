@@ -1,11 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/domain/utils/to_snake_case.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
@@ -183,14 +182,15 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                     ),
                                   ),
                                   DataCell(
-                                    InkWell(
-                                      onTap: () => {},
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Image.asset(
-                                          'assets/icons/word.png',
-                                          width: 24,
-                                        ),
+                                    onTap: () => downloadFileWithDio(
+                                      url: laporan.fileLaporanKegiatan,
+                                      fileName: "laporan_kegiatan_${toSnakeCase(laporan.idLaporan.toString())}.docx",
+                                    ),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Image.asset(
+                                        'assets/icons/word.png',
+                                        width: 24,
                                       ),
                                     ),
                                   ),
@@ -226,13 +226,11 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                       const CustomFieldSpacer(),
                       CustomMipokaButton(
                         onTap: () {
-                          int newId = DateTime.now().microsecondsSinceEpoch;
-                          User? user = FirebaseAuth.instance.currentUser;
-                          String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
-                          if (kDebugMode) {
-                            print (currentDate);
-                          }
+                          Navigator.pushNamed(
+                            context,
+                            penggunaPengajuanLaporanKegiatanPage1Route,
+                            arguments: newId,
+                          );
 
                           context.read<LaporanBloc>().add(
                             CreateLaporanEvent(
@@ -242,8 +240,8 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                 idUser: user?.uid ?? "unknown",
                                 idUsulan: 0,
                                 pencapaian: "",
-                                pesertaKegiatanLaporan: [],
-                                rincianBiayaKegiatan: [],
+                                pesertaKegiatanLaporan: const [],
+                                rincianBiayaKegiatan: const [],
                                 totalUsulan: 0,
                                 totalRealisasi: 0,
                                 totalSelisih: 0,
@@ -251,7 +249,7 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                 hasilKegiatan: "",
                                 penutup: "",
                                 fotoPostinganKegiatan: "",
-                                fotoDokumentasiKegiatan: [],
+                                fotoDokumentasiKegiatan: const [],
                                 fotoTabulasiHasil: "",
                                 fotoFakturPembayaran: "",
                                 fileLaporanKegiatan: "",
@@ -263,12 +261,6 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                 updatedBy: user?.email ?? "unknown",
                               ),
                             ),
-                          );
-
-                          Navigator.pushNamed(
-                            context,
-                            penggunaPengajuanLaporanKegiatanPage1Route,
-                            arguments: newId,
                           );
                         },
                         text: 'Laporkan Kegiatan',

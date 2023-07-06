@@ -32,8 +32,8 @@ Future<void> downloadFileWithDio({
             savePath,
             onReceiveProgress: (received, total) {
               if (total != -1) {
-                print("${(received / total * 100).toStringAsFixed(0)}%");
-                // return mipokaCustomToast("${(received / total * 100).toStringAsFixed(0)}%");
+                // print("${(received / total * 100).toStringAsFixed(0)}%");
+                return mipokaCustomToast("${(received / total * 100).toStringAsFixed(0)}%");
                 // You can build a progress bar feature too.
               }
             },
@@ -45,6 +45,7 @@ Future<void> downloadFileWithDio({
       }
     }
   } catch (e) {
-    mipokaCustomToast(e.toString());
+    print(e);
+    mipokaCustomToast("failed to download file.");
   }
 }

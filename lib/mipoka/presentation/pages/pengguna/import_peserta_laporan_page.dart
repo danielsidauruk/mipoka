@@ -37,7 +37,7 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
   String? _excelFileController;
   FilePickerResult? result;
 
-  void processUploadedFile(PlatformFile file) async {
+  void _processUploadedFile(PlatformFile file) async {
     Uint8List? bytes;
 
     if (kIsWeb) {
@@ -163,7 +163,7 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                           final result = this.result;
                           if (result != null) {
                             PlatformFile file = result.files.first;
-                            processUploadedFile(file);
+                            _processUploadedFile(file);
 
                             mipokaCustomToast("Data telah di update.");
                             Navigator.pop(context);
