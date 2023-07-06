@@ -20,7 +20,6 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dart';
-import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
@@ -371,74 +370,83 @@ void showPop(BuildContext context, UsulanKegiatan usulanKegiatan) {
     context: context,
     builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Tanda Tangan Pembina"),
+          contentPadding: const EdgeInsets.all(8.0),
           content: SingleChildScrollView(
-            child: Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                border: Border.all(color: Colors.white),
-              ),
-              child: Column(
-                children: [
-                  const CustomFieldSpacer(height: 4.0),
-                  SfSignaturePad(
-                    key: signatureGlobalKey,
-                    backgroundColor: Colors.white,
-                    strokeColor: Colors.black,
-                    minimumStrokeWidth: 1.0,
-                    maximumStrokeWidth: 4.0,
+            child: Column(
+              children: [
+                const Text("Tanda Tangan Pembina"),
+
+                const CustomFieldSpacer(),
+
+                Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    border: Border.all(color: Colors.white),
                   ),
-                  const CustomFieldSpacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  child: Column(
                     children: [
-                      InkWell(
-                        onTap: () async {
-                          final file = await saveSignature();
-                          signatureUrl = await uploadFileFromSignature(
-                            file,
-                            "signature_${user?.uid ?? "unknown"}_$newId",
-                          );
-                          Future.microtask(() {
-                            context.read<UsulanKegiatanBloc>().add(
-                              UpdateUsulanKegiatanEvent(
-                                usulanKegiatan: usulanKegiatan.copyWith(
-                                  tandaTanganPembina: signatureUrl,
-                                  validasiPembina: "diterima",
-                                ),
-                              ),
-                            );
-                            mipokaCustomToast("Usulan Kegiatan telah diterima");
-                            Navigator.pop(context);
-                          });
-                        },
-                        child: const Text(
-                          'Simpan',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
+                      SfSignaturePad(
+                        key: signatureGlobalKey,
+                        backgroundColor: Colors.white,
+                        strokeColor: Colors.black,
+                        minimumStrokeWidth: 1.0,
+                        maximumStrokeWidth: 4.0,
                       ),
-                      InkWell(
-                        onTap: () {
-                          signatureUrl = "";
-                          Navigator.pop(context);
-                        },
-                        child: const Text(
-                          'Batal',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
+
+                      const CustomFieldSpacer(),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          InkWell(
+                            onTap: () async {
+                              final file = await saveSignature();
+                              signatureUrl = await uploadFileFromSignature(
+                                file,
+                                "signature_${user?.uid ?? "unknown"}_$newId",
+                              );
+                              Future.microtask(() {
+                                context.read<UsulanKegiatanBloc>().add(
+                                  UpdateUsulanKegiatanEvent(
+                                    usulanKegiatan: usulanKegiatan.copyWith(
+                                      tandaTanganPembina: signatureUrl,
+                                      validasiPembina: "diterima",
+                                    ),
+                                  ),
+                                );
+                                mipokaCustomToast("Usulan Kegiatan telah diterima");
+                                Navigator.pop(context);
+                              });
+                            },
+                            child: const Text(
+                              'Simpan',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
                           ),
-                        ),
+                          InkWell(
+                            onTap: () {
+                              signatureUrl = "";
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              'Batal',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );

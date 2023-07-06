@@ -290,7 +290,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                               CustomCommentWidget(
                                 title: 'Perlengkapan dan Peralatan',
                                 mainText:
-                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                                usulanKegiatan.perlengkapanDanPeralatan,
                                 controller: _perlengkapanDanPeralatanController,
                               ),
 
@@ -299,7 +299,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                               CustomCommentWidget(
                                 title: 'Penutup',
                                 mainText:
-                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie vestibulum fringilla. Proin scelerisque mattis rhoncus.',
+                                usulanKegiatan.penutup,
                                 controller: _penutupController,
                               ),
 
@@ -414,7 +414,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                                       Navigator.pushNamed(
                                           context, pemeriksaDaftarUsulanKegiatanPageRoute);
                                     },
-                                    text: 'Kirim',
+                                    text: 'Kirim Revisi',
                                   ),
                                 ],
                               ),
