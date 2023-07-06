@@ -81,10 +81,11 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                       CustomMipokaButton(
                         onTap: () async {
                           // downloadFile(pesertaKegiatanTemplate);
-                          downloadFileWithDio(
-                            url: pesertaKegiatanTemplate,
-                            fileName: "pesertaKegiatan.xlsx"
-                          );
+                          // downloadFileWithDio(
+                          //   url: pesertaKegiatanTemplate,
+                          //   fileName: "pesertaKegiatan.xlsx"
+                          // );
+                          html.window.open(pesertaKegiatanTemplate, "_blank");
                           // getDeviceInfo();
                           // DownloadService downloadService =
                           // kIsWeb ? WebDownloadService() : MobileDownloadService();
