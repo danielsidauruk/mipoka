@@ -38,9 +38,9 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
   bool isChecked = false;
 
 
-  late int idPeriodeKegiatanMpt;
-  late int idJenisKegiatan;
-  late int idNamaKegiatan;
+  int? idPeriodeKegiatanMpt;
+  int? idJenisKegiatan;
+  int? idNamaKegiatan;
 
   @override
   void initState() {

@@ -4,13 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dart';
 
 class PenggunaPrestasiPage extends StatefulWidget {
@@ -21,8 +21,17 @@ class PenggunaPrestasiPage extends StatefulWidget {
 }
 
 class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
+
+  int? _idOrmawa;
+  String? _tahun;
+  String? _tingkat;
+
   @override
   void initState() {
+    _idOrmawa = 0;
+    _tahun = "semua";
+    _tingkat = "semua";
+
     context.read<PrestasiBloc>().add(ReadAllPrestasiEvent());
     super.initState();
   }
@@ -31,16 +40,12 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
   void dispose() {
     context.read<PrestasiBloc>().close();
     context.read<MipokaUserBloc>().close();
+    context.read<OrmawaBloc>().close();
     super.dispose();
   }
 
-  String ormawa = "semua";
-  String tahun = "semua";
-  String tingkat = "semua";
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
 
@@ -64,10 +69,34 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                       children: [
 
                         buildTitle('Nama Ormawa'),
-                        MipokaCustomDropdown(
-                          items: listNamaOrmawa2,
-                          onValueChanged: (value) {
-                            ormawa = value ?? ormawa;
+                        BlocBuilder<OrmawaBloc, OrmawaState>(
+                          builder: (context, state) {
+                            if (state is OrmawaLoading) {
+                              return const Text("Loading ....");
+                            } else if (state is AllOrmawaHasData) {
+
+                              List<String> ormawaList = state.ormawaList.map(
+                                      (ormawa) => ormawa.namaOrmawa).toList();
+                              ormawaList.insert(0, "Semua");
+
+                              List<int> idOrmawaList = state.ormawaList.map(
+                                      (ormawa) => ormawa.idOrmawa).toList();
+                              idOrmawaList.insert(0, 0);
+
+                              return MipokaCustomDropdown(
+                                  items: ormawaList,
+                                  onValueChanged: (value) {
+                                    int index = ormawaList.indexOf(value!);
+                                    int idOrmawa = idOrmawaList[index];
+
+                                    _idOrmawa = idOrmawa;
+                                  }
+                              );
+                            } else if (state is OrmawaError) {
+                              return Text(state.message);
+                            } else {
+                              return const Text("OrmawaBloc hasn't been triggered yet.");
+                            }
                           },
                         ),
 
@@ -77,7 +106,7 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                         MipokaCustomDropdown(
                           items: years2,
                           onValueChanged: (value) {
-                            tahun = value ?? tahun;
+                            _tahun = value ?? _tahun;
                           },
                         ),
 
@@ -87,7 +116,7 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                         MipokaCustomDropdown(
                           items: listTingkat2,
                           onValueChanged: (value) {
-                            tingkat = value ?? tingkat;
+                            _tingkat = value ?? _tingkat;
                           },
                         ),
 
@@ -96,7 +125,7 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                         InkWell(
                           onTap: () {
                             if (kDebugMode) {
-                              print("$ormawa/$tahun/$tingkat");
+                              print("$_idOrmawa/$_tahun/$_tingkat");
                             }
                           },
                           child: Container(

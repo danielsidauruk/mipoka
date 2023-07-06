@@ -22,8 +22,7 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<OrmawaBloc>(context, listen: false)
-        .add(ReadOrmawaEvent(idOrmawa: 1));
+    context.read<OrmawaBloc>().add(const ReadOrmawaEvent(idOrmawa: 1));
   }
 
   @override
