@@ -15,7 +15,7 @@ class PesertaKegiatanLaporanBloc extends Bloc<PesertaKegiatanLaporanEvent, Peser
       emit(PesertaKegiatanLaporanLoading());
 
       final result = await pesertaKegiatanLaporanUseCase.createPesertaKegiatanLaporan(
-        idLaporan: event.idUsulanKegiatan,
+        idLaporan: event.idLaporanKegiatan,
         pesertaKegiatanLaporan: event.pesertaKegiatanLaporan,
       );
 

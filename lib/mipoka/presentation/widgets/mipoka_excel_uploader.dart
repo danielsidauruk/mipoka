@@ -1,29 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 
-class CustomFilePickerButton extends StatefulWidget {
+class MipokaExcelUploader extends StatefulWidget {
   final VoidCallback onTap;
-  final VoidCallback onDelete;
   final String text;
-  final String asset;
 
-  const CustomFilePickerButton({
+  const MipokaExcelUploader({
     super.key,
     required this.onTap,
-    required this.onDelete,
     required this.text,
-    this.asset = "assets/icons/attach.png",
   });
 
   @override
-  State<CustomFilePickerButton> createState() => _CustomFilePickerButtonState();
+  State<MipokaExcelUploader> createState() => _MipokaExcelUploaderState();
 }
 
-class _CustomFilePickerButtonState extends State<CustomFilePickerButton> {
+class _MipokaExcelUploaderState extends State<MipokaExcelUploader> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: widget.text == "" ? widget.onTap : null,
+      onTap: widget.onTap,
       child: Container(
         width: double.infinity,
         alignment: Alignment.center,
@@ -45,22 +40,10 @@ class _CustomFilePickerButtonState extends State<CustomFilePickerButton> {
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
-            if (widget.text == "")
-              Image.asset(
-                widget.asset,
-                width: 24,
-              )
-            else
-              InkWell(
-                onTap: () {
-                  deleteFileFromFirebase(widget.text);
-                  widget.onDelete();
-                },
-                child: Image.asset(
-                  "assets/icons/delete.png",
-                  width: 24,
-                ),
-              ),
+            Image.asset(
+              "assets/icons/excel.png",
+              width: 24,
+            )
           ],
         ),
       ),

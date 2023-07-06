@@ -16,11 +16,11 @@ class ReadPesertaKegiatanLaporanEvent extends PesertaKegiatanLaporanEvent {
 }
 
 class CreatePesertaKegiatanLaporanEvent extends PesertaKegiatanLaporanEvent {
-  final int idUsulanKegiatan;
+  final int idLaporanKegiatan;
   final PesertaKegiatanLaporan pesertaKegiatanLaporan;
 
   const CreatePesertaKegiatanLaporanEvent({
-    required this.idUsulanKegiatan,
+    required this.idLaporanKegiatan,
     required this.pesertaKegiatanLaporan,
   });
 
