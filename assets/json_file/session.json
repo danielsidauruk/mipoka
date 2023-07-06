@@ -19,6 +19,7 @@
   "spidol": 1,
   "lain_lain": "Whiteboard markers, remote presenter",
   "status": "Pending",
+  "file_session" : "string",
   "keterangan": "Usulan kegiatan rapat koordinasi antar ormawa",
   "updated_at": "2023-06-26T10:30:00",
   "created_at": "2023-06-25T12:00:00",

@@ -21,6 +21,7 @@ class Session extends Equatable{
   final int spidol;
   final String lainLain;
   final String status;
+  final String fileSession;
   final String keterangan;
   final String updatedAt;
   final String createdAt;
@@ -48,6 +49,7 @@ class Session extends Equatable{
     required this.spidol,
     required this.lainLain,
     required this.status,
+    required this.fileSession,
     required this.keterangan,
     required this.updatedAt,
     required this.createdAt,
@@ -76,6 +78,7 @@ class Session extends Equatable{
     int? spidol,
     String? lainLain,
     String? status,
+    String? fileSession,
     String? keterangan,
     String? updatedAt,
     String? createdAt,
@@ -103,6 +106,7 @@ class Session extends Equatable{
         spidol: spidol ?? this.spidol,
         lainLain: lainLain ?? this.lainLain,
         status: status ?? this.status,
+        fileSession: fileSession ?? this.fileSession,
         keterangan: keterangan ?? this.keterangan,
         updatedAt: updatedAt ?? this.updatedAt,
         createdAt: createdAt ?? this.createdAt,
@@ -132,6 +136,7 @@ class Session extends Equatable{
     spidol,
     lainLain,
     status,
+    fileSession,
     keterangan,
     updatedAt,
     createdAt,
