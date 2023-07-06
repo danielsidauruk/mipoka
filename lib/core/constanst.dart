@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 
@@ -37,3 +39,4 @@ const listProdi = ['semua', 'Teknik Informatika', 'Manajemen', 'Akuntansi', 'Sis
 int newId = DateTime.now().microsecondsSinceEpoch;
 User? user = FirebaseAuth.instance.currentUser;
 String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+int randomId = Random().nextInt(9999999);

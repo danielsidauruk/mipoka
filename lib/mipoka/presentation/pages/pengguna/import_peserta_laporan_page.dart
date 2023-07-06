@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/domain/utils/upload_and_read_excel.dart';
 import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/peserta_kegiatan_laporan_bloc/peserta_kegiatan_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -11,6 +12,9 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'dart:io';
+import 'package:excel/excel.dart';
+import 'package:file_picker/file_picker.dart';
 
 class ImportPesertaLaporanPage extends StatefulWidget {
   const ImportPesertaLaporanPage({
@@ -60,6 +64,38 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                   //     // 1
                   //   ),
                   // ),
+                  TextButton(
+                      onPressed: () async {
+                        FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+                        if (result != null) {
+                          PlatformFile file = result.files.first;
+
+                          List<int> bytes = await File(file.path!).readAsBytes();
+                          Excel excel = Excel.decodeBytes(bytes);
+
+                          final sheet = excel.tables[excel.tables.keys.first];
+
+                          var nimList = [];
+                          var peranList = [];
+
+                          for (var row in sheet!.rows) {
+                            var nim = row[0]?.value;
+                            var peran = row[1]?.value;
+
+                            if (nim != null && peran != null) {
+                              nimList.add(nim);
+                              peranList.add(peran);
+                            }
+                          }
+
+                          for (var i = 1; i < nimList.length; i++) {
+                            print('idPeserta: ${randomId + i}, NIM: ${nimList[i]}, Peran: ${peranList[i]}');
+                          }
+                        }
+                      },
+                      child: const Text("upload"),
+                  ),
 
                   const CustomFieldSpacer(),
 
@@ -96,15 +132,15 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                           context.read<PesertaKegiatanLaporanBloc>().add(
                             CreatePesertaKegiatanLaporanEvent(
                               idUsulanKegiatan: widget.idLaporan,
-                              pesertaKegiatanLaporan: const PesertaKegiatanLaporan(
-                                idPesertaKegiatanLaporan: 0,
+                              pesertaKegiatanLaporan: PesertaKegiatanLaporan(
+                                idPesertaKegiatanLaporan: int.parse("${widget.idLaporan}$newId"),
                                 nim: "",
                                 namaLengkap: "",
                                 peran: "",
-                                createdAt: "",
-                                createdBy: "",
-                                updatedAt: "",
-                                updatedBy: "",
+                                createdAt: currentDate,
+                                createdBy: user?.email ?? "unknown",
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "unknown",
                               ),
                             ),
                           );
