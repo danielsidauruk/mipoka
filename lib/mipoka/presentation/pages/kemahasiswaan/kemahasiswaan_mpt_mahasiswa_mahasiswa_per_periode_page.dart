@@ -78,14 +78,10 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
 
                         CustomAddButton(
                           buttonText: 'Tambah',
-                          onPressed: () => Navigator.pushNamed(context, kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute),
-                        ),
-
-                        const CustomFieldSpacer(),
-
-                        CustomFilterButton(
-                          text: 'Export',
-                          onPressed: (){},
+                          onPressed: () => Navigator.pushNamed(
+                            context,
+                            kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute,
+                          ),
                         ),
 
                         const CustomFieldSpacer(),

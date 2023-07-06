@@ -1,18 +1,27 @@
+import 'dart:io';
+import 'dart:async';
+import 'package:excel/excel.dart' hide Border;
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_dropdown_bloc/periode_mpt_drop_down_bloc.dart';
+import 'package:flutter/foundation.dart';
+import 'package:mipoka/core/constanst.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/mipoka/domain/entities/mhs_per_periode_mpt.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mhs_per_periode_mpt_use_cases/mhs_per_periode_mpt_use_cases_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_filter_button.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_excel_uploader.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_dropdown_bloc/periode_mpt_drop_down_bloc.dart';
 
 class KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPage extends StatefulWidget {
   const KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPage({super.key});
@@ -24,11 +33,14 @@ class KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPage extends StatefulWid
 class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
     extends State<KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPage> {
   final TextEditingController _poinKegiatanController = TextEditingController();
-  late int idPeriodeKegiatanMpt;
+  int? _idPeriodeKegiatanMpt;
+
+  final StreamController<String?> _excelFileStream = StreamController<String?>();
+  String? _excelFileController;
+  FilePickerResult? result;
 
   @override
   void initState() {
-    idPeriodeKegiatanMpt = 0;
     context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
     super.initState();
   }
@@ -47,7 +59,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
 
-              const CustomMobileTitle(text: 'Kemahasiswaan - MPT Mahasiswa - Impor Mahasiswa per Periode'),
+              const CustomMobileTitle(text: 'Kemahasiswaan - MPT Mahasiswa - Import Mahasiswa per Periode'),
 
               const CustomFieldSpacer(),
 
@@ -65,21 +77,22 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                                 (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
                             "${periodeMptList.tahunPeriodeMpt} (ulang)" :
                             periodeMptList.tahunPeriodeMpt).toList();
-                        tahunPeriodeMptList.insert(0, "semua");
 
                         List<int> idTahunPeriodeList = state.periodeMptList.map(
                                 (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
-                        idTahunPeriodeList.insert(0, 0);
+
+                        _idPeriodeKegiatanMpt = idTahunPeriodeList[0];
 
                         return MipokaCustomDropdown(
                             items: tahunPeriodeMptList,
+                            initialItem: tahunPeriodeMptList[0],
                             onValueChanged: (value) {
                               int index = tahunPeriodeMptList.indexOf(value!);
                               int idPeriodeMpt = idTahunPeriodeList[index];
 
                               // print("$idPeriodeMpt, $value");
 
-                              idPeriodeKegiatanMpt = idPeriodeMpt;
+                              _idPeriodeKegiatanMpt = idPeriodeMpt;
                             }
                         );
                       } else if (state is PeriodeMptDropDownError) {
@@ -92,17 +105,75 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
                   const CustomFieldSpacer(),
 
+                  BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
+                    builder: (context, state) {
+                      if (state is MipokaUserByNimByNimHasData) {
+
+
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            state.mipokaUser.idUser,
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        );
+                      } else {
+                        return const Text("MipokaUserBlocByNimEvent hasn't been triggered yet");
+                      }
+                    },
+                  ),
+
+                  const CustomFieldSpacer(),
+
                   buildTitle('Impor File'),
-                  // CustomFilePickerButton(onTap: () {}),
 
+                  StreamBuilder<String?>(
+                    initialData: _excelFileController,
+                    stream: _excelFileStream.stream,
+                    builder: (context, snapshot) {
+                      String filePath = snapshot.data ?? "";
+                      return MipokaExcelUploader(
+                        onTap: () async {
+                          result = await FilePicker.platform.pickFiles();
+                          if (result != null){
+                            _excelFileStream.add(result?.files.first.name);
+                          }
+                        },
+                        text: filePath,
+                      );
+                    },
+                  ),
 
                   const CustomFieldSpacer(),
-                  
-                  CustomFilterButton(text: 'Export Template', onPressed: (){}),
+
+                  CustomFilterButton(
+                    text: 'Export Template',
+                    onPressed: () => downloadFileWithDio(
+                      url: mhsPerPeriodeTemplate,
+                      fileName: "mhs_per_periode_template.xlsx",
+                    ),
+                  ),
 
                   const CustomFieldSpacer(),
 
-                  CustomFilterButton(text: 'Proses', onPressed: (){}),
+                  CustomFilterButton(
+                    text: 'Proses',
+                    onPressed: (){
+                      // _processUploadedFile(file)
+                      final result = this.result;
+                      if (result != null) {
+                        // try {
+                        //   PlatformFile file = result.files.first;
+                        //   _processUploadedFile(file);
+                        //
+                        //   mipokaCustomToast("Data telah di update.");
+                        //   Navigator.pop(context);
+                        // }
+                      } else {
+                        mipokaCustomToast("Harap unggah file yang diperlukan.");
+                      }
+                    },
+                  ),
 
                   const CustomFieldSpacer(),
 
@@ -144,7 +215,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                           ],
 
                           rows: List<DataRow>.generate(1, (int index) {
-                            return DataRow(
+                            return const DataRow(
                               cells: [
                                 DataCell(
                                   Align(
