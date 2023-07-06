@@ -253,7 +253,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                   ),
                                   DataCell(
                                     onTap: () => downloadFileWithDio(
-                                      url: "session.fileSession",
+                                      url: session.fileSession,
                                       fileName: "session_${session.idSession}",
                                     ),
                                     Align(
@@ -318,6 +318,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                     lainLain: "",
                                     status: "",
                                     keterangan: "",
+                                    fileSession: "",
                                     updatedAt: currentDate,
                                     createdAt: currentDate,
                                     updatedBy: user?.email ?? "unknown",
