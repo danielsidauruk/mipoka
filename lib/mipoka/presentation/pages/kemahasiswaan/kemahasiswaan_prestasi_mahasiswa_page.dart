@@ -41,6 +41,13 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
   }
 
   @override
+  void dispose() {
+    context.read<PrestasiBloc>().close();
+    context.read<OrmawaBloc>().close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
@@ -50,10 +57,9 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
           if (state is PrestasiLoading) {
             return const Text('Loading');
           } else if (state is AllPrestasiHasData) {
+            final prestasiList = state.prestasiList;
 
             context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
-
-            final prestasiList = state.prestasiList;
 
             return SingleChildScrollView(
               child: Padding(
