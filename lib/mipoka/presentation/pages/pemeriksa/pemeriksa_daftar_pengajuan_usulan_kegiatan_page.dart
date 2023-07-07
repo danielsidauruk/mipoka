@@ -387,12 +387,16 @@ void showPop(BuildContext context, UsulanKegiatan usulanKegiatan) {
                   ),
                   child: Column(
                     children: [
-                      SfSignaturePad(
-                        key: signatureGlobalKey,
-                        backgroundColor: Colors.white,
-                        strokeColor: Colors.black,
-                        minimumStrokeWidth: 1.0,
-                        maximumStrokeWidth: 4.0,
+                      SizedBox(
+                        width: 300,
+                        height: 200,
+                        child: SfSignaturePad(
+                          key: signatureGlobalKey,
+                          backgroundColor: Colors.white,
+                          strokeColor: Colors.black,
+                          minimumStrokeWidth: 1.0,
+                          maximumStrokeWidth: 4.0,
+                        ),
                       ),
 
                       const CustomFieldSpacer(),

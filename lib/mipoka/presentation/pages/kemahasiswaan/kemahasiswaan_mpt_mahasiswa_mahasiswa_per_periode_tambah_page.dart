@@ -113,7 +113,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            state.mipokaUser.idUser,
+                            state.mipokaUser.nim,
                             style: const TextStyle(fontSize: 16),
                           ),
                         );

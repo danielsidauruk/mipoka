@@ -399,12 +399,16 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                               Column(
                                                 children: [
                                                   const CustomFieldSpacer(height: 4.0),
-                                                  SfSignaturePad(
-                                                    key: signatureGlobalKey,
-                                                    backgroundColor: Colors.white,
-                                                    strokeColor: Colors.black,
-                                                    minimumStrokeWidth: 1.0,
-                                                    maximumStrokeWidth: 4.0,
+                                                  SizedBox(
+                                                    width: 300,
+                                                    height: 200,
+                                                    child: SfSignaturePad(
+                                                      key: signatureGlobalKey,
+                                                      backgroundColor: Colors.white,
+                                                      strokeColor: Colors.black,
+                                                      minimumStrokeWidth: 1.0,
+                                                      maximumStrokeWidth: 4.0,
+                                                    ),
                                                   ),
                                                   const CustomFieldSpacer(),
                                                   Row(

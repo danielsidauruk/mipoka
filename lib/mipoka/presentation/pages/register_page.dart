@@ -126,7 +126,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         context.read<MipokaUserBloc>().add(
                           CreateMipokaUserEvent(
                             mipokaUser: MipokaUser(
-                              idUser: user!.uid,
+                              nim: user!.uid,
                               ormawa: const [],
                               email: _emailController.text,
                               namaLengkap: _namaLengkapController.text,

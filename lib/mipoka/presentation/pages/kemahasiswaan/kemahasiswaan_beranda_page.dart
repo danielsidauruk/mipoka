@@ -24,7 +24,7 @@ class KemahasiswaanBerandaPage extends StatefulWidget {
 class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
   @override
   void initState() {
-    context.read<BeritaBloc>().add(ReadAllBeritaEvent());
+    context.read<BeritaBloc>().add(const ReadAllBeritaEvent());
     super.initState();
   }
 
