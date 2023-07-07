@@ -29,7 +29,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController _kelasController = TextEditingController();
   final TextEditingController _prodiController = TextEditingController();
   User? user = FirebaseAuth.instance.currentUser;
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,41 +113,42 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   title: 'Daftar',
                   onTap:() async {
                     if(_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty &&
-                    _namaLengkapController.text.isNotEmpty && _nimController.text.isNotEmpty &&
-                    _noHpController.text.isNotEmpty && _semesterController.text.isNotEmpty &&
-                    _kelasController.text.isNotEmpty && _prodiController.text.isNotEmpty) {
+                        _namaLengkapController.text.isNotEmpty && _nimController.text.isNotEmpty &&
+                        _noHpController.text.isNotEmpty && _semesterController.text.isNotEmpty &&
+                        _kelasController.text.isNotEmpty && _prodiController.text.isNotEmpty) {
                       try {
                         UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
                           email: _emailController.text,
                           password: _passwordController.text,
                         );
-                        User? user = FirebaseAuth.instance.currentUser;
 
-                        context.read<MipokaUserBloc>().add(
-                          CreateMipokaUserEvent(
-                            mipokaUser: MipokaUser(
-                              nim: user!.uid,
-                              ormawa: const [],
-                              email: _emailController.text,
-                              namaLengkap: _namaLengkapController.text,
-                              nim: _nimController.text,
-                              noHp: _noHpController.text,
-                              image: "",
-                              pointMpt: 0,
-                              semester: int.parse(_semesterController.text),
-                              kelas: _kelasController.text,
-                              periodeMpt: "",
-                              statusMpt: "",
-                              prodi: _prodiController.text,
-                              createdAt: DateFormat('dd-MM-yyyy').format(DateTime.now()),
-                              updatedAt: DateFormat('dd-MM-yyyy').format(DateTime.now()),
-                              createdBy: _emailController.text,
-                              updatedBy: _emailController.text,
+                        Future.microtask(() {
+                          context.read<MipokaUserBloc>().add(
+                            CreateMipokaUserEvent(
+                              mipokaUser: MipokaUser(
+                                idUser: _nimController.text,
+                                ormawa: const [],
+                                email: _emailController.text,
+                                namaLengkap: _namaLengkapController.text,
+                                nim: _nimController.text,
+                                noHp: _noHpController.text,
+                                image: "",
+                                pointMpt: 0,
+                                semester: int.parse(_semesterController.text),
+                                kelas: _kelasController.text,
+                                periodeMpt: "",
+                                statusMpt: "",
+                                prodi: _prodiController.text,
+                                createdAt: DateFormat('dd-MM-yyyy').format(DateTime.now()),
+                                updatedAt: DateFormat('dd-MM-yyyy').format(DateTime.now()),
+                                createdBy: _emailController.text,
+                                updatedBy: _emailController.text,
+                              ),
                             ),
-                          ),
-                        );
-                        mipokaCustomToast('Your account has been registered.');
-                        Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                          );
+                          mipokaCustomToast('Your account has been registered.');
+                          Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                        });
                       } catch (e) {
                         final errorMessage = e.toString();
                         final int startIndex;

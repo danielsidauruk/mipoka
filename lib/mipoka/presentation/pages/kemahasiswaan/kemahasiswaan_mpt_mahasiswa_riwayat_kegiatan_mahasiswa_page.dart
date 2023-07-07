@@ -87,14 +87,10 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                       children: [
                         CustomAddButton(
                           buttonText: 'Tambah',
-                          onPressed: () => Navigator.pushNamed(context, kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute),
-                        ),
-
-                        const CustomFieldSpacer(),
-
-                        CustomFilterButton(
-                          text: 'Export',
-                          onPressed: (){},
+                          onPressed: () => Navigator.pushNamed(
+                            context,
+                            kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute,
+                          ),
                         ),
 
                         const CustomFieldSpacer(),

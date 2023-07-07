@@ -470,8 +470,9 @@ class MyApp extends StatelessWidget {
                   builder: (_) =>
                       const KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPage());
             case kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute:
+              // final idRiwayatKegiatan = settings.arguments as int;
               return MaterialPageRoute(
-                  builder: (_) => const KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage());
+                  builder: (_) => KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage());
             case mptMahasiswaRiwayatKegiatanMahasiswaEditPageRoute:
               final riwayatKegiatanMpt = settings.arguments as RiwayatKegiatanMpt;
               return MaterialPageRoute(

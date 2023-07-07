@@ -105,26 +105,6 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
                   const CustomFieldSpacer(),
 
-                  BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
-                    builder: (context, state) {
-                      if (state is MipokaUserByNimByNimHasData) {
-
-
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            state.mipokaUser.nim,
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                        );
-                      } else {
-                        return const Text("MipokaUserBlocByNimEvent hasn't been triggered yet");
-                      }
-                    },
-                  ),
-
-                  const CustomFieldSpacer(),
-
                   buildTitle('Impor File'),
 
                   StreamBuilder<String?>(

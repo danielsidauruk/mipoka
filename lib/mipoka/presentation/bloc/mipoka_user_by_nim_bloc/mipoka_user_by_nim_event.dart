@@ -9,7 +9,7 @@ abstract class MipokaUserByNimEvent extends Equatable {
 
 
 class ReadMipokaUserByNimEvent extends MipokaUserByNimEvent {
-  final String nim;
+  final String idUser;
 
-  const ReadMipokaUserByNimEvent({required this.nim});
+  const ReadMipokaUserByNimEvent({required this.idUser});
 }
