@@ -345,7 +345,7 @@ class MyApp extends StatelessWidget {
             case penggunaMPTUnggahBuktiPageRoute:
               final idKegiatanMpt = settings.arguments as int;
               return MaterialPageRoute(
-                  builder: (_) => PenggunaMPTUnggahBuktiPage(idKegiatanMpt: idKegiatanMpt));
+                  builder: (_) => PenggunaMPTUnggahBuktiPage(idKegiatanPerPeriodeMpt: idKegiatanMpt));
 
             case penggunaOrmawaUKMPageRoute:
               return MaterialPageRoute(
