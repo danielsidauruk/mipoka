@@ -10,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/mipoka/domain/entities/mhs_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mhs_per_periode_mpt_use_cases/mhs_per_periode_mpt_use_cases_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -43,6 +42,49 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
   void initState() {
     context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
     super.initState();
+  }
+
+  void _processMahasiswaPerPeriode(PlatformFile file) async {
+    Uint8List? bytes;
+
+    if (kIsWeb) {
+      bytes = file.bytes;
+    } else if (Platform.isAndroid) {
+      bytes = await File(file.path!).readAsBytes();
+    }
+
+    if (bytes != null) {
+      Excel excel = Excel.decodeBytes(bytes);
+      Sheet? sheet = excel.tables[excel.tables.keys.first];
+
+      List nimList = [];
+
+      for (var row in sheet!.rows) {
+        var nim = row[0]?.value;
+
+        if (nim != null) {
+          nimList.add(nim);
+        }
+      }
+
+      for (var i = 1; i < nimList.length; i++) {
+        Future.microtask(() => context.read<MhsPerPeriodeMptBloc>().add(
+          CreateMhsPerPeriodeMptEvent(
+            mhsPerPeriodeMpt: MhsPerPeriodeMpt(
+              idMhsPerPeriodeMpt: newId + i,
+              idUser: nimList[i].toString(),
+              idPeriodeMpt: _idPeriodeKegiatanMpt ?? 0,
+              idKegiatanPerPeriodeMpt: 0,
+              createdAt: currentDate,
+              createdBy: user?.email ?? "unknown",
+              updatedAt: currentDate,
+              updatedBy: user?.email ?? "unknown",
+            ),
+          ),
+        ),
+        );
+      }
+    }
   }
 
   @override
@@ -139,16 +181,13 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                   CustomFilterButton(
                     text: 'Proses',
                     onPressed: (){
-                      // _processUploadedFile(file)
                       final result = this.result;
                       if (result != null) {
-                        // try {
-                        //   PlatformFile file = result.files.first;
-                        //   _processUploadedFile(file);
-                        //
-                        //   mipokaCustomToast("Data telah di update.");
-                        //   Navigator.pop(context);
-                        // }
+                        PlatformFile file = result.files.first;
+                        _processMahasiswaPerPeriode(file);
+
+                        mipokaCustomToast("Data telah di update.");
+                        Navigator.pop(context);
                       } else {
                         mipokaCustomToast("Harap unggah file yang diperlukan.");
                       }

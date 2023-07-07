@@ -198,7 +198,7 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
 
                   CustomFilterButton(
                       text: 'Proses',
-                      onPressed: (){
+                      onPressed: () {
                         final result = this.result;
                         if (result != null) {
                           PlatformFile file = result.files.first;
