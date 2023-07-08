@@ -25,11 +25,19 @@ class KemahasiswaanBerandaPage extends StatefulWidget {
 class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
   @override
   void initState() {
+    _filter = "semua";
+
     context.read<BeritaBloc>().add(const ReadAllBeritaEvent());
     super.initState();
   }
 
-  String dropDownValue = listStatus[0];
+  @override
+  void dispose() {
+    context.read<BeritaBloc>().close();
+    super.dispose();
+  }
+
+  String? _filter;
 
   @override
   Widget build(BuildContext context) {
@@ -45,22 +53,6 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
 
             List<String> penulisList = beritaList.map((berita) => berita.penulis).toSet().toList();
             penulisList.insert(0, "Semua");
-
-            //
-            // return Column(
-            //   mainAxisAlignment: MainAxisAlignment.start,
-            //   children: [
-            //   MipokaCustomDropdown(
-            //   items: jenisKegiatanList,
-            //   onValueChanged: (value) {
-            //     int index = jenisKegiatanList.indexOf(value ?? "");
-            //     idNamaKegiatanMpt = idNamaKegiatanList[index];
-            //
-            //     context.read<NamaKegiatanMptBloc>().add(
-            //         ReadAllNamaKegiatanMptEvent(id: idNamaKegiatanMpt));
-            //
-            //   },
-            // ),
 
             return SingleChildScrollView(
               child: Padding(
@@ -83,8 +75,9 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                         MipokaCustomDropdown(
                           items: penulisList,
                           onValueChanged: (value) {
+                            _filter = value;
                             context.read<BeritaBloc>().add(
-                              ReadAllBeritaEvent(filter: value!)
+                              ReadAllBeritaEvent(filter: _filter!)
                             );
                           },
                         ),
@@ -151,10 +144,16 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                                       ),
                                     ),
                                     DataCell(
+                                      onTap: () => Navigator.pushNamed(
+                                        context,
+                                        penggunaBerandaDetailPageRoute,
+                                        arguments: berita,
+                                      ),
                                       Align(
                                         alignment: Alignment.center,
                                         child: Text(
                                           berita.judul,
+                                          style: const TextStyle(color: Colors.blue),
                                         ),
                                       ),
                                     ),
@@ -188,10 +187,12 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                                           ),
                                           InkWell(
                                             onTap: () {
-                                              context.read<BeritaBloc>().add(
-                                                DeleteBeritaEvent(berita.idBerita),
-                                              );
-                                              mipokaCustomToast("Berita telah dihapus");
+                                              Future.microtask(() {
+                                                context.read<BeritaBloc>().add(DeleteBeritaEvent(berita.idBerita),);
+                                                context.read<BeritaBloc>().add(ReadAllBeritaEvent(filter: _filter!)
+                                                );
+                                                mipokaCustomToast("Berita telah dihapus");
+                                              });
                                             },
                                             child: Image.asset(
                                               'assets/icons/delete.png',

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
+import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
@@ -117,7 +118,7 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () {
+                        onTap: () => Future.microtask(() {
                           context.read<BeritaBloc>().add(
                             UpdateBeritaEvent(
                               widget.berita.copyWith(
@@ -130,9 +131,9 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                               ),
                             ),
                           );
-                          Navigator.pop(context);
+                          Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
                           mipokaCustomToast("Berita telah diupdate");
-                        },
+                        }),
                         text: 'Simpan',
                       ),
                     ],

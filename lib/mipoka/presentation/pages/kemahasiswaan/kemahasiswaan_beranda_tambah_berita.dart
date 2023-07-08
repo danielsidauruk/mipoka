@@ -107,25 +107,26 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                         onTap: () {
                           if (_judulBeritaController.text.isNotEmpty && _penulisController.text.isNotEmpty &&
                               _textBeritaController.text.isNotEmpty) {
-                            context.read<BeritaBloc>().add(
-                              CreateBeritaEvent(
-                                Berita(
-                                  idBerita: newId,
-                                  judul: _judulBeritaController.text,
-                                  penulis: _judulBeritaController.text,
-                                  gambar: _fotoBerita ?? "",
-                                  teks: _textBeritaController.text,
-                                  tglTerbit: currentDate,
-                                  createdAt: currentDate,
-                                  createdBy: user?.email ?? "unknown",
-                                  updatedAt: currentDate,
-                                  updatedBy: user?.email ?? "unknown",
+                            Future.microtask(() {
+                              context.read<BeritaBloc>().add(
+                                CreateBeritaEvent(
+                                  Berita(
+                                    idBerita: newId,
+                                    judul: _judulBeritaController.text,
+                                    penulis: _judulBeritaController.text,
+                                    gambar: _fotoBerita ?? "",
+                                    teks: _textBeritaController.text,
+                                    tglTerbit: currentDate,
+                                    createdAt: currentDate,
+                                    createdBy: user?.email ?? "unknown",
+                                    updatedAt: currentDate,
+                                    updatedBy: user?.email ?? "unknown",
+                                  ),
                                 ),
-                              ),
-                            );
-                            context.read<BeritaBloc>().add(const ReadAllBeritaEvent());
-                            Navigator.pop(context, true);
-                            mipokaCustomToast("Berita berhasil ditambahkan.");
+                              );
+                              Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
+                              mipokaCustomToast("Berita berhasil ditambahkan.");
+                            });
                           } else {
                             mipokaCustomToast("Harap isi semua field.");
                           }
