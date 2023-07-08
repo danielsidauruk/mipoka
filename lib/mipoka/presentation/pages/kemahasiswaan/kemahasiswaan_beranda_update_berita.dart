@@ -119,6 +119,7 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
 
                       CustomMipokaButton(
                         onTap: () => Future.microtask(() {
+                          mipokaCustomToast("Berita telah diupdate");
                           context.read<BeritaBloc>().add(
                             UpdateBeritaEvent(
                               widget.berita.copyWith(
@@ -131,8 +132,8 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                               ),
                             ),
                           );
-                          Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
-                          mipokaCustomToast("Berita telah diupdate");
+                          context.read<BeritaBloc>().add(const ReadAllBeritaEvent());
+                          Navigator.pop(context);
                         }),
                         text: 'Simpan',
                       ),

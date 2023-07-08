@@ -108,6 +108,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                           if (_judulBeritaController.text.isNotEmpty && _penulisController.text.isNotEmpty &&
                               _textBeritaController.text.isNotEmpty) {
                             Future.microtask(() {
+                              mipokaCustomToast("Berita berhasil ditambahkan.");
                               context.read<BeritaBloc>().add(
                                 CreateBeritaEvent(
                                   Berita(
@@ -124,8 +125,8 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                                   ),
                                 ),
                               );
-                              Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
-                              mipokaCustomToast("Berita berhasil ditambahkan.");
+                              context.read<BeritaBloc>().add(const ReadAllBeritaEvent());
+                              Navigator.pop(context);
                             });
                           } else {
                             mipokaCustomToast("Harap isi semua field.");
