@@ -16,6 +16,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPage extends StatefulWidget {
   const KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPage({super.key});
@@ -25,9 +26,9 @@ class KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPage extends StatefulWidg
 }
 
 class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPage> {
-  late int idNamaKegiatanMpt;
-  late int idPeriodeMpt;
-  late int idJenisKegiatanMpt;
+  int? _idNamaKegiatanMpt;
+  int? _idPeriodeMpt;
+  int? _idJenisKegiatanMpt;
   final TextEditingController _poinKegiatanController = TextEditingController();
   final TextEditingController _tanggalMulaiController = TextEditingController();
   final TextEditingController _tanggalSelesaiController = TextEditingController();
@@ -76,15 +77,15 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
                         List<int> idJenisKegiatanMptList = state.namaKegiatanMptList.map(
                                 (jenisKegiatanMpt) => jenisKegiatanMpt.idJenisKegiatanMpt).toList();
 
-                        idNamaKegiatanMpt = idKegiatanMptList[0];
-                        idJenisKegiatanMpt = idJenisKegiatanMptList[0];
+                        _idNamaKegiatanMpt = idKegiatanMptList[0];
+                        _idJenisKegiatanMpt = idJenisKegiatanMptList[0];
 
                         return MipokaCustomDropdown(
                           items: namaKegiatanList,
                           onValueChanged: (value) {
                             int index = namaKegiatanList.indexOf(value ?? "");
-                            idNamaKegiatanMpt = idKegiatanMptList[index];
-                            idJenisKegiatanMpt = idJenisKegiatanMptList[index];
+                            _idNamaKegiatanMpt = idKegiatanMptList[index];
+                            _idJenisKegiatanMpt = idJenisKegiatanMptList[index];
                           },
                         );
                       } else if (state is NamaKegiatanMptError) {
@@ -109,19 +110,16 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
                                 "${periodeMptList.tahunPeriodeMpt} (ulang)" :
                                 periodeMptList.tahunPeriodeMpt).toList();
 
-                        tahunPeriodeMptList.insert(0, "semua");
-                        
                         List<int> idTahunPeriodeList = state.periodeMptList.map(
                                 (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
-                        idTahunPeriodeList.insert(0, 0);
 
-                        idPeriodeMpt = idTahunPeriodeList[0];
+                        _idPeriodeMpt = idTahunPeriodeList[0];
 
                         return MipokaCustomDropdown(
                           items: tahunPeriodeMptList,
                           onValueChanged: (value) {
                             int index = tahunPeriodeMptList.indexOf(value!);
-                            idPeriodeMpt = idTahunPeriodeList[index];
+                            _idPeriodeMpt = idTahunPeriodeList[index];
                           }
                         );
                       } else if (state is PeriodeMptError) {
@@ -165,24 +163,44 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
 
                       CustomMipokaButton(
                         onTap: () {
-                          context.read<KegiatanPerPeriodeMptBloc>().add(
-                            CreateKegiatanPerPeriodeMptEvent(
-                              kegiatanPerPeriodeMpt: KegiatanPerPeriodeMpt(
-                                idKegiatanPerPeriodeMpt: newId,
-                                idNamaKegiatanMpt: idNamaKegiatanMpt ?? 0,
-                                idPeriodeMpt: idPeriodeMpt ?? 0,
-                                idJenisKegiatanMpt: idJenisKegiatanMpt,
-                                tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
-                                tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
-                                pointMptDiperoleh: int.parse(_poinKegiatanController.text),
-                                createdAt: currentDate,
-                                createdBy: user?.email ?? "unknown",
-                                updatedAt: currentDate,
-                                updatedBy: user?.email ?? "unknown",
-                              )
-                            )
-                          );
-                          // Navigator.pop(context);
+                          if (_idNamaKegiatanMpt != 0 && _idPeriodeMpt != 0
+                              && _tanggalMulaiController.text.isNotEmpty && _tanggalSelesaiController.text.isNotEmpty
+                              && _poinKegiatanController.text.isNotEmpty) {
+                            try {
+                              final poinKegiatan = int.tryParse(_poinKegiatanController.text);
+                              if (poinKegiatan != null) {
+                                Future.microtask(() {
+                                  mipokaCustomToast("Kegiatan Per Periode telah ditambah");
+                                  context.read<KegiatanPerPeriodeMptBloc>().add(
+                                    CreateKegiatanPerPeriodeMptEvent(
+                                      kegiatanPerPeriodeMpt: KegiatanPerPeriodeMpt(
+                                        idKegiatanPerPeriodeMpt: newId,
+                                        idNamaKegiatanMpt: _idNamaKegiatanMpt ?? 0,
+                                        idPeriodeMpt: _idPeriodeMpt ?? 0,
+                                        idJenisKegiatanMpt: _idJenisKegiatanMpt ?? 0,
+                                        tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
+                                        tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
+                                        pointMptDiperoleh: poinKegiatan,
+                                        createdAt: currentDate,
+                                        createdBy: user?.email ?? "unknown",
+                                        updatedAt: currentDate,
+                                        updatedBy: user?.email ?? "unknown",
+                                      ),
+                                    ),
+                                  );
+                                  context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
+                                  Navigator.pop(context);
+                                });
+                              } else {
+                                mipokaCustomToast("Input poin kegiatan tidak valid.");
+                              }
+                            } catch (e) {
+                              mipokaCustomToast("Input poin kegiatan tidak valid.");
+                            }
+                          } else {
+                            mipokaCustomToast("Harap lengkapi semua field.");
+                          }
+
                         },
                         text: 'Simpan',
                       ),

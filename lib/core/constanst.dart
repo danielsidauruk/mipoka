@@ -26,6 +26,7 @@ const mhsPerPeriodeTemplate = "https://firebasestorage.googleapis.com/v0/b/mipok
 const riwayatKegiatanTemplate = "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/riwayat_kegiatan_template.xlsx?alt=media&token=1628cb15-f8b1-4d68-9390-5a50ef98e72f";
 
 const String emptyFieldMessage = "Mohon lengkapi semua field.";
+const String dataTypeErrorMessage = "Harap lengkapi data dengan tipe yang sesuai.";
 
 const listTingkat = ['Desa/Kelurahan', 'Kecamatan', 'Kabupaten/Kota', 'Provinsi', 'Nasional', 'Internasional'];
 

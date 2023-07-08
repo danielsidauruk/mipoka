@@ -16,6 +16,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPage extends StatefulWidget {
   const KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPage({
@@ -33,18 +34,18 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
   final TextEditingController _poinKegiatanController = TextEditingController();
   final TextEditingController _tanggalMulaiController = TextEditingController();
   final TextEditingController _tanggalSelesaiController = TextEditingController();
-  int? _idNamaKegiatanController;
-  int? _idPeriodeKegiatanController;
-  int? _idJenisKegiatanController;
+  int? _idNamaKegiatanMpt;
+  int? _idPeriodeKegiatanMpt;
+  int? _idJenisKegiatanMpt;
 
   @override
   void initState() {
     _tanggalMulaiController.text = widget.kegiatanPerPeriodeMpt.tanggalMulaiKegiatanPerPeriodeMpt;
     _tanggalSelesaiController.text = widget.kegiatanPerPeriodeMpt.tanggalSelesaiKegiatanPerPeriodeMpt;
     _poinKegiatanController.text = widget.kegiatanPerPeriodeMpt.pointMptDiperoleh.toString();
-    _idNamaKegiatanController = widget.kegiatanPerPeriodeMpt.idNamaKegiatanMpt;
-    _idPeriodeKegiatanController = widget.kegiatanPerPeriodeMpt.idPeriodeMpt;
-    _idJenisKegiatanController = widget.kegiatanPerPeriodeMpt.idJenisKegiatanMpt;
+    _idNamaKegiatanMpt = widget.kegiatanPerPeriodeMpt.idNamaKegiatanMpt;
+    _idPeriodeKegiatanMpt = widget.kegiatanPerPeriodeMpt.idPeriodeMpt;
+    _idJenisKegiatanMpt = widget.kegiatanPerPeriodeMpt.idJenisKegiatanMpt;
 
     context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
     context.read<NamaKegiatanDropDownBloc>().add(ReadNamaKegiatanDropDownEvent());
@@ -90,7 +91,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                                 (jenisKegiatanMpt) => jenisKegiatanMpt.idJenisKegiatanMpt).toList();
 
 
-                        int indexOfNamaKegiatan = idNamaKegiatanList.indexOf(_idNamaKegiatanController ?? 0);
+                        int indexOfNamaKegiatan = idNamaKegiatanList.indexOf(_idNamaKegiatanMpt ?? 0);
                         String namaKegiatanController = namaKegiatanList[indexOfNamaKegiatan];
 
                         return MipokaCustomDropdown(
@@ -98,8 +99,8 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                           initialItem: namaKegiatanController,
                           onValueChanged: (value) {
                             int index = namaKegiatanList.indexOf(value ?? "");
-                            _idNamaKegiatanController = idNamaKegiatanList[index];
-                            _idJenisKegiatanController = idJenisKegiatanList[index];
+                            _idNamaKegiatanMpt = idNamaKegiatanList[index];
+                            _idJenisKegiatanMpt = idJenisKegiatanList[index];
                           },
                         );
                       } else if (state is NamaKegiatanDropDownError) {
@@ -128,7 +129,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                                 (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
 
                         // idPeriodeMpt = idTahunPeriodeList[0];
-                        int indexOfPeriode = idTahunPeriodeList.indexOf(_idPeriodeKegiatanController ?? 0);
+                        int indexOfPeriode = idTahunPeriodeList.indexOf(_idPeriodeKegiatanMpt ?? 0);
                         String tahunPeriodeController = tahunPeriodeMptList[indexOfPeriode];
 
                         return MipokaCustomDropdown(
@@ -138,7 +139,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                             int index = tahunPeriodeMptList.indexOf(value!);
                             // idPeriodeMpt = idTahunPeriodeList[index];
 
-                            _idPeriodeKegiatanController = idTahunPeriodeList[index];
+                            _idPeriodeKegiatanMpt = idTahunPeriodeList[index];
                           }
                         );
                       } else if (state is PeriodeMptDropDownError) {
@@ -182,22 +183,41 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
 
                       CustomMipokaButton(
                         onTap: () {
-                          context.read<KegiatanPerPeriodeMptBloc>().add(
+                          if (_idNamaKegiatanMpt != 0 && _idPeriodeKegiatanMpt != 0
+                              && _tanggalMulaiController.text.isNotEmpty && _tanggalSelesaiController.text.isNotEmpty
+                              && _poinKegiatanController.text.isNotEmpty) {
+                            try {
+                              final poinKegiatan = int.tryParse(_poinKegiatanController.text);
+                              if (poinKegiatan != null) {
+                                Future.microtask(() {
+                                  mipokaCustomToast("Kegiatan Per Periode telah di update");
+                                  context.read<KegiatanPerPeriodeMptBloc>().add(
+                                    UpdateKegiatanPerPeriodeMptEvent(
+                                      kegiatanPerPeriodeMpt: widget.kegiatanPerPeriodeMpt.copyWith(
+                                        idNamaKegiatanMpt: _idNamaKegiatanMpt ?? 0,
+                                        idPeriodeMpt: _idPeriodeKegiatanMpt ?? 0,
+                                        idJenisKegiatanMpt: _idJenisKegiatanMpt ?? 0,
+                                        tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
+                                        tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
+                                        pointMptDiperoleh: poinKegiatan,
+                                        updatedAt: currentDate,
+                                        updatedBy: user?.email ?? "unknown",
+                                      ),
+                                    )
+                                  );
+                                  context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
+                                  Navigator.pop(context);
+                                });
+                              } else {
+                                mipokaCustomToast("Input poin kegiatan tidak valid.");
+                              }
+                            } catch (e) {
+                              mipokaCustomToast("Input poin kegiatan tidak valid.");
+                            }
+                          } else {
+                            mipokaCustomToast("Harap lengkapi semua field.");
+                          }
 
-                            UpdateKegiatanPerPeriodeMptEvent(
-                              kegiatanPerPeriodeMpt: widget.kegiatanPerPeriodeMpt.copyWith(
-                                idNamaKegiatanMpt: _idNamaKegiatanController,
-                                idPeriodeMpt: _idPeriodeKegiatanController,
-                                idJenisKegiatanMpt: _idJenisKegiatanController,
-                                tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
-                                tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
-                                pointMptDiperoleh: int.parse(_poinKegiatanController.text),
-                                updatedAt: currentDate,
-                                updatedBy: user?.email ?? "unknown",
-                              ),
-                            ),
-                          );
-                          Navigator.pop(context);
                         },
                         text: 'Simpan',
                       ),
