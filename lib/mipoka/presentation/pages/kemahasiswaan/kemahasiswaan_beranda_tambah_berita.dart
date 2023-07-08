@@ -104,34 +104,30 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () {
-                          if (_judulBeritaController.text.isNotEmpty && _penulisController.text.isNotEmpty &&
-                              _textBeritaController.text.isNotEmpty) {
-                            Future.microtask(() {
-                              mipokaCustomToast("Berita berhasil ditambahkan.");
-                              context.read<BeritaBloc>().add(
-                                CreateBeritaEvent(
-                                  Berita(
-                                    idBerita: newId,
-                                    judul: _judulBeritaController.text,
-                                    penulis: _judulBeritaController.text,
-                                    gambar: _fotoBerita ?? "",
-                                    teks: _textBeritaController.text,
-                                    tglTerbit: currentDate,
-                                    createdAt: currentDate,
-                                    createdBy: user?.email ?? "unknown",
-                                    updatedAt: currentDate,
-                                    updatedBy: user?.email ?? "unknown",
-                                  ),
-                                ),
-                              );
-                              context.read<BeritaBloc>().add(const ReadAllBeritaEvent());
-                              Navigator.pop(context);
-                            });
-                          } else {
-                            mipokaCustomToast("Harap isi semua field.");
-                          }
-                        },
+                        onTap: () => (_judulBeritaController.text.isNotEmpty && _penulisController.text.isNotEmpty &&
+                            _textBeritaController.text.isNotEmpty) ?
+                        Future.microtask(() {
+                          mipokaCustomToast("Berita berhasil ditambahkan.");
+                          context.read<BeritaBloc>().add(
+                            CreateBeritaEvent(
+                              Berita(
+                                idBerita: newId,
+                                judul: _judulBeritaController.text,
+                                penulis: _judulBeritaController.text,
+                                gambar: _fotoBerita ?? "",
+                                teks: _textBeritaController.text,
+                                tglTerbit: currentDate,
+                                createdAt: currentDate,
+                                createdBy: user?.email ?? "unknown",
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "unknown",
+                              ),
+                            ),
+                          );
+                          context.read<BeritaBloc>().add(const ReadAllBeritaEvent());
+                          Navigator.pop(context);
+                        }) :
+                        mipokaCustomToast("Harap isi semua field."),
                         text: 'Simpan',
                       ),
                     ],

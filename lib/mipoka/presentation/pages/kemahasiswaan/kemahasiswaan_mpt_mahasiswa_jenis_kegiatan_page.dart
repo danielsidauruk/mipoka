@@ -75,88 +75,81 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
 
                         const CustomFieldSpacer(),
 
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                          ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
                           child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: DataTable(
-                                columnSpacing: 40,
-                                border: TableBorder.all(color: Colors.white),
-                                columns: const [
-                                  DataColumn(
-                                    label: Text(
-                                      'Nama Jenis Kegiatan',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
+                            scrollDirection: Axis.horizontal,
+                            child: DataTable(
+                              columnSpacing: 40,
+                              border: TableBorder.all(color: Colors.white),
+                              columns: const [
+                                DataColumn(
+                                  label: Text(
+                                    'Nama Jenis Kegiatan',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  DataColumn(
-                                    tooltip: 'Aksi yang akan dilakukan',
-                                    label: Text(
-                                      'Aksi',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
+                                ),
+                                DataColumn(
+                                  tooltip: 'Aksi yang akan dilakukan',
+                                  label: Text(
+                                    'Aksi',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
                                   ),
-                                ],
-                                rows: List<DataRow>.generate(jenisKegiatanMptList.length, (int index) {
-                                  final jenisKegiatanMpt = jenisKegiatanMptList[index];
+                                ),
+                              ],
+                              rows: List<DataRow>.generate(jenisKegiatanMptList.length, (int index) {
+                                final jenisKegiatanMpt = jenisKegiatanMptList[index];
 
-                                  return DataRow(
-                                    cells: [
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            jenisKegiatanMpt.namaJenisKegiatanMpt,
+                                return DataRow(
+                                  cells: [
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          jenisKegiatanMpt.namaJenisKegiatanMpt,
+                                        ),
+                                      ),
+                                    ),
+                                    DataCell(
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          InkWell(
+                                            onTap: () => Navigator.pushNamed(
+                                              context,
+                                              kemahasiswaanMPTMahasiswaJenisKegiatanEditPageRoute,
+                                              arguments: jenisKegiatanMpt,
+                                            ),
+                                            child: Image.asset(
+                                              'assets/icons/edit.png',
+                                              width: 24,
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            InkWell(
-                                              onTap: () => Navigator.pushNamed(
-                                                context,
-                                                kemahasiswaanMPTMahasiswaJenisKegiatanEditPageRoute,
-                                                arguments: jenisKegiatanMpt,
-                                              ),
-                                              child: Image.asset(
-                                                'assets/icons/edit.png',
-                                                width: 24,
-                                              ),
-                                            ),
 
-                                            const SizedBox(width: 8.0),
+                                          const SizedBox(width: 8.0),
 
-                                            InkWell(
-                                              onTap: () {
-                                                context.read<JenisKegiatanMptBloc>().add(
-                                                  DeleteJenisKegiatanMptEvent(idJenisKegiatan: jenisKegiatanMpt.idJenisKegiatanMpt),
-                                                );
-                                                mipokaCustomToast("${jenisKegiatanMpt.namaJenisKegiatanMpt} telah dihapus.");
-                                                context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
-                                              },
-                                              child: Image.asset(
-                                                'assets/icons/delete.png',
-                                                width: 24,
-                                              ),
+                                          InkWell(
+                                            onTap: () => Future.microtask(() {
+                                              mipokaCustomToast("${jenisKegiatanMpt.namaJenisKegiatanMpt} telah dihapus.");
+                                              context.read<JenisKegiatanMptBloc>().add(DeleteJenisKegiatanMptEvent(idJenisKegiatan: jenisKegiatanMpt.idJenisKegiatanMpt));
+                                              context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+                                            }),
+                                            child: Image.asset(
+                                              'assets/icons/delete.png',
+                                              width: 24,
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  );
-                                }),
-                              ),
+                                    ),
+                                  ],
+                                );
+                              }),
                             ),
                           ),
                         ),

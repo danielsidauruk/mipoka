@@ -118,7 +118,9 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => Future.microtask(() {
+                        onTap: () => (_judulBeritaController.text.isNotEmpty && _penulisController.text.isNotEmpty &&
+                            _textBeritaController.text.isNotEmpty) ?
+                        Future.microtask(() {
                           mipokaCustomToast("Berita telah diupdate");
                           context.read<BeritaBloc>().add(
                             UpdateBeritaEvent(
@@ -134,7 +136,8 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                           );
                           context.read<BeritaBloc>().add(const ReadAllBeritaEvent());
                           Navigator.pop(context);
-                        }),
+                        }) :
+                        mipokaCustomToast("Harap isi semua field."),
                         text: 'Simpan',
                       ),
                     ],
