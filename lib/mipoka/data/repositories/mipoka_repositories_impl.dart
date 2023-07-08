@@ -651,9 +651,9 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, List<RiwayatKegiatanMpt>>> readAllRiwayatKegiatanMpt() async {
+  Future<Either<Failure, List<RiwayatKegiatanMpt>>> readAllRiwayatKegiatanMpt(String filter) async {
     try {
-      return Right(await mipokaDataSources.readAllRiwayatMpt());
+      return Right(await mipokaDataSources.readAllRiwayatMpt(filter));
     } on ServerException {
       return const Left(ServerFailure());
     }

@@ -68,23 +68,26 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
       }
 
       for (var i = 1; i < nimList.length; i++) {
-        Future.microtask(() => context.read<MhsPerPeriodeMptBloc>().add(
-          CreateMhsPerPeriodeMptEvent(
-            mhsPerPeriodeMpt: MhsPerPeriodeMpt(
-              idMhsPerPeriodeMpt: newId + i,
-              idUser: nimList[i].toString(),
-              idPeriodeMpt: _idPeriodeKegiatanMpt ?? 0,
-              idKegiatanPerPeriodeMpt: 0,
-              createdAt: currentDate,
-              createdBy: user?.email ?? "unknown",
-              updatedAt: currentDate,
-              updatedBy: user?.email ?? "unknown",
+        Future.microtask(() {
+          context.read<MhsPerPeriodeMptBloc>().add(
+            CreateMhsPerPeriodeMptEvent(
+              mhsPerPeriodeMpt: MhsPerPeriodeMpt(
+                idMhsPerPeriodeMpt: newId + i,
+                idUser: nimList[i].toString(),
+                idPeriodeMpt: _idPeriodeKegiatanMpt ?? 0,
+                idKegiatanPerPeriodeMpt: 0,
+                createdAt: currentDate,
+                createdBy: user?.email ?? "unknown",
+                updatedAt: currentDate,
+                updatedBy: user?.email ?? "unknown",
+              ),
             ),
-          ),
-        ),
-        );
+          );
+        });
       }
     }
+    Future.microtask(() => context.read<MhsPerPeriodeMptBloc>()
+        .add(const ReadAllMhsPerPeriodeMptEvent()));
   }
 
   @override
@@ -170,10 +173,12 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
                   CustomFilterButton(
                     text: 'Export Template',
-                    onPressed: () => downloadFileWithDio(
-                      url: mhsPerPeriodeTemplate,
-                      fileName: "mhs_per_periode_template.xlsx",
-                    ),
+                    onPressed: () {
+                      downloadFileWithDio(
+                        url: mhsPerPeriodeTemplate,
+                        fileName: "mhs_per_periode_template.xlsx",
+                      );
+                    }
                   ),
 
                   const CustomFieldSpacer(),
@@ -184,11 +189,12 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                       final result = this.result;
                       if (result != null) {
                         PlatformFile file = result.files.first;
-                        _processMahasiswaPerPeriode(file);
+                        Future.microtask(() {
+                          _processMahasiswaPerPeriode(file);
 
-                        mipokaCustomToast("Data telah di update.");
-                        context.read<MhsPerPeriodeMptBloc>().add(const ReadAllMhsPerPeriodeMptEvent());
-                        Navigator.pop(context);
+                          mipokaCustomToast("Data telah di update.");
+                          Navigator.pop(context);
+                        });
                       } else {
                         mipokaCustomToast("Harap unggah file yang diperlukan.");
                       }
@@ -199,66 +205,61 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
                   buildTitle('Keterangan Kolom di Excel'),
 
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                    ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
                     child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: DataTable(
-                          columnSpacing: 40,
-                          border: TableBorder.all(color: Colors.white),
-                          columns: const [
-                            DataColumn(
-                              label: Text(
-                                'Nama Kolom',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
+                      scrollDirection: Axis.horizontal,
+                      child: DataTable(
+                        columnSpacing: 40,
+                        border: TableBorder.all(color: Colors.white),
+                        columns: const [
+                          DataColumn(
+                            label: Text(
+                              'Nama Kolom',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
                             ),
-                            DataColumn(
-                              label: Text(
-                                'Tipe Data',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Tipe Data',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
                             ),
-                            DataColumn(
-                              label: Text(
-                                'Null',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Null',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
                             ),
-                          ],
+                          ),
+                        ],
 
-                          rows: List<DataRow>.generate(1, (int index) {
-                            return const DataRow(
-                              cells: [
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('NIM',),
-                                  ),
+                        rows: List<DataRow>.generate(1, (int index) {
+                          return const DataRow(
+                            cells: [
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text('NIM',),
                                 ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('Integer',),
-                                  ),
+                              ),
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text('Integer',),
                                 ),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text('False',),
-                                  ),
+                              ),
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text('False',),
                                 ),
-                              ],
-                            );
-                          }),
-                        ),
+                              ),
+                            ],
+                          );
+                        }),
                       ),
                     ),
                   ),

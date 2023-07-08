@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -30,26 +31,43 @@ class KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPage extends StatefulWidg
 }
 
 class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPage> {
-  String yearValue = DateTime.now().year.toString();
+
+  final StreamController<bool?> _jenisKegiatanStream = StreamController<bool?>();
+
   final TextEditingController _nimController = TextEditingController();
-  String jenisKegiatanValue = listBentukKegiatan[0];
-  String namaKegiatanValue = listNamaKegiatan[0];
-  String statusValue = listStatus[0];
-  bool isChecked = false;
 
-
-  int? idPeriodeKegiatanMpt;
-  int? idJenisKegiatan;
-  int? idNamaKegiatan;
+  bool? _isCheckedJenisKegiatan;
+  int? _idPeriodeKegiatanMpt;
+  int? _idJenisKegiatan;
+  int? _idNamaKegiatan;
+  String? _status;
 
   @override
   void initState() {
-    idPeriodeKegiatanMpt = 0;
-    idJenisKegiatan = 0;
-    idNamaKegiatan = 0;
-    
-    context.read<RiwayatKegiatanMptBloc>().add(ReadAllRiwayatKegiatanMptEvent());
+    _idPeriodeKegiatanMpt = 0;
+    _idJenisKegiatan = 0;
+    _idNamaKegiatan = 0;
+    _status = "Semua";
+    _nimController.text = "Semua";
+    _isCheckedJenisKegiatan = false;
+
+    Future.microtask(() {
+      context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
+      context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
+      context.read<JenisKegiatanDropDownBloc>().add(ReadJenisKegiatanDropDownEvent());
+      context.read<NamaKegiatanDropDownBloc>().add(ReadNamaKegiatanDropDownEvent());
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    context.read<RiwayatKegiatanMptBloc>().close();
+    context.read<PeriodeMptDropDownBloc>().close();
+    context.read<JenisKegiatanDropDownBloc>().close();
+    context.read<NamaKegiatanDropDownBloc>().close();
+    _jenisKegiatanStream.close();
+    super.dispose();
   }
 
   @override
@@ -70,465 +88,456 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
 
               const CustomFieldSpacer(),
 
-              BlocBuilder<RiwayatKegiatanMptBloc, RiwayatKegiatanMptState>(
-                builder: (context, state) {
-                  if (state is RiwayatKegiatanMptLoading) {
-                    return const Text("Loading ....");
-                  } else if (state is AllRiwayatKegiatanMptHasData) {
-                    final riwayatKegiatanMptList = state.riwayatKegiatanMptList;
+              CustomContentBox(
+                children: [
+                  CustomAddButton(
+                    buttonText: 'Tambah',
+                    onPressed: () => Navigator.pushNamed(
+                      context,
+                      kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute,
+                    ),
+                  ),
 
-                    Future.microtask(() {
-                      context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
-                      context.read<JenisKegiatanDropDownBloc>().add(ReadJenisKegiatanDropDownEvent());
-                      context.read<NamaKegiatanDropDownBloc>().add(ReadNamaKegiatanDropDownEvent());
-                    });
+                  const CustomFieldSpacer(),
 
-                    return CustomContentBox(
-                      children: [
-                        CustomAddButton(
-                          buttonText: 'Tambah',
-                          onPressed: () => Navigator.pushNamed(
-                            context,
-                            kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute,
-                          ),
-                        ),
+                  buildTitle('Periode Kegiatan'),
+                  BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
+                    builder: (context, state) {
+                      if (state is PeriodeMptDropDownLoading) {
+                        return const Text("Loading ....");
+                      } else if (state is PeriodeMptDropDownHasData) {
 
-                        const CustomFieldSpacer(),
+                        List<String> tahunPeriodeMptList = state.periodeMptList.map(
+                                (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
+                            "${periodeMptList.tahunPeriodeMpt} (ulang)" :
+                            periodeMptList.tahunPeriodeMpt).toList();
+                        tahunPeriodeMptList.insert(0, "Semua");
 
-                        buildTitle('Periode Kegiatan'),
-                        BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
-                          builder: (context, state) {
-                            if (state is PeriodeMptDropDownLoading) {
-                              return const Text("Loading ....");
-                            } else if (state is PeriodeMptDropDownHasData) {
+                        List<int> idTahunPeriodeList = state.periodeMptList.map(
+                                (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
+                        idTahunPeriodeList.insert(0, 0);
 
-                              List<String> tahunPeriodeMptList = state.periodeMptList.map(
-                                      (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
-                                  "${periodeMptList.tahunPeriodeMpt} (ulang)" :
-                                  periodeMptList.tahunPeriodeMpt).toList();
-                              tahunPeriodeMptList.insert(0, "Semua");
+                        return MipokaCustomDropdown(
+                            items: tahunPeriodeMptList,
+                            onValueChanged: (value) {
+                              int index = tahunPeriodeMptList.indexOf(value!);
+                              int idPeriodeMpt = idTahunPeriodeList[index];
 
-                              List<int> idTahunPeriodeList = state.periodeMptList.map(
-                                      (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
-                              idTahunPeriodeList.insert(0, 0);
-
-                              return MipokaCustomDropdown(
-                                  items: tahunPeriodeMptList,
-                                  onValueChanged: (value) {
-                                    int index = tahunPeriodeMptList.indexOf(value!);
-                                    int idPeriodeMpt = idTahunPeriodeList[index];
-
-                                    // print("$idPeriodeMpt, $value");
-
-                                    idPeriodeKegiatanMpt = idPeriodeMpt;
-                                  }
-                              );
-                            } else if (state is PeriodeMptDropDownError) {
-                              return Text(state.message);
-                            } else {
-                              return const Text("PeriodeMptBloc hasn't been triggered yet.");
+                              _idPeriodeKegiatanMpt = idPeriodeMpt;
                             }
+                        );
+                      } else if (state is PeriodeMptDropDownError) {
+                        return Text(state.message);
+                      } else {
+                        return const Text("PeriodeMptBloc hasn't been triggered yet.");
+                      }
+                    },
+                  ),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Jenis Kegiatan'),
+                  BlocBuilder<JenisKegiatanDropDownBloc, JenisKegiatanDropDownState>(
+                    builder: (context, state) {
+                      if (state is JenisKegiatanDropDownLoading) {
+                        return const Text("Loading ...");
+                      } else if (state is JenisKegiatanDropDownHasData) {
+
+                        List<String> jenisKegiatanList = state.jenisKegiatanMptList.map(
+                                (jenisKegiatanList) => jenisKegiatanList.namaJenisKegiatanMpt).toList();
+                        jenisKegiatanList.insert(0, "Semua");
+
+                        List<int> idJenisKegiatanList = state.jenisKegiatanMptList.map(
+                                (jenisKegiatanMptList) => jenisKegiatanMptList.idJenisKegiatanMpt).toList();
+                        idJenisKegiatanList.insert(0, 0);
+
+                        return MipokaCustomDropdown(
+                          items: jenisKegiatanList,
+                          onValueChanged: (value) {
+                            int index = jenisKegiatanList.indexOf(value ?? "");
+                            _idJenisKegiatan = idJenisKegiatanList[index];
                           },
-                        ),
+                        );
 
-                        const CustomFieldSpacer(),
+                      } else if (state is JenisKegiatanDropDownError) {
+                        return Text(state.message);
+                      } else {
+                        return const Text("NamaKegiatanBloc hasn't been triggered yet.");
+                      }
+                    },
+                  ),
 
-                        buildTitle('Jenis Kegiatan'),
-                        BlocBuilder<JenisKegiatanDropDownBloc, JenisKegiatanDropDownState>(
-                          builder: (context, state) {
-                            if (state is JenisKegiatanDropDownLoading) {
-                              return const Text("Loading ...");
-                            } else if (state is JenisKegiatanDropDownHasData) {
+                  const CustomFieldSpacer(),
 
-                              List<String> jenisKegiatanList = state.jenisKegiatanMptList.map(
-                                      (jenisKegiatanList) => jenisKegiatanList.namaJenisKegiatanMpt).toList();
-                              jenisKegiatanList.insert(0, "Semua");
+                  buildTitle('Nama Kegiatan'),
+                  BlocBuilder<NamaKegiatanDropDownBloc, NamaKegiatanDropDownState>(
+                    builder: (context, state) {
+                      if (state is NamaKegiatanDropDownLoading) {
+                        return const Text("Loading ...");
+                      } else if (state is NamaKegiatanDropDownHasData) {
+                        List<String> namaKegiatanList = state.namaKegiatanList.map(
+                                (namaKegiatanList) => namaKegiatanList.namaKegiatan).toList();
+                        namaKegiatanList.insert(0, "Semua");
 
-                              List<int> idJenisKegiatanList = state.jenisKegiatanMptList.map(
-                                      (jenisKegiatanMptList) => jenisKegiatanMptList.idJenisKegiatanMpt).toList();
-                              idJenisKegiatanList.insert(0, 0);
+                        List<int> idKegiatanList = state.namaKegiatanList.map(
+                                (namaKegiatanMptList) => namaKegiatanMptList.idNamaKegiatanMpt).toList();
+                        idKegiatanList.insert(0, 0);
 
-                              return MipokaCustomDropdown(
-                                items: jenisKegiatanList,
-                                onValueChanged: (value) {
-                                  int index = jenisKegiatanList.indexOf(value ?? "");
-                                  idJenisKegiatan = idJenisKegiatanList[index];
-                                },
-                              );
+                        _idNamaKegiatan = idKegiatanList[0];
 
-                            } else if (state is JenisKegiatanDropDownError) {
-                              return Text(state.message);
-                            } else {
-                              return const Text("NamaKegiatanBloc hasn't been triggered yet.");
-                            }
+                        return MipokaCustomDropdown(
+                          items: namaKegiatanList,
+                          onValueChanged: (value) {
+                            int index = namaKegiatanList.indexOf(value ?? "");
+                            _idNamaKegiatan = idKegiatanList[index];
+
                           },
-                        ),
+                        );
+                      } else if (state is NamaKegiatanDropDownError) {
+                        return Text(state.message);
+                      } else {
+                        return const Text("NamaKegiatanBloc hasn't been triggered yet.");
+                      }
+                    },
+                  ),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Nama Kegiatan'),
-                        BlocBuilder<NamaKegiatanDropDownBloc, NamaKegiatanDropDownState>(
-                          builder: (context, state) {
-                            if (state is NamaKegiatanDropDownLoading) {
-                              return const Text("Loading ...");
-                            } else if (state is NamaKegiatanDropDownHasData) {
-                              List<String> namaKegiatanList = state.namaKegiatanList.map(
-                                      (namaKegiatanList) => namaKegiatanList.namaKegiatan).toList();
-                              namaKegiatanList.insert(0, "Semua");
+                  buildTitle('Status'),
+                  MipokaCustomDropdown(
+                    items: listStatus,
+                    onValueChanged: (value) => _status = value,
+                  ),
 
-                              List<int> idKegiatanList = state.namaKegiatanList.map(
-                                      (namaKegiatanMptList) => namaKegiatanMptList.idNamaKegiatanMpt).toList();
-                              idKegiatanList.insert(0, 0);
+                  const CustomFieldSpacer(),
 
-                              idNamaKegiatan = idKegiatanList[0];
+                  buildTitle('NIM'),
+                  CustomTextField(controller: _nimController),
 
-                              return MipokaCustomDropdown(
-                                items: namaKegiatanList,
-                                onValueChanged: (value) {
-                                  int index = namaKegiatanList.indexOf(value ?? "");
-                                  idNamaKegiatan = idKegiatanList[index];
+                  const CustomFieldSpacer(),
 
-                                },
-                              );
-                            } else if (state is NamaKegiatanDropDownError) {
-                              return Text(state.message);
-                            } else {
-                              return const Text("NamaKegiatanBloc hasn't been triggered yet.");
-                            }
-                          },
-                        ),
+                  buildTitle('Kelompok Berdasarkan'),
+                  Row(
+                    children: [
+                      StreamBuilder<bool?>(
+                        initialData: false,
+                        stream: _jenisKegiatanStream.stream,
+                        builder: (context, snapshot) {
+                          bool isChecked = snapshot.data ?? false;
+                          return Checkbox(
+                            checkColor: Colors.black,
+                            value: isChecked,
+                            onChanged: (value) {
+                              _jenisKegiatanStream.add(value);
+                              _isCheckedJenisKegiatan = value;
+                            },
+                          );
+                        },
+                      ),
 
-                        const CustomFieldSpacer(),
+                      const Text('Jenis Kegiatan'),
+                    ],
+                  ),
 
-                        buildTitle('Status'),
-                        MipokaCustomDropdown(
-                          items: listStatus,
-                          onValueChanged: (value) {},
-                        ),
+                  CustomFilterButton(
+                    text: 'Filter',
+                    onPressed: () => context.read<RiwayatKegiatanMptBloc>().add(
+                      ReadAllRiwayatKegiatanMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idJenisKegiatan/$_idNamaKegiatan/$_status/${_nimController.text}/$_isCheckedJenisKegiatan"),),
+                  ),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('NIM'),
-                        CustomTextField(controller: _nimController),
+                  BlocBuilder<RiwayatKegiatanMptBloc, RiwayatKegiatanMptState>(
+                    builder: (context, state) {
+                      if (state is RiwayatKegiatanMptLoading) {
+                        return const Text("Loading ....");
+                      } else if (state is AllRiwayatKegiatanMptHasData) {
+                        final riwayatKegiatanMptList = state.riwayatKegiatanMptList;
 
-                        const CustomFieldSpacer(),
-
-                        buildTitle('Kelompok Berdasarkan'),
-                        Row(
+                        return Column(
                           children: [
-                            Checkbox(
-                              checkColor: Colors.black,
-                              value: isChecked,
-                              onChanged: (value) {
-                                setState(() {
-                                  isChecked = value!;
-                                });
-                              },
-                            ),
+                            MipokaCountText(total: riwayatKegiatanMptList.length),
 
-                            const Text('Jenis Kegiatan'),
-                          ],
-                        ),
+                            const CustomFieldSpacer(),
 
-                        CustomFilterButton(
-                          text: 'Filter',
-                          onPressed: () {},
-                        ),
-
-                        const CustomFieldSpacer(),
-
-                        MipokaCountText(total: riwayatKegiatanMptList.length),
-
-                        const CustomFieldSpacer(),
-
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                          ),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: DataTable(
-                                columnSpacing: 40,
-                                border: TableBorder.all(color: Colors.white),
-                                columns: const [
-                                  DataColumn(
-                                    label: Text(
-                                      'NIM',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Nama',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Nama Kegiatan',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Jenis Kegiatan',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Poin',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Unggahan',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Status',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    tooltip: 'Aksi yang akan dilakukan',
-                                    label: Text(
-                                      'Aksi',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
-
-                                rows: List<DataRow>.generate(riwayatKegiatanMptList.length, (int index) {
-                                  final riwayatKegiatanMpt = riwayatKegiatanMptList[index];
-                                  
-                                  Future.microtask(() {
-                                    context.read<MipokaUserBloc>().add(
-                                        ReadMipokaUserEvent(idMipokaUser: riwayatKegiatanMpt.idUser));
-                                    context.read<NamaKegiatanMptBloc>().add(
-                                        ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: riwayatKegiatanMpt.idKegiatanPerPeriodeMpt));
-                                  });
-                                  
-                                  return DataRow(
-                                    cells: [
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                            builder: (context, state) {
-                                              if (state is MipokaUserLoading) {
-                                                return const Text("Loading ....");
-                                              } else if (state is MipokaUserHasData) {
-                                                return Text(
-                                                  state.mipokaUser.nim,
-                                                );
-                                              } else if (state is MipokaUserError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                              }
-                                            },
-                                          ),
-                                        ),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: DataTable(
+                                  columnSpacing: 40,
+                                  border: TableBorder.all(color: Colors.white),
+                                  columns: const [
+                                    DataColumn(
+                                      label: Text(
+                                        'NIM',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                            builder: (context, state) {
-                                              if (state is MipokaUserLoading) {
-                                                return const Text("Loading ....");
-                                              } else if (state is MipokaUserHasData) {
-                                                return Text(
-                                                  state.mipokaUser.namaLengkap,
-                                                );
-                                              } else if (state is MipokaUserError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                              }
-                                            },
-                                          ),
-                                        ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Nama',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      DataCell(
-                                        BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
-                                          builder: (context, state) {
-                                            if (state is NamaKegiatanMptLoading) {
-                                              return const Text('Loading ....');
-                                            } else if (state is NamaKegiatanMptHasData) {
-                                              return Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  state.namaKegiatanMpt.namaKegiatan,
-                                                ),
-                                              );
-                                            } else if (state is NamaKegiatanMptError) {
-                                              return Text(state.message);
-                                            } else {
-                                              return const Text("JenisKegiatanMptBloc hasn't triggered yet.");
-                                            }
-                                          },
-                                        ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Nama Kegiatan',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      DataCell(
-                                        BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
-                                          builder: (context, state) {
-                                            if (state is NamaKegiatanMptLoading) {
-                                              return const Text('Loading ....');
-                                            } else if (state is NamaKegiatanMptHasData) {
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Jenis Kegiatan',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Poin',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Unggahan',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Status',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      tooltip: 'Aksi yang akan dilakukan',
+                                      label: Text(
+                                        'Aksi',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
 
-                                              context.read<JenisKegiatanMptBloc>().add(
-                                                ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: state.namaKegiatanMpt.idJenisKegiatanMpt));
-                                              
-                                              return BlocBuilder<JenisKegiatanMptBloc, JenisKegiatanMptState>(
-                                                builder: (context, state) {
-                                                  if (state is JenisKegiatanMptLoading) {
-                                                    return const Text("Loading ....");
-                                                  } else if (state is JenisKegiatanMptHasData) {
-                                                    return Align(
-                                                      alignment: Alignment.center,
-                                                      child: Text(
-                                                        state.jenisKegiatanMpt.namaJenisKegiatanMpt,
-                                                      ),
-                                                    );
-                                                  } else if (state is JenisKegiatanMptError) {
-                                                    return Text(state.message);
-                                                  } else {
-                                                    return const Text("JenisKegiatanMptBloc hasn't been triggered yet.");
-                                                  }
-                                                },
-                                              );
-                                              
-                                            } else if (state is NamaKegiatanMptError) {
-                                              return Text(state.message);
-                                            } else {
-                                              return const Text("JenisKegiatanMptBloc hasn't triggered yet.");
-                                            }
-                                          },
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                            builder: (context, state) {
-                                              if (state is MipokaUserLoading) {
-                                                return const Text("Loading ....");
-                                              } else if (state is MipokaUserHasData) {
-                                                return Text(
-                                                  "${state.mipokaUser.pointMpt}",
-                                                );
-                                              } else if (state is MipokaUserError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                              }
-                                            },
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Image.asset(
-                                            'assets/icons/pdf.png',
-                                            width: 24,
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Image.asset(
-                                            'assets/icons/approve.png',
-                                            width: 24,
-                                          ),
-                                        ),
-                                      ),
-                                      DataCell(
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            InkWell(
-                                              onTap: () => Navigator.pushNamed(
-                                                context,
-                                                mptMahasiswaRiwayatKegiatanMahasiswaEditPageRoute,
-                                                arguments: riwayatKegiatanMpt,
-                                              ),
-                                              child: Image.asset(
-                                                'assets/icons/edit.png',
-                                                width: 24,
-                                              ),
+                                  rows: List<DataRow>.generate(riwayatKegiatanMptList.length, (int index) {
+                                    final riwayatKegiatanMpt = riwayatKegiatanMptList[index];
+
+                                    Future.microtask(() {
+                                      context.read<MipokaUserBloc>().add(
+                                          ReadMipokaUserEvent(idMipokaUser: riwayatKegiatanMpt.idUser));
+                                      context.read<NamaKegiatanMptBloc>().add(
+                                          ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: riwayatKegiatanMpt.idKegiatanPerPeriodeMpt));
+                                    });
+
+                                    return DataRow(
+                                      cells: [
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                              builder: (context, state) {
+                                                if (state is MipokaUserLoading) {
+                                                  return const Text("Loading ....");
+                                                } else if (state is MipokaUserHasData) {
+                                                  return Text(
+                                                    state.mipokaUser.nim,
+                                                  );
+                                                } else if (state is MipokaUserError) {
+                                                  return Text(state.message);
+                                                } else {
+                                                  return const Text("MipokaUserBloc hasn't been triggered yet.");
+                                                }
+                                              },
                                             ),
-
-                                            const SizedBox(width: 8.0,),
-
-                                            InkWell(
-                                              onTap: () {
-                                                context.read<RiwayatKegiatanMptBloc>().add(
-                                                  UpdateRiwayatKegiatanMptEvent(
-                                                    riwayatKegiatanMpt: riwayatKegiatanMpt.copyWith(
-                                                      statusMpt: "approve",
-                                                    ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                              builder: (context, state) {
+                                                if (state is MipokaUserLoading) {
+                                                  return const Text("Loading ....");
+                                                } else if (state is MipokaUserHasData) {
+                                                  return Text(
+                                                    state.mipokaUser.namaLengkap,
+                                                  );
+                                                } else if (state is MipokaUserError) {
+                                                  return Text(state.message);
+                                                } else {
+                                                  return const Text("MipokaUserBloc hasn't been triggered yet.");
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
+                                            builder: (context, state) {
+                                              if (state is NamaKegiatanMptLoading) {
+                                                return const Text('Loading ....');
+                                              } else if (state is NamaKegiatanMptHasData) {
+                                                return Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    state.namaKegiatanMpt.namaKegiatan,
                                                   ),
                                                 );
-
-                                                context.read<RiwayatKegiatanMptBloc>().add(ReadAllRiwayatKegiatanMptEvent());
-
-                                                mipokaCustomToast("Riwayat kegiatan MPT telah di approve");
-                                              },
-                                              child: Image.asset(
-                                                'assets/icons/approve.png',
-                                                width: 24,
-                                              ),
-                                            ),
-
-                                            const SizedBox(width: 8.0,),
-
-                                            InkWell(
-                                              onTap: () {
-                                                context.read<RiwayatKegiatanMptBloc>().add(
-                                                    DeleteRiwayatMptEvent(idRiwayatKegiatanMpt: riwayatKegiatanMpt.idRiwayatKegiatanMpt));
-
-                                                mipokaCustomToast("Riwayat Kegiatan telah dihapus");
-                                              },
-                                              child: Image.asset(
-                                                'assets/icons/delete.png',
-                                                width: 24,
-                                              ),
-                                            ),
-                                          ],
+                                              } else if (state is NamaKegiatanMptError) {
+                                                return Text(state.message);
+                                              } else {
+                                                return const Text("JenisKegiatanMptBloc hasn't triggered yet.");
+                                              }
+                                            },
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  );
-                                }),
+                                        DataCell(
+                                          BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
+                                            builder: (context, state) {
+                                              if (state is NamaKegiatanMptLoading) {
+                                                return const Text('Loading ....');
+                                              } else if (state is NamaKegiatanMptHasData) {
+
+                                                context.read<JenisKegiatanMptBloc>().add(
+                                                    ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: state.namaKegiatanMpt.idJenisKegiatanMpt));
+
+                                                return BlocBuilder<JenisKegiatanMptBloc, JenisKegiatanMptState>(
+                                                  builder: (context, state) {
+                                                    if (state is JenisKegiatanMptLoading) {
+                                                      return const Text("Loading ....");
+                                                    } else if (state is JenisKegiatanMptHasData) {
+                                                      return Align(
+                                                        alignment: Alignment.center,
+                                                        child: Text(
+                                                          state.jenisKegiatanMpt.namaJenisKegiatanMpt,
+                                                        ),
+                                                      );
+                                                    } else if (state is JenisKegiatanMptError) {
+                                                      return Text(state.message);
+                                                    } else {
+                                                      return const Text("JenisKegiatanMptBloc hasn't been triggered yet.");
+                                                    }
+                                                  },
+                                                );
+
+                                              } else if (state is NamaKegiatanMptError) {
+                                                return Text(state.message);
+                                              } else {
+                                                return const Text("JenisKegiatanMptBloc hasn't triggered yet.");
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                              builder: (context, state) {
+                                                if (state is MipokaUserLoading) {
+                                                  return const Text("Loading ....");
+                                                } else if (state is MipokaUserHasData) {
+                                                  return Text(
+                                                    "${state.mipokaUser.pointMpt}",
+                                                  );
+                                                } else if (state is MipokaUserError) {
+                                                  return Text(state.message);
+                                                } else {
+                                                  return const Text("MipokaUserBloc hasn't been triggered yet.");
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/pdf.png',
+                                              width: 24,
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/approve.png',
+                                              width: 24,
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              InkWell(
+                                                onTap: () => Navigator.pushNamed(
+                                                  context,
+                                                  mptMahasiswaRiwayatKegiatanMahasiswaEditPageRoute,
+                                                  arguments: riwayatKegiatanMpt,
+                                                ),
+                                                child: Image.asset(
+                                                  'assets/icons/edit.png',
+                                                  width: 24,
+                                                ),
+                                              ),
+
+                                              const SizedBox(width: 8.0,),
+
+                                              InkWell(
+                                                onTap: () => Future.microtask(() {
+                                                  mipokaCustomToast("Riwayat kegiatan MPT telah di approve");
+                                                  context.read<RiwayatKegiatanMptBloc>().add(
+                                                      UpdateRiwayatKegiatanMptEvent(
+                                                          riwayatKegiatanMpt: riwayatKegiatanMpt.copyWith(statusMpt: "approve")));
+                                                  context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
+                                                }),
+                                                child: Image.asset(
+                                                  'assets/icons/approve.png',
+                                                  width: 24,
+                                                ),
+                                              ),
+
+                                              const SizedBox(width: 8.0,),
+
+                                              InkWell(
+                                                onTap: () => Future.microtask(() {
+                                                  context.read<RiwayatKegiatanMptBloc>().add(
+                                                      DeleteRiwayatMptEvent(idRiwayatKegiatanMpt: riwayatKegiatanMpt.idRiwayatKegiatanMpt));
+                                                  mipokaCustomToast("Riwayat Kegiatan telah dihapus");
+                                                }),
+                                                child: Image.asset(
+                                                  'assets/icons/delete.png',
+                                                  width: 24,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ],
-                    );
-                  } else if (state is RiwayatKegiatanMptError) {
-                    return Text(state.message);
-                  } else {
-                    return const Text("RiwayatKegiatanMpt hasn't been triggered yet.");
-                  }
-                },
+                          ],
+                        );
+                      } else if (state is RiwayatKegiatanMptError) {
+                        return Text(state.message);
+                      } else {
+                        return const Text("RiwayatKegiatanMpt hasn't been triggered yet.");
+                      }
+                    },
+                  ),
+                ],
               ),
             ],
           ),

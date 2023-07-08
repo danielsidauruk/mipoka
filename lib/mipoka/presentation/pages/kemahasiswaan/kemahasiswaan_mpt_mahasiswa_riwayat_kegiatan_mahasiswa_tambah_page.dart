@@ -10,7 +10,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_dropdown_bloc/periode_mpt_drop_down_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/peserta_kegiatan_laporan_bloc/peserta_kegiatan_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/riwayat_kegiatan_mpt_bloc/riwayat_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -34,18 +33,15 @@ class KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage extends StatefulWidget 
 
 class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage> {
 
-  bool isChecked = false;
-  DateTime? tanggalMulai;
-  DateTime? tanggalSelesai;
 
-  late int idPeriodeKegiatanMpt;
+  int? _idPeriodeKegiatanMpt;
   final StreamController<String?> _excelFileStream = StreamController<String?>();
   String? _excelFileController;
   FilePickerResult? result;
 
   @override
   void initState() {
-    idPeriodeKegiatanMpt = 0;
+    _idPeriodeKegiatanMpt = 0;
 
     context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
     super.initState();
@@ -84,12 +80,20 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
         }
       }
 
+      if (kDebugMode) {
+        print(nimList);
+        print(idKegiatanList);
+        print(poinList);
+        print(keteranganMahasiswaList);
+      }
+
       for (var i = 1; i < nimList.length; i++) {
+        print(nimList[i]);
         Future.microtask(() => context.read<RiwayatKegiatanMptBloc>().add(
           CreateRiwayatKegiatanMptEvent(
             riwayatKegiatanMpt: RiwayatKegiatanMpt(
               idRiwayatKegiatanMpt: newId + i,
-              idKegiatanPerPeriodeMpt: idPeriodeKegiatanMpt,
+              idKegiatanPerPeriodeMpt: _idPeriodeKegiatanMpt ?? 0,
               idUser: nimList[i].toString(),
               statusMpt: "",
               fileSertifikatMpt: "",
@@ -153,7 +157,7 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
 
                               // print("$idPeriodeMpt, $value");
 
-                              idPeriodeKegiatanMpt = idPeriodeMpt;
+                              _idPeriodeKegiatanMpt = idPeriodeMpt;
                             }
                         );
                       } else if (state is PeriodeMptDropDownError) {
@@ -205,7 +209,7 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
                           _processRiwayatKegiatan(file);
 
                           mipokaCustomToast("Data telah di update.");
-                          Navigator.pop(context);
+                          // Navigator.pop(context);
                         } else {
                           mipokaCustomToast("Harap unggah file yang diperlukan.");
                         }

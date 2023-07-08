@@ -14,7 +14,7 @@ class RiwayatKegiatanMptBloc extends Bloc<RiwayatKegiatanMptEvent, RiwayatKegiat
     on<ReadAllRiwayatKegiatanMptEvent>((event, emit) async {
       emit(RiwayatKegiatanMptLoading());
 
-      final result = await riwayatKegiatanMptUseCase.readAllRiwayatKegiatanMpt();
+      final result = await riwayatKegiatanMptUseCase.readAllRiwayatKegiatanMpt(event.filter);
 
       result.fold(
             (failure) => emit(RiwayatKegiatanMptError(message: failure.message)),

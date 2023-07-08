@@ -111,7 +111,7 @@ abstract class MipokaDataSources {
   Future<void> updateRincianBiayaKegiatan(RincianBiayaKegiatanModel rincianBiayaKegiatanModel);
   Future<void> deleteRincianBiayaKegiatan(int idRincianBiayaKegiatan);
 
-  Future<List<RiwayatMptModel>> readAllRiwayatMpt();
+  Future<List<RiwayatMptModel>> readAllRiwayatMpt(String filter);
   Future<RiwayatMptModel> readRiwayatMpt(int idRiwayatMpt);
   Future<void> createRiwayatMpt(RiwayatMptModel riwayatMptModel);
   Future<void> updateRiwayatMpt(RiwayatMptModel riwayatMptMode);
@@ -739,13 +739,17 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<RiwayatMptModel>> readAllRiwayatMpt() async {
+  Future<List<RiwayatMptModel>> readAllRiwayatMpt(String filter) async {
     final String response =
     await rootBundle.loadString('assets/json_file/riwayat_kegiatan_mpt_list.json');
     List<dynamic> resultList = json.decode(response);
 
     List<RiwayatMptModel> result =
     resultList.map((resultMap) => RiwayatMptModel.fromJson(resultMap)).toList();
+
+    if (kDebugMode) {
+      print(filter);
+    }
 
     return result;
   }
@@ -891,7 +895,9 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
     MipokaUserModel result = MipokaUserModel.fromJson(jsonDecode);
 
-    print(nim);
+    if (kDebugMode) {
+      print(nim);
+    }
 
     return result;
   }
