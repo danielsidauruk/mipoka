@@ -23,11 +23,11 @@ class MPTMahasiswaKegiatanPerJenisKegiatanPage extends StatefulWidget {
 }
 
 class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaKegiatanPerJenisKegiatanPage> {
-  late int idNamaKegiatanMpt;
+  int? _idNamaKegiatanMpt;
 
   @override
   void initState() {
-    idNamaKegiatanMpt = 0;
+    _idNamaKegiatanMpt = 0;
     context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
     context.read<JenisKegiatanDropDownBloc>().add(ReadJenisKegiatanDropDownEvent());
     super.initState();
@@ -83,7 +83,7 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                                 (jenisKegiatanMptList) => jenisKegiatanMptList.idJenisKegiatanMpt).toList();
                         idNamaKegiatanList.insert(0, 0);
 
-                        idNamaKegiatanMpt = idNamaKegiatanList[0];
+                        _idNamaKegiatanMpt = idNamaKegiatanList[0];
 
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -92,10 +92,10 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                               items: jenisKegiatanList,
                               onValueChanged: (value) {
                                 int index = jenisKegiatanList.indexOf(value ?? "");
-                                idNamaKegiatanMpt = idNamaKegiatanList[index];
+                                _idNamaKegiatanMpt = idNamaKegiatanList[index];
 
                                 context.read<NamaKegiatanMptBloc>().add(
-                                    ReadAllNamaKegiatanMptEvent(id: idNamaKegiatanMpt));
+                                    ReadAllNamaKegiatanMptEvent(id: _idNamaKegiatanMpt ?? 0));
                               },
                             ),
                           ],
@@ -196,8 +196,11 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                                             MainAxisAlignment.spaceEvenly,
                                             children: [
                                               InkWell(
-                                                onTap: () {
-                                                },
+                                                onTap: () => Navigator.pushNamed(
+                                                  context,
+                                                  kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageRoute,
+                                                  arguments: namaKegiatanMpt,
+                                                ),
                                                 child: Image.asset(
                                                   'assets/icons/edit.png',
                                                   width: 24,
@@ -207,15 +210,13 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                                               const SizedBox(width: 16.0,),
 
                                               InkWell(
-                                                onTap: () {
-                                                  Future.microtask(() {
-                                                    context.read<NamaKegiatanMptBloc>().add(
-                                                        DeleteNamaKegiatanMptEvent(idNamaKegiatanMpt: namaKegiatanMpt.idNamaKegiatanMpt));
-                                                    context.read<NamaKegiatanMptBloc>().add(
-                                                        ReadAllNamaKegiatanMptEvent(id: idNamaKegiatanMpt));
-                                                  });
+                                                onTap: () => Future.microtask(() {
                                                   mipokaCustomToast("${namaKegiatanMpt.namaKegiatan} telah dihapus.");
-                                                },
+                                                  context.read<NamaKegiatanMptBloc>().add(
+                                                      DeleteNamaKegiatanMptEvent(idNamaKegiatanMpt: namaKegiatanMpt.idNamaKegiatanMpt));
+                                                  context.read<NamaKegiatanMptBloc>().add(
+                                                      ReadAllNamaKegiatanMptEvent(id: _idNamaKegiatanMpt ?? 0));
+                                                }),
                                                 child: Image.asset(
                                                   'assets/icons/delete.png',
                                                   width: 24,

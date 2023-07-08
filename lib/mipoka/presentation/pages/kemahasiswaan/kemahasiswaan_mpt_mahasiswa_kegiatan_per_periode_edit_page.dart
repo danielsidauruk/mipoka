@@ -5,9 +5,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegiatan_drop_down_bloc/nama_kegiatan_drop_down_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_dropdown_bloc/periode_mpt_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -35,9 +33,9 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
   final TextEditingController _poinKegiatanController = TextEditingController();
   final TextEditingController _tanggalMulaiController = TextEditingController();
   final TextEditingController _tanggalSelesaiController = TextEditingController();
-  late int _idNamaKegiatanController;
-  late int _idPeriodeKegiatanController;
-  late int _idJenisKegiatanController;
+  int? _idNamaKegiatanController;
+  int? _idPeriodeKegiatanController;
+  int? _idJenisKegiatanController;
 
   @override
   void initState() {
@@ -92,7 +90,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                                 (jenisKegiatanMpt) => jenisKegiatanMpt.idJenisKegiatanMpt).toList();
 
 
-                        int indexOfNamaKegiatan = idNamaKegiatanList.indexOf(_idNamaKegiatanController);
+                        int indexOfNamaKegiatan = idNamaKegiatanList.indexOf(_idNamaKegiatanController ?? 0);
                         String namaKegiatanController = namaKegiatanList[indexOfNamaKegiatan];
 
                         return MipokaCustomDropdown(
@@ -130,7 +128,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                                 (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
 
                         // idPeriodeMpt = idTahunPeriodeList[0];
-                        int indexOfPeriode = idTahunPeriodeList.indexOf(_idPeriodeKegiatanController);
+                        int indexOfPeriode = idTahunPeriodeList.indexOf(_idPeriodeKegiatanController ?? 0);
                         String tahunPeriodeController = tahunPeriodeMptList[indexOfPeriode];
 
                         return MipokaCustomDropdown(

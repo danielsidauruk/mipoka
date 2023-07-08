@@ -1,7 +1,7 @@
 [
   {
     "id_nama_kegiatan_mpt": 1234,
-    "id_jenis_kegiatan_mpt": 1234,
+    "id_jenis_kegiatan_mpt": 23412,
     "nama_kegiatan": "bercocoks tanam",
     "created_at": "2023-06-26",
     "created_by": "John Doe",
@@ -10,7 +10,7 @@
   },
   {
     "id_nama_kegiatan_mpt": 12474,
-    "id_jenis_kegiatan_mpt": 1234,
+    "id_jenis_kegiatan_mpt": 3424421,
     "nama_kegiatan": "bercocok tanam",
     "created_at": "2023-06-26",
     "created_by": "John Doe",

@@ -8,7 +8,7 @@
     "updated_by": "John Doe"
   },
   {
-    "id__jenis_kegiatan_mpt": 342421,
+    "id__jenis_kegiatan_mpt": 23412,
     "nama_jenis_kegiatan_mpt": "Pelayanan Manusia",
     "created_at": "2023-06-26",
     "created_by": "Jane Smith",
@@ -16,15 +16,15 @@
     "updated_by": "John Doe"
   },
   {
-    "id__jenis_kegiatan_mpt": 342421,
-    "nama_jenis_kegiatan_mpt": "Pelayanan Anjing laut",
+    "id__jenis_kegiatan_mpt": 3514,
+    "nama_jenis_kegiatan_mpt": "Pelayanan Anjing Laut",
     "created_at": "2023-06-26",
     "created_by": "Jane Smith",
     "updated_at": "2023-06-26",
     "updated_by": "John Doe"
   },
   {
-    "id__jenis_kegiatan_mpt": 342421,
+    "id__jenis_kegiatan_mpt": 3424421,
     "nama_jenis_kegiatan_mpt": "MR BUAS",
     "created_at": "2023-06-26",
     "created_by": "Jane Smith",

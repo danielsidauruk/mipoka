@@ -25,11 +25,10 @@ class KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPage extends Statef
 class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageState extends State<KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPage> {
 
   final TextEditingController _namaJenisKegiatanController = TextEditingController();
-  late int _idJenisKegiatan;
+  int? _idJenisKegiatan;
 
   @override
   void initState() {
-    _idJenisKegiatan = 0;
     context.read<JenisKegiatanDropDownBloc>().add(ReadJenisKegiatanDropDownEvent());
     super.initState();
   }
@@ -69,11 +68,11 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageState extends 
 
                         List<String> jenisKegiatanList = state.jenisKegiatanMptList.map(
                                 (jenisKegiatanList) => jenisKegiatanList.namaJenisKegiatanMpt).toList();
-                        jenisKegiatanList.insert(0, "pilih jenis kegiatan");
 
                         List<int> idNamaKegiatanList = state.jenisKegiatanMptList.map(
                                 (jenisKegiatanMptList) => jenisKegiatanMptList.idJenisKegiatanMpt).toList();
-                        idNamaKegiatanList.insert(0, 0);
+
+                        _idJenisKegiatan = idNamaKegiatanList[0];
 
                         return MipokaCustomDropdown(
                           items: jenisKegiatanList,
@@ -104,26 +103,26 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageState extends 
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () {
-                          if (_namaJenisKegiatanController.text.isNotEmpty && _idJenisKegiatan != 0) {
-                            context.read<NamaKegiatanMptBloc>().add(
-                              CreateNamaKegiatanMptEvent(
-                                namaKegiatanMpt: NamaKegiatanMpt(
-                                  idNamaKegiatanMpt: newId,
-                                  idJenisKegiatanMpt: _idJenisKegiatan,
-                                  namaKegiatan: _namaJenisKegiatanController.text,
-                                  createdAt: currentDate,
-                                  createdBy: user?.email ?? "unknown",
-                                  updatedAt: currentDate,
-                                  updatedBy: user?.email ?? "unknown",
-                                ),
+                        onTap: () => (_namaJenisKegiatanController.text.isNotEmpty && _idJenisKegiatan != 0) ?
+                        Future.microtask(() {
+                          mipokaCustomToast("Kegiatan per Jenis Kegiatan MPT berhasil dibuat.");
+                          context.read<NamaKegiatanMptBloc>().add(
+                            CreateNamaKegiatanMptEvent(
+                              namaKegiatanMpt: NamaKegiatanMpt(
+                                idNamaKegiatanMpt: newId,
+                                idJenisKegiatanMpt: _idJenisKegiatan ?? 0,
+                                namaKegiatan: _namaJenisKegiatanController.text,
+                                createdAt: currentDate,
+                                createdBy: user?.email ?? "unknown",
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "unknown",
                               ),
-                            );
-                            Navigator.pop(context);
-                          } else {
-                            mipokaCustomToast("Harap isi semua field.");
-                          }
-                        },
+                            ),
+                          );
+                          context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
+                          Navigator.pop(context);
+                        }) :
+                        mipokaCustomToast(emptyFieldMessage),
                         text: 'Simpan',
                       ),
                     ],

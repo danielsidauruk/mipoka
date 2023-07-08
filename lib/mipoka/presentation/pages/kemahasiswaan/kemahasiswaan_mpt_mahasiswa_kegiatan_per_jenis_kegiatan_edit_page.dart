@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
+import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_drop_down_bloc/jenis_kegiatan_drop_down_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -10,14 +13,15 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPage extends StatefulWidget {
   const KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPage({
     super.key,
-    required this.kegiatanPerPeriodeMpt,
+    required this.namaKegiatanMpt
   });
 
-  final KegiatanPerPeriodeMpt kegiatanPerPeriodeMpt;
+  final NamaKegiatanMpt namaKegiatanMpt;
 
   @override
   State<KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPage> createState() => _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageState();
@@ -26,8 +30,14 @@ class KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPage extends Stateful
 class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageState extends State<KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPage> {
 
   final TextEditingController _namaJenisKegiatanController = TextEditingController();
-  String jenisKegiatan = listBentukKegiatan[0];
+  int? _idJenisKegiatan;
 
+  @override
+  void initState() {
+    _namaJenisKegiatanController.text = widget.namaKegiatanMpt.namaKegiatan;
+    _idJenisKegiatan = widget.namaKegiatanMpt.idJenisKegiatanMpt;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,9 +66,37 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageState extends St
                   const CustomFieldSpacer(),
 
                   buildTitle('Jenis Kegiatan'),
-                  MipokaCustomDropdown(
-                    items: listBentukKegiatan,
-                    onValueChanged: (value) {},
+                  BlocBuilder<JenisKegiatanDropDownBloc, JenisKegiatanDropDownState>(
+                    builder: (context, state) {
+                      if (state is JenisKegiatanDropDownLoading) {
+                        return const Text("Loading ...");
+                      } else if (state is JenisKegiatanDropDownHasData) {
+
+                        List<String> jenisKegiatanList = state.jenisKegiatanMptList.map(
+                                (jenisKegiatan) => jenisKegiatan.namaJenisKegiatanMpt).toList();
+
+                        List<int> idJenisKegiatanList = state.jenisKegiatanMptList.map(
+                                (jenisKegiatanMpt) => jenisKegiatanMpt.idJenisKegiatanMpt).toList();
+
+                        // _idJenisKegiatan = idNamaKegiatanList[0];
+
+                        int indexOfIdKegiatan = idJenisKegiatanList.indexOf(_idJenisKegiatan ?? 0);
+                        String namaKegiatanController = jenisKegiatanList[indexOfIdKegiatan];
+
+                        return MipokaCustomDropdown(
+                          items: jenisKegiatanList,
+                          initialItem: namaKegiatanController,
+                          onValueChanged: (value) {
+                            int index = jenisKegiatanList.indexOf(value ?? "");
+                            _idJenisKegiatan = idJenisKegiatanList[index];
+                          },
+                        );
+                      } else if (state is JenisKegiatanDropDownError) {
+                        return Text(state.message);
+                      } else {
+                        return const Text("NamaKegiatanBloc hasn't been triggered yet.");
+                      }
+                    },
                   ),
 
                   const CustomFieldSpacer(),
@@ -74,7 +112,23 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageState extends St
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () => (_namaJenisKegiatanController.text.isNotEmpty && _idJenisKegiatan != 0) ?
+                        Future.microtask(() {
+                          mipokaCustomToast("Kegiatan per Jenis Kegiatan MPT berhasil diupdate.");
+                          context.read<NamaKegiatanMptBloc>().add(
+                            UpdateNamaKegiatanMptEvent(
+                              namaKegiatanMpt: widget.namaKegiatanMpt.copyWith(
+                                namaKegiatan: _namaJenisKegiatanController.text,
+                                idJenisKegiatanMpt: _idJenisKegiatan,
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "unknown"
+                              ),
+                            ),
+                          );
+                          context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
+                          Navigator.pop(context);
+                        }) :
+                        mipokaCustomToast(emptyFieldMessage),
                         text: 'Simpan',
                       ),
                     ],
