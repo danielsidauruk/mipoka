@@ -61,9 +61,9 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanTambahPageState extends State<Kemah
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () {
-                          if (_namaJenisKegiatanController.text != "") {
-                            context.read<JenisKegiatanMptBloc>().add(
+                        onTap: () => (_namaJenisKegiatanController.text != "") ?
+                        Future.microtask(() {
+                          context.read<JenisKegiatanMptBloc>().add(
                               CreateJenisKegiatanMptEvent(
                                 jenisKegiatanMpt: JenisKegiatanMpt(
                                   idJenisKegiatanMpt: newId,
@@ -74,14 +74,12 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanTambahPageState extends State<Kemah
                                   updatedBy: user?.email ?? "",
                                 ),
                               )
-                            );
-                            mipokaCustomToast("Jenis Kegiatan MPT berhasil dibuat.");
-                            context.read<JenisKegiatanMptBloc>().add(ReadAllJenisKegiatanMptEvent());
-                            Navigator.pop(context);
-                          } else {
-                            mipokaCustomToast("Nama Jenis kegiatan tidak boleh kosong");
-                          }
-                        },
+                          );
+                          mipokaCustomToast("Jenis Kegiatan MPT berhasil dibuat.");
+                          context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+                          Navigator.pop(context);
+                        }) :
+                        mipokaCustomToast(emptyFieldMessage),
                         text: 'Simpan',
                       ),
                     ],

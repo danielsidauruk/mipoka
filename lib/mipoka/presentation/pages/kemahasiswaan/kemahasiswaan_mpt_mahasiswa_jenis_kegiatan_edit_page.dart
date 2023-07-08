@@ -73,7 +73,8 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanEditPageState extends State<Kemahas
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () {
+                        onTap: () => (_namaJenisKegiatanController.text != "") ?
+                        Future.microtask(() {
                           context.read<JenisKegiatanMptBloc>().add(
                               UpdateJenisKegiatanMptEvent(
                                 jenisKegiatanMpt: widget.jenisKegiatanMpt.copyWith(
@@ -83,10 +84,11 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanEditPageState extends State<Kemahas
                                 ),
                               )
                           );
-                          context.read<JenisKegiatanMptBloc>().add(ReadAllJenisKegiatanMptEvent());
+                          context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
                           mipokaCustomToast("Jenis Kegiatan MPT berhasil diupdate.");
                           Navigator.pop(context);
-                        },
+                        }) :
+                        mipokaCustomToast(emptyFieldMessage),
                         text: 'Simpan',
                       ),
                     ],

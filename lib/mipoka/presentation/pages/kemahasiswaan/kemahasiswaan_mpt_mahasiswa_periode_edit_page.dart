@@ -129,7 +129,9 @@ class _KemahasiswaanMPTMahasiswaPeriodeEditPageState extends State<Kemahasiswaan
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => Future.microtask(() {
+                        onTap: () => (_tahunController.text.isNotEmpty && _tanggalMulaiController.text.isNotEmpty &&
+                            _tanggalSelesaiController.text.isNotEmpty) ?
+                        Future.microtask(() {
                           mipokaCustomToast("Periode telah diupdate.");
                           context.read<PeriodeMptBloc>().add(
                             UpdatePeriodeMptEvent(
@@ -145,7 +147,8 @@ class _KemahasiswaanMPTMahasiswaPeriodeEditPageState extends State<Kemahasiswaan
                           );
                           context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
                           Navigator.pop(context);
-                        }),
+                        }) :
+                        mipokaCustomToast(emptyFieldMessage),
                         text: 'Simpan',
                       ),
                     ],

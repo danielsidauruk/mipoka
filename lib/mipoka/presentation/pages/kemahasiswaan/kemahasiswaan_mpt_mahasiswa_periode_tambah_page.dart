@@ -121,33 +121,29 @@ class _KemahasiswaanMPTMahasiswaPeriodeTambahPageState extends State<Kemahasiswa
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () {
-                          if (_tahunController.text.isNotEmpty && _tanggalMulaiController.text.isNotEmpty &&
-                          _tanggalSelesaiController.text.isNotEmpty) {
-                            Future.microtask(() {
-                              mipokaCustomToast("Periode telah ditambahkan.");
-                              context.read<PeriodeMptBloc>().add(
-                                CreatePeriodeMptEvent(
-                                  periodeMpt: PeriodeMpt(
-                                    idPeriodeMpt: newId,
-                                    tahunPeriodeMpt: _tahunController.text,
-                                    periodeMengulangMpt: _isPeriodeMengulangMpt,
-                                    tanggalMulaiPeriodeMpt: _tanggalMulaiController.text,
-                                    tanggalBerakhirPeriodeMpt: _tanggalSelesaiController.text,
-                                    createdAt: currentDate,
-                                    createdBy: user?.email ?? "unknown",
-                                    updatedAt: currentDate,
-                                    updatedBy: user?.email ?? "unknown",
-                                  ),
-                                ),
-                              );
-                              context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
-                              Navigator.pop(context);
-                            });
-                          } else {
-                            mipokaCustomToast("Harap semua field diisi.");
-                          }
-                        },
+                        onTap: () => (_tahunController.text.isNotEmpty && _tanggalMulaiController.text.isNotEmpty &&
+                            _tanggalSelesaiController.text.isNotEmpty) ?
+                        Future.microtask(() {
+                          mipokaCustomToast("Periode telah ditambahkan.");
+                          context.read<PeriodeMptBloc>().add(
+                            CreatePeriodeMptEvent(
+                              periodeMpt: PeriodeMpt(
+                                idPeriodeMpt: newId,
+                                tahunPeriodeMpt: _tahunController.text,
+                                periodeMengulangMpt: _isPeriodeMengulangMpt,
+                                tanggalMulaiPeriodeMpt: _tanggalMulaiController.text,
+                                tanggalBerakhirPeriodeMpt: _tanggalSelesaiController.text,
+                                createdAt: currentDate,
+                                createdBy: user?.email ?? "unknown",
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "unknown",
+                              ),
+                            ),
+                          );
+                          context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+                          Navigator.pop(context);
+                        }) :
+                        mipokaCustomToast("Harap semua field diisi."),
                         text: 'Simpan',
                       ),
                     ],
