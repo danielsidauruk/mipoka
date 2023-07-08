@@ -14,7 +14,7 @@ class MipokaUserByNimBloc extends Bloc<MipokaUserByNimEvent, MipokaUserByNimStat
     on<ReadMipokaUserByNimEvent>((event, emit) async {
       emit(MipokaUserByNimLoading());
 
-      final result = await mipokaUserUseCase.readMipokaUserByNim(event.idUser);
+      final result = await mipokaUserUseCase.readMipokaUserByNim(event.nim);
 
       result.fold(
             (failure) => emit(MipokaUserByNimError(message: failure.message)),

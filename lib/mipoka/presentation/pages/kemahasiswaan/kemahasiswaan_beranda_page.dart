@@ -231,7 +231,7 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                                                 'assets/icons/delete.png',
                                                 width: 24,
                                               ),
-                                            )
+                                            ),
                                           ],
                                         ),
                                       ),

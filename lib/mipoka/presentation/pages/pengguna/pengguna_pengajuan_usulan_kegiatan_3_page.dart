@@ -5,9 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_switch.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -56,6 +58,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
     _suratUndanganKegiatanStream.close();
     _linimasaKegiatanStream.close();
     _fotoTempatKegiatanStream.close();
+    _tertibAcaraStream.close();
     super.dispose();
   }
 
@@ -75,6 +78,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
   String? _linimasaKegiatanController;
   String? _fotoTempatKegiatanController;
 
+  final StreamController<bool?> _tertibAcaraStream = StreamController<bool?>();
   final StreamController<String?> _postinganKegiatanStream = StreamController<String?>();
   final StreamController<String?> _suratUndanganKegiatanStream = StreamController<String?>();
   final StreamController<String?> _linimasaKegiatanStream = StreamController<String?>();
@@ -204,143 +208,169 @@ class _PenggunaPengajuanUsulanKegiatan3State
                           option2: 'Ya',
                           value: tertibAcara,
                           onChanged: (value) {
-                            setState(() {
-                              tertibAcara = value;
-                            });
+                            tertibAcara = value;
                           },
                         ),
 
-                        tertibAcara == true ?
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            buildDescription(
-                                'Rincikan alur dari kegiatan yang akan dilaksanakan'),
-                            CustomAddButton(
-                              buttonText: 'Tertib Acara',
-                              onPressed: () => Navigator.pushNamed(
-                                context,
-                                tambahTertibAcaraPageRoute,
-                                arguments: widget.idUsulanKegiatan,
-                              ),
-                            ),
+                        StreamBuilder<bool?>(
+                          initialData: false,
+                          stream: _tertibAcaraStream.stream,
+                          builder: (context, snapshot) {
+                            bool isTertibAcara = snapshot.data ?? false;
+                            return isTertibAcara == true ?
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                buildDescription(
+                                    'Rincikan alur dari kegiatan yang akan dilaksanakan'),
+                                CustomAddButton(
+                                  buttonText: 'Tertib Acara',
+                                  onPressed: () => Navigator.pushNamed(
+                                    context,
+                                    tambahTertibAcaraPageRoute,
+                                    arguments: widget.idUsulanKegiatan,
+                                  ),
+                                ),
 
-                            const CustomFieldSpacer(),
+                                const CustomFieldSpacer(),
 
-                            SingleChildScrollView(
-                              scrollDirection: Axis.vertical,
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: DataTable(
-                                  columnSpacing: 40,
-                                  border: TableBorder.all(color: Colors.white),
-                                  columns: const [
-                                    DataColumn(
-                                      label: Text(
-                                        'No.',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        'Aktivitas',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        'Waktu Mulai',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        'Waktu Selesai',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        'Keterangan',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ],
-                                  rows: List<DataRow>.generate(usulanKegiatan.tertibAcara.length, (int index) {
-                                    final tertibAcara = usulanKegiatan.tertibAcara[index];
-                                    return DataRow(
-                                      cells: [
-                                        DataCell(
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              '${index + 1}',
-                                              textAlign: TextAlign.center,
-                                            ),
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: DataTable(
+                                      columnSpacing: 40,
+                                      border: TableBorder.all(color: Colors.white),
+                                      columns: const [
+                                        DataColumn(
+                                          label: Text(
+                                            'No.',
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
                                           ),
                                         ),
-                                        DataCell(
-                                          InkWell(
-                                            onTap: () {
-                                              Navigator.pushNamed(
-                                                context,
-                                                editTertibAcaraPageRoute,
-                                                arguments: usulanKegiatan,
-                                              );
-                                            },
-                                            child: Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                tertibAcara.aktivitas,
-                                                textAlign: TextAlign.center,
-                                                style: const TextStyle(
-                                                  color: Colors.blue,
-                                                ),
-                                              ),
-                                            ),
+                                        DataColumn(
+                                          label: Text(
+                                            'Aktivitas',
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
                                           ),
                                         ),
-                                        DataCell(
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              tertibAcara.waktuMulai,
-                                              textAlign: TextAlign.center,
-                                            ),
+                                        DataColumn(
+                                          label: Text(
+                                            'Waktu Mulai',
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
                                           ),
                                         ),
-                                        DataCell(
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              tertibAcara.waktuSelesai,
-                                              textAlign: TextAlign.center,
-                                            ),
+                                        DataColumn(
+                                          label: Text(
+                                            'Waktu Selesai',
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
                                           ),
                                         ),
-                                        DataCell(
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              tertibAcara.keterangan,
-                                              textAlign: TextAlign.center,
-                                            ),
+                                        DataColumn(
+                                          label: Text(
+                                            'Keterangan',
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          label: Text(
+                                            'Aksi',
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
                                           ),
                                         ),
                                       ],
-                                    );
-                                  }),
+                                      rows: List<DataRow>.generate(usulanKegiatan.tertibAcara.length, (int index) {
+                                        final tertibAcara = usulanKegiatan.tertibAcara[index];
+                                        return DataRow(
+                                          cells: [
+                                            DataCell(
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  '${index + 1}',
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              InkWell(
+                                                onTap: () {
+                                                  Navigator.pushNamed(
+                                                    context,
+                                                    editTertibAcaraPageRoute,
+                                                    arguments: usulanKegiatan,
+                                                  );
+                                                },
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    tertibAcara.aktivitas,
+                                                    textAlign: TextAlign.center,
+                                                    style: const TextStyle(
+                                                      color: Colors.blue,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  tertibAcara.waktuMulai,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  tertibAcara.waktuSelesai,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  tertibAcara.keterangan,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              onTap: () {
+                                                context.read<TertibAcaraBloc>().add(
+                                                    DeleteTertibAcaraEvent(idTertibAcara: tertibAcara.idTertibAcara));
+                                                mipokaCustomToast("Tertib Acara telah dihapus");
+                                              },
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Image.asset(
+                                                  'assets/icons/delete.png',
+                                                  width: 24,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      }),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ],
-                        ) :
-                        const Center(),
+                              ],
+                            ) :
+                            const Center();
+                          },
+                        ),
 
                         const CustomFieldSpacer(),
 

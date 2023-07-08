@@ -47,7 +47,7 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
 
   void _triggerNim(String value) {
     context.read<MipokaUserByNimBloc>().add(
-      ReadMipokaUserByNimEvent(idUser: value),
+      ReadMipokaUserByNimEvent(nim: value),
     );
   }
 
