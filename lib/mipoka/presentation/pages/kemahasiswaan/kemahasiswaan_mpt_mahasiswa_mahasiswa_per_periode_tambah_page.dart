@@ -10,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/mipoka/domain/entities/mhs_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mhs_per_periode_mpt_use_cases/mhs_per_periode_mpt_use_cases_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -32,7 +31,7 @@ class KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPage extends StatefulWid
 
 class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
     extends State<KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPage> {
-  final TextEditingController _poinKegiatanController = TextEditingController();
+
   int? _idPeriodeKegiatanMpt;
 
   final StreamController<String?> _excelFileStream = StreamController<String?>();
@@ -179,30 +178,19 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
                   const CustomFieldSpacer(),
 
-                  BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
-                    builder: (context, state) {
-                      if (state is MipokaUserByNimLoading) {
-                        return const Text("Loading ....");
-                      } else if (state is MipokaUserByNimByNimHasData) {
-                        return CustomFilterButton(
-                          text: 'Proses',
-                          onPressed: (){
-                            final result = this.result;
-                            if (result != null) {
-                              PlatformFile file = result.files.first;
-                              _processMahasiswaPerPeriode(file);
+                  CustomFilterButton(
+                    text: 'Proses',
+                    onPressed: (){
+                      final result = this.result;
+                      if (result != null) {
+                        PlatformFile file = result.files.first;
+                        _processMahasiswaPerPeriode(file);
 
-                              mipokaCustomToast("Data telah di update.");
-                              Navigator.pop(context);
-                            } else {
-                              mipokaCustomToast("Harap unggah file yang diperlukan.");
-                            }
-                          },
-                        );
-                      } else if (state is MipokaUserByNimError) {
-                        return Text(state.message);
+                        mipokaCustomToast("Data telah di update.");
+                        context.read<MhsPerPeriodeMptBloc>().add(const ReadAllMhsPerPeriodeMptEvent());
+                        Navigator.pop(context);
                       } else {
-                        return const Text("MipokaUserByNIM hasn't been triggered yet.");
+                        mipokaCustomToast("Harap unggah file yang diperlukan.");
                       }
                     },
                   ),

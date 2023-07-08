@@ -28,17 +28,21 @@ class KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePage extends StatefulWidget {
 
 class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePage> {
 
-  final TextEditingController _jumlahPoinController = TextEditingController();
   final TextEditingController _nimController = TextEditingController();
-  late int idPeriodeKegiatanMpt;
+  int? _idPeriodeKegiatanMpt;
+  String? _prodi;
+  String? _jumlahPoint;
+
 
   @override
   void initState() {
-    _jumlahPoinController.text = "semua";
-    _nimController.text = "semua";
-    idPeriodeKegiatanMpt = 0;
+    _nimController.text = "Semua";
+    _prodi = listProdi[0];
+    _jumlahPoint = listJumlahPoint[0];
+    _idPeriodeKegiatanMpt = 0;
 
     context.read<MhsPerPeriodeMptBloc>().add(const ReadAllMhsPerPeriodeMptEvent());
+    context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
     super.initState();
   }
 
@@ -60,286 +64,290 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
 
               const CustomFieldSpacer(),
 
-              BlocBuilder<MhsPerPeriodeMptBloc, MhsPerPeriodeMptState>(
-                builder: (context, state) {
-                  if (state is MhsPerPeriodeMptEmpty) {
-                    return const Text("Loading ....");
-                  } else if (state is AllMhsPerPeriodeMptHasData) {
-                    final mhsPerPeriodeMptList = state.mhsPerPeriodeMptList;
+              CustomContentBox(
+                children: [
 
-                    Future.microtask(() {
-                      context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
-                      // context.read<NamaKegiatanDropDownBloc>().add(ReadNamaKegiatanDropDownEvent());
-                      // context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
-                    });
+                  CustomAddButton(
+                    buttonText: 'Tambah',
+                    onPressed: () => Navigator.pushNamed(
+                      context,
+                      kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute,
+                    ),
+                  ),
 
-                    return CustomContentBox(
-                      children: [
+                  const CustomFieldSpacer(),
 
-                        CustomAddButton(
-                          buttonText: 'Tambah',
-                          onPressed: () => Navigator.pushNamed(
-                            context,
-                            kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute,
-                          ),
-                        ),
+                  buildTitle('Periode Kegiatan'),
+                  BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
+                    builder: (context, state) {
+                      if (state is PeriodeMptDropDownLoading) {
+                        return const Text("Loading ....");
+                      } else if (state is PeriodeMptDropDownHasData) {
 
-                        const CustomFieldSpacer(),
+                        List<String> tahunPeriodeMptList = state.periodeMptList.map(
+                                (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
+                            "${periodeMptList.tahunPeriodeMpt} (ulang)" :
+                            periodeMptList.tahunPeriodeMpt).toList();
+                        tahunPeriodeMptList.insert(0, "Semua");
 
-                        buildTitle('Periode Kegiatan'),
-                        BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
-                          builder: (context, state) {
-                            if (state is PeriodeMptDropDownLoading) {
-                              return const Text("Loading ....");
-                            } else if (state is PeriodeMptDropDownHasData) {
+                        List<int> idTahunPeriodeList = state.periodeMptList.map(
+                                (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
+                        idTahunPeriodeList.insert(0, 0);
 
-                              List<String> tahunPeriodeMptList = state.periodeMptList.map(
-                                      (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
-                                  "${periodeMptList.tahunPeriodeMpt} (ulang)" :
-                                  periodeMptList.tahunPeriodeMpt).toList();
-                              tahunPeriodeMptList.insert(0, "semua");
+                        return MipokaCustomDropdown(
+                            items: tahunPeriodeMptList,
+                            onValueChanged: (value) {
+                              int index = tahunPeriodeMptList.indexOf(value!);
+                              int idPeriodeMpt = idTahunPeriodeList[index];
 
-                              List<int> idTahunPeriodeList = state.periodeMptList.map(
-                                      (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
-                              idTahunPeriodeList.insert(0, 0);
+                              // print("$idPeriodeMpt, $value");
 
-                              return MipokaCustomDropdown(
-                                  items: tahunPeriodeMptList,
-                                  onValueChanged: (value) {
-                                    int index = tahunPeriodeMptList.indexOf(value!);
-                                    int idPeriodeMpt = idTahunPeriodeList[index];
-
-                                    // print("$idPeriodeMpt, $value");
-
-                                    idPeriodeKegiatanMpt = idPeriodeMpt;
-                                  }
-                              );
-                            } else if (state is PeriodeMptDropDownError) {
-                              return Text(state.message);
-                            } else {
-                              return const Text("PeriodeMptBloc hasn't been triggered yet.");
+                              _idPeriodeKegiatanMpt = idPeriodeMpt;
                             }
-                          },
-                        ),
+                        );
+                      } else if (state is PeriodeMptDropDownError) {
+                        return Text(state.message);
+                      } else {
+                        return const Text("PeriodeMptBloc hasn't been triggered yet.");
+                      }
+                    },
+                  ),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Prodi'),
-                        MipokaCustomDropdown(
-                          items: listProdi,
-                          onValueChanged: (value) {
+                  buildTitle('Prodi'),
+                  MipokaCustomDropdown(
+                    items: listProdi,
+                    onValueChanged: (value) {
+                      _prodi = value;
+                    },
+                  ),
 
-                          },
-                        ),
+                  const CustomFieldSpacer(),
 
-                        const CustomFieldSpacer(),
+                  buildTitle('Jumlah Poin'),
+                  MipokaCustomDropdown(
+                    items: listJumlahPoint,
+                    onValueChanged: (value) {
+                      _jumlahPoint = value;
+                    },
+                  ),
 
-                        buildTitle('Jumlah Poin'),
-                        CustomTextField(controller: _jumlahPoinController),
+                  const CustomFieldSpacer(),
 
-                        const CustomFieldSpacer(),
+                  buildTitle('NIM'),
+                  CustomTextField(controller: _nimController),
 
-                        buildTitle('NIM'),
-                        CustomTextField(controller: _nimController),
+                  const CustomFieldSpacer(),
 
-                        const CustomFieldSpacer(),
+                  CustomFilterButton(
+                    text: 'Filter',
+                    onPressed: () => context.read<MhsPerPeriodeMptBloc>().add(
+                        ReadAllMhsPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_prodi/$_jumlahPoint/${_nimController.text}")),
+                  ),
 
-                        CustomFilterButton(
-                          text: 'Filter',
-                          onPressed: () {},
-                        ),
+                  BlocBuilder<MhsPerPeriodeMptBloc, MhsPerPeriodeMptState>(
+                    builder: (context, state) {
+                      if (state is MhsPerPeriodeMptEmpty) {
+                        return const Text("Loading ....");
+                      } else if (state is AllMhsPerPeriodeMptHasData) {
+                        final mhsPerPeriodeMptList = state.mhsPerPeriodeMptList;
 
-                        const CustomFieldSpacer(),
+                        return Column(
+                          children: [
+                            const CustomFieldSpacer(),
 
-                        MipokaCountText(total: mhsPerPeriodeMptList.length),
+                            MipokaCountText(total: mhsPerPeriodeMptList.length),
 
-                        const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
 
-                        SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: DataTable(
-                              columnSpacing: 40,
-                              border: TableBorder.all(color: Colors.white),
-                              columns: const [
-                                DataColumn(
-                                  label: Text(
-                                    'Periode',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    'Prodi',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    'NIM',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    'Nama',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    'Poin',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                DataColumn(
-                                  tooltip: 'Aksi yang akan dilakukan',
-                                  label: Text(
-                                    'Aksi',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ],
-
-                              rows: List<DataRow>.generate(mhsPerPeriodeMptList.length, (int index) {
-                                final mhsPerPeriodeMpt = mhsPerPeriodeMptList[index];
-
-                                Future.microtask(() {
-                                  context.read<PeriodeMptBloc>().add(
-                                      ReadPeriodeMptEvent(idPeriodeMpt: mhsPerPeriodeMpt.idPeriodeMpt));
-                                  context.read<MipokaUserBloc>().add(
-                                      ReadMipokaUserEvent(idMipokaUser: mhsPerPeriodeMpt.idUser));
-                                });
-
-                                return DataRow(
-                                  cells: [
-                                    DataCell(
-                                      BlocBuilder<PeriodeMptBloc, PeriodeMptState>(
-                                        builder: (context, state) {
-                                          if (state is PeriodeMptLoading) {
-                                            return const Text("Loading ....");
-                                          } else if (state is PeriodeMptHasData) {
-                                            return Align(
-                                              alignment: Alignment.center,
-                                              child: Text(state.periodeMpt.tahunPeriodeMpt),
-                                            );
-                                          } else if (state is PeriodeMptError) {
-                                            return Text(state.message);
-                                          } else {
-                                            return const Text("PeriodeMptBloc hasn't been triggered yet.");
-                                          }
-                                        },
+                            SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: DataTable(
+                                  columnSpacing: 40,
+                                  border: TableBorder.all(color: Colors.white),
+                                  columns: const [
+                                    DataColumn(
+                                      label: Text(
+                                        'Periode',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    DataCell(
-                                      BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                        builder: (context, state) {
-                                          if (state is MipokaUserLoading) {
-                                            return const Text("Loading ....");
-                                          } else if (state is MipokaUserHasData) {
-                                            return Align(
-                                              alignment: Alignment.center,
-                                              child: Text(state.mipokaUser.prodi),
-                                            );
-                                          } else if (state is MipokaUserError) {
-                                            return Text(state.message);
-                                          } else {
-                                            return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                          }
-                                        },
+                                    DataColumn(
+                                      label: Text(
+                                        'Prodi',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    DataCell(
-                                      BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                        builder: (context, state) {
-                                          if (state is MipokaUserLoading) {
-                                            return const Text("Loading ....");
-                                          } else if (state is MipokaUserHasData) {
-                                            return Align(
-                                              alignment: Alignment.center,
-                                              child: Text(state.mipokaUser.nim),
-                                            );
-                                          } else if (state is MipokaUserError) {
-                                            return Text(state.message);
-                                          } else {
-                                            return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                          }
-                                        },
+                                    DataColumn(
+                                      label: Text(
+                                        'NIM',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    DataCell(
-                                      BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                        builder: (context, state) {
-                                          if (state is MipokaUserLoading) {
-                                            return const Text("Loading ....");
-                                          } else if (state is MipokaUserHasData) {
-                                            return Align(
-                                              alignment: Alignment.center,
-                                              child: Text(state.mipokaUser.namaLengkap),
-                                            );
-                                          } else if (state is MipokaUserError) {
-                                            return Text(state.message);
-                                          } else {
-                                            return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                          }
-                                        },
+                                    DataColumn(
+                                      label: Text(
+                                        'Nama',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    DataCell(
-                                      BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                        builder: (context, state) {
-                                          if (state is MipokaUserLoading) {
-                                            return const Text("Loading ....");
-                                          } else if (state is MipokaUserHasData) {
-                                            return Align(
-                                              alignment: Alignment.center,
-                                              child: Text(state.mipokaUser.pointMpt.toString()),
-                                            );
-                                          } else if (state is MipokaUserError) {
-                                            return Text(state.message);
-                                          } else {
-                                            return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                          }
-                                        },
+                                    DataColumn(
+                                      label: Text(
+                                        'Poin',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    DataCell(
-                                      InkWell(
-                                        onTap: () {
-                                          context.read<MhsPerPeriodeMptBloc>().add(
-                                            DeleteMhsPerPeriodeMptEvent(idMhsPerPeriodeMpt: mhsPerPeriodeMpt.idMhsPerPeriodeMpt));
-                                          context.read<MhsPerPeriodeMptBloc>().add(const ReadAllMhsPerPeriodeMptEvent());
-
-                                          mipokaCustomToast("Mahasiswa per periode telah dihapus");
-                                        },
-                                        child: Image.asset(
-                                          'assets/icons/delete.png',
-                                          width: 24,
-                                        ),
+                                    DataColumn(
+                                      tooltip: 'Aksi yang akan dilakukan',
+                                      label: Text(
+                                        'Aksi',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
                                   ],
-                                );
-                              }),
+
+                                  rows: List<DataRow>.generate(mhsPerPeriodeMptList.length, (int index) {
+                                    final mhsPerPeriodeMpt = mhsPerPeriodeMptList[index];
+
+                                    Future.microtask(() {
+                                      context.read<PeriodeMptBloc>().add(
+                                          ReadPeriodeMptEvent(idPeriodeMpt: mhsPerPeriodeMpt.idPeriodeMpt));
+                                      context.read<MipokaUserBloc>().add(
+                                          ReadMipokaUserEvent(idMipokaUser: mhsPerPeriodeMpt.idUser));
+                                    });
+
+                                    return DataRow(
+                                      cells: [
+                                        DataCell(
+                                          BlocBuilder<PeriodeMptBloc, PeriodeMptState>(
+                                            builder: (context, state) {
+                                              if (state is PeriodeMptLoading) {
+                                                return const Text("Loading ....");
+                                              } else if (state is PeriodeMptHasData) {
+                                                return Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(state.periodeMpt.tahunPeriodeMpt),
+                                                );
+                                              } else if (state is PeriodeMptError) {
+                                                return Text(state.message);
+                                              } else {
+                                                return const Text("PeriodeMptBloc hasn't been triggered yet.");
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        DataCell(
+                                          BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                            builder: (context, state) {
+                                              if (state is MipokaUserLoading) {
+                                                return const Text("Loading ....");
+                                              } else if (state is MipokaUserHasData) {
+                                                return Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(state.mipokaUser.prodi),
+                                                );
+                                              } else if (state is MipokaUserError) {
+                                                return Text(state.message);
+                                              } else {
+                                                return const Text("MipokaUserBloc hasn't been triggered yet.");
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        DataCell(
+                                          BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                            builder: (context, state) {
+                                              if (state is MipokaUserLoading) {
+                                                return const Text("Loading ....");
+                                              } else if (state is MipokaUserHasData) {
+                                                return Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(state.mipokaUser.nim),
+                                                );
+                                              } else if (state is MipokaUserError) {
+                                                return Text(state.message);
+                                              } else {
+                                                return const Text("MipokaUserBloc hasn't been triggered yet.");
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        DataCell(
+                                          BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                            builder: (context, state) {
+                                              if (state is MipokaUserLoading) {
+                                                return const Text("Loading ....");
+                                              } else if (state is MipokaUserHasData) {
+                                                return Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(state.mipokaUser.namaLengkap),
+                                                );
+                                              } else if (state is MipokaUserError) {
+                                                return Text(state.message);
+                                              } else {
+                                                return const Text("MipokaUserBloc hasn't been triggered yet.");
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        DataCell(
+                                          BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                            builder: (context, state) {
+                                              if (state is MipokaUserLoading) {
+                                                return const Text("Loading ....");
+                                              } else if (state is MipokaUserHasData) {
+                                                return Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(state.mipokaUser.pointMpt.toString()),
+                                                );
+                                              } else if (state is MipokaUserError) {
+                                                return Text(state.message);
+                                              } else {
+                                                return const Text("MipokaUserBloc hasn't been triggered yet.");
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        DataCell(
+                                          InkWell(
+                                            onTap: () => Future.microtask(() {
+                                              context.read<MhsPerPeriodeMptBloc>().add(
+                                                  DeleteMhsPerPeriodeMptEvent(idMhsPerPeriodeMpt: mhsPerPeriodeMpt.idMhsPerPeriodeMpt));
+                                              context.read<MhsPerPeriodeMptBloc>().add(
+                                                  ReadAllMhsPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_prodi/$_jumlahPoint/${_nimController.text}"));
+                                              mipokaCustomToast("Mahasiswa per periode telah dihapus");
+                                            }),
+                                            child: Image.asset(
+                                              'assets/icons/delete.png',
+                                              width: 24,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ],
-                    );
-                  } else if (state is MhsPerPeriodeMptError) {
-                    return Text(state.message);
-                  } else {
-                    return const Text("MhsPerPeriodeMptBloc hasn't been triggered yet.");
-                  }
-                },
-              ),
+                          ],
+                        );
+                      } else if (state is MhsPerPeriodeMptError) {
+                        return Text(state.message);
+                      } else {
+                        return const Text("MhsPerPeriodeMptBloc hasn't been triggered yet.");
+                      }
+                    },
+                  ),
+                ],
+              )
             ],
           ),
         ),
