@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
@@ -31,10 +29,6 @@ class _KemahasiswaanMPTMahasiswaPeriodeTambahPageState extends State<Kemahasiswa
   final TextEditingController _tanggalSelesaiController = TextEditingController();
   final StreamController<bool> _isPeriodeMengulangMptStream = StreamController<bool>();
   bool _isPeriodeMengulangMpt = false;
-
-  int newId = DateTime.now().millisecondsSinceEpoch;
-  User? user = FirebaseAuth.instance.currentUser;
-  String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
   @override
   void initState() {
@@ -130,23 +124,26 @@ class _KemahasiswaanMPTMahasiswaPeriodeTambahPageState extends State<Kemahasiswa
                         onTap: () {
                           if (_tahunController.text.isNotEmpty && _tanggalMulaiController.text.isNotEmpty &&
                           _tanggalSelesaiController.text.isNotEmpty) {
-                            context.read<PeriodeMptBloc>().add(
-                              CreatePeriodeMptEvent(
-                                periodeMpt: PeriodeMpt(
-                                  idPeriodeMpt: newId,
-                                  tahunPeriodeMpt: _tahunController.text,
-                                  periodeMengulangMpt: _isPeriodeMengulangMpt,
-                                  tanggalMulaiPeriodeMpt: _tanggalMulaiController.text,
-                                  tanggalBerakhirPeriodeMpt: _tanggalSelesaiController.text,
-                                  createdAt: currentDate,
-                                  createdBy: user?.email ?? "unknown",
-                                  updatedAt: currentDate,
-                                  updatedBy: user?.email ?? "unknown",
+                            Future.microtask(() {
+                              mipokaCustomToast("Periode telah ditambahkan.");
+                              context.read<PeriodeMptBloc>().add(
+                                CreatePeriodeMptEvent(
+                                  periodeMpt: PeriodeMpt(
+                                    idPeriodeMpt: newId,
+                                    tahunPeriodeMpt: _tahunController.text,
+                                    periodeMengulangMpt: _isPeriodeMengulangMpt,
+                                    tanggalMulaiPeriodeMpt: _tanggalMulaiController.text,
+                                    tanggalBerakhirPeriodeMpt: _tanggalSelesaiController.text,
+                                    createdAt: currentDate,
+                                    createdBy: user?.email ?? "unknown",
+                                    updatedAt: currentDate,
+                                    updatedBy: user?.email ?? "unknown",
+                                  ),
                                 ),
-                              ),
-                            );
-                            mipokaCustomToast("Periode telah ditambahkan.");
-                            Navigator.pop(context);
+                              );
+                              context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+                              Navigator.pop(context);
+                            });
                           } else {
                             mipokaCustomToast("Harap semua field diisi.");
                           }

@@ -10,6 +10,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dart';
 
 class KemahasiswaanMPTMahasiswaPeriodePage extends StatefulWidget {
   const KemahasiswaanMPTMahasiswaPeriodePage({super.key});
@@ -26,6 +27,12 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
   void initState() {
     context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    context.read<PeriodeMptBloc>().close();
+    super.dispose();
   }
 
   @override
@@ -51,7 +58,6 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
 
                     return CustomContentBox(
                       children: [
-                        buildTitle('Total Periode : ${periodeMptList.length}'),
                         CustomAddButton(
                           buttonText: 'Tambah',
                           onPressed: () => Navigator.pushNamed(
@@ -60,116 +66,114 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
                           ),
                         ),
                         const CustomFieldSpacer(),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                          ),
+
+                        MipokaCountText(total: periodeMptList.length),
+
+                        const CustomFieldSpacer(),
+
+                        SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
                           child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: DataTable(
-                                columnSpacing: 40,
-                                border: TableBorder.all(color: Colors.white),
-                                columns: const [
-                                  DataColumn(
-                                    label: Text(
-                                      'Tahun',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
+                            scrollDirection: Axis.horizontal,
+                            child: DataTable(
+                              columnSpacing: 40,
+                              border: TableBorder.all(color: Colors.white),
+                              columns: const [
+                                DataColumn(
+                                  label: Text(
+                                    'Tahun',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Tanggal Mulai',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
+                                ),
+                                DataColumn(
+                                  label: Text(
+                                    'Tanggal Mulai',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Tanggal Selesai',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
+                                ),
+                                DataColumn(
+                                  label: Text(
+                                    'Tanggal Selesai',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  DataColumn(
-                                    tooltip: 'Aksi yang akan dilakukan',
-                                    label: Text(
-                                      'Aksi',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
+                                ),
+                                DataColumn(
+                                  tooltip: 'Aksi yang akan dilakukan',
+                                  label: Text(
+                                    'Aksi',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
                                   ),
-                                ],
-                                rows: List<DataRow>.generate(periodeMptList.length, (int index) {
-                                  final periodeMpt = periodeMptList[index];
+                                ),
+                              ],
+                              rows: List<DataRow>.generate(periodeMptList.length, (int index) {
+                                final periodeMpt = periodeMptList[index];
 
-                                  return DataRow(
-                                    cells: [
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            periodeMpt.tahunPeriodeMpt,
-                                          ),
+                                return DataRow(
+                                  cells: [
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          periodeMpt.tahunPeriodeMpt,
                                         ),
                                       ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            periodeMpt.tanggalMulaiPeriodeMpt,
-                                          ),
+                                    ),
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          periodeMpt.tanggalMulaiPeriodeMpt,
                                         ),
                                       ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            periodeMpt.tanggalBerakhirPeriodeMpt,
-                                          ),
+                                    ),
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          periodeMpt.tanggalBerakhirPeriodeMpt,
                                         ),
                                       ),
-                                      DataCell(
-                                        Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            InkWell(
-                                              onTap: () => Navigator.pushNamed(
-                                                context,
-                                                kemahasiswaanMPTMahasiswaPeriodeEditPageRoute,
-                                                arguments: periodeMpt,
-                                              ),
-                                              child: Image.asset(
-                                                'assets/icons/edit.png',
-                                                width: 24,
-                                              ),
+                                    ),
+                                    DataCell(
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          InkWell(
+                                            onTap: () => Navigator.pushNamed(
+                                              context,
+                                              kemahasiswaanMPTMahasiswaPeriodeEditPageRoute,
+                                              arguments: periodeMpt,
                                             ),
-
-                                            const SizedBox(width: 16.0,),
-
-                                            InkWell(
-                                              onTap: () {
-                                                context.read<PeriodeMptBloc>().add(
-                                                  DeletePeriodeMptEvent(periodeMpt.idPeriodeMpt),
-                                                );
-                                                context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
-                                                mipokaCustomToast("Periode MPT telah dihapus.");
-                                              },
-                                              child: Image.asset(
-                                                'assets/icons/delete.png',
-                                                width: 24,
-                                              ),
+                                            child: Image.asset(
+                                              'assets/icons/edit.png',
+                                              width: 24,
                                             ),
-                                          ],
-                                        ),
+                                          ),
+
+                                          const SizedBox(width: 16.0,),
+
+                                          InkWell(
+                                            onTap: () => Future.microtask(() {
+                                              context.read<PeriodeMptBloc>().add(DeletePeriodeMptEvent(periodeMpt.idPeriodeMpt),);
+                                              context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+                                              mipokaCustomToast("Periode MPT telah dihapus.");
+                                            }),
+                                            child: Image.asset(
+                                              'assets/icons/delete.png',
+                                              width: 24,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  );
-                                }),
-                              ),
+                                    ),
+                                  ],
+                                );
+                              }),
                             ),
                           ),
                         ),
