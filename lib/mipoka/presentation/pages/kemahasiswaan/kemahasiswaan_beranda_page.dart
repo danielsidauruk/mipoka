@@ -12,6 +12,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dart';
 
 class KemahasiswaanBerandaPage extends StatefulWidget {
   const KemahasiswaanBerandaPage({super.key});
@@ -42,72 +43,36 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
           } else if (state is AllBeritaHasData) {
             final beritaList = state.allBerita;
 
+            List<String> penulisList = beritaList.map((berita) => berita.penulis).toSet().toList();
+            penulisList.insert(0, "Semua");
+
+            //
+            // return Column(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: [
+            //   MipokaCustomDropdown(
+            //   items: jenisKegiatanList,
+            //   onValueChanged: (value) {
+            //     int index = jenisKegiatanList.indexOf(value ?? "");
+            //     idNamaKegiatanMpt = idNamaKegiatanList[index];
+            //
+            //     context.read<NamaKegiatanMptBloc>().add(
+            //         ReadAllNamaKegiatanMptEvent(id: idNamaKegiatanMpt));
+            //
+            //   },
+            // ),
+
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const Placeholder(
-                      fallbackHeight: 170,
-                    ),
-                    const CustomFieldSpacer(height: 4.0),
-                    SizedBox(
-                      height: 60,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            color: Colors.grey,
-                          ),
-                          const SizedBox(width: 4.0),
-                          Container(
-                            height: 50,
-                            width: 50,
-                            color: Colors.grey,
-                          ),
-                          const SizedBox(width: 4.0),
-                          Container(
-                            height: 50,
-                            width: 50,
-                            color: Colors.grey,
-                          ),
-                          const SizedBox(width: 4.0),
-                          Container(
-                            height: 50,
-                            width: 50,
-                            color: Colors.grey,
-                          ),
-                          const SizedBox(width: 4.0),
-                          Container(
-                            height: 50,
-                            width: 50,
-                            color: Colors.grey,
-                          ),
-                          const SizedBox(width: 4.0),
-                          Container(
-                            height: 50,
-                            width: 50,
-                            color: Colors.grey,
-                          ),
-                          const SizedBox(width: 4.0),
-                          Container(
-                            height: 50,
-                            width: 50,
-                            color: Colors.grey,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const CustomFieldSpacer(),
                     const CustomMobileTitle(
                         text: 'Kemahasiswaan - Edit Beranda'),
                     const CustomFieldSpacer(),
                     CustomContentBox(
                       children: [
-                        buildTitle('Total Berita : ${state.allBerita.length}'),
                         CustomAddButton(
                           buttonText: 'Tambah',
                           onPressed: () => Navigator.pushNamed(context,
@@ -116,7 +81,7 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                         const CustomFieldSpacer(),
                         buildTitle('Penulis'),
                         MipokaCustomDropdown(
-                          items: listStatus,
+                          items: penulisList,
                           onValueChanged: (value) {
                             context.read<BeritaBloc>().add(
                               ReadAllBeritaEvent(filter: value!)
@@ -125,120 +90,120 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                         ),
 
                         const CustomFieldSpacer(),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                          ),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: DataTable(
-                                columnSpacing: 40,
-                                border: TableBorder.all(color: Colors.white),
-                                columns: const [
-                                  DataColumn(
-                                    label: Text(
-                                      'Tanggal Diterbitkan',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Judul Berita',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Penulis',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Aksi',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
-                                rows: List<DataRow>.generate(
-                                    beritaList.length, (int index) {
-                                  final berita = beritaList[index];
 
-                                  return DataRow(
-                                    cells: [
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            berita.tglTerbit,
-                                          ),
+                        MipokaCountText(total: beritaList.length),
+
+                        const CustomFieldSpacer(),
+
+                        SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: DataTable(
+                              columnSpacing: 40,
+                              border: TableBorder.all(color: Colors.white),
+                              columns: const [
+                                DataColumn(
+                                  label: Text(
+                                    'Tanggal Diterbitkan',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: Text(
+                                    'Judul Berita',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: Text(
+                                    'Penulis',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: Text(
+                                    'Aksi',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                              rows: List<DataRow>.generate(
+                                  beritaList.length, (int index) {
+                                final berita = beritaList[index];
+
+                                return DataRow(
+                                  cells: [
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          berita.tglTerbit,
                                         ),
                                       ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            berita.judul,
-                                          ),
+                                    ),
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          berita.judul,
                                         ),
                                       ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            berita.penulis,
-                                          ),
+                                    ),
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          berita.penulis,
                                         ),
                                       ),
-                                      DataCell(
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            InkWell(
-                                              onTap: () => Navigator.pushNamed(
-                                                context,
-                                                kemahasiswaanBerandaUpdateBeritaPageRoute,
-                                                arguments: berita,
-                                              ),
-                                              // onTap:() =>
-                                              child: Image.asset(
-                                                'assets/icons/edit.png',
-                                                width: 24,
-                                              ),
+                                    ),
+                                    DataCell(
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          InkWell(
+                                            onTap: () => Navigator.pushNamed(
+                                              context,
+                                              kemahasiswaanBerandaUpdateBeritaPageRoute,
+                                              arguments: berita,
                                             ),
-                                            const SizedBox(
-                                              width: 8.0,
+                                            // onTap:() =>
+                                            child: Image.asset(
+                                              'assets/icons/edit.png',
+                                              width: 24,
                                             ),
-                                            InkWell(
-                                              onTap: () {
-                                                context.read<BeritaBloc>().add(
-                                                  DeleteBeritaEvent(berita.idBerita),
-                                                );
-                                                mipokaCustomToast("Berita telah dihapus");
-                                              },
-                                              child: Image.asset(
-                                                'assets/icons/delete.png',
-                                                width: 24,
-                                              ),
+                                          ),
+                                          const SizedBox(
+                                            width: 8.0,
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              context.read<BeritaBloc>().add(
+                                                DeleteBeritaEvent(berita.idBerita),
+                                              );
+                                              mipokaCustomToast("Berita telah dihapus");
+                                            },
+                                            child: Image.asset(
+                                              'assets/icons/delete.png',
+                                              width: 24,
                                             ),
-                                          ],
-                                        ),
+                                          )
+                                        ],
                                       ),
-                                    ],
-                                  );
-                                }),
-                              ),
+                                    ),
+                                  ],
+                                );
+                              }),
                             ),
                           ),
                         ),

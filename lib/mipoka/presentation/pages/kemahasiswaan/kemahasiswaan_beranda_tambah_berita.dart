@@ -1,9 +1,9 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
@@ -34,14 +34,8 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
   final StreamController<String?> _fotoBeritaStream = StreamController<String?>();
   String? _fotoBerita;
 
-  int newId = DateTime.now().microsecondsSinceEpoch;
-  User? user = FirebaseAuth.instance.currentUser;
-  String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
   @override
   Widget build(BuildContext context) {
-    String uuid = const Uuid().v4();
-
 
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
@@ -129,7 +123,8 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                                 ),
                               ),
                             );
-                            Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
+                            context.read<BeritaBloc>().add(const ReadAllBeritaEvent());
+                            Navigator.pop(context, true);
                             mipokaCustomToast("Berita berhasil ditambahkan.");
                           } else {
                             mipokaCustomToast("Harap isi semua field.");

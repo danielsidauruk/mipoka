@@ -1,6 +1,6 @@
 [
   {
-    "id_berita": 123,
+    "id_berita": 1123423,
     "judul": "Dokter Mengungkapkan Fakta Mengerikan: Makan Brokoli Dapat Membuat Anda Abadi",
     "penulis": "John Doe",
     "gambar": "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/vlcsnap-2023-02-04-20h08m24s955.png?alt=media&token=87e7d7f0-5d9e-464f-b938-f5b8880c7d78",
@@ -12,9 +12,57 @@
     "updated_by": "John Doe"
   },
   {
-    "id_berita": 123,
+    "id_berita": 131123,
     "judul": "Perang Tikus vs. Manusia: Siapa yang Akan Menjadi Penguasa Dunia?",
+    "penulis": "Tommy Siregar",
+    "gambar": "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/kitten.png?alt=media&token=5218d6a8-6512-4d8b-b14b-bee0acec71a3",
+    "teks": "Jika Anda ingin mengubah state dalam bloc saat terjadi sebuah aksi, seperti saat onTap atau event lainnya, lebih baik menambahkan add di dalamnya.\n\nPemanggilan metode add pada bloc akan mengirimkan event ke bloc, yang akan memicu perubahan state dan memperbarui widget yang terikat dengan BlocBuilder.\n\nMisalnya, jika Anda memiliki sebuah tombol dengan aksi onTap, dan Anda ingin memperbarui state bloc ketika tombol tersebut ditekan, disarankan untuk menambahkan add di dalam fungsi onTap tersebut. Dengan demikian, setiap kali tombol ditekan, event akan dikirim ke bloc melalui add, dan state akan diperbarui sesuai dengan event tersebut.\n\nJadi, intinya, tambahkan add di dalam event yang memicu perubahan state bloc, seperti saat aksi pengguna dilakukan, seperti tombol ditekan, form disubmit, atau event lainnya.",
+    "tgl_terbit": "20-10-2026",
+    "created_at": "2023-06-26",
+    "created_by": "Jane Smith",
+    "updated_at": "2-6-2022",
+    "updated_by": "John Doe"
+  },
+  {
+    "id_berita": 1434534,
+    "judul": "Perang Tikus vs. Manusia: Siapa yang Akan Menjadi Penguasa Dunia?",
+    "penulis": "Daniel Sidauruk",
+    "gambar": "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/kitten.png?alt=media&token=5218d6a8-6512-4d8b-b14b-bee0acec71a3",
+    "teks": "Jika Anda ingin mengubah state dalam bloc saat terjadi sebuah aksi, seperti saat onTap atau event lainnya, lebih baik menambahkan add di dalamnya.\n\nPemanggilan metode add pada bloc akan mengirimkan event ke bloc, yang akan memicu perubahan state dan memperbarui widget yang terikat dengan BlocBuilder.\n\nMisalnya, jika Anda memiliki sebuah tombol dengan aksi onTap, dan Anda ingin memperbarui state bloc ketika tombol tersebut ditekan, disarankan untuk menambahkan add di dalam fungsi onTap tersebut. Dengan demikian, setiap kali tombol ditekan, event akan dikirim ke bloc melalui add, dan state akan diperbarui sesuai dengan event tersebut.\n\nJadi, intinya, tambahkan add di dalam event yang memicu perubahan state bloc, seperti saat aksi pengguna dilakukan, seperti tombol ditekan, form disubmit, atau event lainnya.",
+    "tgl_terbit": "20-10-2026",
+    "created_at": "2023-06-26",
+    "created_by": "Jane Smith",
+    "updated_at": "2-6-2022",
+    "updated_by": "John Doe"
+  },
+  {
+    "id_berita": 123453,
+    "judul": "Perang Tikus vs. Manusia: Siapa yang Akan Menjadi Penguasa Dunia?",
+    "penulis": "Daniel Sidauruk",
+    "gambar": "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/kitten.png?alt=media&token=5218d6a8-6512-4d8b-b14b-bee0acec71a3",
+    "teks": "Jika Anda ingin mengubah state dalam bloc saat terjadi sebuah aksi, seperti saat onTap atau event lainnya, lebih baik menambahkan add di dalamnya.\n\nPemanggilan metode add pada bloc akan mengirimkan event ke bloc, yang akan memicu perubahan state dan memperbarui widget yang terikat dengan BlocBuilder.\n\nMisalnya, jika Anda memiliki sebuah tombol dengan aksi onTap, dan Anda ingin memperbarui state bloc ketika tombol tersebut ditekan, disarankan untuk menambahkan add di dalam fungsi onTap tersebut. Dengan demikian, setiap kali tombol ditekan, event akan dikirim ke bloc melalui add, dan state akan diperbarui sesuai dengan event tersebut.\n\nJadi, intinya, tambahkan add di dalam event yang memicu perubahan state bloc, seperti saat aksi pengguna dilakukan, seperti tombol ditekan, form disubmit, atau event lainnya.",
+    "tgl_terbit": "20-10-2026",
+    "created_at": "2023-06-26",
+    "created_by": "Jane Smith",
+    "updated_at": "2-6-2022",
+    "updated_by": "John Doe"
+  },
+  {
+    "id_berita": 1126543423,
+    "judul": "Dokter Mengungkapkan Fakta Mengerikan: Makan Brokoli Dapat Membuat Anda Abadi",
     "penulis": "John Doe",
+    "gambar": "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/vlcsnap-2023-02-04-20h08m24s955.png?alt=media&token=87e7d7f0-5d9e-464f-b938-f5b8880c7d78",
+    "teks": "Jika Anda ingin mengubah state dalam bloc saat terjadi sebuah aksi, seperti saat onTap atau event lainnya, lebih baik menambahkan add di dalamnya.\n\nPemanggilan metode add pada bloc akan mengirimkan event ke bloc, yang akan memicu perubahan state dan memperbarui widget yang terikat dengan BlocBuilder.\n\nMisalnya, jika Anda memiliki sebuah tombol dengan aksi onTap, dan Anda ingin memperbarui state bloc ketika tombol tersebut ditekan, disarankan untuk menambahkan add di dalam fungsi onTap tersebut. Dengan demikian, setiap kali tombol ditekan, event akan dikirim ke bloc melalui add, dan state akan diperbarui sesuai dengan event tersebut.\n\nJadi, intinya, tambahkan add di dalam event yang memicu perubahan state bloc, seperti saat aksi pengguna dilakukan, seperti tombol ditekan, form disubmit, atau event lainnya.",
+    "tgl_terbit": "26-06-2023",
+    "created_at": "2023-06-26",
+    "created_by": "Jane Smith",
+    "updated_at": "26-06-2023",
+    "updated_by": "John Doe"
+  },
+  {
+    "id_berita": 13112253,
+    "judul": "Perang Tikus vs. Manusia: Siapa yang Akan Menjadi Penguasa Dunia?",
+    "penulis": "Tommy Siregar",
     "gambar": "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/kitten.png?alt=media&token=5218d6a8-6512-4d8b-b14b-bee0acec71a3",
     "teks": "Jika Anda ingin mengubah state dalam bloc saat terjadi sebuah aksi, seperti saat onTap atau event lainnya, lebih baik menambahkan add di dalamnya.\n\nPemanggilan metode add pada bloc akan mengirimkan event ke bloc, yang akan memicu perubahan state dan memperbarui widget yang terikat dengan BlocBuilder.\n\nMisalnya, jika Anda memiliki sebuah tombol dengan aksi onTap, dan Anda ingin memperbarui state bloc ketika tombol tersebut ditekan, disarankan untuk menambahkan add di dalam fungsi onTap tersebut. Dengan demikian, setiap kali tombol ditekan, event akan dikirim ke bloc melalui add, dan state akan diperbarui sesuai dengan event tersebut.\n\nJadi, intinya, tambahkan add di dalam event yang memicu perubahan state bloc, seperti saat aksi pengguna dilakukan, seperti tombol ditekan, form disubmit, atau event lainnya.",
     "tgl_terbit": "20-10-2026",

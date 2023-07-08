@@ -122,6 +122,7 @@ class _PenggunaPengajuanLaporanKegiatan1State
                                   onTap: () {
                                     context.read<LaporanBloc>().add(
                                       DeleteLaporanEvent(idLaporan: widget.idLaporan));
+                                    context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
                                     mipokaCustomToast("Laporan telah dihapus.");
                                     Navigator.pop(context);
                                   },
