@@ -494,11 +494,11 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
 
                                               InkWell(
                                                 onTap: () => Future.microtask(() {
-                                                  mipokaCustomToast("Riwayat kegiatan MPT telah di approve");
                                                   context.read<RiwayatKegiatanMptBloc>().add(
                                                       UpdateRiwayatKegiatanMptEvent(
                                                           riwayatKegiatanMpt: riwayatKegiatanMpt.copyWith(statusMpt: "approve")));
                                                   context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
+                                                  mipokaCustomToast("Riwayat kegiatan MPT telah di approve");
                                                 }),
                                                 child: Image.asset(
                                                   'assets/icons/approve.png',
@@ -512,6 +512,8 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                                                 onTap: () => Future.microtask(() {
                                                   context.read<RiwayatKegiatanMptBloc>().add(
                                                       DeleteRiwayatMptEvent(idRiwayatKegiatanMpt: riwayatKegiatanMpt.idRiwayatKegiatanMpt));
+                                                  context.read<RiwayatKegiatanMptBloc>().add(
+                                                      ReadAllRiwayatKegiatanMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idJenisKegiatan/$_idNamaKegiatan/$_status/${_nimController.text}/$_isCheckedJenisKegiatan"));
                                                   mipokaCustomToast("Riwayat Kegiatan telah dihapus");
                                                 }),
                                                 child: Image.asset(

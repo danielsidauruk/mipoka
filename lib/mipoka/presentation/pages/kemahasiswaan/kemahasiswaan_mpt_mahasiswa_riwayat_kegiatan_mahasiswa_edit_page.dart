@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mipoka/core/constanst.dart';
-import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_date_picker_field.dart';
-import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_filter_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
@@ -29,7 +23,10 @@ class MahasiswaRiwayatKegiatanMahasiswaEditPage extends StatefulWidget {
 }
 
 class _MahasiswaRiwayatKegiatanMahasiswaEditPageState extends State<MahasiswaRiwayatKegiatanMahasiswaEditPage> {
-  final TextEditingController _idperiodeController = TextEditingController();
+  // final TextEditingController _idperiodeController = TextEditingController();
+
+  int? _idPeriodeKegiatan;
+
   final TextEditingController _nimController = TextEditingController();
   final TextEditingController _namaMahasiswaController = TextEditingController();
   final TextEditingController _jenisKegiatanController = TextEditingController();
@@ -39,6 +36,8 @@ class _MahasiswaRiwayatKegiatanMahasiswaEditPageState extends State<MahasiswaRiw
 
   @override
   void initState() {
+    _idPeriodeKegiatan = widget.riwayatKegiatanMpt.idKegiatanPerPeriodeMpt;
+    _nimController = widget.riwayatKegiatanMpt.idUser;
     super.initState();
   }
 
