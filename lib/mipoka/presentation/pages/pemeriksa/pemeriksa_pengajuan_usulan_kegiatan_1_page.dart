@@ -1,9 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
-import 'package:mipoka/mipoka/domain/entities/revisi_usulan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/revisi_usulan_bloc/revisi_usulan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
@@ -251,7 +249,7 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
                                   const SizedBox(width: 8.0),
 
                                   CustomMipokaButton(
-                                    onTap: () {
+                                    onTap: () => Future.microtask(() {
                                       context.read<RevisiUsulanBloc>().add(
                                         UpdateRevisiUsulanEvent(
                                           revisiUsulan: revisiUsulan.copyWith(
@@ -273,31 +271,27 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
                                             revisiTotalPendanaan: _revisiTotalPendanaanController.text,
                                             // revisiKategoriTotalPendanaan: ,
                                             revisiKeterangan: _revisiKeteranganController.text,
-                                            // revisiTandaTanganOrmawa: "",
+                                            revisiTandaTanganOrmawa: "",
                                             updatedAt: currentDate,
                                             updatedBy: user?.email ?? "unknown",
                                           ),
                                         ),
                                       );
 
-                                      // usulanKegiatan.tanggalKeberangkatan == "" ?
-                                      // Navigator.pushNamed(
-                                      //   context,
-                                      //   pemeriksaPengajuanUsulanKegiatan2DKPageRoute,
-                                      //   arguments: widget.idRevisiUsulan,
-                                      // ) :
-                                      // Navigator.pushNamed(
-                                      //   context,
-                                      //   pemeriksaPengajuanUsulanKegiatan2LKPageRoute,
-                                      //   arguments: widget.idRevisiUsulan,
-                                      // );
-
+                                      usulanKegiatan.tanggalKeberangkatan != "" ?
+                                      Navigator.pushNamed(
+                                        context,
+                                        pemeriksaPengajuanUsulanKegiatan2LKPageRoute,
+                                        arguments: widget.idRevisiUsulan,
+                                      ).then((_) => context.read<RevisiUsulanBloc>().add(
+                                          ReadRevisiUsulanEvent(idRevisiUsulan: widget.idRevisiUsulan))) :
                                       Navigator.pushNamed(
                                         context,
                                         pemeriksaPengajuanUsulanKegiatan2DKPageRoute,
                                         arguments: widget.idRevisiUsulan,
-                                      );
-                                    },
+                                      ).then((_) => context.read<RevisiUsulanBloc>().add(
+                                          ReadRevisiUsulanEvent(idRevisiUsulan: widget.idRevisiUsulan)));
+                                    }),
                                     text: 'Berikutnya',
                                   ),
                                 ],

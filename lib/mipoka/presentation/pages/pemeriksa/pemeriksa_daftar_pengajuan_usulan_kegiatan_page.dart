@@ -210,7 +210,8 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                 context,
                                                 pemeriksaPengajuanUsulanKegiatan1PageRoute,
                                                 arguments: idUsulanUsulan,
-                                              );
+                                              ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                                  const ReadAllUsulanKegiatanEvent()));
                                               
                                               context.read<RevisiUsulanBloc>().add(
                                                 CreateRevisiUsulanEvent(
@@ -421,9 +422,9 @@ void showPop(BuildContext context, UsulanKegiatan usulanKegiatan) {
                                   ),
                                 );
                                 mipokaCustomToast("Usulan Kegiatan telah diterima");
-                                context.read<UsulanKegiatanBloc>().add(
-                                    const ReadAllUsulanKegiatanEvent());
-                                Navigator.pop(context);
+                                // context.read<UsulanKegiatanBloc>().add(
+                                //     const ReadAllUsulanKegiatanEvent());
+                                Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute);
                               });
                             },
                             child: const Text(

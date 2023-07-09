@@ -6,6 +6,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/mipoka/presentation/bloc/revisi_usulan_bloc/revisi_usulan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_daftar_pengajuan_usulan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_comment_for_table.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_load_image.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
@@ -417,6 +418,20 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                                     text: 'Kirim Revisi',
                                   ),
                                 ],
+                              ),
+
+                              const CustomFieldSpacer(),
+
+                              CustomMipokaButton(
+                                onTap: () => Future.microtask(() {
+                                  showPop(context, usulanKegiatan);
+
+                                  // mipokaCustomToast("Usulan telah diterima.");
+
+                                  // Navigator.pushNamed(
+                                  //     context, pemeriksaDaftarUsulanKegiatanPageRoute);
+                                }),
+                                text: 'Terima',
                               ),
                             ],
                           );

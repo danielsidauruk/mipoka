@@ -297,7 +297,17 @@ class _PemeriksaPengajuanUsulanKegiatan2DKPageState
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   CustomMipokaButton(
-                                    onTap: () => Navigator.pop(context),
+                                    onTap: () {
+                                      context.read<RevisiUsulanBloc>().add(
+                                        UpdateRevisiUsulanEvent(
+                                          revisiUsulan: revisiUsulan.copyWith(
+                                            revisiPartisipan: _revisiPesertaKegiatanDalamKotaController.text,
+                                            revisiRincianBiayaKegiatan: _revisiRincianBiayaKegiatanController.text,
+                                          ),
+                                        )
+                                      );
+                                      Navigator.pop(context);
+                                    },
                                     text: 'Sebelumnya',
                                   ),
                                   const SizedBox(width: 8.0),
