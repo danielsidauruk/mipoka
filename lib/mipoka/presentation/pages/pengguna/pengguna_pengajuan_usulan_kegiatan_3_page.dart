@@ -1,15 +1,10 @@
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
-import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_switch.dart';
-import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -37,32 +32,6 @@ class PenggunaPengajuanUsulanKegiatan3 extends StatefulWidget {
 class _PenggunaPengajuanUsulanKegiatan3State
     extends State<PenggunaPengajuanUsulanKegiatan3> with RouteAware {
 
-  @override
-  void initState() {
-    context.read<UsulanKegiatanBloc>().add(
-        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
-    super.initState();
-  }
-
-  @override
-  void didPop() {
-    BlocProvider.of<UsulanKegiatanBloc>(context)
-        .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
-    super.didPop();
-  }
-
-  @override
-  void dispose() {
-    context.read<UsulanKegiatanBloc>().close();
-    _postinganKegiatanStream.close();
-    _suratUndanganKegiatanStream.close();
-    _linimasaKegiatanStream.close();
-    _fotoTempatKegiatanStream.close();
-    _tertibAcaraStream.close();
-    super.dispose();
-  }
-
-  bool tertibAcara = false;
   late QuillController _latarBelakangController;
   late QuillController _tujuanKegiatanController;
   late QuillController _manfaatKegiatanController;
@@ -78,14 +47,32 @@ class _PenggunaPengajuanUsulanKegiatan3State
   String? _linimasaKegiatanController;
   String? _fotoTempatKegiatanController;
 
-  final StreamController<bool?> _tertibAcaraStream = StreamController<bool?>();
-  final StreamController<String?> _postinganKegiatanStream = StreamController<String?>();
-  final StreamController<String?> _suratUndanganKegiatanStream = StreamController<String?>();
-  final StreamController<String?> _linimasaKegiatanStream = StreamController<String?>();
-  final StreamController<String?> _fotoTempatKegiatanStream = StreamController<String?>();
+  late StreamController<String?> _postinganKegiatanStream;
+  late StreamController<String?> _suratUndanganKegiatanStream;
+  late StreamController<String?> _linimasaKegiatanStream;
+  late StreamController<String?> _fotoTempatKegiatanStream;
 
-  String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-  User? user = FirebaseAuth.instance.currentUser;
+  @override
+  void initState() {
+    _postinganKegiatanStream = StreamController<String?>();
+    _suratUndanganKegiatanStream = StreamController<String?>();
+    _linimasaKegiatanStream = StreamController<String?>();
+    _fotoTempatKegiatanStream = StreamController<String?>();
+
+    context.read<UsulanKegiatanBloc>().add(
+        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    context.read<UsulanKegiatanBloc>().close();
+    _postinganKegiatanStream.close();
+    _suratUndanganKegiatanStream.close();
+    _linimasaKegiatanStream.close();
+    _fotoTempatKegiatanStream.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -147,9 +134,21 @@ class _PenggunaPengajuanUsulanKegiatan3State
                     );
 
                     _postinganKegiatanController = usulanKegiatan.fotoPostinganKegiatan;
+                    if (_postinganKegiatanController != "") {
+                      _postinganKegiatanStream.add(_postinganKegiatanController);
+                    }
                     _suratUndanganKegiatanController = usulanKegiatan.fotoSuratUndanganKegiatan;
+                    if (_suratUndanganKegiatanController != "") {
+                      _suratUndanganKegiatanStream.add(_suratUndanganKegiatanController);
+                    }
                     _linimasaKegiatanController = usulanKegiatan.fotoLinimasaKegiatan;
+                    if (_linimasaKegiatanController != "") {
+                      _linimasaKegiatanStream.add(_linimasaKegiatanController);
+                    }
                     _fotoTempatKegiatanController = usulanKegiatan.tempatKegiatan;
+                    if (_fotoTempatKegiatanController != "") {
+                      _fotoTempatKegiatanStream.add(_fotoTempatKegiatanController);
+                    }
 
                     return CustomContentBox(
                       children: [
@@ -165,6 +164,11 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         CustomRichTextField(controller: _tujuanKegiatanController),
 
                         const CustomFieldSpacer(),
+
+                        // InkWell(
+                        //   onTap: () => Navigator.pushNamed(context, penggunaBerandaPageRoute),
+                        //   child: Text("testtt"),
+                        // ),
 
                         buildTitle('Manfaat Kegiatan'),
                         buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
@@ -199,178 +203,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
                         CustomRichTextField(
                             controller: _rencanaAnggaranKegiatanController),
-
-                        const CustomFieldSpacer(),
-
-                        MipokaCustomSwitchButton(
-                          title: 'Tertib Acara',
-                          option1: 'Tidak',
-                          option2: 'Ya',
-                          value: tertibAcara,
-                          onChanged: (value) {
-                            tertibAcara = value;
-                          },
-                        ),
-
-                        StreamBuilder<bool?>(
-                          initialData: false,
-                          stream: _tertibAcaraStream.stream,
-                          builder: (context, snapshot) {
-                            bool isTertibAcara = snapshot.data ?? false;
-                            return isTertibAcara == true ?
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                buildDescription(
-                                    'Rincikan alur dari kegiatan yang akan dilaksanakan'),
-                                CustomAddButton(
-                                  buttonText: 'Tertib Acara',
-                                  onPressed: () => Navigator.pushNamed(
-                                    context,
-                                    tambahTertibAcaraPageRoute,
-                                    arguments: widget.idUsulanKegiatan,
-                                  ),
-                                ),
-
-                                const CustomFieldSpacer(),
-
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.vertical,
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: DataTable(
-                                      columnSpacing: 40,
-                                      border: TableBorder.all(color: Colors.white),
-                                      columns: const [
-                                        DataColumn(
-                                          label: Text(
-                                            'No.',
-                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                        DataColumn(
-                                          label: Text(
-                                            'Aktivitas',
-                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                        DataColumn(
-                                          label: Text(
-                                            'Waktu Mulai',
-                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                        DataColumn(
-                                          label: Text(
-                                            'Waktu Selesai',
-                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                        DataColumn(
-                                          label: Text(
-                                            'Keterangan',
-                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                        DataColumn(
-                                          label: Text(
-                                            'Aksi',
-                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                      ],
-                                      rows: List<DataRow>.generate(usulanKegiatan.tertibAcara.length, (int index) {
-                                        final tertibAcara = usulanKegiatan.tertibAcara[index];
-                                        return DataRow(
-                                          cells: [
-                                            DataCell(
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  '${index + 1}',
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                            ),
-                                            DataCell(
-                                              InkWell(
-                                                onTap: () {
-                                                  Navigator.pushNamed(
-                                                    context,
-                                                    editTertibAcaraPageRoute,
-                                                    arguments: usulanKegiatan,
-                                                  );
-                                                },
-                                                child: Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    tertibAcara.aktivitas,
-                                                    textAlign: TextAlign.center,
-                                                    style: const TextStyle(
-                                                      color: Colors.blue,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            DataCell(
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  tertibAcara.waktuMulai,
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                            ),
-                                            DataCell(
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  tertibAcara.waktuSelesai,
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                            ),
-                                            DataCell(
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  tertibAcara.keterangan,
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                            ),
-                                            DataCell(
-                                              onTap: () {
-                                                context.read<TertibAcaraBloc>().add(
-                                                    DeleteTertibAcaraEvent(idTertibAcara: tertibAcara.idTertibAcara));
-                                                mipokaCustomToast("Tertib Acara telah dihapus");
-                                              },
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: Image.asset(
-                                                  'assets/icons/delete.png',
-                                                  width: 24,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      }),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ) :
-                            const Center();
-                          },
-                        ),
 
                         const CustomFieldSpacer(),
 
@@ -563,7 +395,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                   } else if (state is UsulanKegiatanError) {
                     return Text(state.message);
                   } else {
-                    return const Text('IDK Page 3');
+                    return const Center();
                   }
                 },
               ),

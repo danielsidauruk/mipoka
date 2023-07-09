@@ -32,6 +32,8 @@ const usulanKegiatanEditBiayaKegiatanPageRoute =
     '/usulanKegiatanEditBiayaKegiatanPageRoute';
 const penggunaPengajuanUsulanKegiatan3PageRoute =
     '/penggunaPengajuanUsulanKegiatan3PageRoute';
+const penggunaPengajuanUsulanKegiatanTertibAcaraRoute =
+    '/penggunaPengajuanUsulanKegiatanTertibAcaraRoute';
 const penggunaPengajuanUsulanKegiatan3TertibAcaraPageRoute =
     '/penggunaPengajuanUsulanKegiatan3TertibAcaraPageRoute';
 const tambahTertibAcaraPageRoute =

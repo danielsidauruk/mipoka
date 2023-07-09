@@ -15,6 +15,7 @@ import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/prestasi.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
@@ -101,6 +102,7 @@ import 'package:mipoka/mipoka/presentation/pages/pengguna/import_peserta_laporan
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_laporan_kegiatan_3_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_sarana_dan_prasarana_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_1_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_tertib_acara_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/usulan_kegiatan_edit_biaya_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/usulan_kegiatan_tambah_biaya_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_dk_page.dart';
@@ -284,6 +286,10 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                 builder: (_) => UsulanKegiatanEditBiayaKegiatanPage(biayaKegiatanArgs: biayaKegiatanArgs),
               );
+            case penggunaPengajuanUsulanKegiatanTertibAcaraRoute:
+              final idUsulanKegiatan = settings.arguments as int;
+              return MaterialPageRoute(builder: (_) =>
+                  PenggunaPengajuanUsulanKegiatanTertibAcara(idUsulanKegiatan: idUsulanKegiatan));
             case penggunaPengajuanUsulanKegiatan3PageRoute:
               final idUsulanKegiatan = settings.arguments as int;
               return MaterialPageRoute(
@@ -299,9 +305,9 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) => TambahTertibAcaraPage(idUsulanKegiatan: idUsulanKegiatan));
             case editTertibAcaraPageRoute:
-              final usulanKegiatan = settings.arguments as UsulanKegiatan;
+              final tertibAcara = settings.arguments as TertibAcara;
               return MaterialPageRoute(
-                  builder: (_) => EditTertibAcaraPage(usulanKegiatan: usulanKegiatan));
+                  builder: (_) => EditTertibAcaraPage(tertibAcara: tertibAcara));
 
             case penggunaDaftarLaporanKegiatanPageRoute:
               return MaterialPageRoute(

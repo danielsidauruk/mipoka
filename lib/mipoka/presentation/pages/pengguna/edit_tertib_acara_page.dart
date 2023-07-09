@@ -1,10 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
-import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
+import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -18,10 +17,10 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_time_picker_field.dart
 class EditTertibAcaraPage extends StatefulWidget {
   const EditTertibAcaraPage({
     super.key,
-    required this.usulanKegiatan,
+    required this.tertibAcara,
   });
 
-  final UsulanKegiatan usulanKegiatan;
+  final TertibAcara tertibAcara;
 
   @override
   State<EditTertibAcaraPage> createState() => _EditTertibAcaraPageState();
@@ -33,6 +32,15 @@ class _EditTertibAcaraPageState extends State<EditTertibAcaraPage> {
   final TextEditingController _waktuSelesaiController = TextEditingController();
   final TextEditingController _aktivitasController = TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
+
+  @override
+  void initState() {
+    _waktuMulaiController.text = widget.tertibAcara.waktuMulai;
+    _waktuSelesaiController.text = widget.tertibAcara.waktuSelesai;
+    _aktivitasController.text  = widget.tertibAcara.aktivitas;
+    _keteranganController.text = widget.tertibAcara.keterangan;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,99 +62,68 @@ class _EditTertibAcaraPageState extends State<EditTertibAcaraPage> {
 
               const CustomFieldSpacer(),
 
-              BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
-                builder: (context, state) {
-                  if (state is UsulanKegiatanLoading) {
-                    return const Text('Loading ...');
-                  } else if (state is UsulanKegiatanHasData) {
-                    final usulanKegiatan = state.usulanKegiatan;
-                    final tertibAcara = state.usulanKegiatan.tertibAcara[0];
+              CustomContentBox(
+                children: [
 
-                    _waktuMulaiController.text = tertibAcara.waktuMulai;
-                    _waktuSelesaiController.text = tertibAcara.waktuSelesai;
-                    _aktivitasController.text  = tertibAcara.aktivitas;
-                    _keteranganController.text = tertibAcara.keterangan;
+                  customBoxTitle('Tambah Tertib Acara'),
 
-                    return CustomContentBox(
-                      children: [
+                  const CustomFieldSpacer(),
 
-                        customBoxTitle('Tambah Tertib Acara'),
+                  buildTitle('Waktu Mulai'),
+                  CustomTimePickerField(controller: _waktuMulaiController),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Waktu Mulai'),
-                        CustomTimePickerField(controller: _waktuMulaiController),
+                  buildTitle('Waktu Selesai'),
+                  CustomTimePickerField(
+                      controller: _waktuSelesaiController),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Waktu Selesai'),
-                        CustomTimePickerField(
-                            controller: _waktuSelesaiController),
+                  buildTitle('Aktivitas'),
+                  CustomTextField(controller: _aktivitasController),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Aktivitas'),
-                        CustomTextField(controller: _aktivitasController),
+                  buildTitle('Keterangan'),
+                  CustomTextField(controller: _keteranganController),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Keterangan'),
-                        CustomTextField(controller: _keteranganController),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomMipokaButton(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        text: 'Kembali',
+                      ),
 
-                        const CustomFieldSpacer(),
+                      const SizedBox(width: 8.0),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            CustomMipokaButton(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              text: 'Kembali',
+                      CustomMipokaButton(
+                        onTap: () {
+                          Navigator.pop(context);
+                          context.read<TertibAcaraBloc>().add(
+                            UpdateTertibAcaraEvent(
+                              tertibAcara: widget.tertibAcara.copyWith(
+                                waktuMulai: _waktuMulaiController.text,
+                                waktuSelesai: _waktuSelesaiController.text,
+                                aktivitas: _aktivitasController.text,
+                                keterangan: _keteranganController.text,
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "unknown",
+                              ),
                             ),
-
-                            const SizedBox(width: 8.0),
-
-                            CustomMipokaButton(
-                              onTap: () {
-                                int newId = DateTime.now().millisecondsSinceEpoch;
-                                User? user = FirebaseAuth.instance.currentUser;
-                                String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
-                                Navigator.pop(context);
-                                context.read<UsulanKegiatanBloc>().add(
-                                  UpdateUsulanKegiatanEvent(
-                                    usulanKegiatan: usulanKegiatan.copyWith(
-                                      tertibAcara: [
-                                        TertibAcara(
-                                          idTertibAcara: newId,
-                                          waktuMulai: _waktuMulaiController.text,
-                                          waktuSelesai: _waktuSelesaiController.text,
-                                          aktivitas: _aktivitasController.text,
-                                          keterangan: _keteranganController.text,
-                                          createdAt: currentDate,
-                                          createdBy: user?.email ?? "unknown",
-                                          updatedAt: currentDate,
-                                          updatedBy: user?.email ?? "unknown",
-                                        ),
-                                      ]
-                                    ),
-                                  ),
-                                );
-                              },
-                              text: 'Tambahkan Peserta',
-                            ),
-                          ],
-                        ),
-                      ],
-                    );
-                  } else if (state is UsulanKegiatanError) {
-                    return Text(state.message);
-                  } else {
-                    return const Text('IDK Tambah Tertib Acara');
-                  }
-                },
-              ),
+                          );
+                        },
+                        text: 'Tambahkan Peserta',
+                      ),
+                    ],
+                  ),
+                ],
+              )
             ],
           ),
         ),

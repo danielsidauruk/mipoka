@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiatan_bloc.dart';
@@ -12,6 +13,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class UsulanKegiatanTambahBiayaKegiatanPage extends StatefulWidget {
   const UsulanKegiatanTambahBiayaKegiatanPage({
@@ -86,30 +88,41 @@ class _UsulanKegiatanTambahBiayaKegiatanPageState extends State<UsulanKegiatanTa
                             const SizedBox(width: 8.0),
                             CustomMipokaButton(
                               onTap: () {
-                                if (
-                                _namaBiayaKegiatanController.text.isNotEmpty && _kuantitiController.text.isNotEmpty &&
-                                    _hargaSatuanController.text.isNotEmpty && _keteranganController.text.isNotEmpty) {
-                                  BlocProvider.of<BiayaKegiatanBloc>(context).add(
-                                    CreateBiayaKegiatanEvent(
-                                      idUsulanKegiatan: widget.idUsulanKegiatan,
-                                      biayaKegiatan: BiayaKegiatan(
-                                        idBiayaKegiatan: 1,
-                                        namaBiayaKegiatan: _namaBiayaKegiatanController.text,
-                                        kuantiti: int.parse(_kuantitiController.text),
-                                        hargaSatuan: int.parse(_hargaSatuanController.text),
-                                        total: int.parse(_kuantitiController.text) * int.parse(_hargaSatuanController.text),
-                                        keterangan: _keteranganController.text,
-                                        createdAt: '',
-                                        createdBy: '',
-                                        updatedAt: '',
-                                        updatedBy: '',
-                                      ),
-                                    ),
-                                  );
-                                  Navigator.pop(context);
-                                } else {
-                                  if (kDebugMode) {
-                                    print('Text field cannot be empty');
+                                if (_namaBiayaKegiatanController.text.isNotEmpty &&
+                                    _kuantitiController.text.isNotEmpty &&
+                                    _hargaSatuanController.text.isNotEmpty &&
+                                    _keteranganController.text.isNotEmpty) {
+                                  try {
+                                    final kuantiti = int.tryParse(_kuantitiController.text);
+                                    final hargaSatuan = int.tryParse(_hargaSatuanController.text);
+                                    if (kuantiti != null && hargaSatuan != null) {
+                                      Future.microtask(() {
+                                        mipokaCustomToast("Biaya Kegiatan telah ditambah.");
+                                        BlocProvider.of<BiayaKegiatanBloc>(context)
+                                            .add(
+                                          CreateBiayaKegiatanEvent(
+                                            idUsulanKegiatan: widget.idUsulanKegiatan,
+                                            biayaKegiatan: BiayaKegiatan(
+                                              idBiayaKegiatan: newId,
+                                              namaBiayaKegiatan: _namaBiayaKegiatanController.text,
+                                              kuantiti: kuantiti,
+                                              hargaSatuan: hargaSatuan,
+                                              total: kuantiti * hargaSatuan,
+                                              keterangan: _keteranganController.text,
+                                              createdAt: currentDate,
+                                              createdBy: user?.email ?? "unknown",
+                                              updatedAt: currentDate,
+                                              updatedBy: user?.email ?? "unknown",
+                                            ),
+                                          ),
+                                        );
+                                        Navigator.pop(context);
+                                      });
+                                    } else {
+                                      mipokaCustomToast(dataTypeErrorMessage);
+                                    }
+                                  } catch (e) {
+                                    mipokaCustomToast(dataTypeErrorMessage);
                                   }
                                 }
                               },

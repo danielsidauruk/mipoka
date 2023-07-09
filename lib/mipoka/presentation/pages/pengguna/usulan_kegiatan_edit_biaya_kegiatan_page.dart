@@ -128,7 +128,7 @@ class _UsulanKegiatanEditBiayaKegiatanPageState extends State<UsulanKegiatanEdit
                                   }
                                 }
                               },
-                              text: 'Tambahkan',
+                              text: 'Simpan',
                             ),
                           ],
                         ),

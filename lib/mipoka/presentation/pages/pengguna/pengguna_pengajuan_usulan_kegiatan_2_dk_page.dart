@@ -395,7 +395,8 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                 context,
                                 penggunaPengajuanUsulanKegiatan3PageRoute,
                                 arguments: widget.idUsulanKegiatan,
-                              ),
+                              ).then((_) => context.read<UsulanKegiatanBloc>()
+                                  .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan))),
                               text: 'Berikutnya',
                             ),
                           ],

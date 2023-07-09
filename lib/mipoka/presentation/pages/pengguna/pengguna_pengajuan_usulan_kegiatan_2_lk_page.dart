@@ -424,9 +424,10 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                             CustomMipokaButton(
                               onTap: () => Navigator.pushNamed(
                                 context,
-                                penggunaPengajuanUsulanKegiatan3PageRoute,
+                                penggunaPengajuanUsulanKegiatanTertibAcaraRoute,
                                 arguments: widget.idUsulanKegiatan,
-                              ),
+                              ).then((_) => context.read<UsulanKegiatanBloc>()
+                                  .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan))),
                               text: 'Berikutnya',
                             ),
                           ],
