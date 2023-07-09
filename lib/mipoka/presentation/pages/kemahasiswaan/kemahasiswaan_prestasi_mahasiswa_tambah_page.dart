@@ -26,14 +26,12 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
   final TextEditingController _namaMahasiswaController = TextEditingController();
   final TextEditingController _namaKegiatanController = TextEditingController();
   final TextEditingController _prestasiYangDicapaiController = TextEditingController();
-  late String _tingkatValue;
-  late int _idOrmawa;
+  String? _tingkatValue;
+  int? _idOrmawa;
+  String? _tahun;
 
   @override
   void initState() {
-    _idOrmawa = 0;
-    _tingkatValue = listTingkat[0];
-
     context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
     super.initState();
   }
@@ -129,7 +127,7 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                           ),
                         );
                       } else {
-                        return const Text("Nim belum ditentukan.");
+                        return const Text("-");
                       }
                     },
                   ),
@@ -144,7 +142,7 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                   buildTitle('Waktu Penyelenggaraan'),
                   MipokaCustomDropdown(
                     items: years,
-                    onValueChanged: (value) {},
+                    onValueChanged: (value) => _tahun = value,
                   ),
 
                   const CustomFieldSpacer(),
@@ -152,7 +150,7 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                   buildTitle('Tingkat'),
                   MipokaCustomDropdown(
                     items: listTingkat,
-                    onValueChanged: (value) {},
+                    onValueChanged: (value) => _tingkatValue = value,
                   ),
 
                   const CustomFieldSpacer(),
