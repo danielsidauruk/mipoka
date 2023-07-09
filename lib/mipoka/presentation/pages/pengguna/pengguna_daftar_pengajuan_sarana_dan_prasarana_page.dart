@@ -331,8 +331,18 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                 context,
                                 penggunaPengajuanSaranaDanPrasaranaPageRoute,
                                 arguments: newId,
-                              );
+                              ).then((_) {
+                                setState(() {
+                                context.read<SessionBloc>().add(const ReadAllSessionEvent());
+                                });
+                              });
                             },
+                // Navigator.pushNamed(context, '/page2').then((_) {
+                // // This block runs when you have returned back to the 1st Page from 2nd.
+                // setState(() {
+                // // Call setState to refresh the page.
+                // });
+                // });
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 24),
@@ -373,3 +383,6 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
     );
   }
 }
+
+
+

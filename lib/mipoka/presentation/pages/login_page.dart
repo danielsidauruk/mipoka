@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -104,8 +102,8 @@ class _LoginPageState extends State<LoginPage> {
                         User? user = FirebaseAuth.instance.currentUser;
 
                         Future.microtask(() {
-                          // Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                          Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
+                          Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                          // Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
                           // Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute);
                         });
                       } catch (e) {

@@ -39,6 +39,12 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
     super.initState();
   }
 
+  @override
+  void dispose() {
+    context.read<SessionBloc>().add(const ReadAllSessionEvent());
+    super.dispose();
+  }
+
   final TextEditingController _tanggalMulaiController = TextEditingController();
   final TextEditingController _tanggalSelesaiController = TextEditingController();
   final TextEditingController _gedungController = TextEditingController();
@@ -290,3 +296,4 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
     );
   }
 }
+
