@@ -109,7 +109,6 @@ class _KemahasiswaanEditOrmawaEditPageState
     _namaBendaharaController.text = widget.ormawa.bendahara;
     _fotoBendaharaUrlController = widget.ormawa.fotoBendahara;
     _nimList = widget.ormawa.listAnggota;
-    print(_nimList);
     super.initState();
   }
 

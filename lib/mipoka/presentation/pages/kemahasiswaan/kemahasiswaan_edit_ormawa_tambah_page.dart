@@ -47,6 +47,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
   String? _fotoSekretarisUrlController;
   final TextEditingController _namaBendaharaController = TextEditingController();
   String? _fotoBendaharaUrlController;
+  List<String> nimList = [];
 
   final StreamController<String?> _logoUrlStream = StreamController<String?>();
   final StreamController<String?> _fotoPembinaUrlStream = StreamController<String?>();
@@ -59,14 +60,6 @@ class _KemahasiswaanEditOrmawaTambahPageState
   String? _excelFileController;
 
   FilePickerResult? result;
-
-  @override
-  void initState() {
-
-    super.initState();
-  }
-
-  List<String> nimList = [];
 
   void _processUploadedFile(PlatformFile file) async {
     Uint8List? bytes;
