@@ -61,7 +61,6 @@ class _TambahDataPesertaLuarKotaPageState extends State<TambahDataPesertaLuarKot
                   buildTitle('NIM/NIP'),
                   CustomTextField(
                     controller: _noIndukController,
-                    textInputType: TextInputType.number,
                   ),
 
                   const CustomFieldSpacer(),

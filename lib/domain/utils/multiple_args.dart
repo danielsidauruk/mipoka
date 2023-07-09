@@ -1,5 +1,6 @@
 import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
+import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
 
 class PartisipanArgs {
   final Partisipan partisipan;
@@ -17,6 +18,16 @@ class BiayaKegiatanArgs {
 
   BiayaKegiatanArgs({
     required this.biayaKegiatan,
+    required this.id,
+  });
+}
+
+class TertibAcaraArgs {
+  final TertibAcara tertibAcara;
+  final int id;
+
+  TertibAcaraArgs({
+    required this.tertibAcara,
     required this.id,
   });
 }

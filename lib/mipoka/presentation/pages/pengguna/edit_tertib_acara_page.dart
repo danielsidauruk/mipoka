@@ -13,6 +13,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_time_picker_field.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class EditTertibAcaraPage extends StatefulWidget {
   const EditTertibAcaraPage({
@@ -103,8 +104,10 @@ class _EditTertibAcaraPageState extends State<EditTertibAcaraPage> {
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () {
-                          Navigator.pop(context);
+                        onTap: () => (_waktuMulaiController.text.isNotEmpty && _waktuSelesaiController.text.isNotEmpty
+                            && _aktivitasController.text.isNotEmpty && _keteranganController.text.isNotEmpty) ?
+                        Future.microtask(() {
+                          mipokaCustomToast("Tertib Acara telah diupdate.");
                           context.read<TertibAcaraBloc>().add(
                             UpdateTertibAcaraEvent(
                               tertibAcara: widget.tertibAcara.copyWith(
@@ -117,7 +120,10 @@ class _EditTertibAcaraPageState extends State<EditTertibAcaraPage> {
                               ),
                             ),
                           );
-                        },
+                          Navigator.pop(context);
+                        }) :
+                        mipokaCustomToast(emptyFieldMessage),
+
                         text: 'Tambahkan Peserta',
                       ),
                     ],

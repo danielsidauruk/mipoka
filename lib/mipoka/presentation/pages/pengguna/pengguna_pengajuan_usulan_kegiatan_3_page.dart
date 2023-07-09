@@ -5,6 +5,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -381,10 +382,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                   context,
                                   penggunaDaftarPengajuanKegiatanPageRoute,
                                 );
-
-                                context.read<UsulanKegiatanBloc>().add(
-                                  const ReadAllUsulanKegiatanEvent(),
-                                );
+                                context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+                                mipokaCustomToast("Usulan Kegiatan telah dikirim");
                               },
                               text: 'Kirim',
                             ),

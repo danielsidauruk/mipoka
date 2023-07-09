@@ -150,6 +150,12 @@ class _PenggunaPengajuanUsulanKegiatan1State
                 _keteranganController.text = usulanKegiatan.keterangan;
                 _ormawaSignatureController = usulanKegiatan.tandaTanganOrmawa;
 
+                _tanggalKeberangkatanController.text.isNotEmpty ?
+                _tempatKegiatanSwitchController = true :
+                _tempatKegiatanSwitchController = false;
+
+                context.read<TempatKegiatanCubit>().setTempatKegiatan(_tempatKegiatanSwitchController!);
+
                 if(mipokaUserState is MipokaUserLoading) {
                   return const Text('Loading');
                 } else if (mipokaUserState is MipokaUserHasData) {

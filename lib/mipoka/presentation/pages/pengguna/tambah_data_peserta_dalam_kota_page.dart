@@ -59,7 +59,6 @@ class _TambahDataPesertaDalamKotaState extends State<TambahDataPesertaDalamKota>
                   buildTitle('NIM/NIP'),
                   CustomTextField(
                     controller: _noIndukController,
-                    textInputType: TextInputType.number,
                   ),
 
                   const CustomFieldSpacer(),
