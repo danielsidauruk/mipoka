@@ -88,7 +88,7 @@ abstract class MipokaDataSources {
   Future<void> updatePesertaKegiatanLaporan(PesertaKegiatanLaporanModel pesertaKegiatanLaporanModel);
   Future<void> deletePesertaKegiatanLaporan(int idPeserta);
 
-  Future<List<PrestasiModel>> readAllPrestasi();
+  Future<List<PrestasiModel>> readAllPrestasi(String filter);
   Future<PrestasiModel> readPrestasi(int idPrestasi);
   Future<void> createPrestasi(PrestasiModel prestasiModel);
   Future<void> updatePrestasi(PrestasiModel prestasiModel);
@@ -595,13 +595,17 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<List<PrestasiModel>> readAllPrestasi() async {
+  Future<List<PrestasiModel>> readAllPrestasi(String filter) async {
     final String response =
     await rootBundle.loadString('assets/json_file/prestasi_list.json');
     List<dynamic> resultList = json.decode(response);
 
     List<PrestasiModel> result =
     resultList.map((resultMap) => PrestasiModel.fromJson(resultMap)).toList();
+
+    if (kDebugMode) {
+      print(filter);
+    }
 
     return result;
   }

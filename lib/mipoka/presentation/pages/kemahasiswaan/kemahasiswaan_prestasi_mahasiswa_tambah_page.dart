@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/prestasi.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -12,6 +14,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class KemahasiswaanPrestasiMahasiswaTambahPage extends StatefulWidget {
   const KemahasiswaanPrestasiMahasiswaTambahPage({super.key});
@@ -23,30 +26,34 @@ class KemahasiswaanPrestasiMahasiswaTambahPage extends StatefulWidget {
 class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<KemahasiswaanPrestasiMahasiswaTambahPage> {
   String namaOrmawaValue = listNamaOrmawa[0];
   final TextEditingController _nimController = TextEditingController();
-  final TextEditingController _namaMahasiswaController = TextEditingController();
   final TextEditingController _namaKegiatanController = TextEditingController();
   final TextEditingController _prestasiYangDicapaiController = TextEditingController();
-  String? _tingkatValue;
+  String? _tingkat;
   int? _idOrmawa;
   String? _tahun;
+  String? _idUser;
+
+  void _triggerNim(String value) {
+    context.read<MipokaUserByNimBloc>().add(
+      ReadMipokaUserByNimEvent(nim: value),
+    );
+  }
 
   @override
   void initState() {
+    _tingkat = listTingkat[0];
+    _tahun = years[0];
+
     context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
     super.initState();
   }
+
 
   @override
   void dispose() {
     context.read<OrmawaBloc>().close();
     context.read<MipokaUserByNimBloc>().close();
     super.dispose();
-  }
-
-  void _triggerNim(String value) {
-    context.read<MipokaUserByNimBloc>().add(
-      ReadMipokaUserByNimEvent(nim: value),
-    );
   }
 
   @override
@@ -83,13 +90,13 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                         List<int> idOrmawaList = state.ormawaList.map(
                                 (ormawa) => ormawa.idOrmawa).toList();
 
+                        _idOrmawa = idOrmawaList[0];
+
                         return MipokaCustomDropdown(
                             items: ormawaList,
                             onValueChanged: (value) {
                               int index = ormawaList.indexOf(value!);
                               int idOrmawa = idOrmawaList[index];
-
-                              // print("$idPeriodeMpt, $value");
                               _idOrmawa = idOrmawa;
                             }
                         );
@@ -118,7 +125,7 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                     builder: (context, state) {
                       if (state is MipokaUserByNimByNimHasData) {
 
-                        // return buildTitle(state.mipokaUser.namaLengkap);
+                        _idUser = state.mipokaUser.idUser;
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
@@ -150,7 +157,7 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                   buildTitle('Tingkat'),
                   MipokaCustomDropdown(
                     items: listTingkat,
-                    onValueChanged: (value) => _tingkatValue = value,
+                    onValueChanged: (value) => _tingkat = value,
                   ),
 
                   const CustomFieldSpacer(),
@@ -171,7 +178,31 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () => (_idOrmawa != null && _nimController.text.isNotEmpty
+                            && _namaKegiatanController.text.isNotEmpty && _tahun != null
+                            && _tingkat != null && _prestasiYangDicapaiController.text.isNotEmpty
+                            && _idUser != "") ?
+                        Future.microtask(() {
+                          context.read<PrestasiBloc>().add(
+                              CreatePrestasiEvent(prestasi: Prestasi(
+                                idPrestasi: newId,
+                                idOrmawa: _idOrmawa ?? 0,
+                                idUser: _idUser ?? "",
+                                namaKegiatan: _namaKegiatanController.text,
+                                waktuPenyelenggaraan: _tahun ?? "",
+                                tingkat: _tingkat ?? "",
+                                prestasiDicapai: _prestasiYangDicapaiController.text,
+                                unggahSertifikat: "",
+                                createdAt: currentDate,
+                                createdBy: user?.email ?? "unknown",
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "unknown",
+                              ))
+                          );
+                          mipokaCustomToast("Prestasi telah ditambahkan.");
+                          context.read<PrestasiBloc>().add(ReadAllPrestasiEvent());
+                        }) :
+                        mipokaCustomToast(emptyFieldMessage),
                         text: 'Simpan',
                       ),
                     ],

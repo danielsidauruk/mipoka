@@ -26,17 +26,17 @@ class KemahasiswaanPrestasiMahasiswaPage extends StatefulWidget {
 
 class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPrestasiMahasiswaPage> {
 
-  int? idOrmawaController;
-  String? tahun;
-  String? tingkat;
+  int? _idOrmawaController;
+  String? _tahun;
+  String? _tingkat;
 
   @override
   void initState() {
-    idOrmawaController = 0;
-    tahun = years2[0];
-    tingkat = listTingkat2[0];
+    _idOrmawaController = 0;
+    _tahun = years2[0];
+    _tingkat = listTingkat2[0];
 
-    context.read<PrestasiBloc>().add(ReadAllPrestasiEvent());
+    context.read<PrestasiBloc>().add(const ReadAllPrestasiEvent());
     super.initState();
   }
 
@@ -106,9 +106,7 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                                     int index = ormawaList.indexOf(value!);
                                     int idOrmawa = idOrmawaList[index];
 
-                                    // print("$idPeriodeMpt, $value");
-
-                                    idOrmawaController = idOrmawa;
+                                    _idOrmawaController = idOrmawa;
                                   }
                               );
                             } else if (state is OrmawaError) {
@@ -124,9 +122,7 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                         buildTitle('Tahun'),
                         MipokaCustomDropdown(
                           items: years2,
-                          onValueChanged: (value) {
-
-                          },
+                          onValueChanged: (value) => _tahun = value,
                         ),
 
                         const CustomFieldSpacer(),
@@ -134,14 +130,17 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                         buildTitle('Tingkat'),
                         MipokaCustomDropdown(
                           items: listTingkat2,
-                          onValueChanged: (value) {},
+                          onValueChanged: (value) => _tingkat = value,
                         ),
 
                         const CustomFieldSpacer(),
 
                         CustomFilterButton(
                           text: 'Filter',
-                          onPressed: () {},
+                          onPressed: () {
+                            context.read<PrestasiBloc>().add(
+                              ReadAllPrestasiEvent(filter: "$_idOrmawaController/$_tahun/$_tingkat"));
+                          },
                         ),
 
                         const CustomFieldSpacer(),
@@ -316,7 +315,8 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                                               onTap: () {
                                                 context.read<PrestasiBloc>().add(
                                                     DeletePrestasiEvent(idPrestasi: prestasi.idPrestasi));
-                                                context.read<PrestasiBloc>().add(ReadAllPrestasiEvent());
+                                                context.read<PrestasiBloc>().add(ReadAllPrestasiEvent(
+                                                    filter: "$_idOrmawaController/$_tahun/$_tingkat"));
 
                                                 mipokaCustomToast("Prestasi telah dihapus");
                                               },

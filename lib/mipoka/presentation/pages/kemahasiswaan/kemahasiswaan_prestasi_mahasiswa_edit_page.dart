@@ -16,6 +16,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class KemahasiswaanPrestasiMahasiswaEditPage extends StatefulWidget {
   const KemahasiswaanPrestasiMahasiswaEditPage({
@@ -31,7 +32,6 @@ class KemahasiswaanPrestasiMahasiswaEditPage extends StatefulWidget {
 
 class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPrestasiMahasiswaEditPage> {
   final TextEditingController _nimController = TextEditingController();
-  final TextEditingController _namaMahasiswaController = TextEditingController();
   final TextEditingController _namaKegiatanController = TextEditingController();
   final TextEditingController _prestasiYangDicapaiController = TextEditingController();
   final TextEditingController _waktuPenyelenggaraanController = TextEditingController();
@@ -39,6 +39,7 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
   int? _idOrmawaController;
   String? _yearController;
   String? _tingkatController;
+  String? _idUser;
 
   void _triggerNim(String value) {
     context.read<MipokaUserByNimBloc>().add(
@@ -48,8 +49,8 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
 
   @override
   void initState() {
-    // _nimController.text = widget.prestasi.nim;
     _idOrmawaController = widget.prestasi.idOrmawa;
+    _yearController = widget.prestasi.waktuPenyelenggaraan;
     _tingkatController = widget.prestasi.tingkat;
     _namaKegiatanController.text = widget.prestasi.namaKegiatan;
     _prestasiYangDicapaiController.text = widget.prestasi.prestasiDicapai;
@@ -141,8 +142,8 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                         BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
                           builder: (context, state) {
                             if (state is MipokaUserByNimByNimHasData) {
+                              _idUser = state.mipokaUser.idUser;
 
-                              // return buildTitle(state.mipokaUser.namaLengkap);
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
@@ -173,9 +174,7 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                         MipokaCustomDropdown(
                           items: listTingkat,
                           initialItem: _tingkatController,
-                          onValueChanged: (value) {
-                            _tingkatController = value;
-                          },
+                          onValueChanged: (value) => _tingkatController = value,
                         ),
 
                         const CustomFieldSpacer(),
@@ -194,24 +193,31 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                             ),
 
                             const SizedBox(width: 8.0),
-
                             CustomMipokaButton(
-                              onTap: () {
+                              onTap: () => (_idOrmawaController != null && _nimController.text.isNotEmpty
+                                  && _namaKegiatanController.text.isNotEmpty && _yearController != null
+                                  && _tingkatController != null && _prestasiYangDicapaiController.text.isNotEmpty
+                                  && _idUser != "") ?
+                              Future.microtask(() {
                                 context.read<PrestasiBloc>().add(
                                   UpdatePrestasiEvent(
                                     prestasi: widget.prestasi.copyWith(
                                       idOrmawa: _idOrmawaController,
+                                      idUser: _idUser,
+                                      namaKegiatan: _namaKegiatanController.text,
                                       tingkat: _tingkatController,
                                       waktuPenyelenggaraan: _yearController,
+                                      prestasiDicapai: _prestasiYangDicapaiController.text,
                                       updatedAt: currentDate,
                                       updatedBy: user?.email ?? "unknown",
                                     ),
                                   ),
                                 );
+                                mipokaCustomToast("Prestasi telah diupdate.");
                                 context.read<PrestasiBloc>().add(ReadAllPrestasiEvent());
-
                                 Navigator.pop(context);
-                              },
+                              }) :
+                              mipokaCustomToast(emptyFieldMessage),
                               text: 'Simpan',
                             ),
                           ],
