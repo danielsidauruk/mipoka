@@ -421,6 +421,8 @@ void showPop(BuildContext context, UsulanKegiatan usulanKegiatan) {
                                   ),
                                 );
                                 mipokaCustomToast("Usulan Kegiatan telah diterima");
+                                context.read<UsulanKegiatanBloc>().add(
+                                    const ReadAllUsulanKegiatanEvent());
                                 Navigator.pop(context);
                               });
                             },
@@ -435,6 +437,8 @@ void showPop(BuildContext context, UsulanKegiatan usulanKegiatan) {
                           InkWell(
                             onTap: () {
                               signatureUrl = "";
+                              context.read<UsulanKegiatanBloc>().add(
+                                  const ReadAllUsulanKegiatanEvent());
                               Navigator.pop(context);
                             },
                             child: const Text(

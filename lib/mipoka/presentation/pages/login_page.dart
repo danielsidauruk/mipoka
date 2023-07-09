@@ -102,9 +102,9 @@ class _LoginPageState extends State<LoginPage> {
                         User? user = FirebaseAuth.instance.currentUser;
 
                         Future.microtask(() {
-                          Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                          // Navigator.pushNamed(context, penggunaBerandaPageRoute);
                           // Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
-                          // Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute);
+                          Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute);
                         });
                       } catch (e) {
                         mipokaCustomToast(

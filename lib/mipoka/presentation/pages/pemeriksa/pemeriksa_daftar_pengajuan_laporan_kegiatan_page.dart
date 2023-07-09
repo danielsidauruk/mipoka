@@ -216,7 +216,8 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                             context,
                                             pemeriksaPengajuanLaporanKegiatan1PageRoute,
                                             arguments: laporanKegiatan.idLaporan,
-                                          ),
+                                          ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                              const ReadAllUsulanKegiatanEvent())),
                                         ),
                                         DataCell(
                                           Align(

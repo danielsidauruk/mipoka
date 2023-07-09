@@ -129,51 +129,56 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                 } else if (mipokaUserState is MipokaUserHasData) {
                                   return CustomMipokaButton(
                                     onTap: () async {
-                                      try {
-                                        final result = this.result;
-                                        if (result != null) {
-                                          PlatformFile file = result.files.first;
+                                      if (_keteranganController.text.isNotEmpty) {
+                                        try {
+                                          final result = this.result;
+                                          if (result != null) {
+                                            PlatformFile file = result.files.first;
 
-                                          List<int> bytes = await File(file.path!).readAsBytes();
-                                          String fileHash = sha256.convert(bytes).toString();
+                                            List<int> bytes = await File(file.path!).readAsBytes();
+                                            String fileHash = sha256.convert(bytes).toString();
 
-                                          List<String> hashList = riwayatKegiatanState.riwayatKegiatanMptList.map((sha256) => sha256.hash).toList();
+                                            List<String> hashList = riwayatKegiatanState.riwayatKegiatanMptList.map((sha256) => sha256.hash).toList();
 
-                                          if (hashList.contains(fileHash) == true) {
-                                            mipokaCustomToast("Tidak dapat mengunggah file yang sama");
+                                            if (hashList.contains(fileHash) == true) {
+                                              mipokaCustomToast("Tidak dapat mengunggah file yang sama");
+                                            } else {
+                                              String? downloadUrl = await uploadFileToFirebase(file, "sertifikatmpt${user?.uid ?? "unknown"}");
+                                              _shaController.text = fileHash;
+                                              _fileSertifikatMptController.text = downloadUrl ?? "";
+
+                                              Future.microtask(() {
+                                                context.read<RiwayatKegiatanMptBloc>().add(
+                                                  CreateRiwayatKegiatanMptEvent(
+                                                    riwayatKegiatanMpt: RiwayatKegiatanMpt(
+                                                      idKegiatanPerPeriodeMpt: widget.idKegiatanPerPeriodeMpt,
+                                                      idRiwayatKegiatanMpt: newId,
+                                                      idUser: mipokaUserState.mipokaUser.idUser,
+                                                      statusMpt: "pending",
+                                                      fileSertifikatMpt: _fileSertifikatMptController.text,
+                                                      hash: _shaController.text,
+                                                      keteranganMhs: _keteranganController.text,
+                                                      keteranganSa: "",
+                                                      createdAt: currentDate,
+                                                      createdBy: user?.email ?? "unknown",
+                                                      updatedAt: currentDate,
+                                                      updatedBy: user?.email ?? "unknown",
+                                                    ),
+                                                  ),
+                                                );
+
+                                                Navigator.pop(context);
+                                              });
+                                              mipokaCustomToast('File uploaded Successfully');
+                                            }
                                           } else {
-                                            String? downloadUrl = await uploadFileToFirebase(file, "sertifikatmpt${user?.uid ?? "unknown"}");
-                                            _shaController.text = fileHash;
-                                            _fileSertifikatMptController.text = downloadUrl ?? "";
-
-                                            print(_shaController.text);
-                                            // _isNotDuplicatedStream.add(true);
-                                            // _fileSertifikatMptStream.add(downloadUrl);
-                                            Future.microtask(() => context.read<RiwayatKegiatanMptBloc>().add(
-                                              CreateRiwayatKegiatanMptEvent(
-                                                riwayatKegiatanMpt: RiwayatKegiatanMpt(
-                                                  idKegiatanPerPeriodeMpt: widget.idKegiatanPerPeriodeMpt,
-                                                  idRiwayatKegiatanMpt: newId,
-                                                  idUser: mipokaUserState.mipokaUser.idUser,
-                                                  statusMpt: "pending",
-                                                  fileSertifikatMpt: _fileSertifikatMptController.text,
-                                                  hash: _shaController.text,
-                                                  keteranganMhs: _keteranganController.text,
-                                                  keteranganSa: "",
-                                                  createdAt: currentDate,
-                                                  createdBy: user?.email ?? "unknown",
-                                                  updatedAt: currentDate,
-                                                  updatedBy: user?.email ?? "unknown",
-                                                ),
-                                              ),
-                                            ));
-                                            mipokaCustomToast('File uploaded Successfully');
+                                            mipokaCustomToast("Harap unggah file.");
                                           }
-                                        } else {
-                                          mipokaCustomToast("Harap unggah file.");
+                                        } catch (error) {
+                                          mipokaCustomToast(error.toString());
                                         }
-                                      } catch (error) {
-                                        mipokaCustomToast(error.toString());
+                                      } else {
+                                        mipokaCustomToast(emptyFieldMessage);
                                       }
                                     },
                                     text: "Tambah",
