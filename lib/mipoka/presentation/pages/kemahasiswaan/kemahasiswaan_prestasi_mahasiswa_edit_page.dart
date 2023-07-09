@@ -48,14 +48,15 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
 
   @override
   void initState() {
+    // _nimController.text = widget.prestasi.nim;
     _idOrmawaController = widget.prestasi.idOrmawa;
     _tingkatController = widget.prestasi.tingkat;
     _namaKegiatanController.text = widget.prestasi.namaKegiatan;
     _prestasiYangDicapaiController.text = widget.prestasi.prestasiDicapai;
     _waktuPenyelenggaraanController.text = widget.prestasi.waktuPenyelenggaraan;
 
-    // context.read<MipokaUserBloc>().add(
-    //   ReadMipokaUserEvent(idMipokaUser: widget.prestasi.idUser));
+    context.read<MipokaUserBloc>().add(
+      ReadMipokaUserEvent(idMipokaUser: widget.prestasi.idUser));
     super.initState();
   }
 
@@ -83,6 +84,7 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                     return const Text("Loading ....");
                   } else if (state is MipokaUserHasData) {
 
+                    _nimController.text = state.mipokaUser.nim;
                     Future.microtask(() {
                       context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
                       _triggerNim(state.mipokaUser.nim);
@@ -113,7 +115,6 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                                     int index = ormawaList.indexOf(value!);
                                     int idOrmawa = idOrmawaList[index];
 
-                                    // print("$idPeriodeMpt, $value");
                                     _idOrmawaController = idOrmawa;
                                   }
                               );
@@ -133,7 +134,6 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                           controller: _nimController,
                           onSubmitted: (value) => _triggerNim(value),
                         ),
-
 
                         const CustomFieldSpacer(),
 
@@ -155,8 +155,6 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                             }
                           },
                         ),
-                        // if (state is MipokaUserByNimHasData)
-                        //   buildTitle(state.mipokaUser.namaLengkap),
 
                         const CustomFieldSpacer(),
 

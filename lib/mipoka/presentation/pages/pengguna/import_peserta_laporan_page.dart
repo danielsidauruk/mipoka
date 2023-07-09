@@ -64,7 +64,7 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
       }
 
       for (var i = 1; i < nimList.length; i++) {
-        context.read<PesertaKegiatanLaporanBloc>().add(
+        Future.microtask(() => context.read<PesertaKegiatanLaporanBloc>().add(
           CreatePesertaKegiatanLaporanEvent(
             idLaporanKegiatan: widget.idLaporan,
             pesertaKegiatanLaporan: PesertaKegiatanLaporan(
@@ -78,7 +78,7 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
               updatedBy: user?.email ?? "unknown",
             ),
           ),
-        );
+        ));
       }
     }
   }
@@ -136,7 +136,7 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                     children: [
                       CustomMipokaButton(
                         onTap: () async => downloadFileWithDio(
-                            url: pesertaKegiatanTemplate,
+                            url: nimTemplate,
                             fileName: "pesertaKegiatan.xlsx"
                         ),
                         text: 'Unduh Templat',

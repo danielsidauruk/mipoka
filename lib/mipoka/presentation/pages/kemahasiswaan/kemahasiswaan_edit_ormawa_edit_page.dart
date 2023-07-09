@@ -1,8 +1,12 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_mpt_unggah_bukti_page.dart';
@@ -10,13 +14,14 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_filter_button.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
+import 'package:excel/excel.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_excel_uploader.dart';
 
 class KemahasiswaanEditOrmawaEditPage extends StatefulWidget {
   const KemahasiswaanEditOrmawaEditPage({
@@ -47,7 +52,7 @@ class _KemahasiswaanEditOrmawaEditPageState
   String? _fotoSekretarisUrlController;
   final TextEditingController _namaBendaharaController = TextEditingController();
   String? _fotoBendaharaUrlController;
-  final TextEditingController _keteranganController = TextEditingController();
+  List<String> _nimList = [];
 
   final StreamController<String?> _logoUrlStream = StreamController<String?>();
   final StreamController<String?> _fotoPembinaUrlStream = StreamController<String?>();
@@ -55,6 +60,38 @@ class _KemahasiswaanEditOrmawaEditPageState
   final StreamController<String?> _fotoWakilKetuaUrlStream = StreamController<String?>();
   final StreamController<String?> _fotoSekretarisUrlStream = StreamController<String?>();
   final StreamController<String?> _fotoBendaharaUrlStream = StreamController<String?>();
+
+  final StreamController<String?> _excelFileStream = StreamController<String?>();
+  String? _excelFileController;
+  FilePickerResult? result;
+
+  void _processUploadedFile(PlatformFile file) async {
+    Uint8List? bytes;
+
+    if (kIsWeb) {
+      bytes = file.bytes;
+    } else if (Platform.isAndroid) {
+      bytes = await File(file.path!).readAsBytes();
+    }
+
+    if (bytes != null) {
+      Excel excel = Excel.decodeBytes(bytes);
+      Sheet? sheet = excel.tables[excel.tables.keys.first];
+
+      int rowIndex = 0;
+
+      for (var row in sheet!.rows) {
+        if (rowIndex > 0) {
+          var nim = row[0]?.value;
+
+          if (nim != null && !_nimList.contains(nim.toString())) {
+            _nimList.add(nim.toString());
+          }
+        }
+        rowIndex++;
+      }
+    }
+  }
 
   @override
   void initState() {
@@ -71,9 +108,10 @@ class _KemahasiswaanEditOrmawaEditPageState
     _fotoSekretarisUrlController = widget.ormawa.fotoSekretaris;
     _namaBendaharaController.text = widget.ormawa.bendahara;
     _fotoBendaharaUrlController = widget.ormawa.fotoBendahara;
+    _nimList = widget.ormawa.listAnggota;
+    print(_nimList);
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -266,11 +304,36 @@ class _KemahasiswaanEditOrmawaEditPageState
                   const CustomFieldSpacer(),
 
                   buildTitle('Impor Anggota'),
-                  CustomIconButton(onTap: (){}, icon: Icons.upload),
+                  StreamBuilder<String?>(
+                    initialData: _excelFileController,
+                    stream: _excelFileStream.stream,
+                    builder: (context, snapshot) {
+                      String filePath = snapshot.data ?? "";
+                      return MipokaExcelUploader(
+                        onTap: () async {
+                          result = await FilePicker.platform.pickFiles();
+                          if (result != null){
+                            _excelFileStream.add(result?.files.first.name);
+                            PlatformFile? file = result?.files.first;
+                            _processUploadedFile(file!);
+                          }
+                        },
+                        text: filePath,
+                      );
+                    },
+                  ),
 
                   const CustomFieldSpacer(),
 
-                  CustomFilterButton(text: 'Ekspor Templat', onPressed: (){}),
+                  CustomFilterButton(
+                      text: 'Export Template',
+                      onPressed: () {
+                        downloadFileWithDio(
+                          url: nimTemplate,
+                          fileName: "anggota_ormawa_template.xlsx",
+                        );
+                      }
+                  ),
 
                   const CustomFieldSpacer(),
 
@@ -285,35 +348,42 @@ class _KemahasiswaanEditOrmawaEditPageState
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () {
-                          context.read<OrmawaBloc>().add(
-                            CreateOrmawaEvent(
-                              ormawa: Ormawa(
-                                idOrmawa: newId,
-                                namaOrmawa: _namaOrmawaController.text,
-                                namaSingkatanOrmawa: _namaSingkatanController.text,
-                                logoOrmawa: _logoUrlController ?? "",
-                                listAnggota: [],
-                                pembina: _namaPembinaController.text,
-                                ketua: _namaKetuaController.text,
-                                wakil: _namaWakilKetuaController.text,
-                                sekretaris: _namaSekretarisController.text,
-                                bendahara: _namaBendaharaController.text,
-                                jumlahAnggota: 0,
-                                fotoPembina: _fotoPembinaUrlController ?? "",
-                                fotoKetua: _fotoKetuaUrlController ?? "",
-                                fotoWakil: _fotoWakilKetuaUrlController ?? "",
-                                fotoSekretaris: _fotoSekretarisUrlController ?? "",
-                                fotoBendahara: _fotoBendaharaUrlController ?? "",
-                                createdAt: currentDate,
-                                createdBy: user?.email ?? "unknown",
-                                updatedBy: currentDate,
-                                updatedAt: user?.email ?? "unknown",
-                              ),
-                            ),
-                          );
-                          mipokaCustomToast("ormawa sudah ditambahkan.");
-                        },
+                        onTap: () => (_namaOrmawaController.text.isNotEmpty && _namaSingkatanController.text.isNotEmpty
+                            && _namaPembinaController.text.isNotEmpty && _namaKetuaController.text.isNotEmpty
+                            && _namaWakilKetuaController.text.isNotEmpty && _namaSekretarisController.text.isNotEmpty
+                            && _namaBendaharaController.text.isNotEmpty && _logoUrlController != ""
+                            && _fotoPembinaUrlController != "" && _fotoKetuaUrlController != ""
+                            && _fotoWakilKetuaUrlController != "" && _fotoSekretarisUrlController != ""
+                            && _fotoBendaharaUrlController != "" && _nimList.isNotEmpty) ?
+                            Future.microtask(() {
+                              context.read<OrmawaBloc>().add(
+                                UpdateOrmawaEvent(
+                                  widget.ormawa.copyWith(
+                                    namaOrmawa: _namaOrmawaController.text,
+                                    namaSingkatanOrmawa: _namaSingkatanController.text,
+                                    logoOrmawa: _logoUrlController ?? "",
+                                    listAnggota: _nimList,
+                                    pembina: _namaPembinaController.text,
+                                    ketua: _namaKetuaController.text,
+                                    wakil: _namaWakilKetuaController.text,
+                                    sekretaris: _namaSekretarisController.text,
+                                    bendahara: _namaBendaharaController.text,
+                                    jumlahAnggota: _nimList.length,
+                                    fotoPembina: _fotoPembinaUrlController ?? "",
+                                    fotoKetua: _fotoKetuaUrlController ?? "",
+                                    fotoWakil: _fotoWakilKetuaUrlController ?? "",
+                                    fotoSekretaris: _fotoSekretarisUrlController ?? "",
+                                    fotoBendahara: _fotoBendaharaUrlController ?? "",
+                                    updatedBy: currentDate,
+                                    updatedAt: user?.email ?? "unknown",
+                                  ),
+                                ),
+                              );
+                              context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
+                              mipokaCustomToast("ormawa sudah diupdate.");
+                              Navigator.pop(context);
+                            }):
+                        mipokaCustomToast(emptyFieldMessage),
                         text: 'Simpan',
                       ),
                     ],
