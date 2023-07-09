@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -38,205 +39,209 @@ class _KemahasiswaanCekUsulanKegiatanPageState
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomKemahasiswaanDrawer(),
-      body: BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
-        builder: (context, state) {
-          if (state is UsulanKegiatanLoading) {
-            return const Text('Loading');
-          } else if (state is AllUsulanKegiatanHasData) {
-            final usulanKegiatanList = state.usulanKegiatanList;
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const CustomMobileTitle(
+                  text: 'Pengajuan - Cek Usulan Kegiatan'),
+              const CustomFieldSpacer(),
+              CustomContentBox(
+                children: [
+                  buildTitle('Status'),
+                  MipokaCustomDropdown(
+                    items: listStatus,
+                    onValueChanged: (value) {
+                      filter = value ?? "semua";
+                      context.read<UsulanKegiatanBloc>().add(
+                          ReadAllUsulanKegiatanEvent(filter: filter));
+                    },
+                  ),
+                  const CustomFieldSpacer(),
 
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const CustomMobileTitle(
-                        text: 'Pengajuan - Cek Usulan Kegiatan'),
-                    const CustomFieldSpacer(),
-                    CustomContentBox(
-                      children: [
-                        buildTitle('Status'),
-                        MipokaCustomDropdown(
-                          items: listStatus,
-                          onValueChanged: (value) {
-                            filter = value ?? "semua";
-                            context.read<UsulanKegiatanBloc>().add(
-                                ReadAllUsulanKegiatanEvent(filter: filter));
-                          },
-                        ),
-                        const CustomFieldSpacer(),
+                  BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+                    builder: (context, state) {
+                      if (state is UsulanKegiatanLoading) {
+                        return const Text('Loading');
+                      } else if (state is AllUsulanKegiatanHasData) {
+                        final usulanKegiatanList = state.usulanKegiatanList;
 
-                        MipokaCountText(total: usulanKegiatanList.length),
+                        return Column(
+                          children: [
+                            MipokaCountText(total: usulanKegiatanList.length),
 
-                        const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
 
-                        SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: DataTable(
-                              columnSpacing: 40,
-                              border: TableBorder.all(color: Colors.white),
-                              columns: const [
-                                DataColumn(
-                                  label: Text(
-                                    'No.',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    'Nama Kegiatan',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    'File Proposal',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    'Validasi Pengguna',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    'Aksi',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ],
-                              rows: List<DataRow>.generate(usulanKegiatanList.length, (int index) {
-                                final usulanKegiatan = usulanKegiatanList[index];
-
-                                return DataRow(
-                                  cells: [
-                                    DataCell(
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          '${index + 1}',
-                                        ),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: DataTable(
+                                  columnSpacing: 40,
+                                  border: TableBorder.all(color: Colors.white),
+                                  columns: const [
+                                    DataColumn(
+                                      label: Text(
+                                        'No.',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    DataCell(
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          usulanKegiatan.namaKegiatan,
-                                        ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Nama Kegiatan',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    DataCell(
-                                      Center(
-                                        child: InkWell(
-                                          onTap: () {
-                                            print(usulanKegiatan.fileUsulanKegiatan);
-                                          },
-                                          child: Image.asset(
-                                            'assets/icons/pdf.png',
-                                            width: 24,
-                                          ),
-                                        ),
+                                    DataColumn(
+                                      label: Text(
+                                        'File Proposal',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    DataCell(
-                                      Center(
-                                        child: usulanKegiatan.validasiPembina == "true"
-                                            ? Image.asset(
-                                                'assets/icons/approve.png',
-                                                width: 24,
-                                              )
-                                            : Image.asset(
-                                                'assets/icons/close.png',
-                                                width: 24,
-                                              ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Validasi Pengguna',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    DataCell(
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          InkWell(
-                                            onTap: () {
-                                              context.read<UsulanKegiatanBloc>().add(
-                                                UpdateUsulanKegiatanEvent(
-                                                  usulanKegiatan: usulanKegiatan.copyWith(
-                                                    statusUsulan: "diterima",
-                                                  ),
-                                                ),
-                                              );
+                                    DataColumn(
+                                      label: Text(
+                                        'Aksi',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                  rows: List<DataRow>.generate(usulanKegiatanList.length, (int index) {
+                                    final usulanKegiatan = usulanKegiatanList[index];
 
-                                              context.read<UsulanKegiatanBloc>().add(
-                                                  ReadAllUsulanKegiatanEvent(filter: filter));
-
-                                              mipokaCustomToast("Usulan Kegiatan telah diterima.");
-                                            },
-                                            child: Image.asset(
-                                              'assets/icons/approve.png',
-                                              width: 24,
+                                    return DataRow(
+                                      cells: [
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              '${index + 1}',
                                             ),
                                           ),
-                                          const SizedBox(
-                                            width: 8.0,
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              usulanKegiatan.namaKegiatan,
+                                            ),
                                           ),
-                                          InkWell(
-                                            onTap: () {
-                                              context.read<UsulanKegiatanBloc>().add(
-                                                UpdateUsulanKegiatanEvent(
-                                                  usulanKegiatan: usulanKegiatan.copyWith(
-                                                    statusUsulan: "ditolak",
-                                                  ),
-                                                ),
-                                              );
-
-                                              context.read<UsulanKegiatanBloc>().add(
-                                                  ReadAllUsulanKegiatanEvent(filter: filter));
-
-                                              mipokaCustomToast("Usulan Kegiatan telah ditolak.");
-                                            },
-                                            child: Image.asset(
+                                        ),
+                                        DataCell(
+                                          Center(
+                                            child: InkWell(
+                                              onTap: () => downloadFileWithDio(
+                                                  url: usulanKegiatan.fileUsulanKegiatan,
+                                                  fileName: "file"),
+                                              child: Image.asset(
+                                                'assets/icons/pdf.png',
+                                                width: 24,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Center(
+                                            child: usulanKegiatan.validasiPembina == "true"
+                                                ? Image.asset(
+                                              'assets/icons/approve.png',
+                                              width: 24,
+                                            )
+                                                : Image.asset(
                                               'assets/icons/close.png',
                                               width: 24,
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              }),
+                                        ),
+                                        DataCell(
+                                          Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              InkWell(
+                                                onTap: () => Future.microtask(() {
+                                                  context.read<UsulanKegiatanBloc>().add(
+                                                    UpdateUsulanKegiatanEvent(
+                                                      usulanKegiatan: usulanKegiatan.copyWith(
+                                                        statusUsulan: "diterima",
+                                                      ),
+                                                    ),
+                                                  );
+
+                                                  context.read<UsulanKegiatanBloc>().add(
+                                                      ReadAllUsulanKegiatanEvent(filter: filter));
+
+                                                  mipokaCustomToast("Usulan Kegiatan telah diterima.");
+                                                }),
+                                                child: Image.asset(
+                                                  'assets/icons/approve.png',
+                                                  width: 24,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 8.0,
+                                              ),
+                                              InkWell(
+                                                onTap: () => Future.microtask(() {
+                                                  context.read<UsulanKegiatanBloc>().add(
+                                                    UpdateUsulanKegiatanEvent(
+                                                      usulanKegiatan: usulanKegiatan.copyWith(
+                                                        statusUsulan: "ditolak",
+                                                      ),
+                                                    ),
+                                                  );
+
+                                                  context.read<UsulanKegiatanBloc>().add(
+                                                      ReadAllUsulanKegiatanEvent(filter: filter));
+
+                                                  mipokaCustomToast("Usulan Kegiatan telah ditolak.");
+                                                }),
+                                                child: Image.asset(
+                                                  'assets/icons/close.png',
+                                                  width: 24,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                          ],
+                        );
+                      } else if (state is UsulanKegiatanError) {
+                        return Text(state.message);
+                      } else {
+                        return const Text('IDK');
+                      }
+                    },
+                  ),
+                ],
               ),
-            );
-          } else if (state is UsulanKegiatanError) {
-            return Text(state.message);
-          } else {
-            return const Text('IDK');
-          }
-        },
-      ),
+            ],
+          ),
+        ),
+      )
     );
   }
 }
