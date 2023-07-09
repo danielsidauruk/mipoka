@@ -246,36 +246,36 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                             ),
                             const SizedBox(width: 8.0),
                             CustomMipokaButton(
-                              onTap: () {
+                              onTap: () => Future.microtask(() {
                                 context.read<SessionBloc>().add(
-                                  UpdateSessionEvent(
-                                    session: session.copyWith(
-                                      idOrmawa: _idOrmawaController,
-                                      tanggalMulai: _tanggalMulaiController.text,
-                                      tanggalSelesai: _tanggalSelesaiController.text,
-                                      gedung: _gedungController.text,
-                                      ruangan: _ruangController.text,
-                                      waktuMulaiPenggunaan: _waktuMulaiController.text,
-                                      waktuSelesaiPenggunaan: _waktuSelesaiController.text,
-                                      proyektor: int.parse(_proyektorLcdController.text),
-                                      laptop: int.parse(_laptopController.text),
-                                      mikrofon: int.parse(_mikrofonController.text),
-                                      speaker: int.parse(_speakerController.text),
-                                      meja: int.parse(_mejaController.text),
-                                      kursi: int.parse(_kursiController.text),
-                                      papanTulis: int.parse(_papanTulisController.text),
-                                      spidol: int.parse(_spidolController.text),
-                                      lainLain: _lainController.text,
-                                      updatedBy: user?.email ?? "unknown",
-                                      updatedAt: currentDate,
-                                    ),
-                                  )
+                                    UpdateSessionEvent(
+                                      session: session.copyWith(
+                                        idOrmawa: _idOrmawaController,
+                                        tanggalMulai: _tanggalMulaiController.text,
+                                        tanggalSelesai: _tanggalSelesaiController.text,
+                                        gedung: _gedungController.text,
+                                        ruangan: _ruangController.text,
+                                        waktuMulaiPenggunaan: _waktuMulaiController.text,
+                                        waktuSelesaiPenggunaan: _waktuSelesaiController.text,
+                                        proyektor: int.parse(_proyektorLcdController.text),
+                                        laptop: int.parse(_laptopController.text),
+                                        mikrofon: int.parse(_mikrofonController.text),
+                                        speaker: int.parse(_speakerController.text),
+                                        meja: int.parse(_mejaController.text),
+                                        kursi: int.parse(_kursiController.text),
+                                        papanTulis: int.parse(_papanTulisController.text),
+                                        spidol: int.parse(_spidolController.text),
+                                        lainLain: _lainController.text,
+                                        updatedBy: user?.email ?? "unknown",
+                                        updatedAt: currentDate,
+                                      ),
+                                    )
                                 );
                                 Navigator.pushNamed(
                                   context,
                                   penggunaDaftarPengajuanSaranaDanPrasaranaPageRoute,
                                 );
-                              },
+                              }),
                               text: 'Kirim',
                             ),
                           ],

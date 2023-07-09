@@ -4,6 +4,7 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiatan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/partisipan_bloc/partisipan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -187,25 +188,16 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                           ),
                                         ),
                                         DataCell(
-                                          InkWell(
-                                            onTap: (){
-                                              context.read<UsulanKegiatanBloc>().add(
-                                                DeleteUsulanPartisipanEvent(
-                                                  idUsulanKegiatan: state.usulanKegiatan.idUsulan,
-                                                  idPartisipan: partisipan.idPartisipan,
-                                                ),
-                                              );
-                                              mipokaCustomToast('${partisipan.namaPartisipan} has been deleted.');
-                                              context.read<UsulanKegiatanBloc>().add(
-                                                ReadUsulanKegiatanEvent(idUsulanKegiatan: state.usulanKegiatan.idUsulan),
-                                              );
-                                            },
-                                            child: Align(
-                                              alignment: Alignment.center,
-                                              child: Image.asset(
-                                                'assets/icons/delete.png',
-                                                width: 24,
-                                              ),
+                                          onTap: (){
+                                            context.read<PartisipanBloc>().add(
+                                                DeletePartisipanEvent(partisipan.idPartisipan));
+                                            mipokaCustomToast('${partisipan.namaPartisipan} has been deleted.');
+                                          },
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/delete.png',
+                                              width: 24,
                                             ),
                                           ),
                                         ),
@@ -312,22 +304,20 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                             ),
 
                                             DataCell(
-                                              InkWell(
-                                                onTap: () => Navigator.pushNamed(
-                                                  context,
-                                                  usulanKegiatanEditBiayaKegiatanPageRoute,
-                                                  arguments: BiayaKegiatanArgs(
-                                                    biayaKegiatan: biayaKegiatan,
-                                                    id: widget.idUsulanKegiatan,
-                                                  ),
+                                              onTap: () => Navigator.pushNamed(
+                                                context,
+                                                usulanKegiatanEditBiayaKegiatanPageRoute,
+                                                arguments: BiayaKegiatanArgs(
+                                                  biayaKegiatan: biayaKegiatan,
+                                                  id: widget.idUsulanKegiatan,
                                                 ),
-                                                child: Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    biayaKegiatan.namaBiayaKegiatan,
-                                                    textAlign: TextAlign.center,
-                                                    style: const TextStyle(color: Colors.blue),
-                                                  ),
+                                              ),
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  biayaKegiatan.namaBiayaKegiatan,
+                                                  textAlign: TextAlign.center,
+                                                  style: const TextStyle(color: Colors.blue),
                                                 ),
                                               ),
                                             ),
@@ -368,18 +358,16 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                               ),
                                             ),
                                             DataCell(
-                                              InkWell(
-                                                onTap: (){
-                                                  context.read<BiayaKegiatanBloc>().add(
-                                                    DeleteBiayaKegiatanEvent(biayaKegiatan.idBiayaKegiatan),
-                                                  );
-                                                },
-                                                child: Align(
-                                                  alignment: Alignment.center,
-                                                  child: Image.asset(
-                                                    'assets/icons/delete.png',
-                                                    width: 24,
-                                                  ),
+                                              onTap: () => Future.microtask(() {
+                                                context.read<BiayaKegiatanBloc>().add(
+                                                    DeleteBiayaKegiatanEvent(biayaKegiatan.idBiayaKegiatan));
+                                                mipokaCustomToast("${biayaKegiatan.namaBiayaKegiatan} telah dihapus.");
+                                              }),
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Image.asset(
+                                                  'assets/icons/delete.png',
+                                                  width: 24,
                                                 ),
                                               ),
                                             ),

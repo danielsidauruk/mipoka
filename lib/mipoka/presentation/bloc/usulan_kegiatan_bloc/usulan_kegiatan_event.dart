@@ -44,13 +44,12 @@ class DeleteUsulanKegiatanEvent extends UsulanKegiatanEvent {
 }
 
 class DeleteUsulanPartisipanEvent extends UsulanKegiatanEvent {
-  final int idUsulanKegiatan, idPartisipan;
+  final int idPartisipan;
 
   const DeleteUsulanPartisipanEvent({
-    required this.idUsulanKegiatan,
     required this.idPartisipan,
   });
 
   @override
-  List<Object> get props => [idUsulanKegiatan, idPartisipan];
+  List<Object> get props => [idPartisipan];
 }

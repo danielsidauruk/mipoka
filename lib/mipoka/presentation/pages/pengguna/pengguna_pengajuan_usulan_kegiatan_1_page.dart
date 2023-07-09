@@ -492,6 +492,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                     text: 'Batal',
                                   ),
                                   const SizedBox(width: 8.0),
+
                                   CustomMipokaButton(
                                     onTap: () {
                                       _tempatKegiatanSwitchController == false ?
@@ -499,12 +500,14 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                         context,
                                         penggunaPengajuanUsulanKegiatan2DKPageRoute,
                                         arguments: widget.idUsulanKegiatan,
-                                      ) :
+                                      ).then((_) => context.read<UsulanKegiatanBloc>()
+                                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan))) :
                                       Navigator.pushNamed(
                                         context,
                                         penggunaPengajuanUsulanKegiatan2LKPageRoute,
                                         arguments: widget.idUsulanKegiatan,
-                                      );
+                                      ).then((_) => context.read<UsulanKegiatanBloc>()
+                                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan)));
 
                                       Future.microtask(() {
                                         context.read<UsulanKegiatanBloc>().add(
@@ -559,7 +562,10 @@ class _PenggunaPengajuanUsulanKegiatan1State
               } else if (state is UsulanKegiatanError) {
                 return Text('UsulanKegiatanBloc Error : ${state.message}');
               } else {
-                return const Text('UsulanKegiatanBloc has not been triggered');
+                if (kDebugMode) {
+                  print('UsulanKegiatanBloc has not been triggered');
+                }
+                return const Center();
               }
             },
           );

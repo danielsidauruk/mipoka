@@ -293,7 +293,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           InkWell(
-                            onTap: () {
+                            onTap: () => Future.microtask(() {
                               context.read<SessionBloc>().add(
                                 CreateSessionEvent(
                                   session: Session(
@@ -332,17 +332,9 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                 penggunaPengajuanSaranaDanPrasaranaPageRoute,
                                 arguments: newId,
                               ).then((_) {
-                                setState(() {
-                                context.read<SessionBloc>().add(const ReadAllSessionEvent());
-                                });
+                                setState(() => context.read<SessionBloc>().add(const ReadAllSessionEvent()));
                               });
-                            },
-                // Navigator.pushNamed(context, '/page2').then((_) {
-                // // This block runs when you have returned back to the 1st Page from 2nd.
-                // setState(() {
-                // // Call setState to refresh the page.
-                // });
-                // });
+                            }),
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 24),
@@ -373,7 +365,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                 } else if (state is SessionError) {
                   return const Text('Error');
                 } else {
-                  return const Text('IDK');
+                  return const Text('');
                 }
               },
             ),

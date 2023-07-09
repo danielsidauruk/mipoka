@@ -264,8 +264,9 @@ class MyApp extends StatelessWidget {
                     idUsulanKegiatan: idUsulanKegiatan),
               );
             case tambahDataPesertaDalamKotaPageRoute:
+              final idUsulanKegiatan = settings.arguments as int;
               return MaterialPageRoute(
-                  builder: (_) => const TambahDataPesertaDalamKota());
+                  builder: (_) => TambahDataPesertaDalamKota(idUsulanKegiatan: idUsulanKegiatan));
             case editDataPesertaDalamKotaPageRoute:
               final partisipanArgs = settings.arguments as PartisipanArgs;
               return MaterialPageRoute(
