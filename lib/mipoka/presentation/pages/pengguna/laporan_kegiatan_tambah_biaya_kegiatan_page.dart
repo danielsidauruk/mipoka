@@ -1,7 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/rincian_biaya_kegiatan_bloc/rincian_biaya_kegiatan_bloc.dart';
@@ -33,8 +32,7 @@ class _LaporanKegiatanTambahBiayaKegiatanPageState extends State<LaporanKegiatan
   final TextEditingController _usulanAnggaranController = TextEditingController();
   final TextEditingController _realisasiAnggaranController = TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
-  int? selisih;
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,46 +114,51 @@ class _LaporanKegiatanTambahBiayaKegiatanPageState extends State<LaporanKegiatan
 
                       CustomMipokaButton(
                         onTap: () {
-                          int newId = DateTime.now().microsecondsSinceEpoch;
-                          User? user = FirebaseAuth.instance.currentUser;
-                          String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
-
                           if (_usulanAnggaranController.text.isNotEmpty && _realisasiAnggaranController.text.isNotEmpty &&
                               _namaBiayaKegiatanController.text.isNotEmpty && _keteranganController.text.isNotEmpty &&
                               _kuantitasController.text.isNotEmpty && _hargaSatuanController.text.isNotEmpty) {
 
-                            int? usulanAnggaran = int.tryParse(_usulanAnggaranController.text);
-                            int? realisasiAnggaran = int.tryParse(_realisasiAnggaranController.text);
+                            try {
+                              final usulanAnggaran = int.tryParse(_usulanAnggaranController.text);
+                              final realisasiAnggaran = int.tryParse(_realisasiAnggaranController.text);
+                              final kuantitas = int.tryParse(_kuantitasController.text);
+                              final hargaSatuan = int.tryParse(_hargaSatuanController.text);
 
-                            if (usulanAnggaran != null && realisasiAnggaran != null) {
-                              selisih = usulanAnggaran > realisasiAnggaran
-                                  ? usulanAnggaran - realisasiAnggaran
-                                  : realisasiAnggaran - usulanAnggaran;
+                              int? selisih;
+
+                              if (usulanAnggaran != null && realisasiAnggaran != null
+                                  && kuantitas != null && hargaSatuan != null) {
+                                selisih = usulanAnggaran > realisasiAnggaran
+                                    ? usulanAnggaran - realisasiAnggaran
+                                    : realisasiAnggaran - usulanAnggaran;
+
+                                context.read<RincianBiayaKegiatanBloc>().add(
+                                  CreateRincianBiayaKegiatanEvent(
+                                    idLaporan: widget.idLaporan,
+                                    rincianBiayaKegiatan: RincianBiayaKegiatan(
+                                      idRincianBiayaKegiatan: newId,
+                                      namaBiaya: _namaBiayaKegiatanController.text,
+                                      keterangan: _keteranganController.text,
+                                      kuantitas: kuantitas,
+                                      hargaSatuan: hargaSatuan,
+                                      usulanAnggaran: usulanAnggaran,
+                                      realisasiAnggaran: realisasiAnggaran,
+                                      selisih: selisih,
+                                      createdAt: currentDate,
+                                      createdBy: user?.email ?? "unknown",
+                                      updatedAt: currentDate,
+                                      updatedBy: user?.email ?? "unknown",
+                                    ),
+                                  ),
+                                );
+                                mipokaCustomToast("Laporan Biaya Kegiatan telah ditambah.");
+                                Navigator.pop(context);
+                              }
+                            } catch (e) {
+                              mipokaCustomToast(dataTypeErrorMessage);
                             }
-
-                            context.read<RincianBiayaKegiatanBloc>().add(
-                              CreateRincianBiayaKegiatanEvent(
-                                idLaporan: widget.idLaporan,
-                                rincianBiayaKegiatan: RincianBiayaKegiatan(
-                                  idRincianBiayaKegiatan: newId,
-                                  namaBiaya: _namaBiayaKegiatanController.text,
-                                  keterangan: _keteranganController.text,
-                                  kuantitas: int.parse(_kuantitasController.text),
-                                  hargaSatuan: int.parse(_hargaSatuanController.text),
-                                  usulanAnggaran: int.parse(_usulanAnggaranController.text),
-                                  realisasiAnggaran: int.parse(_realisasiAnggaranController.text),
-                                  selisih: selisih ?? 0,
-                                  createdAt: currentDate,
-                                  createdBy: user?.email ?? "unknown",
-                                  updatedAt: currentDate,
-                                  updatedBy: user?.email ?? "unknown",
-                                ),
-                              ),
-                            );
-                            Navigator.pop(context);
                           } else {
-                            mipokaCustomToast('All field cannot be empty');
+                            mipokaCustomToast(emptyFieldMessage);
                           }
 
                         },

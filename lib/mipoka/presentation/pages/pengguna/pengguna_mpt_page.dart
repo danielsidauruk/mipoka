@@ -25,7 +25,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
   @override
   void initState() {
     context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
-    context.read<RiwayatKegiatanMptBloc>().add(ReadAllRiwayatKegiatanMptEvent());
+    context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
     super.initState();
   }
 
@@ -378,7 +378,10 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                         context,
                                         penggunaMPTUnggahBuktiPageRoute,
                                         arguments: kegiatanPerPeriode.idKegiatanPerPeriodeMpt,
-                                      ),
+                                      ).then((_) {
+                                        context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
+                                        context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
+                                      }),
                                       Align(
                                         alignment: Alignment.center,
                                         child: Image.asset(

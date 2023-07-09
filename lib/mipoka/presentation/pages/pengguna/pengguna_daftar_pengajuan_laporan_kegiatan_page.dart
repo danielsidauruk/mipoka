@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -230,7 +231,8 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                             context,
                             penggunaPengajuanLaporanKegiatanPage1Route,
                             arguments: newId,
-                          );
+                          ).then((_) => context.read<LaporanBloc>().add(
+                              const ReadAllLaporanEvent()));
 
                           context.read<LaporanBloc>().add(
                             CreateLaporanEvent(
@@ -273,7 +275,10 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
           } else if (laporanState is LaporanError) {
             return Text(laporanState.message);
           } else {
-            return const Text('IDK');
+            if (kDebugMode) {
+              print("LaporanBloc hasn't been triggered yet.");
+            }
+            return const Center();
           }
         },
       ),

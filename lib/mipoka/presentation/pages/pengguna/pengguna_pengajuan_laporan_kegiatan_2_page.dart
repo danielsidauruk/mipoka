@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
@@ -324,7 +325,9 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                   context,
                                   penggunaPengajuanLaporanKegiatan3PageRoute,
                                   arguments: widget.idLaporan,
-                                );
+                                ).then((_) => context.read<LaporanBloc>().add(
+                                    ReadLaporanEvent(idLaporan: widget.idLaporan)
+                                ));
                               },
                               text: 'Berikutnya',
                             ),
@@ -336,7 +339,10 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                 } else if (state is LaporanError) {
                   return Text(state.message);
                 } else {
-                  return const Text('LaporanBloc has not been triggered.');
+                  if (kDebugMode) {
+                    print('LaporanBloc has not been triggered.');
+                  }
+                  return const Center();
                 }
               },
             ),

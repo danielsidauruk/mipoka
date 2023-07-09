@@ -122,6 +122,7 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                           result = await FilePicker.platform.pickFiles();
                           if (result != null){
                             _excelFileStream.add(result?.files.first.name);
+
                           }
                         },
                         text: filePath,
@@ -161,10 +162,9 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                       CustomMipokaButton(
                         onTap: () {
                           final result = this.result;
+                          PlatformFile? file = result?.files.first;
                           if (result != null) {
-                            PlatformFile file = result.files.first;
-                            _processUploadedFile(file);
-
+                            _processUploadedFile(file!);
                             mipokaCustomToast("Data telah di update.");
                             Navigator.pop(context);
                           } else {

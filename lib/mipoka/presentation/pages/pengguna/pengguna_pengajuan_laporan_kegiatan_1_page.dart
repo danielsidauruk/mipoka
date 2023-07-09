@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
@@ -122,7 +123,7 @@ class _PenggunaPengajuanLaporanKegiatan1State
                                   onTap: () {
                                     context.read<LaporanBloc>().add(
                                       DeleteLaporanEvent(idLaporan: widget.idLaporan));
-                                    context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
+                                    // context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
                                     mipokaCustomToast("Laporan telah dihapus.");
                                     Navigator.pop(context);
                                   },
@@ -137,7 +138,7 @@ class _PenggunaPengajuanLaporanKegiatan1State
                                       context,
                                       penggunaPengajuanLaporanKegiatan2PageRoute,
                                       arguments: widget.idLaporan,
-                                    );
+                                    ).then((_) => context.read<LaporanBloc>().add(ReadLaporanEvent(idLaporan: widget.idLaporan)));
 
                                     Future.microtask(() =>
                                         context.read<LaporanBloc>().add(
@@ -152,11 +153,6 @@ class _PenggunaPengajuanLaporanKegiatan1State
                                           ),
                                         ),
                                     );
-                                    // context.read<LaporanBloc>().add(
-                                    //     ReadLaporanEvent(idLaporan: widget.idLaporan));
-                                    //
-                                    // context.read<UsulanKegiatanBloc>().add(
-                                    //     const ReadAllUsulanKegiatanEvent());
                                   },
                                   text: 'Berikutnya',
                                 ),
@@ -174,7 +170,10 @@ class _PenggunaPengajuanLaporanKegiatan1State
               } else if (usulanState is UsulanKegiatanError) {
                 return Text(usulanState.message);
               } else {
-                return const Text("Bloc hasn't been trigerred.");
+                if (kDebugMode) {
+                  print("Bloc hasn't been trigerred.");
+                }
+                return const Center();
               }
             },
           );
