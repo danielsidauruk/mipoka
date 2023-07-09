@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -216,8 +217,8 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                             context,
                                             pemeriksaPengajuanLaporanKegiatan1PageRoute,
                                             arguments: laporanKegiatan.idLaporan,
-                                          ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                              const ReadAllUsulanKegiatanEvent())),
+                                          ).then((_) => context.read<LaporanBloc>().add(
+                                              const ReadAllLaporanEvent())),
                                         ),
                                         DataCell(
                                           Align(
@@ -297,7 +298,10 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                       } else if (state is LaporanError) {
                         return Text(state.message);
                       } else {
-                        return const Text("UsulanKegiatanBloc hasn't been triggered yet.");
+                        if (kDebugMode) {
+                          print("UsulanKegiatanBloc hasn't been triggered yet.");
+                        }
+                        return const Center();
                       }
                     },
                   ),

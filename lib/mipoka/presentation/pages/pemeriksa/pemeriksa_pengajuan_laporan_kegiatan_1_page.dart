@@ -35,6 +35,7 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
   TextEditingController();
   final TextEditingController _revisiPencapaianController =
   TextEditingController();
+  int? idRevisiLaporan;
 
   @override
   void initState() {
@@ -81,6 +82,8 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                             idUsulanKegiatan: laporan.idUsulan));
                     context.read<OrmawaBloc>().add(ReadOrmawaEvent(
                         idOrmawa: laporan.idOrmawa));
+
+                    idRevisiLaporan = laporan.idLaporan + newId;
 
                     return CustomContentBox(
                       children: [
@@ -130,42 +133,56 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                           controller: _revisiPencapaianController,
                         ),
                         const CustomFieldSpacer(),
-                        CustomMipokaButton(
-                          onTap: () {
-                            int idRevisiLaporan = laporan.idLaporan + newId;
 
-                            context.read<RevisiLaporanBloc>().add(
-                              CreateRevisiLaporanEvent(
-                                revisiLaporan: RevisiLaporan(
-                                    idRevisiLaporan: idRevisiLaporan,
-                                    idAdmin: user?.uid ?? "unknown",
-                                    idLaporan: laporan.idLaporan,
-                                    idUsulan: laporan.idUsulan,
-                                    revisiPencapaian: _revisiPencapaianController.text,
-                                    revisiPesertaKegiatanLaporan: "",
-                                    revisiBiayaKegiatan: "",
-                                    revisiLatarBelakang: "",
-                                    revisiHasilKegiatan: "",
-                                    revisiPenutup: "",
-                                    revisiFotoPostinganKegiatan: "",
-                                    revisiFotoDokumentasiKegiatan: "",
-                                    revisiFotoTabulasiHasil: "",
-                                    revisiFotoFakturPembayaran: "",
-                                    createdAt: currentDate,
-                                    createdBy: user?.email ?? "unknown",
-                                    updatedAt: currentDate,
-                                    updatedBy: user?.email ?? "unknown",
-                                ),
-                              ),
-                            );
-                            Navigator.pushNamed(
-                              context,
-                              pemeriksaPengajuanLaporanKegiatan2PageRoute,
-                              arguments: idRevisiLaporan,
-                            );
-                          },
-                          text: 'Berikutnya',
-                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            CustomMipokaButton(
+                              onTap: () => Future.microtask(() {
+                                context.read<RevisiLaporanBloc>().add(DeleteRevisiLaporanEvent(idRevisiLaporan!));
+                                Navigator.pop(context);
+                              }),
+                              text: "Batal",
+                            ),
+
+                            const SizedBox(width: 8.0),
+
+                            CustomMipokaButton(
+                              onTap: () {
+                                context.read<RevisiLaporanBloc>().add(
+                                  CreateRevisiLaporanEvent(
+                                    revisiLaporan: RevisiLaporan(
+                                      idRevisiLaporan: idRevisiLaporan ?? 0,
+                                      idAdmin: user?.uid ?? "unknown",
+                                      idLaporan: laporan.idLaporan,
+                                      idUsulan: laporan.idUsulan,
+                                      revisiPencapaian: _revisiPencapaianController.text,
+                                      revisiPesertaKegiatanLaporan: "",
+                                      revisiBiayaKegiatan: "",
+                                      revisiLatarBelakang: "",
+                                      revisiHasilKegiatan: "",
+                                      revisiPenutup: "",
+                                      revisiFotoPostinganKegiatan: "",
+                                      revisiFotoDokumentasiKegiatan: "",
+                                      revisiFotoTabulasiHasil: "",
+                                      revisiFotoFakturPembayaran: "",
+                                      createdAt: currentDate,
+                                      createdBy: user?.email ?? "unknown",
+                                      updatedAt: currentDate,
+                                      updatedBy: user?.email ?? "unknown",
+                                    ),
+                                  ),
+                                );
+                                Navigator.pushNamed(
+                                  context,
+                                  pemeriksaPengajuanLaporanKegiatan2PageRoute,
+                                  arguments: idRevisiLaporan,
+                                );
+                              },
+                              text: 'Berikutnya',
+                            ),
+                          ],
+                        )
                       ],
                     );
                   } else if (laporanState is LaporanError) {

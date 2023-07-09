@@ -43,6 +43,11 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
 
   @override
   void dispose() {
+    _postinganKegiatanStream.close();
+    _suratUndanganStream.close();
+    _linimasaKegiatanStream.close();
+    _fotoTempatKegiatanStream.close();
+
     context.read<RevisiUsulanBloc>().close();
     context.read<UsulanKegiatanBloc>().close();
     super.dispose();
