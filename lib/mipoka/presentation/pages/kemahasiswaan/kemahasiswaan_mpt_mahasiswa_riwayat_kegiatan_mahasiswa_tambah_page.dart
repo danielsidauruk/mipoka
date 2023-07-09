@@ -63,7 +63,7 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
       List nimList = [];
       List idKegiatanList = [];
       List poinList = [];
-      List keteranganMahasiswaList = [];
+      List keteranganList = [];
 
       for (var row in sheet!.rows) {
         var nim = row[0]?.value;
@@ -71,44 +71,46 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
         var poin = row[2]?.value;
         var keteranganMahasiswa = row[3]?.value;
 
-        if (nim != null && idKegiatan != null
-            && poin != null && keteranganMahasiswa != null) {
+        if (nim != null) {
           nimList.add(nim);
+        }
+
+        if (nim != null) {
           idKegiatanList.add(idKegiatan);
+        }
+
+        if (poin != null) {
           poinList.add(poin);
-          keteranganMahasiswaList.add(keteranganMahasiswa);
+        }
+
+        if (keteranganMahasiswa != null) {
+          keteranganList.add(keteranganMahasiswa);
         }
       }
 
-      if (kDebugMode) {
-        print(nimList);
-        print(idKegiatanList);
-        print(poinList);
-        print(keteranganMahasiswaList);
-      }
-
       for (var i = 1; i < nimList.length; i++) {
-        print(nimList[i]);
         Future.microtask(() => context.read<RiwayatKegiatanMptBloc>().add(
-          CreateRiwayatKegiatanMptEvent(
-            riwayatKegiatanMpt: RiwayatKegiatanMpt(
-              idRiwayatKegiatanMpt: newId + i,
-              idKegiatanPerPeriodeMpt: _idPeriodeKegiatanMpt ?? 0,
-              idUser: nimList[i].toString(),
-              statusMpt: "",
-              fileSertifikatMpt: "",
-              hash: "",
-              keteranganMhs: "",
-              keteranganSa: "",
-              createdAt: currentDate,
-              createdBy: user?.email ?? "unknown",
-              updatedAt: currentDate,
-              updatedBy: user?.email ?? "unknown",
-            ),
+          CreateRiwayatKegiatanMptEvent(riwayatKegiatanMpt: RiwayatKegiatanMpt(
+            idRiwayatKegiatanMpt: newId + i,
+            idKegiatanPerPeriodeMpt: _idPeriodeKegiatanMpt ?? 0,
+            idUser: nimList[i].toString(),
+            statusMpt: "",
+            fileSertifikatMpt: "",
+            hash: "",
+            keteranganMhs: "",
+            keteranganSa: "",
+            createdAt: currentDate,
+            createdBy: user?.email ?? "unknown",
+            updatedAt: currentDate,
+            updatedBy: user?.email ?? "unknown",
+          ),
           ),
         ));
       }
     }
+
+    Future.microtask(() => context.read<RiwayatKegiatanMptBloc>()
+        .add(const ReadAllRiwayatKegiatanMptEvent()));
   }
 
   @override
@@ -143,19 +145,17 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
                                 (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
                             "${periodeMptList.tahunPeriodeMpt} (ulang)" :
                             periodeMptList.tahunPeriodeMpt).toList();
-                        tahunPeriodeMptList.insert(0, "Semua");
 
                         List<int> idTahunPeriodeList = state.periodeMptList.map(
                                 (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
-                        idTahunPeriodeList.insert(0, 0);
+
+                        _idPeriodeKegiatanMpt = idTahunPeriodeList[0];
 
                         return MipokaCustomDropdown(
                             items: tahunPeriodeMptList,
                             onValueChanged: (value) {
                               int index = tahunPeriodeMptList.indexOf(value!);
                               int idPeriodeMpt = idTahunPeriodeList[index];
-
-                              // print("$idPeriodeMpt, $value");
 
                               _idPeriodeKegiatanMpt = idPeriodeMpt;
                             }
@@ -202,18 +202,20 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
 
                   CustomFilterButton(
                       text: 'Proses',
-                      onPressed: () {
+                      onPressed: () => Future.microtask(() {
                         final result = this.result;
                         if (result != null) {
                           PlatformFile file = result.files.first;
-                          _processRiwayatKegiatan(file);
-
-                          mipokaCustomToast("Data telah di update.");
-                          // Navigator.pop(context);
+                          Future.microtask(() {
+                            _processRiwayatKegiatan(file);
+                            mipokaCustomToast("Data telah di update.");
+                            // context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
+                            Navigator.pop(context);
+                          });
                         } else {
                           mipokaCustomToast("Harap unggah file yang diperlukan.");
                         }
-                      },
+                      }),
                   ),
 
                   const CustomFieldSpacer(),
