@@ -12,9 +12,12 @@ class CustomDatePickerField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.all(8.0),
+      width: size.width < 501 ? double.infinity : 300,
       constraints: const BoxConstraints(minHeight: 35.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),

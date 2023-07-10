@@ -2,9 +2,9 @@ import 'dart:io';
 import 'dart:async';
 import 'package:crypto/crypto.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
@@ -37,12 +37,12 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
   final TextEditingController _keteranganController = TextEditingController();
   final TextEditingController _fileSertifikatMptController = TextEditingController();
   final TextEditingController _shaController = TextEditingController();
-  final StreamController<String?> _fileSertifikatMptStream = StreamController<String?>();
+  final StreamController<String?> _fileSertifikatMptStream = StreamController<String?>.broadcast();
   final StreamController<bool?> _isNotDuplicatedStream = StreamController<bool?>();
 
   @override
   void initState() {
-    context.read<RiwayatKegiatanMptBloc>().add(ReadAllRiwayatKegiatanMptEvent());
+    context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
     context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: user?.uid ?? ""));
     super.initState();
   }
@@ -94,11 +94,7 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                 _fileSertifikatMptStream.add(result?.names.first ?? "");
                               },
                               onDelete: () {
-                                // deleteFileFromFirebase(_fileSertifikatMptController.text);
-                                // _fileSertifikatMptController.text = "";
                                 _fileSertifikatMptStream.add("");
-                                // _isNotDuplicatedStream.add(false);
-                                mipokaCustomToast("File telah dihapus.");
                               },
                               text: text,
                             );
@@ -135,8 +131,16 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                           if (result != null) {
                                             PlatformFile file = result.files.first;
 
-                                            List<int> bytes = await File(file.path!).readAsBytes();
-                                            String fileHash = sha256.convert(bytes).toString();
+                                            Uint8List? bytes;
+                                            String? fileHash;
+
+                                            if (kIsWeb) {
+                                              bytes = file.bytes;
+                                              fileHash = sha256.convert(bytes!.toList()).toString();
+                                            } else if (Platform.isAndroid) {
+                                              bytes = await File(file.path!).readAsBytes();
+                                              fileHash = sha256.convert(bytes).toString();
+                                            }
 
                                             List<String> hashList = riwayatKegiatanState.riwayatKegiatanMptList.map((sha256) => sha256.hash).toList();
 
@@ -144,7 +148,7 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                               mipokaCustomToast("Tidak dapat mengunggah file yang sama");
                                             } else {
                                               String? downloadUrl = await uploadFileToFirebase(file, "sertifikatmpt${user?.uid ?? "unknown"}");
-                                              _shaController.text = fileHash;
+                                              _shaController.text = fileHash ?? "";
                                               _fileSertifikatMptController.text = downloadUrl ?? "";
 
                                               Future.microtask(() {
@@ -175,6 +179,9 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                             mipokaCustomToast("Harap unggah file.");
                                           }
                                         } catch (error) {
+                                          if (kDebugMode) {
+                                            print(error);
+                                          }
                                           mipokaCustomToast(error.toString());
                                         }
                                       } else {
@@ -258,6 +265,13 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
   }
 }
 
+void deleteFileFromLocal(String filePath) async {
+  if (await File(filePath).exists()) {
+    await File(filePath).delete();
+  }
+}
+
+
 Future<String?> selectAndUploadFile(String fileName) async {
   try {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -277,3 +291,19 @@ Future<String?> selectAndUploadFile(String fileName) async {
     return null;
   }
 }
+
+// Future<String> calculateSHA(File file) async {
+//   final reader = FileReader();
+//   final completer = Completer<String>();
+//
+//   reader.onLoadEnd.listen((e) {
+//     final contents = reader.result as String;
+//     final digest = sha256.convert(contents.codeUnits);
+//     completer.complete(digest.toString());
+//   });
+//
+//   reader.readAsDataUrl(file);
+//
+//   return completer.future;
+// }
+

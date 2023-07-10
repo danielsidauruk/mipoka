@@ -33,7 +33,7 @@ class ImportPesertaLaporanPage extends StatefulWidget {
 
 class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
 
-  final StreamController<String?> _excelFileStream = StreamController<String?>();
+  final StreamController<String?> _excelFileStream = StreamController<String?>.broadcast();
   String? _excelFileController;
   FilePickerResult? result;
 
@@ -47,38 +47,46 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
     }
 
     if (bytes != null) {
-      Excel excel = Excel.decodeBytes(bytes);
-      Sheet? sheet = excel.tables[excel.tables.keys.first];
+      try {
+        Excel excel = Excel.decodeBytes(bytes);
+        Sheet? sheet = excel.tables[excel.tables.keys.first];
 
-      List nimList = [];
-      List peranList = [];
+        List nimList = [];
+        List peranList = [];
 
-      for (var row in sheet!.rows) {
-        var nim = row[0]?.value;
-        var peran = row[1]?.value;
+        for (var row in sheet!.rows) {
+          var nim = row[0]?.value;
+          var peran = row[1]?.value;
 
-        if (nim != null && peran != null) {
-          nimList.add(nim);
-          peranList.add(peran);
+          if (nim != null && peran != null) {
+            nimList.add(nim);
+            peranList.add(peran);
+          }
         }
-      }
 
-      for (var i = 1; i < nimList.length; i++) {
-        Future.microtask(() => context.read<PesertaKegiatanLaporanBloc>().add(
-          CreatePesertaKegiatanLaporanEvent(
-            idLaporanKegiatan: widget.idLaporan,
-            pesertaKegiatanLaporan: PesertaKegiatanLaporan(
-              idPesertaKegiatanLaporan: newId + i,
-              nim: nimList[i].toString(),
-              namaLengkap: "",
-              peran: peranList[i].toString(),
-              createdAt: currentDate,
-              createdBy: user?.email ?? "unknown",
-              updatedAt: currentDate,
-              updatedBy: user?.email ?? "unknown",
+        for (var i = 1; i < nimList.length; i++) {
+          Future.microtask(() => context.read<PesertaKegiatanLaporanBloc>().add(
+            CreatePesertaKegiatanLaporanEvent(
+              idLaporanKegiatan: widget.idLaporan,
+              pesertaKegiatanLaporan: PesertaKegiatanLaporan(
+                idPesertaKegiatanLaporan: newId + i,
+                nim: nimList[i].toString(),
+                namaLengkap: "",
+                peran: peranList[i].toString(),
+                createdAt: currentDate,
+                createdBy: user?.email ?? "unknown",
+                updatedAt: currentDate,
+                updatedBy: user?.email ?? "unknown",
+              ),
             ),
-          ),
-        ));
+          ));
+        }
+        Future.microtask(() {
+          mipokaCustomToast("Data telah di update.");
+          Navigator.pop(context);
+        });
+      } catch (e) {
+        mipokaCustomToast("Format/file yang dimasukkan salah.");
       }
     }
   }
@@ -165,8 +173,6 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                           PlatformFile? file = result?.files.first;
                           if (result != null) {
                             _processUploadedFile(file!);
-                            mipokaCustomToast("Data telah di update.");
-                            Navigator.pop(context);
                           } else {
                             mipokaCustomToast("Harap unggah file yang diperlukan.");
                           }

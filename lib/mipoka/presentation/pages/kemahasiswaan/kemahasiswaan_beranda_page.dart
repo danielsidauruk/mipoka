@@ -42,16 +42,7 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    print(size.width);
 
-    if (size.width > 500) {
-      return buildWeb(context);
-    } else {
-      return buildMobile();
-    }
-  }
-
-  Scaffold buildMobile() {
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomKemahasiswaanDrawer(),
@@ -74,6 +65,7 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                     const CustomMobileTitle(
                         text: 'Kemahasiswaan - Edit Beranda'),
                     const CustomFieldSpacer(),
+
                     CustomContentBox(
                       children: [
                         CustomAddButton(

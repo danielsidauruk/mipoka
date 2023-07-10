@@ -44,6 +44,7 @@ class _KemahasiswaanCekUsulanKegiatanPageState
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CustomMobileTitle(
                   text: 'Pengajuan - Cek Usulan Kegiatan'),

@@ -44,6 +44,7 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CustomMobileTitle(
                   text: 'Kemahasiswaan - MPT Mahasiswa - Periode'),
@@ -68,6 +69,7 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
                         final periodeMptList = state.periodeMptList;
 
                         return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             MipokaCountText(total: periodeMptList.length),
 

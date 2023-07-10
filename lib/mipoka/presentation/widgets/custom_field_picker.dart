@@ -25,10 +25,10 @@ class _CustomFilePickerButtonState extends State<CustomFilePickerButton> {
     return InkWell(
       onTap: widget.text == "" ? widget.onTap : null,
       child: Container(
-        width: double.infinity,
+        width:  double.infinity,
         alignment: Alignment.center,
         padding: const EdgeInsets.all(8.0),
-        constraints: const BoxConstraints(minHeight: 35.0),
+        constraints: const BoxConstraints(minHeight: 30.0, maxWidth: 600),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           border: Border.all(color: Colors.white),

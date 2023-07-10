@@ -53,10 +53,10 @@ class _PenggunaPengajuanLaporanKegiatan3State
   String? _tabulasiHasilKegiatanController;
   String? _fakturPembayaranController;
 
-  final StreamController<String?> _postinganKegiatanStream = StreamController<String?>();
-  final StreamController<String?> _dokumentasiKegiatanStream = StreamController<String?>();
-  final StreamController<String?> _tabulasiHasilKegiatanStream = StreamController<String?>();
-  final StreamController<String?> _fakturPembayaranStream = StreamController<String?>();
+  final StreamController<String?> _postinganKegiatanStream = StreamController<String?>.broadcast();
+  final StreamController<String?> _dokumentasiKegiatanStream = StreamController<String?>.broadcast();
+  final StreamController<String?> _tabulasiHasilKegiatanStream = StreamController<String?>.broadcast();
+  final StreamController<String?> _fakturPembayaranStream = StreamController<String?>.broadcast();
 
 
   @override

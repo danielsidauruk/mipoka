@@ -55,10 +55,10 @@ class _PenggunaPengajuanUsulanKegiatan3State
 
   @override
   void initState() {
-    _postinganKegiatanStream = StreamController<String?>();
-    _suratUndanganKegiatanStream = StreamController<String?>();
-    _linimasaKegiatanStream = StreamController<String?>();
-    _fotoTempatKegiatanStream = StreamController<String?>();
+    _postinganKegiatanStream = StreamController<String?>.broadcast();
+    _suratUndanganKegiatanStream = StreamController<String?>.broadcast();
+    _linimasaKegiatanStream = StreamController<String?>.broadcast();
+    _fotoTempatKegiatanStream = StreamController<String?>.broadcast();
 
     context.read<UsulanKegiatanBloc>().add(
         ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));

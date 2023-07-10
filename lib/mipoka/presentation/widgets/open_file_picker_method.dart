@@ -30,6 +30,8 @@ class FileUploader {
 }
 
 Future<String?> selectAndUploadFile(String fileName) async {
+  Uint8List? bytes;
+
   try {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 

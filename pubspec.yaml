@@ -36,6 +36,7 @@ dependencies:
   fluttertoast: ^8.2.2
   cached_network_image: ^3.2.0
   flutter_file_downloader: ^1.1.2
+  pointycastle: ^3.7.3
 
   downloads_path_provider_28: ^0.1.2
 
