@@ -103,8 +103,8 @@ class _LoginPageState extends State<LoginPage> {
 
                         Future.microtask(() {
                           // Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                          // Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
-                          Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute);
+                          Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
+                          // Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute);
                         });
                       } catch (e) {
                         mipokaCustomToast(

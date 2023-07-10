@@ -73,11 +73,11 @@ class MipokaCustomDropdown extends StatefulWidget {
   final Function(String?)? onValueChanged;
 
   const MipokaCustomDropdown({
-    Key? key,
+    super.key,
     required this.items,
     this.initialItem,
     this.onValueChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<MipokaCustomDropdown> createState() => _MipokaCustomDropdownState();
@@ -106,11 +106,91 @@ class _MipokaCustomDropdownState extends State<MipokaCustomDropdown> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return BlocBuilder<DropdownBloc, String>(
       bloc: dropdownBloc,
       builder: (context, selectedValue) {
         return Container(
-          width: double.infinity,
+          width: size.width < 501 ? double.infinity : 250,
+          height: 35,
+          padding: const EdgeInsets.symmetric(
+            vertical: 2.0,
+            horizontal: 8.0,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4.0),
+            border: Border.all(color: Colors.white),
+          ),
+          child: DropdownButton<String>(
+            value: selectedValue,
+            icon: const Icon(Icons.arrow_drop_down),
+            isExpanded: true,
+            underline: const Center(),
+            onChanged: (value) {
+              dropdownBloc.selectItem(value!);
+              if (widget.onValueChanged != null) {
+                widget.onValueChanged!(value);
+              }
+            },
+            items: widget.items.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+        );
+      },
+    );
+  }
+}
+
+
+class WebMipokaCustomDropdown extends StatefulWidget {
+  final List<String> items;
+  final String? initialItem;
+  final Function(String?)? onValueChanged;
+
+  const WebMipokaCustomDropdown({
+    super.key,
+    required this.items,
+    this.initialItem,
+    this.onValueChanged,
+  });
+
+  @override
+  State<WebMipokaCustomDropdown> createState() => _WebMipokaCustomDropdownState();
+}
+
+class _WebMipokaCustomDropdownState extends State<WebMipokaCustomDropdown> {
+  late final DropdownBloc dropdownBloc;
+
+  @override
+  void initState() {
+    String? initialItem;
+    super.initState();
+    if(widget.initialItem == "") {
+      initialItem = widget.items.first;
+    } else {
+      initialItem = widget.initialItem;
+    }
+    dropdownBloc = DropdownBloc(initialItem ?? widget.items.first);
+  }
+
+  @override
+  void dispose() {
+    dropdownBloc.close();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<DropdownBloc, String>(
+      bloc: dropdownBloc,
+      builder: (context, selectedValue) {
+        return Container(
+          width: 250,
           height: 35,
           padding: const EdgeInsets.symmetric(
             vertical: 2.0,

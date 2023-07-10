@@ -1,6 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
@@ -41,6 +41,17 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    print(size.width);
+
+    if (size.width > 500) {
+      return buildWeb(context);
+    } else {
+      return buildMobile();
+    }
+  }
+
+  Scaffold buildMobile() {
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomKemahasiswaanDrawer(),
@@ -77,7 +88,7 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                           onValueChanged: (value) {
                             _filter = value;
                             context.read<BeritaBloc>().add(
-                              ReadAllBeritaEvent(filter: _filter!)
+                                ReadAllBeritaEvent(filter: _filter!)
                             );
                           },
                         ),
@@ -168,7 +179,7 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                                     DataCell(
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceEvenly,
                                         children: [
                                           InkWell(
                                             onTap: () => Navigator.pushNamed(
@@ -224,35 +235,206 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
     );
   }
 
-  InkWell buildBeritaTile() {
-    return InkWell(
-      onTap: () => Navigator.pushNamed(context, penggunaBerandaDetailPageRoute),
-      child: Container(
-        height: 80,
-        decoration: BoxDecoration(border: Border.all(color: Colors.white)),
-        padding: const EdgeInsets.all(4.0),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Container(
-                width: 80,
-                height: 80,
-                color: Colors.grey,
+  Scaffold buildWeb(context) {
+    final size = MediaQuery.of(context).size;
+
+    return Scaffold(
+      appBar: const MipokaMobileAppBar(),
+      drawer: const MobileCustomKemahasiswaanDrawer(),
+      body: BlocBuilder<BeritaBloc, BeritaState>(
+        builder: (context, state) {
+          if (state is BeritaLoading) {
+            return const Text('Loading');
+          } else if (state is AllBeritaHasData) {
+            final beritaList = state.allBerita;
+
+            List<String> penulisList = beritaList.map((berita) => berita.penulis).toSet().toList();
+            penulisList.insert(0, "Semua");
+
+            return SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const CustomMobileTitle(
+                        text: 'Kemahasiswaan - Edit Beranda'),
+                    const CustomFieldSpacer(),
+                    SizedBox(
+                      width: size.width,
+                      child: CustomContentBox(
+                        children: [
+                          Row(
+                            children: [
+                              WebCustomAddButton(
+                                buttonText: 'Tambah',
+                                onPressed: () => Navigator.pushNamed(context,
+                                    kemahasiswaanBerandaTambahBeritaPageRoute),
+                              ),
+                            ],
+                          ),
+                          const CustomFieldSpacer(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              buildTitle('Penulis'),
+
+                              const SizedBox(width: 8.0),
+
+                              MipokaCustomDropdown(
+                                items: penulisList,
+                                onValueChanged: (value) {
+                                  _filter = value;
+                                  context.read<BeritaBloc>().add(
+                                      ReadAllBeritaEvent(filter: _filter!)
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+
+                          const CustomFieldSpacer(),
+
+                          MipokaCountText(total: beritaList.length),
+
+                          const CustomFieldSpacer(),
+
+                          SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: DataTable(
+                                columnSpacing: 40,
+                                border: TableBorder.all(color: Colors.white),
+                                columns: const [
+                                  DataColumn(
+                                    label: Text(
+                                      'Tanggal Diterbitkan',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  DataColumn(
+                                    label: Text(
+                                      'Judul Berita',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  DataColumn(
+                                    label: Text(
+                                      'Penulis',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  DataColumn(
+                                    label: Text(
+                                      'Aksi',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                                rows: List<DataRow>.generate(
+                                    beritaList.length, (int index) {
+                                  final berita = beritaList[index];
+
+                                  return DataRow(
+                                    cells: [
+                                      DataCell(
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            berita.tglTerbit,
+                                          ),
+                                        ),
+                                      ),
+                                      DataCell(
+                                        onTap: () => Navigator.pushNamed(
+                                          context,
+                                          penggunaBerandaDetailPageRoute,
+                                          arguments: berita,
+                                        ),
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            berita.judul,
+                                            style: const TextStyle(color: Colors.blue),
+                                          ),
+                                        ),
+                                      ),
+                                      DataCell(
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            berita.penulis,
+                                          ),
+                                        ),
+                                      ),
+                                      DataCell(
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            InkWell(
+                                              onTap: () => Navigator.pushNamed(
+                                                context,
+                                                kemahasiswaanBerandaUpdateBeritaPageRoute,
+                                                arguments: berita,
+                                              ),
+                                              // onTap:() =>
+                                              child: Image.asset(
+                                                'assets/icons/edit.png',
+                                                width: 24,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 8.0,
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                Future.microtask(() {
+                                                  context.read<BeritaBloc>().add(DeleteBeritaEvent(berita.idBerita),);
+                                                  context.read<BeritaBloc>().add(ReadAllBeritaEvent(filter: _filter!)
+                                                  );
+                                                  mipokaCustomToast("Berita telah dihapus");
+                                                });
+                                              },
+                                              child: Image.asset(
+                                                'assets/icons/delete.png',
+                                                width: 24,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(width: 4.0),
-            const Expanded(
-              flex: 3,
-              child: Text(
-                'Lorem ipsum dolor sit amet, consectetur '
-                'adipiscing elit, sed do eiusmod tempor incididunt '
-                'ut labore et dolore ',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        ),
+            );
+          } else if (state is BeritaError) {
+            return Text(state.message);
+          } else {
+            if (kDebugMode) {
+              print("Berita hasn't been triggered yet.");
+            }
+            return const Center();
+          }
+        },
       ),
     );
   }
