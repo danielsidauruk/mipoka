@@ -30,34 +30,13 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
   final TextEditingController _judulBeritaController = TextEditingController();
   final TextEditingController _penulisController = TextEditingController();
   final TextEditingController _textBeritaController = TextEditingController();
-  final StreamController<String?> _fotoBeritaStream = StreamController<String?>();
-  String? _fotoBerita;
 
-  final StreamController<String?> _excelFileStream = StreamController<String?>.broadcast();
-  String? _excelFileController;
+  final StreamController<String?> _filePickerStream = StreamController<String?>.broadcast();
+  String? _filePickerController;
   FilePickerResult? result;
-
-  Future<Object> _processMahasiswaPerPeriode(PlatformFile file, String fileName) async {
-    Uint8List? bytes;
-
-    if (kIsWeb) {
-      bytes = file.bytes;
-    } else if (Platform.isAndroid) {
-      bytes = await File(file.path!).readAsBytes();
-    }
-
-    if (bytes != null) {
-      return uploadFileToFirebase(bytes, fileName);
-    } else {
-      return "";
-    }
-  }
-
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
 
@@ -92,8 +71,8 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                   buildTitle('Tambah Gambar'),
 
                   StreamBuilder<String?>(
-                    initialData: _excelFileController,
-                    stream: _excelFileStream.stream,
+                    initialData: _filePickerController,
+                    stream: _filePickerStream.stream,
                     builder: (context, snapshot) {
                       String text = snapshot.data ?? "";
                       return MipokaFileUploader(
@@ -106,7 +85,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                                 file?.extension!.toLowerCase() == 'jpeg' ||
                                 file?.extension!.toLowerCase() == 'png' ||
                                 file?.extension!.toLowerCase() == 'gif'){
-                              _excelFileStream.add(result?.files.first.name);
+                              _filePickerStream.add(result?.files.first.name);
                             } else {
                               mipokaCustomToast("Tipe data file bukan gambar.");
                             }
@@ -187,7 +166,6 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
 
                     ],
                   ),
-
                 ],
               ),
             ],
@@ -195,18 +173,6 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
         ),
       ),
     );
-  }
-}
-
-Future<String?> selectAndUploadFile(String fileName, Uint8List bytes) async {
-  try {
-    String? downloadUrl = await uploadFileToFirebase(bytes, fileName);
-
-    mipokaCustomToast('File uploaded Successfully');
-    return downloadUrl;
-  } catch (error) {
-    mipokaCustomToast(error.toString());
-    return null;
   }
 }
 
