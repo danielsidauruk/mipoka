@@ -18,7 +18,7 @@ class CustomAddButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         padding: const EdgeInsets.all(8.0),
-        width: size.width < 501 ? double.infinity : 200,
+        width: size.width < 501 ? double.infinity : 300,
         alignment: Alignment.center,
         constraints: const BoxConstraints(minHeight: 30.0),
         decoration: BoxDecoration(

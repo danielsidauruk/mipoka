@@ -112,7 +112,7 @@ class _MipokaCustomDropdownState extends State<MipokaCustomDropdown> {
       bloc: dropdownBloc,
       builder: (context, selectedValue) {
         return Container(
-          width: size.width < 501 ? double.infinity : 250,
+          width: size.width <= 500 ? double.infinity : 300,
           height: 35,
           padding: const EdgeInsets.symmetric(
             vertical: 2.0,

@@ -36,7 +36,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
   final StreamController<String?> _fotoBeritaStream = StreamController<String?>();
   String? _fotoBerita;
 
-  final StreamController<String?> _excelFileStream = StreamController<String?>();
+  final StreamController<String?> _excelFileStream = StreamController<String?>.broadcast();
   String? _excelFileController;
   FilePickerResult? result;
 
@@ -85,7 +85,6 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
 
   @override
   Widget build(BuildContext context) {
-
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -103,6 +102,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
 
               const CustomFieldSpacer(),
 
+              // Mobile UI
               CustomContentBox(
                 children: [
 
@@ -116,35 +116,10 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
 
                   CustomTextField(controller: _penulisController),
 
-
                   const CustomFieldSpacer(),
-                  
-                  buildTitle('Tambah Gambar'),
-                  // StreamBuilder<String?>(
-                  //   stream: _fotoBeritaStream.stream,
-                  //   builder: (context, snapshot) {
-                  //     String text = snapshot.data ?? "";
-                  //     return CustomFilePickerButton(
-                  //       onTap: () async {
-                  //         String? url = await selectAndUploadFile('foto$newId');
-                  //         _fotoBerita = url;
-                  //         _fotoBeritaStream.add(url);
-                  //       },
-                  //       onDelete: () {
-                  //         _fotoBerita = "";
-                  //         _fotoBeritaStream.add("");
-                  //       },
-                  //       text: text,
-                  //     );
-                  //   },
-                  // ),
 
-                  // onTap: () async {
-                  //   result = await FilePicker.platform.pickFiles();
-                  //   if (result != null){
-                  //     _excelFileStream.add(result?.files.first.name);
-                  //   }
-                  // },
+                  buildTitle('Tambah Gambar'),
+
                   StreamBuilder<String?>(
                     initialData: _excelFileController,
                     stream: _excelFileStream.stream,
@@ -161,24 +136,6 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                       );
                     },
                   ),
-
-                  // CustomFilterButton(
-                  //   text: 'Proses',
-                  //   onPressed: (){
-                  //     final result = this.result;
-                  //     if (result != null) {
-                  //       PlatformFile file = result.files.first;
-                  //       Future.microtask(() {
-                  //         _processMahasiswaPerPeriode(file, "berita_$newId");
-                  //
-                  //         mipokaCustomToast("Data telah di update.");
-                  //         Navigator.pop(context);
-                  //       });
-                  //     } else {
-                  //       mipokaCustomToast("Harap unggah file yang diperlukan.");
-                  //     }
-                  //   },
-                  // ),
 
                   const CustomFieldSpacer(),
 
@@ -224,15 +181,11 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                                   ),
                                 ),
                               );
-
-                              mipokaCustomToast("Data telah di update.");
                               Navigator.pop(context);
                             });
                           } else {
                             mipokaCustomToast("Harap unggah file yang diperlukan.");
                           }
-                          context.read<BeritaBloc>().add(const ReadAllBeritaEvent());
-                          Navigator.pop(context);
                         }) :
                         mipokaCustomToast("Harap isi semua field."),
                         text: 'Simpan',
@@ -241,7 +194,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                   ),
 
                 ],
-              )
+              ),
             ],
           ),
         ),

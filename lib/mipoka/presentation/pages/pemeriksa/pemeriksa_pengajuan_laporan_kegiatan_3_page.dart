@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -7,15 +6,14 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/revisi_laporan_bloc/revisi_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_load_image.dart';
-import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_comment_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_comment_for_table.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 
 class PemeriksaPengajuanLaporanKegiatan3Page extends StatefulWidget {
@@ -229,6 +227,14 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                                     onTap: () {
                                       Navigator.pushNamed(
                                           context, pemeriksaDaftarLaporanKegiatanPageRoute);
+                                      context.read<LaporanBloc>().add(
+                                        UpdateLaporanEvent(
+                                          laporan: laporan.copyWith(
+                                            validasiPembina: "diterima",
+                                          ),
+                                        ),
+                                      );
+                                      mipokaCustomToast("Laporan diterima.");
                                     },
                                     text: 'Terima',
                                   ),

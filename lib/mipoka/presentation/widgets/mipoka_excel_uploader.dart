@@ -17,10 +17,12 @@ class MipokaExcelUploader extends StatefulWidget {
 class _MipokaExcelUploaderState extends State<MipokaExcelUploader> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return InkWell(
       onTap: widget.onTap,
       child: Container(
-        width: double.infinity,
+        width: size.width <= 500 ? double.infinity : 300,
         alignment: Alignment.center,
         padding: const EdgeInsets.all(8.0),
         constraints: const BoxConstraints(minHeight: 35.0),

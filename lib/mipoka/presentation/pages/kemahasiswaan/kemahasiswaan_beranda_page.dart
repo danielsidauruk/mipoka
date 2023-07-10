@@ -70,8 +70,10 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                       children: [
                         CustomAddButton(
                           buttonText: 'Tambah',
-                          onPressed: () => Navigator.pushNamed(context,
-                              kemahasiswaanBerandaTambahBeritaPageRoute),
+                          onPressed: () => Navigator.pushNamed(
+                            context,
+                            kemahasiswaanBerandaTambahBeritaPageRoute,
+                          ).then((_) => context.read<BeritaBloc>().add(const ReadAllBeritaEvent())),
                         ),
                         const CustomFieldSpacer(),
                         buildTitle('Penulis'),

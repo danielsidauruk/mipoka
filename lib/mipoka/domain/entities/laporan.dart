@@ -21,7 +21,7 @@ class Laporan extends Equatable {
   final String fotoTabulasiHasil;
   final String fotoFakturPembayaran;
   final String fileLaporanKegiatan;
-  final bool validasiPembina;
+  final String validasiPembina;
   final String statusLaporan;
   final String createdAt;
   final String createdBy;
@@ -74,7 +74,7 @@ class Laporan extends Equatable {
     String? fotoTabulasiHasil,
     String? fotoFakturPembayaran,
     String? fileLaporanKegiatan,
-    bool? validasiPembina,
+    String? validasiPembina,
     String? statusLaporan,
     String? createdAt,
     String? createdBy,

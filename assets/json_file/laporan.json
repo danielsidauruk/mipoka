@@ -85,7 +85,7 @@
   "foto_tabulasi_hasil": "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/kitten.png?alt=media&token=5218d6a8-6512-4d8b-b14b-bee0acec71a3",
   "foto_faktur_pembayaran": "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/vlcsnap-2023-04-22-13h54m13s373.png?alt=media&token=044203c6-a82e-4a81-83e4-0e533dc4fc18",
   "file_laporan_kegiatan": "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/vlcsnap-2023-02-04-20h08m24s955.png?alt=media&token=87e7d7f0-5d9e-464f-b938-f5b8880c7d78",
-  "validasi_pembina": true,
+  "validasi_pembina": "diterima",
   "status_laporan": "Diterima",
   "created_at": "2023-06-26",
   "created_by": "John Doe",

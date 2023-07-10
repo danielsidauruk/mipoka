@@ -50,6 +50,7 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CustomMobileTitle(
                   text:
@@ -85,20 +86,15 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
 
                         _idNamaKegiatanMpt = idNamaKegiatanList[0];
 
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            MipokaCustomDropdown(
-                              items: jenisKegiatanList,
-                              onValueChanged: (value) {
-                                int index = jenisKegiatanList.indexOf(value ?? "");
-                                _idNamaKegiatanMpt = idNamaKegiatanList[index];
+                        return MipokaCustomDropdown(
+                          items: jenisKegiatanList,
+                          onValueChanged: (value) {
+                            int index = jenisKegiatanList.indexOf(value ?? "");
+                            _idNamaKegiatanMpt = idNamaKegiatanList[index];
 
-                                context.read<NamaKegiatanMptBloc>().add(
-                                    ReadAllNamaKegiatanMptEvent(id: _idNamaKegiatanMpt ?? 0));
-                              },
-                            ),
-                          ],
+                            context.read<NamaKegiatanMptBloc>().add(
+                                ReadAllNamaKegiatanMptEvent(id: _idNamaKegiatanMpt ?? 0));
+                          },
                         );
                       } else if (state is JenisKegiatanDropDownError) {
                         return Text(state.message);
@@ -118,6 +114,7 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                         final namaKegiatanMptList = state.namaKegiatanMptList;
 
                         return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             MipokaCountText(total: namaKegiatanMptList.length),
 

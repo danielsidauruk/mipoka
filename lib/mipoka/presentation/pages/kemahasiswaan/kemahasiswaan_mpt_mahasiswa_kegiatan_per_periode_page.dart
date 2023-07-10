@@ -59,6 +59,8 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
 
@@ -178,6 +180,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                           final kegiatanPerPeriodeMptList = state.kegiatanPerPeriodeMptList;
 
                           return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               MipokaCountText(total: kegiatanPerPeriodeMptList.length),
 

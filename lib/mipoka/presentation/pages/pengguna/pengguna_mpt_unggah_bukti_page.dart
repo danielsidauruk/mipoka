@@ -182,7 +182,8 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                           if (kDebugMode) {
                                             print(error);
                                           }
-                                          mipokaCustomToast(error.toString());
+                                          // mipokaCustomToast(error.toString());
+                                          mipokaCustomToast("Fitur belum tersedia.");
                                         }
                                       } else {
                                         mipokaCustomToast(emptyFieldMessage);

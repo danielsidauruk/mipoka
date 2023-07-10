@@ -12,11 +12,13 @@ class CustomFilterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return InkWell(
       onTap: onPressed,
       child: Container(
         padding: const EdgeInsets.all(8.0),
-        width: double.infinity,
+        width: size.width < 501 ? double.infinity : 300,
         alignment: Alignment.center,
         constraints: const BoxConstraints(minHeight: 35.0),
         decoration: BoxDecoration(

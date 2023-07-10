@@ -255,7 +255,7 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                 fotoTabulasiHasil: "",
                                 fotoFakturPembayaran: "",
                                 fileLaporanKegiatan: "",
-                                validasiPembina: false,
+                                validasiPembina: "false",
                                 statusLaporan: "",
                                 createdAt: currentDate,
                                 createdBy: user?.email ?? "unknown",
