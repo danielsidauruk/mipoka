@@ -1,26 +1,23 @@
+import 'dart:io';
 import 'dart:async';
-import 'package:file_picker/file_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mipoka/core/constanst.dart';
-import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_filter_button.dart';
-import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
-import 'package:mipoka/mipoka/presentation/widgets/mipoka_excel_uploader.dart';
-import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
-import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
+import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_file_uploader.dart';
 
 class KemahasiswaanBerandaBeritaPage extends StatefulWidget {
   const KemahasiswaanBerandaBeritaPage({super.key});
@@ -51,32 +48,6 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
 
     if (bytes != null) {
       return uploadFileToFirebase(bytes, fileName);
-      // for (var row in sheet!.rows) {
-      //   var nim = row[0]?.value;
-      //
-      //   if (nim != null) {
-      //     nimList.add(nim);
-      //   }
-      // }
-      //
-      // for (var i = 1; i < nimList.length; i++) {
-      //   Future.microtask(() {
-      //     context.read<MhsPerPeriodeMptBloc>().add(
-      //       CreateMhsPerPeriodeMptEvent(
-      //         mhsPerPeriodeMpt: MhsPerPeriodeMpt(
-      //           idMhsPerPeriodeMpt: newId + i,
-      //           idUser: nimList[i].toString(),
-      //           idPeriodeMpt: _idPeriodeKegiatanMpt ?? 0,
-      //           idKegiatanPerPeriodeMpt: 0,
-      //           createdAt: currentDate,
-      //           createdBy: user?.email ?? "unknown",
-      //           updatedAt: currentDate,
-      //           updatedBy: user?.email ?? "unknown",
-      //         ),
-      //       ),
-      //     );
-      //   });
-      // }
     } else {
       return "";
     }
@@ -125,11 +96,20 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                     stream: _excelFileStream.stream,
                     builder: (context, snapshot) {
                       String text = snapshot.data ?? "";
-                      return MipokaExcelUploader(
+                      return MipokaFileUploader(
+                        asset: "assets/icons/attach.png",
                         onTap: () async {
                           result = await FilePicker.platform.pickFiles();
+                          PlatformFile? file = result?.files.first;
                           if (result != null) {
-                            _excelFileStream.add(result?.files.first.name);
+                            if (file?.extension!.toLowerCase() == 'jpg' ||
+                                file?.extension!.toLowerCase() == 'jpeg' ||
+                                file?.extension!.toLowerCase() == 'png' ||
+                                file?.extension!.toLowerCase() == 'gif'){
+                              _excelFileStream.add(result?.files.first.name);
+                            } else {
+                              mipokaCustomToast("Tipe data file bukan gambar.");
+                            }
                           }
                         },
                         text: text,
@@ -155,41 +135,56 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => (_judulBeritaController.text.isNotEmpty && _penulisController.text.isNotEmpty &&
-                            _textBeritaController.text.isNotEmpty) ?
-                        Future.microtask(() {
-                          final result = this.result;
-                          if (result != null) {
-                            PlatformFile file = result.files.first;
-                            Future.microtask(() {
-                              final gambarUrl = _processMahasiswaPerPeriode(file, "berita_$newId");
+                        onTap: () async {
+                          if (_judulBeritaController.text.isNotEmpty &&
+                              _penulisController.text.isNotEmpty &&
+                              _textBeritaController.text.isNotEmpty) {
+                            final result = this.result;
+                            if (result != null) {
+                              PlatformFile file = result.files.first;
+                              Uint8List? bytes;
+                              String? gambarUrl;
+
+                              if (kIsWeb) {
+                                bytes = file.bytes;
+                              } else if (Platform.isAndroid) {
+                                bytes = await File(file.path!).readAsBytes();
+                              }
+
+                              if (bytes != null) {
+                                gambarUrl = await uploadFileToFirebase(bytes, "$newId${file.name}");
+                              }
 
                               mipokaCustomToast("Berita berhasil ditambahkan.");
-                              context.read<BeritaBloc>().add(
-                                CreateBeritaEvent(
-                                  Berita(
-                                    idBerita: newId,
-                                    judul: _judulBeritaController.text,
-                                    penulis: _judulBeritaController.text,
-                                    gambar: gambarUrl.toString(),
-                                    teks: _textBeritaController.text,
-                                    tglTerbit: currentDate,
-                                    createdAt: currentDate,
-                                    createdBy: user?.email ?? "unknown",
-                                    updatedAt: currentDate,
-                                    updatedBy: user?.email ?? "unknown",
+                              Future.microtask(() {
+                                context.read<BeritaBloc>().add(
+                                  CreateBeritaEvent(
+                                    Berita(
+                                      idBerita: newId,
+                                      judul: _judulBeritaController.text,
+                                      penulis: _penulisController.text,
+                                      gambar: gambarUrl ?? "",
+                                      teks: _textBeritaController.text,
+                                      tglTerbit: currentDate,
+                                      createdAt: currentDate,
+                                      createdBy: user?.email ?? "unknown",
+                                      updatedAt: currentDate,
+                                      updatedBy: user?.email ?? "unknown",
+                                    ),
                                   ),
-                                ),
-                              );
-                              Navigator.pop(context);
-                            });
+                                );
+                                Navigator.pop(context);
+                              });
+                            } else {
+                              mipokaCustomToast("Harap unggah file yang diperlukan.");
+                            }
                           } else {
-                            mipokaCustomToast("Harap unggah file yang diperlukan.");
+                            mipokaCustomToast("Harap isi semua field.");
                           }
-                        }) :
-                        mipokaCustomToast("Harap isi semua field."),
+                        },
                         text: 'Simpan',
                       ),
+
                     ],
                   ),
 
