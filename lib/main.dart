@@ -198,7 +198,8 @@ class MyApp extends StatelessWidget {
             ? const LoginPage()
             // : const KemahasiswaanBerandaPage(),
         // : const PemeriksaDaftarLaporanKegiatanPage(),
-        : const PenggunaBerandaPage(),
+        // : const PenggunaBerandaPage(),
+        : const KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage(),
 
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
