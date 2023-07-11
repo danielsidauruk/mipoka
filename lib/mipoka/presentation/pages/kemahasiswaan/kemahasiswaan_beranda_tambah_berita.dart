@@ -131,7 +131,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                               }
 
                               if (bytes != null) {
-                                gambarUrl = await uploadFileToFirebase(bytes, "$newId${file.name}");
+                                gambarUrl = await uploadBytesToFirebase(bytes, "$newId${file.name}");
                               }
 
                               mipokaCustomToast("Berita berhasil ditambahkan.");
@@ -176,7 +176,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
   }
 }
 
-Future<String?> uploadFileToFirebase(Uint8List bytes, String fileName) async {
+Future<String?> uploadBytesToFirebase(Uint8List bytes, String fileName) async {
   try {
     final Reference storageRef = FirebaseStorage.instance.ref().child(fileName);
 
@@ -191,3 +191,4 @@ Future<String?> uploadFileToFirebase(Uint8List bytes, String fileName) async {
     rethrow;
   }
 }
+

@@ -1,11 +1,14 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_file_uploader.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
@@ -381,28 +384,103 @@ class _PenggunaPengajuanUsulanKegiatan3State
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             CustomMipokaButton(
-                              onTap: () => {
-                                context.read<UsulanKegiatanBloc>().add(
-                                  UpdateUsulanKegiatanEvent(
-                                    usulanKegiatan: usulanKegiatan.copyWith(
-                                      latarBelakang: _latarBelakangController.document.toPlainText(),
-                                      tujuanKegiatan: _tujuanKegiatanController.document.toPlainText(),
-                                      manfaatKegiatan: _manfaatKegiatanController.document.toPlainText(),
-                                      bentukKegiatan: _bentukPelaksanaanKegiatanController.document.toPlainText(),
-                                      targetKegiatan: _targetPencapaianKegiatanController.document.toPlainText(),
-                                      waktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.document.toPlainText(),
-                                      rencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.document.toPlainText(),
-                                      perlengkapanDanPeralatan: _perlengkapanDanPeralatanController.document.toPlainText(),
-                                      penutup: _penutupController.document.toPlainText(),
-                                      fotoPostinganKegiatan: _postinganKegiatanController,
-                                      fotoSuratUndanganKegiatan: _suratUndanganKegiatanController,
-                                      fotoLinimasaKegiatan: _linimasaKegiatanController,
-                                      fotoTempatKegiatan: _fotoTempatKegiatanController,
-                                      updatedAt: currentDate,
-                                    ),
-                                  ),
-                                ),
-                                Navigator.pop(context),
+                              onTap: () async {
+                                if (_latarBelakangController.document.toPlainText() != "" && _tujuanKegiatanController.document.toPlainText() != ""
+                                    && _manfaatKegiatanController.document.toPlainText() != "" && _bentukPelaksanaanKegiatanController.document.toPlainText() != ""
+                                    && _targetPencapaianKegiatanController.document.toPlainText() != "" && _waktuDanTempatPelaksanaanKegiatanController.document.toPlainText() != ""
+                                    && _rencanaAnggaranKegiatanController.document.toPlainText() != "" && _perlengkapanDanPeralatanController.document.toPlainText() != ""
+                                    && _penutupController.document.toPlainText() != "") {
+
+                                  final postinganKegiatanResult = _postinganKegiatanResult;
+                                  if (postinganKegiatanResult != null) {
+                                    PlatformFile file = postinganKegiatanResult.files.first;
+                                    Uint8List? bytes;
+
+                                    if (kIsWeb) {
+                                      bytes = file.bytes;
+                                    } else if (Platform.isAndroid) {
+                                      bytes = await File(file.path!).readAsBytes();
+                                    }
+
+                                    if (bytes != null) {
+                                      _postinganKegiatanController = await uploadBytesToFirebase(bytes, "${usulanKegiatan.idUsulan}${file.name}");
+                                    }
+                                  }
+
+                                  final suratUndanganKegiatanResult = _suratUndanganKegiatanResult;
+                                  if (suratUndanganKegiatanResult != null) {
+                                    PlatformFile file = suratUndanganKegiatanResult.files.first;
+                                    Uint8List? bytes;
+
+                                    if (kIsWeb) {
+                                      bytes = file.bytes;
+                                    } else if (Platform.isAndroid) {
+                                      bytes = await File(file.path!).readAsBytes();
+                                    }
+
+                                    if (bytes != null) {
+                                      _suratUndanganKegiatanController = await uploadBytesToFirebase(bytes, "${usulanKegiatan.idUsulan}${file.name}");
+                                    }
+                                  }
+
+                                  final linimasaKegiatanResult = _linimasaKegiatanResult;
+                                  if (linimasaKegiatanResult != null) {
+                                    PlatformFile file = linimasaKegiatanResult.files.first;
+                                    Uint8List? bytes;
+
+                                    if (kIsWeb) {
+                                      bytes = file.bytes;
+                                    } else if (Platform.isAndroid) {
+                                      bytes = await File(file.path!).readAsBytes();
+                                    }
+
+                                    if (bytes != null) {
+                                      _linimasaKegiatanController = await uploadBytesToFirebase(bytes, "${usulanKegiatan.idUsulan}${file.name}");
+                                    }
+                                  }
+
+                                  final fotoTempatKegiatanResult = _fotoTempatKegiatanResult;
+                                  if (fotoTempatKegiatanResult != null) {
+                                    PlatformFile file = fotoTempatKegiatanResult.files.first;
+                                    Uint8List? bytes;
+
+                                    if (kIsWeb) {
+                                      bytes = file.bytes;
+                                    } else if (Platform.isAndroid) {
+                                      bytes = await File(file.path!).readAsBytes();
+                                    }
+
+                                    if (bytes != null) {
+                                      _fotoTempatKegiatanController = await uploadBytesToFirebase(bytes, "${usulanKegiatan.idUsulan}${file.name}");
+                                    }
+                                  }
+
+                                  Future.microtask(() {
+                                    context.read<UsulanKegiatanBloc>().add(
+                                      UpdateUsulanKegiatanEvent(
+                                        usulanKegiatan: usulanKegiatan.copyWith(
+                                          latarBelakang: _latarBelakangController.document.toPlainText(),
+                                          tujuanKegiatan: _tujuanKegiatanController.document.toPlainText(),
+                                          manfaatKegiatan: _manfaatKegiatanController.document.toPlainText(),
+                                          bentukKegiatan: _bentukPelaksanaanKegiatanController.document.toPlainText(),
+                                          targetKegiatan: _targetPencapaianKegiatanController.document.toPlainText(),
+                                          waktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.document.toPlainText(),
+                                          rencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.document.toPlainText(),
+                                          perlengkapanDanPeralatan: _perlengkapanDanPeralatanController.document.toPlainText(),
+                                          penutup: _penutupController.document.toPlainText(),
+                                          fotoPostinganKegiatan: _postinganKegiatanController,
+                                          fotoSuratUndanganKegiatan: _suratUndanganKegiatanController,
+                                          fotoLinimasaKegiatan: _linimasaKegiatanController,
+                                          fotoTempatKegiatan: _fotoTempatKegiatanController,
+                                          updatedAt: currentDate,
+                                        ),
+                                      ),
+                                    );
+                                    Navigator.pop(context);
+                                  });
+                                } else {
+                                  mipokaCustomToast(emptyFieldMessage);
+                                }
                               },
                               text: 'Sebelumnya',
                             ),
@@ -410,34 +488,113 @@ class _PenggunaPengajuanUsulanKegiatan3State
                             const SizedBox(width: 8.0),
 
                             CustomMipokaButton(
-                              onTap: () {
-                                context.read<UsulanKegiatanBloc>().add(
-                                  UpdateUsulanKegiatanEvent(
-                                    usulanKegiatan: usulanKegiatan.copyWith(
-                                      latarBelakang: _latarBelakangController.document.toPlainText(),
-                                      tujuanKegiatan: _tujuanKegiatanController.document.toPlainText(),
-                                      manfaatKegiatan: _manfaatKegiatanController.document.toPlainText(),
-                                      bentukKegiatan: _bentukPelaksanaanKegiatanController.document.toPlainText(),
-                                      targetKegiatan: _targetPencapaianKegiatanController.document.toPlainText(),
-                                      waktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.document.toPlainText(),
-                                      rencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.document.toPlainText(),
-                                      perlengkapanDanPeralatan: _perlengkapanDanPeralatanController.document.toPlainText(),
-                                      penutup: _penutupController.document.toPlainText(),
-                                      fotoPostinganKegiatan: _postinganKegiatanController,
-                                      fotoSuratUndanganKegiatan: _suratUndanganKegiatanController,
-                                      fotoLinimasaKegiatan: _linimasaKegiatanController,
-                                      fotoTempatKegiatan: _fotoTempatKegiatanController,
-                                      updatedAt: currentDate,
-                                    ),
-                                  ),
-                                );
+                              onTap: () async {
+                                if (_latarBelakangController.document.toPlainText() != "" && _tujuanKegiatanController.document.toPlainText() != ""
+                                    && _manfaatKegiatanController.document.toPlainText() != "" && _bentukPelaksanaanKegiatanController.document.toPlainText() != ""
+                                    && _targetPencapaianKegiatanController.document.toPlainText() != "" && _waktuDanTempatPelaksanaanKegiatanController.document.toPlainText() != ""
+                                    && _rencanaAnggaranKegiatanController.document.toPlainText() != "" && _perlengkapanDanPeralatanController.document.toPlainText() != ""
+                                    && _penutupController.document.toPlainText() != "") {
 
-                                Navigator.pushNamed(
-                                  context,
-                                  penggunaDaftarPengajuanKegiatanPageRoute,
-                                );
-                                context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
-                                mipokaCustomToast("Usulan Kegiatan telah dikirim");
+                                  final postinganKegiatanResult = _postinganKegiatanResult;
+                                  if (postinganKegiatanResult != null) {
+                                    PlatformFile file = postinganKegiatanResult.files.first;
+                                    Uint8List? bytes;
+
+                                    if (kIsWeb) {
+                                      bytes = file.bytes;
+                                    } else if (Platform.isAndroid) {
+                                      bytes = await File(file.path!).readAsBytes();
+                                    }
+
+                                    if (bytes != null) {
+                                      _postinganKegiatanController = await uploadBytesToFirebase(bytes, "${usulanKegiatan.idUsulan}${file.name}");
+                                    }
+                                  }
+
+                                  final suratUndanganKegiatanResult = _suratUndanganKegiatanResult;
+                                  if (suratUndanganKegiatanResult != null) {
+                                    PlatformFile file = suratUndanganKegiatanResult.files.first;
+                                    Uint8List? bytes;
+
+                                    if (kIsWeb) {
+                                      bytes = file.bytes;
+                                    } else if (Platform.isAndroid) {
+                                      bytes = await File(file.path!).readAsBytes();
+                                    }
+
+                                    if (bytes != null) {
+                                      _suratUndanganKegiatanController = await uploadBytesToFirebase(bytes, "${usulanKegiatan.idUsulan}${file.name}");
+                                    }
+                                  }
+
+                                  final linimasaKegiatanResult = _linimasaKegiatanResult;
+                                  if (linimasaKegiatanResult != null) {
+                                    PlatformFile file = linimasaKegiatanResult.files.first;
+                                    Uint8List? bytes;
+
+                                    if (kIsWeb) {
+                                      bytes = file.bytes;
+                                    } else if (Platform.isAndroid) {
+                                      bytes = await File(file.path!).readAsBytes();
+                                    }
+
+                                    if (bytes != null) {
+                                      _linimasaKegiatanController = await uploadBytesToFirebase(bytes, "${usulanKegiatan.idUsulan}${file.name}");
+                                    }
+                                  }
+
+                                  final fotoTempatKegiatanResult = _fotoTempatKegiatanResult;
+                                  if (fotoTempatKegiatanResult != null) {
+                                    PlatformFile file = fotoTempatKegiatanResult.files.first;
+                                    Uint8List? bytes;
+
+                                    if (kIsWeb) {
+                                      bytes = file.bytes;
+                                    } else if (Platform.isAndroid) {
+                                      bytes = await File(file.path!).readAsBytes();
+                                    }
+
+                                    if (bytes != null) {
+                                      _fotoTempatKegiatanController = await uploadBytesToFirebase(bytes, "${usulanKegiatan.idUsulan}${file.name}");
+                                    }
+                                  }
+
+                                  Future.microtask(() {
+                                    context.read<UsulanKegiatanBloc>().add(
+                                      UpdateUsulanKegiatanEvent(
+                                        usulanKegiatan: usulanKegiatan.copyWith(
+                                          latarBelakang: _latarBelakangController.document.toPlainText(),
+                                          tujuanKegiatan: _tujuanKegiatanController.document.toPlainText(),
+                                          manfaatKegiatan: _manfaatKegiatanController.document.toPlainText(),
+                                          bentukKegiatan: _bentukPelaksanaanKegiatanController.document.toPlainText(),
+                                          targetKegiatan: _targetPencapaianKegiatanController.document.toPlainText(),
+                                          waktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.document.toPlainText(),
+                                          rencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.document.toPlainText(),
+                                          perlengkapanDanPeralatan: _perlengkapanDanPeralatanController.document.toPlainText(),
+                                          penutup: _penutupController.document.toPlainText(),
+                                          fotoPostinganKegiatan: _postinganKegiatanController,
+                                          fotoSuratUndanganKegiatan: _suratUndanganKegiatanController,
+                                          fotoLinimasaKegiatan: _linimasaKegiatanController,
+                                          fotoTempatKegiatan: _fotoTempatKegiatanController,
+                                          updatedAt: currentDate,
+                                        ),
+                                      ),
+                                    );
+                                    Navigator.pushNamed(
+                                      context,
+                                      penggunaDaftarPengajuanKegiatanPageRoute,
+                                    );
+                                    context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+                                    mipokaCustomToast("Usulan Kegiatan telah dikirim");
+
+                                    print (_postinganKegiatanController);
+                                    print(_suratUndanganKegiatanController);
+                                    print(_linimasaKegiatanController);
+                                    print(_fotoTempatKegiatanController);
+                                  });
+                                } else {
+                                  mipokaCustomToast(emptyFieldMessage);
+                                }
                               },
                               text: 'Kirim',
                             ),
