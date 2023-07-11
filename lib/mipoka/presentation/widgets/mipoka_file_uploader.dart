@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class MipokaFileUploader extends StatefulWidget {
   final VoidCallback onTap;
+  final VoidCallback? onDelete;
   final String text;
   final String asset;
 
@@ -10,6 +11,7 @@ class MipokaFileUploader extends StatefulWidget {
     required this.onTap,
     required this.text,
     required this.asset,
+    this.onDelete,
   });
 
   @override
@@ -37,17 +39,26 @@ class _MipokaFileUploaderState extends State<MipokaFileUploader> {
           children: [
             Expanded(
               child: Text(
-                // Uri.parse(widget.text).pathSegments.last,
                 widget.text,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
+            (widget.text == "") ?
             Image.asset(
               widget.asset,
               width: 24,
-            )
+            ) :
+            widget.onDelete != null ?
+            InkWell(
+              onTap: () => widget.onDelete!(),
+              child: Image.asset(
+                "assets/icons/delete.png",
+                width: 24,
+              ),
+            ) :
+            const Center(),
           ],
         ),
       ),

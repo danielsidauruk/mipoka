@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -6,10 +7,10 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_file_uploader.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
@@ -52,6 +53,11 @@ class _PenggunaPengajuanUsulanKegiatan3State
   late StreamController<String?> _suratUndanganKegiatanStream;
   late StreamController<String?> _linimasaKegiatanStream;
   late StreamController<String?> _fotoTempatKegiatanStream;
+
+  FilePickerResult? _postinganKegiatanResult;
+  FilePickerResult? _suratUndanganKegiatanResult;
+  FilePickerResult? _linimasaKegiatanResult;
+  FilePickerResult? _fotoTempatKegiatanResult;
 
   @override
   void initState() {
@@ -231,15 +237,27 @@ class _PenggunaPengajuanUsulanKegiatan3State
                           stream: _postinganKegiatanStream.stream,
                           builder: (context, snapshot) {
                             String text = snapshot.data ?? "";
-                            return CustomFilePickerButton(
+                            return MipokaFileUploader(
+                              asset: "assets/icons/attach.png",
                               onTap: () async {
-                                String? url = await selectAndUploadFile('postingKegiatan${user?.uid ?? "unknown"}');
-                                _postinganKegiatanController = url;
-                                _postinganKegiatanStream.add(url);
+                                _postinganKegiatanResult = await FilePicker.platform.pickFiles();
+                                PlatformFile? file = _postinganKegiatanResult?.files.first;
+                                if (_postinganKegiatanResult != null) {
+                                  if (file?.extension!.toLowerCase() == 'jpg' ||
+                                      file?.extension!.toLowerCase() == 'jpeg' ||
+                                      file?.extension!.toLowerCase() == 'png' ||
+                                      file?.extension!.toLowerCase() == 'gif'){
+                                    _postinganKegiatanStream.add(_postinganKegiatanResult?.files.first.name);
+                                  } else {
+                                    mipokaCustomToast("Tipe data file bukan gambar.");
+                                  }
+                                }
                               },
                               onDelete: () {
+                                deleteFileFromFirebase(_postinganKegiatanController ?? "");
                                 _postinganKegiatanStream.add("");
                                 _postinganKegiatanController = "";
+                                _postinganKegiatanResult = null;
                               },
                               text: text,
                             );
@@ -256,15 +274,27 @@ class _PenggunaPengajuanUsulanKegiatan3State
                           stream: _suratUndanganKegiatanStream.stream,
                           builder: (context, snapshot) {
                             String text = snapshot.data ?? "";
-                            return CustomFilePickerButton(
+                            return MipokaFileUploader(
+                              asset: "assets/icons/attach.png",
                               onTap: () async {
-                                String? url = await selectAndUploadFile('suratUndanganKegiatan${user?.uid ?? "unknown"}');
-                                _suratUndanganKegiatanController = url;
-                                _suratUndanganKegiatanStream.add(url);
+                                _suratUndanganKegiatanResult = await FilePicker.platform.pickFiles();
+                                PlatformFile? file = _suratUndanganKegiatanResult?.files.first;
+                                if (_suratUndanganKegiatanResult!= null) {
+                                  if (file?.extension!.toLowerCase() == 'jpg' ||
+                                      file?.extension!.toLowerCase() == 'jpeg' ||
+                                      file?.extension!.toLowerCase() == 'png' ||
+                                      file?.extension!.toLowerCase() == 'gif'){
+                                    _suratUndanganKegiatanStream.add(_suratUndanganKegiatanResult?.files.first.name);
+                                  } else {
+                                    mipokaCustomToast("Tipe data file bukan gambar.");
+                                  }
+                                }
                               },
                               onDelete: () {
+                                deleteFileFromFirebase(_suratUndanganKegiatanController ?? "");
                                 _suratUndanganKegiatanStream.add("");
                                 _suratUndanganKegiatanController = "";
+                                _suratUndanganKegiatanResult = null;
                               },
                               text: text,
                             );
@@ -281,15 +311,27 @@ class _PenggunaPengajuanUsulanKegiatan3State
                           stream: _linimasaKegiatanStream.stream,
                           builder: (context, snapshot) {
                             String text = snapshot.data ?? "";
-                            return CustomFilePickerButton(
+                            return MipokaFileUploader(
+                              asset: "assets/icons/attach.png",
                               onTap: () async {
-                                String? url = await selectAndUploadFile('postingKegiatan${user?.uid ?? "unknown"}');
-                                _linimasaKegiatanController = url;
-                                _linimasaKegiatanStream.add(url);
+                                _linimasaKegiatanResult = await FilePicker.platform.pickFiles();
+                                PlatformFile? file = _linimasaKegiatanResult?.files.first;
+                                if (_linimasaKegiatanResult!= null) {
+                                  if (file?.extension!.toLowerCase() == 'jpg' ||
+                                      file?.extension!.toLowerCase() == 'jpeg' ||
+                                      file?.extension!.toLowerCase() == 'png' ||
+                                      file?.extension!.toLowerCase() == 'gif'){
+                                    _linimasaKegiatanStream.add(_linimasaKegiatanResult?.files.first.name);
+                                  } else {
+                                    mipokaCustomToast("Tipe data file bukan gambar.");
+                                  }
+                                }
                               },
                               onDelete: () {
+                                deleteFileFromFirebase(_linimasaKegiatanController ?? "");
                                 _linimasaKegiatanStream.add("");
                                 _linimasaKegiatanController = "";
+                                _linimasaKegiatanResult = null;
                               },
                               text: text,
                             );
@@ -306,15 +348,27 @@ class _PenggunaPengajuanUsulanKegiatan3State
                           stream: _fotoTempatKegiatanStream.stream,
                           builder: (context, snapshot) {
                             String text = snapshot.data ?? "";
-                            return CustomFilePickerButton(
+                            return MipokaFileUploader(
+                              asset: "assets/icons/attach.png",
                               onTap: () async {
-                                String? url = await selectAndUploadFile('postingKegiatan${user?.uid ?? "unknown"}');
-                                _fotoTempatKegiatanController = url;
-                                _fotoTempatKegiatanStream.add(url);
+                                _fotoTempatKegiatanResult = await FilePicker.platform.pickFiles();
+                                PlatformFile? file = _fotoTempatKegiatanResult?.files.first;
+                                if (_fotoTempatKegiatanResult!= null) {
+                                  if (file?.extension!.toLowerCase() == 'jpg' ||
+                                      file?.extension!.toLowerCase() == 'jpeg' ||
+                                      file?.extension!.toLowerCase() == 'png' ||
+                                      file?.extension!.toLowerCase() == 'gif'){
+                                    _fotoTempatKegiatanStream.add(_fotoTempatKegiatanResult?.files.first.name);
+                                  } else {
+                                    mipokaCustomToast("Tipe data file bukan gambar.");
+                                  }
+                                }
                               },
-                              onDelete: () {
+                              onDelete: (){
+                                deleteFileFromFirebase(_fotoTempatKegiatanController ?? "");
                                 _fotoTempatKegiatanStream.add("");
                                 _fotoTempatKegiatanController = "";
+                                _fotoTempatKegiatanResult = null;
                               },
                               text: text,
                             );

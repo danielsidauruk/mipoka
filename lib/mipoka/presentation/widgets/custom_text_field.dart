@@ -5,16 +5,21 @@ class CustomTextField extends StatelessWidget {
     super.key,
     required this.controller,
     this.textInputType = TextInputType.text,
+    this.textFieldWidth = double.infinity,
     // this.textInputType = TextInputType.multiline,
   });
 
   final TextEditingController controller;
   final TextInputType? textInputType;
+  final double textFieldWidth;
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Container(
       alignment: Alignment.center,
+      width: size.width < 501 ? double.infinity : textFieldWidth,
       padding: const EdgeInsets.all(8.0),
       constraints: const BoxConstraints(minHeight: 35),
       decoration: BoxDecoration(

@@ -18,5 +18,85 @@
     "created_by": "John Doe",
     "updated_at": "2023-06-26",
     "updated_by": "Jane Smith"
+  },
+  {
+    "id_mhs_per_periode_mpt": 2341234,
+    "id_user": "awokawok",
+    "id_periode_mpt": 1234,
+    "id_kegiatan_per_periode_mpt": 1234,
+    "created_at": "2023-06-26",
+    "created_by": "John Doe",
+    "updated_at": "2023-06-26",
+    "updated_by": "Jane Smith"
+  },
+  {
+    "id_mhs_per_periode_mpt": 1233424,
+    "id_user": "awokawok",
+    "id_periode_mpt": 1234234,
+    "id_kegiatan_per_periode_mpt": 1234,
+    "created_at": "2023-06-26",
+    "created_by": "John Doe",
+    "updated_at": "2023-06-26",
+    "updated_by": "Jane Smith"
+  },
+  {
+    "id_mhs_per_periode_mpt": 2341234,
+    "id_user": "awokawok",
+    "id_periode_mpt": 1234,
+    "id_kegiatan_per_periode_mpt": 1234,
+    "created_at": "2023-06-26",
+    "created_by": "John Doe",
+    "updated_at": "2023-06-26",
+    "updated_by": "Jane Smith"
+  },
+  {
+    "id_mhs_per_periode_mpt": 1233424,
+    "id_user": "awokawok",
+    "id_periode_mpt": 1234234,
+    "id_kegiatan_per_periode_mpt": 1234,
+    "created_at": "2023-06-26",
+    "created_by": "John Doe",
+    "updated_at": "2023-06-26",
+    "updated_by": "Jane Smith"
+  },
+  {
+    "id_mhs_per_periode_mpt": 2341234,
+    "id_user": "awokawok",
+    "id_periode_mpt": 1234,
+    "id_kegiatan_per_periode_mpt": 1234,
+    "created_at": "2023-06-26",
+    "created_by": "John Doe",
+    "updated_at": "2023-06-26",
+    "updated_by": "Jane Smith"
+  },
+  {
+    "id_mhs_per_periode_mpt": 1233424,
+    "id_user": "awokawok",
+    "id_periode_mpt": 1234234,
+    "id_kegiatan_per_periode_mpt": 1234,
+    "created_at": "2023-06-26",
+    "created_by": "John Doe",
+    "updated_at": "2023-06-26",
+    "updated_by": "Jane Smith"
+  },
+  {
+    "id_mhs_per_periode_mpt": 2341234,
+    "id_user": "awokawok",
+    "id_periode_mpt": 1234,
+    "id_kegiatan_per_periode_mpt": 1234,
+    "created_at": "2023-06-26",
+    "created_by": "John Doe",
+    "updated_at": "2023-06-26",
+    "updated_by": "Jane Smith"
+  },
+  {
+    "id_mhs_per_periode_mpt": 1233424,
+    "id_user": "awokawok",
+    "id_periode_mpt": 1234234,
+    "id_kegiatan_per_periode_mpt": 1234,
+    "created_at": "2023-06-26",
+    "created_by": "John Doe",
+    "updated_at": "2023-06-26",
+    "updated_by": "Jane Smith"
   }
 ]

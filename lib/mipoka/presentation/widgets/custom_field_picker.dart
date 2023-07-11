@@ -45,12 +45,11 @@ class _CustomFilePickerButtonState extends State<CustomFilePickerButton> {
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
-            if (widget.text == "")
+            (widget.text == "") ?
               Image.asset(
                 widget.asset,
                 width: 24,
-              )
-            else
+              ) :
               InkWell(
                 onTap: () {
                   deleteFileFromFirebase(widget.text);

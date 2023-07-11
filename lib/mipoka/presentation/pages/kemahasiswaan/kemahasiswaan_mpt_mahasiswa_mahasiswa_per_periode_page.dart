@@ -136,7 +136,10 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                   const CustomFieldSpacer(),
 
                   buildTitle('NIM'),
-                  CustomTextField(controller: _nimController),
+                  CustomTextField(
+                    controller: _nimController,
+                    textFieldWidth: 300,
+                  ),
 
                   const CustomFieldSpacer(),
 
@@ -154,6 +157,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                         final mhsPerPeriodeMptList = state.mhsPerPeriodeMptList;
 
                         return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const CustomFieldSpacer(),
 
