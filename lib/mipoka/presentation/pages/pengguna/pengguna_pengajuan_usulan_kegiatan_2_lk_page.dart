@@ -38,6 +38,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
 
   @override
   void dispose() {
+    mipokaCustomToast('Sedang menyimpan data...', time: 5);
     context.read<UsulanKegiatanBloc>().close();
     super.dispose();
   }

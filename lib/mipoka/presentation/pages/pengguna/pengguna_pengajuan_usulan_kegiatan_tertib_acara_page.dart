@@ -223,12 +223,16 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                           ),
                           const SizedBox(width: 8.0),
                           CustomMipokaButton(
-                            onTap: () => Navigator.pushNamed(
-                              context,
-                              penggunaPengajuanUsulanKegiatan3PageRoute,
-                              arguments: widget.idUsulanKegiatan,
-                            ).then((_) => context.read<UsulanKegiatanBloc>()
-                                .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan))),
+                            onTap: () {
+                              mipokaCustomToast('Sedang menyimpan data...', time: 5);
+                              Navigator.pushNamed(
+                                context,
+                                penggunaPengajuanUsulanKegiatan3PageRoute,
+                                arguments: widget.idUsulanKegiatan,
+                              ).then((_) => context.read<UsulanKegiatanBloc>()
+                                  .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan)),
+                              );
+                            },
                             text: 'Berikutnya',
                           ),
                         ],

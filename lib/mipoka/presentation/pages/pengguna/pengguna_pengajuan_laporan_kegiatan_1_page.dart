@@ -35,10 +35,12 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
   @override
   void initState() {
-    context.read<LaporanBloc>().add(
-        ReadLaporanEvent(idLaporan: widget.idLaporan));
-    context.read<UsulanKegiatanBloc>().add(
-        const ReadAllUsulanKegiatanEvent());
+    Future.microtask(() {
+      context.read<LaporanBloc>().add(
+          ReadLaporanEvent(idLaporan: widget.idLaporan));
+      context.read<UsulanKegiatanBloc>().add(
+          const ReadAllUsulanKegiatanEvent());
+    });
     super.initState();
   }
 

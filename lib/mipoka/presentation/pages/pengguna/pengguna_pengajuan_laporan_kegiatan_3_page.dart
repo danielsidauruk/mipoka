@@ -1,14 +1,19 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_file_uploader.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
@@ -52,6 +57,12 @@ class _PenggunaPengajuanLaporanKegiatan3State
   String? _dokumentasiKegiatanController;
   String? _tabulasiHasilKegiatanController;
   String? _fakturPembayaranController;
+
+  FilePickerResult? _postinganKegiatanResult;
+  FilePickerResult? _dokumentasiKegiatanResult;
+  FilePickerResult? _tabulasiHasilKegiatanResult;
+  FilePickerResult? _fakturPembayaranResult;
+
 
   final StreamController<String?> _postinganKegiatanStream = StreamController<String?>.broadcast();
   final StreamController<String?> _dokumentasiKegiatanStream = StreamController<String?>.broadcast();
@@ -131,15 +142,27 @@ class _PenggunaPengajuanLaporanKegiatan3State
                           stream: _postinganKegiatanStream.stream,
                           builder: (context, snapshot) {
                             String text = snapshot.data ?? "";
-                            return CustomFilePickerButton(
+                            return MipokaFileUploader(
+                              asset: "assets/icons/attach.png",
                               onTap: () async {
-                                String? url = await selectAndUploadFile('postingKegiatan${user?.uid ?? "unknown"}');
-                                _postinganKegiatanController = url;
-                                _postinganKegiatanStream.add(url);
+                                _postinganKegiatanResult = await FilePicker.platform.pickFiles();
+                                PlatformFile? file = _postinganKegiatanResult?.files.first;
+                                if (_postinganKegiatanResult != null) {
+                                  if (file?.extension!.toLowerCase() == 'jpg' ||
+                                      file?.extension!.toLowerCase() == 'jpeg' ||
+                                      file?.extension!.toLowerCase() == 'png' ||
+                                      file?.extension!.toLowerCase() == 'gif'){
+                                    _postinganKegiatanStream.add(_postinganKegiatanResult?.files.first.name);
+                                  } else {
+                                    mipokaCustomToast("Tipe data file bukan gambar.");
+                                  }
+                                }
                               },
                               onDelete: () {
+                                deleteFileFromFirebase(_postinganKegiatanController ?? "");
                                 _postinganKegiatanStream.add("");
                                 _postinganKegiatanController = "";
+                                _postinganKegiatanResult = null;
                               },
                               text: text,
                             );
@@ -154,15 +177,27 @@ class _PenggunaPengajuanLaporanKegiatan3State
                           stream: _dokumentasiKegiatanStream.stream,
                           builder: (context, snapshot) {
                             String text = snapshot.data ?? "";
-                            return CustomFilePickerButton(
+                            return MipokaFileUploader(
+                              asset: "assets/icons/attach.png",
                               onTap: () async {
-                                String? url = await selectAndUploadFile('postingKegiatan${user?.uid ?? "unknown"}');
-                                _dokumentasiKegiatanController = url;
-                                _dokumentasiKegiatanStream.add(url);
+                                _dokumentasiKegiatanResult = await FilePicker.platform.pickFiles();
+                                PlatformFile? file = _dokumentasiKegiatanResult?.files.first;
+                                if (_dokumentasiKegiatanResult != null) {
+                                  if (file?.extension!.toLowerCase() == 'jpg' ||
+                                      file?.extension!.toLowerCase() == 'jpeg' ||
+                                      file?.extension!.toLowerCase() == 'png' ||
+                                      file?.extension!.toLowerCase() == 'gif'){
+                                    _dokumentasiKegiatanStream.add(_dokumentasiKegiatanResult?.files.first.name);
+                                  } else {
+                                    mipokaCustomToast("Tipe data file bukan gambar.");
+                                  }
+                                }
                               },
                               onDelete: () {
+                                deleteFileFromFirebase(_dokumentasiKegiatanController ?? "");
                                 _dokumentasiKegiatanStream.add("");
                                 _dokumentasiKegiatanController = "";
+                                _dokumentasiKegiatanResult = null;
                               },
                               text: text,
                             );
@@ -177,15 +212,27 @@ class _PenggunaPengajuanLaporanKegiatan3State
                           stream: _tabulasiHasilKegiatanStream.stream,
                           builder: (context, snapshot) {
                             String text = snapshot.data ?? "";
-                            return CustomFilePickerButton(
+                            return MipokaFileUploader(
+                              asset: "assets/icons/attach.png",
                               onTap: () async {
-                                String? url = await selectAndUploadFile('postingKegiatan${user?.uid ?? "unknown"}');
-                                _tabulasiHasilKegiatanController = url;
-                                _tabulasiHasilKegiatanStream.add(url);
+                                _tabulasiHasilKegiatanResult = await FilePicker.platform.pickFiles();
+                                PlatformFile? file = _tabulasiHasilKegiatanResult?.files.first;
+                                if (_tabulasiHasilKegiatanResult != null) {
+                                  if (file?.extension!.toLowerCase() == 'jpg' ||
+                                      file?.extension!.toLowerCase() == 'jpeg' ||
+                                      file?.extension!.toLowerCase() == 'png' ||
+                                      file?.extension!.toLowerCase() == 'gif'){
+                                    _tabulasiHasilKegiatanStream.add(_tabulasiHasilKegiatanResult?.files.first.name);
+                                  } else {
+                                    mipokaCustomToast("Tipe data file bukan gambar.");
+                                  }
+                                }
                               },
                               onDelete: () {
+                                deleteFileFromFirebase(_tabulasiHasilKegiatanController ?? "");
                                 _tabulasiHasilKegiatanStream.add("");
                                 _tabulasiHasilKegiatanController = "";
+                                _tabulasiHasilKegiatanResult = null;
                               },
                               text: text,
                             );
@@ -200,27 +247,39 @@ class _PenggunaPengajuanLaporanKegiatan3State
                           stream: _fakturPembayaranStream.stream,
                           builder: (context, snapshot) {
                             String text = snapshot.data ?? "";
-                            return CustomFilePickerButton(
+                            return MipokaFileUploader(
+                              asset: "assets/icons/attach.png",
                               onTap: () async {
-                                String? url = await selectAndUploadFile('postingKegiatan${user?.uid ?? "unknown"}');
-                                _fakturPembayaranController = url;
-                                _fakturPembayaranStream.add(url);
+                                _fakturPembayaranResult = await FilePicker.platform.pickFiles();
+                                PlatformFile? file = _fakturPembayaranResult?.files.first;
+                                if (_fakturPembayaranResult != null) {
+                                  if (file?.extension!.toLowerCase() == 'jpg' ||
+                                      file?.extension!.toLowerCase() == 'jpeg' ||
+                                      file?.extension!.toLowerCase() == 'png' ||
+                                      file?.extension!.toLowerCase() == 'gif'){
+                                    _fakturPembayaranStream.add(_fakturPembayaranResult?.files.first.name);
+                                  } else {
+                                    mipokaCustomToast("Tipe data file bukan gambar.");
+                                  }
+                                }
                               },
                               onDelete: () {
+                                deleteFileFromFirebase(_fakturPembayaranController ?? "");
                                 _fakturPembayaranStream.add("");
                                 _fakturPembayaranController = "";
+                                _fakturPembayaranResult = null;
                               },
                               text: text,
                             );
                           },
                         ),
-
                         const CustomFieldSpacer(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             CustomMipokaButton(
-                              onTap: () {
+                              onTap: () async {
+                                mipokaCustomToast('Sedang menyimpan data...', time: 5);
                                 context.read<LaporanBloc>().add(
                                   UpdateLaporanEvent(
                                     laporan: laporan.copyWith(
@@ -240,26 +299,100 @@ class _PenggunaPengajuanLaporanKegiatan3State
                             ),
                             const SizedBox(width: 8.0),
                             CustomMipokaButton(
-                              onTap: () {
-                                fotoDokumentasiKegiatanList.add(_dokumentasiKegiatanController ?? "");
+                              onTap: () async {
+                                mipokaCustomToast('Sedang menyimpan data, mohon menunggu ...', time: 5);
 
-                                context.read<LaporanBloc>().add(
-                                  UpdateLaporanEvent(
-                                    laporan: laporan.copyWith(
-                                      latarBelakang: _latarBelakangController.document.toPlainText(),
-                                      hasilKegiatan: _hasilKegiatanController.document.toPlainText(),
-                                      penutup: _penutupController.document.toPlainText(),
-                                      fotoPostinganKegiatan: _postinganKegiatanController,
-                                      fotoDokumentasiKegiatan: fotoDokumentasiKegiatanList,
-                                      fotoTabulasiHasil: _tabulasiHasilKegiatanController,
-                                      fotoFakturPembayaran: _fakturPembayaranController,
-                                    ),
-                                  ),
-                                );
-                                Navigator.pushNamed(
-                                  context,
-                                  penggunaDaftarLaporanKegiatanPageRoute,
-                                );
+                                if (_latarBelakangController.document.toPlainText().isNotEmpty && _hasilKegiatanController.document.toPlainText().isNotEmpty
+                                && _penutupController.document.toPlainText().isNotEmpty) {
+
+                                  final postinganKegiatanResult = _postinganKegiatanResult;
+                                  if (postinganKegiatanResult != null) {
+                                    PlatformFile file = postinganKegiatanResult.files.first;
+                                    Uint8List? bytes;
+
+                                    if (kIsWeb) {
+                                      bytes = file.bytes;
+                                    } else if (Platform.isAndroid) {
+                                      bytes = await File(file.path!).readAsBytes();
+                                    }
+
+                                    if (bytes != null) {
+                                      _postinganKegiatanController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
+                                    }
+                                  }
+
+                                  final dokumentasiKegiatanResult = _dokumentasiKegiatanResult;
+                                  if (dokumentasiKegiatanResult != null) {
+                                    PlatformFile file = dokumentasiKegiatanResult.files.first;
+                                    Uint8List? bytes;
+
+                                    if (kIsWeb) {
+                                      bytes = file.bytes;
+                                    } else if (Platform.isAndroid) {
+                                      bytes = await File(file.path!).readAsBytes();
+                                    }
+
+                                    if (bytes != null) {
+                                      _dokumentasiKegiatanController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
+                                      fotoDokumentasiKegiatanList.add(_dokumentasiKegiatanController ?? "");
+                                    }
+                                  }
+
+                                  final tabulasiHasilKegiatanResult = _tabulasiHasilKegiatanResult;
+                                  if (tabulasiHasilKegiatanResult != null) {
+                                    PlatformFile file = tabulasiHasilKegiatanResult.files.first;
+                                    Uint8List? bytes;
+
+                                    if (kIsWeb) {
+                                      bytes = file.bytes;
+                                    } else if (Platform.isAndroid) {
+                                      bytes = await File(file.path!).readAsBytes();
+                                    }
+
+                                    if (bytes != null) {
+                                      _tabulasiHasilKegiatanController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
+                                    }
+                                  }
+
+                                  final fakturPembayaranResult = _fakturPembayaranResult;
+                                  if (fakturPembayaranResult != null) {
+                                    PlatformFile file = fakturPembayaranResult.files.first;
+                                    Uint8List? bytes;
+
+                                    if (kIsWeb) {
+                                      bytes = file.bytes;
+                                    } else if (Platform.isAndroid) {
+                                      bytes = await File(file.path!).readAsBytes();
+                                    }
+
+                                    if (bytes != null) {
+                                      _fakturPembayaranController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
+                                    }
+                                  }
+
+                                  Future.microtask(() {
+                                    context.read<LaporanBloc>().add(
+                                      UpdateLaporanEvent(
+                                        laporan: laporan.copyWith(
+                                          latarBelakang: _latarBelakangController.document.toPlainText(),
+                                          hasilKegiatan: _hasilKegiatanController.document.toPlainText(),
+                                          penutup: _penutupController.document.toPlainText(),
+                                          fotoPostinganKegiatan: _postinganKegiatanController,
+                                          fotoDokumentasiKegiatan: fotoDokumentasiKegiatanList,
+                                          fotoTabulasiHasil: _tabulasiHasilKegiatanController,
+                                          fotoFakturPembayaran: _fakturPembayaranController,
+                                        ),
+                                      ),
+                                    );
+                                    Navigator.pushNamed(
+                                      context,
+                                      penggunaDaftarLaporanKegiatanPageRoute,
+                                    );
+                                    mipokaCustomToast('Laporan Kegiatan telah dikirim.');
+                                  });
+                                } else {
+                                  mipokaCustomToast(emptyFieldMessage);
+                                }
                               },
                               text: 'Kirim',
                             ),

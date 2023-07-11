@@ -391,6 +391,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                     && _rencanaAnggaranKegiatanController.document.toPlainText() != "" && _perlengkapanDanPeralatanController.document.toPlainText() != ""
                                     && _penutupController.document.toPlainText() != "") {
 
+                                  mipokaCustomToast('Sedang menyimpan data...', time: 5);
+
                                   final postinganKegiatanResult = _postinganKegiatanResult;
                                   if (postinganKegiatanResult != null) {
                                     PlatformFile file = postinganKegiatanResult.files.first;
@@ -495,6 +497,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                     && _rencanaAnggaranKegiatanController.document.toPlainText() != "" && _perlengkapanDanPeralatanController.document.toPlainText() != ""
                                     && _penutupController.document.toPlainText() != "") {
 
+                                  mipokaCustomToast("Sedang menyimpan data ...", time: 5);
+
                                   final postinganKegiatanResult = _postinganKegiatanResult;
                                   if (postinganKegiatanResult != null) {
                                     PlatformFile file = postinganKegiatanResult.files.first;
@@ -586,11 +590,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                     );
                                     context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
                                     mipokaCustomToast("Usulan Kegiatan telah dikirim");
-
-                                    print (_postinganKegiatanController);
-                                    print(_suratUndanganKegiatanController);
-                                    print(_linimasaKegiatanController);
-                                    print(_fotoTempatKegiatanController);
                                   });
                                 } else {
                                   mipokaCustomToast(emptyFieldMessage);

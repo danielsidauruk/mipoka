@@ -58,6 +58,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
   @override
   void dispose() {
+    mipokaCustomToast('Sedang menyimpan data...', time: 5);
     context.read<UsulanKegiatanBloc>().close();
     context.read<MipokaUserBloc>().close();
     context.read<TempatKegiatanCubit>().close();
@@ -90,11 +91,10 @@ class _PenggunaPengajuanUsulanKegiatan1State
   final TextEditingController _keteranganController = TextEditingController();
   String? _ormawaSignatureController;
 
-  final GlobalKey<SfSignaturePadState> signatureGlobalKey =
-  GlobalKey<SfSignaturePadState>();
+  GlobalKey<SfSignaturePadState>? signatureGlobalKey;
 
   Future<File> saveSignature() async {
-    final image = await signatureGlobalKey.currentState?.toImage(pixelRatio: 3.0);
+    final image = await signatureGlobalKey?.currentState?.toImage(pixelRatio: 3.0);
     final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
     final bytes = byteData?.buffer.asUint8List();
 
@@ -172,17 +172,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                             children: [
                               buildTitle('Nama Ormawa'),
 
-                              // MipokaCustomDropdown(
-                              //   items: listNamaOrmawa,
-                              //   initialItem: _idOrmawaController,
-                              //   onValueChanged: (value) {
-                              //     if (kDebugMode) {
-                              //       print(
-                              //           'Input $value to State Management BLoC or Database');
-                              //     }
-                              //     _idOrmawaController = value;
-                              //   },
-                              // ),
                               BlocBuilder<OrmawaBloc, OrmawaState>(
                                 builder: (context, state) {
                                   if (state is OrmawaLoading) {
@@ -380,6 +369,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                     return InkWell(
                                       onTap: () => context.read<SignatureCubit>().toggleSignature(),
                                       child: Container(
+                                        width: 400,
                                         alignment: Alignment.center,
                                         padding: const EdgeInsets.all(8.0),
                                         decoration: BoxDecoration(
@@ -387,6 +377,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                           border: Border.all(color: Colors.white),
                                         ),
                                         child: Column(
+                                          mainAxisSize: MainAxisSize.min,
                                           children: [
                                             if (_ormawaSignatureController == "")
                                               !state.isSignatureVisible ?
@@ -403,6 +394,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                                 ),
                                               ) :
                                               Column(
+                                                mainAxisSize: MainAxisSize.min,
                                                 children: [
                                                   const CustomFieldSpacer(height: 4.0),
                                                   SizedBox(
@@ -418,25 +410,26 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                                   ),
                                                   const CustomFieldSpacer(),
                                                   Row(
+                                                    mainAxisSize: MainAxisSize.min,
                                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                     children: [
                                                       InkWell(
                                                         onTap: () async {
                                                           final file = await saveSignature();
-                                                          // context.read<SignatureCubit>().toggleSignature();
                                                           _ormawaSignatureController = await uploadFileFromSignature(file, "signature${user?.uid ?? "unknown"}");
                                                           // uploadFile(file: file, customUrl: widget.fileName);
                                                         },
-                                                        child: const InkWell(
-                                                          child: Text(
-                                                            'Simpan',
-                                                            style: TextStyle(
-                                                              color: Colors.white,
-                                                              fontSize: 16,
-                                                            ),
+                                                        child: const Text(
+                                                          'Simpan',
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 16,
                                                           ),
                                                         ),
                                                       ),
+
+                                                      const SizedBox(width: 8),
+
                                                       InkWell(
                                                         onTap: () {
                                                           context.read<SignatureCubit>().toggleSignature();
@@ -514,6 +507,11 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                         arguments: widget.idUsulanKegiatan,
                                       ).then((_) => context.read<UsulanKegiatanBloc>()
                                           .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan)));
+
+                                      // Future.delayed(const Duration(seconds: 1), () {
+                                      //
+                                      // });
+                                      mipokaCustomToast('Sedang menyimpan data...', time: 5);
 
                                       Future.microtask(() {
                                         context.read<UsulanKegiatanBloc>().add(
