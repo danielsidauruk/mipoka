@@ -1,10 +1,13 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
+import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
 
 class MhsPerPeriodeMpt extends Equatable {
   final int idMhsPerPeriodeMpt;
-  final String idUser;
-  final int idPeriodeMpt;
-  final int idKegiatanPerPeriodeMpt;
+  final MipokaUser mipokaUser;
+  final PeriodeMpt periodeMpt;
+  final KegiatanPerPeriodeMpt kegiatanPerPeriodeMpt;
   final String createdAt;
   final String createdBy;
   final String updatedAt;
@@ -12,9 +15,9 @@ class MhsPerPeriodeMpt extends Equatable {
 
   const MhsPerPeriodeMpt({
     required this.idMhsPerPeriodeMpt,
-    required this.idUser,
-    required this.idPeriodeMpt,
-    required this.idKegiatanPerPeriodeMpt,
+    required this.mipokaUser,
+    required this.periodeMpt,
+    required this.kegiatanPerPeriodeMpt,
     required this.createdAt,
     required this.createdBy,
     required this.updatedAt,
@@ -23,9 +26,9 @@ class MhsPerPeriodeMpt extends Equatable {
 
   MhsPerPeriodeMpt copyWith({
     int? idMhsPerPeriodeMpt,
-    String? idUser,
-    int? idPeriodeMpt,
-    int? idKegiatanPerPeriodeMpt,
+    MipokaUser? mipokaUser,
+    PeriodeMpt? periodeMpt,
+    KegiatanPerPeriodeMpt? kegiatanPerPeriodeMpt,
     String? createdAt,
     String? createdBy,
     String? updatedAt,
@@ -33,9 +36,9 @@ class MhsPerPeriodeMpt extends Equatable {
   }) =>
       MhsPerPeriodeMpt(
         idMhsPerPeriodeMpt: idMhsPerPeriodeMpt ?? this.idMhsPerPeriodeMpt,
-        idUser: idUser ?? this.idUser,
-        idPeriodeMpt: idPeriodeMpt ?? this.idPeriodeMpt,
-        idKegiatanPerPeriodeMpt: idKegiatanPerPeriodeMpt ?? this.idKegiatanPerPeriodeMpt,
+        mipokaUser: mipokaUser ?? this.mipokaUser,
+        periodeMpt: periodeMpt ?? this.periodeMpt,
+        kegiatanPerPeriodeMpt: kegiatanPerPeriodeMpt ?? this.kegiatanPerPeriodeMpt,
         createdAt: createdAt ?? this.createdAt,
         createdBy: createdBy ?? this.createdBy,
         updatedAt: updatedAt ?? this.updatedAt,
@@ -45,9 +48,9 @@ class MhsPerPeriodeMpt extends Equatable {
   @override
   List<Object?> get props => [
     idMhsPerPeriodeMpt,
-    idUser,
-    idPeriodeMpt,
-    idKegiatanPerPeriodeMpt,
+    mipokaUser,
+    periodeMpt,
+    kegiatanPerPeriodeMpt,
     createdAt,
     createdBy,
     updatedAt,

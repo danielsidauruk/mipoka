@@ -1,12 +1,14 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
+import 'package:mipoka/mipoka/domain/entities/revisi_laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 
 class Laporan extends Equatable {
   final int idLaporan;
-  final int idOrmawa;
-  final String idUser;
-  final int idUsulan;
+  final RevisiLaporan revisiLaporan;
+  final UsulanKegiatan usulanKegiatan;
   final String pencapaian;
   final List<PesertaKegiatanLaporan> pesertaKegiatanLaporan;
   final List<RincianBiayaKegiatan> rincianBiayaKegiatan;
@@ -30,9 +32,8 @@ class Laporan extends Equatable {
 
   const Laporan({
     required this.idLaporan,
-    required this.idOrmawa,
-    required this.idUser,
-    required this.idUsulan,
+    required this.revisiLaporan,
+    required this.usulanKegiatan,
     required this.pencapaian,
     required this.pesertaKegiatanLaporan,
     required this.rincianBiayaKegiatan,
@@ -57,9 +58,8 @@ class Laporan extends Equatable {
 
   Laporan copyWith({
     int? idLaporan,
-    int? idOrmawa,
-    String? idUser,
-    int? idUsulan,
+    RevisiLaporan? revisiLaporan,
+    UsulanKegiatan? usulanKegiatan,
     String? pencapaian,
     List<PesertaKegiatanLaporan>? pesertaKegiatanLaporan,
     List<RincianBiayaKegiatan>? rincianBiayaKegiatan,
@@ -83,9 +83,8 @@ class Laporan extends Equatable {
   }) =>
       Laporan(
         idLaporan: idLaporan ?? this.idLaporan,
-        idOrmawa: idOrmawa ?? this.idOrmawa,
-        idUser: idUser ?? this.idUser,
-        idUsulan: idUsulan ?? this.idUsulan,
+        revisiLaporan: revisiLaporan ?? this.revisiLaporan,
+        usulanKegiatan: usulanKegiatan ?? this.usulanKegiatan,
         pencapaian: pencapaian ?? this.pencapaian,
         pesertaKegiatanLaporan: pesertaKegiatanLaporan ?? this.pesertaKegiatanLaporan,
         rincianBiayaKegiatan: rincianBiayaKegiatan ?? this.rincianBiayaKegiatan,
@@ -111,9 +110,8 @@ class Laporan extends Equatable {
   @override
   List<Object?> get props => [
     idLaporan,
-    idOrmawa,
-    idUser,
-    idUsulan,
+    revisiLaporan,
+    usulanKegiatan,
     pencapaian,
     pesertaKegiatanLaporan,
     rincianBiayaKegiatan,

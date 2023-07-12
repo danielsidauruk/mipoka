@@ -1,16 +1,19 @@
 import 'package:mipoka/mipoka/data/models/peserta_kegiatan_laporan_model.dart';
+import 'package:mipoka/mipoka/data/models/revisi_laporan_model.dart';
 import 'package:mipoka/mipoka/data/models/rincian_biaya_kegiatan_model.dart';
+import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 
 class LaporanModel extends Laporan {
+  final RevisiLaporanModel revisiLaporanModel;
+  final UsulanKegiatanModel usulanKegiatanModel;
   final List<PesertaKegiatanLaporanModel> pesertaKegiatanLaporanModel;
   final List<RincianBiayaKegiatanModel> rincianBiayaKegiatanModel;
 
   const LaporanModel({
     required super.idLaporan,
-    required super.idOrmawa,
-    required super.idUser,
-    required super.idUsulan,
+    required this.revisiLaporanModel,
+    required this.usulanKegiatanModel,
     required super.pencapaian,
     required this.pesertaKegiatanLaporanModel,
     required this.rincianBiayaKegiatanModel,
@@ -32,6 +35,8 @@ class LaporanModel extends Laporan {
     required super.updatedAt,
     required super.updatedBy,
   }) : super(
+    revisiLaporan: revisiLaporanModel,
+    usulanKegiatan: usulanKegiatanModel,
     pesertaKegiatanLaporan: pesertaKegiatanLaporanModel,
     rincianBiayaKegiatan: rincianBiayaKegiatanModel
   );
@@ -39,9 +44,8 @@ class LaporanModel extends Laporan {
   factory LaporanModel.fromEntity(Laporan laporan) {
     return LaporanModel(
       idLaporan: laporan.idLaporan,
-      idOrmawa: laporan.idOrmawa,
-      idUser: laporan.idUser,
-      idUsulan: laporan.idUsulan,
+      revisiLaporanModel: RevisiLaporanModel.fromEntity(laporan.revisiLaporan),
+      usulanKegiatanModel: UsulanKegiatanModel.fromEntity(laporan.usulanKegiatan),
       pencapaian: laporan.pencapaian,
       pesertaKegiatanLaporanModel: laporan.pesertaKegiatanLaporan.map((pesertaKegiatanLaporan) =>
           PesertaKegiatanLaporanModel.fromEntity(pesertaKegiatanLaporan)).toList(),
@@ -69,9 +73,8 @@ class LaporanModel extends Laporan {
 
   factory LaporanModel.fromJson(Map<String, dynamic> json) => LaporanModel(
     idLaporan: json["id_laporan"],
-    idOrmawa: json["id_ormawa"],
-    idUser: json["id_user"],
-    idUsulan: json["id_usulan"],
+    revisiLaporanModel: RevisiLaporanModel.fromJson(json["revisi_laporan"]),
+    usulanKegiatanModel: UsulanKegiatanModel.fromJson(json["usulan"]),
     pencapaian: json["pencapaian"],
     pesertaKegiatanLaporanModel: List<PesertaKegiatanLaporanModel>.from(json["peserta_kegiatan_laporan"].map((x) => PesertaKegiatanLaporanModel.fromJson(x))),
     rincianBiayaKegiatanModel: List<RincianBiayaKegiatanModel>.from(json["rincian_biaya_kegiatan"].map((x) => RincianBiayaKegiatanModel.fromJson(x))),
@@ -96,9 +99,8 @@ class LaporanModel extends Laporan {
 
   Map<String, dynamic> toJson() => {
     "id_laporan": idLaporan,
-    "id_ormawa": idOrmawa,
-    "id_user": idUser,
-    "id_usulan": idUsulan,
+    "revisi_usulan": revisiLaporanModel.toJson(),
+    "usulan": usulanKegiatanModel.toJson(),
     "pencapaian": pencapaian,
     "peserta_kegiatan_laporan": List<dynamic>.from(pesertaKegiatanLaporanModel.map((x) => x.toJson())),
     "biaya_kegiatan": List<dynamic>.from(rincianBiayaKegiatanModel.map((x) => x.toJson())),

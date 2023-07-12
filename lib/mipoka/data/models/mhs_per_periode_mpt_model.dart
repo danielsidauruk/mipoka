@@ -1,23 +1,34 @@
+import 'package:mipoka/mipoka/data/models/kegiatan_per_periode_mpt_model.dart';
+import 'package:mipoka/mipoka/data/models/mipoka_user_model.dart';
+import 'package:mipoka/mipoka/data/models/periode_mpt_model.dart';
 import 'package:mipoka/mipoka/domain/entities/mhs_per_periode_mpt.dart';
 
 class MhsPerPeriodeMptModel extends MhsPerPeriodeMpt{
+  final MipokaUserModel mipokaUserModel;
+  final PeriodeMptModel periodeMptModel;
+  final KegiatanPerPeriodeMptModel kegiatanPerPeriodeMptModel;
+
   const MhsPerPeriodeMptModel({
     required super.idMhsPerPeriodeMpt,
-    required super.idUser,
-    required super.idPeriodeMpt,
-    required super.idKegiatanPerPeriodeMpt,
+    required this.mipokaUserModel,
+    required this.periodeMptModel,
+    required this.kegiatanPerPeriodeMptModel,
     required super.createdAt,
     required super.createdBy,
     required super.updatedAt,
     required super.updatedBy,
-  });
+  }) : super (
+    mipokaUser: mipokaUserModel,
+    periodeMpt: periodeMptModel,
+    kegiatanPerPeriodeMpt: kegiatanPerPeriodeMptModel,
+  );
 
   factory MhsPerPeriodeMptModel.fromEntity(MhsPerPeriodeMpt mhsPerPeriodeMpt) {
     return MhsPerPeriodeMptModel(
       idMhsPerPeriodeMpt: mhsPerPeriodeMpt.idMhsPerPeriodeMpt,
-      idUser: mhsPerPeriodeMpt.idUser,
-      idPeriodeMpt: mhsPerPeriodeMpt.idPeriodeMpt,
-      idKegiatanPerPeriodeMpt: mhsPerPeriodeMpt.idKegiatanPerPeriodeMpt,
+      mipokaUserModel: MipokaUserModel.fromEntity(mhsPerPeriodeMpt.mipokaUser),
+      periodeMptModel: PeriodeMptModel.fromEntity(mhsPerPeriodeMpt.periodeMpt),
+      kegiatanPerPeriodeMptModel: KegiatanPerPeriodeMptModel.fromEntity(mhsPerPeriodeMpt.kegiatanPerPeriodeMpt),
       createdAt: mhsPerPeriodeMpt.createdAt,
       createdBy: mhsPerPeriodeMpt.createdBy,
       updatedAt: mhsPerPeriodeMpt.updatedAt,
@@ -27,9 +38,9 @@ class MhsPerPeriodeMptModel extends MhsPerPeriodeMpt{
 
   factory MhsPerPeriodeMptModel.fromJson(Map<String, dynamic> json) => MhsPerPeriodeMptModel(
     idMhsPerPeriodeMpt: json["id_mhs_per_periode_mpt"],
-    idUser: json["id_user"],
-    idPeriodeMpt: json["id_periode_mpt"],
-    idKegiatanPerPeriodeMpt: json["id_kegiatan_per_periode_mpt"],
+    mipokaUserModel: MipokaUserModel.fromJson(json["user"]),
+    periodeMptModel: PeriodeMptModel.fromJson(json["periode_mpt"]),
+    kegiatanPerPeriodeMptModel: KegiatanPerPeriodeMptModel.fromJson(json["kegiatan_per_periode_mpt"]),
     createdAt: json["created_at"],
     createdBy: json["created_by"],
     updatedAt: json["updated_at"],
@@ -38,9 +49,9 @@ class MhsPerPeriodeMptModel extends MhsPerPeriodeMpt{
 
   Map<String, dynamic> toJson() => {
     "id_mhs_per_periode_mpt": idMhsPerPeriodeMpt,
-    "id_user": idUser,
-    "id_periode_mpt": idPeriodeMpt,
-    "id_kegiatan_per_periode_mpt": idKegiatanPerPeriodeMpt,
+    "user": mipokaUserModel.toJson(),
+    "periode_mpt": periodeMptModel.toJson(),
+    "kegiatan_per_periode_mpt": kegiatanPerPeriodeMptModel.toJson(),
     "created_at": createdAt,
     "created_by": createdBy,
     "updated_at": updatedAt,
