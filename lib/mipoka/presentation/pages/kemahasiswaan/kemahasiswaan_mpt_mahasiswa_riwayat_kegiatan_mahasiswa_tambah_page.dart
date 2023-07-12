@@ -47,6 +47,12 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
     super.initState();
   }
 
+  @override
+  void dispose() {
+    context.read<PeriodeMptDropDownBloc>().close();
+    super.dispose();
+  }
+
   void _processRiwayatKegiatan(PlatformFile file) async {
     Uint8List? bytes;
 

@@ -35,14 +35,24 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
   
   @override
   void initState() {
-    context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
-    context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
-    context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+    Future.microtask(() {
+      context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
+      context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+    });
     super.initState();
   }
 
   @override
+  void dispose() {
+    context.read<NamaKegiatanMptBloc>().close();
+    context.read<PeriodeMptBloc>().close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
 
@@ -62,92 +72,195 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
               CustomContentBox(
                 children: [
 
-                  buildTitle('Nama Kegiatan'),
-                  BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
-                    builder: (context, state) {
-                      if (state is NamaKegiatanMptLoading) {
-                        return const Text("Loading ...");
-                      } else if (state is AllNamaKegiatanMptHasData) {
-                        List<String> namaKegiatanList = state.namaKegiatanMptList.map(
-                                (namaKegiatanList) => namaKegiatanList.namaKegiatan).toList();
+                  // size.width > 700 ?
+                  // Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     buildTitle('Nama Kegiatan'),
+                  //     BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
+                  //       builder: (context, state) {
+                  //         if (state is NamaKegiatanMptLoading) {
+                  //           return const Text("Loading ...");
+                  //         } else if (state is AllNamaKegiatanMptHasData) {
+                  //           List<String> namaKegiatanList = state.namaKegiatanMptList.map(
+                  //                   (namaKegiatanList) => namaKegiatanList.namaKegiatan).toList();
+                  //
+                  //           List<int> idKegiatanMptList = state.namaKegiatanMptList.map(
+                  //                   (namaKegiatanMptList) => namaKegiatanMptList.idNamaKegiatanMpt).toList();
+                  //
+                  //           List<int> idJenisKegiatanMptList = state.namaKegiatanMptList.map(
+                  //                   (jenisKegiatanMpt) => jenisKegiatanMpt.idJenisKegiatanMpt).toList();
+                  //
+                  //           _idNamaKegiatanMpt = idKegiatanMptList[0];
+                  //           _idJenisKegiatanMpt = idJenisKegiatanMptList[0];
+                  //
+                  //           return MipokaCustomDropdown(
+                  //             items: namaKegiatanList,
+                  //             onValueChanged: (value) {
+                  //               int index = namaKegiatanList.indexOf(value ?? "");
+                  //               _idNamaKegiatanMpt = idKegiatanMptList[index];
+                  //               _idJenisKegiatanMpt = idJenisKegiatanMptList[index];
+                  //             },
+                  //           );
+                  //         } else if (state is NamaKegiatanMptError) {
+                  //           return Text(state.message);
+                  //         } else {
+                  //           return const Text("NamaKegiatanBloc hasn't been triggered yet.");
+                  //         }
+                  //       },
+                  //     ),
+                  //
+                  //     const CustomFieldSpacer(),
+                  //
+                  //     buildTitle('Tahun'),
+                  //     BlocBuilder<PeriodeMptBloc, PeriodeMptState>(
+                  //       builder: (context, state) {
+                  //         if (state is PeriodeMptLoading) {
+                  //           return const Text("Loading ....");
+                  //         } else if (state is AllPeriodeMptHasData) {
+                  //           List<String> tahunPeriodeMptList = state.periodeMptList.map(
+                  //                   (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
+                  //               "${periodeMptList.tahunPeriodeMpt} (ulang)" :
+                  //               periodeMptList.tahunPeriodeMpt).toList();
+                  //
+                  //           List<int> idTahunPeriodeList = state.periodeMptList.map(
+                  //                   (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
+                  //
+                  //           _idPeriodeMpt = idTahunPeriodeList[0];
+                  //
+                  //           return MipokaCustomDropdown(
+                  //               items: tahunPeriodeMptList,
+                  //               onValueChanged: (value) {
+                  //                 int index = tahunPeriodeMptList.indexOf(value!);
+                  //                 _idPeriodeMpt = idTahunPeriodeList[index];
+                  //               }
+                  //           );
+                  //         } else if (state is PeriodeMptError) {
+                  //           return Text(state.message);
+                  //         } else {
+                  //           return const Text("PeriodeMptBloc hasn't been triggered yet.");
+                  //         }
+                  //       },
+                  //     ),
+                  //
+                  //     const CustomFieldSpacer(),
+                  //
+                  //     buildTitle('Tanggal mulai'),
+                  //     CustomDatePickerField(
+                  //       controller: _tanggalMulaiController,
+                  //     ),
+                  //
+                  //     const CustomFieldSpacer(),
+                  //
+                  //     buildTitle('Tanggal selesai'),
+                  //     CustomDatePickerField(
+                  //       controller: _tanggalSelesaiController,
+                  //     ),
+                  //
+                  //     const CustomFieldSpacer(),
+                  //
+                  //     buildTitle('Poin Kegiatan'),
+                  //     CustomTextField(
+                  //       textFieldWidth: 300,
+                  //       controller: _poinKegiatanController,
+                  //     ),
+                  //   ],
+                  // ) :
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      buildTitle('Nama Kegiatan'),
+                      BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
+                        builder: (context, state) {
+                          if (state is NamaKegiatanMptLoading) {
+                            return const Text("Loading ...");
+                          } else if (state is AllNamaKegiatanMptHasData) {
+                            List<String> namaKegiatanList = state.namaKegiatanMptList.map(
+                                    (namaKegiatanList) => namaKegiatanList.namaKegiatan).toList();
 
-                        List<int> idKegiatanMptList = state.namaKegiatanMptList.map(
-                                (namaKegiatanMptList) => namaKegiatanMptList.idNamaKegiatanMpt).toList();
+                            List<int> idKegiatanMptList = state.namaKegiatanMptList.map(
+                                    (namaKegiatanMptList) => namaKegiatanMptList.idNamaKegiatanMpt).toList();
 
-                        List<int> idJenisKegiatanMptList = state.namaKegiatanMptList.map(
-                                (jenisKegiatanMpt) => jenisKegiatanMpt.idJenisKegiatanMpt).toList();
+                            List<int> idJenisKegiatanMptList = state.namaKegiatanMptList.map(
+                                    (jenisKegiatanMpt) => jenisKegiatanMpt.idJenisKegiatanMpt).toList();
 
-                        _idNamaKegiatanMpt = idKegiatanMptList[0];
-                        _idJenisKegiatanMpt = idJenisKegiatanMptList[0];
+                            _idNamaKegiatanMpt = idKegiatanMptList[0];
+                            _idJenisKegiatanMpt = idJenisKegiatanMptList[0];
 
-                        return MipokaCustomDropdown(
-                          items: namaKegiatanList,
-                          onValueChanged: (value) {
-                            int index = namaKegiatanList.indexOf(value ?? "");
-                            _idNamaKegiatanMpt = idKegiatanMptList[index];
-                            _idJenisKegiatanMpt = idJenisKegiatanMptList[index];
-                          },
-                        );
-                      } else if (state is NamaKegiatanMptError) {
-                        return Text(state.message);
-                      } else {
-                        return const Text("NamaKegiatanBloc hasn't been triggered yet.");
-                      }
-                    },
-                  ),
+                            return MipokaCustomDropdown(
+                              items: namaKegiatanList,
+                              onValueChanged: (value) {
+                                int index = namaKegiatanList.indexOf(value ?? "");
+                                _idNamaKegiatanMpt = idKegiatanMptList[index];
+                                _idJenisKegiatanMpt = idJenisKegiatanMptList[index];
+                              },
+                            );
+                          } else if (state is NamaKegiatanMptError) {
+                            return Text(state.message);
+                          } else {
+                            return const Text("NamaKegiatanBloc hasn't been triggered yet.");
+                          }
+                        },
+                      ),
 
-                  const CustomFieldSpacer(),
+                      const CustomFieldSpacer(),
 
-                  buildTitle('Tahun'),
+                      buildTitle('Tahun'),
 
-                  BlocBuilder<PeriodeMptBloc, PeriodeMptState>(
-                    builder: (context, state) {
-                      if (state is PeriodeMptLoading) {
-                        return const Text("Loading ....");
-                      } else if (state is AllPeriodeMptHasData) {
-                        List<String> tahunPeriodeMptList = state.periodeMptList.map(
-                                (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
+                      BlocBuilder<PeriodeMptBloc, PeriodeMptState>(
+                        builder: (context, state) {
+                          if (state is PeriodeMptLoading) {
+                            return const Text("Loading ....");
+                          } else if (state is AllPeriodeMptHasData) {
+                            List<String> tahunPeriodeMptList = state.periodeMptList.map(
+                                    (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
                                 "${periodeMptList.tahunPeriodeMpt} (ulang)" :
                                 periodeMptList.tahunPeriodeMpt).toList();
 
-                        List<int> idTahunPeriodeList = state.periodeMptList.map(
-                                (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
+                            List<int> idTahunPeriodeList = state.periodeMptList.map(
+                                    (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
 
-                        _idPeriodeMpt = idTahunPeriodeList[0];
+                            _idPeriodeMpt = idTahunPeriodeList[0];
 
-                        return MipokaCustomDropdown(
-                          items: tahunPeriodeMptList,
-                          onValueChanged: (value) {
-                            int index = tahunPeriodeMptList.indexOf(value!);
-                            _idPeriodeMpt = idTahunPeriodeList[index];
+                            return MipokaCustomDropdown(
+                                items: tahunPeriodeMptList,
+                                onValueChanged: (value) {
+                                  int index = tahunPeriodeMptList.indexOf(value!);
+                                  _idPeriodeMpt = idTahunPeriodeList[index];
+                                }
+                            );
+                          } else if (state is PeriodeMptError) {
+                            return Text(state.message);
+                          } else {
+                            return const Text("PeriodeMptBloc hasn't been triggered yet.");
                           }
-                        );
-                      } else if (state is PeriodeMptError) {
-                        return Text(state.message);
-                      } else {
-                        return const Text("PeriodeMptBloc hasn't been triggered yet.");
-                      }
-                    },
+                        },
+                      ),
+
+                      const CustomFieldSpacer(),
+
+                      buildTitle('Tanggal mulai'),
+                      CustomDatePickerField(
+                        controller: _tanggalMulaiController,
+                      ),
+
+                      const CustomFieldSpacer(),
+
+                      buildTitle('Tanggal selesai'),
+                      CustomDatePickerField(
+                        controller: _tanggalSelesaiController,
+                      ),
+
+                      const CustomFieldSpacer(),
+
+                      buildTitle('Poin Kegiatan'),
+                      CustomTextField(
+                        textFieldWidth: 400,
+                        controller: _poinKegiatanController,
+                      ),
+                    ],
                   ),
 
-                  const CustomFieldSpacer(),
-
-                  buildTitle('Tanggal mulai'),
-                  CustomDatePickerField(
-                    controller: _tanggalMulaiController,
-                  ),
-
-                  const CustomFieldSpacer(),
-
-                  buildTitle('Tanggal selesai'),
-                  CustomDatePickerField(
-                    controller: _tanggalSelesaiController,
-                  ),
-                  
-                  const CustomFieldSpacer(),
-                  
-                  buildTitle('Poin Kegiatan'),
-                  CustomTextField(controller: _poinKegiatanController),
 
                   const CustomFieldSpacer(),
 

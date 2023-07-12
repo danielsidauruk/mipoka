@@ -48,6 +48,8 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
 
@@ -67,87 +69,219 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
               CustomContentBox(
                 children: [
 
-                  CustomAddButton(
-                    buttonText: 'Tambah',
-                    onPressed: () => Navigator.pushNamed(
-                      context,
-                      kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute,
-                    ),
+                  size.width > 700 ?
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomAddButton(
+                            buttonText: 'Tambah',
+                            onPressed: () => Navigator.pushNamed(
+                              context,
+                              kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute,
+                            ),
+                          ),
+
+                          const SizedBox(width: 8.0),
+
+                          CustomFilterButton(
+                            text: 'Filter',
+                            onPressed: () => context.read<MhsPerPeriodeMptBloc>().add(
+                                ReadAllMhsPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_prodi/$_jumlahPoint/${_nimController.text}")),
+                          ),
+                        ],
+                      ),
+
+                      const CustomFieldSpacer(),
+
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              buildTitle('Periode Kegiatan'),
+                              BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
+                                builder: (context, state) {
+                                  if (state is PeriodeMptDropDownLoading) {
+                                    return const Text("Loading ....");
+                                  } else if (state is PeriodeMptDropDownHasData) {
+
+                                    List<String> tahunPeriodeMptList = state.periodeMptList.map(
+                                            (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
+                                        "${periodeMptList.tahunPeriodeMpt} (ulang)" :
+                                        periodeMptList.tahunPeriodeMpt).toList();
+                                    tahunPeriodeMptList.insert(0, "Semua");
+
+                                    List<int> idTahunPeriodeList = state.periodeMptList.map(
+                                            (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
+                                    idTahunPeriodeList.insert(0, 0);
+
+                                    return MipokaCustomDropdown(
+                                        items: tahunPeriodeMptList,
+                                        onValueChanged: (value) {
+                                          int index = tahunPeriodeMptList.indexOf(value!);
+                                          int idPeriodeMpt = idTahunPeriodeList[index];
+
+                                          // print("$idPeriodeMpt, $value");
+
+                                          _idPeriodeKegiatanMpt = idPeriodeMpt;
+                                        }
+                                    );
+                                  } else if (state is PeriodeMptDropDownError) {
+                                    return Text(state.message);
+                                  } else {
+                                    return const Text("PeriodeMptBloc hasn't been triggered yet.");
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+
+                          const SizedBox(width: 8.0),
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              buildTitle('Prodi'),
+
+                              MipokaCustomDropdown(
+                                items: listProdi,
+                                onValueChanged: (value) {
+                                  _prodi = value;
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+
+                      const CustomFieldSpacer(),
+
+                      Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              buildTitle('Jumlah Poin'),
+                              MipokaCustomDropdown(
+                                items: listJumlahPoint,
+                                onValueChanged: (value) {
+                                  _jumlahPoint = value;
+                                },
+                              ),
+                            ],
+                          ),
+
+                          const SizedBox(width: 8.0),
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              buildTitle('NIM'),
+                              CustomTextField(
+                                controller: _nimController,
+                                textFieldWidth: 300,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ) :
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomFilterButton(
+                        text: 'Filter',
+                        onPressed: () => context.read<MhsPerPeriodeMptBloc>().add(
+                            ReadAllMhsPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_prodi/$_jumlahPoint/${_nimController.text}")),
+                      ),
+
+                      const CustomFieldSpacer(),
+
+                      buildTitle('Periode Kegiatan'),
+                      BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
+                        builder: (context, state) {
+                          if (state is PeriodeMptDropDownLoading) {
+                            return const Text("Loading ....");
+                          } else if (state is PeriodeMptDropDownHasData) {
+
+                            List<String> tahunPeriodeMptList = state.periodeMptList.map(
+                                    (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
+                                "${periodeMptList.tahunPeriodeMpt} (ulang)" :
+                                periodeMptList.tahunPeriodeMpt).toList();
+                            tahunPeriodeMptList.insert(0, "Semua");
+
+                            List<int> idTahunPeriodeList = state.periodeMptList.map(
+                                    (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
+                            idTahunPeriodeList.insert(0, 0);
+
+                            return MipokaCustomDropdown(
+                                items: tahunPeriodeMptList,
+                                onValueChanged: (value) {
+                                  int index = tahunPeriodeMptList.indexOf(value!);
+                                  int idPeriodeMpt = idTahunPeriodeList[index];
+
+                                  // print("$idPeriodeMpt, $value");
+
+                                  _idPeriodeKegiatanMpt = idPeriodeMpt;
+                                }
+                            );
+                          } else if (state is PeriodeMptDropDownError) {
+                            return Text(state.message);
+                          } else {
+                            return const Text("PeriodeMptBloc hasn't been triggered yet.");
+                          }
+                        },
+                      ),
+
+                      const CustomFieldSpacer(),
+
+                      buildTitle('Prodi'),
+                      MipokaCustomDropdown(
+                        items: listProdi,
+                        onValueChanged: (value) {
+                          _prodi = value;
+                        },
+                      ),
+
+                      const CustomFieldSpacer(),
+
+                      buildTitle('Jumlah Poin'),
+                      MipokaCustomDropdown(
+                        items: listJumlahPoint,
+                        onValueChanged: (value) {
+                          _jumlahPoint = value;
+                        },
+                      ),
+
+                      const CustomFieldSpacer(),
+
+                      buildTitle('NIM'),
+                      CustomTextField(
+                        controller: _nimController,
+                        textFieldWidth: 300,
+                      ),
+
+                      const CustomFieldSpacer(),
+
+                      CustomAddButton(
+                        buttonText: 'Tambah',
+                        onPressed: () => Navigator.pushNamed(
+                          context,
+                          kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute,
+                        ),
+                      ),
+                    ],
                   ),
 
                   const CustomFieldSpacer(),
-
-                  buildTitle('Periode Kegiatan'),
-                  BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
-                    builder: (context, state) {
-                      if (state is PeriodeMptDropDownLoading) {
-                        return const Text("Loading ....");
-                      } else if (state is PeriodeMptDropDownHasData) {
-
-                        List<String> tahunPeriodeMptList = state.periodeMptList.map(
-                                (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
-                            "${periodeMptList.tahunPeriodeMpt} (ulang)" :
-                            periodeMptList.tahunPeriodeMpt).toList();
-                        tahunPeriodeMptList.insert(0, "Semua");
-
-                        List<int> idTahunPeriodeList = state.periodeMptList.map(
-                                (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
-                        idTahunPeriodeList.insert(0, 0);
-
-                        return MipokaCustomDropdown(
-                            items: tahunPeriodeMptList,
-                            onValueChanged: (value) {
-                              int index = tahunPeriodeMptList.indexOf(value!);
-                              int idPeriodeMpt = idTahunPeriodeList[index];
-
-                              // print("$idPeriodeMpt, $value");
-
-                              _idPeriodeKegiatanMpt = idPeriodeMpt;
-                            }
-                        );
-                      } else if (state is PeriodeMptDropDownError) {
-                        return Text(state.message);
-                      } else {
-                        return const Text("PeriodeMptBloc hasn't been triggered yet.");
-                      }
-                    },
-                  ),
-
-                  const CustomFieldSpacer(),
-
-                  buildTitle('Prodi'),
-                  MipokaCustomDropdown(
-                    items: listProdi,
-                    onValueChanged: (value) {
-                      _prodi = value;
-                    },
-                  ),
-
-                  const CustomFieldSpacer(),
-
-                  buildTitle('Jumlah Poin'),
-                  MipokaCustomDropdown(
-                    items: listJumlahPoint,
-                    onValueChanged: (value) {
-                      _jumlahPoint = value;
-                    },
-                  ),
-
-                  const CustomFieldSpacer(),
-
-                  buildTitle('NIM'),
-                  CustomTextField(
-                    controller: _nimController,
-                    textFieldWidth: 300,
-                  ),
-
-                  const CustomFieldSpacer(),
-
-                  CustomFilterButton(
-                    text: 'Filter',
-                    onPressed: () => context.read<MhsPerPeriodeMptBloc>().add(
-                        ReadAllMhsPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_prodi/$_jumlahPoint/${_nimController.text}")),
-                  ),
 
                   BlocBuilder<MhsPerPeriodeMptBloc, MhsPerPeriodeMptState>(
                     builder: (context, state) {

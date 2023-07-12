@@ -21,7 +21,7 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
   void initState() {
     super.initState();
     BlocProvider.of<BeritaBloc>(context, listen: false)
-        .add(ReadAllBeritaEvent());
+        .add(const ReadAllBeritaEvent());
   }
 
   @override
@@ -45,13 +45,6 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
 
                     CustomContentBox(
                       children: [
-                        Container(
-                          margin: const EdgeInsets.all(4.0),
-                          child: Image.network(
-                            state.allBerita[0].gambar,
-                            height: 170,
-                          ),
-                        ),
                         ListView.builder(
                           itemCount: state.allBerita.length,
                           physics: const ScrollPhysics(),
@@ -65,7 +58,10 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
                                 arguments: berita,
                               ),
                               child: Container(
-                                constraints: const BoxConstraints(minHeight: 80),
+                                constraints: const BoxConstraints(
+                                  minHeight: 80,
+                                  maxHeight: 120,
+                                ),
                                 margin: const EdgeInsets.all(4.0),
                                 padding: const EdgeInsets.all(4.0),
                                 decoration: BoxDecoration(
@@ -73,22 +69,19 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
                                 ),
                                 child: Row(
                                   children: [
-                                    Expanded(
-                                      flex: 1,
-                                      child: Container(
-                                        margin: const EdgeInsets.all(4.0),
-                                        child: AspectRatio(
-                                          aspectRatio: 1.0,
-                                          child: Image.network(
-                                            berita.gambar,
-                                            fit: BoxFit.cover,
-                                          ),
+                                    Container(
+                                      constraints: const BoxConstraints(maxWidth: 100),
+                                      margin: const EdgeInsets.all(4.0),
+                                      child: AspectRatio(
+                                        aspectRatio: 1.0,
+                                        child: Image.network(
+                                          berita.gambar,
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
                                     ),
                                     const SizedBox(width: 4.0),
                                     Expanded(
-                                      flex: 3,
                                       child: Container(
                                         padding: const EdgeInsets.all(4.0),
                                         child: Column(

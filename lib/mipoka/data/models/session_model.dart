@@ -1,10 +1,15 @@
+import 'package:mipoka/mipoka/data/models/mipoka_user_model.dart';
+import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/domain/entities/session.dart';
 
 class SessionModel extends Session {
+  final MipokaUserModel userModel;
+  final OrmawaModel ormawaModel;
+
   const SessionModel({
     required super.idSession,
-    required super.idUser,
-    required super.idOrmawa,
+    required this.userModel,
+    required this.ormawaModel,
     required super.tanggalMulai,
     required super.tanggalSelesai,
     required super.ruangan,
@@ -28,13 +33,16 @@ class SessionModel extends Session {
     required super.createdAt,
     required super.updatedBy,
     required super.createdBy,
-  });
+  }) : super(
+    user: userModel,
+    ormawa: ormawaModel,
+  );
 
   factory SessionModel.fromEntity(Session session) {
     return SessionModel(
       idSession: session.idSession,
-      idUser: session.idUser,
-      idOrmawa: session.idOrmawa,
+      userModel: MipokaUserModel.fromEntity(session.user),
+      ormawaModel: OrmawaModel.fromEntity(session.ormawa),
       tanggalMulai: session.tanggalMulai,
       tanggalSelesai: session.tanggalSelesai,
       ruangan: session.ruangan,
@@ -63,8 +71,8 @@ class SessionModel extends Session {
 
   factory SessionModel.fromJson(Map<String, dynamic> json) => SessionModel(
     idSession: json["id_session"],
-    idUser: json["id_user"],
-    idOrmawa: json["id_ormawa"],
+    userModel: MipokaUserModel.fromJson(json["user"]),
+    ormawaModel: OrmawaModel.fromJson(json["ormawa"]),
     tanggalMulai: json["tanggal_mulai"],
     tanggalSelesai: json["tanggal_selesai"],
     ruangan: json["ruangan"],
@@ -92,8 +100,8 @@ class SessionModel extends Session {
 
   Map<String, dynamic> toJson() => {
     "id_session": idSession,
-    "id_user": idUser,
-    "id_ormawa": idOrmawa,
+    "user": userModel.toJson(),
+    "ormawa": ormawaModel.toJson(),
     "tanggal_mulai": tanggalMulai,
     "tanggal_selesai": tanggalSelesai,
     "ruangan": ruangan,

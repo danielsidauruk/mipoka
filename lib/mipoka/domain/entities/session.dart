@@ -1,9 +1,11 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
+import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 
 class Session extends Equatable{
   final int idSession;
-  final String idUser;
-  final int idOrmawa;
+  final MipokaUser user;
+  final Ormawa ormawa;
   final String tanggalMulai;
   final String tanggalSelesai;
   final String ruangan;
@@ -30,8 +32,8 @@ class Session extends Equatable{
 
   const Session({
     required this.idSession,
-    required this.idUser,
-    required this.idOrmawa,
+    required this.user,
+    required this.ormawa,
     required this.tanggalMulai,
     required this.tanggalSelesai,
     required this.ruangan,
@@ -59,8 +61,8 @@ class Session extends Equatable{
 
   Session copyWith({
     int? idSession,
-    String? idUser,
-    int? idOrmawa,
+    MipokaUser? user,
+    Ormawa? ormawa,
     String? tanggalMulai,
     String? tanggalSelesai,
     String? ruangan,
@@ -87,8 +89,8 @@ class Session extends Equatable{
   }) =>
       Session(
         idSession: idSession ?? this.idSession,
-        idUser: idUser ?? this.idUser,
-        idOrmawa: idOrmawa ?? this.idOrmawa,
+        user: user ?? this.user,
+        ormawa:ormawa ?? this.ormawa,
         tanggalMulai: tanggalMulai ?? this.tanggalMulai,
         tanggalSelesai: tanggalSelesai ?? this.tanggalSelesai,
         ruangan: ruangan ?? this.ruangan,
@@ -117,8 +119,8 @@ class Session extends Equatable{
   @override
   List<Object?> get props => [
     idSession,
-    idUser,
-    idOrmawa,
+    user,
+    ormawa,
     tanggalMulai,
     tanggalSelesai,
     ruangan,

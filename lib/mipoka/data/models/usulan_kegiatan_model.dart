@@ -1,18 +1,23 @@
 import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
+import 'package:mipoka/mipoka/data/models/mipoka_user_model.dart';
+import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
 import 'package:mipoka/mipoka/data/models/tertib_acara_model.dart';
+import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 
 class UsulanKegiatanModel extends UsulanKegiatan {
 
+  final MipokaUserModel userModel;
+  final OrmawaModel ormawaModel;
   final List<PartisipanModel> partisipanModel;
   final List<BiayaKegiatanModel> biayaKegiatanModel;
   final List<TertibAcaraModel> tertibAcaraModel;
 
   const UsulanKegiatanModel({
     required super.idUsulan,
-    required super.idUser,
-    required super.idOrmawa,
+    required this.userModel,
+    required this.ormawaModel,
     required super.pembiayaan,
     required super.namaKegiatan,
     required super.bentukKegiatan,
@@ -62,13 +67,15 @@ class UsulanKegiatanModel extends UsulanKegiatan {
     partisipan: partisipanModel,
     biayaKegiatan: biayaKegiatanModel,
     tertibAcara: tertibAcaraModel,
+    user: userModel,
+    ormawa: ormawaModel,
   );
 
   factory UsulanKegiatanModel.fromEntity(UsulanKegiatan usulanKegiatan) {
     return UsulanKegiatanModel(
       idUsulan: usulanKegiatan.idUsulan,
-      idUser: usulanKegiatan.idUser,
-      idOrmawa: usulanKegiatan.idOrmawa,
+      userModel: MipokaUserModel.fromEntity(usulanKegiatan.user),
+      ormawaModel: OrmawaModel.fromEntity(usulanKegiatan.ormawa),
       pembiayaan: usulanKegiatan.pembiayaan,
       namaKegiatan: usulanKegiatan.namaKegiatan,
       bentukKegiatan: usulanKegiatan.bentukKegiatan,
@@ -122,8 +129,8 @@ class UsulanKegiatanModel extends UsulanKegiatan {
 
   factory UsulanKegiatanModel.fromJson(Map<String, dynamic> json) => UsulanKegiatanModel(
     idUsulan: json["id_usulan"],
-    idUser: json["id_user"],
-    idOrmawa: json["id_ormawa"],
+    userModel: MipokaUserModel.fromJson(json["user"]),
+    ormawaModel: OrmawaModel.fromJson(json["ormawa"]),
     pembiayaan: json["pembiayaan"],
     namaKegiatan: json["nama_kegiatan"],
     bentukKegiatan: json["bentuk_kegiatan"],
@@ -173,8 +180,8 @@ class UsulanKegiatanModel extends UsulanKegiatan {
 
   Map<String, dynamic> toJson() => {
     "id_usulan": idUsulan,
-    "id_user": idUser,
-    "id_ormawa": idOrmawa,
+    "user": userModel.toJson(),
+    "ormawa": ormawaModel.toJson(),
     "pembiayaan": pembiayaan,
     "nama_kegiatan": namaKegiatan,
     "bentuk_kegiatan": bentukKegiatan,

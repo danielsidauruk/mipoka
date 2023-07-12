@@ -48,6 +48,7 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
             children: [
               const CustomMobileTitle(
                   text: 'Kemahasiswaan - MPT Mahasiswa - Periode'),
+
               const CustomFieldSpacer(),
 
               CustomContentBox(
@@ -57,7 +58,8 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
                     onPressed: () => Navigator.pushNamed(
                       context,
                       kemahasiswaanMPTMahasiswaTambahPeriodePageRoute,
-                    ),
+                    ).then((_) => context.read<PeriodeMptBloc>().add(
+                        ReadAllPeriodeMptEvent())),
                   ),
                   const CustomFieldSpacer(),
 
@@ -151,7 +153,8 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
                                                   context,
                                                   kemahasiswaanMPTMahasiswaPeriodeEditPageRoute,
                                                   arguments: periodeMpt,
-                                                ),
+                                                ).then((_) => context.read<PeriodeMptBloc>().add(
+                                                    ReadAllPeriodeMptEvent())),
                                                 child: Image.asset(
                                                   'assets/icons/edit.png',
                                                   width: 24,
@@ -186,7 +189,7 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
                       } else if (state is PeriodeMptError) {
                         return Text(state.message);
                       } else {
-                        return const Text("PeriodeMpt hasn't Triggered yet.");
+                        return const Text("PeriodeMpt hasn't Triggered yet awoawok.");
                       }
                     },
                   ),
