@@ -37,7 +37,7 @@
         "updated_at": "2023-06-26",
         "updated_by": "Jane Smith"
       },
-  
+
       {
         "id_partisipan": 35,
         "no_induk": "12345678",
@@ -65,7 +65,7 @@
         "created_by": "John Doe",
         "updated_at": "2023-06-26",
         "updated_by": "Jane Smith"
-  
+
       },
       {
         "id_biaya_kegiatan": 234242,
@@ -166,7 +166,7 @@
         "updated_at": "2023-06-26",
         "updated_by": "Jane Smith"
       },
-  
+
       {
         "id_partisipan": 35,
         "no_induk": "12345678",
@@ -194,7 +194,7 @@
         "created_by": "John Doe",
         "updated_at": "2023-06-26",
         "updated_by": "Jane Smith"
-  
+
       },
       {
         "id_biaya_kegiatan": 234242,
@@ -295,7 +295,7 @@
         "updated_at": "2023-06-26",
         "updated_by": "Jane Smith"
       },
-  
+
       {
         "id_partisipan": 35,
         "no_induk": "12345678",
@@ -323,7 +323,7 @@
         "created_by": "John Doe",
         "updated_at": "2023-06-26",
         "updated_by": "Jane Smith"
-  
+
       },
       {
         "id_biaya_kegiatan": 234242,
