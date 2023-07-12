@@ -1,11 +1,16 @@
+import 'package:mipoka/mipoka/data/models/nama_kegiatan_mpt_model.dart';
+import 'package:mipoka/mipoka/data/models/periode_mpt_model.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 
 class KegiatanPerPeriodeMptModel extends KegiatanPerPeriodeMpt{
+
+  final NamaKegiatanMptModel namaKegiatanMptModel;
+  final PeriodeMptModel periodeMptModel;
+
   const KegiatanPerPeriodeMptModel({
     required super.idKegiatanPerPeriodeMpt,
-    required super.idNamaKegiatanMpt,
-    required super.idPeriodeMpt,
-    required super.idJenisKegiatanMpt,
+    required this.namaKegiatanMptModel,
+    required this.periodeMptModel,
     required super.tanggalMulaiKegiatanPerPeriodeMpt,
     required super.tanggalSelesaiKegiatanPerPeriodeMpt,
     required super.pointMptDiperoleh,
@@ -13,14 +18,16 @@ class KegiatanPerPeriodeMptModel extends KegiatanPerPeriodeMpt{
     required super.createdBy,
     required super.updatedAt,
     required super.updatedBy,
-  });
+  }) : super(
+    namaKegiatanMpt: namaKegiatanMptModel,
+    periodeMpt: periodeMptModel,
+  );
 
   factory KegiatanPerPeriodeMptModel.fromEntity(KegiatanPerPeriodeMpt kegiatanMpt) {
     return KegiatanPerPeriodeMptModel(
       idKegiatanPerPeriodeMpt: kegiatanMpt.idKegiatanPerPeriodeMpt,
-      idNamaKegiatanMpt: kegiatanMpt.idNamaKegiatanMpt,
-      idPeriodeMpt: kegiatanMpt.idPeriodeMpt,
-      idJenisKegiatanMpt: kegiatanMpt.idJenisKegiatanMpt,
+      namaKegiatanMptModel: NamaKegiatanMptModel.fromEntity(kegiatanMpt.namaKegiatanMpt),
+      periodeMptModel: PeriodeMptModel.fromEntity(kegiatanMpt.periodeMpt),
       tanggalMulaiKegiatanPerPeriodeMpt: kegiatanMpt.tanggalMulaiKegiatanPerPeriodeMpt,
       tanggalSelesaiKegiatanPerPeriodeMpt: kegiatanMpt.tanggalSelesaiKegiatanPerPeriodeMpt,
       pointMptDiperoleh: kegiatanMpt.pointMptDiperoleh,
@@ -33,9 +40,8 @@ class KegiatanPerPeriodeMptModel extends KegiatanPerPeriodeMpt{
 
   factory KegiatanPerPeriodeMptModel.fromJson(Map<String, dynamic> json) => KegiatanPerPeriodeMptModel(
     idKegiatanPerPeriodeMpt: json["id_kegiatan_per_periode_mpt"],
-    idPeriodeMpt: json["id_periode_mpt"],
-    idNamaKegiatanMpt: json["id_nama_kegiatan_mpt"],
-    idJenisKegiatanMpt: json["id_jenis_kegiatan_mpt"],
+    periodeMptModel: PeriodeMptModel.fromJson(json["periode_mpt"]),
+    namaKegiatanMptModel: NamaKegiatanMptModel.fromJson(json["nama_kegiatan_mpt"]),
     tanggalMulaiKegiatanPerPeriodeMpt: json["tanggal_mulai_kegiatan_per_periode_mpt"],
     tanggalSelesaiKegiatanPerPeriodeMpt: json["tanggal_selesai_kegiatan_per_periode_mpt"],
     pointMptDiperoleh: json["point_mpt_diperoleh"],
@@ -47,9 +53,8 @@ class KegiatanPerPeriodeMptModel extends KegiatanPerPeriodeMpt{
 
   Map<String, dynamic> toJson() => {
     "id_kegiatan_per_periode_mpt": idKegiatanPerPeriodeMpt,
-    "id_periode_mpt": idPeriodeMpt,
-    "id_nama_kegiatan_mpt": idNamaKegiatanMpt,
-    "id_jenis_kegiatan_mpt": idJenisKegiatanMpt,
+    "periode_mpt": periodeMptModel.toJson(),
+    "nama_kegiatan_mpt": namaKegiatanMptModel.toJson(),
     "tanggal_mulai_kegiatan_per_periode_mpt": tanggalMulaiKegiatanPerPeriodeMpt,
     "tanggal_selesai_kegiatan_per_periode_mpt": tanggalSelesaiKegiatanPerPeriodeMpt,
     "point_mpt_diperoleh": pointMptDiperoleh,
