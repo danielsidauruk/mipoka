@@ -1,7 +1,58 @@
 {
   "id_user": "24313sfa1",
-  "id_ormawa": [
-    23423
+  "ormawa": [
+    {
+      "id_ormawa": 33333,
+      "nama_ormawa": "Mikroskil Esport",
+      "nama_singkatan_ormawa": "ME",
+      "logo_ormawa": "link_photo",
+      "list_anggota": [
+        "wfqfeq",
+        "1314321",
+        "12343r1r2"
+      ],
+      "pembina": "Pembina Ormawa",
+      "ketua": "Ketua Ormawa",
+      "wakil": "Wakil Ketua Ormawa",
+      "sekretaris": "Sekretaris Ormawa",
+      "bendahara": "Bendahara Ormawa",
+      "jumlah_anggota": 50,
+      "foto_pembina": "link_foto_pembina",
+      "foto_ketua": "link_foto_ketua",
+      "foto_wakil": "link_foto_wakil",
+      "foto_sekretaris": "link_foto_sekretaris",
+      "foto_bendahara": "link_foto_bendahara",
+      "created_at": "2023-06-26",
+      "created_by": "John Doe",
+      "updated_by": "Jane Smith",
+      "updated_at": "2023-06-26"
+    },
+    {
+      "id_ormawa": 4433,
+      "nama_ormawa": "Mikroskil Singing Club",
+      "nama_singkatan_ormawa": "MSC",
+      "logo_ormawa": "link_photo",
+      "list_anggota": [
+        "wfqfeq",
+        "1314321",
+        "12343r1r2"
+      ],
+      "pembina": "Pembina Ormawa",
+      "ketua": "Ketua Ormawa",
+      "wakil": "Wakil Ketua Ormawa",
+      "sekretaris": "Sekretaris Ormawa",
+      "bendahara": "Bendahara Ormawa",
+      "jumlah_anggota": 50,
+      "foto_pembina": "link_foto_pembina",
+      "foto_ketua": "link_foto_ketua",
+      "foto_wakil": "link_foto_wakil",
+      "foto_sekretaris": "link_foto_sekretaris",
+      "foto_bendahara": "link_foto_bendahara",
+      "created_at": "2023-06-26",
+      "created_by": "John Doe",
+      "updated_by": "Jane Smith",
+      "updated_at": "2023-06-26"
+    }
   ],
   "email": "john.doe@example.com",
   "nama_lengkap": "John Doe",
