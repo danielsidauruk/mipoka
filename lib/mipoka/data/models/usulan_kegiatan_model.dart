@@ -3,7 +3,6 @@ import 'package:mipoka/mipoka/data/models/mipoka_user_model.dart';
 import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
 import 'package:mipoka/mipoka/data/models/tertib_acara_model.dart';
-import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 
 class UsulanKegiatanModel extends UsulanKegiatan {
