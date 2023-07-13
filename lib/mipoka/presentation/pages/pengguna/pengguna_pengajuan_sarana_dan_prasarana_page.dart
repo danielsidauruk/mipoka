@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -17,6 +18,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_time_picker_field.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class PenggunaPengajuanSaranaDanPrasarana extends StatefulWidget {
   const PenggunaPengajuanSaranaDanPrasarana({
@@ -51,7 +53,7 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
   final TextEditingController _ruangController = TextEditingController();
   final TextEditingController _waktuMulaiController = TextEditingController();
   final TextEditingController _waktuSelesaiController = TextEditingController();
-  int? _idOrmawaController;
+  Ormawa? _ormawa;
 
   final TextEditingController _proyektorLcdController = TextEditingController();
   final TextEditingController _laptopController = TextEditingController();
@@ -82,7 +84,7 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
 
             context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
 
-            _idOrmawaController  = session.idOrmawa;
+            _ormawa = session.ormawa;
             _tanggalMulaiController.text = session.tanggalMulai;
             _tanggalSelesaiController.text = session.tanggalSelesai;
             _gedungController.text = session.gedung;
@@ -122,18 +124,19 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                               List<String> ormawaList = state.ormawaList.map(
                                       (ormawa) => ormawa.namaOrmawa).toList();
 
-                              List<int> idOrmawaList = state.ormawaList.map(
-                                      (ormawa) => ormawa.idOrmawa).toList();
+                              // List<int> idOrmawaList = state.ormawaList.map(
+                              //         (ormawa) => ormawa.idOrmawa).toList();
 
-                              _idOrmawaController = idOrmawaList[0];
+                              // _idOrmawaController = idOrmawaList[0];
+                              _ormawa = state.ormawaList[0];
 
                               return MipokaCustomDropdown(
                                   items: ormawaList,
                                   onValueChanged: (value) {
                                     int index = ormawaList.indexOf(value!);
-                                    int idOrmawa = idOrmawaList[index];
-
-                                    _idOrmawaController = idOrmawa;
+                                    // int idOrmawa = idOrmawaList[index];
+                                    _ormawa = state.ormawaList[index];
+                                    // _idOrmawaController = idOrmawa;
                                   }
                               );
                             } else if (state is OrmawaError) {
@@ -246,36 +249,59 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                             ),
                             const SizedBox(width: 8.0),
                             CustomMipokaButton(
-                              onTap: () => Future.microtask(() {
-                                context.read<SessionBloc>().add(
-                                    UpdateSessionEvent(
-                                      session: session.copyWith(
-                                        idOrmawa: _idOrmawaController,
-                                        tanggalMulai: _tanggalMulaiController.text,
-                                        tanggalSelesai: _tanggalSelesaiController.text,
-                                        gedung: _gedungController.text,
-                                        ruangan: _ruangController.text,
-                                        waktuMulaiPenggunaan: _waktuMulaiController.text,
-                                        waktuSelesaiPenggunaan: _waktuSelesaiController.text,
-                                        proyektor: int.parse(_proyektorLcdController.text),
-                                        laptop: int.parse(_laptopController.text),
-                                        mikrofon: int.parse(_mikrofonController.text),
-                                        speaker: int.parse(_speakerController.text),
-                                        meja: int.parse(_mejaController.text),
-                                        kursi: int.parse(_kursiController.text),
-                                        papanTulis: int.parse(_papanTulisController.text),
-                                        spidol: int.parse(_spidolController.text),
-                                        lainLain: _lainController.text,
-                                        updatedBy: user?.email ?? "unknown",
-                                        updatedAt: currentDate,
+                              onTap: () {
+                                if (_tanggalMulaiController.text.isNotEmpty &&
+                                    _tanggalSelesaiController.text.isNotEmpty &&
+                                    _gedungController.text.isNotEmpty &&
+                                    _ruangController.text.isNotEmpty &&
+                                    _waktuMulaiController.text.isNotEmpty &&
+                                    _waktuSelesaiController.text.isNotEmpty) {
+                                  try {
+                                    final proyektorLcd = int.tryParse(_proyektorLcdController.text);
+                                    final laptop = int.tryParse(_laptopController.text);
+                                    final mikrofon = int.tryParse(_mikrofonController.text);
+                                    final speaker = int.tryParse(_speakerController.text);
+                                    final meja = int.tryParse(_mejaController.text);
+                                    final kursi = int.tryParse(_kursiController.text);
+                                    final papanTulis = int.tryParse(_papanTulisController.text);
+                                    final spidol = int.tryParse(_spidolController.text);
+
+                                    mipokaCustomToast("Pengajuan Sarana & Prasarana telah dikirim.");
+                                    context.read<SessionBloc>().add(
+                                      UpdateSessionEvent(
+                                        session: session.copyWith(
+                                          ormawa: _ormawa,
+                                          tanggalMulai: _tanggalMulaiController.text,
+                                          tanggalSelesai: _tanggalSelesaiController.text,
+                                          gedung: _gedungController.text,
+                                          ruangan: _ruangController.text,
+                                          waktuMulaiPenggunaan: _waktuMulaiController.text,
+                                          waktuSelesaiPenggunaan: _waktuSelesaiController.text,
+                                          proyektor: proyektorLcd,
+                                          laptop: laptop,
+                                          mikrofon: mikrofon,
+                                          speaker: speaker,
+                                          meja: meja,
+                                          kursi: kursi,
+                                          papanTulis: papanTulis,
+                                          spidol: spidol,
+                                          lainLain: _lainController.text,
+                                          updatedBy: user?.email ?? "unknown",
+                                          updatedAt: currentDate,
+                                        ),
                                       ),
-                                    )
-                                );
-                                Navigator.pushNamed(
-                                  context,
-                                  penggunaDaftarPengajuanSaranaDanPrasaranaPageRoute,
-                                );
-                              }),
+                                    );
+                                    Navigator.pushNamed(
+                                      context,
+                                      penggunaDaftarPengajuanSaranaDanPrasaranaPageRoute,
+                                    );
+                                  } catch (e) {
+                                    mipokaCustomToast(dataTypeErrorMessage);
+                                  }
+                                } else {
+                                  mipokaCustomToast(emptyFieldMessage);
+                                }
+                              },
                               text: 'Kirim',
                             ),
                           ],
