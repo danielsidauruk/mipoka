@@ -33,7 +33,7 @@ class Prestasi extends Equatable {
 
   Prestasi copyWith({
     int? idPrestasi,
-    MipokaUser? user,
+    MipokaUser? mipokaUser,
     Ormawa? ormawa,
     String? namaKegiatan,
     String? waktuPenyelenggaraan,
@@ -47,7 +47,7 @@ class Prestasi extends Equatable {
   }) =>
       Prestasi(
         idPrestasi: idPrestasi ?? this.idPrestasi,
-        mipokaUser: user ?? this.mipokaUser,
+        mipokaUser: mipokaUser ?? this.mipokaUser,
         ormawa:ormawa ?? this.ormawa,
         namaKegiatan: namaKegiatan ?? this.namaKegiatan,
         waktuPenyelenggaraan: waktuPenyelenggaraan ?? this.waktuPenyelenggaraan,

@@ -5,6 +5,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_drop_down_bloc/jenis_kegiatan_drop_down_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -30,7 +31,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageState extends 
 
   @override
   void initState() {
-    context.read<JenisKegiatanDropDownBloc>().add(ReadJenisKegiatanDropDownEvent());
+    context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
     super.initState();
   }
   @override
@@ -61,29 +62,30 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageState extends 
                   const CustomFieldSpacer(),
 
                   buildTitle('Jenis Kegiatan'),
-                  BlocBuilder<JenisKegiatanDropDownBloc, JenisKegiatanDropDownState>(
+                  BlocBuilder<JenisKegiatanMptBloc, JenisKegiatanMptState>(
                     builder: (context, state) {
-                      if (state is JenisKegiatanDropDownLoading) {
+                      if (state is JenisKegiatanMptLoading) {
                         return const Text("Loading ...");
-                      } else if (state is JenisKegiatanDropDownHasData) {
+                      } else if (state is AllJenisKegiatanMptHasData) {
+                        final jenisKegiatanMpt = state.jenisKegiatanMptList;
 
-                        List<String> jenisKegiatanList = state.jenisKegiatanMptList.map(
+                        List<String> jenisKegiatanDropDownList = jenisKegiatanMpt.map(
                                 (jenisKegiatanList) => jenisKegiatanList.namaJenisKegiatanMpt).toList();
 
-                        List<int> idNamaKegiatanList = state.jenisKegiatanMptList.map(
-                                (jenisKegiatanMptList) => jenisKegiatanMptList.idJenisKegiatanMpt).toList();
-
-                        _jenisKegiatanMpt = state.jenisKegiatanMptList[0];
+                        _jenisKegiatanMpt = jenisKegiatanMpt[0];
+                        String initialItem = jenisKegiatanDropDownList[0];
 
                         return MipokaCustomDropdown(
-                          items: jenisKegiatanList,
+                          items: jenisKegiatanDropDownList,
+                          initialItem: initialItem,
                           onValueChanged: (value) {
-                            int index = jenisKegiatanList.indexOf(value ?? "");
+                            int index = jenisKegiatanDropDownList.indexOf(value ?? "");
+                            initialItem = jenisKegiatanDropDownList[index];
                             _jenisKegiatanMpt = state.jenisKegiatanMptList[index];
                           },
                         );
 
-                      } else if (state is JenisKegiatanDropDownError) {
+                      } else if (state is JenisKegiatanMptError) {
                         return Text(state.message);
                       } else {
                         return const Text("NamaKegiatanBloc hasn't been triggered yet.");

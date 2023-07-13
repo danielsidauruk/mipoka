@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
@@ -222,9 +221,6 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                                 rows: List<DataRow>.generate(prestasiList.length, (int index) {
                                   final prestasi = prestasiList[index];
 
-                                  context.read<MipokaUserBloc>().add(
-                                    ReadMipokaUserEvent(idMipokaUser: prestasi.idUser));
-
                                   return DataRow(
                                     cells: [
                                       DataCell(
@@ -234,39 +230,15 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                                         ),
                                       ),
                                       DataCell(
-                                        BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                          builder: (context, state) {
-                                            if (state is MipokaUserLoading) {
-                                              return const Text("Loading ....");
-                                            } else if (state is MipokaUserHasData) {
-                                              return Align(
-                                                alignment: Alignment.center,
-                                                child: Text(state.mipokaUser.nim),
-                                              );
-                                            } else if (state is MipokaUserError) {
-                                              return Text(state.message);
-                                            } else {
-                                              return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                            }
-                                          },
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Text(prestasi.mipokaUser.nim),
                                         ),
                                       ),
                                       DataCell(
-                                        BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                          builder: (context, state) {
-                                            if (state is MipokaUserLoading) {
-                                              return const Text("Loading ....");
-                                            } else if (state is MipokaUserHasData) {
-                                              return Align(
-                                                alignment: Alignment.center,
-                                                child: Text(state.mipokaUser.namaLengkap),
-                                              );
-                                            } else if (state is MipokaUserError) {
-                                              return Text(state.message);
-                                            } else {
-                                              return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                            }
-                                          },
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Text(prestasi.mipokaUser.namaLengkap),
                                         ),
                                       ),
                                       DataCell(

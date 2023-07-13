@@ -5,9 +5,6 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_drop_down_bloc/jenis_kegiatan_drop_down_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegiatan_drop_down_bloc/nama_kegiatan_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_dropdown_bloc/periode_mpt_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/riwayat_kegiatan_mpt_bloc/riwayat_kegiatan_mpt_bloc.dart';
@@ -548,129 +545,45 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                                   rows: List<DataRow>.generate(riwayatKegiatanMptList.length, (int index) {
                                     final riwayatKegiatanMpt = riwayatKegiatanMptList[index];
 
-                                    Future.microtask(() {
-                                      context.read<MipokaUserBloc>().add(
-                                          ReadMipokaUserEvent(idMipokaUser: riwayatKegiatanMpt.idUser));
-                                      context.read<NamaKegiatanMptBloc>().add(
-                                          ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: riwayatKegiatanMpt.kegiatanPerPeriodeMpt));
-                                    });
-
                                     return DataRow(
                                       cells: [
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                              builder: (context, state) {
-                                                if (state is MipokaUserLoading) {
-                                                  return const Text("Loading ....");
-                                                } else if (state is MipokaUserHasData) {
-                                                  return Text(
-                                                    state.mipokaUser.nim,
-                                                  );
-                                                } else if (state is MipokaUserError) {
-                                                  return Text(state.message);
-                                                } else {
-                                                  return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                                }
-                                              },
+                                            child: Text(
+                                              riwayatKegiatanMpt.mipokaUser.nim,
                                             ),
                                           ),
                                         ),
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                              builder: (context, state) {
-                                                if (state is MipokaUserLoading) {
-                                                  return const Text("Loading ....");
-                                                } else if (state is MipokaUserHasData) {
-                                                  return Text(
-                                                    state.mipokaUser.namaLengkap,
-                                                  );
-                                                } else if (state is MipokaUserError) {
-                                                  return Text(state.message);
-                                                } else {
-                                                  return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                                }
-                                              },
+                                            child: Text(
+                                              riwayatKegiatanMpt.mipokaUser.namaLengkap,
                                             ),
-                                          ),
-                                        ),
-                                        DataCell(
-                                          BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
-                                            builder: (context, state) {
-                                              if (state is NamaKegiatanMptLoading) {
-                                                return const Text('Loading ....');
-                                              } else if (state is NamaKegiatanMptHasData) {
-                                                return Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    state.namaKegiatanMpt.namaKegiatan,
-                                                  ),
-                                                );
-                                              } else if (state is NamaKegiatanMptError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("JenisKegiatanMptBloc hasn't triggered yet.");
-                                              }
-                                            },
-                                          ),
-                                        ),
-                                        DataCell(
-                                          BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
-                                            builder: (context, state) {
-                                              if (state is NamaKegiatanMptLoading) {
-                                                return const Text('Loading ....');
-                                              } else if (state is NamaKegiatanMptHasData) {
-
-                                                context.read<JenisKegiatanMptBloc>().add(
-                                                    ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: state.namaKegiatanMpt.idJenisKegiatanMpt));
-
-                                                return BlocBuilder<JenisKegiatanMptBloc, JenisKegiatanMptState>(
-                                                  builder: (context, state) {
-                                                    if (state is JenisKegiatanMptLoading) {
-                                                      return const Text("Loading ....");
-                                                    } else if (state is JenisKegiatanMptHasData) {
-                                                      return Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text(
-                                                          state.jenisKegiatanMpt.namaJenisKegiatanMpt,
-                                                        ),
-                                                      );
-                                                    } else if (state is JenisKegiatanMptError) {
-                                                      return Text(state.message);
-                                                    } else {
-                                                      return const Text("JenisKegiatanMptBloc hasn't been triggered yet.");
-                                                    }
-                                                  },
-                                                );
-
-                                              } else if (state is NamaKegiatanMptError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("JenisKegiatanMptBloc hasn't triggered yet.");
-                                              }
-                                            },
                                           ),
                                         ),
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                              builder: (context, state) {
-                                                if (state is MipokaUserLoading) {
-                                                  return const Text("Loading ....");
-                                                } else if (state is MipokaUserHasData) {
-                                                  return Text(
-                                                    "${state.mipokaUser.pointMpt}",
-                                                  );
-                                                } else if (state is MipokaUserError) {
-                                                  return Text(state.message);
-                                                } else {
-                                                  return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                                }
-                                              },
+                                            child: Text(
+                                              riwayatKegiatanMpt.kegiatanPerPeriodeMpt.namaKegiatanMpt.namaKegiatan,
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              riwayatKegiatanMpt.kegiatanPerPeriodeMpt.namaKegiatanMpt.jenisKegiatanMpt.namaJenisKegiatanMpt,
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              "${riwayatKegiatanMpt.mipokaUser.pointMpt}",
                                             ),
                                           ),
                                         ),

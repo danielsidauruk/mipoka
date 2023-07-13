@@ -4,8 +4,6 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mhs_per_periode_mpt_use_cases/mhs_per_periode_mpt_use_cases_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_dropdown_bloc/periode_mpt_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -228,8 +226,6 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                                   int index = tahunPeriodeMptList.indexOf(value!);
                                   int idPeriodeMpt = idTahunPeriodeList[index];
 
-                                  // print("$idPeriodeMpt, $value");
-
                                   _idPeriodeKegiatanMpt = idPeriodeMpt;
                                 }
                             );
@@ -355,103 +351,36 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                                   rows: List<DataRow>.generate(mhsPerPeriodeMptList.length, (int index) {
                                     final mhsPerPeriodeMpt = mhsPerPeriodeMptList[index];
 
-                                    Future.microtask(() {
-                                      context.read<PeriodeMptBloc>().add(
-                                          ReadPeriodeMptEvent(idPeriodeMpt: mhsPerPeriodeMpt.idPeriodeMpt));
-                                      context.read<MipokaUserBloc>().add(
-                                          ReadMipokaUserEvent(idMipokaUser: mhsPerPeriodeMpt.idUser));
-                                    });
-
                                     return DataRow(
                                       cells: [
                                         DataCell(
-                                          BlocBuilder<PeriodeMptBloc, PeriodeMptState>(
-                                            builder: (context, state) {
-                                              if (state is PeriodeMptLoading) {
-                                                return const Text("Loading ....");
-                                              } else if (state is PeriodeMptHasData) {
-                                                return Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(state.periodeMpt.tahunPeriodeMpt),
-                                                );
-                                              } else if (state is PeriodeMptError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("PeriodeMptBloc hasn't been triggered yet.");
-                                              }
-                                            },
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(mhsPerPeriodeMpt.periodeMpt.tahunPeriodeMpt),
                                           ),
                                         ),
                                         DataCell(
-                                          BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                            builder: (context, state) {
-                                              if (state is MipokaUserLoading) {
-                                                return const Text("Loading ....");
-                                              } else if (state is MipokaUserHasData) {
-                                                return Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(state.mipokaUser.prodi),
-                                                );
-                                              } else if (state is MipokaUserError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                              }
-                                            },
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(mhsPerPeriodeMpt.mipokaUser.prodi),
                                           ),
                                         ),
                                         DataCell(
-                                          BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                            builder: (context, state) {
-                                              if (state is MipokaUserLoading) {
-                                                return const Text("Loading ....");
-                                              } else if (state is MipokaUserHasData) {
-                                                return Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(state.mipokaUser.nim),
-                                                );
-                                              } else if (state is MipokaUserError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                              }
-                                            },
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(mhsPerPeriodeMpt.mipokaUser.nim),
                                           ),
                                         ),
                                         DataCell(
-                                          BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                            builder: (context, state) {
-                                              if (state is MipokaUserLoading) {
-                                                return const Text("Loading ....");
-                                              } else if (state is MipokaUserHasData) {
-                                                return Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(state.mipokaUser.namaLengkap),
-                                                );
-                                              } else if (state is MipokaUserError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                              }
-                                            },
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(mhsPerPeriodeMpt.mipokaUser.namaLengkap),
                                           ),
                                         ),
                                         DataCell(
-                                          BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                            builder: (context, state) {
-                                              if (state is MipokaUserLoading) {
-                                                return const Text("Loading ....");
-                                              } else if (state is MipokaUserHasData) {
-                                                return Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(state.mipokaUser.pointMpt.toString()),
-                                                );
-                                              } else if (state is MipokaUserError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                              }
-                                            },
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(mhsPerPeriodeMpt.mipokaUser.pointMpt.toString()),
                                           ),
                                         ),
                                         DataCell(

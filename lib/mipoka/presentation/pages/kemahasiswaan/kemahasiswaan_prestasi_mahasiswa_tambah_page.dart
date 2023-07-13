@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
+import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/prestasi.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
@@ -29,7 +31,8 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
   final TextEditingController _namaKegiatanController = TextEditingController();
   final TextEditingController _prestasiYangDicapaiController = TextEditingController();
   String? _tingkat;
-  int? _idOrmawa;
+  Ormawa? _ormawa;
+  MipokaUser? _mipokaUser;
   String? _tahun;
   String? _idUser;
 
@@ -83,21 +86,18 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                       if (state is OrmawaLoading) {
                         return const Text("Loading ....");
                       } else if (state is AllOrmawaHasData) {
+                        final ormawaList = state.ormawaList;
 
-                        List<String> ormawaList = state.ormawaList.map(
+                        List<String> ormawaDropDownList = state.ormawaList.map(
                                 (ormawa) => ormawa.namaOrmawa).toList();
 
-                        List<int> idOrmawaList = state.ormawaList.map(
-                                (ormawa) => ormawa.idOrmawa).toList();
-
-                        _idOrmawa = idOrmawaList[0];
+                        _ormawa = ormawaList[0];
 
                         return MipokaCustomDropdown(
-                            items: ormawaList,
+                            items: ormawaDropDownList,
                             onValueChanged: (value) {
-                              int index = ormawaList.indexOf(value!);
-                              int idOrmawa = idOrmawaList[index];
-                              _idOrmawa = idOrmawa;
+                              int index = ormawaDropDownList.indexOf(value!);
+                              _ormawa = ormawaList[index];
                             }
                         );
                       } else if (state is OrmawaError) {
@@ -124,8 +124,9 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                   BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
                     builder: (context, state) {
                       if (state is MipokaUserByNimByNimHasData) {
-
                         _idUser = state.mipokaUser.idUser;
+
+                        _mipokaUser = state.mipokaUser;
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
@@ -178,16 +179,16 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => (_idOrmawa != null && _nimController.text.isNotEmpty
+                        onTap: () => (_ormawa?.idOrmawa != 0 && _nimController.text.isNotEmpty
                             && _namaKegiatanController.text.isNotEmpty && _tahun != null
                             && _tingkat != null && _prestasiYangDicapaiController.text.isNotEmpty
-                            && _idUser != "") ?
+                            && _idUser != "" && _mipokaUser?.idUser != "") ?
                         Future.microtask(() {
                           context.read<PrestasiBloc>().add(
                               CreatePrestasiEvent(prestasi: Prestasi(
                                 idPrestasi: newId,
-                                idOrmawa: _idOrmawa ?? 0,
-                                idUser: _idUser ?? "",
+                                ormawa: _ormawa!,
+                                mipokaUser: _mipokaUser!,
                                 namaKegiatan: _namaKegiatanController.text,
                                 waktuPenyelenggaraan: _tahun ?? "",
                                 tingkat: _tingkat ?? "",
@@ -200,7 +201,7 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                               ))
                           );
                           mipokaCustomToast("Prestasi telah ditambahkan.");
-                          context.read<PrestasiBloc>().add(ReadAllPrestasiEvent());
+                          context.read<PrestasiBloc>().add(const ReadAllPrestasiEvent());
                         }) :
                         mipokaCustomToast(emptyFieldMessage),
                         text: 'Simpan',

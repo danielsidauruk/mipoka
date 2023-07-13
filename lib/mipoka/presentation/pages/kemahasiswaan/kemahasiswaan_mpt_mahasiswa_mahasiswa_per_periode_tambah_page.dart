@@ -67,24 +67,24 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
         }
       }
 
-      for (var i = 1; i < nimList.length; i++) {
-        Future.microtask(() {
-          context.read<MhsPerPeriodeMptBloc>().add(
-            CreateMhsPerPeriodeMptEvent(
-              mhsPerPeriodeMpt: MhsPerPeriodeMpt(
-                idMhsPerPeriodeMpt: newId + i,
-                idUser: nimList[i].toString(),
-                idPeriodeMpt: _idPeriodeKegiatanMpt ?? 0,
-                kegiatanPerPeriodeMpt: 0,
-                createdAt: currentDate,
-                createdBy: user?.email ?? "unknown",
-                updatedAt: currentDate,
-                updatedBy: user?.email ?? "unknown",
-              ),
-            ),
-          );
-        });
-      }
+      // for (var i = 1; i < nimList.length; i++) {
+      //   Future.microtask(() {
+      //     context.read<MhsPerPeriodeMptBloc>().add(
+      //       CreateMhsPerPeriodeMptEvent(
+      //         mhsPerPeriodeMpt: MhsPerPeriodeMpt(
+      //           idMhsPerPeriodeMpt: newId + i,
+      //           idUser: nimList[i].toString(),
+      //           idPeriodeMpt: _idPeriodeKegiatanMpt ?? 0,
+      //           kegiatanPerPeriodeMpt: 0,
+      //           createdAt: currentDate,
+      //           createdBy: user?.email ?? "unknown",
+      //           updatedAt: currentDate,
+      //           updatedBy: user?.email ?? "unknown",
+      //         ),
+      //       ),
+      //     );
+      //   });
+      // }
     }
     Future.microtask(() => context.read<MhsPerPeriodeMptBloc>()
         .add(const ReadAllMhsPerPeriodeMptEvent()));
