@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_drop_down_bloc/jenis_kegiatan_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
@@ -25,7 +26,7 @@ class KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPage extends Statef
 class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageState extends State<KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPage> {
 
   final TextEditingController _namaJenisKegiatanController = TextEditingController();
-  int? _idJenisKegiatan;
+  JenisKegiatanMpt? _jenisKegiatanMpt;
 
   @override
   void initState() {
@@ -72,13 +73,13 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageState extends 
                         List<int> idNamaKegiatanList = state.jenisKegiatanMptList.map(
                                 (jenisKegiatanMptList) => jenisKegiatanMptList.idJenisKegiatanMpt).toList();
 
-                        _idJenisKegiatan = idNamaKegiatanList[0];
+                        _jenisKegiatanMpt = state.jenisKegiatanMptList[0];
 
                         return MipokaCustomDropdown(
                           items: jenisKegiatanList,
                           onValueChanged: (value) {
                             int index = jenisKegiatanList.indexOf(value ?? "");
-                            _idJenisKegiatan = idNamaKegiatanList[index];
+                            _jenisKegiatanMpt = state.jenisKegiatanMptList[index];
                           },
                         );
 
@@ -103,14 +104,14 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageState extends 
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => (_namaJenisKegiatanController.text.isNotEmpty && _idJenisKegiatan != 0) ?
+                        onTap: () => (_namaJenisKegiatanController.text.isNotEmpty && _jenisKegiatanMpt?.idJenisKegiatanMpt != 0) ?
                         Future.microtask(() {
                           mipokaCustomToast("Kegiatan per Jenis Kegiatan MPT berhasil dibuat.");
                           context.read<NamaKegiatanMptBloc>().add(
                             CreateNamaKegiatanMptEvent(
                               namaKegiatanMpt: NamaKegiatanMpt(
                                 idNamaKegiatanMpt: newId,
-                                idJenisKegiatanMpt: _idJenisKegiatan ?? 0,
+                                jenisKegiatanMpt: _jenisKegiatanMpt!,
                                 namaKegiatan: _namaJenisKegiatanController.text,
                                 createdAt: currentDate,
                                 createdBy: user?.email ?? "unknown",

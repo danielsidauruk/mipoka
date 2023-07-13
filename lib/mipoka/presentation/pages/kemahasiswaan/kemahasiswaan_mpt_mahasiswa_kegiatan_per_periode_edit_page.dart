@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
-import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
+import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegiatan_drop_down_bloc/nama_kegiatan_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_dropdown_bloc/periode_mpt_drop_down_bloc.dart';
@@ -34,22 +35,19 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
   final TextEditingController _poinKegiatanController = TextEditingController();
   final TextEditingController _tanggalMulaiController = TextEditingController();
   final TextEditingController _tanggalSelesaiController = TextEditingController();
-  int? _idNamaKegiatanMpt;
-  int? _idPeriodeKegiatanMpt;
-  int? _idJenisKegiatanMpt;
+  NamaKegiatanMpt? _namaKegiatanMpt;
+  PeriodeMpt? _periodeMpt;
 
   @override
   void initState() {
     _tanggalMulaiController.text = widget.kegiatanPerPeriodeMpt.tanggalMulaiKegiatanPerPeriodeMpt;
     _tanggalSelesaiController.text = widget.kegiatanPerPeriodeMpt.tanggalSelesaiKegiatanPerPeriodeMpt;
     _poinKegiatanController.text = widget.kegiatanPerPeriodeMpt.pointMptDiperoleh.toString();
-    _idNamaKegiatanMpt = widget.kegiatanPerPeriodeMpt.idNamaKegiatanMpt;
-    _idPeriodeKegiatanMpt = widget.kegiatanPerPeriodeMpt.idPeriodeMpt;
-    _idJenisKegiatanMpt = widget.kegiatanPerPeriodeMpt.idJenisKegiatanMpt;
+    _namaKegiatanMpt = widget.kegiatanPerPeriodeMpt.namaKegiatanMpt;
+    _periodeMpt = widget.kegiatanPerPeriodeMpt.periodeMpt;
 
     context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
     context.read<NamaKegiatanDropDownBloc>().add(ReadNamaKegiatanDropDownEvent());
-    context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
     super.initState();
   }
 
@@ -80,29 +78,26 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                       if (state is NamaKegiatanDropDownLoading) {
                         return const Text("Loading ...");
                       } else if (state is NamaKegiatanDropDownHasData) {
+                        final namaKegiatanMptList = state.namaKegiatanList;
 
-                        List<String> namaKegiatanList = state.namaKegiatanList.map(
-                                (namaKegiatanList) => namaKegiatanList.namaKegiatan).toList();
+                        List<String> namaKegiatanDropDownList = namaKegiatanMptList.map(
+                                (namaKegiatan) => namaKegiatan.namaKegiatan).toList();
 
-                        List<int> idNamaKegiatanList = state.namaKegiatanList.map(
-                                (namaKegiatanMptList) => namaKegiatanMptList.idNamaKegiatanMpt).toList();
-
-                        List<int> idJenisKegiatanList = state.namaKegiatanList.map(
-                                (jenisKegiatanMpt) => jenisKegiatanMpt.idJenisKegiatanMpt).toList();
-
-
-                        int indexOfNamaKegiatan = idNamaKegiatanList.indexOf(_idNamaKegiatanMpt ?? 0);
-                        String namaKegiatanController = namaKegiatanList[indexOfNamaKegiatan];
+                        int indexOfNamaKegiatanMpt = namaKegiatanMptList.indexOf(_namaKegiatanMpt!);
+                        String namaKegiatanController = indexOfNamaKegiatanMpt < 0
+                            ? namaKegiatanDropDownList[0]
+                            : namaKegiatanDropDownList[indexOfNamaKegiatanMpt];
 
                         return MipokaCustomDropdown(
-                          items: namaKegiatanList,
+                          items: namaKegiatanDropDownList,
                           initialItem: namaKegiatanController,
                           onValueChanged: (value) {
-                            int index = namaKegiatanList.indexOf(value ?? "");
-                            _idNamaKegiatanMpt = idNamaKegiatanList[index];
-                            _idJenisKegiatanMpt = idJenisKegiatanList[index];
+                            int index = namaKegiatanDropDownList.indexOf(value ?? "");
+                            namaKegiatanController = namaKegiatanDropDownList[index];
+                            _namaKegiatanMpt = namaKegiatanMptList[index];
                           },
                         );
+
                       } else if (state is NamaKegiatanDropDownError) {
                         return Text(state.message);
                       } else {
@@ -113,34 +108,33 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
 
                   const CustomFieldSpacer(),
 
-                  buildTitle('Tahun'),
-
+                  buildTitle('Periode MPT'),
                   BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
                     builder: (context, state) {
                       if (state is PeriodeMptDropDownLoading) {
                         return const Text("Loading ....");
                       } else if (state is PeriodeMptDropDownHasData) {
-                        List<String> tahunPeriodeMptList = state.periodeMptList.map(
-                                (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
-                                "${periodeMptList.tahunPeriodeMpt} (ulang)" :
-                                periodeMptList.tahunPeriodeMpt).toList();
+                        final periodeMptList = state.periodeMptList;
 
-                        List<int> idTahunPeriodeList = state.periodeMptList.map(
-                                (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
+                        List<String> periodeMptDropDownList = periodeMptList.map(
+                              (periodeMpt) => periodeMpt.periodeMengulangMpt == true
+                              ? "${periodeMpt.tahunPeriodeMpt} (ulang)"
+                              : periodeMpt.tahunPeriodeMpt,
+                        ).toList();
 
-                        // idPeriodeMpt = idTahunPeriodeList[0];
-                        int indexOfPeriode = idTahunPeriodeList.indexOf(_idPeriodeKegiatanMpt ?? 0);
-                        String tahunPeriodeController = tahunPeriodeMptList[indexOfPeriode];
+                        int? indexOfPeriodeMpt = periodeMptList.indexOf(_periodeMpt!);
+                        String initialPeriodeMpt = indexOfPeriodeMpt < 0
+                            ? periodeMptDropDownList[0]
+                            : periodeMptDropDownList[indexOfPeriodeMpt];
 
                         return MipokaCustomDropdown(
-                          items: tahunPeriodeMptList,
-                          initialItem: tahunPeriodeController,
+                          items: periodeMptDropDownList,
+                          initialItem: initialPeriodeMpt,
                           onValueChanged: (value) {
-                            int index = tahunPeriodeMptList.indexOf(value!);
-                            // idPeriodeMpt = idTahunPeriodeList[index];
-
-                            _idPeriodeKegiatanMpt = idTahunPeriodeList[index];
-                          }
+                            int index = periodeMptDropDownList.indexOf(value!);
+                            initialPeriodeMpt = periodeMptDropDownList[index];
+                            _periodeMpt = periodeMptList[index];
+                          },
                         );
                       } else if (state is PeriodeMptDropDownError) {
                         return Text(state.message);
@@ -183,7 +177,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
 
                       CustomMipokaButton(
                         onTap: () {
-                          if (_idNamaKegiatanMpt != 0 && _idPeriodeKegiatanMpt != 0
+                          if (_namaKegiatanMpt?.idNamaKegiatanMpt != 0 && _periodeMpt?.idPeriodeMpt != 0
                               && _tanggalMulaiController.text.isNotEmpty && _tanggalSelesaiController.text.isNotEmpty
                               && _poinKegiatanController.text.isNotEmpty) {
                             try {
@@ -194,9 +188,8 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                                   context.read<KegiatanPerPeriodeMptBloc>().add(
                                     UpdateKegiatanPerPeriodeMptEvent(
                                       kegiatanPerPeriodeMpt: widget.kegiatanPerPeriodeMpt.copyWith(
-                                        idNamaKegiatanMpt: _idNamaKegiatanMpt ?? 0,
-                                        idPeriodeMpt: _idPeriodeKegiatanMpt ?? 0,
-                                        idJenisKegiatanMpt: _idJenisKegiatanMpt ?? 0,
+                                        namaKegiatanMpt: _namaKegiatanMpt,
+                                        periodeMpt: _periodeMpt,
                                         tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
                                         tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
                                         pointMptDiperoleh: poinKegiatan,
@@ -205,7 +198,6 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                                       ),
                                     )
                                   );
-                                  context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
                                   Navigator.pop(context);
                                 });
                               } else {

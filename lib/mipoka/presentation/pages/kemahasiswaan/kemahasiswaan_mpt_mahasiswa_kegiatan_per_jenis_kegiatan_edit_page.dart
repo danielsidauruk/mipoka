@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_drop_down_bloc/jenis_kegiatan_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
@@ -24,18 +25,19 @@ class KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPage extends Stateful
   final NamaKegiatanMpt namaKegiatanMpt;
 
   @override
-  State<KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPage> createState() => _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageState();
+  State<KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPage> createState() =>
+      _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageState();
 }
 
 class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageState extends State<KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPage> {
 
   final TextEditingController _namaJenisKegiatanController = TextEditingController();
-  int? _idJenisKegiatan;
+  JenisKegiatanMpt? _jenisKegiatanMpt;
 
   @override
   void initState() {
     _namaJenisKegiatanController.text = widget.namaKegiatanMpt.namaKegiatan;
-    _idJenisKegiatan = widget.namaKegiatanMpt.idJenisKegiatanMpt;
+    _jenisKegiatanMpt = widget.namaKegiatanMpt.jenisKegiatanMpt;
     super.initState();
   }
   @override
@@ -78,9 +80,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageState extends St
                         List<int> idJenisKegiatanList = state.jenisKegiatanMptList.map(
                                 (jenisKegiatanMpt) => jenisKegiatanMpt.idJenisKegiatanMpt).toList();
 
-                        // _idJenisKegiatan = idNamaKegiatanList[0];
-
-                        int indexOfIdKegiatan = idJenisKegiatanList.indexOf(_idJenisKegiatan ?? 0);
+                        int indexOfIdKegiatan = idJenisKegiatanList.indexOf(_jenisKegiatanMpt?.idJenisKegiatanMpt ?? 0);
                         String namaKegiatanController = jenisKegiatanList[indexOfIdKegiatan];
 
                         return MipokaCustomDropdown(
@@ -88,7 +88,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageState extends St
                           initialItem: namaKegiatanController,
                           onValueChanged: (value) {
                             int index = jenisKegiatanList.indexOf(value ?? "");
-                            _idJenisKegiatan = idJenisKegiatanList[index];
+                            _jenisKegiatanMpt = state.jenisKegiatanMptList[index];
                           },
                         );
                       } else if (state is JenisKegiatanDropDownError) {
@@ -112,14 +112,14 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageState extends St
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => (_namaJenisKegiatanController.text.isNotEmpty && _idJenisKegiatan != 0) ?
+                        onTap: () => (_namaJenisKegiatanController.text.isNotEmpty && _jenisKegiatanMpt?.idJenisKegiatanMpt != 0) ?
                         Future.microtask(() {
                           mipokaCustomToast("Kegiatan per Jenis Kegiatan MPT berhasil diupdate.");
                           context.read<NamaKegiatanMptBloc>().add(
                             UpdateNamaKegiatanMptEvent(
                               namaKegiatanMpt: widget.namaKegiatanMpt.copyWith(
                                 namaKegiatan: _namaJenisKegiatanController.text,
-                                idJenisKegiatanMpt: _idJenisKegiatan,
+                                jenisKegiatanMpt: _jenisKegiatanMpt,
                                 updatedAt: currentDate,
                                 updatedBy: user?.email ?? "unknown"
                               ),

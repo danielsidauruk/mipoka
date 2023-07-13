@@ -122,8 +122,8 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                   rows: List<DataRow>.generate(laporanList.length, (int index) {
                                     final laporan = laporanList[index];
 
-                                    context.read<UsulanKegiatanBloc>().add(
-                                      ReadUsulanKegiatanEvent(idUsulanKegiatan: laporan.idUsulan));
+                                    // context.read<UsulanKegiatanBloc>().add(
+                                    //   ReadUsulanKegiatanEvent(idUsulanKegiatan: laporan.idUsulan));
 
                                     return DataRow(
                                       cells: [
@@ -140,22 +140,10 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                           ),
                                         ),
                                         DataCell(
-                                          BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
-                                            builder: (context, state) {
-                                              if (state is UsulanKegiatanLoading) {
-                                                return const Text("Loading ....");
-                                              } else if (state is UsulanKegiatanHasData) {
-                                                return Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(state.usulanKegiatan.namaKegiatan),
-                                                );
-                                              } else if (state is UsulanKegiatanError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                              }
-                                            },
-                                          ),
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Text(laporan.usulanKegiatan.namaKegiatan),
+                                            )
                                         ),
                                         DataCell(
                                           Center(

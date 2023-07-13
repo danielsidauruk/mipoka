@@ -160,12 +160,12 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                   rows: List<DataRow>.generate(sessionList.length, (int index) {
                                     final session = sessionList[index];
 
-                                    Future.microtask(() {
-                                      context.read<MipokaUserBloc>().add(
-                                          ReadMipokaUserEvent(idMipokaUser: session.idUser));
-                                      context.read<OrmawaBloc>().add(
-                                          ReadOrmawaEvent(idOrmawa: session.idOrmawa));
-                                    });
+                                    // Future.microtask(() {
+                                    //   context.read<MipokaUserBloc>().add(
+                                    //       ReadMipokaUserEvent(idMipokaUser: session.idUser));
+                                    //   context.read<OrmawaBloc>().add(
+                                    //       ReadOrmawaEvent(idOrmawa: session.idOrmawa));
+                                    // });
 
                                     return DataRow(
                                       cells: [
@@ -182,39 +182,15 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                           ),
                                         ),
                                         DataCell(
-                                          BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                            builder: (context, state) {
-                                              if (state is MipokaUserLoading) {
-                                                return const Text("Loading ....");
-                                              } else if (state is MipokaUserHasData) {
-                                                return Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(state.mipokaUser.namaLengkap),
-                                                );
-                                              } else if (state is MipokaUserError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                              }
-                                            },
-                                          ),
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Text(session.mipokaUser.namaLengkap),
+                                            )
                                         ),
                                         DataCell(
-                                          BlocBuilder<OrmawaBloc, OrmawaState>(
-                                            builder: (context, state) {
-                                              if (state is OrmawaLoading) {
-                                                return const Text("Loading ....");
-                                              } else if (state is OrmawaHasData) {
-                                                return Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(state.ormawa.namaOrmawa),
-                                                );
-                                              } else if (state is OrmawaError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("MipokaUserBloc hasn't been triggered yet.");
-                                              }
-                                            },
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(session.ormawa.namaOrmawa),
                                           ),
                                         ),
                                         DataCell(
