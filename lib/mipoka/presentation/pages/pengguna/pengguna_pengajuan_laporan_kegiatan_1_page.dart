@@ -146,8 +146,7 @@ class _PenggunaPengajuanLaporanKegiatan1State
                                         context.read<LaporanBloc>().add(
                                           UpdateLaporanEvent(
                                             laporan: laporan.copyWith(
-                                              idUsulan: usulan[selectedIndex ?? 0].idUsulan,
-                                              idOrmawa: usulan[selectedIndex ?? 0].idOrmawa,
+                                              usulanKegiatan: usulan[selectedIndex ?? 0],
                                               pencapaian: _pencapaianController.document.toPlainText(),
                                               updatedAt: currentDate,
                                               updatedBy: user?.email ?? "unknown",

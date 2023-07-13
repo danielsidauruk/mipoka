@@ -36,6 +36,12 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
   }
 
   @override
+  void dispose() {
+    context.read<LaporanBloc>().close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
@@ -321,6 +327,14 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                             const SizedBox(width: 8.0),
                             CustomMipokaButton(
                               onTap: () {
+
+                                context.read<LaporanBloc>().add(
+                                  UpdateLaporanEvent(
+                                    laporan: laporan.copyWith(
+
+                                    ),
+                                  ),
+                                );
                                 Navigator.pushNamed(
                                   context,
                                   penggunaPengajuanLaporanKegiatan3PageRoute,
