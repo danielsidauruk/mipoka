@@ -8,6 +8,7 @@ import 'package:mipoka/core/routes.dart';
 import 'dart:io';
 import 'dart:ui' as ui;
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/presentation/bloc/cubit/signature_cubit.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
@@ -65,7 +66,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
     super.dispose();
   }
 
-  int? _idOrmawaController;
+  Ormawa? _ormawa;
   String? _pembiayaanController;
   final TextEditingController _namaKegiatanController = TextEditingController();
   String? _bentukKegiatanController;
@@ -123,7 +124,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
               } else if (state is UsulanKegiatanHasData) {
                 final usulanKegiatan = state.usulanKegiatan;
 
-                _idOrmawaController = usulanKegiatan.idOrmawa;
+                _ormawa = usulanKegiatan.ormawa;
                 _pembiayaanController = usulanKegiatan.pembiayaan;
                 _namaKegiatanController.text = usulanKegiatan.namaKegiatan;
                 usulanKegiatan.kategoriBentukKegiatan == "Luring"
@@ -159,6 +160,15 @@ class _PenggunaPengajuanUsulanKegiatan1State
                 if(mipokaUserState is MipokaUserLoading) {
                   return const Text('Loading');
                 } else if (mipokaUserState is MipokaUserHasData) {
+                  final mipokaUser = mipokaUserState.mipokaUser;
+
+                  List<String> ormawaList = mipokaUser.ormawa.map((ormawa) => ormawa.namaOrmawa).toList();
+                  if (_ormawa?.idOrmawa == 0) {
+                    _ormawa = mipokaUser.ormawa[0];
+                  } else {
+                    _ormawa = _ormawa;
+                  }
+
                   return SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
@@ -171,35 +181,43 @@ class _PenggunaPengajuanUsulanKegiatan1State
                           CustomContentBox(
                             children: [
                               buildTitle('Nama Ormawa'),
+                              MipokaCustomDropdown(
+                                  items: ormawaList,
+                                  onValueChanged: (value) {
+                                    int index = ormawaList.indexOf(value!);
+                                    // int idOrmawa = idOrmawaList[index];
 
-                              BlocBuilder<OrmawaBloc, OrmawaState>(
-                                builder: (context, state) {
-                                  if (state is OrmawaLoading) {
-                                    return const Text("Loading ....");
-                                  } else if (state is AllOrmawaHasData) {
-
-                                    List<String> ormawaList = state.ormawaList.map(
-                                            (ormawa) => ormawa.namaOrmawa).toList();
-
-                                    List<int> idOrmawaList = state.ormawaList.map(
-                                            (ormawa) => ormawa.idOrmawa).toList();
-
-                                    return MipokaCustomDropdown(
-                                        items: ormawaList,
-                                        onValueChanged: (value) {
-                                          int index = ormawaList.indexOf(value!);
-                                          int idOrmawa = idOrmawaList[index];
-
-                                          _idOrmawaController = idOrmawa;
-                                        }
-                                    );
-                                  } else if (state is OrmawaError) {
-                                    return Text(state.message);
-                                  } else {
-                                    return const Text("OrmawaBloc hasn't been triggered yet.");
+                                    _ormawa = state.ormawaList[index];
                                   }
-                                },
                               ),
+                              // BlocBuilder<OrmawaBloc, OrmawaState>(
+                              //   builder: (context, state) {
+                              //     if (state is OrmawaLoading) {
+                              //       return const Text("Loading ....");
+                              //     } else if (state is AllOrmawaHasData) {
+                              //       List<String> ormawaList = state.ormawaList.map(
+                              //               (ormawa) => ormawa.namaOrmawa).toList();
+                              //
+                              //       // List<int> idOrmawaList = state.ormawaList.map(
+                              //       //         (ormawa) => ormawa.idOrmawa).toList();
+                              //       _ormawa = _ormawa ?? state.ormawaList[0];
+                              //
+                              //       return MipokaCustomDropdown(
+                              //           items: ormawaList,
+                              //           onValueChanged: (value) {
+                              //             int index = ormawaList.indexOf(value!);
+                              //             // int idOrmawa = idOrmawaList[index];
+                              //
+                              //             _ormawa = state.ormawaList[index];
+                              //           }
+                              //       );
+                              //     } else if (state is OrmawaError) {
+                              //       return Text(state.message);
+                              //     } else {
+                              //       return const Text("OrmawaBloc hasn't been triggered yet.");
+                              //     }
+                              //   },
+                              // ),
 
                               const CustomFieldSpacer(),
 
@@ -494,30 +512,13 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                                   CustomMipokaButton(
                                     onTap: () {
-                                      _tempatKegiatanSwitchController == false ?
-                                      Navigator.pushNamed(
-                                        context,
-                                        penggunaPengajuanUsulanKegiatan2DKPageRoute,
-                                        arguments: widget.idUsulanKegiatan,
-                                      ).then((_) => context.read<UsulanKegiatanBloc>()
-                                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan))) :
-                                      Navigator.pushNamed(
-                                        context,
-                                        penggunaPengajuanUsulanKegiatan2LKPageRoute,
-                                        arguments: widget.idUsulanKegiatan,
-                                      ).then((_) => context.read<UsulanKegiatanBloc>()
-                                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan)));
-
-                                      // Future.delayed(const Duration(seconds: 1), () {
-                                      //
-                                      // });
                                       mipokaCustomToast('Sedang menyimpan data...', time: 5);
 
                                       Future.microtask(() {
                                         context.read<UsulanKegiatanBloc>().add(
                                           UpdateUsulanKegiatanEvent(
                                             usulanKegiatan: usulanKegiatan.copyWith(
-                                              idOrmawa: _idOrmawaController,
+                                              ormawa: _ormawa,
                                               pembiayaan: _pembiayaanController,
                                               namaKegiatan: _namaKegiatanController.text,
                                               kategoriBentukKegiatan: _bentukKegiatanSwitchController == true ? "Luring" : "Daring",
@@ -544,8 +545,22 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                           ),
                                         );
 
-                                        context.read<UsulanKegiatanBloc>().add(
-                                          ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
+                                        // context.read<UsulanKegiatanBloc>().add(
+                                        //   ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
+
+                                        _tempatKegiatanSwitchController == false ?
+                                        Navigator.pushNamed(
+                                          context,
+                                          penggunaPengajuanUsulanKegiatan2DKPageRoute,
+                                          arguments: widget.idUsulanKegiatan,
+                                        ).then((_) => context.read<UsulanKegiatanBloc>()
+                                            .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan))) :
+                                        Navigator.pushNamed(
+                                          context,
+                                          penggunaPengajuanUsulanKegiatan2LKPageRoute,
+                                          arguments: widget.idUsulanKegiatan,
+                                        ).then((_) => context.read<UsulanKegiatanBloc>()
+                                            .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan)));
                                       });
                                     },
                                     text: 'Berikutnya',
