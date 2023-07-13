@@ -75,7 +75,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                 idMhsPerPeriodeMpt: newId + i,
                 idUser: nimList[i].toString(),
                 idPeriodeMpt: _idPeriodeKegiatanMpt ?? 0,
-                idKegiatanPerPeriodeMpt: 0,
+                kegiatanPerPeriodeMpt: 0,
                 createdAt: currentDate,
                 createdBy: user?.email ?? "unknown",
                 updatedAt: currentDate,

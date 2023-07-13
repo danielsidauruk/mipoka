@@ -4,6 +4,8 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
+import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/session.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
@@ -29,6 +31,8 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
     // BlocProvider.of<SessionBloc>(context, listen: false)
     //     .add(const ReadAllSessionEvent());
     context.read<SessionBloc>().add(const ReadAllSessionEvent());
+    context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: user?.uid ?? "")
+    );
     super.initState();
   }
 
@@ -156,11 +160,11 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                             rows: List<DataRow>.generate(state.sessionList.length, (int index) {
                               final session = state.sessionList[index];
                               
-                              context.read<MipokaUserBloc>().add(
-                                ReadMipokaUserEvent(idMipokaUser: session.idUser)
-                              );
-                              context.read<OrmawaBloc>().add(
-                                  ReadOrmawaEvent(idOrmawa: session.idOrmawa));
+                              // context.read<MipokaUserBloc>().add(
+                              //   ReadMipokaUserEvent(idMipokaUser: session.idUser)
+                              // );
+                              // context.read<OrmawaBloc>().add(
+                              //     ReadOrmawaEvent(idOrmawa: session.idOrmawa));
                               return DataRow(
                                 cells: [
                                   DataCell(
@@ -180,43 +184,19 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                     ),
                                   ),
                                   DataCell(
-                                    BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                      builder: (context, state) {
-                                        if (state is MipokaUserLoading) {
-                                          return const Text("Loading ...");
-                                        } else if (state is MipokaUserHasData) {
-                                          return Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              state.mipokaUser.namaLengkap,
-                                            ),
-                                          );
-                                        } else if (state is MipokaUserError) {
-                                          return Text(state.message);
-                                        } else {
-                                          return const Text("MipokaUserBloc hasn't been triggered.");
-                                        }
-                                      },
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        session.mipokaUser.namaLengkap,
+                                      ),
                                     ),
                                   ),
                                   DataCell(
-                                    BlocBuilder<OrmawaBloc, OrmawaState>(
-                                      builder: (context, state) {
-                                        if (state is OrmawaLoading) {
-                                          return const Text('Loading ...');
-                                        } else if (state is OrmawaHasData) {
-                                          return Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              state.ormawa.namaOrmawa,
-                                            ),
-                                          );
-                                        } else if (state is OrmawaError) {
-                                          return Text(state.message);
-                                        } else {
-                                          return const Text("Ormawa hasn't been triggered");
-                                        }
-                                      },
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        session.ormawa.namaOrmawa,
+                                      ),
                                     ),
                                   ),
                                   DataCell(
@@ -281,84 +261,110 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
 
                       const CustomFieldSpacer(),
 
-                      // CustomButton(
-                      //   navigation: () => Navigator.pushNamed(
-                      //     context,
-                      //     penggunaPengajuanUsulanKegiatanPage1Route,
-                      //   ),
-                      //   text: 'Ajukan Peminjaman Sarana dan Prasarana',
-                      // ),
+                      BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                        builder: (context, mipokaUserState) {
+                          if (mipokaUserState is MipokaUserLoading) {
+                            return const Text('Loading ...');
+                          } else if (mipokaUserState is MipokaUserHasData) {
+                            MipokaUser mipokaUser = mipokaUserState.mipokaUser;
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () => Future.microtask(() {
+                                    context.read<SessionBloc>().add(
+                                      CreateSessionEvent(
+                                        session: Session(
+                                          idSession: newId,
+                                          mipokaUser: mipokaUser,
+                                          ormawa: const Ormawa(
+                                            idOrmawa: 0,
+                                            namaOrmawa: "",
+                                            namaSingkatanOrmawa: "",
+                                            logoOrmawa: "",
+                                            listAnggota: [],
+                                            pembina: "",
+                                            ketua: "",
+                                            wakil: "",
+                                            sekretaris: "",
+                                            bendahara: "",
+                                            jumlahAnggota: 0,
+                                            fotoPembina: "",
+                                            fotoKetua: "",
+                                            fotoWakil: "",
+                                            fotoSekretaris: "",
+                                            fotoBendahara: "",
+                                            createdAt: "",
+                                            createdBy: "",
+                                            updatedBy: "",
+                                            updatedAt: "",
+                                          ),
+                                          tanggalMulai: "",
+                                          tanggalSelesai: "",
+                                          ruangan: "",
+                                          gedung: "",
+                                          waktuMulaiPenggunaan: "",
+                                          waktuSelesaiPenggunaan: "",
+                                          kegiatan: "",
+                                          proyektor: 0,
+                                          laptop: 0,
+                                          mikrofon: 0,
+                                          speaker: 0,
+                                          meja: 0,
+                                          kursi: 0,
+                                          papanTulis: 0,
+                                          spidol: 0,
+                                          lainLain: "",
+                                          status: "",
+                                          keterangan: "",
+                                          fileSession: "",
+                                          updatedAt: currentDate,
+                                          createdAt: currentDate,
+                                          updatedBy: user?.email ?? "unknown",
+                                          createdBy: user?.email ?? "unknown",
+                                        ),
+                                      ),
+                                    );
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          InkWell(
-                            onTap: () => Future.microtask(() {
-                              context.read<SessionBloc>().add(
-                                CreateSessionEvent(
-                                  session: Session(
-                                    idSession: newId,
-                                    idUser: user?.uid ?? "unknown",
-                                    idOrmawa: 0,
-                                    tanggalMulai: "",
-                                    tanggalSelesai: "",
-                                    ruangan: "",
-                                    gedung: "",
-                                    waktuMulaiPenggunaan: "",
-                                    waktuSelesaiPenggunaan: "",
-                                    kegiatan: "",
-                                    proyektor: 0,
-                                    laptop: 0,
-                                    mikrofon: 0,
-                                    speaker: 0,
-                                    meja: 0,
-                                    kursi: 0,
-                                    papanTulis: 0,
-                                    spidol: 0,
-                                    lainLain: "",
-                                    status: "",
-                                    keterangan: "",
-                                    fileSession: "",
-                                    updatedAt: currentDate,
-                                    createdAt: currentDate,
-                                    updatedBy: user?.email ?? "unknown",
-                                    createdBy: user?.email ?? "unknown",
+                                    Navigator.pushNamed(
+                                      context,
+                                      penggunaPengajuanSaranaDanPrasaranaPageRoute,
+                                      arguments: newId,
+                                    ).then((_) {
+                                      setState(() => context.read<SessionBloc>().add(const ReadAllSessionEvent()));
+                                    });
+                                  }),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0, horizontal: 24),
+                                    constraints: BoxConstraints(
+                                      minHeight: 35.0,
+                                      maxWidth: MediaQuery.of(context).size.width * 0.6,
+                                    ),
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    child: const Text(
+                                      'Ajukan Peminjaman Sarana dan Prasarana',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      softWrap: true,
+                                    ),
                                   ),
                                 ),
-                              );
-
-                              Navigator.pushNamed(
-                                context,
-                                penggunaPengajuanSaranaDanPrasaranaPageRoute,
-                                arguments: newId,
-                              ).then((_) {
-                                setState(() => context.read<SessionBloc>().add(const ReadAllSessionEvent()));
-                              });
-                            }),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 24),
-                              constraints: BoxConstraints(
-                                minHeight: 35.0,
-                                maxWidth: MediaQuery.of(context).size.width * 0.6,
-                              ),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                              child: const Text(
-                                'Ajukan Peminjaman Sarana dan Prasarana',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                textAlign: TextAlign.center,
-                                softWrap: true,
-                              ),
-                            ),
-                          ),
-                        ],
+                              ],
+                            );
+                          } else if (mipokaUserState is MipokaUserError) {
+                            return Text(mipokaUserState.message);
+                          } else {
+                            return const Text("MipokaUserBloc hasn't been triggered.");
+                          }
+                        },
                       ),
                     ],
                   );

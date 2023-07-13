@@ -7,6 +7,11 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
+import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
+import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
+import 'package:mipoka/mipoka/domain/entities/revisi_laporan.dart';
+import 'package:mipoka/mipoka/domain/entities/revisi_usulan.dart';
+import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -135,8 +140,8 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                             rows: List<DataRow>.generate(laporanState.laporanList.length, (int index) {
                               final laporan = laporanState.laporanList[index];
 
-                              BlocProvider.of<UsulanKegiatanBloc>(context, listen: false)
-                                  .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: laporan.idUsulan));
+                              // BlocProvider.of<UsulanKegiatanBloc>(context, listen: false)
+                              //     .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: laporan.usulanKegiatan));
 
                               return DataRow(
                                 cells: [
@@ -163,23 +168,11 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                     ),
                                   ),
                                   DataCell(
-                                    BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
-                                      builder: (context, state) {
-                                        if (state is UsulanKegiatanLoading) {
-                                          return const Text('Loading ...');
-                                        } else if (state is UsulanKegiatanHasData) {
-                                          return Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              state.usulanKegiatan.namaKegiatan,
-                                            ),
-                                          );
-                                        } else if (state is UsulanKegiatanError) {
-                                          return Text(state.message);
-                                        } else {
-                                          return const Text("UsulanKegiatanBloc hasn't been triggered");
-                                        }
-                                      },
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        laporan.usulanKegiatan.namaKegiatan,
+                                      ),
                                     ),
                                   ),
                                   DataCell(
@@ -198,7 +191,7 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                   DataCell(
                                     Align(
                                       alignment: Alignment.center,
-                                      child: laporan.validasiPembina == true ?
+                                      child: laporan.validasiPembina == "true" ?
                                       Image.asset(
                                         'assets/icons/approve.png',
                                         width: 24,
@@ -238,9 +231,192 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                             CreateLaporanEvent(
                               laporan: Laporan(
                                 idLaporan: newId,
-                                idOrmawa: 0,
-                                idUser: user?.uid ?? "unknown",
-                                idUsulan: 0,
+                                revisiLaporan: const RevisiLaporan(
+                                  idRevisiLaporan: 0, 
+                                  mipokaUser: MipokaUser(
+                                    idUser: "", 
+                                    ormawa: [],
+                                    email: "",
+                                    namaLengkap: "",
+                                    nim: "", 
+                                    noHp: "",
+                                    image: "", 
+                                    pointMpt: 0, 
+                                    semester: 0, 
+                                    kelas: "", 
+                                    periodeMpt: "", 
+                                    statusMpt: "", 
+                                    prodi: "", 
+                                    createdAt: "", 
+                                    updatedAt: "",
+                                    createdBy: "", 
+                                    updatedBy: "",
+                                  ),
+                                  revisiPencapaian: "",
+                                  revisiPesertaKegiatanLaporan: "", 
+                                  revisiBiayaKegiatan: "", 
+                                  revisiLatarBelakang: "", 
+                                  revisiHasilKegiatan: "",
+                                  revisiPenutup: "", 
+                                  revisiFotoPostinganKegiatan: "", 
+                                  revisiFotoDokumentasiKegiatan: "", 
+                                  revisiFotoTabulasiHasil: "", 
+                                  revisiFotoFakturPembayaran: "", 
+                                  createdAt: "", 
+                                  createdBy: "", 
+                                  updatedAt: "",
+                                  updatedBy: "",
+                                ),
+                                usulanKegiatan: UsulanKegiatan(
+                                  idUsulan: newId,
+                                  revisiUsulan: const RevisiUsulan(
+                                    idRevisiUsulan: 0,
+                                    mipokaUser: MipokaUser(
+                                      idUser: "",
+                                      ormawa: [],
+                                      email: "",
+                                      namaLengkap: "",
+                                      nim: "",
+                                      noHp: "",
+                                      image: "",
+                                      pointMpt: 0,
+                                      semester: 0,
+                                      kelas: "",
+                                      periodeMpt: "",
+                                      statusMpt: "",
+                                      prodi: "",
+                                      createdAt: "",
+                                      updatedAt: "",
+                                      createdBy: "",
+                                      updatedBy: "",
+                                    ),
+                                    revisiPembiayaan: "",
+                                    revisiNamaKegiatan: "",
+                                    revisiBentukKegiatan: "",
+                                    revisiKategoriBentukKegiatan: "",
+                                    revisiTempatKegiatan: "",
+                                    revisiDeskripsiKegiatan: "",
+                                    revisiTanggalMulaiKegiatan: "",
+                                    revisiTanggalSelesaiKegiatan: "",
+                                    revisiWaktuMulaiKegiatan: "",
+                                    revisiWaktuSelesaiKegiatan: "",
+                                    revisiTanggalKeberangkatan: "",
+                                    revisiTanggalKepulangan: "",
+                                    revisiJumlahPartisipan: "",
+                                    revisiKategoriJumlahPartisipan: "",
+                                    revisiTargetKegiatan: "",
+                                    revisiTotalPendanaan: "",
+                                    revisiKategoriTotalPendanaan: "",
+                                    revisiKeterangan: "",
+                                    revisiTandaTanganOrmawa: "",
+                                    revisiPartisipan: "",
+                                    revisiRincianBiayaKegiatan: "",
+                                    revisiLatarBelakang: "",
+                                    revisiTujuanKegiatan: "",
+                                    revisiManfaatKegiatan: "",
+                                    revisiBentukPelaksanaanKegiatan: "",
+                                    revisiTargetPencapaianKegiatan: "",
+                                    revisiWaktuDanTempatPelaksanaan: "",
+                                    revisiRencanaAnggaranKegiatan: "",
+                                    revisiIdTertibAcara: "",
+                                    revisiPerlengkapanDanPeralatan: "",
+                                    revisiPenutup: "",
+                                    revisiFotoPostinganKegiatan: "",
+                                    revisiFotoSuratUndanganKegiatan: "",
+                                    revisiFotoLinimasaKegiatan: "",
+                                    revisiFotoTempatKegiatan: "",
+                                    createdAt: "",
+                                    createdBy: "",
+                                    updatedAt: "",
+                                    updatedBy: "",
+                                  ),
+                                  ormawa: const Ormawa(
+                                    idOrmawa: 0,
+                                    namaOrmawa: "",
+                                    namaSingkatanOrmawa: "",
+                                    logoOrmawa: "",
+                                    listAnggota: [],
+                                    pembina: "",
+                                    ketua: "",
+                                    wakil: "",
+                                    sekretaris: "",
+                                    bendahara: "",
+                                    jumlahAnggota: 0,
+                                    fotoPembina: "",
+                                    fotoKetua: "",
+                                    fotoWakil: "",
+                                    fotoSekretaris: "",
+                                    fotoBendahara: "",
+                                    createdAt: "",
+                                    createdBy: "",
+                                    updatedBy: "",
+                                    updatedAt: "",
+                                  ),
+                                  mipokaUser: const MipokaUser(
+                                    idUser: "",
+                                    ormawa: [],
+                                    email: "",
+                                    namaLengkap: "",
+                                    nim: "",
+                                    noHp: "",
+                                    image: "",
+                                    pointMpt: 0,
+                                    semester: 0,
+                                    kelas: "",
+                                    periodeMpt: "",
+                                    statusMpt: "",
+                                    prodi: "",
+                                    createdAt: "",
+                                    updatedAt: "",
+                                    createdBy: "",
+                                    updatedBy: "",
+                                  ),
+                                  pembiayaan: "",
+                                  namaKegiatan: "",
+                                  bentukKegiatan: "",
+                                  kategoriBentukKegiatan: "",
+                                  deskripsiKegiatan: "",
+                                  tanggalMulaiKegiatan: "",
+                                  tanggalSelesaiKegiatan: "",
+                                  waktuMulaiKegiatan: "",
+                                  waktuSelesaiKegiatan: "",
+                                  tempatKegiatan: "",
+                                  tanggalKeberangkatan: "",
+                                  tanggalKepulangan: "",
+                                  jumlahPartisipan: "",
+                                  kategoriJumlahPartisipan: "",
+                                  targetKegiatan: "",
+                                  totalPendanaan: "",
+                                  kategoriTotalPendanaan: "",
+                                  keterangan: "",
+                                  tandaTanganOrmawa: "",
+                                  partisipan: const [],
+                                  biayaKegiatan: const [],
+                                  totalBiaya: 0,
+                                  latarBelakang: "",
+                                  tujuanKegiatan: "",
+                                  manfaatKegiatan: "",
+                                  bentukPelaksanaanKegiatan: "",
+                                  targetPencapaianKegiatan: "",
+                                  waktuDanTempatPelaksanaan: "",
+                                  rencanaAnggaranKegiatan: "",
+                                  tertibAcara: const [],
+                                  perlengkapanDanPeralatan: "",
+                                  penutup: "",
+                                  fotoPostinganKegiatan: "",
+                                  fotoSuratUndanganKegiatan: "",
+                                  fotoLinimasaKegiatan: "",
+                                  fotoTempatKegiatan: "",
+                                  fileUsulanKegiatan: "",
+                                  validasiPembina: "",
+                                  tandaTanganPembina: "",
+                                  statusUsulan: "",
+                                  roles: "",
+                                  createdAt: currentDate,
+                                  updatedAt: currentDate,
+                                  createdBy: user?.email ?? "unknown",
+                                  updatedBy: user?.email ?? "unknown",
+                                ),
                                 pencapaian: "",
                                 pesertaKegiatanLaporan: const [],
                                 rincianBiayaKegiatan: const [],

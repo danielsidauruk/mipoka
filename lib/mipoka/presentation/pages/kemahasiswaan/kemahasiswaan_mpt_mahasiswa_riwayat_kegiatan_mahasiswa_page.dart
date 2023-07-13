@@ -552,7 +552,7 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                                       context.read<MipokaUserBloc>().add(
                                           ReadMipokaUserEvent(idMipokaUser: riwayatKegiatanMpt.idUser));
                                       context.read<NamaKegiatanMptBloc>().add(
-                                          ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: riwayatKegiatanMpt.idKegiatanPerPeriodeMpt));
+                                          ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: riwayatKegiatanMpt.kegiatanPerPeriodeMpt));
                                     });
 
                                     return DataRow(

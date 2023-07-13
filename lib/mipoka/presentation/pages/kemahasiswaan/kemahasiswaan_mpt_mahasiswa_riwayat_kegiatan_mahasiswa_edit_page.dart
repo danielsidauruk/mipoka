@@ -36,7 +36,7 @@ class _MahasiswaRiwayatKegiatanMahasiswaEditPageState extends State<MahasiswaRiw
 
   @override
   void initState() {
-    _idperiodeController.text = widget.riwayatKegiatanMpt.idKegiatanPerPeriodeMpt.toString();
+    _idperiodeController.text = widget.riwayatKegiatanMpt.kegiatanPerPeriodeMpt.toString();
     super.initState();
   }
 

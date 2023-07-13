@@ -98,7 +98,7 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
         Future.microtask(() => context.read<RiwayatKegiatanMptBloc>().add(
           CreateRiwayatKegiatanMptEvent(riwayatKegiatanMpt: RiwayatKegiatanMpt(
             idRiwayatKegiatanMpt: newId + i,
-            idKegiatanPerPeriodeMpt: _idPeriodeKegiatanMpt ?? 0,
+            kegiatanPerPeriodeMpt: _idPeriodeKegiatanMpt ?? 0,
             idUser: nimList[i].toString(),
             statusMpt: "",
             fileSertifikatMpt: "",

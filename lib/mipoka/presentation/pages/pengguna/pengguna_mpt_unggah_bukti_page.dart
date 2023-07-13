@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/riwayat_kegiatan_mpt_bloc/riwayat_kegiatan_mpt_bloc.dart';
@@ -23,11 +24,11 @@ import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart'
 
 class PenggunaMPTUnggahBuktiPage extends StatefulWidget {
   const PenggunaMPTUnggahBuktiPage({
-    required this.idKegiatanPerPeriodeMpt,
+    required this.kegiatanPerPeriodeMpt,
     super.key,
   });
 
-  final int idKegiatanPerPeriodeMpt;
+  final KegiatanPerPeriodeMpt kegiatanPerPeriodeMpt;
 
   @override
   State<PenggunaMPTUnggahBuktiPage> createState() => _PenggunaMPTUnggahBuktiPageState();
@@ -38,7 +39,6 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
   final TextEditingController _fileSertifikatMptController = TextEditingController();
   final TextEditingController _shaController = TextEditingController();
   final StreamController<String?> _fileSertifikatMptStream = StreamController<String?>.broadcast();
-  final StreamController<bool?> _isNotDuplicatedStream = StreamController<bool?>();
 
   @override
   void initState() {
@@ -119,10 +119,10 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                             const SizedBox(width: 8.0),
 
                             BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                              builder: (context, mipokaUserState) {
-                                if(mipokaUserState is MipokaUserLoading) {
+                              builder: (context, state) {
+                                if(state is MipokaUserLoading) {
                                   return const Text("Loading ...");
-                                } else if (mipokaUserState is MipokaUserHasData) {
+                                } else if (state is MipokaUserHasData) {
                                   return CustomMipokaButton(
                                     onTap: () async {
                                       if (_keteranganController.text.isNotEmpty) {
@@ -155,9 +155,9 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                                 context.read<RiwayatKegiatanMptBloc>().add(
                                                   CreateRiwayatKegiatanMptEvent(
                                                     riwayatKegiatanMpt: RiwayatKegiatanMpt(
-                                                      idKegiatanPerPeriodeMpt: widget.idKegiatanPerPeriodeMpt,
+                                                      kegiatanPerPeriodeMpt: widget.kegiatanPerPeriodeMpt,
                                                       idRiwayatKegiatanMpt: newId,
-                                                      idUser: mipokaUserState.mipokaUser.idUser,
+                                                      mipokaUser: state.mipokaUser,
                                                       statusMpt: "pending",
                                                       fileSertifikatMpt: _fileSertifikatMptController.text,
                                                       hash: _shaController.text,
@@ -191,8 +191,8 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                     },
                                     text: "Tambah",
                                   );
-                                } else if (mipokaUserState is MipokaUserError) {
-                                  return Text(mipokaUserState.message);
+                                } else if (state is MipokaUserError) {
+                                  return Text(state.message);
                                 } else {
                                   return const Text("MipokaUser Hasn't been triggered yet");
                                 }
@@ -265,13 +265,6 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
     );
   }
 }
-
-void deleteFileFromLocal(String filePath) async {
-  if (await File(filePath).exists()) {
-    await File(filePath).delete();
-  }
-}
-
 
 Future<String?> selectAndUploadFile(String fileName) async {
   try {
