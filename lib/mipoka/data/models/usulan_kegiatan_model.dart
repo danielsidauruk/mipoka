@@ -2,12 +2,13 @@ import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
 import 'package:mipoka/mipoka/data/models/mipoka_user_model.dart';
 import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
+import 'package:mipoka/mipoka/data/models/revisi_usulan_model.dart';
 import 'package:mipoka/mipoka/data/models/tertib_acara_model.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 
 class UsulanKegiatanModel extends UsulanKegiatan {
-
-  final MipokaUserModel userModel;
+  final RevisiUsulanModel revisiUsulanModel;
+  final MipokaUserModel mipokaUserModel;
   final OrmawaModel ormawaModel;
   final List<PartisipanModel> partisipanModel;
   final List<BiayaKegiatanModel> biayaKegiatanModel;
@@ -15,7 +16,8 @@ class UsulanKegiatanModel extends UsulanKegiatan {
 
   const UsulanKegiatanModel({
     required super.idUsulan,
-    required this.userModel,
+    required this.revisiUsulanModel,
+    required this.mipokaUserModel,
     required this.ormawaModel,
     required super.pembiayaan,
     required super.namaKegiatan,
@@ -63,17 +65,19 @@ class UsulanKegiatanModel extends UsulanKegiatan {
     required super.createdBy,
     required super.updatedBy,
   }) : super(
+    revisiUsulan: revisiUsulanModel,
+    mipokaUser: mipokaUserModel,
+    ormawa: ormawaModel,
     partisipan: partisipanModel,
     biayaKegiatan: biayaKegiatanModel,
     tertibAcara: tertibAcaraModel,
-    user: userModel,
-    ormawa: ormawaModel,
   );
 
   factory UsulanKegiatanModel.fromEntity(UsulanKegiatan usulanKegiatan) {
     return UsulanKegiatanModel(
       idUsulan: usulanKegiatan.idUsulan,
-      userModel: MipokaUserModel.fromEntity(usulanKegiatan.user),
+      revisiUsulanModel: RevisiUsulanModel.fromEntity(usulanKegiatan.revisiUsulan),
+      mipokaUserModel: MipokaUserModel.fromEntity(usulanKegiatan.mipokaUser),
       ormawaModel: OrmawaModel.fromEntity(usulanKegiatan.ormawa),
       pembiayaan: usulanKegiatan.pembiayaan,
       namaKegiatan: usulanKegiatan.namaKegiatan,
@@ -128,7 +132,8 @@ class UsulanKegiatanModel extends UsulanKegiatan {
 
   factory UsulanKegiatanModel.fromJson(Map<String, dynamic> json) => UsulanKegiatanModel(
     idUsulan: json["id_usulan"],
-    userModel: MipokaUserModel.fromJson(json["user"]),
+    revisiUsulanModel: RevisiUsulanModel.fromJson(json["revisi_usulan"]),
+    mipokaUserModel: MipokaUserModel.fromJson(json["user"]),
     ormawaModel: OrmawaModel.fromJson(json["ormawa"]),
     pembiayaan: json["pembiayaan"],
     namaKegiatan: json["nama_kegiatan"],
@@ -179,7 +184,8 @@ class UsulanKegiatanModel extends UsulanKegiatan {
 
   Map<String, dynamic> toJson() => {
     "id_usulan": idUsulan,
-    "user": userModel.toJson(),
+    "revisi_usulan": revisiUsulanModel.toJson(),
+    "user": mipokaUserModel.toJson(),
     "ormawa": ormawaModel.toJson(),
     "pembiayaan": pembiayaan,
     "nama_kegiatan": namaKegiatan,

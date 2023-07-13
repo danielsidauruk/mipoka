@@ -1,10 +1,15 @@
+import 'package:mipoka/mipoka/data/models/kegiatan_per_periode_mpt_model.dart';
+import 'package:mipoka/mipoka/data/models/mipoka_user_model.dart';
 import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
 
 class RiwayatMptModel extends RiwayatKegiatanMpt {
+  final MipokaUserModel mipokaUserModel;
+  final KegiatanPerPeriodeMptModel kegiatanPerPeriodeMptModel;
+
   const RiwayatMptModel({
     required super.idRiwayatKegiatanMpt,
-    required super.idKegiatanPerPeriodeMpt,
-    required super.idUser,
+    required this.kegiatanPerPeriodeMptModel,
+    required this.mipokaUserModel,
     required super.statusMpt,
     required super.fileSertifikatMpt,
     required super.hash,
@@ -14,13 +19,16 @@ class RiwayatMptModel extends RiwayatKegiatanMpt {
     required super.createdBy,
     required super.updatedAt,
     required super.updatedBy,
-  });
+  }) : super (
+    mipokaUser: mipokaUserModel,
+    kegiatanPerPeriodeMpt: kegiatanPerPeriodeMptModel,
+  );
 
   factory RiwayatMptModel.fromEntity(RiwayatKegiatanMpt riwayatMpt) {
     return RiwayatMptModel(
       idRiwayatKegiatanMpt: riwayatMpt.idRiwayatKegiatanMpt,
-      idKegiatanPerPeriodeMpt: riwayatMpt.idKegiatanPerPeriodeMpt,
-      idUser: riwayatMpt.idUser,
+      kegiatanPerPeriodeMptModel: KegiatanPerPeriodeMptModel.fromEntity(riwayatMpt.kegiatanPerPeriodeMpt),
+      mipokaUserModel: MipokaUserModel.fromEntity(riwayatMpt.mipokaUser),
       statusMpt: riwayatMpt.statusMpt,
       fileSertifikatMpt: riwayatMpt.fileSertifikatMpt,
       hash: riwayatMpt.hash,
@@ -35,8 +43,8 @@ class RiwayatMptModel extends RiwayatKegiatanMpt {
 
   factory RiwayatMptModel.fromJson(Map<String, dynamic> json) => RiwayatMptModel(
     idRiwayatKegiatanMpt: json["id_riwayat_kegiatan_mpt"],
-    idKegiatanPerPeriodeMpt: json["id_kegiatan_per_periode_mpt"],
-    idUser: json["id_user"],
+    kegiatanPerPeriodeMptModel: KegiatanPerPeriodeMptModel.fromJson(json["kegiatan_per_periode_mpt"]),
+    mipokaUserModel: MipokaUserModel.fromJson(json["user"]),
     statusMpt: json["status_mpt"],
     fileSertifikatMpt: json["file_sertifikat_mpt"],
     hash: json["hash"],
@@ -50,8 +58,8 @@ class RiwayatMptModel extends RiwayatKegiatanMpt {
 
   Map<String, dynamic> toJson() => {
     "id_riwayat_kegiatan_mpt": idRiwayatKegiatanMpt,
-    "id_kegiatan_per_periode_mpt": idKegiatanPerPeriodeMpt,
-    "id_user": idUser,
+    "kegiatan_per_periode_mpt": kegiatanPerPeriodeMptModel.toJson(),
+    "user": mipokaUserModel.toJson(),
     "status_mpt": statusMpt,
     "file_sertifikat_mpt": fileSertifikatMpt,
     "hash": hash,

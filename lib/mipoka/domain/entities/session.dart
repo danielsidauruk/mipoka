@@ -61,7 +61,7 @@ class Session extends Equatable{
 
   Session copyWith({
     int? idSession,
-    MipokaUser? user,
+    MipokaUser? mipokaUser,
     Ormawa? ormawa,
     String? tanggalMulai,
     String? tanggalSelesai,
@@ -89,7 +89,7 @@ class Session extends Equatable{
   }) =>
       Session(
         idSession: idSession ?? this.idSession,
-        mipokaUser: user ?? this.mipokaUser,
+        mipokaUser: mipokaUser ?? this.mipokaUser,
         ormawa:ormawa ?? this.ormawa,
         tanggalMulai: tanggalMulai ?? this.tanggalMulai,
         tanggalSelesai: tanggalSelesai ?? this.tanggalSelesai,

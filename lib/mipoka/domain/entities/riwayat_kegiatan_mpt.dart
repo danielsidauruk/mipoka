@@ -1,9 +1,11 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 
 class RiwayatKegiatanMpt extends Equatable {
   final int idRiwayatKegiatanMpt;
-  final int idKegiatanPerPeriodeMpt;
-  final String idUser;
+  final KegiatanPerPeriodeMpt kegiatanPerPeriodeMpt;
+  final MipokaUser mipokaUser;
   final String statusMpt;
   final String fileSertifikatMpt;
   final String hash;
@@ -16,8 +18,8 @@ class RiwayatKegiatanMpt extends Equatable {
 
   const RiwayatKegiatanMpt({
     required this.idRiwayatKegiatanMpt,
-    required this.idKegiatanPerPeriodeMpt,
-    required this.idUser,
+    required this.kegiatanPerPeriodeMpt,
+    required this.mipokaUser,
     required this.statusMpt,
     required this.fileSertifikatMpt,
     required this.hash,
@@ -31,8 +33,8 @@ class RiwayatKegiatanMpt extends Equatable {
 
   RiwayatKegiatanMpt copyWith({
     int? idRiwayatKegiatanMpt,
-    int? idKegiatanPerPeriodeMpt,
-    String? idUser,
+    KegiatanPerPeriodeMpt? kegiatanPerPeriodeMpt,
+    MipokaUser? mipokaUser,
     String? statusMpt,
     String? fileSertifikatMpt,
     String? hash,
@@ -45,8 +47,8 @@ class RiwayatKegiatanMpt extends Equatable {
   }) =>
       RiwayatKegiatanMpt(
         idRiwayatKegiatanMpt: idRiwayatKegiatanMpt ?? this.idRiwayatKegiatanMpt,
-        idKegiatanPerPeriodeMpt: idKegiatanPerPeriodeMpt ?? this.idKegiatanPerPeriodeMpt,
-        idUser: idUser ?? this.idUser,
+        kegiatanPerPeriodeMpt: kegiatanPerPeriodeMpt ?? this.kegiatanPerPeriodeMpt,
+        mipokaUser: mipokaUser ?? this.mipokaUser,
         statusMpt: statusMpt ?? this.statusMpt,
         fileSertifikatMpt: fileSertifikatMpt ?? this.fileSertifikatMpt,
         hash: hash ?? this.hash,
@@ -61,8 +63,8 @@ class RiwayatKegiatanMpt extends Equatable {
   @override
   List<Object?> get props => [
     idRiwayatKegiatanMpt,
-    idKegiatanPerPeriodeMpt,
-    idUser,
+    kegiatanPerPeriodeMpt,
+    mipokaUser,
     statusMpt,
     fileSertifikatMpt,
     hash,
