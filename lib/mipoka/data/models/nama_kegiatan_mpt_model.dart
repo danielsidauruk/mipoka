@@ -1,20 +1,23 @@
+import 'package:mipoka/mipoka/data/models/jenis_kegaitan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
 
 class NamaKegiatanMptModel extends NamaKegiatanMpt {
+  final JenisKegiatanMptModel jenisKegiatanMptModel;
+
   const NamaKegiatanMptModel({
     required super.idNamaKegiatanMpt,
-    required super.idJenisKegiatanMpt,
+    required this.jenisKegiatanMptModel,
     required super.namaKegiatan,
     required super.createdAt,
     required super.createdBy,
     required super.updatedAt,
     required super.updatedBy,
-  });
+  }) : super(jenisKegiatanMpt: jenisKegiatanMptModel);
 
   factory NamaKegiatanMptModel.fromEntity(NamaKegiatanMpt namaKegiatanMpt) {
     return NamaKegiatanMptModel(
       idNamaKegiatanMpt: namaKegiatanMpt.idNamaKegiatanMpt,
-      idJenisKegiatanMpt: namaKegiatanMpt.idJenisKegiatanMpt,
+      jenisKegiatanMptModel: JenisKegiatanMptModel.fromEntity(namaKegiatanMpt.jenisKegiatanMpt),
       namaKegiatan: namaKegiatanMpt.namaKegiatan,
       createdAt: namaKegiatanMpt.createdAt,
       createdBy: namaKegiatanMpt.createdBy,
@@ -25,7 +28,7 @@ class NamaKegiatanMptModel extends NamaKegiatanMpt {
 
   factory NamaKegiatanMptModel.fromJson(Map<String, dynamic> json) => NamaKegiatanMptModel(
     idNamaKegiatanMpt: json["id_nama_kegiatan_mpt"],
-    idJenisKegiatanMpt: json["id_jenis_kegiatan_mpt"],
+    jenisKegiatanMptModel: JenisKegiatanMptModel.fromJson(json["jenis_kegiatan_mpt"]),
     namaKegiatan: json["nama_kegiatan"],
     createdAt: json["created_at"],
     createdBy: json["created_by"],
@@ -35,7 +38,7 @@ class NamaKegiatanMptModel extends NamaKegiatanMpt {
 
   Map<String, dynamic> toJson() => {
     "id_nama_kegiatan_mpt": idNamaKegiatanMpt,
-    "id_jenis_kegiatan_mpt": idJenisKegiatanMpt,
+    "jenis_kegiatan_mpt": jenisKegiatanMptModel.toJson(),
     "nama_kegiatan": namaKegiatan,
     "created_at": createdAt,
     "created_by": createdBy,

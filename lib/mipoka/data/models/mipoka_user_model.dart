@@ -1,9 +1,14 @@
+import 'dart:js_interop';
+
+import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 
 class MipokaUserModel extends MipokaUser {
+  final List<OrmawaModel> ormawaModel;
+
   const MipokaUserModel({
     required super.idUser,
-    required super.ormawa,
+    required this.ormawaModel,
     required super.email,
     required super.namaLengkap,
     required super.nim,
@@ -19,12 +24,13 @@ class MipokaUserModel extends MipokaUser {
     required super.updatedAt,
     required super.createdBy,
     required super.updatedBy,
-  });
+  }) : super (ormawa: ormawaModel);
 
   factory MipokaUserModel.fromEntity(MipokaUser mipokaUser) {
     return MipokaUserModel(
       idUser: mipokaUser.idUser,
-      ormawa: mipokaUser.ormawa,
+      ormawaModel: mipokaUser.ormawa.map((ormawa) =>
+          OrmawaModel.fromEntity(ormawa)).toList(),
       email: mipokaUser.email,
       namaLengkap: mipokaUser.namaLengkap,
       nim: mipokaUser.nim,
@@ -45,7 +51,7 @@ class MipokaUserModel extends MipokaUser {
 
   factory MipokaUserModel.fromJson(Map<String, dynamic> json) => MipokaUserModel(
     idUser: json["id_user"],
-    ormawa: List<int>.from(json["id_ormawa"].map((x) => x)),
+    ormawaModel: List<OrmawaModel>.from(json["ormawa"].map((x) => OrmawaModel.fromJson(x))),
     email: json["email"],
     namaLengkap: json["nama_lengkap"],
     nim: json["nim"],
@@ -65,7 +71,7 @@ class MipokaUserModel extends MipokaUser {
 
   Map<String, dynamic> toJson() => {
     "id_user": idUser,
-    "id_ormawa": List<dynamic>.from(ormawa.map((x) => x)),
+    "ormawa": List<dynamic>.from(ormawaModel.map((x) => x.toJson())),
     "email": email,
     "nama_lengkap": namaLengkap,
     "nim": nim,

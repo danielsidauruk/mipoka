@@ -1,11 +1,12 @@
+import 'package:mipoka/mipoka/data/models/mipoka_user_model.dart';
 import 'package:mipoka/mipoka/domain/entities/revisi_laporan.dart';
 
 class RevisiLaporanModel extends RevisiLaporan{
+  final MipokaUserModel mipokaUserModel;
+
   const RevisiLaporanModel({
     required super.idRevisiLaporan,
-    required super.idAdmin,
-    required super.idLaporan,
-    required super.idUsulan,
+    required this.mipokaUserModel,
     required super.revisiPencapaian,
     required super.revisiPesertaKegiatanLaporan,
     required super.revisiBiayaKegiatan,
@@ -20,14 +21,12 @@ class RevisiLaporanModel extends RevisiLaporan{
     required super.createdBy,
     required super.updatedAt,
     required super.updatedBy,
-  });
+  }) : super(mipokaUser: mipokaUserModel);
 
   factory RevisiLaporanModel.fromEntity(RevisiLaporan revisiLaporan) {
     return RevisiLaporanModel(
       idRevisiLaporan: revisiLaporan.idRevisiLaporan,
-      idAdmin: revisiLaporan.idAdmin,
-      idLaporan: revisiLaporan.idLaporan,
-      idUsulan: revisiLaporan.idUsulan,
+      mipokaUserModel: MipokaUserModel.fromEntity(revisiLaporan.mipokaUser),
       revisiPencapaian: revisiLaporan.revisiPencapaian,
       revisiPesertaKegiatanLaporan: revisiLaporan.revisiPesertaKegiatanLaporan,
       revisiBiayaKegiatan: revisiLaporan.revisiBiayaKegiatan,
@@ -47,9 +46,7 @@ class RevisiLaporanModel extends RevisiLaporan{
 
   factory RevisiLaporanModel.fromJson(Map<String, dynamic> json) => RevisiLaporanModel(
     idRevisiLaporan: json["id_revisi_laporan"],
-    idAdmin: json["id_admin"],
-    idLaporan: json["id_laporan"],
-    idUsulan: json["id_usulan"],
+    mipokaUserModel: MipokaUserModel.fromJson(json["user"]),
     revisiPencapaian: json["revisi_pencapaian"],
     revisiPesertaKegiatanLaporan: json["revisi_peserta_kegiatan_laporan"],
     revisiBiayaKegiatan: json["revisi_biaya_kegiatan"],
@@ -68,9 +65,7 @@ class RevisiLaporanModel extends RevisiLaporan{
 
   Map<String, dynamic> toJson() => {
     "id_revisi_laporan": idRevisiLaporan,
-    "id_admin": idAdmin,
-    "id_laporan": idLaporan,
-    "id_usulan": idUsulan,
+    "user": mipokaUserModel.toJson(),
     "revisi_pencapaian": revisiPencapaian,
     "revisi_peserta_kegiatan_laporan": revisiPesertaKegiatanLaporan,
     "revisi_biaya_kegiatan": revisiBiayaKegiatan,

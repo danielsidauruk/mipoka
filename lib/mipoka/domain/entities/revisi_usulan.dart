@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 
 class RevisiUsulan extends Equatable{
   final int idRevisiUsulan;
-  final String idAdmin;
-  final int idUsulan;
+  final MipokaUser mipokaUser;
   final String revisiPembiayaan;
   final String revisiNamaKegiatan;
   final String revisiBentukKegiatan;
@@ -46,8 +46,7 @@ class RevisiUsulan extends Equatable{
 
   const RevisiUsulan({
     required this.idRevisiUsulan,
-    required this.idAdmin,
-    required this.idUsulan,
+    required this.mipokaUser,
     required this.revisiPembiayaan,
     required this.revisiNamaKegiatan,
     required this.revisiBentukKegiatan,
@@ -91,8 +90,7 @@ class RevisiUsulan extends Equatable{
 
   RevisiUsulan copyWith({
     int? idRevisiUsulan,
-    String? idAdmin,
-    int? idUsulan,
+    MipokaUser? mipokaUser,
     String? revisiPembiayaan,
     String? revisiNamaKegiatan,
     String? revisiBentukKegiatan,
@@ -135,8 +133,7 @@ class RevisiUsulan extends Equatable{
   }) =>
       RevisiUsulan(
         idRevisiUsulan: idRevisiUsulan ?? this.idRevisiUsulan,
-        idAdmin: idAdmin ?? this.idAdmin,
-        idUsulan: idUsulan ?? this.idUsulan,
+        mipokaUser: mipokaUser ?? this.mipokaUser,
         revisiPembiayaan: revisiPembiayaan ?? this.revisiPembiayaan,
         revisiNamaKegiatan: revisiNamaKegiatan ?? this.revisiNamaKegiatan,
         revisiBentukKegiatan: revisiBentukKegiatan ?? this.revisiBentukKegiatan,
@@ -181,8 +178,7 @@ class RevisiUsulan extends Equatable{
   @override
   List<Object?> get props => [
     idRevisiUsulan,
-    idAdmin,
-    idUsulan,
+    mipokaUser,
     revisiPembiayaan,
     revisiNamaKegiatan,
     revisiBentukKegiatan,

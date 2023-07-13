@@ -1,9 +1,11 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
+import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 
 class Prestasi extends Equatable {
   final int idPrestasi;
-  final int idOrmawa;
-  final String idUser;
+  final MipokaUser mipokaUser;
+  final Ormawa ormawa;
   final String namaKegiatan;
   final String waktuPenyelenggaraan;
   final String tingkat;
@@ -16,8 +18,8 @@ class Prestasi extends Equatable {
 
   const Prestasi({
     required this.idPrestasi,
-    required this.idOrmawa,
-    required this.idUser,
+    required this.ormawa,
+    required this.mipokaUser,
     required this.namaKegiatan,
     required this.waktuPenyelenggaraan,
     required this.tingkat,
@@ -31,8 +33,8 @@ class Prestasi extends Equatable {
 
   Prestasi copyWith({
     int? idPrestasi,
-    int? idOrmawa,
-    String? idUser,
+    MipokaUser? user,
+    Ormawa? ormawa,
     String? namaKegiatan,
     String? waktuPenyelenggaraan,
     String? tingkat,
@@ -45,8 +47,8 @@ class Prestasi extends Equatable {
   }) =>
       Prestasi(
         idPrestasi: idPrestasi ?? this.idPrestasi,
-        idOrmawa: idOrmawa ?? this.idOrmawa,
-        idUser: idUser ?? this.idUser,
+        mipokaUser: user ?? this.mipokaUser,
+        ormawa:ormawa ?? this.ormawa,
         namaKegiatan: namaKegiatan ?? this.namaKegiatan,
         waktuPenyelenggaraan: waktuPenyelenggaraan ?? this.waktuPenyelenggaraan,
         tingkat: tingkat ?? this.tingkat,
@@ -61,8 +63,8 @@ class Prestasi extends Equatable {
   @override
   List<Object?> get props => [
     idPrestasi,
-    idOrmawa,
-    idUser,
+    mipokaUser,
+    ormawa,
     namaKegiatan,
     waktuPenyelenggaraan,
     tingkat,

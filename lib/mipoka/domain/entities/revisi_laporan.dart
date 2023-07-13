@@ -1,10 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 
 class RevisiLaporan extends Equatable {
   final int idRevisiLaporan;
-  final String idAdmin;
-  final int idLaporan;
-  final int idUsulan;
+  final MipokaUser mipokaUser;
   final String revisiPencapaian;
   final String revisiPesertaKegiatanLaporan;
   final String revisiBiayaKegiatan;
@@ -22,9 +21,7 @@ class RevisiLaporan extends Equatable {
 
   const RevisiLaporan({
     required this.idRevisiLaporan,
-    required this.idAdmin,
-    required this.idLaporan,
-    required this.idUsulan,
+    required this.mipokaUser,
     required this.revisiPencapaian,
     required this.revisiPesertaKegiatanLaporan,
     required this.revisiBiayaKegiatan,
@@ -43,9 +40,7 @@ class RevisiLaporan extends Equatable {
 
   RevisiLaporan copyWith({
     int? idRevisiLaporan,
-    String? idAdmin,
-    int? idLaporan,
-    int? idUsulan,
+    MipokaUser? mipokaUser,
     String? revisiPencapaian,
     String? revisiPesertaKegiatanLaporan,
     String? revisiBiayaKegiatan,
@@ -63,9 +58,7 @@ class RevisiLaporan extends Equatable {
   }) =>
       RevisiLaporan(
         idRevisiLaporan: idRevisiLaporan ?? this.idRevisiLaporan,
-        idAdmin: idAdmin ?? this.idAdmin,
-        idLaporan: idLaporan ?? this.idLaporan,
-        idUsulan: idUsulan ?? this.idUsulan,
+        mipokaUser: mipokaUser ?? this.mipokaUser,
         revisiPencapaian: revisiPencapaian ?? this.revisiPencapaian,
         revisiPesertaKegiatanLaporan: revisiPesertaKegiatanLaporan ?? this.revisiPesertaKegiatanLaporan,
         revisiBiayaKegiatan: revisiBiayaKegiatan ?? this.revisiBiayaKegiatan,
@@ -85,9 +78,7 @@ class RevisiLaporan extends Equatable {
   @override
   List<Object?> get props => [
     idRevisiLaporan,
-    idAdmin,
-    idLaporan,
-    idUsulan,
+    mipokaUser,
     revisiPencapaian,
     revisiPesertaKegiatanLaporan,
     revisiBiayaKegiatan,

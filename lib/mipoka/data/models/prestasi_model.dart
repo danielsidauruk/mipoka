@@ -1,10 +1,15 @@
+import 'package:mipoka/mipoka/data/models/mipoka_user_model.dart';
+import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/domain/entities/prestasi.dart';
 
 class PrestasiModel extends Prestasi {
+  final MipokaUserModel mipokaUserModel;
+  final OrmawaModel ormawaModel;
+
   const PrestasiModel({
     required super.idPrestasi,
-    required super.idOrmawa,
-    required super.idUser,
+    required this.mipokaUserModel,
+    required this.ormawaModel,
     required super.namaKegiatan,
     required super.waktuPenyelenggaraan,
     required super.tingkat,
@@ -14,13 +19,16 @@ class PrestasiModel extends Prestasi {
     required super.createdBy,
     required super.updatedAt,
     required super.updatedBy,
-  });
+  }) : super(
+    mipokaUser: mipokaUserModel,
+    ormawa: ormawaModel,
+  );
 
   factory PrestasiModel.fromEntity(Prestasi prestasi) {
     return PrestasiModel(
       idPrestasi: prestasi.idPrestasi,
-      idOrmawa: prestasi.idOrmawa,
-      idUser: prestasi.idUser,
+      mipokaUserModel: MipokaUserModel.fromEntity(prestasi.mipokaUser),
+      ormawaModel: OrmawaModel.fromEntity(prestasi.ormawa),
       namaKegiatan: prestasi.namaKegiatan,
       waktuPenyelenggaraan: prestasi.waktuPenyelenggaraan,
       tingkat: prestasi.tingkat,
@@ -35,8 +43,8 @@ class PrestasiModel extends Prestasi {
 
   factory PrestasiModel.fromJson(Map<String, dynamic> json) => PrestasiModel(
     idPrestasi: json["id_prestasi"],
-    idOrmawa: json["id_ormawa"],
-    idUser: json["id_user"],
+    mipokaUserModel: MipokaUserModel.fromJson(json["user"]),
+    ormawaModel: OrmawaModel.fromJson(json["ormawa"]),
     namaKegiatan: json["nama_kegiatan"],
     waktuPenyelenggaraan: json["waktu_penyelenggaraan"],
     tingkat: json["tingkat"],
@@ -50,8 +58,8 @@ class PrestasiModel extends Prestasi {
 
   Map<String, dynamic> toJson() => {
     "id_prestasi": idPrestasi,
-    "id_ormawa": idOrmawa,
-    "id_user": idUser,
+    "user": mipokaUserModel.toJson(),
+    "ormawa": ormawaModel.toJson(),
     "nama_kegiatan": namaKegiatan,
     "waktu_penyelenggaraan": waktuPenyelenggaraan,
     "tingkat": tingkat,

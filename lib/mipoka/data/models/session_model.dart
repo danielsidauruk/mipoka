@@ -3,12 +3,12 @@ import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/domain/entities/session.dart';
 
 class SessionModel extends Session {
-  final MipokaUserModel userModel;
+  final MipokaUserModel mipokaUserModel;
   final OrmawaModel ormawaModel;
 
   const SessionModel({
     required super.idSession,
-    required this.userModel,
+    required this.mipokaUserModel,
     required this.ormawaModel,
     required super.tanggalMulai,
     required super.tanggalSelesai,
@@ -34,14 +34,14 @@ class SessionModel extends Session {
     required super.updatedBy,
     required super.createdBy,
   }) : super(
-    user: userModel,
+    mipokaUser: mipokaUserModel,
     ormawa: ormawaModel,
   );
 
   factory SessionModel.fromEntity(Session session) {
     return SessionModel(
       idSession: session.idSession,
-      userModel: MipokaUserModel.fromEntity(session.user),
+      mipokaUserModel: MipokaUserModel.fromEntity(session.mipokaUser),
       ormawaModel: OrmawaModel.fromEntity(session.ormawa),
       tanggalMulai: session.tanggalMulai,
       tanggalSelesai: session.tanggalSelesai,
@@ -71,7 +71,7 @@ class SessionModel extends Session {
 
   factory SessionModel.fromJson(Map<String, dynamic> json) => SessionModel(
     idSession: json["id_session"],
-    userModel: MipokaUserModel.fromJson(json["user"]),
+    mipokaUserModel: MipokaUserModel.fromJson(json["user"]),
     ormawaModel: OrmawaModel.fromJson(json["ormawa"]),
     tanggalMulai: json["tanggal_mulai"],
     tanggalSelesai: json["tanggal_selesai"],
@@ -100,7 +100,7 @@ class SessionModel extends Session {
 
   Map<String, dynamic> toJson() => {
     "id_session": idSession,
-    "user": userModel.toJson(),
+    "user": mipokaUserModel.toJson(),
     "ormawa": ormawaModel.toJson(),
     "tanggal_mulai": tanggalMulai,
     "tanggal_selesai": tanggalSelesai,

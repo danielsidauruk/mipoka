@@ -4,7 +4,7 @@ import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 
 class Session extends Equatable{
   final int idSession;
-  final MipokaUser user;
+  final MipokaUser mipokaUser;
   final Ormawa ormawa;
   final String tanggalMulai;
   final String tanggalSelesai;
@@ -32,7 +32,7 @@ class Session extends Equatable{
 
   const Session({
     required this.idSession,
-    required this.user,
+    required this.mipokaUser,
     required this.ormawa,
     required this.tanggalMulai,
     required this.tanggalSelesai,
@@ -89,7 +89,7 @@ class Session extends Equatable{
   }) =>
       Session(
         idSession: idSession ?? this.idSession,
-        user: user ?? this.user,
+        mipokaUser: user ?? this.mipokaUser,
         ormawa:ormawa ?? this.ormawa,
         tanggalMulai: tanggalMulai ?? this.tanggalMulai,
         tanggalSelesai: tanggalSelesai ?? this.tanggalSelesai,
@@ -119,7 +119,7 @@ class Session extends Equatable{
   @override
   List<Object?> get props => [
     idSession,
-    user,
+    mipokaUser,
     ormawa,
     tanggalMulai,
     tanggalSelesai,

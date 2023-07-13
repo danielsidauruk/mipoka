@@ -1,8 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 
 class MipokaUser extends Equatable{
   final String idUser;
-  final List<int> ormawa;
+  final List<Ormawa> ormawa;
   final String email;
   final String namaLengkap;
   final String nim;
@@ -41,7 +42,7 @@ class MipokaUser extends Equatable{
 
   MipokaUser copyWith({
     String? idUser,
-    List<int>? ormawa,
+    List<Ormawa>? ormawa,
     String? email,
     String? namaLengkap,
     String? nim,

@@ -1,8 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
 
 class NamaKegiatanMpt extends Equatable{
   final int idNamaKegiatanMpt;
-  final int idJenisKegiatanMpt;
+  final JenisKegiatanMpt jenisKegiatanMpt;
   final String namaKegiatan;
   final String createdAt;
   final String createdBy;
@@ -11,7 +12,7 @@ class NamaKegiatanMpt extends Equatable{
 
   const NamaKegiatanMpt({
     required this.idNamaKegiatanMpt,
-    required this.idJenisKegiatanMpt,
+    required this.jenisKegiatanMpt,
     required this.namaKegiatan,
     required this.createdAt,
     required this.createdBy,
@@ -21,7 +22,7 @@ class NamaKegiatanMpt extends Equatable{
 
   NamaKegiatanMpt copyWith({
     int? idNamaKegiatanMpt,
-    int? idJenisKegiatanMpt,
+    JenisKegiatanMpt? jenisKegiatanMpt,
     String? namaKegiatan,
     String? createdAt,
     String? createdBy,
@@ -30,7 +31,7 @@ class NamaKegiatanMpt extends Equatable{
   }) =>
       NamaKegiatanMpt(
         idNamaKegiatanMpt: idNamaKegiatanMpt ?? this.idNamaKegiatanMpt,
-        idJenisKegiatanMpt: idJenisKegiatanMpt ?? this.idJenisKegiatanMpt,
+        jenisKegiatanMpt: jenisKegiatanMpt ?? this.jenisKegiatanMpt,
         namaKegiatan: namaKegiatan ?? this.namaKegiatan,
         createdAt: createdAt ?? this.createdAt,
         createdBy: createdBy ?? this.createdBy,
@@ -41,7 +42,7 @@ class NamaKegiatanMpt extends Equatable{
   @override
   List<Object?> get props => [
     idNamaKegiatanMpt,
-    idJenisKegiatanMpt,
+    jenisKegiatanMpt,
     namaKegiatan,
     createdAt,
     createdBy,

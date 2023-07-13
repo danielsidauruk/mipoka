@@ -1,10 +1,12 @@
+import 'package:mipoka/mipoka/data/models/mipoka_user_model.dart';
 import 'package:mipoka/mipoka/domain/entities/revisi_usulan.dart';
 
 class RevisiUsulanModel extends RevisiUsulan {
+  final MipokaUserModel mipokaUserModel;
+
   const RevisiUsulanModel({
     required super.idRevisiUsulan,
-    required super.idAdmin,
-    required super.idUsulan,
+    required this.mipokaUserModel,
     required super.revisiPembiayaan,
     required super.revisiNamaKegiatan,
     required super.revisiBentukKegiatan,
@@ -44,13 +46,12 @@ class RevisiUsulanModel extends RevisiUsulan {
     required super.createdBy,
     required super.updatedAt,
     required super.updatedBy,
-  });
+  }) : super(mipokaUser: mipokaUserModel);
 
   static RevisiUsulanModel fromEntity(RevisiUsulan revisiUsulan) {
     return RevisiUsulanModel(
       idRevisiUsulan: revisiUsulan.idRevisiUsulan,
-      idAdmin: revisiUsulan.idAdmin,
-      idUsulan: revisiUsulan.idUsulan,
+      mipokaUserModel: MipokaUserModel.fromEntity(revisiUsulan.mipokaUser),
       revisiPembiayaan: revisiUsulan.revisiPembiayaan,
       revisiNamaKegiatan: revisiUsulan.revisiNamaKegiatan,
       revisiBentukKegiatan: revisiUsulan.revisiBentukKegiatan,
@@ -95,8 +96,7 @@ class RevisiUsulanModel extends RevisiUsulan {
 
   factory RevisiUsulanModel.fromJson(Map<String, dynamic> json) => RevisiUsulanModel(
     idRevisiUsulan: json["id_revisi_usulan"],
-    idAdmin: json["id_admin"],
-    idUsulan: json["id_usulan"],
+    mipokaUserModel: MipokaUserModel.fromJson(json["user"]),
     revisiPembiayaan: json["revisi_pembiayaan"],
     revisiNamaKegiatan: json["revisi_nama_kegiatan"],
     revisiBentukKegiatan: json["revisi_bentuk_kegiatan"],
@@ -140,8 +140,7 @@ class RevisiUsulanModel extends RevisiUsulan {
 
   Map<String, dynamic> toJson() => {
     "id_revisi_usulan": idRevisiUsulan,
-    "id_admin": idAdmin,
-    "id_usulan": idUsulan,
+    "user": mipokaUserModel.toJson(),
     "revisi_pembiayaan": revisiPembiayaan,
     "revisi_nama_kegiatan": revisiNamaKegiatan,
     "revisi_bentuk_kegiatan": revisiBentukKegiatan,
