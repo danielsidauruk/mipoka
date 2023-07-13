@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/revisi_laporan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/revisi_laporan_bloc/revisi_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
@@ -39,18 +41,18 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
 
   @override
   void initState() {
-    context.read<LaporanBloc>().add(
-        ReadLaporanEvent(idLaporan: widget.idLaporan));
-    context.read<RevisiLaporanBloc>().add(
-        ReadRevisiLaporanEvent(idRevisiLaporan: widget.idLaporan));
+    Future.microtask(() {
+      context.read<LaporanBloc>().add(
+          ReadLaporanEvent(idLaporan: widget.idLaporan));
+      context.read<MipokaUserBloc>().add(
+          ReadMipokaUserEvent(idMipokaUser: user!.uid));
+    });
     super.initState();
   }
 
   @override
   void dispose() {
     context.read<LaporanBloc>().close();
-    context.read<RevisiLaporanBloc>().close();
-    context.read<OrmawaBloc>().close();
     context.read<UsulanKegiatanBloc>().close();
     super.dispose();
   }
@@ -71,65 +73,31 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                   text: 'Pemeriksa - Kegiatan - Laporan Kegiatan'),
               const CustomFieldSpacer(),
               BlocBuilder<LaporanBloc, LaporanState>(
-                builder: (context, laporanState) {
-                  if (laporanState is LaporanLoading) {
+                builder: (context, state) {
+                  if (state is LaporanLoading) {
                     return const Text("Loading ...");
-                  } else if (laporanState is LaporanHasData) {
-                    final laporan = laporanState.laporan;
+                  } else if (state is LaporanHasData) {
+                    final laporan = state.laporan;
 
-                    context.read<UsulanKegiatanBloc>().add(
-                        ReadUsulanKegiatanEvent(
-                            idUsulanKegiatan: laporan.idUsulan));
-                    context.read<OrmawaBloc>().add(ReadOrmawaEvent(
-                        idOrmawa: laporan.idOrmawa));
-
-                    idRevisiLaporan = laporan.idLaporan + newId;
-
+                    idRevisiLaporan = laporan.idLaporan + newId ;
                     return CustomContentBox(
                       children: [
                         buildTitle('Nama Ormawa'),
-                        BlocBuilder<OrmawaBloc, OrmawaState>(
-                          builder: (context, state) {
-                            if (state is OrmawaLoading) {
-                              return const Text("Loading ...");
-                            } else if (state is OrmawaHasData) {
-                              return customDisplayField(
-                                  state.ormawa.namaOrmawa);
-                            } else if (state is OrmawaError) {
-                              return Text(state.message);
-                            } else {
-                              return const Text(
-                                  "OrmawaBloc hasn't triggered yet.");
-                            }
-                          },
-                        ),
+                        customDisplayField(laporan.usulanKegiatan.ormawa.namaOrmawa),
 
                         const CustomFieldSpacer(),
 
-                        BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
-                          builder: (context, state) {
-                            if (state is UsulanKegiatanLoading) {
-                              return const Text("Loading ...");
-                            } else if (state is UsulanKegiatanHasData) {
-                              return CustomCommentWidget(
-                                title: "Nama Kegiatan",
-                                mainText: state.usulanKegiatan.namaKegiatan,
-                                controller: _commentNamaKegiatanController,
-                              );
-                            } else if (state is UsulanKegiatanError) {
-                              return Text(state.message);
-                            } else {
-                              return const Text("UsulanKegiatanBloc hasn't been triggered yet.");
-                            }
-                          },
+                        CustomCommentWidget(
+                          title: "Nama Kegiatan",
+                          mainText: laporan.usulanKegiatan.namaKegiatan,
+                          controller: _commentNamaKegiatanController,
                         ),
 
                         const CustomFieldSpacer(),
 
                         CustomCommentWidget(
                           title: 'Pencapaian',
-                          mainText:
-                          laporan.pencapaian,
+                          mainText: laporan.pencapaian,
                           controller: _revisiPencapaianController,
                         ),
                         const CustomFieldSpacer(),
@@ -147,48 +115,49 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
 
                             const SizedBox(width: 8.0),
 
-                            CustomMipokaButton(
-                              onTap: () {
-                                context.read<RevisiLaporanBloc>().add(
-                                  CreateRevisiLaporanEvent(
-                                    revisiLaporan: RevisiLaporan(
-                                      idRevisiLaporan: idRevisiLaporan ?? 0,
-                                      idAdmin: user?.uid ?? "unknown",
-                                      idLaporan: laporan.idLaporan,
-                                      idUsulan: laporan.idUsulan,
-                                      revisiPencapaian: _revisiPencapaianController.text,
-                                      revisiPesertaKegiatanLaporan: "",
-                                      revisiBiayaKegiatan: "",
-                                      revisiLatarBelakang: "",
-                                      revisiHasilKegiatan: "",
-                                      revisiPenutup: "",
-                                      revisiFotoPostinganKegiatan: "",
-                                      revisiFotoDokumentasiKegiatan: "",
-                                      revisiFotoTabulasiHasil: "",
-                                      revisiFotoFakturPembayaran: "",
-                                      createdAt: currentDate,
-                                      createdBy: user?.email ?? "unknown",
-                                      updatedAt: currentDate,
-                                      updatedBy: user?.email ?? "unknown",
-                                    ),
-                                  ),
-                                );
-                                Navigator.pushNamed(
-                                  context,
-                                  pemeriksaPengajuanLaporanKegiatan2PageRoute,
-                                  arguments: idRevisiLaporan,
-                                );
+                            BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                              builder: (context, state) {
+                                if (state is MipokaUserLoading) {
+                                  return const Text("Loading ...");
+                                } else if (state is MipokaUserHasData) {
+                                  return CustomMipokaButton(
+                                    onTap: () {
+                                      context.read<LaporanBloc>().add(
+                                        UpdateLaporanEvent(
+                                          laporan: laporan.copyWith(
+                                            revisiLaporan: laporan.revisiLaporan.copyWith(
+                                              idRevisiLaporan: newId,
+                                              mipokaUser: state.mipokaUser,
+                                              revisiPencapaian: _revisiPencapaianController.text,
+                                              updatedAt: currentDate,
+                                              updatedBy: user?.email ?? "unknown",
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                      Navigator.pushNamed(
+                                        context,
+                                        pemeriksaPengajuanLaporanKegiatan2PageRoute,
+                                        arguments: widget.idLaporan,
+                                      );
+                                    },
+                                    text: 'Berikutnya',
+                                  );
+                                } else if (state is MipokaUserError) {
+                                  return Text(state.message);
+                                } else {
+                                  return const Text("MipokaUser hasn't been triggered yet.");
+                                }
                               },
-                              text: 'Berikutnya',
                             ),
                           ],
                         )
                       ],
                     );
-                  } else if (laporanState is LaporanError) {
-                    return Text(laporanState.message);
+                  } else if (state is LaporanError) {
+                    return Text(state.message);
                   } else {
-                    return const Text("Bloc hasn't triggered yet.");
+                    return const Text("LaporanBloc hasn't triggered yet.");
                   }
                 },
               ),

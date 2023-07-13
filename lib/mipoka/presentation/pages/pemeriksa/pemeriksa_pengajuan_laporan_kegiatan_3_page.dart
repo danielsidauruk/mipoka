@@ -19,10 +19,10 @@ import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_dr
 class PemeriksaPengajuanLaporanKegiatan3Page extends StatefulWidget {
   const PemeriksaPengajuanLaporanKegiatan3Page({
     super.key,
-    required this.idRevisiLaporan
+    required this.idLaporan
   });
   
-  final int idRevisiLaporan;
+  final int idLaporan;
 
   @override
   State<PemeriksaPengajuanLaporanKegiatan3Page> createState() =>
@@ -47,15 +47,15 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
       TextEditingController();
 
 
-  final StreamController<bool> _fotoDokumentasiStream = StreamController<bool>();
-  final StreamController<bool> _fotoPostinganStream = StreamController<bool>();
-  final StreamController<bool> _fotoTabulasiHasilStream = StreamController<bool>();
-  final StreamController<bool> _fotoFakturPembayaranStream = StreamController<bool>();
+  final StreamController<bool> _fotoDokumentasiStream = StreamController<bool>.broadcast();
+  final StreamController<bool> _fotoPostinganStream = StreamController<bool>.broadcast();
+  final StreamController<bool> _fotoTabulasiHasilStream = StreamController<bool>.broadcast();
+  final StreamController<bool> _fotoFakturPembayaranStream = StreamController<bool>.broadcast();
   
   @override
   void initState() {
-    context.read<RevisiLaporanBloc>().add(
-        ReadRevisiLaporanEvent(idRevisiLaporan: widget.idRevisiLaporan));
+    context.read<LaporanBloc>().add(
+      ReadLaporanEvent(idLaporan: widget.idLaporan));
     super.initState();
   }
 
@@ -85,177 +85,162 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
               const CustomMobileTitle(
                   text: 'Pemeriksa - Kegiatan - Laporan Kegiatan'),
               const CustomFieldSpacer(),
-              BlocBuilder<RevisiLaporanBloc, RevisiLaporanState>(
+              BlocBuilder<LaporanBloc, LaporanState>(
                 builder: (context, state) {
-                  if (state is RevisiLaporanLoading) {
-                    return const Text("Loading ....");
-                  } else if (state is RevisiLaporanHasData) {
-                    final revisiLaporan = state.revisiLaporan;
+                  if (state is LaporanLoading) {
+                    return const Text("Loading ...");
+                  } else if (state is LaporanHasData) {
+                    final laporan = state.laporan;
 
-                    context.read<LaporanBloc>().add(ReadLaporanEvent(idLaporan: revisiLaporan.idLaporan));
+                    return CustomContentBox(
+                      children: [
+                        CustomCommentWidget(
+                          title: 'Latar Belakang',
+                          mainText:
+                          laporan.latarBelakang,
+                          controller: _revisiLatarBelakangController,
+                        ),
+                        const CustomFieldSpacer(),
+                        CustomCommentWidget(
+                          title: 'Tujuan Kegiatan',
+                          mainText: laporan.hasilKegiatan,
+                          controller: _revisiHasilKegiatanController,
+                        ),
+                        const CustomFieldSpacer(),
+                        CustomCommentWidget(
+                          title: 'Penutup',
+                          mainText: laporan.penutup,
+                          controller: _revisiPenutupController,
+                        ),
+                        const CustomFieldSpacer(),
+                        CustomCommentForTable(
+                          title: 'Postingan Kegiatan',
+                          description: 'Catatan (Berisi file yang harus direvisi)',
+                          controller: _revisiFotoDokumenasiKegiatanController,
+                        ),
+                        MipokaCustomLoadImage(
+                          stream: _fotoDokumentasiStream,
+                          imageUrl: laporan.fotoDokumentasiKegiatan[0],
+                        ),
 
-                    _revisiLatarBelakangController.text = revisiLaporan.revisiLatarBelakang;
-                    _revisiHasilKegiatanController.text = revisiLaporan.revisiHasilKegiatan;
-                    _revisiPenutupController.text = revisiLaporan.revisiHasilKegiatan;
-                    _revisiFotoDokumenasiKegiatanController.text = revisiLaporan.revisiFotoPostinganKegiatan;
+                        const CustomFieldSpacer(),
 
-                    return BlocBuilder<LaporanBloc, LaporanState>(
-                      builder: (context, state) {
-                        if (state is LaporanLoading) {
-                          return const Text("Loading ...");
-                        } else if (state is LaporanHasData) {
-                          final laporan = state.laporan;
+                        CustomCommentForTable(
+                          title: 'Dokumentasi Kegiatan',
+                          description: 'Catatan (Berisi file yang harus direvisi)',
+                          controller: _revisiFotoPostinganKegiatanController,
+                        ),
+                        MipokaCustomLoadImage(
+                          stream: _fotoPostinganStream,
+                          imageUrl: laporan.fotoPostinganKegiatan,
+                        ),
 
-                          return CustomContentBox(
-                            children: [
-                              CustomCommentWidget(
-                                title: 'Latar Belakang',
-                                mainText:
-                                laporan.latarBelakang,
-                                controller: _revisiLatarBelakangController,
-                              ),
-                              const CustomFieldSpacer(),
-                              CustomCommentWidget(
-                                title: 'Tujuan Kegiatan',
-                                mainText: laporan.hasilKegiatan,
-                                controller: _revisiHasilKegiatanController,
-                              ),
-                              const CustomFieldSpacer(),
-                              CustomCommentWidget(
-                                title: 'Penutup',
-                                mainText: laporan.penutup,
-                                controller: _revisiPenutupController,
-                              ),
-                              const CustomFieldSpacer(),
-                              CustomCommentForTable(
-                                title: 'Postingan Kegiatan',
-                                description: 'Catatan (Berisi file yang harus direvisi)',
-                                controller: _revisiFotoDokumenasiKegiatanController,
-                              ),
-                              MipokaCustomLoadImage(
-                                stream: _fotoDokumentasiStream,
-                                imageUrl: laporan.fotoDokumentasiKegiatan[0],
-                              ),
+                        const CustomFieldSpacer(),
 
-                              const CustomFieldSpacer(),
+                        CustomCommentForTable(
+                          title: 'Tabulasi Hasil',
+                          description: 'Catatan (Berisi file yang harus direvisi)',
+                          controller: _revisiFotoTabulasiHasilController,
+                        ),
+                        MipokaCustomLoadImage(
+                          stream: _fotoTabulasiHasilStream,
+                          imageUrl: laporan.fotoTabulasiHasil,
+                        ),
 
-                              CustomCommentForTable(
-                                title: 'Dokumentasi Kegiatan',
-                                description: 'Catatan (Berisi file yang harus direvisi)',
-                                controller: _revisiFotoPostinganKegiatanController,
-                              ),
-                              MipokaCustomLoadImage(
-                                stream: _fotoPostinganStream,
-                                imageUrl: laporan.fotoPostinganKegiatan,
-                              ),
+                        const CustomFieldSpacer(),
 
-                              const CustomFieldSpacer(),
+                        CustomCommentForTable(
+                          title: 'Faktur Pembayaran',
+                          description: 'Catatan (Berisi file yang harus direvisi)',
+                          controller: _revisiFotofakturpembayaranController,
+                        ),
+                        MipokaCustomLoadImage(
+                          stream: _fotoFakturPembayaranStream,
+                          imageUrl: laporan.fotoFakturPembayaran,
+                        ),
 
-                              CustomCommentForTable(
-                                title: 'Tabulasi Hasil',
-                                description: 'Catatan (Berisi file yang harus direvisi)',
-                                controller: _revisiFotoTabulasiHasilController,
-                              ),
-                              MipokaCustomLoadImage(
-                               stream: _fotoTabulasiHasilStream,
-                               imageUrl: laporan.fotoTabulasiHasil,
-                              ),
-
-                              const CustomFieldSpacer(),
-
-                              CustomCommentForTable(
-                                title: 'Faktur Pembayaran',
-                                description: 'Catatan (Berisi file yang harus direvisi)',
-                                controller: _revisiFotofakturpembayaranController,
-                              ),
-                              MipokaCustomLoadImage(
-                                stream: _fotoFakturPembayaranStream,
-                                imageUrl: laporan.fotoFakturPembayaran,
-                              ),
-
-                              const CustomFieldSpacer(),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  CustomMipokaButton(
-                                    onTap: () {
-                                      context.read<RevisiLaporanBloc>().add(
-                                          UpdateRevisiLaporanEvent(
-                                            revisiLaporan: revisiLaporan.copyWith(
-                                              revisiLatarBelakang: _revisiLatarBelakangController.text,
-                                              revisiHasilKegiatan: _revisiHasilKegiatanController.text,
-                                              revisiPenutup: _revisiPenutupController.text,
-                                              revisiFotoDokumentasiKegiatan: _revisiFotoDokumenasiKegiatanController.text,
-                                              revisiFotoPostinganKegiatan: _revisiFotoPostinganKegiatanController.text,
-                                              revisiFotoTabulasiHasil: _revisiFotoTabulasiHasilController.text,
-                                              revisiFotoFakturPembayaran: _revisiFotofakturpembayaranController.text,
-                                              updatedAt: currentDate,
-                                              updatedBy: user?.email ?? "unknown",
-                                            ),
-                                          )
-                                      );
-                                      Navigator.pop(context);
-                                    },
-                                    text: 'Sebelumnya',
+                        const CustomFieldSpacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            CustomMipokaButton(
+                              onTap: () {
+                                context.read<LaporanBloc>().add(
+                                  UpdateLaporanEvent(
+                                    laporan: laporan.copyWith(
+                                      revisiLaporan: laporan.revisiLaporan.copyWith(
+                                        revisiLatarBelakang: _revisiLatarBelakangController.text,
+                                        revisiHasilKegiatan: _revisiHasilKegiatanController.text,
+                                        revisiPenutup: _revisiPenutupController.text,
+                                        revisiFotoDokumentasiKegiatan: _revisiFotoDokumenasiKegiatanController.text,
+                                        revisiFotoPostinganKegiatan: _revisiFotoPostinganKegiatanController.text,
+                                        revisiFotoTabulasiHasil: _revisiFotoTabulasiHasilController.text,
+                                        revisiFotoFakturPembayaran: _revisiFotofakturpembayaranController.text,
+                                        updatedAt: currentDate,
+                                        updatedBy: user?.email ?? "unknown",
+                                      ),
+                                    ),
                                   ),
+                                );
+                                Navigator.pop(context);
+                              },
+                              text: 'Sebelumnya',
+                            ),
 
-                                  const SizedBox(width: 4.0),
+                            const SizedBox(width: 4.0),
 
-                                  CustomMipokaButton(
-                                    onTap: () {
-                                      Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute);
-                                      context.read<RevisiLaporanBloc>().add(
-                                        UpdateRevisiLaporanEvent(
-                                          revisiLaporan: revisiLaporan.copyWith(
-                                            revisiLatarBelakang: _revisiLatarBelakangController.text,
-                                            revisiHasilKegiatan: _revisiHasilKegiatanController.text,
-                                            revisiPenutup: _revisiPenutupController.text,
-                                            revisiFotoDokumentasiKegiatan: _revisiFotoDokumenasiKegiatanController.text,
-                                            revisiFotoPostinganKegiatan: _revisiFotoPostinganKegiatanController.text,
-                                            revisiFotoTabulasiHasil: _revisiFotoTabulasiHasilController.text,
-                                            revisiFotoFakturPembayaran: _revisiFotofakturpembayaranController.text,
-                                          ),
-                                        )
-                                      );
-                                    },
-                                    text: 'Tolak',
+                            CustomMipokaButton(
+                              onTap: () {
+                                context.read<LaporanBloc>().add(
+                                  UpdateLaporanEvent(
+                                    laporan: laporan.copyWith(
+                                      revisiLaporan: laporan.revisiLaporan.copyWith(
+                                        revisiLatarBelakang: _revisiLatarBelakangController.text,
+                                        revisiHasilKegiatan: _revisiHasilKegiatanController.text,
+                                        revisiPenutup: _revisiPenutupController.text,
+                                        revisiFotoDokumentasiKegiatan: _revisiFotoDokumenasiKegiatanController.text,
+                                        revisiFotoPostinganKegiatan: _revisiFotoPostinganKegiatanController.text,
+                                        revisiFotoTabulasiHasil: _revisiFotoTabulasiHasilController.text,
+                                        revisiFotoFakturPembayaran: _revisiFotofakturpembayaranController.text,
+                                        updatedAt: currentDate,
+                                        updatedBy: user?.email ?? "unknown",
+                                      ),
+                                    ),
                                   ),
+                                );
+                                Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute);
+                              },
+                              text: 'Tolak',
+                            ),
 
-                                  const SizedBox(width: 4.0),
+                            const SizedBox(width: 4.0),
 
-                                  CustomMipokaButton(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, pemeriksaDaftarLaporanKegiatanPageRoute);
-                                      context.read<LaporanBloc>().add(
-                                        UpdateLaporanEvent(
-                                          laporan: laporan.copyWith(
-                                            validasiPembina: "diterima",
-                                          ),
-                                        ),
-                                      );
-                                      mipokaCustomToast("Laporan diterima.");
-                                    },
-                                    text: 'Terima',
+                            CustomMipokaButton(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, pemeriksaDaftarLaporanKegiatanPageRoute);
+                                context.read<LaporanBloc>().add(
+                                  UpdateLaporanEvent(
+                                    laporan: laporan.copyWith(
+                                      validasiPembina: "diterima",
+                                    ),
                                   ),
-                                ],
-                              )
-                            ],
-                          );
-                        } else if (state is LaporanError) {
-                          return Text(state.message);
-                        } else {
-                          return const Text("LaporanBLoC hasn't been triggered yet.");
-                        }
-                      },
+                                );
+                                mipokaCustomToast("Laporan diterima.");
+                              },
+                              text: 'Terima',
+                            ),
+                          ],
+                        )
+                      ],
                     );
-                  } else if (state is RevisiLaporanError) {
+                  } else if (state is LaporanError) {
                     return Text(state.message);
                   } else {
-                    return const Text("RevisiLaporanBloc hasn't been triggered.");
+                    return const Text("LaporanBLoC hasn't been triggered yet.");
                   }
                 },
-              )
+              ),
             ],
           ),
         ),

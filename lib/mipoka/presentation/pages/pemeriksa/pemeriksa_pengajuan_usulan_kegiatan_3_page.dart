@@ -20,11 +20,11 @@ import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_dr
 
 class PemeriksaPengajuanUsulanKegiatan3Page extends StatefulWidget {
   const PemeriksaPengajuanUsulanKegiatan3Page({
-    required this.idRevisiUsulan,
+    required this.idUsulan,
     super.key,
   });
 
-  final int idRevisiUsulan;
+  final int idUsulan;
 
   @override
   State<PemeriksaPengajuanUsulanKegiatan3Page> createState() =>
@@ -37,7 +37,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
   @override
   void initState() {
     context.read<RevisiUsulanBloc>().add(
-        ReadRevisiUsulanEvent(idRevisiUsulan: widget.idRevisiUsulan));
+        ReadRevisiUsulanEvent(idRevisiUsulan: widget.idUsulan));
     super.initState();
   }
 
@@ -68,10 +68,10 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
   final TextEditingController _linimasaKegiatanController = TextEditingController();
   final TextEditingController _tempatKegiatanController = TextEditingController();
 
-  final StreamController<bool> _postinganKegiatanStream = StreamController<bool>();
-  final StreamController<bool> _suratUndanganStream = StreamController<bool>();
-  final StreamController<bool> _linimasaKegiatanStream = StreamController<bool>();
-  final StreamController<bool> _fotoTempatKegiatanStream = StreamController<bool>();
+  final StreamController<bool> _postinganKegiatanStream = StreamController<bool>.broadcast();
+  final StreamController<bool> _suratUndanganStream = StreamController<bool>.broadcast();
+  final StreamController<bool> _linimasaKegiatanStream = StreamController<bool>.broadcast();
+  final StreamController<bool> _fotoTempatKegiatanStream = StreamController<bool>.broadcast();
 
   @override
   Widget build(BuildContext context) {
@@ -88,372 +88,349 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                   text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
               const CustomFieldSpacer(),
 
-              BlocBuilder<RevisiUsulanBloc, RevisiUsulanState>(
+              BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
                 builder: (context, state) {
-                  if(state is RevisiUsulanLoading) {
-                    return const Text("Loading ...");
-                  } else if (state is RevisiUsulanHasData) {
-                    final revisiUsulan = state.revisiUsulan;
+                  if (state is UsulanKegiatanLoading) {
+                    return const Text("Loading ....");
+                  } else if (state is UsulanKegiatanHasData) {
+                    final usulanKegiatan = state.usulanKegiatan;
 
-                    _latarBelakangController.text = revisiUsulan.revisiLatarBelakang;
-                    _tujuanKegiatanController.text = revisiUsulan.revisiTujuanKegiatan;
-                    _manfaatKegiatanController.text = revisiUsulan.revisiManfaatKegiatan;
-                    _bentukPelaksanaanKegiatanController.text = revisiUsulan.revisiBentukPelaksanaanKegiatan;
-                    _targetPencapaianKegiatanController.text = revisiUsulan.revisiTargetPencapaianKegiatan;
-                    _waktuDanTempatPelaksanaanKegiatanController.text = revisiUsulan.revisiWaktuDanTempatPelaksanaan;
-                    _rencanaAnggaranKegiatanController.text = revisiUsulan.revisiRencanaAnggaranKegiatan;
-                    _perlengkapanDanPeralatanController.text = revisiUsulan.revisiPerlengkapanDanPeralatan;
-                    _penutupController.text = revisiUsulan.revisiPenutup;
-                    _tertibAcaraController.text = revisiUsulan.revisiIdTertibAcara;
+                    _latarBelakangController.text = usulanKegiatan.revisiUsulan.revisiLatarBelakang;
+                    _tujuanKegiatanController.text = usulanKegiatan.revisiUsulan.revisiTujuanKegiatan;
+                    _manfaatKegiatanController.text = usulanKegiatan.revisiUsulan.revisiManfaatKegiatan;
+                    _bentukPelaksanaanKegiatanController.text = usulanKegiatan.revisiUsulan.revisiBentukPelaksanaanKegiatan;
+                    _targetPencapaianKegiatanController.text = usulanKegiatan.revisiUsulan.revisiTargetPencapaianKegiatan;
+                    _waktuDanTempatPelaksanaanKegiatanController.text = usulanKegiatan.revisiUsulan.revisiWaktuDanTempatPelaksanaan;
+                    _rencanaAnggaranKegiatanController.text = usulanKegiatan.revisiUsulan.revisiRencanaAnggaranKegiatan;
+                    _perlengkapanDanPeralatanController.text = usulanKegiatan.revisiUsulan.revisiPerlengkapanDanPeralatan;
+                    _penutupController.text = usulanKegiatan.revisiUsulan.revisiPenutup;
+                    _tertibAcaraController.text = usulanKegiatan.revisiUsulan.revisiIdTertibAcara;
 
-                    context.read<UsulanKegiatanBloc>().add(
-                      ReadUsulanKegiatanEvent(idUsulanKegiatan: revisiUsulan.idUsulan));
+                    return CustomContentBox(
+                      children: [
+                        CustomCommentWidget(
+                          title: 'Latar Belakang',
+                          mainText: usulanKegiatan.latarBelakang,
+                          controller: _latarBelakangController,
+                        ),
 
-                    return BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
-                      builder: (context, state) {
-                        if (state is UsulanKegiatanLoading) {
-                          return const Text("Loading ....");
-                        } else if (state is UsulanKegiatanHasData) {
-                          final usulanKegiatan = state.usulanKegiatan;
+                        const CustomFieldSpacer(),
 
-                          return CustomContentBox(
-                            children: [
-                              CustomCommentWidget(
-                                title: 'Latar Belakang',
-                                mainText: usulanKegiatan.latarBelakang,
-                                controller: _latarBelakangController,
-                              ),
+                        CustomCommentWidget(
+                          title: 'Tujuan Kegiatan',
+                          mainText: usulanKegiatan.tujuanKegiatan,
+                          controller: _tujuanKegiatanController,
+                        ),
 
-                              const CustomFieldSpacer(),
+                        const CustomFieldSpacer(),
 
-                              CustomCommentWidget(
-                                title: 'Tujuan Kegiatan',
-                                mainText: usulanKegiatan.tujuanKegiatan,
-                                controller: _tujuanKegiatanController,
-                              ),
+                        CustomCommentWidget(
+                          title: 'Manfaat Kegiatan',
+                          mainText: usulanKegiatan.manfaatKegiatan,
+                          controller: _manfaatKegiatanController,
+                        ),
 
-                              const CustomFieldSpacer(),
+                        const CustomFieldSpacer(),
 
-                              CustomCommentWidget(
-                                title: 'Manfaat Kegiatan',
-                                mainText: usulanKegiatan.manfaatKegiatan,
-                                controller: _manfaatKegiatanController,
-                              ),
+                        CustomCommentWidget(
+                          title: 'Bentuk Pelaksanaan Kegiatan',
+                          mainText: usulanKegiatan.bentukPelaksanaanKegiatan,
+                          controller: _bentukPelaksanaanKegiatanController,
+                        ),
 
-                              const CustomFieldSpacer(),
+                        const CustomFieldSpacer(),
 
-                              CustomCommentWidget(
-                                title: 'Bentuk Pelaksanaan Kegiatan',
-                                mainText: usulanKegiatan.bentukPelaksanaanKegiatan,
-                                controller: _bentukPelaksanaanKegiatanController,
-                              ),
+                        CustomCommentWidget(
+                          title: 'Bentuk Pelaksanaan Kegiatan',
+                          mainText: usulanKegiatan.bentukPelaksanaanKegiatan,
+                          controller: _targetPencapaianKegiatanController,
+                        ),
 
-                              const CustomFieldSpacer(),
+                        const CustomFieldSpacer(),
 
-                              CustomCommentWidget(
-                                title: 'Bentuk Pelaksanaan Kegiatan',
-                                mainText: usulanKegiatan.bentukPelaksanaanKegiatan,
-                                controller: _targetPencapaianKegiatanController,
-                              ),
+                        CustomCommentWidget(
+                          title: 'Waktu dan Tempat Pelaksanaan',
+                          mainText: usulanKegiatan.waktuDanTempatPelaksanaan,
+                          controller: _waktuDanTempatPelaksanaanKegiatanController,
+                        ),
 
-                              const CustomFieldSpacer(),
+                        const CustomFieldSpacer(),
 
-                              CustomCommentWidget(
-                                title: 'Waktu dan Tempat Pelaksanaan',
-                                mainText: usulanKegiatan.waktuDanTempatPelaksanaan,
-                                controller: _waktuDanTempatPelaksanaanKegiatanController,
-                              ),
+                        CustomCommentWidget(
+                          title: 'Rencana Anggaran Kegiatan',
+                          mainText: usulanKegiatan.rencanaAnggaranKegiatan,
+                          controller: _rencanaAnggaranKegiatanController,
+                        ),
 
-                              const CustomFieldSpacer(),
+                        const CustomFieldSpacer(),
 
-                              CustomCommentWidget(
-                                title: 'Rencana Anggaran Kegiatan',
-                                mainText: usulanKegiatan.rencanaAnggaranKegiatan,
-                                controller: _rencanaAnggaranKegiatanController,
-                              ),
+                        CustomCommentForTable(
+                          title: "TertibAcara",
+                          controller: _tertibAcaraController,
+                        ),
 
-                              const CustomFieldSpacer(),
-
-                              CustomCommentForTable(
-                                title: "TertibAcara",
-                                controller: _tertibAcaraController,
-                              ),
-
-                              SingleChildScrollView(
-                                scrollDirection: Axis.vertical,
-                                child: SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: DataTable(
-                                    columnSpacing: 40,
-                                    border: TableBorder.all(color: Colors.white),
-                                    columns: const [
-                                      DataColumn(
-                                        label: Text(
-                                          'No.',
-                                          style: TextStyle(fontWeight: FontWeight.bold),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                      DataColumn(
-                                        label: Text(
-                                          'Aktivitas',
-                                          style: TextStyle(fontWeight: FontWeight.bold),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                      DataColumn(
-                                        label: Text(
-                                          'Waktu Mulai',
-                                          style: TextStyle(fontWeight: FontWeight.bold),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                      DataColumn(
-                                        label: Text(
-                                          'Waktu Selesai',
-                                          style: TextStyle(fontWeight: FontWeight.bold),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                      DataColumn(
-                                        label: Text(
-                                          'Keterangan',
-                                          style: TextStyle(fontWeight: FontWeight.bold),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                    ],
-                                    rows: List<DataRow>.generate(usulanKegiatan.tertibAcara.length, (int index) {
-                                      final tertibAcara = usulanKegiatan.tertibAcara[index];
-                                      return DataRow(
-                                        cells: [
-                                          DataCell(
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                '${index + 1}',
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          ),
-                                          DataCell(
-                                            InkWell(
-                                              onTap: () {
-                                                Navigator.pushNamed(
-                                                  context,
-                                                  editTertibAcaraPageRoute,
-                                                  // arguments: usulanKegiatan,
-                                                );
-                                              },
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  tertibAcara.aktivitas,
-                                                  textAlign: TextAlign.center,
-                                                  style: const TextStyle(
-                                                    color: Colors.blue,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          DataCell(
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                tertibAcara.waktuMulai,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          ),
-                                          DataCell(
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                tertibAcara.waktuSelesai,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          ),
-                                          DataCell(
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                tertibAcara.keterangan,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    }),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: DataTable(
+                              columnSpacing: 40,
+                              border: TableBorder.all(color: Colors.white),
+                              columns: const [
+                                DataColumn(
+                                  label: Text(
+                                    'No.',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
-                              ),
-
-                              const CustomFieldSpacer(),
-
-                              CustomCommentWidget(
-                                title: 'Perlengkapan dan Peralatan',
-                                mainText:
-                                usulanKegiatan.perlengkapanDanPeralatan,
-                                controller: _perlengkapanDanPeralatanController,
-                              ),
-
-                              const CustomFieldSpacer(),
-
-                              CustomCommentWidget(
-                                title: 'Penutup',
-                                mainText:
-                                usulanKegiatan.penutup,
-                                controller: _penutupController,
-                              ),
-
-                              const CustomFieldSpacer(),
-
-                              buildTitle('Lampiran - Lampiran'),
-
-                              const CustomFieldSpacer(height: 4.0),
-
-                              CustomCommentForTable(
-                                title: "Postingan Kegiatan",
-                                controller: _postingKegiatanController,
-                              ),
-
-                              MipokaCustomLoadImage(
-                                stream: _postinganKegiatanStream,
-                                imageUrl: usulanKegiatan.fotoPostinganKegiatan,
-                              ),
-
-                              const CustomFieldSpacer(),
-
-                              CustomCommentForTable(
-                                title: "Surat Undangan Kegiatan",
-                                controller: _suratUndanganController,
-                              ),
-                              MipokaCustomLoadImage(
-                                stream: _suratUndanganStream,
-                                imageUrl: usulanKegiatan.fotoSuratUndanganKegiatan,
-                              ),
-
-                              const CustomFieldSpacer(),
-
-                              CustomCommentForTable(
-                                title: "Linimasa Kegiatan",
-                                controller: _linimasaKegiatanController,
-                              ),
-                              MipokaCustomLoadImage(
-                                stream: _linimasaKegiatanStream,
-                                imageUrl: usulanKegiatan.fotoLinimasaKegiatan,
-                              ),
-
-                              const CustomFieldSpacer(),
-
-                              CustomCommentForTable(
-                                title: "Tempat Kegiatan",
-                                controller: _tempatKegiatanController,
-                              ),
-                              MipokaCustomLoadImage(
-                                stream: _fotoTempatKegiatanStream,
-                                imageUrl: usulanKegiatan.fotoTempatKegiatan,
-                              ),
-
-                              const CustomFieldSpacer(),
-
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  CustomMipokaButton(
-                                    onTap: () {
-                                      context.read<RevisiUsulanBloc>().add(
-                                        UpdateRevisiUsulanEvent(
-                                          revisiUsulan: revisiUsulan.copyWith(
-                                            revisiLatarBelakang: _latarBelakangController.text,
-                                            revisiTujuanKegiatan: _tujuanKegiatanController.text,
-                                            revisiManfaatKegiatan: _manfaatKegiatanController.text,
-                                            revisiBentukPelaksanaanKegiatan: _bentukPelaksanaanKegiatanController.text,
-                                            revisiTargetPencapaianKegiatan: _targetPencapaianKegiatanController.text,
-                                            revisiWaktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
-                                            revisiRencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
-                                            revisiPerlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
-                                            revisiPenutup: _penutupController.text,
-                                            revisiIdTertibAcara: _tertibAcaraController.text,
-                                            updatedBy: user?.email ?? "unknown",
-                                            updatedAt: currentDate,
+                                DataColumn(
+                                  label: Text(
+                                    'Aktivitas',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: Text(
+                                    'Waktu Mulai',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: Text(
+                                    'Waktu Selesai',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: Text(
+                                    'Keterangan',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                              rows: List<DataRow>.generate(usulanKegiatan.tertibAcara.length, (int index) {
+                                final tertibAcara = usulanKegiatan.tertibAcara[index];
+                                return DataRow(
+                                  cells: [
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          '${index + 1}',
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                    DataCell(
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            editTertibAcaraPageRoute,
+                                            // arguments: usulanKegiatan,
+                                          );
+                                        },
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            tertibAcara.aktivitas,
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                              color: Colors.blue,
+                                            ),
                                           ),
                                         ),
-                                      );
-
-                                      context.read<RevisiUsulanBloc>().add(
-                                        ReadRevisiUsulanEvent(idRevisiUsulan: widget.idRevisiUsulan));
-
-                                      Navigator.pop(context);
-                                    },
-                                    text: "Kembali",
-                                  ),
-
-                                  const SizedBox(width: 8),
-
-                                  CustomMipokaButton(
-                                    onTap: () {
-                                      context.read<RevisiUsulanBloc>().add(
-                                        UpdateRevisiUsulanEvent(
-                                          revisiUsulan: revisiUsulan.copyWith(
-                                            revisiLatarBelakang: _latarBelakangController.text,
-                                            revisiTujuanKegiatan: _tujuanKegiatanController.text,
-                                            revisiManfaatKegiatan: _manfaatKegiatanController.text,
-                                            revisiBentukPelaksanaanKegiatan: _bentukPelaksanaanKegiatanController.text,
-                                            revisiTargetPencapaianKegiatan: _targetPencapaianKegiatanController.text,
-                                            revisiWaktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
-                                            revisiRencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
-                                            revisiPerlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
-                                            revisiPenutup: _penutupController.text,
-                                            revisiIdTertibAcara: _tertibAcaraController.text,
-                                            updatedBy: user?.email ?? "unknown",
-                                            updatedAt: currentDate,
-                                          ),
+                                      ),
+                                    ),
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          tertibAcara.waktuMulai,
+                                          textAlign: TextAlign.center,
                                         ),
-                                      );
+                                      ),
+                                    ),
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          tertibAcara.waktuSelesai,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          tertibAcara.keterangan,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }),
+                            ),
+                          ),
+                        ),
 
-                                      mipokaCustomToast("Revisi telah ditamnbahkan.");
+                        const CustomFieldSpacer(),
 
-                                      Navigator.pushNamed(
-                                          context, pemeriksaDaftarUsulanKegiatanPageRoute);
-                                    },
-                                    text: 'Kirim Revisi',
+                        CustomCommentWidget(
+                          title: 'Perlengkapan dan Peralatan',
+                          mainText:
+                          usulanKegiatan.perlengkapanDanPeralatan,
+                          controller: _perlengkapanDanPeralatanController,
+                        ),
+
+                        const CustomFieldSpacer(),
+
+                        CustomCommentWidget(
+                          title: 'Penutup',
+                          mainText:
+                          usulanKegiatan.penutup,
+                          controller: _penutupController,
+                        ),
+
+                        const CustomFieldSpacer(),
+
+                        buildTitle('Lampiran - Lampiran'),
+
+                        const CustomFieldSpacer(height: 4.0),
+
+                        CustomCommentForTable(
+                          title: "Postingan Kegiatan",
+                          controller: _postingKegiatanController,
+                        ),
+
+                        MipokaCustomLoadImage(
+                          stream: _postinganKegiatanStream,
+                          imageUrl: usulanKegiatan.fotoPostinganKegiatan,
+                        ),
+
+                        const CustomFieldSpacer(),
+
+                        CustomCommentForTable(
+                          title: "Surat Undangan Kegiatan",
+                          controller: _suratUndanganController,
+                        ),
+                        MipokaCustomLoadImage(
+                          stream: _suratUndanganStream,
+                          imageUrl: usulanKegiatan.fotoSuratUndanganKegiatan,
+                        ),
+
+                        const CustomFieldSpacer(),
+
+                        CustomCommentForTable(
+                          title: "Linimasa Kegiatan",
+                          controller: _linimasaKegiatanController,
+                        ),
+                        MipokaCustomLoadImage(
+                          stream: _linimasaKegiatanStream,
+                          imageUrl: usulanKegiatan.fotoLinimasaKegiatan,
+                        ),
+
+                        const CustomFieldSpacer(),
+
+                        CustomCommentForTable(
+                          title: "Tempat Kegiatan",
+                          controller: _tempatKegiatanController,
+                        ),
+                        MipokaCustomLoadImage(
+                          stream: _fotoTempatKegiatanStream,
+                          imageUrl: usulanKegiatan.fotoTempatKegiatan,
+                        ),
+
+                        const CustomFieldSpacer(),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            CustomMipokaButton(
+                              onTap: () {
+                                context.read<UsulanKegiatanBloc>().add(
+                                  UpdateUsulanKegiatanEvent(
+                                    usulanKegiatan: usulanKegiatan.copyWith(
+                                      revisiUsulan: usulanKegiatan.revisiUsulan.copyWith(
+                                        revisiLatarBelakang: _latarBelakangController.text,
+                                        revisiTujuanKegiatan: _tujuanKegiatanController.text,
+                                        revisiManfaatKegiatan: _manfaatKegiatanController.text,
+                                        revisiBentukPelaksanaanKegiatan: _bentukPelaksanaanKegiatanController.text,
+                                        revisiTargetPencapaianKegiatan: _targetPencapaianKegiatanController.text,
+                                        revisiWaktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
+                                        revisiRencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
+                                        revisiPerlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
+                                        revisiPenutup: _penutupController.text,
+                                        revisiIdTertibAcara: _tertibAcaraController.text,
+                                        updatedBy: user?.email ?? "unknown",
+                                        updatedAt: currentDate,
+                                      ),
+                                    ),
                                   ),
-                                ],
-                              ),
+                                );
+                                Navigator.pop(context);
+                              },
+                              text: "Kembali",
+                            ),
 
-                              const CustomFieldSpacer(),
+                            const SizedBox(width: 8),
 
-                              CustomMipokaButton(
-                                onTap: () => Future.microtask(() {
-                                  showPop(context, usulanKegiatan);
+                            CustomMipokaButton(
+                              onTap: () {
+                                context.read<UsulanKegiatanBloc>().add(
+                                  UpdateUsulanKegiatanEvent(
+                                    usulanKegiatan: usulanKegiatan.copyWith(
+                                      revisiUsulan: usulanKegiatan.revisiUsulan.copyWith(
+                                        revisiLatarBelakang: _latarBelakangController.text,
+                                        revisiTujuanKegiatan: _tujuanKegiatanController.text,
+                                        revisiManfaatKegiatan: _manfaatKegiatanController.text,
+                                        revisiBentukPelaksanaanKegiatan: _bentukPelaksanaanKegiatanController.text,
+                                        revisiTargetPencapaianKegiatan: _targetPencapaianKegiatanController.text,
+                                        revisiWaktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
+                                        revisiRencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
+                                        revisiPerlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
+                                        revisiPenutup: _penutupController.text,
+                                        revisiIdTertibAcara: _tertibAcaraController.text,
+                                        updatedBy: user?.email ?? "unknown",
+                                        updatedAt: currentDate,
+                                      ),
+                                      statusUsulan: "ditolak",
+                                    ),
+                                  ),
+                                );
 
-                                  // mipokaCustomToast("Usulan telah diterima.");
+                                mipokaCustomToast("Revisi telah ditamnbahkan.");
 
-                                  // Navigator.pushNamed(
-                                  //     context, pemeriksaDaftarUsulanKegiatanPageRoute);
-                                }),
-                                text: 'Terima',
-                              ),
-                            ],
-                          );
-                        } else if (state is UsulanKegiatanError) {
-                          return Text(state.message);
-                        } else {
-                          return const Text("UsulanKegiatanBloc hasn't been triggered yet.");
-                        }
-                      },
+                                Navigator.pushNamed(
+                                    context, pemeriksaDaftarUsulanKegiatanPageRoute);
+                              },
+                              text: 'Kirim Revisi',
+                            ),
+                          ],
+                        ),
+
+                        const CustomFieldSpacer(),
+
+                        CustomMipokaButton(
+                          onTap: () => showPop(context, usulanKegiatan),
+                          text: 'Terima',
+                        ),
+                      ],
                     );
-                  } else if (state is RevisiUsulanError) {
+                  } else if (state is UsulanKegiatanError) {
                     return Text(state.message);
                   } else {
-                    return const Text("RevisiUsulanBloc hasn't been triggered yet");
+                    return const Text("UsulanKegiatanBloc hasn't been triggered yet.");
                   }
                 },
-              )
+              ),
             ],
           ),
         ),

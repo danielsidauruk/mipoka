@@ -32,7 +32,7 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
     _tahun = "semua";
     _tingkat = "semua";
 
-    context.read<PrestasiBloc>().add(ReadAllPrestasiEvent());
+    context.read<PrestasiBloc>().add(const ReadAllPrestasiEvent());
     context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
     super.initState();
   }
@@ -218,10 +218,6 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                                   rows: List<DataRow>.generate(prestasiList.length, (int index) {
                                     final prestasi = prestasiList[index];
 
-                                    context.read<MipokaUserBloc>().add(
-                                      ReadMipokaUserEvent(idMipokaUser: prestasi.idUser),
-                                    );
-
                                     return DataRow(
                                       cells: [
                                         DataCell(
@@ -233,44 +229,20 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                                           ),
                                         ),
                                         DataCell(
-                                          BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                            builder: (context, state) {
-                                              if (state is MipokaUserLoading) {
-                                                return const Text('Loading ...');
-                                              } else if (state is MipokaUserHasData) {
-                                                return Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    state.mipokaUser.nim,
-                                                  ),
-                                                );
-                                              } else if (state is MipokaUserError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("MipokaUserBloc hasn't been triggered");
-                                              }
-                                            },
-                                          ),
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                prestasi.mipokaUser.nim,
+                                              ),
+                                            )
                                         ),
                                         DataCell(
-                                          BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                            builder: (context, state) {
-                                              if (state is MipokaUserLoading) {
-                                                return const Text('Loading ...');
-                                              } else if (state is MipokaUserHasData) {
-                                                return Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    state.mipokaUser.namaLengkap,
-                                                  ),
-                                                );
-                                              } else if (state is MipokaUserError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("MipokaUserBloc hasn't been triggered");
-                                              }
-                                            },
-                                          ),
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                prestasi.mipokaUser.namaLengkap,
+                                              ),
+                                            )
                                         ),
                                         DataCell(
                                           Align(
@@ -315,7 +287,10 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                       } else if (state is PrestasiError) {
                         return Text(state.message);
                       } else {
-                        return const Text('IDK');
+                        if (kDebugMode) {
+                          print ("Prestasi Bloc hasn't been triggered yet.");
+                        }
+                        return const Center();
                       }
                     },
                   )

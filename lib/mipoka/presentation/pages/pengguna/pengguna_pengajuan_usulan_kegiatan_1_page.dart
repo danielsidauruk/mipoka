@@ -157,427 +157,419 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                 context.read<TempatKegiatanCubit>().setTempatKegiatan(_tempatKegiatanSwitchController!);
 
-                if(mipokaUserState is MipokaUserLoading) {
-                  return const Text('Loading');
-                } else if (mipokaUserState is MipokaUserHasData) {
-                  final mipokaUser = mipokaUserState.mipokaUser;
+                List<String> ormawaList = usulanKegiatan.mipokaUser.ormawa
+                    .map((ormawa) => ormawa.namaOrmawa).toList();
 
-                  List<String> ormawaList = mipokaUser.ormawa.map((ormawa) => ormawa.namaOrmawa).toList();
-                  if (_ormawa?.idOrmawa == 0) {
-                    _ormawa = mipokaUser.ormawa[0];
-                  } else {
-                    _ormawa = _ormawa;
-                  }
+                if (_ormawa?.idOrmawa == 0) {
+                  _ormawa = usulanKegiatan.mipokaUser.ormawa[0];
+                }
 
-                  return SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const CustomMobileTitle(
-                              text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
-                          const CustomFieldSpacer(),
-                          CustomContentBox(
-                            children: [
-                              buildTitle('Nama Ormawa'),
-                              MipokaCustomDropdown(
-                                  items: ormawaList,
-                                  onValueChanged: (value) {
-                                    int index = ormawaList.indexOf(value!);
-                                    // int idOrmawa = idOrmawaList[index];
-
-                                    _ormawa = state.ormawaList[index];
-                                  }
-                              ),
-                              // BlocBuilder<OrmawaBloc, OrmawaState>(
-                              //   builder: (context, state) {
-                              //     if (state is OrmawaLoading) {
-                              //       return const Text("Loading ....");
-                              //     } else if (state is AllOrmawaHasData) {
-                              //       List<String> ormawaList = state.ormawaList.map(
-                              //               (ormawa) => ormawa.namaOrmawa).toList();
-                              //
-                              //       // List<int> idOrmawaList = state.ormawaList.map(
-                              //       //         (ormawa) => ormawa.idOrmawa).toList();
-                              //       _ormawa = _ormawa ?? state.ormawaList[0];
-                              //
-                              //       return MipokaCustomDropdown(
-                              //           items: ormawaList,
-                              //           onValueChanged: (value) {
-                              //             int index = ormawaList.indexOf(value!);
-                              //             // int idOrmawa = idOrmawaList[index];
-                              //
-                              //             _ormawa = state.ormawaList[index];
-                              //           }
-                              //       );
-                              //     } else if (state is OrmawaError) {
-                              //       return Text(state.message);
-                              //     } else {
-                              //       return const Text("OrmawaBloc hasn't been triggered yet.");
-                              //     }
-                              //   },
-                              // ),
-
-                              const CustomFieldSpacer(),
-
-                              buildTitle('Pembiayaan'),
-
-                              MipokaCustomDropdown(
-                                items: listPembiayaan,
-                                initialItem: _pembiayaanController,
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const CustomMobileTitle(
+                            text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
+                        const CustomFieldSpacer(),
+                        CustomContentBox(
+                          children: [
+                            buildTitle('Nama Ormawa'),
+                            MipokaCustomDropdown(
+                                items: ormawaList,
+                                initialItem: _ormawa?.idOrmawa != 0 ? _ormawa?.namaOrmawa : ormawaList[0],
                                 onValueChanged: (value) {
-                                  if (kDebugMode) {
-                                    print(
-                                        'Input $value to State Management BLoC or Database');
-                                  }
-                                  _pembiayaanController = value;
-                                },
-                              ),
+                                  int index = ormawaList.indexOf(value!);
+                                  // int idOrmawa = idOrmawaList[index];
 
-                              const CustomFieldSpacer(),
+                                  _ormawa = usulanKegiatan.mipokaUser.ormawa[index];
+                                }
+                            ),
+                            // BlocBuilder<OrmawaBloc, OrmawaState>(
+                            //   builder: (context, state) {
+                            //     if (state is OrmawaLoading) {
+                            //       return const Text("Loading ....");
+                            //     } else if (state is AllOrmawaHasData) {
+                            //       List<String> ormawaList = state.ormawaList.map(
+                            //               (ormawa) => ormawa.namaOrmawa).toList();
+                            //
+                            //       // List<int> idOrmawaList = state.ormawaList.map(
+                            //       //         (ormawa) => ormawa.idOrmawa).toList();
+                            //       _ormawa = _ormawa ?? state.ormawaList[0];
+                            //
+                            //       return MipokaCustomDropdown(
+                            //           items: ormawaList,
+                            //           onValueChanged: (value) {
+                            //             int index = ormawaList.indexOf(value!);
+                            //             // int idOrmawa = idOrmawaList[index];
+                            //
+                            //             _ormawa = state.ormawaList[index];
+                            //           }
+                            //       );
+                            //     } else if (state is OrmawaError) {
+                            //       return Text(state.message);
+                            //     } else {
+                            //       return const Text("OrmawaBloc hasn't been triggered yet.");
+                            //     }
+                            //   },
+                            // ),
 
-                              buildTitle('Nama Kegiatan'),
-                              CustomTextField(controller: _namaKegiatanController),
+                            const CustomFieldSpacer(),
 
-                              MipokaCustomSwitchButton(
-                                title: 'Bentuk Kegiatan',
-                                option1: 'Daring',
-                                option2: 'Luring',
-                                value: _bentukKegiatanSwitchController,
-                                onChanged: (value) {
-                                  _bentukKegiatanSwitchController = value;
-                                  if (kDebugMode) {
-                                    print(_bentukKegiatanSwitchController);
-                                  }
-                                },
-                              ),
+                            buildTitle('Pembiayaan'),
 
-                              MipokaCustomDropdown(
-                                items: listBentukKegiatan,
-                                initialItem: _bentukKegiatanController ?? "",
-                                onValueChanged: (value) {
-                                  if (kDebugMode) {
-                                    print('Input "$value" to State Management BLoC');
-                                  }
-                                  _bentukKegiatanController = value;
-                                },
-                              ),
+                            MipokaCustomDropdown(
+                              items: listPembiayaan,
+                              initialItem: _pembiayaanController,
+                              onValueChanged: (value) {
+                                if (kDebugMode) {
+                                  print(
+                                      'Input $value to State Management BLoC or Database');
+                                }
+                                _pembiayaanController = value;
+                              },
+                            ),
 
-                              const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
 
-                              buildTitle('Deskripsi Kegiatan'),
-                              CustomTextField(
-                                  controller: _deskripsiKegiatanController),
+                            buildTitle('Nama Kegiatan'),
+                            CustomTextField(controller: _namaKegiatanController),
 
-                              const CustomFieldSpacer(),
+                            MipokaCustomSwitchButton(
+                              title: 'Bentuk Kegiatan',
+                              option1: 'Daring',
+                              option2: 'Luring',
+                              value: _bentukKegiatanSwitchController,
+                              onChanged: (value) {
+                                _bentukKegiatanSwitchController = value;
+                                if (kDebugMode) {
+                                  print(_bentukKegiatanSwitchController);
+                                }
+                              },
+                            ),
 
-                              buildTitle('Tanggal Mulai Kegiatan'),
-                              CustomDatePickerField(
-                                  controller: _tanggalMulaiController),
+                            MipokaCustomDropdown(
+                              items: listBentukKegiatan,
+                              initialItem: _bentukKegiatanController ?? "",
+                              onValueChanged: (value) {
+                                if (kDebugMode) {
+                                  print('Input "$value" to State Management BLoC');
+                                }
+                                _bentukKegiatanController = value;
+                              },
+                            ),
 
-                              const CustomFieldSpacer(),
-                              buildTitle('Tanggal Selesai Kegiatan'),
-                              CustomDatePickerField(
-                                  controller: _tanggalSelesaiController),
+                            const CustomFieldSpacer(),
 
-                              const CustomFieldSpacer(),
+                            buildTitle('Deskripsi Kegiatan'),
+                            CustomTextField(
+                                controller: _deskripsiKegiatanController),
 
-                              buildTitle('Waktu Mulai Kegiatan'),
-                              CustomTimePickerField(
-                                  controller: _waktuMulaiController),
+                            const CustomFieldSpacer(),
 
-                              const CustomFieldSpacer(),
+                            buildTitle('Tanggal Mulai Kegiatan'),
+                            CustomDatePickerField(
+                                controller: _tanggalMulaiController),
 
-                              buildTitle('Waktu Selesai Kegiatan'),
-                              CustomTimePickerField(
-                                  controller: _waktuSelesaiController),
+                            const CustomFieldSpacer(),
+                            buildTitle('Tanggal Selesai Kegiatan'),
+                            CustomDatePickerField(
+                                controller: _tanggalSelesaiController),
 
-                              MipokaCustomSwitchButton(
-                                title: 'Tempat Kegiatan',
-                                option1: 'Dalam Kota',
-                                option2: 'Luar Kota',
-                                value: _tempatKegiatanSwitchController,
-                                onChanged: (value) {
-                                  // setState(() {
-                                  //   _tempatKegiatanSwitchController = value;
-                                  // });
-                                  _tempatKegiatanSwitchController = value;
-                                  context.read<TempatKegiatanCubit>().setTempatKegiatan(value);
-                                },
-                              ),
+                            const CustomFieldSpacer(),
 
-                              CustomTextField(controller: _tempatKegiatanController),
+                            buildTitle('Waktu Mulai Kegiatan'),
+                            CustomTimePickerField(
+                                controller: _waktuMulaiController),
 
-                              const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
 
-                              BlocProvider<TempatKegiatanCubit>.value(
-                                  value: context.read<TempatKegiatanCubit>(),
-                                  child: BlocBuilder<TempatKegiatanCubit, bool> (
-                                      builder: (context, isTempatKegiatan) {
-                                        return isTempatKegiatan == true ?
-                                        SizedBox(
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              buildTitle('Tanggal Keberangkatan'),
-                                              CustomDatePickerField(
-                                                controller:
-                                                _tanggalKeberangkatanController,
-                                              ),
-                                              const CustomFieldSpacer(),
-                                              buildTitle('Tanggal Kepulangan'),
-                                              CustomDatePickerField(
-                                                controller: _tanggalKepulanganController,
-                                              ),
-                                            ],
-                                          ),
-                                        ) :
-                                        const Center();
-                                      }
-                                  )
-                              ),
+                            buildTitle('Waktu Selesai Kegiatan'),
+                            CustomTimePickerField(
+                                controller: _waktuSelesaiController),
 
-                              MipokaCustomSwitchButton(
-                                title: 'Jumlah Partisipan',
-                                option1: 'Tim',
-                                option2: 'Orang',
-                                value: _jumlahParsitipanSwitchController,
-                                onChanged: (value) {
-                                  _jumlahParsitipanSwitchController = value;
-                                },
-                              ),
+                            MipokaCustomSwitchButton(
+                              title: 'Tempat Kegiatan',
+                              option1: 'Dalam Kota',
+                              option2: 'Luar Kota',
+                              value: _tempatKegiatanSwitchController,
+                              onChanged: (value) {
+                                // setState(() {
+                                //   _tempatKegiatanSwitchController = value;
+                                // });
+                                _tempatKegiatanSwitchController = value;
+                                context.read<TempatKegiatanCubit>().setTempatKegiatan(value);
+                              },
+                            ),
 
-                              CustomTextField(
-                                  controller: _jumlahParsitipanController),
-                              const CustomFieldSpacer(),
+                            CustomTextField(controller: _tempatKegiatanController),
 
-                              buildTitle('Target Kegiatan'),
-                              CustomTextField(controller: _targetKegiatanController),
+                            const CustomFieldSpacer(),
 
-                              // const CustomFieldSpacer(),
-                              // buildTitle('Total Pendanaan'),
-
-                              MipokaCustomSwitchButton(
-                                title: 'Total Pendanaan',
-                                option1: 'Uang',
-                                option2: 'Dll',
-                                value: _totalPendanaanSwitchController,
-                                onChanged: (value) {
-                                  _totalPendanaanSwitchController = value;
-                                },
-                              ),
-
-                              CustomTextField(
-                                controller: _totalPendanaanController,
-                                // textInputType: TextInputType.number,
-                              ),
-                              const CustomFieldSpacer(),
-
-                              buildTitle('Keterangan'),
-                              CustomTextField(controller: _keteranganController),
-
-                              const CustomFieldSpacer(),
-                              buildTitle('Tanda Tangan Ormawa'),
-
-                              BlocProvider<SignatureCubit>(
-                                create: (context) => SignatureCubit(),
-                                child: BlocBuilder<SignatureCubit, SignatureState>(
-                                  builder: (context, state) {
-                                    return InkWell(
-                                      onTap: () => context.read<SignatureCubit>().toggleSignature(),
-                                      child: Container(
-                                        width: 400,
-                                        alignment: Alignment.center,
-                                        padding: const EdgeInsets.all(8.0),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(5.0),
-                                          border: Border.all(color: Colors.white),
-                                        ),
+                            BlocProvider<TempatKegiatanCubit>.value(
+                                value: context.read<TempatKegiatanCubit>(),
+                                child: BlocBuilder<TempatKegiatanCubit, bool> (
+                                    builder: (context, isTempatKegiatan) {
+                                      return isTempatKegiatan == true ?
+                                      SizedBox(
                                         child: Column(
-                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            if (_ormawaSignatureController == "")
-                                              !state.isSignatureVisible ?
-                                              InkWell(
-                                                onTap: () {
-                                                  context.read<SignatureCubit>().toggleSignature();
-                                                },
-                                                child: const Text(
-                                                  'Tekan untuk tanda tangan',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16,
-                                                  ),
-                                                ),
-                                              ) :
-                                              Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  const CustomFieldSpacer(height: 4.0),
-                                                  SizedBox(
-                                                    width: 300,
-                                                    height: 200,
-                                                    child: SfSignaturePad(
-                                                      key: signatureGlobalKey,
-                                                      backgroundColor: Colors.white,
-                                                      strokeColor: Colors.black,
-                                                      minimumStrokeWidth: 1.0,
-                                                      maximumStrokeWidth: 4.0,
-                                                    ),
-                                                  ),
-                                                  const CustomFieldSpacer(),
-                                                  Row(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                    children: [
-                                                      InkWell(
-                                                        onTap: () async {
-                                                          final file = await saveSignature();
-                                                          _ormawaSignatureController = await uploadFileFromSignature(file, "signature${user?.uid ?? "unknown"}");
-                                                          // uploadFile(file: file, customUrl: widget.fileName);
-                                                        },
-                                                        child: const Text(
-                                                          'Simpan',
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 16,
-                                                          ),
-                                                        ),
-                                                      ),
-
-                                                      const SizedBox(width: 8),
-
-                                                      InkWell(
-                                                        onTap: () {
-                                                          context.read<SignatureCubit>().toggleSignature();
-                                                          deleteFileFromFirebase(_ormawaSignatureController ?? "");
-                                                          _ormawaSignatureController = "";
-                                                        },
-                                                        child: const Text(
-                                                          'Batal',
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 16,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-
-                                            if (_ormawaSignatureController != "")
-                                              Column(
-                                                children: [
-                                                  Image.network(_ormawaSignatureController ?? ""),
-
-                                                  const CustomFieldSpacer(),
-
-                                                  InkWell(
-                                                    onTap: () {
-                                                      context.read<SignatureCubit>().toggleSignature();
-                                                      deleteFileFromFirebase(_ormawaSignatureController ?? "");
-                                                      _ormawaSignatureController = "";
-                                                    },
-                                                    child: const Text(
-                                                      'Hapus',
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 16,
-                                                      ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
+                                            buildTitle('Tanggal Keberangkatan'),
+                                            CustomDatePickerField(
+                                              controller:
+                                              _tanggalKeberangkatanController,
+                                            ),
+                                            const CustomFieldSpacer(),
+                                            buildTitle('Tanggal Kepulangan'),
+                                            CustomDatePickerField(
+                                              controller: _tanggalKepulanganController,
+                                            ),
                                           ],
                                         ),
+                                      ) :
+                                      const Center();
+                                    }
+                                )
+                            ),
+
+                            MipokaCustomSwitchButton(
+                              title: 'Jumlah Partisipan',
+                              option1: 'Tim',
+                              option2: 'Orang',
+                              value: _jumlahParsitipanSwitchController,
+                              onChanged: (value) {
+                                _jumlahParsitipanSwitchController = value;
+                              },
+                            ),
+
+                            CustomTextField(
+                                controller: _jumlahParsitipanController),
+                            const CustomFieldSpacer(),
+
+                            buildTitle('Target Kegiatan'),
+                            CustomTextField(controller: _targetKegiatanController),
+
+                            // const CustomFieldSpacer(),
+                            // buildTitle('Total Pendanaan'),
+
+                            MipokaCustomSwitchButton(
+                              title: 'Total Pendanaan',
+                              option1: 'Uang',
+                              option2: 'Dll',
+                              value: _totalPendanaanSwitchController,
+                              onChanged: (value) {
+                                _totalPendanaanSwitchController = value;
+                              },
+                            ),
+
+                            CustomTextField(
+                              controller: _totalPendanaanController,
+                              // textInputType: TextInputType.number,
+                            ),
+                            const CustomFieldSpacer(),
+
+                            buildTitle('Keterangan'),
+                            CustomTextField(controller: _keteranganController),
+
+                            const CustomFieldSpacer(),
+                            buildTitle('Tanda Tangan Ormawa'),
+
+                            BlocProvider<SignatureCubit>(
+                              create: (context) => SignatureCubit(),
+                              child: BlocBuilder<SignatureCubit, SignatureState>(
+                                builder: (context, state) {
+                                  return InkWell(
+                                    onTap: () => context.read<SignatureCubit>().toggleSignature(),
+                                    child: Container(
+                                      width: 400,
+                                      alignment: Alignment.center,
+                                      padding: const EdgeInsets.all(8.0),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        border: Border.all(color: Colors.white),
                                       ),
-                                    );
-                                  },
-                                ),
-                              ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          if (_ormawaSignatureController == "")
+                                            !state.isSignatureVisible ?
+                                            InkWell(
+                                              onTap: () {
+                                                context.read<SignatureCubit>().toggleSignature();
+                                              },
+                                              child: const Text(
+                                                'Tekan untuk tanda tangan',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                            ) :
+                                            Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                const CustomFieldSpacer(height: 4.0),
+                                                SizedBox(
+                                                  width: 300,
+                                                  height: 200,
+                                                  child: SfSignaturePad(
+                                                    key: signatureGlobalKey,
+                                                    backgroundColor: Colors.white,
+                                                    strokeColor: Colors.black,
+                                                    minimumStrokeWidth: 1.0,
+                                                    maximumStrokeWidth: 4.0,
+                                                  ),
+                                                ),
+                                                const CustomFieldSpacer(),
+                                                Row(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                  children: [
+                                                    InkWell(
+                                                      onTap: () async {
+                                                        final file = await saveSignature();
+                                                        _ormawaSignatureController = await uploadFileFromSignature(file, "signature${user?.uid ?? "unknown"}");
+                                                        // uploadFile(file: file, customUrl: widget.fileName);
+                                                      },
+                                                      child: const Text(
+                                                        'Simpan',
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 16,
+                                                        ),
+                                                      ),
+                                                    ),
 
-                              const CustomFieldSpacer(),
+                                                    const SizedBox(width: 8),
 
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  CustomMipokaButton(
-                                    onTap: () => context.read<UsulanKegiatanBloc>()
-                                        .add(DeleteUsulanKegiatanEvent(idUsulan: widget.idUsulanKegiatan)),
-                                    text: 'Batal',
-                                  ),
-                                  const SizedBox(width: 8.0),
-
-                                  CustomMipokaButton(
-                                    onTap: () {
-                                      mipokaCustomToast('Sedang menyimpan data...', time: 5);
-
-                                      Future.microtask(() {
-                                        context.read<UsulanKegiatanBloc>().add(
-                                          UpdateUsulanKegiatanEvent(
-                                            usulanKegiatan: usulanKegiatan.copyWith(
-                                              ormawa: _ormawa,
-                                              pembiayaan: _pembiayaanController,
-                                              namaKegiatan: _namaKegiatanController.text,
-                                              kategoriBentukKegiatan: _bentukKegiatanSwitchController == true ? "Luring" : "Daring",
-                                              bentukKegiatan: _bentukKegiatanController,
-                                              deskripsiKegiatan: _deskripsiKegiatanController.text,
-                                              tanggalMulaiKegiatan: _tanggalMulaiController.text,
-                                              tanggalSelesaiKegiatan: _tanggalSelesaiController.text,
-                                              waktuMulaiKegiatan: _waktuMulaiController.text,
-                                              waktuSelesaiKegiatan: _waktuSelesaiController.text,
-                                              tempatKegiatan: _tempatKegiatanController.text,
-                                              tanggalKeberangkatan: _tempatKegiatanSwitchController == true
-                                                  ? _tanggalKeberangkatanController.text : "",
-                                              tanggalKepulangan: _tempatKegiatanSwitchController == true
-                                                  ?  _tanggalKepulanganController.text : "",
-                                              kategoriJumlahPartisipan: _jumlahParsitipanSwitchController == true ? "Orang" : "Dll",
-                                              jumlahPartisipan: _jumlahParsitipanController.text,
-                                              targetKegiatan: _targetKegiatanController.text,
-                                              kategoriTotalPendanaan: _totalPendanaanSwitchController == true ? "Dll" : "Orang",
-                                              totalPendanaan: _totalPendanaanController.text,
-                                              tandaTanganOrmawa: _ormawaSignatureController,
-                                              updatedAt: currentDate,
-                                              updatedBy: user?.email ?? "unknown",
+                                                    InkWell(
+                                                      onTap: () {
+                                                        context.read<SignatureCubit>().toggleSignature();
+                                                        deleteFileFromFirebase(_ormawaSignatureController ?? "");
+                                                        _ormawaSignatureController = "";
+                                                      },
+                                                      child: const Text(
+                                                        'Batal',
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 16,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                        );
 
-                                        // context.read<UsulanKegiatanBloc>().add(
-                                        //   ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
+                                          if (_ormawaSignatureController != "")
+                                            Column(
+                                              children: [
+                                                Image.network(_ormawaSignatureController ?? ""),
 
-                                        _tempatKegiatanSwitchController == false ?
-                                        Navigator.pushNamed(
-                                          context,
-                                          penggunaPengajuanUsulanKegiatan2DKPageRoute,
-                                          arguments: widget.idUsulanKegiatan,
-                                        ).then((_) => context.read<UsulanKegiatanBloc>()
-                                            .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan))) :
-                                        Navigator.pushNamed(
-                                          context,
-                                          penggunaPengajuanUsulanKegiatan2LKPageRoute,
-                                          arguments: widget.idUsulanKegiatan,
-                                        ).then((_) => context.read<UsulanKegiatanBloc>()
-                                            .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan)));
-                                      });
-                                    },
-                                    text: 'Berikutnya',
-                                  ),
-                                ],
+                                                const CustomFieldSpacer(),
+
+                                                InkWell(
+                                                  onTap: () {
+                                                    context.read<SignatureCubit>().toggleSignature();
+                                                    deleteFileFromFirebase(_ormawaSignatureController ?? "");
+                                                    _ormawaSignatureController = "";
+                                                  },
+                                                  child: const Text(
+                                                    'Hapus',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+
+                            const CustomFieldSpacer(),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                CustomMipokaButton(
+                                  onTap: () => context.read<UsulanKegiatanBloc>()
+                                      .add(DeleteUsulanKegiatanEvent(idUsulan: widget.idUsulanKegiatan)),
+                                  text: 'Batal',
+                                ),
+                                const SizedBox(width: 8.0),
+
+                                CustomMipokaButton(
+                                  onTap: () {
+                                    mipokaCustomToast('Sedang menyimpan data...', time: 5);
+
+                                    Future.microtask(() {
+                                      context.read<UsulanKegiatanBloc>().add(
+                                        UpdateUsulanKegiatanEvent(
+                                          usulanKegiatan: usulanKegiatan.copyWith(
+                                            ormawa: _ormawa,
+                                            pembiayaan: _pembiayaanController,
+                                            namaKegiatan: _namaKegiatanController.text,
+                                            kategoriBentukKegiatan: _bentukKegiatanSwitchController == true ? "Luring" : "Daring",
+                                            bentukKegiatan: _bentukKegiatanController,
+                                            deskripsiKegiatan: _deskripsiKegiatanController.text,
+                                            tanggalMulaiKegiatan: _tanggalMulaiController.text,
+                                            tanggalSelesaiKegiatan: _tanggalSelesaiController.text,
+                                            waktuMulaiKegiatan: _waktuMulaiController.text,
+                                            waktuSelesaiKegiatan: _waktuSelesaiController.text,
+                                            tempatKegiatan: _tempatKegiatanController.text,
+                                            tanggalKeberangkatan: _tempatKegiatanSwitchController == true
+                                                ? _tanggalKeberangkatanController.text : "",
+                                            tanggalKepulangan: _tempatKegiatanSwitchController == true
+                                                ?  _tanggalKepulanganController.text : "",
+                                            kategoriJumlahPartisipan: _jumlahParsitipanSwitchController == true ? "Orang" : "Dll",
+                                            jumlahPartisipan: _jumlahParsitipanController.text,
+                                            targetKegiatan: _targetKegiatanController.text,
+                                            kategoriTotalPendanaan: _totalPendanaanSwitchController == true ? "Dll" : "Orang",
+                                            totalPendanaan: _totalPendanaanController.text,
+                                            tandaTanganOrmawa: _ormawaSignatureController,
+                                            updatedAt: currentDate,
+                                            updatedBy: user?.email ?? "unknown",
+                                          ),
+                                        ),
+                                      );
+
+                                      // context.read<UsulanKegiatanBloc>().add(
+                                      //   ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
+
+                                      _tempatKegiatanSwitchController == false ?
+                                      Navigator.pushNamed(
+                                        context,
+                                        penggunaPengajuanUsulanKegiatan2DKPageRoute,
+                                        arguments: widget.idUsulanKegiatan,
+                                      ).then((_) => context.read<UsulanKegiatanBloc>()
+                                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan))) :
+                                      Navigator.pushNamed(
+                                        context,
+                                        penggunaPengajuanUsulanKegiatan2LKPageRoute,
+                                        arguments: widget.idUsulanKegiatan,
+                                      ).then((_) => context.read<UsulanKegiatanBloc>()
+                                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan)));
+                                    });
+                                  },
+                                  text: 'Berikutnya',
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  );
-                } else if (mipokaUserState is MipokaUserError) {
-                  return Text('MipokaUserBloc Error : ${mipokaUserState.message}');
-                } else {
-                  return const Text('MipokaUserBloc has not been triggered');
-                }
+                  ),
+                );
+
               } else if (state is UsulanKegiatanError) {
                 return Text('UsulanKegiatanBloc Error : ${state.message}');
               } else {

@@ -374,7 +374,7 @@ class MyApp extends StatelessWidget {
               final idRevisiUsulan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) =>
-                      PemeriksaPengajuanUsulanKegiatan1Page(idRevisiUsulan: idRevisiUsulan));
+                      PemeriksaPengajuanUsulanKegiatan1Page(idUsulan: idRevisiUsulan));
 
             case pemeriksaDaftarLaporanKegiatanPageRoute:
               return MaterialPageRoute(
@@ -383,17 +383,17 @@ class MyApp extends StatelessWidget {
               final idRevisiUsulan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) =>
-                      PemeriksaPengajuanUsulanKegiatan2DKPage(idRevisiUsulan: idRevisiUsulan));
+                      PemeriksaPengajuanUsulanKegiatan2DKPage(idUsulan: idRevisiUsulan));
             case pemeriksaPengajuanUsulanKegiatan2LKPageRoute:
               final idRevisiUsulan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) =>
-                      PemeriksaPengajuanUsulanKegiatan2LKPage(idRevisiUsulan: idRevisiUsulan));
+                      PemeriksaPengajuanUsulanKegiatan2LKPage(idUsulan: idRevisiUsulan));
             case pemeriksaPengajuanUsulanKegiatan3PageRoute:
               final idRevisiUsulan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) =>
-                      PemeriksaPengajuanUsulanKegiatan3Page(idRevisiUsulan: idRevisiUsulan));
+                      PemeriksaPengajuanUsulanKegiatan3Page(idUsulan: idRevisiUsulan));
             case pemeriksaPengajuanLaporanKegiatan1PageRoute:
               final idLaporan = settings.arguments as int;
               return MaterialPageRoute(
@@ -403,12 +403,12 @@ class MyApp extends StatelessWidget {
               final idRevisiLaporan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) =>
-                      PemeriksaPengajuanLaporanKegiatan2Page(idRevisiLaporan: idRevisiLaporan));
+                      PemeriksaPengajuanLaporanKegiatan2Page(idLaporan: idRevisiLaporan));
             case pemeriksaPengajuanLaporanKegiatan3PageRoute:
               final idRevisiLaporan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) =>
-                      PemeriksaPengajuanLaporanKegiatan3Page(idRevisiLaporan: idRevisiLaporan));
+                      PemeriksaPengajuanLaporanKegiatan3Page(idLaporan: idRevisiLaporan));
 
             // kemahasiswaan
             case kemahasiswaanBerandaPageRoute:

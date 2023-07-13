@@ -7,6 +7,7 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
+import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/revisi_usulan.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
@@ -36,7 +37,10 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
 
   @override
   void initState() {
-    context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+    Future.microtask(() {
+      context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+      context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: user?.uid ?? ""));
+    });
     super.initState();
   }
   
@@ -149,7 +153,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                   rows: List<DataRow>.generate(usulanKegiatanList.length, (int index) {
                                     final usulanKegiatan = usulanKegiatanList[index];
 
-                                    context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: usulanKegiatan.idUser));
+                                    // context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: usulanKegiatan.idUser));
 
                                     return DataRow(
                                       cells: [
@@ -170,100 +174,46 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                           ),
                                         ),
                                         DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              usulanKegiatan.mipokaUser.namaLengkap,
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
                                           BlocBuilder<MipokaUserBloc, MipokaUserState>(
                                             builder: (context, state) {
                                               if (state is MipokaUserLoading) {
-                                                return const Text("Loading ....");
+                                                return const Text("Loading ...");
                                               } else if (state is MipokaUserHasData) {
-                                                return Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    state.mipokaUser.namaLengkap,
+                                                MipokaUser mipokaUser = state.mipokaUser;
+
+                                                return InkWell(
+                                                  onTap: () => Navigator.pushNamed(
+                                                    context,
+                                                    pemeriksaPengajuanUsulanKegiatan1PageRoute,
+                                                    arguments: newId,
+                                                  ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                                      const ReadAllUsulanKegiatanEvent())),
+                                                  child: Align(
+                                                    alignment: Alignment.center,
+                                                    child: Text(
+                                                      usulanKegiatan.namaKegiatan,
+                                                      style: const TextStyle(
+                                                        color: Colors.blue,
+                                                        decoration: TextDecoration.underline,
+                                                      ),
+                                                    ),
                                                   ),
                                                 );
                                               } else if (state is MipokaUserError) {
                                                 return Text(state.message);
                                               } else {
-                                                return const Text("MipokaUserBloc hasn't triggered yet.");
+                                                return const Text("MipokaUserBLoC hasn't been triggered yet.");
                                               }
                                             },
                                           ),
-                                        ),
-                                        DataCell(
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              usulanKegiatan.namaKegiatan,
-                                              style: const TextStyle(
-                                                color: Colors.blue,
-                                                decoration: TextDecoration.underline,
-                                              ),
-                                            ),
-                                          ),
-                                          onTap: () {
-                                            int idUsulanUsulan = int.parse(
-                                                usulanKegiatan.idUsulan.toString() +
-                                                    newId.toString());
-
-                                            Future.microtask(() {
-                                              Navigator.pushNamed(
-                                                context,
-                                                pemeriksaPengajuanUsulanKegiatan1PageRoute,
-                                                arguments: idUsulanUsulan,
-                                              ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                                  const ReadAllUsulanKegiatanEvent()));
-                                              
-                                              context.read<RevisiUsulanBloc>().add(
-                                                CreateRevisiUsulanEvent(
-                                                  revisiUsulan: RevisiUsulan(
-                                                    idRevisiUsulan: idUsulanUsulan,
-                                                    idAdmin: user?.uid ?? "unknown",
-                                                    idUsulan: usulanKegiatan.idUsulan,
-                                                    revisiPembiayaan: "",
-                                                    revisiNamaKegiatan: "",
-                                                    revisiBentukKegiatan: "",
-                                                    revisiKategoriBentukKegiatan: "",
-                                                    revisiDeskripsiKegiatan: "",
-                                                    revisiTempatKegiatan: "",
-                                                    revisiTanggalMulaiKegiatan: "",
-                                                    revisiTanggalSelesaiKegiatan: "",
-                                                    revisiWaktuMulaiKegiatan: "",
-                                                    revisiWaktuSelesaiKegiatan: "",
-                                                    revisiTanggalKeberangkatan: "",
-                                                    revisiTanggalKepulangan: "",
-                                                    revisiJumlahPartisipan: "",
-                                                    revisiKategoriJumlahPartisipan: "",
-                                                    revisiTargetKegiatan: "",
-                                                    revisiTotalPendanaan: "",
-                                                    revisiKategoriTotalPendanaan: "",
-                                                    revisiKeterangan: "",
-                                                    revisiTandaTanganOrmawa: "",
-                                                    revisiPartisipan: "",
-                                                    revisiRincianBiayaKegiatan: "",
-                                                    revisiLatarBelakang: "",
-                                                    revisiTujuanKegiatan: "",
-                                                    revisiManfaatKegiatan: "",
-                                                    revisiBentukPelaksanaanKegiatan: "",
-                                                    revisiTargetPencapaianKegiatan: "",
-                                                    revisiWaktuDanTempatPelaksanaan: "",
-                                                    revisiRencanaAnggaranKegiatan: "",
-                                                    revisiIdTertibAcara: "",
-                                                    revisiPerlengkapanDanPeralatan: "",
-                                                    revisiPenutup: "",
-                                                    revisiFotoPostinganKegiatan: "",
-                                                    revisiFotoSuratUndanganKegiatan: "",
-                                                    revisiFotoLinimasaKegiatan: "",
-                                                    revisiFotoTempatKegiatan: "",
-                                                    createdAt: currentDate,
-                                                    createdBy: user?.email ?? "unknown",
-                                                    updatedAt: currentDate,
-                                                    updatedBy: user?.email ?? "unknown",
-                                                  ),
-                                                ),
-                                              );
-                                            });
-
-                                          },
                                         ),
                                         DataCell(
                                           Align(

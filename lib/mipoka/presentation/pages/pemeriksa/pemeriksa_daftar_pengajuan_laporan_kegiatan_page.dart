@@ -37,7 +37,6 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
 
   @override
   void dispose() {
-    context.read<MipokaUserBloc>().close();
     context.read<UsulanKegiatanBloc>().close();
     super.dispose();
   }
@@ -147,12 +146,6 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                   rows: List<DataRow>.generate(laporanList.length, (int index) {
                                     final laporanKegiatan = laporanList[index];
 
-                                    context.read<MipokaUserBloc>().add(
-                                        ReadMipokaUserEvent(idMipokaUser: laporanKegiatan.idUser));
-                                    context.read<UsulanKegiatanBloc>().add(
-                                        ReadUsulanKegiatanEvent(idUsulanKegiatan: laporanKegiatan.idUsulan)
-                                    );
-
                                     return DataRow(
                                       cells: [
                                         DataCell(
@@ -172,46 +165,22 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                           ),
                                         ),
                                         DataCell(
-                                          BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                            builder: (context, state) {
-                                              if (state is MipokaUserLoading) {
-                                                return const Text("Loading ...");
-                                              } else if (state is MipokaUserHasData) {
-                                                return Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    state.mipokaUser.namaLengkap,
-                                                  ),
-                                                );
-                                              } else if (state is MipokaUserError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("MipokaUserBloc hasn't triggered yet.");
-                                              }
-                                            },
-                                          ),
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                laporanKegiatan.usulanKegiatan.mipokaUser.namaLengkap,
+                                              ),
+                                            )
                                         ),
                                         DataCell(
-                                          BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
-                                            builder: (context, state) {
-                                              if (state is UsulanKegiatanLoading) {
-                                                return const Text("Loading ...");
-                                              } else if (state is UsulanKegiatanHasData) {
-                                                return Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    state.usulanKegiatan.namaKegiatan,
-                                                    style: const TextStyle(
-                                                      color: Colors.blue,
-                                                    ),
-                                                  ),
-                                                );
-                                              } else if (state is UsulanKegiatanError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("UsulanKegiatanBloc hasn't been triggered yet.");
-                                              }
-                                            },
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              laporanKegiatan.usulanKegiatan.namaKegiatan,
+                                              style: const TextStyle(
+                                                color: Colors.blue,
+                                              ),
+                                            ),
                                           ),
                                           onTap: () => Navigator.pushNamed(
                                             context,

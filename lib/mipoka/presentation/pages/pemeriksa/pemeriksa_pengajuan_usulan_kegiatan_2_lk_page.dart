@@ -14,10 +14,10 @@ import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_dr
 class PemeriksaPengajuanUsulanKegiatan2LKPage extends StatefulWidget {
   const PemeriksaPengajuanUsulanKegiatan2LKPage({
     super.key,
-    required this.idRevisiUsulan,
+    required this.idUsulan,
   });
 
-  final int idRevisiUsulan;
+  final int idUsulan;
 
   @override
   State<PemeriksaPengajuanUsulanKegiatan2LKPage> createState() =>
@@ -34,14 +34,13 @@ class _PemeriksaPengajuanUsulanKegiatan2LKPageState
 
   @override
   void initState() {
-    context.read<RevisiUsulanBloc>().add(
-        ReadRevisiUsulanEvent(idRevisiUsulan: widget.idRevisiUsulan));
+    context.read<UsulanKegiatanBloc>().add(
+      ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan));
     super.initState();
   }
 
   @override
   void dispose() {
-    context.read<RevisiUsulanBloc>().close();
     context.read<UsulanKegiatanBloc>().close();
     super.dispose();
   }
@@ -69,9 +68,6 @@ class _PemeriksaPengajuanUsulanKegiatan2LKPageState
 
                     _revisiPartisipanController.text = revisiUsulan.revisiPartisipan;
                     _revisiRincianBiayaKegiatanController.text = revisiUsulan.revisiRincianBiayaKegiatan;
-
-                    context.read<UsulanKegiatanBloc>().add(
-                        ReadUsulanKegiatanEvent(idUsulanKegiatan: revisiUsulan.idUsulan));
 
                     return BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
                       builder: (context, state) {
@@ -320,11 +316,13 @@ class _PemeriksaPengajuanUsulanKegiatan2LKPageState
                                 children: [
                                   CustomMipokaButton(
                                     onTap: () {
-                                      context.read<RevisiUsulanBloc>().add(
-                                        UpdateRevisiUsulanEvent(
-                                          revisiUsulan: revisiUsulan.copyWith(
-                                            revisiPartisipan: _revisiPartisipanController.text,
-                                            revisiRincianBiayaKegiatan: _revisiRincianBiayaKegiatanController.text,
+                                      context.read<UsulanKegiatanBloc>().add(
+                                        UpdateUsulanKegiatanEvent(
+                                          usulanKegiatan: usulanKegiatanList.copyWith(
+                                            revisiUsulan: usulanKegiatanList.revisiUsulan.copyWith(
+                                              revisiPartisipan: _revisiPartisipanController.text,
+                                              revisiRincianBiayaKegiatan: _revisiRincianBiayaKegiatanController.text,
+                                            ),
                                           ),
                                         ),
                                       );
@@ -337,7 +335,7 @@ class _PemeriksaPengajuanUsulanKegiatan2LKPageState
                                     onTap: () => Navigator.pushNamed(
                                       context,
                                       pemeriksaPengajuanUsulanKegiatan3PageRoute,
-                                      arguments: widget.idRevisiUsulan,
+                                      arguments: widget.idUsulan,
                                     ),
                                     text: 'Berikutnya',
                                   ),
