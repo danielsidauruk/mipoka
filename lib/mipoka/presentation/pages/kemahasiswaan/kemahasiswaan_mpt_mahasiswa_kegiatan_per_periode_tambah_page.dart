@@ -204,7 +204,6 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
                                       ),
                                     ),
                                   );
-                                  context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
                                   Navigator.pop(context);
                                 });
                               } else {
