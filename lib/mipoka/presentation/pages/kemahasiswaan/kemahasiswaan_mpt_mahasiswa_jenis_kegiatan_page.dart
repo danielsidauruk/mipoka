@@ -32,7 +32,6 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
 
   @override
   void dispose() {
-    context.read<RiwayatKegiatanMptBloc>().close();
     context.read<JenisKegiatanMptBloc>().close();
     super.dispose();
   }
@@ -66,7 +65,7 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                               Navigator.pushNamed(
                                 context,
                                 kemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute,
-                              ),
+                              ).then((_) => context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent())),
                         ),
 
                         const CustomFieldSpacer(),
@@ -124,7 +123,7 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                                               context,
                                               kemahasiswaanMPTMahasiswaJenisKegiatanEditPageRoute,
                                               arguments: jenisKegiatanMpt,
-                                            ),
+                                            ).then((_) => context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent())),
                                             child: Image.asset(
                                               'assets/icons/edit.png',
                                               width: 24,

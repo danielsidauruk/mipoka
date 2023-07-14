@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
-import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
@@ -15,6 +17,8 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_file_uploader.dart';
+import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 
 class KemahasiswaanBerandaUpdateBeritaPage extends StatefulWidget {
   const KemahasiswaanBerandaUpdateBeritaPage({
@@ -32,8 +36,10 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
   final TextEditingController _judulBeritaController = TextEditingController();
   final TextEditingController _penulisController = TextEditingController();
   final TextEditingController _textBeritaController = TextEditingController();
-  final StreamController<String?> _fotoBeritaStream = StreamController<String?>();
+
+  final StreamController<String?> _filePickerStream = StreamController<String?>.broadcast();
   String? _fotoBeritaController;
+  FilePickerResult? _result;
 
   @override
   void initState() {
@@ -42,9 +48,6 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
     _fotoBeritaController = widget.berita.gambar;
     _textBeritaController.text = widget.berita.teks;
 
-    if(_fotoBeritaController != "") {
-      _fotoBeritaStream.add(_fotoBeritaController);
-    }
     super.initState();
   }
 
@@ -78,19 +81,34 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                   CustomTextField(controller: _penulisController),
 
                   const CustomFieldSpacer(),
+                  buildTitle('Tambah Gambar'),
+
                   StreamBuilder<String?>(
-                    stream: _fotoBeritaStream.stream,
+                    initialData: _fotoBeritaController,
+                    stream: _filePickerStream.stream,
                     builder: (context, snapshot) {
                       String text = snapshot.data ?? "";
-                      return CustomFilePickerButton(
+                      return MipokaFileUploader(
+                        asset: "assets/icons/attach.png",
                         onTap: () async {
-                          String? url = await selectAndUploadFile('postingKegiatan${user?.uid ?? "unknown"}');
-                          _fotoBeritaController = url;
-                          _fotoBeritaStream.add(url);
+                          _result = await FilePicker.platform.pickFiles();
+                          PlatformFile? file = _result?.files.first;
+                          if (_result != null) {
+                            if (file?.extension!.toLowerCase() == 'jpg' ||
+                                file?.extension!.toLowerCase() == 'jpeg' ||
+                                file?.extension!.toLowerCase() == 'png' ||
+                                file?.extension!.toLowerCase() == 'gif'){
+                              _filePickerStream.add(_result?.files.first.name);
+                            } else {
+                              mipokaCustomToast("Tipe data file bukan gambar.");
+                            }
+                          }
                         },
                         onDelete: () {
+                          deleteFileFromFirebase(_fotoBeritaController ?? "");
+                          _filePickerStream.add("");
                           _fotoBeritaController = "";
-                          _fotoBeritaStream.add("");
+                          _result = null;
                         },
                         text: text,
                       );
@@ -115,26 +133,46 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => (_judulBeritaController.text.isNotEmpty && _penulisController.text.isNotEmpty &&
-                            _textBeritaController.text.isNotEmpty) ?
-                        Future.microtask(() {
-                          mipokaCustomToast("Berita telah diupdate");
-                          context.read<BeritaBloc>().add(
-                            UpdateBeritaEvent(
-                              widget.berita.copyWith(
-                                judul: _judulBeritaController.text,
-                                penulis: _penulisController.text,
-                                gambar: _fotoBeritaController,
-                                teks: _textBeritaController.text,
-                                updatedBy: user?.email ?? "unknown",
-                                updatedAt: currentDate,
-                              ),
-                            ),
-                          );
-                          context.read<BeritaBloc>().add(const ReadAllBeritaEvent());
-                          Navigator.pop(context);
-                        }) :
-                        mipokaCustomToast("Harap isi semua field."),
+                        onTap: () async {
+                          if (_judulBeritaController.text.isNotEmpty && _penulisController.text.isNotEmpty &&
+                              _textBeritaController.text.isNotEmpty) {
+
+                            final result = _result;
+                            if (result != null) {
+                              PlatformFile file = result.files.first;
+                              Uint8List? bytes;
+
+                              if (kIsWeb) {
+                                bytes = file.bytes;
+                              } else if (Platform.isAndroid) {
+                                bytes = await File(file.path!).readAsBytes();
+                              }
+
+                              if (bytes != null) {
+                                _fotoBeritaController = await uploadBytesToFirebase(bytes, "${widget.berita.idBerita}${file.name}");
+                              }
+                            }
+
+                            mipokaCustomToast("Berita telah diupdate");
+                            Future.microtask(() {
+                              context.read<BeritaBloc>().add(
+                                UpdateBeritaEvent(
+                                  widget.berita.copyWith(
+                                    judul: _judulBeritaController.text,
+                                    penulis: _penulisController.text,
+                                    gambar: _fotoBeritaController,
+                                    teks: _textBeritaController.text,
+                                    updatedBy: user?.email ?? "unknown",
+                                    updatedAt: currentDate,
+                                  ),
+                                ),
+                              );
+                              Navigator.pop(context);
+                            });
+                          } else {
+                            mipokaCustomToast("Harap isi semua field.");
+                          }
+                        },
                         text: 'Simpan',
                       ),
                     ],

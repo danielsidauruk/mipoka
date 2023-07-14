@@ -76,15 +76,14 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanEditPageState extends State<Kemahas
                         onTap: () => (_namaJenisKegiatanController.text != "") ?
                         Future.microtask(() {
                           context.read<JenisKegiatanMptBloc>().add(
-                              UpdateJenisKegiatanMptEvent(
-                                jenisKegiatanMpt: widget.jenisKegiatanMpt.copyWith(
-                                  namaJenisKegiatanMpt: _namaJenisKegiatanController.text,
-                                  updatedAt: currentDate,
-                                  updatedBy: user?.email ?? "",
-                                ),
-                              )
+                            UpdateJenisKegiatanMptEvent(
+                              jenisKegiatanMpt: widget.jenisKegiatanMpt.copyWith(
+                                namaJenisKegiatanMpt: _namaJenisKegiatanController.text,
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "",
+                              ),
+                            ),
                           );
-                          context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
                           mipokaCustomToast("Jenis Kegiatan MPT berhasil diupdate.");
                           Navigator.pop(context);
                         }) :

@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:mipoka/mipoka/data/models/ormawa_model.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 

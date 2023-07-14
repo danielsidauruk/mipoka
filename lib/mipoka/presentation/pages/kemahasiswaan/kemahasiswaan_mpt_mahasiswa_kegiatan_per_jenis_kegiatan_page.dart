@@ -27,7 +27,6 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
 
   @override
   void initState() {
-    _idNamaKegiatanMpt = 0;
     context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
     context.read<JenisKegiatanDropDownBloc>().add(ReadJenisKegiatanDropDownEvent());
     super.initState();
@@ -64,7 +63,8 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                     onPressed: () => Navigator.pushNamed(
                       context,
                       mptMahasiswaKegiatanPerJenisKegiatanTambahPageRoute,
-                    ),
+                    ).then((_) => context.read<NamaKegiatanMptBloc>().add(
+                        ReadAllNamaKegiatanMptEvent(id: _idNamaKegiatanMpt ?? 0))),
                   ),
 
                   const CustomFieldSpacer(),
@@ -84,7 +84,9 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                                 (jenisKegiatanMptList) => jenisKegiatanMptList.idJenisKegiatanMpt).toList();
                         idNamaKegiatanList.insert(0, 0);
 
-                        _idNamaKegiatanMpt = idNamaKegiatanList[0];
+                        _idNamaKegiatanMpt == 0
+                            ? _idNamaKegiatanMpt = idNamaKegiatanList[0]
+                            : _idNamaKegiatanMpt = _idNamaKegiatanMpt;
 
                         return MipokaCustomDropdown(
                           items: jenisKegiatanList,
@@ -154,29 +156,14 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                                   rows: List<DataRow>.generate(namaKegiatanMptList.length, (int index) {
                                     final namaKegiatanMpt = namaKegiatanMptList[index];
 
-                                    context.read<JenisKegiatanMptBloc>().add(
-                                        ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: namaKegiatanMpt.idNamaKegiatanMpt));
-
                                     return DataRow(
                                       cells: [
                                         DataCell(
-                                          BlocBuilder<JenisKegiatanMptBloc, JenisKegiatanMptState>(
-                                            builder: (context, state) {
-                                              if (state is JenisKegiatanMptLoading) {
-                                                return const Text('Loading ....');
-                                              } else if (state is JenisKegiatanMptHasData) {
-                                                return Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    state.jenisKegiatanMpt.namaJenisKegiatanMpt,
-                                                  ),
-                                                );
-                                              } else if (state is JenisKegiatanMptError) {
-                                                return Text(state.message);
-                                              } else {
-                                                return const Text("JenisKegiatanMptBloc hasn't triggered yet.");
-                                              }
-                                            },
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              namaKegiatanMpt.jenisKegiatanMpt.namaJenisKegiatanMpt,
+                                            ),
                                           ),
                                         ),
                                         DataCell(
@@ -197,7 +184,7 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                                                   context,
                                                   kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageRoute,
                                                   arguments: namaKegiatanMpt,
-                                                ),
+                                                ).then((_) => context.read<NamaKegiatanMptBloc>().add(ReadAllNamaKegiatanMptEvent(id: _idNamaKegiatanMpt ?? 0))),
                                                 child: Image.asset(
                                                   'assets/icons/edit.png',
                                                   width: 24,

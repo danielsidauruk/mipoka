@@ -122,7 +122,6 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageState extends 
                               ),
                             ),
                           );
-                          context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
                           Navigator.pop(context);
                         }) :
                         mipokaCustomToast(emptyFieldMessage),

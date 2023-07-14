@@ -22,16 +22,23 @@ class JenisKegiatanMptModel extends JenisKegiatanMpt {
   }
 
   factory JenisKegiatanMptModel.fromJson(Map<String, dynamic> json) => JenisKegiatanMptModel(
-    idJenisKegiatanMpt: json["id__jenis_kegiatan_mpt"],
+    idJenisKegiatanMpt: json["id_jenis_kegiatan_mpt"],
     namaJenisKegiatanMpt: json["nama_jenis_kegiatan_mpt"],
     createdAt: json["created_at"],
     createdBy: json["created_by"],
     updatedAt: json["updated_at"],
     updatedBy: json["updated_by"],
+
+      // "id_jenis_kegiatan_mpt": 342421,
+      // "nama_jenis_kegiatan_mpt": "Pelayanan Masyarakat",
+      // "created_at": "2023-06-26",
+      // "created_by": "Jane Smith",
+      // "updated_at": "2023-06-26",
+      // "updated_by": "John Doe"
   );
 
   Map<String, dynamic> toJson() => {
-    "id__jenis_kegiatan_mpt": idJenisKegiatanMpt,
+    "id_jenis_kegiatan_mpt": idJenisKegiatanMpt,
     "nama_jenis_kegiatan_mpt": namaJenisKegiatanMpt,
     "created_at": createdAt,
     "created_by": createdBy,

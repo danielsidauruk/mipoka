@@ -73,7 +73,8 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                           onPressed: () => Navigator.pushNamed(
                             context,
                             kemahasiswaanBerandaTambahBeritaPageRoute,
-                          ).then((_) => context.read<BeritaBloc>().add(const ReadAllBeritaEvent())),
+                          ).then((_) => context.read<BeritaBloc>().add(
+                              ReadAllBeritaEvent(filter: _filter!))),
                         ),
                         const CustomFieldSpacer(),
                         buildTitle('Penulis'),
@@ -180,8 +181,8 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                                               context,
                                               kemahasiswaanBerandaUpdateBeritaPageRoute,
                                               arguments: berita,
-                                            ),
-                                            // onTap:() =>
+                                            ).then((_) => context.read<BeritaBloc>().add(
+                                                ReadAllBeritaEvent(filter: _filter!))),
                                             child: Image.asset(
                                               'assets/icons/edit.png',
                                               width: 24,
