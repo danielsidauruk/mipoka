@@ -84,9 +84,7 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                                 (jenisKegiatanMptList) => jenisKegiatanMptList.idJenisKegiatanMpt).toList();
                         idNamaKegiatanList.insert(0, 0);
 
-                        _idNamaKegiatanMpt == 0
-                            ? _idNamaKegiatanMpt = idNamaKegiatanList[0]
-                            : _idNamaKegiatanMpt = _idNamaKegiatanMpt;
+                        _idNamaKegiatanMpt ??= idNamaKegiatanList[0];
 
                         return MipokaCustomDropdown(
                           items: jenisKegiatanList,

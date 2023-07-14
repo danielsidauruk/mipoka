@@ -34,13 +34,9 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
 
   @override
   void initState() {
-    _nimController.text = _nimController.text.isEmpty ? "Semua" : _nimController.text;
-
-    _prodi = _prodi ?? listProdi[0];
-
-    _jumlahPoint = _jumlahPoint ?? listJumlahPoint[0];
-
-    _idPeriodeKegiatanMpt = _idPeriodeKegiatanMpt == 0 ? 0 : _idPeriodeKegiatanMpt;
+    _nimController.text = _nimController.text.isEmpty ? "" : _nimController.text;
+    _prodi ??= listProdi[0];
+    _jumlahPoint ??= listJumlahPoint[0];
 
     context.read<MhsPerPeriodeMptBloc>().add(const ReadAllMhsPerPeriodeMptEvent());
     context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
@@ -225,6 +221,8 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                             List<int> idTahunPeriodeList = state.periodeMptList.map(
                                     (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
                             idTahunPeriodeList.insert(0, 0);
+
+                            _idPeriodeKegiatanMpt ??= idTahunPeriodeList[0];
 
                             return MipokaCustomDropdown(
                                 items: tahunPeriodeMptList,

@@ -101,9 +101,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                                   (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
                           idTahunPeriodeList.insert(0, 0);
 
-                          _idPeriodeKegiatanMpt == 0 || _idPeriodeKegiatanMpt == null?
-                              _idPeriodeKegiatanMpt = idTahunPeriodeList[0] :
-                              _idPeriodeKegiatanMpt = _idPeriodeKegiatanMpt;
+                          _idPeriodeKegiatanMpt ??= idTahunPeriodeList[0];
 
                           return MipokaCustomDropdown(
                               items: periodeMptDropDownList,
@@ -136,9 +134,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                                   (namaKegiatanMptList) => namaKegiatanMptList.idNamaKegiatanMpt).toList();
                           idKegiatanList.insert(0, 0);
 
-                          _idNamaKegiatanMpt == 0 || _idPeriodeKegiatanMpt == null
-                              ? _idNamaKegiatanMpt = idKegiatanList[0]
-                              : _idNamaKegiatanMpt = _idNamaKegiatanMpt;
+                          _idNamaKegiatanMpt ??= idKegiatanList[0];
 
                           return MipokaCustomDropdown(
                             items: namaKegiatanList,

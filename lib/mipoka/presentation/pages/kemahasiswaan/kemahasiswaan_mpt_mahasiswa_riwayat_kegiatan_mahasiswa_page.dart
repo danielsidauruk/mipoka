@@ -41,12 +41,13 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
 
   @override
   void initState() {
-    _idPeriodeKegiatanMpt = 0;
-    _idJenisKegiatan = 0;
-    _idNamaKegiatan = 0;
-    _status = "Semua";
-    _nimController.text = "Semua";
-    _isCheckedJenisKegiatan = false;
+    _idPeriodeKegiatanMpt ??= 0;
+    _idJenisKegiatan ??= 0;
+    _idNamaKegiatan ??= 0;
+    _status ??= listStatus[0];
+    _nimController.text = _nimController.text == "" ? "" : _nimController.text;
+
+    _isCheckedJenisKegiatan ??= false;
 
     Future.microtask(() {
       context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
