@@ -34,10 +34,13 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
 
   @override
   void initState() {
-    _nimController.text = "Semua";
-    _prodi = listProdi[0];
-    _jumlahPoint = listJumlahPoint[0];
-    _idPeriodeKegiatanMpt = 0;
+    _nimController.text = _nimController.text.isEmpty ? "Semua" : _nimController.text;
+
+    _prodi = _prodi ?? listProdi[0];
+
+    _jumlahPoint = _jumlahPoint ?? listJumlahPoint[0];
+
+    _idPeriodeKegiatanMpt = _idPeriodeKegiatanMpt == 0 ? 0 : _idPeriodeKegiatanMpt;
 
     context.read<MhsPerPeriodeMptBloc>().add(const ReadAllMhsPerPeriodeMptEvent());
     context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
@@ -67,138 +70,141 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
               CustomContentBox(
                 children: [
 
-                  size.width > 700 ?
+                  // size.width > 700 ?
+                  // Column(
+                  //   mainAxisAlignment: MainAxisAlignment.start,
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     Row(
+                  //       mainAxisAlignment: MainAxisAlignment.start,
+                  //       crossAxisAlignment: CrossAxisAlignment.start,
+                  //       children: [
+                  //         CustomAddButton(
+                  //           buttonText: 'Tambah',
+                  //           onPressed: () => Navigator.pushNamed(
+                  //             context,
+                  //             kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute,
+                  //           ),
+                  //         ),
+                  //
+                  //         const SizedBox(width: 8.0),
+                  //
+                  //         CustomFilterButton(
+                  //           text: 'Filter',
+                  //           onPressed: () => context.read<MhsPerPeriodeMptBloc>().add(
+                  //               ReadAllMhsPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_prodi/$_jumlahPoint/${_nimController.text}")),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //
+                  //     const CustomFieldSpacer(),
+                  //
+                  //     Row(
+                  //       crossAxisAlignment: CrossAxisAlignment.start,
+                  //       children: [
+                  //         Column(
+                  //           crossAxisAlignment: CrossAxisAlignment.start,
+                  //           children: [
+                  //             buildTitle('Periode Kegiatan'),
+                  //             BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
+                  //               builder: (context, state) {
+                  //                 if (state is PeriodeMptDropDownLoading) {
+                  //                   return const Text("Loading ....");
+                  //                 } else if (state is PeriodeMptDropDownHasData) {
+                  //
+                  //                   List<String> tahunPeriodeMptList = state.periodeMptList.map(
+                  //                           (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
+                  //                       "${periodeMptList.tahunPeriodeMpt} (ulang)" :
+                  //                       periodeMptList.tahunPeriodeMpt).toList();
+                  //                   tahunPeriodeMptList.insert(0, "Semua");
+                  //
+                  //                   List<int> idTahunPeriodeList = state.periodeMptList.map(
+                  //                           (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
+                  //                   idTahunPeriodeList.insert(0, 0);
+                  //
+                  //                   return MipokaCustomDropdown(
+                  //                       items: tahunPeriodeMptList,
+                  //                       onValueChanged: (value) {
+                  //                         int index = tahunPeriodeMptList.indexOf(value!);
+                  //                         int idPeriodeMpt = idTahunPeriodeList[index];
+                  //
+                  //                         // print("$idPeriodeMpt, $value");
+                  //
+                  //                         _idPeriodeKegiatanMpt = idPeriodeMpt;
+                  //                       }
+                  //                   );
+                  //                 } else if (state is PeriodeMptDropDownError) {
+                  //                   return Text(state.message);
+                  //                 } else {
+                  //                   return const Text("PeriodeMptBloc hasn't been triggered yet.");
+                  //                 }
+                  //               },
+                  //             ),
+                  //           ],
+                  //         ),
+                  //
+                  //         const SizedBox(width: 8.0),
+                  //
+                  //         Column(
+                  //           crossAxisAlignment: CrossAxisAlignment.start,
+                  //           children: [
+                  //             buildTitle('Prodi'),
+                  //
+                  //             MipokaCustomDropdown(
+                  //               items: listProdi,
+                  //               onValueChanged: (value) {
+                  //                 _prodi = value;
+                  //               },
+                  //             ),
+                  //           ],
+                  //         ),
+                  //       ],
+                  //     ),
+                  //
+                  //     const CustomFieldSpacer(),
+                  //
+                  //     Row(
+                  //       children: [
+                  //         Column(
+                  //           crossAxisAlignment: CrossAxisAlignment.start,
+                  //           children: [
+                  //             buildTitle('Jumlah Poin'),
+                  //             MipokaCustomDropdown(
+                  //               items: listJumlahPoint,
+                  //               onValueChanged: (value) {
+                  //                 _jumlahPoint = value;
+                  //               },
+                  //             ),
+                  //           ],
+                  //         ),
+                  //
+                  //         const SizedBox(width: 8.0),
+                  //
+                  //         Column(
+                  //           crossAxisAlignment: CrossAxisAlignment.start,
+                  //           children: [
+                  //             buildTitle('NIM'),
+                  //             CustomTextField(
+                  //               controller: _nimController,
+                  //               textFieldWidth: 300,
+                  //             ),
+                  //           ],
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ],
+                  // ) :
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomAddButton(
-                            buttonText: 'Tambah',
-                            onPressed: () => Navigator.pushNamed(
-                              context,
-                              kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute,
-                            ),
-                          ),
-
-                          const SizedBox(width: 8.0),
-
-                          CustomFilterButton(
-                            text: 'Filter',
-                            onPressed: () => context.read<MhsPerPeriodeMptBloc>().add(
-                                ReadAllMhsPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_prodi/$_jumlahPoint/${_nimController.text}")),
-                          ),
-                        ],
-                      ),
-
-                      const CustomFieldSpacer(),
-
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              buildTitle('Periode Kegiatan'),
-                              BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
-                                builder: (context, state) {
-                                  if (state is PeriodeMptDropDownLoading) {
-                                    return const Text("Loading ....");
-                                  } else if (state is PeriodeMptDropDownHasData) {
-
-                                    List<String> tahunPeriodeMptList = state.periodeMptList.map(
-                                            (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
-                                        "${periodeMptList.tahunPeriodeMpt} (ulang)" :
-                                        periodeMptList.tahunPeriodeMpt).toList();
-                                    tahunPeriodeMptList.insert(0, "Semua");
-
-                                    List<int> idTahunPeriodeList = state.periodeMptList.map(
-                                            (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
-                                    idTahunPeriodeList.insert(0, 0);
-
-                                    return MipokaCustomDropdown(
-                                        items: tahunPeriodeMptList,
-                                        onValueChanged: (value) {
-                                          int index = tahunPeriodeMptList.indexOf(value!);
-                                          int idPeriodeMpt = idTahunPeriodeList[index];
-
-                                          // print("$idPeriodeMpt, $value");
-
-                                          _idPeriodeKegiatanMpt = idPeriodeMpt;
-                                        }
-                                    );
-                                  } else if (state is PeriodeMptDropDownError) {
-                                    return Text(state.message);
-                                  } else {
-                                    return const Text("PeriodeMptBloc hasn't been triggered yet.");
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
-
-                          const SizedBox(width: 8.0),
-
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              buildTitle('Prodi'),
-
-                              MipokaCustomDropdown(
-                                items: listProdi,
-                                onValueChanged: (value) {
-                                  _prodi = value;
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-
-                      const CustomFieldSpacer(),
-
-                      Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              buildTitle('Jumlah Poin'),
-                              MipokaCustomDropdown(
-                                items: listJumlahPoint,
-                                onValueChanged: (value) {
-                                  _jumlahPoint = value;
-                                },
-                              ),
-                            ],
-                          ),
-
-                          const SizedBox(width: 8.0),
-
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              buildTitle('NIM'),
-                              CustomTextField(
-                                controller: _nimController,
-                                textFieldWidth: 300,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ) :
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomFilterButton(
-                        text: 'Filter',
-                        onPressed: () => context.read<MhsPerPeriodeMptBloc>().add(
-                            ReadAllMhsPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_prodi/$_jumlahPoint/${_nimController.text}")),
+                      CustomAddButton(
+                        buttonText: 'Tambah',
+                        onPressed: () => Navigator.pushNamed(
+                          context,
+                          kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute,
+                        ).then((_) => context.read<MhsPerPeriodeMptBloc>().add(
+                            ReadAllMhsPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_prodi/$_jumlahPoint/${_nimController.text}"))),
                       ),
 
                       const CustomFieldSpacer(),
@@ -267,12 +273,10 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
 
                       const CustomFieldSpacer(),
 
-                      CustomAddButton(
-                        buttonText: 'Tambah',
-                        onPressed: () => Navigator.pushNamed(
-                          context,
-                          kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute,
-                        ),
+                      CustomFilterButton(
+                        text: 'Filter',
+                        onPressed: () => context.read<MhsPerPeriodeMptBloc>().add(
+                            ReadAllMhsPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_prodi/$_jumlahPoint/${_nimController.text}")),
                       ),
                     ],
                   ),
@@ -289,7 +293,6 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const CustomFieldSpacer(),
 
                             MipokaCountText(total: mhsPerPeriodeMptList.length),
 
