@@ -58,6 +58,8 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
     _namaKegiatanController.text = widget.prestasi.namaKegiatan;
     _prestasiYangDicapaiController.text = widget.prestasi.prestasiDicapai;
     _waktuPenyelenggaraanController.text = widget.prestasi.waktuPenyelenggaraan;
+
+    _triggerNim(_mipokaUser!.nim);
     super.initState();
   }
 
@@ -79,158 +81,137 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
 
               const CustomFieldSpacer(),
 
-              BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                builder: (context, state) {
-                  if (state is MipokaUserLoading) {
-                    return const Text("Loading ....");
-                  } else if (state is MipokaUserHasData) {
+              CustomContentBox(
+                children: [
+                  buildTitle('Nama Ormawa'),
 
-                    _nimController.text = state.mipokaUser.nim;
-                    // Future.microtask(() {
-                    //   context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
-                    //   _triggerNim(state.mipokaUser.nim);
-                    // });
+                  BlocBuilder<OrmawaBloc, OrmawaState>(
+                    builder: (context, state) {
+                      if (state is OrmawaLoading) {
+                        return const Text("Loading ....");
+                      } else if (state is AllOrmawaHasData) {
+                        final ormawaList = state.ormawaList;
 
-                    return CustomContentBox(
-                      children: [
-                        buildTitle('Nama Ormawa'),
+                        List<String> ormawaDropDownList = ormawaList.map(
+                                (ormawa) => ormawa.namaOrmawa).toList();
 
-                        BlocBuilder<OrmawaBloc, OrmawaState>(
-                          builder: (context, state) {
-                            if (state is OrmawaLoading) {
-                              return const Text("Loading ....");
-                            } else if (state is AllOrmawaHasData) {
-                              final ormawaList = state.ormawaList;
+                        int selectedIndex = ormawaList.indexOf(_ormawa!);
+                        String initialItem = selectedIndex > 0
+                            ? ormawaDropDownList[selectedIndex]
+                            : ormawaDropDownList[0];
 
-                              List<String> ormawaDropDownList = ormawaList.map(
-                                      (ormawa) => ormawa.namaOrmawa).toList();
-
-                              int selectedIndex = ormawaList.indexOf(_ormawa!);
-                              String initialItem = selectedIndex > 0
-                                  ? ormawaDropDownList[selectedIndex]
-                                  : ormawaDropDownList[0];
-
-                              return MipokaCustomDropdown(
-                                  items: ormawaDropDownList,
-                                  initialItem: initialItem,
-                                  onValueChanged: (value) {
-                                    int index = ormawaDropDownList.indexOf(value!);
-                                    initialItem = ormawaDropDownList[index];
-                                    _ormawa = ormawaList[index];
-                                  }
-                              );
-                            } else if (state is OrmawaError) {
-                              return Text(state.message);
-                            } else {
-                              return const Text("OrmawaBloc hasn't been triggered yet.");
+                        return MipokaCustomDropdown(
+                            items: ormawaDropDownList,
+                            initialItem: initialItem,
+                            onValueChanged: (value) {
+                              int index = ormawaDropDownList.indexOf(value!);
+                              initialItem = ormawaDropDownList[index];
+                              _ormawa = ormawaList[index];
                             }
-                          },
-                        ),
+                        );
+                      } else if (state is OrmawaError) {
+                        return Text(state.message);
+                      } else {
+                        return const Text("OrmawaBloc hasn't been triggered yet.");
+                      }
+                    },
+                  ),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('NIM'),
-                        CustomTextFieldForNim(
-                          textInputType: TextInputType.number,
-                          controller: _nimController,
-                          onSubmitted: (value) => _triggerNim(value),
-                        ),
+                  buildTitle('NIM'),
+                  CustomTextFieldForNim(
+                    textInputType: TextInputType.number,
+                    controller: _nimController,
+                    onSubmitted: (value) => _triggerNim(value),
+                  ),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Nama Mahasiswa'),
-                        BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
-                          builder: (context, state) {
-                            if (state is MipokaUserByNimByNimHasData) {
-                              _mipokaUser = state.mipokaUser;
+                  buildTitle('Nama Mahasiswa'),
+                  BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
+                    builder: (context, state) {
+                      if (state is MipokaUserByNimByNimHasData) {
+                        _mipokaUser = state.mipokaUser;
 
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  _mipokaUser?.namaLengkap ?? "",
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                              );
-                            } else {
-                              return const Text("MipokaUserBlocByNimEvent hasn't been triggered yet");
-                            }
-                          },
-                        ),
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            _mipokaUser?.namaLengkap ?? "",
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        );
+                      } else {
+                        return const Text("MipokaUserBlocByNimEvent hasn't been triggered yet");
+                      }
+                    },
+                  ),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Nama Kegiatan'),
-                        CustomTextField(controller: _namaKegiatanController),
+                  buildTitle('Nama Kegiatan'),
+                  CustomTextField(controller: _namaKegiatanController),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Waktu Penyelenggaraan'),
+                  buildTitle('Waktu Penyelenggaraan'),
 
-                        CustomDatePickerField(controller: _waktuPenyelenggaraanController),
+                  CustomDatePickerField(controller: _waktuPenyelenggaraanController),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Tingkat'),
-                        MipokaCustomDropdown(
-                          items: listTingkat,
-                          initialItem: _tingkatController,
-                          onValueChanged: (value) => _tingkatController = value,
-                        ),
+                  buildTitle('Tingkat'),
+                  MipokaCustomDropdown(
+                    items: listTingkat,
+                    initialItem: _tingkatController,
+                    onValueChanged: (value) => _tingkatController = value,
+                  ),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Prestasi yang dicapai'),
-                        CustomTextField(controller: _prestasiYangDicapaiController),
+                  buildTitle('Prestasi yang dicapai'),
+                  CustomTextField(controller: _prestasiYangDicapaiController),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            CustomMipokaButton(
-                              onTap: () => Navigator.pop(context),
-                              text: 'Kembali',
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomMipokaButton(
+                        onTap: () => Navigator.pop(context),
+                        text: 'Kembali',
+                      ),
+
+                      const SizedBox(width: 8.0),
+                      CustomMipokaButton(
+                        onTap: () => (_ormawa != null && _nimController.text.isNotEmpty
+                            && _namaKegiatanController.text.isNotEmpty && _yearController != null
+                            && _tingkatController != null && _prestasiYangDicapaiController.text.isNotEmpty
+                            && _mipokaUser?.idUser != "") ?
+                        Future.microtask(() {
+                          context.read<PrestasiBloc>().add(
+                            UpdatePrestasiEvent(
+                              prestasi: widget.prestasi.copyWith(
+                                ormawa: _ormawa,
+                                mipokaUser: _mipokaUser,
+                                namaKegiatan: _namaKegiatanController.text,
+                                tingkat: _tingkatController,
+                                waktuPenyelenggaraan: _yearController,
+                                prestasiDicapai: _prestasiYangDicapaiController.text,
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "unknown",
+                              ),
                             ),
-
-                            const SizedBox(width: 8.0),
-                            CustomMipokaButton(
-                              onTap: () => (_ormawa != null && _nimController.text.isNotEmpty
-                                  && _namaKegiatanController.text.isNotEmpty && _yearController != null
-                                  && _tingkatController != null && _prestasiYangDicapaiController.text.isNotEmpty
-                                  && _mipokaUser?.idUser != "") ?
-                              Future.microtask(() {
-                                context.read<PrestasiBloc>().add(
-                                  UpdatePrestasiEvent(
-                                    prestasi: widget.prestasi.copyWith(
-                                      ormawa: _ormawa,
-                                      mipokaUser: _mipokaUser,
-                                      namaKegiatan: _namaKegiatanController.text,
-                                      tingkat: _tingkatController,
-                                      waktuPenyelenggaraan: _yearController,
-                                      prestasiDicapai: _prestasiYangDicapaiController.text,
-                                      updatedAt: currentDate,
-                                      updatedBy: user?.email ?? "unknown",
-                                    ),
-                                  ),
-                                );
-                                mipokaCustomToast("Prestasi telah diupdate.");
-                                context.read<PrestasiBloc>().add(const ReadAllPrestasiEvent());
-                                Navigator.pop(context);
-                              }) :
-                              mipokaCustomToast(emptyFieldMessage),
-                              text: 'Simpan',
-                            ),
-                          ],
-                        ),
-                      ],
-                    );
-
-                  } else if (state is MipokaUserError) {
-                    return Text(state.message);
-                  } else {
-                    return const Text("MipokaUserBlocEvent hasn't been triggered");
-                  }
-                },
+                          );
+                          mipokaCustomToast("Prestasi telah diupdate.");
+                          Navigator.pop(context);
+                        }) :
+                        mipokaCustomToast(emptyFieldMessage),
+                        text: 'Simpan',
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),

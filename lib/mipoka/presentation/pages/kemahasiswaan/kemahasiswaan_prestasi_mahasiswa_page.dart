@@ -79,7 +79,8 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                           onPressed: () => Navigator.pushNamed(
                             context,
                             kemahasiswaanPrestasiMahasiswaTambahPageRoute,
-                          ),
+                          ).then((_) => context.read<PrestasiBloc>().add(
+                              ReadAllPrestasiEvent(filter: "$_idOrmawaController/$_tahun/$_tingkat"))),
                         ),
 
                         const CustomFieldSpacer(),
@@ -136,10 +137,8 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
 
                         CustomFilterButton(
                           text: 'Filter',
-                          onPressed: () {
-                            context.read<PrestasiBloc>().add(
-                              ReadAllPrestasiEvent(filter: "$_idOrmawaController/$_tahun/$_tingkat"));
-                          },
+                          onPressed: () => context.read<PrestasiBloc>().add(
+                              ReadAllPrestasiEvent(filter: "$_idOrmawaController/$_tahun/$_tingkat")),
                         ),
 
                         const CustomFieldSpacer(),
@@ -274,7 +273,8 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                                                 context,
                                                 kemahasiswaanPrestasiMahasiswaEditPageRoute,
                                                 arguments: prestasi,
-                                              ),
+                                              ).then((_) => context.read<PrestasiBloc>().add(
+                                                  ReadAllPrestasiEvent(filter: "$_idOrmawaController/$_tahun/$_tingkat"))),
                                               child: Image.asset(
                                                 'assets/icons/edit.png',
                                                 width: 24,

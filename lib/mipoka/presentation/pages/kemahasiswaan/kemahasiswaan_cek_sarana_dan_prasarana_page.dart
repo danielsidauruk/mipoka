@@ -160,13 +160,6 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                   rows: List<DataRow>.generate(sessionList.length, (int index) {
                                     final session = sessionList[index];
 
-                                    // Future.microtask(() {
-                                    //   context.read<MipokaUserBloc>().add(
-                                    //       ReadMipokaUserEvent(idMipokaUser: session.idUser));
-                                    //   context.read<OrmawaBloc>().add(
-                                    //       ReadOrmawaEvent(idOrmawa: session.idOrmawa));
-                                    // });
-
                                     return DataRow(
                                       cells: [
                                         DataCell(
@@ -226,7 +219,13 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                             children: [
                                               InkWell(
-                                                onTap: () {},
+                                                onTap: () => context.read<SessionBloc>().add(
+                                                  UpdateSessionEvent(
+                                                    session: session.copyWith(
+                                                      status: "diterima",
+                                                    ),
+                                                  ),
+                                                ),
                                                 child: Image.asset(
                                                   'assets/icons/approve.png',
                                                   width: 24,
@@ -236,7 +235,13 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                               const SizedBox(width: 8.0,),
 
                                               InkWell(
-                                                onTap: () {},
+                                                onTap: () => context.read<SessionBloc>().add(
+                                                  UpdateSessionEvent(
+                                                    session: session.copyWith(
+                                                      status: "ditolak",
+                                                    ),
+                                                  ),
+                                                ),
                                                 child: Image.asset(
                                                   'assets/icons/close.png',
                                                   width: 24,
