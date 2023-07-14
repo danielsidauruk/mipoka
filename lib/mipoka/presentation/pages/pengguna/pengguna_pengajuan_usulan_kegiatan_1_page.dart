@@ -14,6 +14,7 @@ import 'package:mipoka/mipoka/presentation/bloc/cubit/signature_cubit.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -562,12 +563,123 @@ Future<String> uploadFileFromSignature(File file, String fileName) async {
 }
 
 
+// Future<String> showSignatureDialog(BuildContext context) async {
+//   final Completer<String> completer = Completer<String>();
+//
+//   final LabeledGlobalKey<SfSignaturePadState> signatureGlobalKey = LabeledGlobalKey<SfSignaturePadState>("pemeriksaKey");
+//
+//   Future<File> saveSignature() async {
+//     final image = await signatureGlobalKey.currentState?.toImage(pixelRatio: 3.0);
+//     final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
+//     final bytes = byteData?.buffer.asUint8List();
+//
+//     final directory = await getApplicationDocumentsDirectory();
+//     final file = File('${directory.path}/signature.png');
+//     await file.writeAsBytes(bytes!);
+//
+//     return file;
+//   }
+//
+//   showDialog(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return AlertDialog(
+//         contentPadding: const EdgeInsets.all(8.0),
+//         content: SingleChildScrollView(
+//           child: Column(
+//             children: [
+//               const Text("Tanda Tangan Pembina"),
+//
+//               const CustomFieldSpacer(),
+//
+//               Container(
+//                 alignment: Alignment.center,
+//                 padding: const EdgeInsets.all(8.0),
+//                 decoration: BoxDecoration(
+//                   borderRadius: BorderRadius.circular(5.0),
+//                   border: Border.all(color: Colors.white),
+//                 ),
+//                 child: Column(
+//                   children: [
+//                     SizedBox(
+//                       width: 300,
+//                       height: 200,
+//                       child: SfSignaturePad(
+//                         key: signatureGlobalKey,
+//                         backgroundColor: Colors.white,
+//                         strokeColor: Colors.black,
+//                         minimumStrokeWidth: 1.0,
+//                         maximumStrokeWidth: 4.0,
+//                       ),
+//                     ),
+//
+//                     const CustomFieldSpacer(),
+//
+//                     Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                       children: [
+//                         InkWell(
+//                           onTap: () async {
+//                             final randomId = Random().nextInt(9999999);
+//
+//                             mipokaCustomToast(savingDataMessage);
+//                             final file = await saveSignature();
+//                             final signatureUrl = await uploadFileFromSignature(
+//                               file,
+//                               "signature_$randomId",
+//                             );
+//
+//                             Future.microtask(() {
+//                               completer.complete(signatureUrl);
+//                               Navigator.pop(context);
+//                             });
+//                           },
+//                           child: const Text(
+//                             'Simpan',
+//                             style: TextStyle(
+//                               color: Colors.white,
+//                               fontSize: 16,
+//                             ),
+//                           ),
+//                         ),
+//                         InkWell(
+//                           onTap: () {
+//                             completer.complete("");
+//                             Navigator.pop(context);
+//                           },
+//                           child: const Text(
+//                             'Batal',
+//                             style: TextStyle(
+//                               color: Colors.white,
+//                               fontSize: 16,
+//                             ),
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       );
+//     },
+//   );
+//
+//   return completer.future;
+// }
+
 Future<String> showSignatureDialog(BuildContext context) async {
   final Completer<String> completer = Completer<String>();
 
   final LabeledGlobalKey<SfSignaturePadState> signatureGlobalKey = LabeledGlobalKey<SfSignaturePadState>("pemeriksaKey");
 
-  Future<File> saveSignature() async {
+  Future<String?> saveSignature() async {
+    Uint8List? bytes1;
+
+    String? signatureUrl;
+
     final image = await signatureGlobalKey.currentState?.toImage(pixelRatio: 3.0);
     final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
     final bytes = byteData?.buffer.asUint8List();
@@ -576,8 +688,34 @@ Future<String> showSignatureDialog(BuildContext context) async {
     final file = File('${directory.path}/signature.png');
     await file.writeAsBytes(bytes!);
 
-    return file;
+    if (kIsWeb) {
+      bytes1 = file.readAsBytesSync();
+    } else if (Platform.isAndroid) {
+      bytes1 = await File(file.path).readAsBytes();
+    }
+
+    if (bytes1 != null) {
+      signatureUrl = await uploadBytesToFirebase(bytes1, "bytes1.png");
+    }
+
+    return signatureUrl;
   }
+
+  // Future<String?> uploadBytesToFirebase(Uint8List bytes, String fileName) async {
+  //   try {
+  //     final Reference storageRef = FirebaseStorage.instance.ref().child(fileName);
+  //
+  //     final UploadTask uploadTask = storageRef.putData(bytes);
+  //     final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+  //
+  //     final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+  //
+  //     return downloadUrl;
+  //   } catch (error) {
+  //     mipokaCustomToast("Failed while uploading file : $error");
+  //     rethrow;
+  //   }
+  // }
 
   showDialog(
     context: context,
@@ -623,13 +761,13 @@ Future<String> showSignatureDialog(BuildContext context) async {
 
                             mipokaCustomToast(savingDataMessage);
                             final file = await saveSignature();
-                            final signatureUrl = await uploadFileFromSignature(
-                              file,
-                              "signature_$randomId",
-                            );
+                            // final signatureUrl = await uploadFileFromSignature(
+                            //   file,
+                            //   "signature_$randomId",
+                            // );
 
                             Future.microtask(() {
-                              completer.complete(signatureUrl);
+                              completer.complete(file);
                               Navigator.pop(context);
                             });
                           },
@@ -668,4 +806,3 @@ Future<String> showSignatureDialog(BuildContext context) async {
 
   return completer.future;
 }
-
