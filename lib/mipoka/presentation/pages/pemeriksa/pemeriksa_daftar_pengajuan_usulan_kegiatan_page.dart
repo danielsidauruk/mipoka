@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,10 +9,8 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
-import 'package:mipoka/mipoka/domain/entities/revisi_usulan.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/revisi_usulan_bloc/revisi_usulan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_1_page.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -302,7 +301,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
 }
 
 void showPop(BuildContext context, UsulanKegiatan usulanKegiatan) {
-  final GlobalKey<SfSignaturePadState> signatureGlobalKey = GlobalKey<SfSignaturePadState>();
+  final LabeledGlobalKey<SfSignaturePadState> signatureGlobalKey = LabeledGlobalKey<SfSignaturePadState>("pemeriksaKey");
   String signatureUrl = "";
 
   Future<File> saveSignature() async {
@@ -357,12 +356,16 @@ void showPop(BuildContext context, UsulanKegiatan usulanKegiatan) {
                         children: [
                           InkWell(
                             onTap: () async {
+                              final randomId = Random().nextInt(9999999);
+
+                              mipokaCustomToast(savingDataMessage);
                               final file = await saveSignature();
                               signatureUrl = await uploadFileFromSignature(
                                 file,
-                                "signature_${user?.uid ?? "unknown"}_$newId",
+                                "signature_$randomId",
                               );
                               Future.microtask(() {
+                                print(signatureUrl);
                                 context.read<UsulanKegiatanBloc>().add(
                                   UpdateUsulanKegiatanEvent(
                                     usulanKegiatan: usulanKegiatan.copyWith(
@@ -372,8 +375,6 @@ void showPop(BuildContext context, UsulanKegiatan usulanKegiatan) {
                                   ),
                                 );
                                 mipokaCustomToast("Usulan Kegiatan telah diterima");
-                                // context.read<UsulanKegiatanBloc>().add(
-                                //     const ReadAllUsulanKegiatanEvent());
                                 Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute);
                               });
                             },

@@ -27,6 +27,7 @@ const riwayatKegiatanTemplate = "https://firebasestorage.googleapis.com/v0/b/mip
 
 const String emptyFieldMessage = "Mohon lengkapi semua field.";
 const String dataTypeErrorMessage = "Harap lengkapi data dengan tipe yang sesuai.";
+const String savingDataMessage = "Sedang menyimpan data ...";
 
 const listTingkat = ['Desa/Kelurahan', 'Kecamatan', 'Kabupaten/Kota', 'Provinsi', 'Nasional', 'Internasional'];
 

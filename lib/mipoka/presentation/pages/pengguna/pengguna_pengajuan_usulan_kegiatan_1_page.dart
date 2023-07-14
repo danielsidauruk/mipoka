@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -92,19 +93,19 @@ class _PenggunaPengajuanUsulanKegiatan1State
   final TextEditingController _keteranganController = TextEditingController();
   String? _ormawaSignatureController;
 
-  GlobalKey<SfSignaturePadState>? signatureGlobalKey;
+  // final LabeledGlobalKey<SfSignaturePadState> signatureGlobalKey = LabeledGlobalKey<SfSignaturePadState>("penggunaKey");
 
-  Future<File> saveSignature() async {
-    final image = await signatureGlobalKey?.currentState?.toImage(pixelRatio: 3.0);
-    final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
-    final bytes = byteData?.buffer.asUint8List();
-
-    final directory = await getApplicationDocumentsDirectory();
-    final file = File('${directory.path}/signature.png');
-    await file.writeAsBytes(bytes!);
-
-    return file;
-  }
+  // Future<File> saveSignature() async {
+  //   final image = await signatureGlobalKey.currentState?.toImage(pixelRatio: 3.0);
+  //   final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
+  //   final bytes = byteData?.buffer.asUint8List();
+  //
+  //   final directory = await getApplicationDocumentsDirectory();
+  //   final file = File('${directory.path}/signature.png');
+  //   await file.writeAsBytes(bytes!);
+  //
+  //   return file;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -393,99 +394,44 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          if (_ormawaSignatureController == "")
-                                            !state.isSignatureVisible ?
-                                            InkWell(
-                                              onTap: () {
-                                                context.read<SignatureCubit>().toggleSignature();
-                                              },
-                                              child: const Text(
-                                                'Tekan untuk tanda tangan',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16,
-                                                ),
+                                          _ormawaSignatureController == "" ?
+                                          InkWell(
+                                            // onTap: () {
+                                            // },
+                                            onTap: () async {
+                                              _ormawaSignatureController = await showSignatureDialog(context);
+                                              Future.microtask(() => context.read<SignatureCubit>().toggleSignature());
+                                            },
+                                            child: const Text(
+                                              'Tekan untuk tanda tangan',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
                                               ),
-                                            ) :
-                                            Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                const CustomFieldSpacer(height: 4.0),
-                                                SizedBox(
-                                                  width: 300,
-                                                  height: 200,
-                                                  child: SfSignaturePad(
-                                                    key: signatureGlobalKey,
-                                                    backgroundColor: Colors.white,
-                                                    strokeColor: Colors.black,
-                                                    minimumStrokeWidth: 1.0,
-                                                    maximumStrokeWidth: 4.0,
+                                            ),
+                                          ) :
+                                          Column(
+                                            children: [
+                                              Image.network(_ormawaSignatureController ?? ""),
+
+                                              const CustomFieldSpacer(),
+
+                                              InkWell(
+                                                onTap: () {
+                                                  context.read<SignatureCubit>().toggleSignature();
+                                                  deleteFileFromFirebase(_ormawaSignatureController ?? "");
+                                                  _ormawaSignatureController = "";
+                                                },
+                                                child: const Text(
+                                                  'Hapus',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
                                                   ),
                                                 ),
-                                                const CustomFieldSpacer(),
-                                                Row(
-                                                  mainAxisSize: MainAxisSize.min,
-                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                  children: [
-                                                    InkWell(
-                                                      onTap: () async {
-                                                        final file = await saveSignature();
-                                                        _ormawaSignatureController = await uploadFileFromSignature(file, "signature${user?.uid ?? "unknown"}");
-                                                        // uploadFile(file: file, customUrl: widget.fileName);
-                                                      },
-                                                      child: const Text(
-                                                        'Simpan',
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 16,
-                                                        ),
-                                                      ),
-                                                    ),
-
-                                                    const SizedBox(width: 8),
-
-                                                    InkWell(
-                                                      onTap: () {
-                                                        context.read<SignatureCubit>().toggleSignature();
-                                                        deleteFileFromFirebase(_ormawaSignatureController ?? "");
-                                                        _ormawaSignatureController = "";
-                                                      },
-                                                      child: const Text(
-                                                        'Batal',
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 16,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-
-                                          if (_ormawaSignatureController != "")
-                                            Column(
-                                              children: [
-                                                Image.network(_ormawaSignatureController ?? ""),
-
-                                                const CustomFieldSpacer(),
-
-                                                InkWell(
-                                                  onTap: () {
-                                                    context.read<SignatureCubit>().toggleSignature();
-                                                    deleteFileFromFirebase(_ormawaSignatureController ?? "");
-                                                    _ormawaSignatureController = "";
-                                                  },
-                                                  child: const Text(
-                                                    'Hapus',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 16,
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
+                                              )
+                                            ],
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -509,6 +455,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                 CustomMipokaButton(
                                   onTap: () {
                                     mipokaCustomToast('Sedang menyimpan data...', time: 5);
+
+                                    print (_ormawaSignatureController);
 
                                     Future.microtask(() {
                                       context.read<UsulanKegiatanBloc>().add(
@@ -612,3 +560,112 @@ Future<String> uploadFileFromSignature(File file, String fileName) async {
     rethrow;
   }
 }
+
+
+Future<String> showSignatureDialog(BuildContext context) async {
+  final Completer<String> completer = Completer<String>();
+
+  final LabeledGlobalKey<SfSignaturePadState> signatureGlobalKey = LabeledGlobalKey<SfSignaturePadState>("pemeriksaKey");
+
+  Future<File> saveSignature() async {
+    final image = await signatureGlobalKey.currentState?.toImage(pixelRatio: 3.0);
+    final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
+    final bytes = byteData?.buffer.asUint8List();
+
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/signature.png');
+    await file.writeAsBytes(bytes!);
+
+    return file;
+  }
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        contentPadding: const EdgeInsets.all(8.0),
+        content: SingleChildScrollView(
+          child: Column(
+            children: [
+              const Text("Tanda Tangan Pembina"),
+
+              const CustomFieldSpacer(),
+
+              Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5.0),
+                  border: Border.all(color: Colors.white),
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 300,
+                      height: 200,
+                      child: SfSignaturePad(
+                        key: signatureGlobalKey,
+                        backgroundColor: Colors.white,
+                        strokeColor: Colors.black,
+                        minimumStrokeWidth: 1.0,
+                        maximumStrokeWidth: 4.0,
+                      ),
+                    ),
+
+                    const CustomFieldSpacer(),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InkWell(
+                          onTap: () async {
+                            final randomId = Random().nextInt(9999999);
+
+                            mipokaCustomToast(savingDataMessage);
+                            final file = await saveSignature();
+                            final signatureUrl = await uploadFileFromSignature(
+                              file,
+                              "signature_$randomId",
+                            );
+
+                            Future.microtask(() {
+                              completer.complete(signatureUrl);
+                              Navigator.pop(context);
+                            });
+                          },
+                          child: const Text(
+                            'Simpan',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            completer.complete("");
+                            Navigator.pop(context);
+                          },
+                          child: const Text(
+                            'Batal',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+
+  return completer.future;
+}
+

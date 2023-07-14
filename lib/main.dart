@@ -194,7 +194,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: user?.email == ""
+        home: user == null
             ? const LoginPage()
             : const KemahasiswaanBerandaPage(),
         // : const PemeriksaDaftarLaporanKegiatanPage(),
