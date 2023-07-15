@@ -6,7 +6,6 @@ import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
 class MhsPerPeriodeMpt extends Equatable {
   final int idMhsPerPeriodeMpt;
   final MipokaUser mipokaUser;
-  final PeriodeMpt periodeMpt;
   final KegiatanPerPeriodeMpt kegiatanPerPeriodeMpt;
   final String createdAt;
   final String createdBy;
@@ -16,7 +15,6 @@ class MhsPerPeriodeMpt extends Equatable {
   const MhsPerPeriodeMpt({
     required this.idMhsPerPeriodeMpt,
     required this.mipokaUser,
-    required this.periodeMpt,
     required this.kegiatanPerPeriodeMpt,
     required this.createdAt,
     required this.createdBy,
@@ -27,7 +25,6 @@ class MhsPerPeriodeMpt extends Equatable {
   MhsPerPeriodeMpt copyWith({
     int? idMhsPerPeriodeMpt,
     MipokaUser? mipokaUser,
-    PeriodeMpt? periodeMpt,
     KegiatanPerPeriodeMpt? kegiatanPerPeriodeMpt,
     String? createdAt,
     String? createdBy,
@@ -37,7 +34,6 @@ class MhsPerPeriodeMpt extends Equatable {
       MhsPerPeriodeMpt(
         idMhsPerPeriodeMpt: idMhsPerPeriodeMpt ?? this.idMhsPerPeriodeMpt,
         mipokaUser: mipokaUser ?? this.mipokaUser,
-        periodeMpt: periodeMpt ?? this.periodeMpt,
         kegiatanPerPeriodeMpt: kegiatanPerPeriodeMpt ?? this.kegiatanPerPeriodeMpt,
         createdAt: createdAt ?? this.createdAt,
         createdBy: createdBy ?? this.createdBy,
@@ -49,7 +45,6 @@ class MhsPerPeriodeMpt extends Equatable {
   List<Object?> get props => [
     idMhsPerPeriodeMpt,
     mipokaUser,
-    periodeMpt,
     kegiatanPerPeriodeMpt,
     createdAt,
     createdBy,

@@ -8,8 +8,12 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/mhs_per_periode_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
+import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mhs_per_periode_mpt_use_cases/mhs_per_periode_mpt_use_cases_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -32,7 +36,10 @@ class KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPage extends StatefulWid
 class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
     extends State<KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPage> {
 
-  int? _idPeriodeKegiatanMpt;
+  PeriodeMpt? _periodeMpt;
+  KegiatanPerPeriodeMpt? _kegiatanPerPeriodeMpt;
+
+  List nimList = [];
 
   final StreamController<String?> _excelFileStream = StreamController<String?>();
   String? _excelFileController;
@@ -40,7 +47,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
   @override
   void initState() {
-    context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
+    context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
     super.initState();
   }
 
@@ -54,10 +61,10 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
     }
 
     if (bytes != null) {
+      nimList = [];
+
       Excel excel = Excel.decodeBytes(bytes);
       Sheet? sheet = excel.tables[excel.tables.keys.first];
-
-      List nimList = [];
 
       for (var row in sheet!.rows) {
         var nim = row[0]?.value;
@@ -66,16 +73,15 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
           nimList.add(nim);
         }
       }
-
       // for (var i = 1; i < nimList.length; i++) {
       //   Future.microtask(() {
       //     context.read<MhsPerPeriodeMptBloc>().add(
       //       CreateMhsPerPeriodeMptEvent(
       //         mhsPerPeriodeMpt: MhsPerPeriodeMpt(
       //           idMhsPerPeriodeMpt: newId + i,
-      //           idUser: nimList[i].toString(),
-      //           idPeriodeMpt: _idPeriodeKegiatanMpt ?? 0,
-      //           kegiatanPerPeriodeMpt: 0,
+      //           mipokaUser: state.mipokaUser,
+      //           periodeMpt: state.periodeMpt,
+      //           kegiatanPerPeriodeMpt: state.kegiatanPerPeriodeMpt,
       //           createdAt: currentDate,
       //           createdBy: user?.email ?? "unknown",
       //           updatedAt: currentDate,
@@ -86,8 +92,6 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
       //   });
       // }
     }
-    Future.microtask(() => context.read<MhsPerPeriodeMptBloc>()
-        .add(const ReadAllMhsPerPeriodeMptEvent()));
   }
 
   @override
@@ -112,11 +116,35 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                 children: [
 
                   buildTitle('Periode Kegiatan'),
+                  BlocBuilder<KegiatanPerPeriodeMptBloc, KegiatanPerPeriodeMptState>(
+                    builder: (context, state) {
+                      if (state is KegiatanPerPeriodeMptLoading) {
+                        return const Text("Loading ...");
+                      } else if (state is AllKegiatanPerPeriodeMptHasData) {
+                        final kegiatanPerPeriodeList = state.kegiatanPerPeriodeMptList;
+
+                        List kegiatanPerPeriodeDropDownList = state.kegiatanPerPeriodeMptList.map(
+                                (kegiatanPerPeriodeMpt) => kegiatanPerPeriodeMpt.periodeMpt).toList();
+
+                        _kegiatanPerPeriodeMpt
+
+                        return Center();
+                      } else if (state is KegiatanPerPeriodeMptError) {
+                        return Text(state.message);
+                      } else {
+                        if (kDebugMode) {
+                          print ("MhsPerPeriode hasn't been triggered yet.");
+                        }
+                        return const Center();
+                      }
+                    },
+                  ),
                   BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
                     builder: (context, state) {
                       if (state is PeriodeMptDropDownLoading) {
                         return const Text("Loading ....");
                       } else if (state is PeriodeMptDropDownHasData) {
+                        final periodeMptList = state.periodeMptList;
 
                         List<String> tahunPeriodeMptList = state.periodeMptList.map(
                                 (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
@@ -126,18 +154,13 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                         List<int> idTahunPeriodeList = state.periodeMptList.map(
                                 (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
 
-                        _idPeriodeKegiatanMpt = idTahunPeriodeList[0];
+                        _periodeMpt ??= periodeMptList[0];
 
                         return MipokaCustomDropdown(
                             items: tahunPeriodeMptList,
-                            initialItem: tahunPeriodeMptList[0],
                             onValueChanged: (value) {
                               int index = tahunPeriodeMptList.indexOf(value!);
-                              int idPeriodeMpt = idTahunPeriodeList[index];
-
-                              // print("$idPeriodeMpt, $value");
-
-                              _idPeriodeKegiatanMpt = idPeriodeMpt;
+                              _periodeMpt = periodeMptList[index];
                             }
                         );
                       } else if (state is PeriodeMptDropDownError) {
@@ -161,6 +184,8 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                         onTap: () async {
                           result = await FilePicker.platform.pickFiles();
                           if (result != null){
+                            PlatformFile file = result!.files.first;
+                            _processMahasiswaPerPeriode(file);
                             _excelFileStream.add(result?.files.first.name);
                           }
                         },
@@ -185,12 +210,39 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
                   CustomFilterButton(
                     text: 'Proses',
-                    onPressed: (){
-                      final result = this.result;
+                    onPressed: () {
                       if (result != null) {
-                        PlatformFile file = result.files.first;
                         Future.microtask(() {
-                          _processMahasiswaPerPeriode(file);
+
+                          for (var index = 0; index < nimList.length; index++) {
+                            context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
+
+                            // BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
+                            //   builder: (context, state) {
+                            //     if (state is MipokaUserByNimByNimHasData) {
+                            //       Future.microtask(() {
+                            //         context.read<MhsPerPeriodeMptBloc>().add(
+                            //           CreateMhsPerPeriodeMptEvent(
+                            //             mhsPerPeriodeMpt: MhsPerPeriodeMpt(
+                            //               idMhsPerPeriodeMpt: newId + index,
+                            //               mipokaUser: state.mipokaUser,
+                            //               periodeMpt: state.periodeMpt,
+                            //               kegiatanPerPeriodeMpt: state.kegiatanPerPeriodeMpt,
+                            //               createdAt: currentDate,
+                            //               createdBy: user?.email ?? "unknown",
+                            //               updatedAt: currentDate,
+                            //               updatedBy: user?.email ?? "unknown",
+                            //             ),
+                            //           ),
+                            //         );
+                            //       });
+                            //     }
+                            //
+                            //     return Container(); // Jika Anda tidak ingin menggambarkan UI dari BlocBuilder ini
+                            //   },
+                            // );
+                          }
+
 
                           mipokaCustomToast("Data telah di update.");
                           Navigator.pop(context);
