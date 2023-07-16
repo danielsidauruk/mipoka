@@ -3,7 +3,6 @@ import 'package:mipoka/mipoka/data/models/periode_mpt_model.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 
 class KegiatanPerPeriodeMptModel extends KegiatanPerPeriodeMpt{
-
   final NamaKegiatanMptModel namaKegiatanMptModel;
   final PeriodeMptModel periodeMptModel;
 

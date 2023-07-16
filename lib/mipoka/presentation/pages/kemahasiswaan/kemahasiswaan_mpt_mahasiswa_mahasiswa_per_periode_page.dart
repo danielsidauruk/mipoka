@@ -31,7 +31,6 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
   String? _prodi;
   String? _jumlahPoint;
 
-
   @override
   void initState() {
     _nimController.text = _nimController.text.isEmpty ? "" : _nimController.text;
