@@ -253,7 +253,7 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                   CustomFilterButton(
                     text: 'Filter',
                     onPressed: () => context.read<RiwayatKegiatanMptBloc>().add(
-                      ReadAllRiwayatKegiatanMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idJenisKegiatan/$_idNamaKegiatan/$_status/${_nimController.text}/$_isCheckedJenisKegiatan"),),
+                      ReadAllRiwayatKegiatanMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idJenisKegiatan/$_idNamaKegiatan/$_status/${_nimController.text}/$_isCheckedJenisKegiatan")),
                   ),
 
                   const CustomFieldSpacer(),
@@ -411,7 +411,8 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                                                   context,
                                                   mptMahasiswaRiwayatKegiatanMahasiswaEditPageRoute,
                                                   arguments: riwayatKegiatanMpt,
-                                                ),
+                                                ).then((_) => context.read<RiwayatKegiatanMptBloc>().add(
+                                                    ReadAllRiwayatKegiatanMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idJenisKegiatan/$_idNamaKegiatan/$_status/${_nimController.text}/$_isCheckedJenisKegiatan"))),
                                                 child: Image.asset(
                                                   'assets/icons/edit.png',
                                                   width: 24,
@@ -425,7 +426,8 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                                                   context.read<RiwayatKegiatanMptBloc>().add(
                                                       UpdateRiwayatKegiatanMptEvent(
                                                           riwayatKegiatanMpt: riwayatKegiatanMpt.copyWith(statusMpt: "approve")));
-                                                  context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
+                                                  context.read<RiwayatKegiatanMptBloc>().add(
+                                                      ReadAllRiwayatKegiatanMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idJenisKegiatan/$_idNamaKegiatan/$_status/${_nimController.text}/$_isCheckedJenisKegiatan"));
                                                   mipokaCustomToast("Riwayat kegiatan MPT telah di approve");
                                                 }),
                                                 child: Image.asset(

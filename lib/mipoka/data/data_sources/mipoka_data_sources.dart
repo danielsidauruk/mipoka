@@ -373,6 +373,10 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
     KegiatanPerPeriodeMptModel result = KegiatanPerPeriodeMptModel.fromJson(jsonDecode);
 
+    if (kDebugMode) {
+      print (idKegiatanMpt);
+    }
+
     return result;
   }
 

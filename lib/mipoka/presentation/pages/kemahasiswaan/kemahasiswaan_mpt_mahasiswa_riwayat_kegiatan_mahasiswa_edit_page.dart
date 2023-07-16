@@ -1,9 +1,12 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
-import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/riwayat_kegiatan_mpt_bloc/riwayat_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -12,6 +15,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class MahasiswaRiwayatKegiatanMahasiswaEditPage extends StatefulWidget {
   const MahasiswaRiwayatKegiatanMahasiswaEditPage({
@@ -26,24 +30,30 @@ class MahasiswaRiwayatKegiatanMahasiswaEditPage extends StatefulWidget {
 }
 
 class _MahasiswaRiwayatKegiatanMahasiswaEditPageState extends State<MahasiswaRiwayatKegiatanMahasiswaEditPage> {
-  final TextEditingController _idperiodeController = TextEditingController();
-  final TextEditingController _nimController = TextEditingController();
-  final TextEditingController _namaMahasiswaController = TextEditingController();
-  final TextEditingController _jenisKegiatanController = TextEditingController();
-  final TextEditingController _keteranganMahasiswaController = TextEditingController();
+  late KegiatanPerPeriodeMpt _kegiatanPeriodeMpt;
+  late MipokaUser _mipokaUser;
+  late String _keteranganMahasiswa;
   final TextEditingController _poinController = TextEditingController();
-  bool jenisPartisipan = false;
+  final TextEditingController _keteranganKemahasiswaan = TextEditingController();
+  late String _statusVerifikasi;
+
+  final StreamController<String> _selectedOptionController = StreamController<String>.broadcast();
 
   @override
   void initState() {
-    _idperiodeController.text = widget.riwayatKegiatanMpt.kegiatanPerPeriodeMpt.toString();
+    _kegiatanPeriodeMpt = widget.riwayatKegiatanMpt.kegiatanPerPeriodeMpt;
+    _mipokaUser = widget.riwayatKegiatanMpt.mipokaUser;
+    _keteranganMahasiswa = widget.riwayatKegiatanMpt.keteranganMhs;
+    _keteranganKemahasiswaan.text = widget.riwayatKegiatanMpt.keteranganSa;
+    _poinController.text = widget.riwayatKegiatanMpt.kegiatanPerPeriodeMpt.pointMptDiperoleh.toString();
+    _statusVerifikasi = widget.riwayatKegiatanMpt.statusMpt;
     super.initState();
   }
 
-  void _triggerNim(String value) {
-    context.read<MipokaUserByNimBloc>().add(
-      ReadMipokaUserByNimEvent(nim: value),
-    );
+  @override
+  void dispose() {
+    _selectedOptionController.close();
+    super.dispose();
   }
 
   @override
@@ -67,62 +77,59 @@ class _MahasiswaRiwayatKegiatanMahasiswaEditPageState extends State<MahasiswaRiw
               CustomContentBox(
                 children: [
                   buildTitle('Periode'),
-                  CustomTextField(controller: _idperiodeController),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      _kegiatanPeriodeMpt.periodeMpt.periodeMengulangMpt ?
+                      "${_kegiatanPeriodeMpt.periodeMpt.tahunPeriodeMpt} (Ulang)" :
+                      _kegiatanPeriodeMpt.periodeMpt.tahunPeriodeMpt,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('NIM'),
-                  BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                    builder: (context, state) {
-                      if (state is MipokaUserLoading) {
-                        return const Text("Loading ....");
-                      } else if (state is MipokaUserHasData) {
-                        _triggerNim(state.mipokaUser.nim);
-                        _nimController.text = state.mipokaUser.nim;
-
-                        return CustomTextFieldForNim(
-                          textInputType: TextInputType.number,
-                          controller: _nimController,
-                          onSubmitted: (value) => _triggerNim(value),
-                        );
-                      } else if (state is MipokaUserError) {
-                        return Text(state.message);
-                      } else {
-                        return const Text("MipokaUserBloc hasn't been triggered.");
-                      }
-                    },
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      _mipokaUser.nim,
+                      style: const TextStyle(fontSize: 16),
+                    ),
                   ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Nama Mahasiswa'),
-                  BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
-                    builder: (context, state) {
-                      if (state is MipokaUserByNimByNimHasData) {
-
-                        // return buildTitle(state.mipokaUser.namaLengkap);
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            state.mipokaUser.namaLengkap,
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                        );
-                      } else {
-                        return const Text("MipokaUserBlocByNimEvent hasn't been triggered yet");
-                      }
-                    },
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      _mipokaUser.namaLengkap,
+                      style: const TextStyle(fontSize: 16),
+                    ),
                   ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Jenis Kegiatan'),
-                  CustomTextField(controller: _jenisKegiatanController),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      _kegiatanPeriodeMpt.namaKegiatanMpt.namaKegiatan,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Keterangan Mahasiswa'),
-                  CustomTextField(controller: _jenisKegiatanController),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      _keteranganMahasiswa,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
 
                   const CustomFieldSpacer(),
 
@@ -136,7 +143,7 @@ class _MahasiswaRiwayatKegiatanMahasiswaEditPageState extends State<MahasiswaRiw
                   const CustomFieldSpacer(),
 
                   buildTitle('Keterangan Kemahasiswaan'),
-                  CustomTextField(controller: _keteranganMahasiswaController),
+                  CustomTextField(controller: _keteranganKemahasiswaan),
 
                   const CustomFieldSpacer(),
 
@@ -148,23 +155,48 @@ class _MahasiswaRiwayatKegiatanMahasiswaEditPageState extends State<MahasiswaRiw
 
                   const CustomFieldSpacer(),
 
-                  Row(
-                    children: [
-                      buildTitle('Status Verifikasi'),
-                      const SizedBox(width: 4.0),
-                      Switch(
-                        value: jenisPartisipan,
-                        onChanged: (bool newValue) {
-                          setState(() => jenisPartisipan = newValue);
-                        },
-                      ),
-                      const SizedBox(width: 4.0),
-                      Expanded(
-                        child: jenisPartisipan == false
-                            ? buildTitle('Ditolak')
-                            : buildTitle('Disetujui'),
-                      ),
-                    ],
+                  buildTitle('Status Verifikasi'),
+                  StreamBuilder<String>(
+                    stream: _selectedOptionController.stream,
+                    initialData: '',
+                    builder: (context, snapshot) {
+                      return Column(
+                        children: [
+                          Row(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Radio(
+                                    value: disetujui,
+                                    groupValue: _statusVerifikasi,
+                                    onChanged: (value) {
+                                      _selectedOptionController.add(value.toString());
+                                      _statusVerifikasi = value!;
+                                    },
+                                  ),
+                                  const Text(disetujui),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Radio(
+                                    value: ditolak,
+                                    groupValue: _statusVerifikasi,
+                                    onChanged: (value) {
+                                      _selectedOptionController.add(value.toString());
+                                      _statusVerifikasi = value!;
+                                    },
+                                  ),
+                                  const Text(ditolak),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    },
                   ),
 
                   const CustomFieldSpacer(),
@@ -180,7 +212,34 @@ class _MahasiswaRiwayatKegiatanMahasiswaEditPageState extends State<MahasiswaRiw
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () {
+                          if (_keteranganKemahasiswaan.text.isNotEmpty && _poinController.text.isNotEmpty) {
+                            try {
+                              int? point = int.tryParse(_poinController.text);
+                              if (point != null) {
+                                context.read<RiwayatKegiatanMptBloc>().add(
+                                  UpdateRiwayatKegiatanMptEvent(
+                                    riwayatKegiatanMpt: widget.riwayatKegiatanMpt.copyWith(
+                                      keteranganSa: _keteranganKemahasiswaan.text,
+                                      kegiatanPerPeriodeMpt: widget.riwayatKegiatanMpt.kegiatanPerPeriodeMpt.copyWith(
+                                        pointMptDiperoleh: point,
+                                      ),
+                                      statusMpt: _statusVerifikasi,
+                                    ),
+                                  ),
+                                );
+                                mipokaCustomToast("Riwayat Kegiatan Mpt telah di update.");
+                                Navigator.pop(context);
+                              } else {
+                                mipokaCustomToast(dataTypeErrorMessage);
+                              }
+                            } catch (e) {
+                              mipokaCustomToast(dataTypeErrorMessage);
+                            }
+                          } else {
+                            mipokaCustomToast(emptyFieldMessage);
+                          }
+                        },
                         text: 'Simpan',
                       ),
                     ],

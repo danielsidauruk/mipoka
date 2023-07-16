@@ -37,7 +37,6 @@ class KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage extends StatefulWidget 
 
 class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage> {
 
-
   PeriodeMpt? _periodeMpt;
   final StreamController<String?> _excelFileStream = StreamController<String?>.broadcast();
   String? _excelFileController;
@@ -57,7 +56,10 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
 
   @override
   void dispose() {
-    context.read<PeriodeMptBloc>().close();
+    Future.microtask(() {
+      context.read<PeriodeMptBloc>().close();
+      context.read<MipokaUserByNimBloc>().close();
+    });
     super.dispose();
   }
 
@@ -192,24 +194,6 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
 
                   const CustomFieldSpacer(),
 
-                  // CustomFilterButton(
-                  //     text: 'Proses',
-                  //     onPressed: () => Future.microtask(() {
-                  //       final result = this.result;
-                  //       if (result != null) {
-                  //         PlatformFile file = result.files.first;
-                  //         Future.microtask(() {
-                  //           _processRiwayatKegiatan(file);
-                  //           mipokaCustomToast("Data telah di update.");
-                  //           // context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
-                  //           Navigator.pop(context);
-                  //         });
-                  //       } else {
-                  //         mipokaCustomToast("Harap unggah file yang diperlukan.");
-                  //       }
-                  //     }),
-                  // ),
-
                   CustomFilterButton(
                     text: 'Proses',
                     onPressed: () async {
@@ -217,12 +201,12 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
                       if (result != null) {
                         for (int index = 0; index < nimList.length; index++) {
                           await Future.delayed(const Duration(milliseconds: 1000));
-                          Future.microtask(() {
-                            context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
+                          if (context.mounted) {
+                            BlocProvider.of<MipokaUserByNimBloc>(context, listen: false).add(ReadMipokaUserByNimEvent(nim: nimList[index]));
+                            // context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
                             context.read<KegiatanPerPeriodeMptBloc>().add(ReadKegiatanPerPeriodeMptEvent(
                                 idKegiatanPerPeriodeMpt: idKegiatanPerPeriodeMptList[index]));
-                            print (idKegiatanPerPeriodeMptList[index]);
-                          });
+                          }
                         }
                       } else {
                         mipokaCustomToast("Harap unggah file yang diperlukan.");
@@ -237,13 +221,12 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
                         return const SizedBox();
                       } else if (userState is MipokaUserByNimByNimHasData) {
                         return BlocBuilder<KegiatanPerPeriodeMptBloc, KegiatanPerPeriodeMptState>(
-
                           builder: (context, state) {
                             if (state is KegiatanPerPeriodeMptHasData) {
                               final mipokaUser = userState.mipokaUser;
                               final kegiatanPerPeriodeMpt = state.kegiatanPerPeriodeMpt;
 
-                              int randomId = Random().nextInt(99999999);
+                              int randomId = Random().nextInt(1000000);
                               context.read<RiwayatKegiatanMptBloc>().add(
                                 CreateRiwayatKegiatanMptEvent(
                                   riwayatKegiatanMpt: RiwayatKegiatanMpt(
