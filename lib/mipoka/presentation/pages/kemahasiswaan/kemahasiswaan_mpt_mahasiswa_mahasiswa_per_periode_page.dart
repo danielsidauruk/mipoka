@@ -43,6 +43,13 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
   }
 
   @override
+  void dispose() {
+    context.read<MhsPerPeriodeMptBloc>().close();
+    context.read<PeriodeMptDropDownBloc>().close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 

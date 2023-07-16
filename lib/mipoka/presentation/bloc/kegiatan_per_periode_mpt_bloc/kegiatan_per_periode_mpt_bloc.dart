@@ -40,7 +40,7 @@ class KegiatanPerPeriodeMptBloc extends Bloc<KegiatanPerPeriodeMptEvent, Kegiata
 
       result.fold(
             (failure) => emit(KegiatanPerPeriodeMptError(message: failure.message)),
-            (kegiatan) => emit(KegiatanPerPeriodeMptHasData(kegiatan: kegiatan)),
+            (kegiatan) => emit(KegiatanPerPeriodeMptHasData(kegiatanPerPeriodeMpt: kegiatan)),
       );
     });
 

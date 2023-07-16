@@ -196,9 +196,9 @@ class MyApp extends StatelessWidget {
         ),
         home: user == null
             ? const LoginPage()
-            : const KemahasiswaanBerandaPage(),
+            // : const KemahasiswaanBerandaPage(),
         // : const PemeriksaDaftarLaporanKegiatanPage(),
-        // : const PenggunaBerandaPage(),
+        : const PenggunaBerandaPage(),
         // : const KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage(),
         // :const KemahasiswaanMPTMahasiswaPeriodePage(),
 

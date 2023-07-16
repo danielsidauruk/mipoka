@@ -10,9 +10,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/mipoka/domain/entities/mhs_per_periode_mpt.dart';
-import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
-import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mhs_per_periode_mpt_use_cases/mhs_per_periode_mpt_use_cases_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
@@ -39,7 +37,6 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
   PeriodeMpt? _periodeMpt;
   List nimList = [];
-  int index = 1;
 
   final StreamController<String?> _excelFileStream = StreamController<String?>();
   String? _excelFileController;
@@ -47,9 +44,16 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
   @override
   void initState() {
-    context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
     context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    context.read<PeriodeMptBloc>().close();
+    context.read<MipokaUserByNimBloc>().close();
+    context.read<MhsPerPeriodeMptBloc>().close();
+    super.dispose();
   }
 
   void _processMahasiswaPerPeriode(PlatformFile file) async {
@@ -143,7 +147,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                           if (result != null){
                             PlatformFile file = result!.files.first;
                             _processMahasiswaPerPeriode(file);
-                            _excelFileStream.add(result?.files.first.name);
+                            _excelFileStream.add(file.name);
                           }
                         },
                         text: filePath,
@@ -184,7 +188,12 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
                   BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
                     builder: (context, state) {
-                      if (state is MipokaUserByNimByNimHasData) {
+                      if (state is MipokaUserByNimLoading) {
+                        if (kDebugMode) {
+                          print ("Loading ...");
+                        }
+                        return const SizedBox();
+                      } else if (state is MipokaUserByNimByNimHasData) {
                         int randomId = Random().nextInt(99999999);
                         context.read<MhsPerPeriodeMptBloc>().add(
                           CreateMhsPerPeriodeMptEvent(
@@ -199,13 +208,17 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                             ),
                           ),
                         );
-                        index++;
+                        return const SizedBox();
+                      } else if (state is MipokaUserByNimError) {
+                        return Text(state.message);
+                      } else {
+                        if (kDebugMode) {
+                          print("MhsPerPeriode hasn't been triggered yet.");
+                        }
+                        return const SizedBox();
                       }
-                      return const SizedBox();
                     },
                   ),
-
-
 
                   const CustomFieldSpacer(),
 

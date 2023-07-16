@@ -30,12 +30,12 @@ class AllKegiatanPerPeriodeMptHasData extends KegiatanPerPeriodeMptState {
 }
 
 class KegiatanPerPeriodeMptHasData extends KegiatanPerPeriodeMptState {
-  const KegiatanPerPeriodeMptHasData({required this.kegiatan});
+  const KegiatanPerPeriodeMptHasData({required this.kegiatanPerPeriodeMpt});
 
-  final KegiatanPerPeriodeMpt kegiatan;
+  final KegiatanPerPeriodeMpt kegiatanPerPeriodeMpt;
 
   @override
-  List<Object> get props => [kegiatan];
+  List<Object> get props => [kegiatanPerPeriodeMpt];
 }
 
 class KegiatanPerPeriodeMptSuccessMessage extends KegiatanPerPeriodeMptState {

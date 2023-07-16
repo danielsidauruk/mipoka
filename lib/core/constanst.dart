@@ -25,6 +25,10 @@ const nimTemplate = "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.
 const mhsPerPeriodeTemplate = "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/mhs_per_periode_template.xlsx?alt=media&token=8430b6e0-4500-41a1-84d6-a88b8c868d31";
 const riwayatKegiatanTemplate = "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/riwayat_kegiatan_template.xlsx?alt=media&token=1628cb15-f8b1-4d68-9390-5a50ef98e72f";
 
+const disetujui = "Disetujui";
+const ditolak = "Ditolak";
+const tertunda = "Tertunda";
+
 const String emptyFieldMessage = "Mohon lengkapi semua field.";
 const String dataTypeErrorMessage = "Harap lengkapi data dengan tipe yang sesuai.";
 const String savingDataMessage = "Sedang menyimpan data ...";
