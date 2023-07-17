@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
@@ -24,10 +25,10 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 class PenggunaPengajuanUsulanKegiatan3 extends StatefulWidget {
   const PenggunaPengajuanUsulanKegiatan3({
     super.key,
-    required this.idUsulanKegiatan,
+    required this.usulanArgs,
   });
 
-  final int idUsulanKegiatan;
+  final UsulanArgs usulanArgs;
 
   @override
   State<PenggunaPengajuanUsulanKegiatan3> createState() =>
@@ -70,7 +71,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
     _fotoTempatKegiatanStream = StreamController<String?>.broadcast();
 
     context.read<UsulanKegiatanBloc>().add(
-        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
+        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
     super.initState();
   }
 
@@ -165,12 +166,19 @@ class _PenggunaPengajuanUsulanKegiatan3State
 
                         buildTitle('Latar Belakang'),
                         buildDescription('Berisi latar belakang kegiatan diusulkan'),
+                        if (widget.usulanArgs.isRevisiUsulan == true
+                            && state.usulanKegiatan.revisiUsulan.revisiLatarBelakang != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiLatarBelakang),
+
                         CustomRichTextField(controller: _latarBelakangController),
 
                         const CustomFieldSpacer(),
 
                         buildTitle('Tujuan Kegiatan'),
                         buildDescription('Berisi tujuan kegiatan diusulkan'),
+                        if (widget.usulanArgs.isRevisiUsulan == true
+                            && state.usulanKegiatan.revisiUsulan.revisiTujuanKegiatan != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiTujuanKegiatan),
                         CustomRichTextField(controller: _tujuanKegiatanController),
 
                         const CustomFieldSpacer(),
@@ -182,6 +190,9 @@ class _PenggunaPengajuanUsulanKegiatan3State
 
                         buildTitle('Manfaat Kegiatan'),
                         buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
+                        if (widget.usulanArgs.isRevisiUsulan == true
+                            && state.usulanKegiatan.revisiUsulan.revisiManfaatKegiatan != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiManfaatKegiatan),
                         CustomRichTextField(controller: _manfaatKegiatanController),
 
                         const CustomFieldSpacer(),
@@ -189,6 +200,9 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildTitle('Bentuk Pelaksanaan Kegiatan'),
                         buildDescription(
                             'Berisi bentuk kegiatan diusulkan. Misalnya: Webinar, Seminar Onsite, Lomba, Bakti Sosial, dll'),
+                        if (widget.usulanArgs.isRevisiUsulan == true
+                            && state.usulanKegiatan.revisiUsulan.revisiBentukPelaksanaanKegiatan != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiBentukPelaksanaanKegiatan),
                         CustomRichTextField(
                             controller: _bentukPelaksanaanKegiatanController),
 
@@ -197,6 +211,9 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildTitle('Target Pencapaian Kegiatan'),
                         buildDescription(
                             'Bagian ini berisi target yang akan dicapai. Mis: Lolos babak final, meraih juara 1,2,3 dst'),
+                        if (widget.usulanArgs.isRevisiUsulan == true
+                            && state.usulanKegiatan.revisiUsulan.revisiTargetPencapaianKegiatan != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiTargetPencapaianKegiatan),
                         CustomRichTextField(
                             controller: _targetPencapaianKegiatanController),
 
@@ -204,6 +221,9 @@ class _PenggunaPengajuanUsulanKegiatan3State
 
                         buildTitle('Waktu dan Tempat Pelaksanaan'),
                         buildDescription('Rincikan dengan jelas'),
+                        if (widget.usulanArgs.isRevisiUsulan == true
+                            && state.usulanKegiatan.revisiUsulan.revisiWaktuDanTempatPelaksanaan != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiWaktuDanTempatPelaksanaan),
                         CustomRichTextField(
                             controller: _waktuDanTempatPelaksanaanKegiatanController),
 
@@ -211,6 +231,9 @@ class _PenggunaPengajuanUsulanKegiatan3State
 
                         buildTitle('Rencana Anggaran Kegiatan'),
                         buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
+                        if (widget.usulanArgs.isRevisiUsulan == true
+                            && state.usulanKegiatan.revisiUsulan.revisiRencanaAnggaranKegiatan != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiRencanaAnggaranKegiatan),
                         CustomRichTextField(
                             controller: _rencanaAnggaranKegiatanController),
 
@@ -218,12 +241,18 @@ class _PenggunaPengajuanUsulanKegiatan3State
 
                         buildTitle('Perlengkapan dan Peralatan (jika ada)'),
                         buildDescription('Berisi Manfaat Kegiatan Diusulkan'),
+                        if (widget.usulanArgs.isRevisiUsulan == true
+                            && state.usulanKegiatan.revisiUsulan.revisiManfaatKegiatan != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiManfaatKegiatan),
                         CustomRichTextField(
                             controller: _perlengkapanDanPeralatanController),
 
                         const CustomFieldSpacer(),
 
                         buildTitle('Penutup'),
+                        if (widget.usulanArgs.isRevisiUsulan == true
+                            && state.usulanKegiatan.revisiUsulan.revisiPenutup != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiPenutup),
                         CustomRichTextField(controller: _penutupController),
 
                         const CustomFieldSpacer(),
@@ -235,6 +264,9 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildTitle('Postingan Kegiatan'),
                         buildDescription(
                             'Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
+                        if (widget.usulanArgs.isRevisiUsulan == true
+                            && state.usulanKegiatan.revisiUsulan.revisiFotoPostinganKegiatan != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiFotoPostinganKegiatan),
                         StreamBuilder<String?>(
                           initialData: _postinganKegiatanController,
                           stream: _postinganKegiatanStream.stream,
@@ -272,6 +304,9 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildTitle('Surat Undangan Kegiatan'),
                         buildDescription(
                             'Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
+                        if (widget.usulanArgs.isRevisiUsulan == true
+                            && state.usulanKegiatan.revisiUsulan.revisiFotoSuratUndanganKegiatan != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiFotoSuratUndanganKegiatan),
                         StreamBuilder<String?>(
                           initialData: _suratUndanganKegiatanController,
                           stream: _suratUndanganKegiatanStream.stream,
@@ -309,6 +344,9 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildTitle('Linimasa Kegiatan'),
                         buildDescription(
                             'Unggah foto linimasa kegiatan yang akan dilaksanakan.'),
+                        if (widget.usulanArgs.isRevisiUsulan == true
+                            && state.usulanKegiatan.revisiUsulan.revisiFotoLinimasaKegiatan != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiFotoLinimasaKegiatan),
                         StreamBuilder<String?>(
                           initialData: _linimasaKegiatanController,
                           stream: _linimasaKegiatanStream.stream,
@@ -346,6 +384,9 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         buildTitle('Tempat Kegiatan'),
                         buildDescription(
                             'Unggah foto tempat kegiatan yang akan dilaksanakan.'),
+                        if (widget.usulanArgs.isRevisiUsulan == true
+                            && state.usulanKegiatan.revisiUsulan.revisiFotoTempatKegiatan != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiFotoTempatKegiatan),
                         StreamBuilder<String?>(
                           initialData: _fotoTempatKegiatanController,
                           stream: _fotoTempatKegiatanStream.stream,
@@ -595,7 +636,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                   mipokaCustomToast(emptyFieldMessage);
                                 }
                               },
-                              text: 'Kirim',
+                              text: widget.usulanArgs.isRevisiUsulan == true ? 'Kirim Revisi' : 'Kirim',
                             ),
                           ],
                         ),

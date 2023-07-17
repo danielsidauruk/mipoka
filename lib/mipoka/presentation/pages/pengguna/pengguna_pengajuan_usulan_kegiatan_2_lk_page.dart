@@ -18,10 +18,10 @@ import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 class PenggunaPengajuanUsulanKegiatan2LK extends StatefulWidget {
   const PenggunaPengajuanUsulanKegiatan2LK({
     super.key,
-    required this.idUsulanKegiatan,
+    required this.usulanArgs,
   });
 
-  final int idUsulanKegiatan;
+  final UsulanArgs usulanArgs;
 
   @override
   State<PenggunaPengajuanUsulanKegiatan2LK> createState() => _PenggunaPengajuanUsulanKegiatan2LKState();
@@ -32,7 +32,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
   @override
   void initState() {
     context.read<UsulanKegiatanBloc>().add(
-        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
+        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
     super.initState();
   }
 
@@ -70,7 +70,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                           onPressed: () => Navigator.pushNamed(
                             context,
                             tambahDataPesertaLuarKotaPageRoute,
-                            arguments: widget.idUsulanKegiatan,
+                            arguments: widget.usulanArgs,
                           ),
                         ),
                         const CustomFieldSpacer(),
@@ -167,7 +167,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                                               editDataPesertaLuarKotaPageRoute,
                                               arguments: PartisipanArgs(
                                                 partisipan: partisipan,
-                                                id: widget.idUsulanKegiatan,
+                                                id: widget.usulanArgs.idUsulan,
                                               ),
                                             );
                                           },
@@ -248,7 +248,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                           onPressed: () => Navigator.pushNamed(
                             context,
                             penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute,
-                            arguments: widget.idUsulanKegiatan,
+                            arguments: widget.usulanArgs,
                           ),
                         ),
                         const CustomFieldSpacer(),
@@ -341,7 +341,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                                                 usulanKegiatanEditBiayaKegiatanPageRoute,
                                                 arguments: BiayaKegiatanArgs(
                                                   biayaKegiatan: biayaKegiatan,
-                                                  id: widget.idUsulanKegiatan,
+                                                  id: widget.usulanArgs.idUsulan,
                                                 ),
                                               ),
                                               Align(
@@ -426,9 +426,9 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                               onTap: () => Navigator.pushNamed(
                                 context,
                                 penggunaPengajuanUsulanKegiatanTertibAcaraRoute,
-                                arguments: widget.idUsulanKegiatan,
+                                arguments: widget.usulanArgs,
                               ).then((_) => context.read<UsulanKegiatanBloc>()
-                                  .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan))),
+                                  .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
                               text: 'Berikutnya',
                             ),
                           ],

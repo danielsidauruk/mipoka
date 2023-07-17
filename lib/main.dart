@@ -244,10 +244,10 @@ class MyApp extends StatelessWidget {
                 settings: settings,
               );
             case penggunaPengajuanUsulanKegiatan2LKPageRoute:
-              final idUsulanKegiatan = settings.arguments as int;
+              final usulanArgs = settings.arguments as UsulanArgs;
               return MaterialPageRoute(
                   builder: (_) => PenggunaPengajuanUsulanKegiatan2LK(
-                      idUsulanKegiatan: idUsulanKegiatan
+                      usulanArgs: usulanArgs
                   ));
             case tambahDataPesertaLuarKotaPageRoute:
               final idUsulanKegiatan = settings.arguments as int;
@@ -261,10 +261,10 @@ class MyApp extends StatelessWidget {
                 builder: (_) => EditDataPesertaLuarKotaPage(partisipanArgs: partisipanArgs),
               );
             case penggunaPengajuanUsulanKegiatan2DKPageRoute:
-              final idUsulanKegiatan = settings.arguments as int;
+              final usulanArgs = settings.arguments as UsulanArgs;
               return MaterialPageRoute(
                 builder: (_) => PenggunaPengajuanUsulanKegiatan2DK(
-                    idUsulanKegiatan: idUsulanKegiatan),
+                    usulanArgs: usulanArgs),
               );
             case tambahDataPesertaDalamKotaPageRoute:
               final idUsulanKegiatan = settings.arguments as int;
@@ -288,14 +288,14 @@ class MyApp extends StatelessWidget {
                 builder: (_) => UsulanKegiatanEditBiayaKegiatanPage(biayaKegiatanArgs: biayaKegiatanArgs),
               );
             case penggunaPengajuanUsulanKegiatanTertibAcaraRoute:
-              final idUsulanKegiatan = settings.arguments as int;
+              final usulanArgs = settings.arguments as UsulanArgs;
               return MaterialPageRoute(builder: (_) =>
-                  PenggunaPengajuanUsulanKegiatanTertibAcara(idUsulanKegiatan: idUsulanKegiatan));
+                  PenggunaPengajuanUsulanKegiatanTertibAcara(usulanArgs: usulanArgs));
             case penggunaPengajuanUsulanKegiatan3PageRoute:
-              final idUsulanKegiatan = settings.arguments as int;
+              final usulanArgs = settings.arguments as UsulanArgs;
               return MaterialPageRoute(
                   builder: (_) => PenggunaPengajuanUsulanKegiatan3(
-                    idUsulanKegiatan: idUsulanKegiatan));
+                    usulanArgs: usulanArgs));
             // case penggunaPengajuanUsulanKegiatan3TertibAcaraPageRoute:
             //   final idUsulanKegiatan = settings.arguments as int;
             //   return MaterialPageRoute(

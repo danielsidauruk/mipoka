@@ -17,11 +17,11 @@ import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class PenggunaPengajuanUsulanKegiatan2DK extends StatefulWidget {
   const PenggunaPengajuanUsulanKegiatan2DK({
-    required this.idUsulanKegiatan,
+    required this.usulanArgs,
     super.key,
   });
 
-  final int idUsulanKegiatan;
+  final UsulanArgs usulanArgs;
 
   @override
   State<PenggunaPengajuanUsulanKegiatan2DK> createState() => _PenggunaPengajuanUsulanKegiatan2DKState();
@@ -32,13 +32,13 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
   @override
   void initState() {
     context.read<UsulanKegiatanBloc>().add(
-        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
+        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
     super.initState();
   }
 
   @override
   void dispose() {
-    mipokaCustomToast('Sedang menyimpan data...', time: 5);
+    // mipokaCustomToast('Sedang menyimpan data...', time: 5);
     context.read<UsulanKegiatanBloc>().close();
     super.dispose();
   }
@@ -65,13 +65,19 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                     child: CustomContentBox(
                       children: [
                         buildTitle('Data Partisipan Kegiatan (Dalam Kota)'),
+
+                        if (widget.usulanArgs.isRevisiUsulan == true
+                            && state.usulanKegiatan.revisiUsulan.revisiPartisipan != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiPartisipan),
+
                         CustomAddButton(
                           buttonText: 'Data Partisipan',
                           onPressed: () => Navigator.pushNamed(
                             context,
                             tambahDataPesertaDalamKotaPageRoute,
-                            arguments: widget.idUsulanKegiatan,
-                          ),
+                            arguments: widget.usulanArgs,
+                          ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                              ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
                         ),
                         const CustomFieldSpacer(),
                         Expanded(
@@ -130,6 +136,7 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                   rows: List<DataRow>
                                       .generate(state.usulanKegiatan.partisipan.length, (int index) {
                                     final partisipan = state.usulanKegiatan.partisipan[index];
+
                                     return DataRow(
                                       cells: [
                                         DataCell(
@@ -148,9 +155,10 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                               editDataPesertaDalamKotaPageRoute,
                                               arguments: PartisipanArgs(
                                                 partisipan: partisipan,
-                                                id: widget.idUsulanKegiatan,
+                                                id: widget.usulanArgs.idUsulan,
                                               ),
-                                            );
+                                            ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                                ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
                                           },
                                           Align(
                                             alignment: Alignment.center,
@@ -192,6 +200,8 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                           onTap: (){
                                             context.read<PartisipanBloc>().add(
                                                 DeletePartisipanEvent(partisipan.idPartisipan));
+                                            context.read<UsulanKegiatanBloc>().add(
+                                                ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
                                             mipokaCustomToast('${partisipan.namaPartisipan} has been deleted.');
                                           },
                                           Align(
@@ -212,13 +222,18 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                         ),
                         const CustomFieldSpacer(),
                         buildTitle('Rincian Biaya Kegiatan'),
+                        if (widget.usulanArgs.isRevisiUsulan == true
+                            && state.usulanKegiatan.revisiUsulan.revisiRincianBiayaKegiatan != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiRincianBiayaKegiatan),
+
                         CustomAddButton(
                           buttonText: 'Biaya Kegiatan',
                           onPressed: () => Navigator.pushNamed(
                             context,
                             penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute,
-                            arguments: widget.idUsulanKegiatan,
-                          ),
+                            arguments: widget.usulanArgs,
+                          ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                              ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)))
                         ),
                         const CustomFieldSpacer(),
                         Expanded(
@@ -310,9 +325,10 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                                 usulanKegiatanEditBiayaKegiatanPageRoute,
                                                 arguments: BiayaKegiatanArgs(
                                                   biayaKegiatan: biayaKegiatan,
-                                                  id: widget.idUsulanKegiatan,
+                                                  id: widget.usulanArgs.idUsulan,
                                                 ),
-                                              ),
+                                              ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                                  ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
                                               Align(
                                                 alignment: Alignment.center,
                                                 child: Text(
@@ -362,6 +378,8 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                               onTap: () => Future.microtask(() {
                                                 context.read<BiayaKegiatanBloc>().add(
                                                     DeleteBiayaKegiatanEvent(biayaKegiatan.idBiayaKegiatan));
+                                                context.read<UsulanKegiatanBloc>().add(
+                                                    ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
                                                 mipokaCustomToast("${biayaKegiatan.namaBiayaKegiatan} telah dihapus.");
                                               }),
                                               Align(
@@ -395,9 +413,9 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                               onTap: () => Navigator.pushNamed(
                                 context,
                                 penggunaPengajuanUsulanKegiatanTertibAcaraRoute,
-                                arguments: widget.idUsulanKegiatan,
+                                arguments: widget.usulanArgs,
                               ).then((_) => context.read<UsulanKegiatanBloc>()
-                                  .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan))),
+                                  .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
                               text: 'Berikutnya',
                             ),
                           ],

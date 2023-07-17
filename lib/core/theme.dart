@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 
 bool darkMode = false;
 
@@ -32,6 +33,20 @@ Column buildTitle(String title, {double titlePadding = 4}) {
     ],
   );
 }
+
+Widget buildRevisiText(String text) {
+  return Column(
+    children: [
+      Text(
+        "Revisi: $text",
+        style: TextStyle(color: Colors.yellow[200]),
+      ),
+
+      const CustomFieldSpacer(height: 4),
+    ],
+  );
+}
+
 
 Column buildDescription(String text) {
   return Column(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
@@ -16,10 +17,10 @@ import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 class PenggunaPengajuanUsulanKegiatanTertibAcara extends StatefulWidget {
   const PenggunaPengajuanUsulanKegiatanTertibAcara({
     super.key,
-    required this.idUsulanKegiatan,
+    required this.usulanArgs,
   });
 
-  final int idUsulanKegiatan;
+  final UsulanArgs usulanArgs;
 
   @override
   State<PenggunaPengajuanUsulanKegiatanTertibAcara> createState() => _PenggunaPengajuanUsulanKegiatanTertibAcaraState();
@@ -30,7 +31,7 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
   @override
   void initState() {
     context.read<UsulanKegiatanBloc>().add(
-        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
+        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
     super.initState();
   }
 
@@ -65,15 +66,20 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                       buildTitle('Tertib Acara'),
                       buildDescription(
                           'Rincikan alur dari kegiatan yang akan dilaksanakan'),
+
+                      if (widget.usulanArgs.isRevisiUsulan == true
+                          && state.usulanKegiatan.revisiUsulan.revisiIdTertibAcara != "")
+                        buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiIdTertibAcara),
+
                       CustomAddButton(
                         buttonText: 'Tertib Acara',
                         onPressed: () => Future.microtask(() {
                           Navigator.pushNamed(
                             context,
                             tambahTertibAcaraPageRoute,
-                            arguments: widget.idUsulanKegiatan,
+                            arguments: widget.usulanArgs,
                           ).then((_) => context.read<UsulanKegiatanBloc>()
-                              .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan)));
+                              .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
                         }),
                       ),
 
@@ -228,9 +234,9 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                               Navigator.pushNamed(
                                 context,
                                 penggunaPengajuanUsulanKegiatan3PageRoute,
-                                arguments: widget.idUsulanKegiatan,
+                                arguments: widget.usulanArgs,
                               ).then((_) => context.read<UsulanKegiatanBloc>()
-                                  .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan)),
+                                  .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)),
                               );
                             },
                             text: 'Berikutnya',
