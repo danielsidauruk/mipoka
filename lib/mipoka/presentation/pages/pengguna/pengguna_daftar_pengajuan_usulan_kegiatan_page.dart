@@ -32,6 +32,8 @@ class PenggunaDaftarPengajuanKegiatan extends StatefulWidget {
 
 class _PenggunaDaftarPengajuanKegiatanState
     extends State<PenggunaDaftarPengajuanKegiatan> {
+  String? _filter;
+
   @override
   void initState() {
     Future.microtask(() {
@@ -68,8 +70,9 @@ class _PenggunaDaftarPengajuanKegiatanState
                 MipokaCustomDropdown(
                   items: listStatus,
                   onValueChanged: (value) {
+                    _filter = value;
                     context.read<UsulanKegiatanBloc>().add(
-                      ReadAllUsulanKegiatanEvent(filter: value!),
+                      ReadAllUsulanKegiatanEvent(filter: _filter!),
                     );
                   },
                 ),
@@ -178,7 +181,22 @@ class _PenggunaDaftarPengajuanKegiatanState
                                       DataCell(
                                         Align(
                                           alignment: Alignment.center,
-                                          child: Text(
+                                          child: usulanKegiatan.statusUsulan == ditolak ?
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.pushNamed(
+                                                context,
+                                                penggunaPengajuanUsulanKegiatanPage1Route,
+                                                arguments: usulanKegiatan.idUsulan,
+                                              ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                                ReadAllUsulanKegiatanEvent(filter: _filter!)));
+                                            },
+                                            child: Text(
+                                              usulanKegiatan.namaKegiatan,
+                                              style: const TextStyle(color: Colors.red),
+                                            ),
+                                          ) :
+                                          Text(
                                             usulanKegiatan.namaKegiatan,
                                           ),
                                         ),
@@ -235,7 +253,7 @@ class _PenggunaDaftarPengajuanKegiatanState
                     if (mipokaUserState is MipokaUserLoading) {
                       return const Text('Loading ...');
                     } else if (mipokaUserState is MipokaUserHasData) {
-                      MipokaUser mipokaUser = mipokaUserState.mipokaUser;
+                      final mipokaUser = mipokaUserState.mipokaUser;
 
                       return CustomMipokaButton(
                         onTap: () => Future.microtask(() {
@@ -381,7 +399,7 @@ class _PenggunaDaftarPengajuanKegiatanState
                             penggunaPengajuanUsulanKegiatanPage1Route,
                             arguments: newId,
                           ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                              const ReadAllUsulanKegiatanEvent()));
+                              ReadAllUsulanKegiatanEvent(filter: _filter!)));
                         }),
                         text: 'Ajukan Kegiatan',
                       );
