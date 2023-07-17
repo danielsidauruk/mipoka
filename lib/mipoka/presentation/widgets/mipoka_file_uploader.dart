@@ -58,7 +58,10 @@ class _MipokaFileUploaderState extends State<MipokaFileUploader> {
                 width: 24,
               ),
             ) :
-            const Center(),
+            Image.asset(
+              widget.asset,
+              width: 24,
+            ),
           ],
         ),
       ),

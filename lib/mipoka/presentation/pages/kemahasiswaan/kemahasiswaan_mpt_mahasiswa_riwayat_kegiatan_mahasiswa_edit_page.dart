@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
@@ -16,6 +17,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_file_uploader.dart';
 
 class MahasiswaRiwayatKegiatanMahasiswaEditPage extends StatefulWidget {
   const MahasiswaRiwayatKegiatanMahasiswaEditPage({
@@ -36,6 +38,7 @@ class _MahasiswaRiwayatKegiatanMahasiswaEditPageState extends State<MahasiswaRiw
   final TextEditingController _poinController = TextEditingController();
   final TextEditingController _keteranganKemahasiswaan = TextEditingController();
   late String _statusVerifikasi;
+  late String _fileSertifikatMpt;
 
   final StreamController<String> _selectedOptionController = StreamController<String>.broadcast();
 
@@ -47,6 +50,7 @@ class _MahasiswaRiwayatKegiatanMahasiswaEditPageState extends State<MahasiswaRiw
     _keteranganKemahasiswaan.text = widget.riwayatKegiatanMpt.keteranganSa;
     _poinController.text = widget.riwayatKegiatanMpt.kegiatanPerPeriodeMpt.pointMptDiperoleh.toString();
     _statusVerifikasi = widget.riwayatKegiatanMpt.statusMpt;
+    _fileSertifikatMpt = widget.riwayatKegiatanMpt.fileSertifikatMpt;
     super.initState();
   }
 
@@ -134,10 +138,19 @@ class _MahasiswaRiwayatKegiatanMahasiswaEditPageState extends State<MahasiswaRiw
                   const CustomFieldSpacer(),
 
                   buildTitle('File Unggahan'),
-                  CustomIconButton(
-                    text: 'loremipsum.pdf',
-                    onTap: () {},
-                    icon: Icons.picture_as_pdf,
+                  // CustomIconButton(
+                  //   text: 'loremipsum.pdf',
+                  //   onTap: () {},
+                  //   icon: Icons.picture_as_pdf,
+                  // ),
+
+                  MipokaFileUploader(
+                    onTap: () => downloadFileWithDio(
+                      url: _fileSertifikatMpt,
+                      fileName: "",
+                    ),
+                    text: _fileSertifikatMpt,
+                    asset: "assets/icons/pdf.png",
                   ),
 
                   const CustomFieldSpacer(),

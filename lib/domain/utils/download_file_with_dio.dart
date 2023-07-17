@@ -23,6 +23,7 @@ Future<void> downloadFileWithDio({
         var dir = await DownloadsPathProvider.downloadsDirectory;
         if (dir != null) {
           // String fileName = url.split('/').last;
+          String fileName = Uri.parse(url).pathSegments.last;
           String savePath = "${dir.path}/$fileName";
           print(savePath);
           // Output: /storage/emulated/0/Download/file.pdf
