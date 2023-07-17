@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/revisi_laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';

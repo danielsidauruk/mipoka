@@ -5,6 +5,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
@@ -31,6 +32,7 @@ class PenggunaDaftarLaporanKegiatan extends StatefulWidget {
 
 class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKegiatan> {
 
+  String? _filter;
   @override
   void initState() {
     context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
@@ -40,7 +42,6 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
   @override
   void dispose() {
     context.read<LaporanBloc>().close();
-    context.read<UsulanKegiatanBloc>().close();
     super.dispose();
   }
 
@@ -74,8 +75,9 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                       MipokaCustomDropdown(
                         items: listStatus,
                         onValueChanged: (value) {
+                          _filter = value;
                           context.read<LaporanBloc>().add(
-                              ReadAllLaporanEvent(filter: value!));
+                              ReadAllLaporanEvent(filter: _filter ?? "Semua"));
                         },
                       ),
                       const CustomFieldSpacer(),
@@ -167,6 +169,7 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                       ),
                                     ),
                                   ),
+                                  laporan.statusLaporan != ditolak ?
                                   DataCell(
                                     Align(
                                       alignment: Alignment.center,
@@ -174,7 +177,28 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                         laporan.usulanKegiatan.namaKegiatan,
                                       ),
                                     ),
+                                  ) :
+                                  DataCell(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        penggunaPengajuanLaporanKegiatanPage1Route,
+                                        arguments: LaporanArgs(
+                                          idLaporan: laporan.idLaporan,
+                                          isRevisiLaporan: true,
+                                        ),
+                                      ).then((_) => context.read<LaporanBloc>().add(
+                                          ReadAllLaporanEvent(filter: _filter ?? "Semua")));
+                                    },
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        laporan.usulanKegiatan.namaKegiatan,
+                                        style: TextStyle(color: Colors.yellow[200]),
+                                      ),
+                                    ),
                                   ),
+
                                   DataCell(
                                     onTap: () => downloadFileWithDio(
                                       url: laporan.fileLaporanKegiatan,
@@ -223,9 +247,9 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                           Navigator.pushNamed(
                             context,
                             penggunaPengajuanLaporanKegiatanPage1Route,
-                            arguments: newId,
+                            arguments: LaporanArgs(idLaporan: newId),
                           ).then((_) => context.read<LaporanBloc>().add(
-                              const ReadAllLaporanEvent()));
+                              ReadAllLaporanEvent(filter: _filter ?? "Semua")));
 
                           context.read<LaporanBloc>().add(
                             CreateLaporanEvent(

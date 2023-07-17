@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -12,14 +13,13 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
-// => Fixed ContentBox
 class PenggunaPengajuanLaporanKegiatan2 extends StatefulWidget {
   const PenggunaPengajuanLaporanKegiatan2({
-    required this.idLaporan,
+    required this.laporanArgs,
     super.key,
   });
 
-  final int idLaporan;
+  final LaporanArgs laporanArgs;
 
   @override
   State<PenggunaPengajuanLaporanKegiatan2> createState() => _PenggunaPengajuanLaporanKegiatan2State();
@@ -30,7 +30,7 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
   @override
   void initState() {
     context.read<LaporanBloc>().add(
-        ReadLaporanEvent(idLaporan: widget.idLaporan)
+        ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan)
     );
     super.initState();
   }
@@ -60,16 +60,20 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                   return const Text('Loading ...');
                 } else if (state is LaporanHasData) {
                   final laporan = state.laporan;
+
                   return Expanded(
                     child: CustomContentBox(
                       children: [
                         buildTitle('Data Peserta Kegiatan'),
+                        if (widget.laporanArgs.isRevisiLaporan == true
+                            && laporan.revisiLaporan.revisiPesertaKegiatanLaporan != "")
+                          buildRevisiText(laporan.revisiLaporan.revisiPesertaKegiatanLaporan),
                         CustomAddButton(
                           buttonText: 'Import Peserta',
                           onPressed: () => Navigator.pushNamed(
                             context,
                             importPesertaLaporanPageRoute,
-                            arguments: widget.idLaporan,
+                            arguments: widget.laporanArgs.idLaporan,
                           ),
                         ),
                         const CustomFieldSpacer(),
@@ -156,12 +160,15 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                         ),
                         const CustomFieldSpacer(),
                         buildTitle('Realisasi Biaya Kegiatan'),
+                        if (widget.laporanArgs.isRevisiLaporan == true
+                            && laporan.revisiLaporan.revisiPencapaian != "")
+                          buildRevisiText(laporan.revisiLaporan.revisiPencapaian),
                         CustomAddButton(
                           buttonText: 'Biaya Kegiatan',
                           onPressed: () => Navigator.pushNamed(
                             context,
                             laporanKegiatanTambahBiayaKegiatanPageRoute,
-                            arguments: widget.idLaporan,
+                            arguments: widget.laporanArgs.idLaporan,
                           ),
                         ),
                         const CustomFieldSpacer(),
@@ -327,20 +334,12 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                             const SizedBox(width: 8.0),
                             CustomMipokaButton(
                               onTap: () {
-
-                                context.read<LaporanBloc>().add(
-                                  UpdateLaporanEvent(
-                                    laporan: laporan.copyWith(
-
-                                    ),
-                                  ),
-                                );
                                 Navigator.pushNamed(
                                   context,
                                   penggunaPengajuanLaporanKegiatan3PageRoute,
-                                  arguments: widget.idLaporan,
+                                  arguments: widget.laporanArgs,
                                 ).then((_) => context.read<LaporanBloc>().add(
-                                    ReadLaporanEvent(idLaporan: widget.idLaporan)
+                                    ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan)
                                 ));
                               },
                               text: 'Berikutnya',
@@ -366,302 +365,3 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
     );
   }
 }
-
-
-// => Non Fixed ContentBox
-
-// class MobilePenggunaPengajuanUsulanKegiatan2DK extends StatelessWidget {
-//   const MobilePenggunaPengajuanUsulanKegiatan2DK({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: const MipokaAppBar(),
-//
-//       drawer: const MobilePenggunaDrawerWidget(),
-//
-//       body: SingleChildScrollView(
-//         child: Padding(
-//           padding: const EdgeInsets.all(16.0),
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//             children: [
-//
-//               const MobileTitle(text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
-//
-//               const SizedBox(height: 8.0),
-//
-//               ContentBox(
-//                 children: [
-//                 buildTitle('Data Peserta Kegiatan (Dalam Kota)'),
-//
-//                 const FieldSpacer(),
-//
-//                 InkWell(
-//                   onTap: () => Navigator.pushNamed(context, penggunaPengajuanUsulanKegiatan2DKDataPesertaPageRoute),
-//                   child: Container(
-//                     padding: const EdgeInsets.all(8.0),
-//                     width: double.infinity,
-//                     alignment: Alignment.center,
-//                     constraints: const BoxConstraints(minHeight: 30.0),
-//                     decoration: BoxDecoration(
-//                       color: Colors.white,
-//                       borderRadius: BorderRadius.circular(5.0),
-//                     ),
-//                     child: Row(
-//                       children: const [
-//                         Align(
-//                           alignment: Alignment.centerLeft,
-//                           child: Icon(
-//                             Icons.add,
-//                             size: 20,
-//                             color: Colors.black,
-//                           ),
-//                         ),
-//
-//                         Expanded(
-//                           child: Text(
-//                             'Data Partisipan',
-//                             style: TextStyle(
-//                                 color: Colors.black,
-//                                 fontWeight: FontWeight.bold
-//                             ),
-//                             textAlign: TextAlign.center,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ),
-//
-//                 const FieldSpacer(),
-//
-//                 Container(
-//                   decoration: BoxDecoration(
-//                     border: Border.all(color: Colors.grey),
-//                   ),
-//                   child: SingleChildScrollView(
-//                     scrollDirection: Axis.horizontal,
-//                     child: DataTable(
-//                       columnSpacing: 40,
-//                       border: TableBorder.all(color: Colors.white),
-//                       columns: const [
-//                         DataColumn(
-//                           label: Text(
-//                             'No.',
-//                             style: TextStyle(fontWeight: FontWeight.bold),
-//                             textAlign: TextAlign.center,
-//                           ),
-//                         ),
-//                         DataColumn(
-//                           label: Text(
-//                             'NIM/NIP',
-//                             style: TextStyle(fontWeight: FontWeight.bold),
-//                             textAlign: TextAlign.center,
-//                           ),
-//                         ),
-//                         DataColumn(
-//                           label: Text(
-//                             'Nama Lengkap',
-//                             style: TextStyle(fontWeight: FontWeight.bold),
-//                             textAlign: TextAlign.center,
-//                           ),
-//                         ),
-//                         DataColumn(
-//                           label: Text(
-//                             'Peran',
-//                             style: TextStyle(fontWeight: FontWeight.bold),
-//                             textAlign: TextAlign.center,
-//                           ),
-//                         ),
-//                         DataColumn(
-//                           label: Text(
-//                             'Dasar Pengiriman',
-//                             style: TextStyle(fontWeight: FontWeight.bold),
-//                             textAlign: TextAlign.center,
-//                           ),
-//                         ),
-//                       ],
-//
-//                       rows: List<DataRow>.generate(12, (int index) {
-//                         return DataRow(
-//                           cells: [
-//                             DataCell(
-//                               Text(
-//                                 '${index + 1}',
-//                                 textAlign: TextAlign.center,
-//                               ),
-//                             ),
-//                             DataCell(
-//                               Text(
-//                                 'Age $index',
-//                                 textAlign: TextAlign.center,
-//                               ),
-//                             ),
-//                             DataCell(Text('City $index')),
-//                             DataCell(Text('Country $index')),
-//                             DataCell(Text('Salary $index')),
-//                           ],
-//                         );
-//                       }),
-//                     ),
-//                   ),
-//                 ),
-//
-//                 const FieldSpacer(),
-//
-//                 buildTitle('Rincian Biaya Kegiatan'),
-//
-//                 const FieldSpacer(),
-//
-//                 InkWell(
-//                   onTap: () => Navigator.pushNamed(context, penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute),
-//                   child: Container(
-//                     padding: const EdgeInsets.all(8.0),
-//                     width: double.infinity,
-//                     alignment: Alignment.center,
-//                     constraints: const BoxConstraints(minHeight: 30.0),
-//                     decoration: BoxDecoration(
-//                       color: Colors.white,
-//                       borderRadius: BorderRadius.circular(5.0),
-//                     ),
-//                     child: Row(
-//                       children: const [
-//                         Align(
-//                           alignment: Alignment.centerLeft,
-//                           child: Icon(
-//                             Icons.add,
-//                             size: 20,
-//                             color: Colors.black,
-//                           ),
-//                         ),
-//
-//                         Expanded(
-//                           child: Text(
-//                             'Biaya Kegiatan',
-//                             style: TextStyle(
-//                                 color: Colors.black,
-//                                 fontWeight: FontWeight.bold
-//                             ),
-//                             textAlign: TextAlign.center,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ),
-//
-//                 const FieldSpacer(),
-//
-//                 Container(
-//                   decoration: BoxDecoration(
-//                     border: Border.all(color: Colors.grey),
-//                   ),
-//                   child: Column(
-//                     children: [
-//                       SingleChildScrollView(
-//                         scrollDirection: Axis.horizontal,
-//                         child: DataTable(
-//                           columnSpacing: 40,
-//                           border: TableBorder.all(color: Colors.white),
-//                           columns: const [
-//                             DataColumn(
-//                               label: Text(
-//                                 'No.',
-//                                 style: TextStyle(fontWeight: FontWeight.bold),
-//                                 textAlign: TextAlign.center,
-//                               ),
-//                             ),
-//                             DataColumn(
-//                               label: Text(
-//                                 'Nama Biaya',
-//                                 style: TextStyle(fontWeight: FontWeight.bold),
-//                                 textAlign: TextAlign.center,
-//                               ),
-//                             ),
-//                             DataColumn(
-//                               label: Text(
-//                                 'Qty',
-//                                 style: TextStyle(fontWeight: FontWeight.bold),
-//                                 textAlign: TextAlign.center,
-//                               ),
-//                             ),
-//                             DataColumn(
-//                               label: Text(
-//                                 'Harga Satuan',
-//                                 style: TextStyle(fontWeight: FontWeight.bold),
-//                                 textAlign: TextAlign.center,
-//                               ),
-//                             ),
-//                             DataColumn(
-//                               label: Text(
-//                                 'Total',
-//                                 style: TextStyle(fontWeight: FontWeight.bold),
-//                                 textAlign: TextAlign.center,
-//                               ),
-//                             ),
-//                             DataColumn(
-//                               label: Text(
-//                                 'Keterangan',
-//                                 style: TextStyle(fontWeight: FontWeight.bold),
-//                                 textAlign: TextAlign.center,
-//                               ),
-//                             ),
-//                           ],
-//
-//                           rows: List.generate(12, (int index) {
-//                             return DataRow(
-//                               cells: [
-//                                 DataCell(
-//                                   Text(
-//                                     '${index + 1}',
-//                                     textAlign: TextAlign.center,
-//                                   ),
-//                                 ),
-//                                 DataCell(
-//                                   Text(
-//                                     'Age $index sahjksadfkjh ajdshkjahdf hdjkashjkhad ajkdshfkja fadfk ah',
-//                                     textAlign: TextAlign.center,
-//                                   ),
-//                                 ),
-//                                 DataCell(Text('City $index')),
-//                                 DataCell(Text('Country $index')),
-//                                 DataCell(Text('Salary $index')),
-//                                 DataCell(Text('Position $index')),
-//                               ],
-//                             );
-//                           }),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//
-//                 const FieldSpacer(),
-//
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.end,
-//                   children: [
-//                     CustomButton(
-//                       navigation: () => Navigator.pop(context),
-//                       text: 'Sebelumnya',
-//                     ),
-//
-//                     const SizedBox(width: 8.0),
-//
-//                     CustomButton(
-//                       navigation: () => Navigator.pushNamed(context, penggunaPengajuanUsulanKegiatan3PageRoute),
-//                       text: 'Berikutnya',
-//                     ),
-//                   ],
-//                 ),
-//
-//               ],
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
@@ -23,11 +24,11 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 
 class PenggunaPengajuanLaporanKegiatan3 extends StatefulWidget {
   const PenggunaPengajuanLaporanKegiatan3({
-    required this.idLaporan,
+    required this.laporanArgs,
     super.key,
   });
 
-  final int idLaporan;
+  final LaporanArgs laporanArgs;
 
   @override
   State<PenggunaPengajuanLaporanKegiatan3> createState() =>
@@ -39,7 +40,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
   
   @override
   void initState() {
-    context.read<LaporanBloc>().add(ReadLaporanEvent(idLaporan: widget.idLaporan));
+    context.read<LaporanBloc>().add(ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
     super.initState();
   }
 
@@ -116,18 +117,27 @@ class _PenggunaPengajuanLaporanKegiatan3State
                       children: [
                         buildTitle('Latar Belakang'),
                         buildDescription('Berisi latar belakang kegiatan diusulkan'),
+                        if (widget.laporanArgs.isRevisiLaporan == true
+                            && laporan.revisiLaporan.revisiLatarBelakang != "")
+                          buildRevisiText(laporan.revisiLaporan.revisiLatarBelakang),
                         CustomRichTextField(controller: _latarBelakangController),
 
                         const CustomFieldSpacer(),
 
                         buildTitle('Hasil Kegiatan'),
                         buildDescription('Berisi hasil kegiatan yang telah selesai'),
+                        if (widget.laporanArgs.isRevisiLaporan == true
+                            && laporan.revisiLaporan.revisiHasilKegiatan != "")
+                          buildRevisiText(laporan.revisiLaporan.revisiHasilKegiatan),
                         CustomRichTextField(controller: _hasilKegiatanController),
 
                         const CustomFieldSpacer(),
 
                         buildTitle('Penutup'),
                         buildDescription('Ucapkan salam penutup.'),
+                        if (widget.laporanArgs.isRevisiLaporan == true
+                            && laporan.revisiLaporan.revisiPenutup != "")
+                          buildRevisiText(laporan.revisiLaporan.revisiPenutup),
                         CustomRichTextField(controller: _penutupController),
 
                         const CustomFieldSpacer(),
@@ -137,6 +147,9 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         buildTitle('Postingan Kegiatan'),
                         buildDescription(
                             'Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
+                        if (widget.laporanArgs.isRevisiLaporan == true
+                            && laporan.revisiLaporan.revisiFotoPostinganKegiatan != "")
+                          buildRevisiText(laporan.revisiLaporan.revisiFotoPostinganKegiatan),
                         StreamBuilder<String?>(
                           initialData: _postinganKegiatanController,
                           stream: _postinganKegiatanStream.stream,
@@ -172,6 +185,9 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         buildTitle('Dokumentasi Kegiatan'),
                         buildDescription(
                             'Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
+                        if (widget.laporanArgs.isRevisiLaporan == true
+                            && laporan.revisiLaporan.revisiFotoDokumentasiKegiatan != "")
+                          buildRevisiText(laporan.revisiLaporan.revisiFotoDokumentasiKegiatan),
                         StreamBuilder<String?>(
                           initialData: _dokumentasiKegiatanController,
                           stream: _dokumentasiKegiatanStream.stream,
@@ -207,6 +223,9 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         buildTitle('Tabulasi Hasil'),
                         buildDescription(
                             'Unggah foto pencapaian dari kegiatan yang telah dilaksanakan.'),
+                        if (widget.laporanArgs.isRevisiLaporan == true
+                            && laporan.revisiLaporan.revisiFotoTabulasiHasil != "")
+                          buildRevisiText(laporan.revisiLaporan.revisiFotoTabulasiHasil),
                         StreamBuilder<String?>(
                           initialData: _tabulasiHasilKegiatanController,
                           stream: _tabulasiHasilKegiatanStream.stream,
@@ -242,6 +261,9 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         buildTitle('Faktur Pembayaran'),
                         buildDescription(
                             'Unggah bon transaksi kegiatan yang telah dilaksanakan.'),
+                        if (widget.laporanArgs.isRevisiLaporan == true
+                            && laporan.revisiLaporan.revisiFotoFakturPembayaran != "")
+                          buildRevisiText(laporan.revisiLaporan.revisiFotoFakturPembayaran),
                         StreamBuilder<String?>(
                           initialData: _fakturPembayaranController,
                           stream: _fakturPembayaranStream.stream,
@@ -394,7 +416,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                   mipokaCustomToast(emptyFieldMessage);
                                 }
                               },
-                              text: 'Kirim',
+                              text: widget.laporanArgs.isRevisiLaporan == true ? 'Kirim Revisi' : 'Kirim',
                             ),
                           ],
                         )

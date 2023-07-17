@@ -370,12 +370,14 @@
   "hasil_kegiatan": "Lorem ipsum dolor sit amet",
   "penutup": "Lorem ipsum dolor sit amet",
   "foto_postingan_kegiatan": "http://example.com/foto-postingan.jpg",
-  "foto_dokumentasi_kegiatan": "http://example.com/foto1.jpg",
+  "foto_dokumentasi_kegiatan": [
+    "http://example.com/foto1.jpg"
+  ],
   "foto_tabulasi_hasil": "http://example.com/foto-tabulasi.jpg",
   "foto_faktur_pembayaran": "http://example.com/foto-faktur.jpg",
   "file_laporan_kegiatan": "http://example.com/file-laporan.pdf",
   "validasi_pembina": "true",
-  "status_laporan": "Diterima",
+  "status_laporan": "Ditolak",
   "created_at": "2023-06-26",
   "created_by": "John Doe",
   "updated_at": "2023-06-26",

@@ -314,13 +314,15 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) => const PenggunaDaftarLaporanKegiatan());
             case penggunaPengajuanLaporanKegiatanPage1Route:
-              final idLaporan = settings.arguments as int;
+              // final idLaporan = settings.arguments as int;
+              final laporanArgs = settings.arguments as LaporanArgs;
               return MaterialPageRoute(
-                  builder: (_) => PenggunaPengajuanLaporanKegiatan1(idLaporan: idLaporan));
+                  builder: (_) => PenggunaPengajuanLaporanKegiatan1(laporanArgs: laporanArgs));
             case penggunaPengajuanLaporanKegiatan2PageRoute:
-              final idLaporan = settings.arguments as int;
+              final laporanArgs = settings.arguments as LaporanArgs;
+              // final idLaporan = settings.arguments as int;
               return MaterialPageRoute(
-                  builder: (_) => PenggunaPengajuanLaporanKegiatan2(idLaporan: idLaporan));
+                  builder: (_) => PenggunaPengajuanLaporanKegiatan2(laporanArgs: laporanArgs));
             case laporanKegiatanTambahBiayaKegiatanPageRoute:
               final idLaporan = settings.arguments as int;
               return MaterialPageRoute(
@@ -337,9 +339,9 @@ class MyApp extends StatelessWidget {
                   builder: (_) =>
                       ImportPesertaLaporanPage(idLaporan: idLaporan));
             case penggunaPengajuanLaporanKegiatan3PageRoute:
-              final idLaporan = settings.arguments as int;
+              final laporanArgs = settings.arguments as LaporanArgs;
               return MaterialPageRoute(
-                  builder: (_) => PenggunaPengajuanLaporanKegiatan3(idLaporan: idLaporan));
+                  builder: (_) => PenggunaPengajuanLaporanKegiatan3(laporanArgs: laporanArgs));
 
             case penggunaDaftarPengajuanSaranaDanPrasaranaPageRoute:
               return MaterialPageRoute(

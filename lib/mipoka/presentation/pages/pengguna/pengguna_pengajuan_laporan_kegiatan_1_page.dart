@@ -5,6 +5,7 @@ import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -19,11 +20,11 @@ import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class PenggunaPengajuanLaporanKegiatan1 extends StatefulWidget {
   const PenggunaPengajuanLaporanKegiatan1({
-    required this.idLaporan,
+    required this.laporanArgs,
     super.key,
   });
 
-  final int idLaporan;
+  final LaporanArgs laporanArgs;
 
   @override
   State<PenggunaPengajuanLaporanKegiatan1> createState() =>
@@ -37,7 +38,7 @@ class _PenggunaPengajuanLaporanKegiatan1State
   void initState() {
     Future.microtask(() {
       context.read<LaporanBloc>().add(
-          ReadLaporanEvent(idLaporan: widget.idLaporan));
+          ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
       context.read<UsulanKegiatanBloc>().add(
           const ReadAllUsulanKegiatanEvent());
     });
@@ -113,6 +114,10 @@ class _PenggunaPengajuanLaporanKegiatan1State
                             const CustomFieldSpacer(),
 
                             buildTitle('Pencapaian'),
+                            if (widget.laporanArgs.isRevisiLaporan == true
+                                && laporan.revisiLaporan.revisiPencapaian != "")
+                              buildRevisiText(laporan.revisiLaporan.revisiPencapaian),
+
                             CustomRichTextField(
                                 controller: _pencapaianController),
 
@@ -121,39 +126,46 @@ class _PenggunaPengajuanLaporanKegiatan1State
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
+                                widget.laporanArgs.isRevisiLaporan == true ?
+                                CustomMipokaButton(
+                                  onTap: () => Navigator.pop(context),
+                                  text: 'Batal',
+                                ) :
                                 CustomMipokaButton(
                                   onTap: () {
                                     context.read<LaporanBloc>().add(
-                                      DeleteLaporanEvent(idLaporan: widget.idLaporan));
-                                    // context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
+                                        DeleteLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
                                     mipokaCustomToast("Laporan telah dihapus.");
                                     Navigator.pop(context);
                                   },
                                   text: 'Batal',
                                 ),
 
-                                const SizedBox(width: 8),
+                                const SizedBox(width: 8.0),
 
                                 CustomMipokaButton(
                                   onTap: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      penggunaPengajuanLaporanKegiatan2PageRoute,
-                                      arguments: widget.idLaporan,
-                                    ).then((_) => context.read<LaporanBloc>().add(ReadLaporanEvent(idLaporan: widget.idLaporan)));
+                                    if (_pencapaianController.document.toPlainText().isNotEmpty) {
+                                      Navigator.pushNamed(
+                                        context,
+                                        penggunaPengajuanLaporanKegiatan2PageRoute,
+                                        arguments: widget.laporanArgs,
+                                      ).then((_) => context.read<LaporanBloc>().add(
+                                          ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan)));
 
-                                    Future.microtask(() =>
-                                        context.read<LaporanBloc>().add(
-                                          UpdateLaporanEvent(
-                                            laporan: laporan.copyWith(
-                                              usulanKegiatan: usulan[selectedIndex ?? 0],
-                                              pencapaian: _pencapaianController.document.toPlainText(),
-                                              updatedAt: currentDate,
-                                              updatedBy: user?.email ?? "unknown",
-                                            ),
+                                      context.read<LaporanBloc>().add(
+                                        UpdateLaporanEvent(
+                                          laporan: laporan.copyWith(
+                                            usulanKegiatan: usulan[selectedIndex ?? 0],
+                                            pencapaian: _pencapaianController.document.toPlainText(),
+                                            updatedAt: currentDate,
+                                            updatedBy: user?.email ?? "unknown",
                                           ),
                                         ),
-                                    );
+                                      );
+                                    } else {
+                                      mipokaCustomToast(emptyFieldMessage);
+                                    }
                                   },
                                   text: 'Berikutnya',
                                 ),

@@ -41,3 +41,13 @@ class UsulanArgs {
     this.isRevisiUsulan = false,
   });
 }
+
+class LaporanArgs {
+  final int idLaporan;
+  final bool isRevisiLaporan;
+
+  LaporanArgs({
+    required this.idLaporan,
+    this.isRevisiLaporan = false,
+  });
+}

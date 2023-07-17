@@ -30,6 +30,8 @@ const disetujui = "Disetujui";
 const ditolak = "Ditolak";
 const tertunda = "Tertunda";
 
+const statusUsulan = ["Semua", disetujui, ditolak, tertunda];
+
 Color revisionColor = const Color(0xFFE57373);
 
 const String emptyFieldMessage = "Mohon lengkapi semua field.";
