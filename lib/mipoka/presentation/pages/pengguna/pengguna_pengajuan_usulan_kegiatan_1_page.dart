@@ -9,6 +9,7 @@ import 'package:mipoka/core/routes.dart';
 import 'dart:io';
 import 'dart:ui' as ui;
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/presentation/bloc/cubit/signature_cubit.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
@@ -32,10 +33,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 
 class PenggunaPengajuanUsulanKegiatan1 extends StatefulWidget {
-  final int idUsulanKegiatan;
+  final UsulanArgs usulanArgs;
   const PenggunaPengajuanUsulanKegiatan1({
     super.key,
-    required this.idUsulanKegiatan,
+    required this.usulanArgs,
   });
 
   @override
@@ -50,7 +51,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
   void initState() {
     Future.microtask(() {
       context.read<UsulanKegiatanBloc>().add(
-          ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
+          ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
       context.read<MipokaUserBloc>().add(
         ReadMipokaUserEvent(idMipokaUser: user!.uid));
       context.read<TempatKegiatanCubit>();
@@ -220,6 +221,13 @@ class _PenggunaPengajuanUsulanKegiatan1State
                             const CustomFieldSpacer(),
 
                             buildTitle('Pembiayaan'),
+                            if (widget.usulanArgs.isRevisiUsulan == true && usulanKegiatan.revisiUsulan.revisiPembiayaan != "")
+                              Text(
+                                usulanKegiatan.revisiUsulan.revisiPembiayaan,
+                                style: const TextStyle(color: Colors.red),
+                              ),
+
+                            const CustomFieldSpacer(height: 4),
 
                             MipokaCustomDropdown(
                               items: listPembiayaan,
@@ -446,11 +454,20 @@ class _PenggunaPengajuanUsulanKegiatan1State
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
+                                widget.usulanArgs.isRevisiUsulan == false ?
                                 CustomMipokaButton(
-                                  onTap: () => context.read<UsulanKegiatanBloc>()
-                                      .add(DeleteUsulanKegiatanEvent(idUsulan: widget.idUsulanKegiatan)),
+                                  onTap: () {
+                                    context.read<UsulanKegiatanBloc>()
+                                        .add(DeleteUsulanKegiatanEvent(idUsulan: widget.usulanArgs.idUsulan));
+                                    Navigator.pop(context);
+                                  },
+                                  text: 'Batal',
+                                ) :
+                                CustomMipokaButton(
+                                  onTap: () => Navigator.pop(context),
                                   text: 'Batal',
                                 ),
+
                                 const SizedBox(width: 8.0),
 
                                 CustomMipokaButton(
@@ -497,15 +514,15 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                       Navigator.pushNamed(
                                         context,
                                         penggunaPengajuanUsulanKegiatan2DKPageRoute,
-                                        arguments: widget.idUsulanKegiatan,
+                                        arguments: widget.usulanArgs.idUsulan,
                                       ).then((_) => context.read<UsulanKegiatanBloc>()
-                                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan))) :
+                                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))) :
                                       Navigator.pushNamed(
                                         context,
                                         penggunaPengajuanUsulanKegiatan2LKPageRoute,
-                                        arguments: widget.idUsulanKegiatan,
+                                        arguments: widget.usulanArgs.idUsulan,
                                       ).then((_) => context.read<UsulanKegiatanBloc>()
-                                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan)));
+                                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
                                     });
                                   },
                                   text: 'Berikutnya',

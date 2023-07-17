@@ -4,6 +4,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
@@ -187,7 +188,10 @@ class _PenggunaDaftarPengajuanKegiatanState
                                               Navigator.pushNamed(
                                                 context,
                                                 penggunaPengajuanUsulanKegiatanPage1Route,
-                                                arguments: usulanKegiatan.idUsulan,
+                                                arguments: UsulanArgs(
+                                                  idUsulan: usulanKegiatan.idUsulan,
+                                                  isRevisiUsulan: true,
+                                                ),
                                               ).then((_) => context.read<UsulanKegiatanBloc>().add(
                                                 ReadAllUsulanKegiatanEvent(filter: _filter!)));
                                             },
@@ -397,7 +401,7 @@ class _PenggunaDaftarPengajuanKegiatanState
                           Navigator.pushNamed(
                             context,
                             penggunaPengajuanUsulanKegiatanPage1Route,
-                            arguments: newId,
+                            arguments: UsulanArgs(idUsulan: newId),
                           ).then((_) => context.read<UsulanKegiatanBloc>().add(
                               ReadAllUsulanKegiatanEvent(filter: _filter!)));
                         }),

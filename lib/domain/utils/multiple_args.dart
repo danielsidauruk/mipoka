@@ -31,3 +31,13 @@ class TertibAcaraArgs {
     required this.id,
   });
 }
+
+class UsulanArgs {
+  final int idUsulan;
+  final bool isRevisiUsulan;
+
+  UsulanArgs({
+    required this.idUsulan,
+    this.isRevisiUsulan = false,
+  });
+}
