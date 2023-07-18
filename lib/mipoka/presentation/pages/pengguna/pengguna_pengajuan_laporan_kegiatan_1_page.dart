@@ -123,6 +123,14 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
                             const CustomFieldSpacer(),
 
+                            TextButton(onPressed: () {
+                              print(_pencapaianController.document.toPlainText());
+                              print(_pencapaianController.document.toDelta().toList());
+
+                            },
+                              child: Text("Print RichText Format"),
+                            ),
+
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [

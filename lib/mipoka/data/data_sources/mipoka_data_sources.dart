@@ -174,32 +174,32 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     // if (kDebugMode) {
     //   print(beritaModel.toJson());
     // }
-    try {
-      final response = await DioUtil.dio.post(
-        '/berita',
-        data: beritaModel.toJson(),
-      );
-      print(response.data);
-    } catch (error) {
-      print('Error: $error');
-    }
     // try {
-    //   final response = await http.post(
-    //     Uri.parse("$apiUrl/berita"),
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: jsonEncode(beritaModel.toJson()),
+    //   final response = await DioUtil.dio.post(
+    //     '/berita',
+    //     data: beritaModel.toJson(),
     //   );
-    //
-    //   if (response.statusCode == 200) {
-    //     print('Usulan kegiatan berhasil dikirim.');
-    //   } else {
-    //     print('Terjadi kesalahan saat mengirim usulan kegiatan. Status code: ${response.statusCode}');
-    //   }
+    //   print(response.data);
     // } catch (error) {
     //   print('Error: $error');
     // }
+    try {
+      final response = await http.post(
+        Uri.parse("$apiUrl/berita"),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(beritaModel.toJson()),
+      );
+
+      if (response.statusCode == 200) {
+        print('Usulan kegiatan berhasil dikirim.');
+      } else {
+        print('Terjadi kesalahan saat mengirim usulan kegiatan. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error: $error');
+    }
   }
 
   @override
@@ -223,24 +223,44 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     // }
     //
     // return result;
+
     try {
-      // final response = await DioUtil.dio.get('/berita?filter=$filter');
-      final response = await DioUtil.dio.get('/berita');
-      List<dynamic> resultList = response.data;
+      final response = await http.get(
+        Uri.parse("$apiUrl/berita"),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
 
-      List<BeritaModel> result = resultList
-          .map((resultMap) => BeritaModel.fromJson(resultMap))
-          .toList();
-
-      if (kDebugMode) {
-        print(filter);
+      if (response.statusCode == 200) {
+        final List<dynamic> responseData = jsonDecode(response.body);
+        final List<BeritaModel> beritaList = responseData.map((item) => BeritaModel.fromJson(item)).toList();
+        return beritaList;
+      } else {
+        throw Exception('Terjadi kesalahan saat mengambil data berita. Status code: ${response.statusCode}');
       }
-
-      return result;
     } catch (error) {
-      print('Error: $error');
-      return []; // Atau bisa Anda atur sebagai null atau lakukan penanganan kesalahan lainnya
+      throw Exception('Error: $error');
     }
+
+    // try {
+    //   // final response = await DioUtil.dio.get('/berita?filter=$filter');
+    //   final response = await DioUtil.dio.get('/berita');
+    //   List<dynamic> resultList = response.data;
+    //
+    //   List<BeritaModel> result = resultList
+    //       .map((resultMap) => BeritaModel.fromJson(resultMap))
+    //       .toList();
+    //
+    //   if (kDebugMode) {
+    //     print(filter);
+    //   }
+    //
+    //   return result;
+    // } catch (error) {
+    //   print('Error: $error');
+    //   return []; // Atau bisa Anda atur sebagai null atau lakukan penanganan kesalahan lainnya
+    // }
   }
 
   @override
@@ -972,6 +992,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<void> createUsulanKegiatan(
       UsulanKegiatanModel usulanKegiatanModel) async {
+    print(usulanKegiatanModel.toJson());
     // try {
     //   final response = await DioUtil.dio.post(
     //     '/usulan',
@@ -981,23 +1002,23 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     // } catch (error) {
     //   print('Error: $error');
     // }
-    try {
-      final response = await http.post(
-        Uri.parse("$apiUrl/usulan"),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(usulanKegiatanModel.toJson()),
-      );
-
-      if (response.statusCode == 200) {
-        print('Usulan kegiatan berhasil dikirim.');
-      } else {
-        print('Terjadi kesalahan saat mengirim usulan kegiatan. Status code: ${response.statusCode}');
-      }
-    } catch (error) {
-      print('Error: $error');
-    }
+    // try {
+    //   final response = await http.post(
+    //     Uri.parse("$apiUrl/usulan"),
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: jsonEncode(usulanKegiatanModel.toJson()),
+    //   );
+    //
+    //   if (response.statusCode == 200) {
+    //     print('Usulan kegiatan berhasil dikirim.');
+    //   } else {
+    //     print('Terjadi kesalahan saat mengirim usulan kegiatan. Status code: ${response.statusCode}');
+    //   }
+    // } catch (error) {
+    //   print('Error: $error');
+    // }
   }
 
   @override

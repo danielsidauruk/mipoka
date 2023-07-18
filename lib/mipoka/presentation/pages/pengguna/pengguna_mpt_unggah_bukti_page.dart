@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 import 'package:crypto/crypto.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
+import 'package:universal_io/io.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -135,19 +138,25 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                             String? fileHash;
 
                                             if (kIsWeb) {
-                                              bytes = file.bytes;
-                                              fileHash = sha256.convert(bytes!.toList()).toString();
+                                              bytes = file.bytes!;
+                                              // fileHash = sha256.convert(bytes).toString();
+                                              // fileHash = hash.toString();
+                                              List<int> convertedList = bytes.toList();
+                                              fileHash = sha256.convert(convertedList).toString();
                                             } else if (Platform.isAndroid) {
                                               bytes = await File(file.path!).readAsBytes();
                                               fileHash = sha256.convert(bytes).toString();
                                             }
 
-                                            List<String> hashList = riwayatKegiatanState.riwayatKegiatanMptList.map((sha256) => sha256.hash).toList();
+                                            List<String> hashList = riwayatKegiatanState.riwayatKegiatanMptList.map(
+                                                    (sha256) => sha256.hash).toList();
 
                                             if (hashList.contains(fileHash) == true) {
                                               mipokaCustomToast("Tidak dapat mengunggah file yang sama");
                                             } else {
-                                              String? downloadUrl = await uploadFileToFirebase(file, "sertifikatmpt${user?.uid ?? "unknown"}");
+                                              mipokaCustomToast('Sedang menyimpan file ...');
+                                              print (fileHash);
+                                              String? downloadUrl = await uploadBytesToFirebase(bytes!, "${user?.uid ?? ""}${file.name}");
                                               _shaController.text = fileHash ?? "";
                                               _fileSertifikatMptController.text = downloadUrl ?? "";
 
@@ -179,6 +188,7 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                             mipokaCustomToast("Harap unggah file.");
                                           }
                                         } catch (error) {
+                                          print (error);
                                           if (kDebugMode) {
                                             print(error);
                                           }
@@ -285,6 +295,8 @@ Future<String?> selectAndUploadFile(String fileName) async {
     return null;
   }
 }
+
+File createFileFromBytes(Uint8List bytes) => File.fromRawPath(bytes);
 
 // Future<String> calculateSHA(File file) async {
 //   final reader = FileReader();

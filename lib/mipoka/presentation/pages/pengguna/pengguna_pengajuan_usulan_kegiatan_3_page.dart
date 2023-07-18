@@ -275,7 +275,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                             return MipokaFileUploader(
                               asset: "assets/icons/attach.png",
                               onTap: () async {
-                                _postinganKegiatanResult = await FilePicker.platform.pickFiles();
+                                _postinganKegiatanResult = await FilePicker.platform.pickFiles(type: FileType.image);
                                 PlatformFile? file = _postinganKegiatanResult?.files.first;
                                 if (_postinganKegiatanResult != null) {
                                   if (file?.extension!.toLowerCase() == 'jpg' ||
@@ -315,7 +315,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                             return MipokaFileUploader(
                               asset: "assets/icons/attach.png",
                               onTap: () async {
-                                _suratUndanganKegiatanResult = await FilePicker.platform.pickFiles();
+                                _suratUndanganKegiatanResult = await FilePicker.platform.pickFiles(type: FileType.image);
                                 PlatformFile? file = _suratUndanganKegiatanResult?.files.first;
                                 if (_suratUndanganKegiatanResult!= null) {
                                   if (file?.extension!.toLowerCase() == 'jpg' ||
@@ -355,7 +355,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                             return MipokaFileUploader(
                               asset: "assets/icons/attach.png",
                               onTap: () async {
-                                _linimasaKegiatanResult = await FilePicker.platform.pickFiles();
+                                _linimasaKegiatanResult = await FilePicker.platform.pickFiles(type: FileType.image);
                                 PlatformFile? file = _linimasaKegiatanResult?.files.first;
                                 if (_linimasaKegiatanResult!= null) {
                                   if (file?.extension!.toLowerCase() == 'jpg' ||
@@ -395,7 +395,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                             return MipokaFileUploader(
                               asset: "assets/icons/attach.png",
                               onTap: () async {
-                                _fotoTempatKegiatanResult = await FilePicker.platform.pickFiles();
+                                _fotoTempatKegiatanResult = await FilePicker.platform.pickFiles(type: FileType.image);
                                 PlatformFile? file = _fotoTempatKegiatanResult?.files.first;
                                 if (_fotoTempatKegiatanResult!= null) {
                                   if (file?.extension!.toLowerCase() == 'jpg' ||
