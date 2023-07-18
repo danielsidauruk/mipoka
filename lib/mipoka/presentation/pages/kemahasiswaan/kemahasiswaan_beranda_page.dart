@@ -73,8 +73,10 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                           onPressed: () => Navigator.pushNamed(
                             context,
                             kemahasiswaanBerandaTambahBeritaPageRoute,
-                          ).then((_) => context.read<BeritaBloc>().add(
-                              ReadAllBeritaEvent())),
+                          ).then((_) => Future.delayed(Duration(seconds: 5), () {
+                            context.read<BeritaBloc>().add(
+                                ReadAllBeritaEvent());
+                          })),
                         ),
                         const CustomFieldSpacer(),
                         buildTitle('Penulis'),

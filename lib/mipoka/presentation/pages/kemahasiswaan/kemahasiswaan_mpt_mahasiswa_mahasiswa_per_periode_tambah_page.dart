@@ -83,6 +83,8 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
   @override
   Widget build(BuildContext context) {
+
+    print ("Result : $result");
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
 
@@ -188,34 +190,38 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
                   BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
                     builder: (context, state) {
-                      if (state is MipokaUserByNimLoading) {
-                        if (kDebugMode) {
-                          print ("Loading ...");
-                        }
-                        return const SizedBox();
-                      } else if (state is MipokaUserByNimByNimHasData) {
-                        int randomId = Random().nextInt(99999999);
-                        context.read<MhsPerPeriodeMptBloc>().add(
-                          CreateMhsPerPeriodeMptEvent(
-                            mhsPerPeriodeMpt: MhsPerPeriodeMpt(
-                              idMhsPerPeriodeMpt: randomId,
-                              mipokaUser: state.mipokaUser,
-                              periodeMpt: _periodeMpt!,
-                              createdAt: currentDate,
-                              createdBy: user?.email ?? "unknown",
-                              updatedAt: currentDate,
-                              updatedBy: user?.email ?? "unknown",
+                      if (result != null) {
+                        if (state is MipokaUserByNimLoading) {
+                          if (kDebugMode) {
+                            print ("Loading ...");
+                          }
+                          return const SizedBox();
+                        } else if (state is MipokaUserByNimByNimHasData) {
+                          int randomId = Random().nextInt(99999999);
+                          context.read<MhsPerPeriodeMptBloc>().add(
+                            CreateMhsPerPeriodeMptEvent(
+                              mhsPerPeriodeMpt: MhsPerPeriodeMpt(
+                                idMhsPerPeriodeMpt: randomId,
+                                mipokaUser: state.mipokaUser,
+                                periodeMpt: _periodeMpt!,
+                                createdAt: currentDate,
+                                createdBy: user?.email ?? "unknown",
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "unknown",
+                              ),
                             ),
-                          ),
-                        );
-                        return const SizedBox();
-                      } else if (state is MipokaUserByNimError) {
-                        return Text(state.message);
-                      } else {
-                        if (kDebugMode) {
-                          print("MhsPerPeriode hasn't been triggered yet.");
+                          );
+                          return const SizedBox();
+                        } else if (state is MipokaUserByNimError) {
+                          return Text(state.message);
+                        } else {
+                          if (kDebugMode) {
+                            print("MhsPerPeriode hasn't been triggered yet.");
+                          }
+                          return const SizedBox();
                         }
-                        return const SizedBox();
+                      } else {
+                        return Center();
                       }
                     },
                   ),

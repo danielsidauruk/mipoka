@@ -135,6 +135,27 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                                 gambarUrl = await uploadBytesToFirebase(bytes, "$newId${file.name}");
                               }
 
+                              // Future.delayed(Duration(seconds: 2), () {
+                              //   context.read<BeritaBloc>().add(
+                              //     CreateBeritaEvent(
+                              //       Berita(
+                              //         idBerita: newId,
+                              //         judul: _judulBeritaController.text,
+                              //         penulis: _penulisController.text,
+                              //         gambar: gambarUrl ?? "",
+                              //         teks: _textBeritaController.text,
+                              //         tglTerbit: currentDate,
+                              //         createdAt: currentDate,
+                              //         createdBy: user?.email ?? "unknown",
+                              //         updatedAt: currentDate,
+                              //         updatedBy: user?.email ?? "unknown",
+                              //       ),
+                              //     ),
+                              //   );
+                              //
+                              //   mipokaCustomToast("Berita berhasil ditambahkan.");
+                              // });
+
                               context.read<BeritaBloc>().add(
                                 CreateBeritaEvent(
                                   Berita(
@@ -153,7 +174,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                               );
 
                               mipokaCustomToast("Berita berhasil ditambahkan.");
-                              // Navigator.pop(context);
+                              Navigator.pop(context);
 
                               // mipokaCustomToast("Berita berhasil ditambahkan.");
                               // Navigator.pop(context);
@@ -166,7 +187,6 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                         },
                         text: 'Simpan',
                       ),
-
                     ],
                   ),
                 ],
