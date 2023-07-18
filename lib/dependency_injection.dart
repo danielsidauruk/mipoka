@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
+import 'package:mipoka/domain/utils/dio_util.dart';
 import 'package:mipoka/mipoka/data/data_sources/mipoka_data_sources.dart';
 import 'package:mipoka/mipoka/data/repositories/mipoka_repositories_impl.dart';
 import 'package:mipoka/mipoka/domain/repositories/mipoka_repositories.dart';
@@ -57,6 +59,7 @@ final locator = GetIt.instance;
 Future<void> init() async {
   // EXTERNAL
   locator.registerLazySingleton<Client>(() => Client());
+  locator.registerLazySingleton<Dio>(() => DioUtil.dio);
 
   // BLOC
   locator.registerFactory(() => AdminBloc(adminUseCase: locator()));

@@ -74,7 +74,7 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                             context,
                             kemahasiswaanBerandaTambahBeritaPageRoute,
                           ).then((_) => context.read<BeritaBloc>().add(
-                              ReadAllBeritaEvent(filter: _filter!))),
+                              ReadAllBeritaEvent())),
                         ),
                         const CustomFieldSpacer(),
                         buildTitle('Penulis'),

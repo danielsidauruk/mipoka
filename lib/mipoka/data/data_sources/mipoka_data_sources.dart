@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:mipoka/core/constanst.dart';
+import 'package:mipoka/domain/utils/dio_util.dart';
 import 'package:mipoka/mipoka/data/models/admin_model.dart';
 import 'package:mipoka/mipoka/data/models/berita_model.dart';
 import 'package:mipoka/mipoka/data/models/jenis_kegaitan_mpt.dart';
@@ -169,9 +171,35 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<void> createBerita(BeritaModel beritaModel) async {
-    if (kDebugMode) {
-      print(beritaModel.toJson());
+    // if (kDebugMode) {
+    //   print(beritaModel.toJson());
+    // }
+    try {
+      final response = await DioUtil.dio.post(
+        '/berita',
+        data: beritaModel.toJson(),
+      );
+      print(response.data);
+    } catch (error) {
+      print('Error: $error');
     }
+    // try {
+    //   final response = await http.post(
+    //     Uri.parse("$apiUrl/berita"),
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: jsonEncode(beritaModel.toJson()),
+    //   );
+    //
+    //   if (response.statusCode == 200) {
+    //     print('Usulan kegiatan berhasil dikirim.');
+    //   } else {
+    //     print('Terjadi kesalahan saat mengirim usulan kegiatan. Status code: ${response.statusCode}');
+    //   }
+    // } catch (error) {
+    //   print('Error: $error');
+    // }
   }
 
   @override
@@ -183,18 +211,36 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<List<BeritaModel>> readAllBerita(String filter) async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/berita_list.json');
-    List<dynamic> resultList = json.decode(response);
+    // final String response =
+    // await rootBundle.loadString('assets/json_file/berita_list.json');
+    // List<dynamic> resultList = json.decode(response);
+    //
+    // List<BeritaModel> result =
+    // resultList.map((resultMap) => BeritaModel.fromJson(resultMap)).toList();
+    //
+    // if (kDebugMode) {
+    //   print(filter);
+    // }
+    //
+    // return result;
+    try {
+      // final response = await DioUtil.dio.get('/berita?filter=$filter');
+      final response = await DioUtil.dio.get('/berita');
+      List<dynamic> resultList = response.data;
 
-    List<BeritaModel> result =
-    resultList.map((resultMap) => BeritaModel.fromJson(resultMap)).toList();
+      List<BeritaModel> result = resultList
+          .map((resultMap) => BeritaModel.fromJson(resultMap))
+          .toList();
 
-    if (kDebugMode) {
-      print(filter);
+      if (kDebugMode) {
+        print(filter);
+      }
+
+      return result;
+    } catch (error) {
+      print('Error: $error');
+      return []; // Atau bisa Anda atur sebagai null atau lakukan penanganan kesalahan lainnya
     }
-
-    return result;
   }
 
   @override
@@ -860,8 +906,14 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   /* => MipokaUser DataSources */
   @override
   Future<void> createMipokaUser(MipokaUserModel mipokaUserModel) async {
-    if (kDebugMode) {
-      print(mipokaUserModel.toJson());
+    try {
+      final response = await DioUtil.dio.post(
+        '/user',
+        data: mipokaUserModel.toJson(),
+      );
+      print(response.data);
+    } catch (error) {
+      print('Error: $error');
     }
   }
 
@@ -920,8 +972,31 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<void> createUsulanKegiatan(
       UsulanKegiatanModel usulanKegiatanModel) async {
-    if (kDebugMode) {
-      print(usulanKegiatanModel.toJson());
+    // try {
+    //   final response = await DioUtil.dio.post(
+    //     '/usulan',
+    //     data: usulanKegiatanModel.toJson(),
+    //   );
+    //   print(response.data);
+    // } catch (error) {
+    //   print('Error: $error');
+    // }
+    try {
+      final response = await http.post(
+        Uri.parse("$apiUrl/usulan"),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(usulanKegiatanModel.toJson()),
+      );
+
+      if (response.statusCode == 200) {
+        print('Usulan kegiatan berhasil dikirim.');
+      } else {
+        print('Terjadi kesalahan saat mengirim usulan kegiatan. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error: $error');
     }
   }
 

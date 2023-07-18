@@ -1,18 +1,18 @@
 [
   {
-    "id_jenis_kegiatan_mpt": 342421,
+    "id_jenis_kegiatan_mpt": 11111,
     "nama_jenis_kegiatan_mpt": "Pelayanan Masyarakat",
-    "created_at": "2023-06-26",
+    "created_at": "26-1-2023",
     "created_by": "Jane Smith",
-    "updated_at": "2023-06-26",
+    "updated_at": "26-1-2023",
     "updated_by": "John Doe"
   },
   {
-    "id_jenis_kegiatan_mpt": 421,
-    "nama_jenis_kegiatan_mpt": "Pelayanan Manusia",
-    "created_at": "2023-06-26",
+    "id_jenis_kegiatan_mpt": 22222,
+    "nama_jenis_kegiatan_mpt": "Kerja Bakti",
+    "created_at": "26-1-2023",
     "created_by": "Jane Smith",
-    "updated_at": "2023-06-26",
+    "updated_at": "26-1-2023",
     "updated_by": "John Doe"
   }
 ]

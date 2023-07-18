@@ -17,8 +17,8 @@ class BeritaBloc extends Bloc<BeritaEvent, BeritaState> {
       final berita = await beritaUseCase.createBerita(event.berita);
 
       berita.fold(
-        (failure) => emit(BeritaError(message: failure.message)),
-        (_) => emit(const BeritaSuccessMessage()),
+            (failure) => emit(BeritaError(message: failure.message)),
+            (_) => emit(const BeritaSuccessMessage()),
       );
     });
 

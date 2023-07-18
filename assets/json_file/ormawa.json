@@ -1,12 +1,12 @@
 {
-  "id_ormawa": 33333,
+  "id_ormawa": 1111,
   "nama_ormawa": "Mikroskil Esport",
   "nama_singkatan_ormawa": "ME",
   "logo_ormawa": "link_photo",
   "list_anggota": [
-    "wfqfeq",
-    "1314321",
-    "12343r1r2"
+    "2222",
+    "3333",
+    "4444"
   ],
   "pembina": "Pembina Ormawa",
   "ketua": "Ketua Ormawa",
@@ -19,8 +19,8 @@
   "foto_wakil": "link_foto_wakil",
   "foto_sekretaris": "link_foto_sekretaris",
   "foto_bendahara": "link_foto_bendahara",
-  "created_at": "2023-06-26",
+  "created_at": "26-6-2023",
   "created_by": "John Doe",
-  "updated_by": "Jane Smith",
-  "updated_at": "2023-06-26"
+  "updated_at": "26-6-2023",
+  "updated_by": "Jane Smith"
 }

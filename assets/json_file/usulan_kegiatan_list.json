@@ -5,7 +5,34 @@
       "id_revisi_usulan": 1,
       "user": {
         "id_user": "24313sfa1",
-        "ormawa": [],
+        "ormawa": [
+          {
+            "id_ormawa": 1111,
+            "nama_ormawa": "Mikroskil Esport",
+            "nama_singkatan_ormawa": "ME",
+            "logo_ormawa": "link_photo",
+            "list_anggota": [
+              "2222",
+              "3333",
+              "4444"
+            ],
+            "pembina": "Pembina Ormawa",
+            "ketua": "Ketua Ormawa",
+            "wakil": "Wakil Ketua Ormawa",
+            "sekretaris": "Sekretaris Ormawa",
+            "bendahara": "Bendahara Ormawa",
+            "jumlah_anggota": 50,
+            "foto_pembina": "link_foto_pembina",
+            "foto_ketua": "link_foto_ketua",
+            "foto_wakil": "link_foto_wakil",
+            "foto_sekretaris": "link_foto_sekretaris",
+            "foto_bendahara": "link_foto_bendahara",
+            "created_at": "26-6-2023",
+            "created_by": "John Doe",
+            "updated_at": "26-6-2023",
+            "updated_by": "Jane Smith"
+          }
+        ],
         "email": "john.doe@example.com",
         "nama_lengkap": "John Doe",
         "nim": "123456789",
@@ -17,8 +44,8 @@
         "periode_mpt": "2023-2024",
         "status_mpt": "Aktif",
         "prodi": "Teknik Informatika",
-        "created_at": "2023-06-25T12:00:00",
-        "updated_at": "2023-06-26T10:30:00",
+        "created_at": "20-1-2023",
+        "updated_at": "20-1-2023",
         "created_by": "Admin001",
         "updated_by": "Admin002"
       },
@@ -57,23 +84,23 @@
       "revisi_foto_surat_undangan_kegiatan": "http://example.com/foto-undangan.jpg",
       "revisi_foto_linimasa_kegiatan": "http://example.com/foto-linimasa.jpg",
       "revisi_foto_tempat_kegiatan": "http://example.com/foto1.jpg",
-      "created_at": "2023-06-26",
+      "created_at": "23-6-2022",
       "created_by": "John Doe",
-      "updated_at": "2023-06-26",
+      "updated_at": "23-6-2022",
       "updated_by": "Jane Smith"
     },
     "user": {
       "id_user": "24313sfa1",
       "ormawa": [
         {
-          "id_ormawa": 33333,
+          "id_ormawa": 1111,
           "nama_ormawa": "Mikroskil Esport",
           "nama_singkatan_ormawa": "ME",
           "logo_ormawa": "link_photo",
           "list_anggota": [
-            "wfqfeq",
-            "1314321",
-            "12343r1r2"
+            "2222",
+            "3333",
+            "4444"
           ],
           "pembina": "Pembina Ormawa",
           "ketua": "Ketua Ormawa",
@@ -86,36 +113,10 @@
           "foto_wakil": "link_foto_wakil",
           "foto_sekretaris": "link_foto_sekretaris",
           "foto_bendahara": "link_foto_bendahara",
-          "created_at": "2023-06-26",
+          "created_at": "26-6-2023",
           "created_by": "John Doe",
-          "updated_by": "Jane Smith",
-          "updated_at": "2023-06-26"
-        },
-        {
-          "id_ormawa": 4433,
-          "nama_ormawa": "Mikroskil Singing Club",
-          "nama_singkatan_ormawa": "MSC",
-          "logo_ormawa": "link_photo",
-          "list_anggota": [
-            "wfqfeq",
-            "1314321",
-            "12343r1r2"
-          ],
-          "pembina": "Pembina Ormawa",
-          "ketua": "Ketua Ormawa",
-          "wakil": "Wakil Ketua Ormawa",
-          "sekretaris": "Sekretaris Ormawa",
-          "bendahara": "Bendahara Ormawa",
-          "jumlah_anggota": 50,
-          "foto_pembina": "link_foto_pembina",
-          "foto_ketua": "link_foto_ketua",
-          "foto_wakil": "link_foto_wakil",
-          "foto_sekretaris": "link_foto_sekretaris",
-          "foto_bendahara": "link_foto_bendahara",
-          "created_at": "2023-06-26",
-          "created_by": "John Doe",
-          "updated_by": "Jane Smith",
-          "updated_at": "2023-06-26"
+          "updated_at": "26-6-2023",
+          "updated_by": "Jane Smith"
         }
       ],
       "email": "john.doe@example.com",
@@ -129,20 +130,20 @@
       "periode_mpt": "2023-2024",
       "status_mpt": "Aktif",
       "prodi": "Teknik Informatika",
-      "created_at": "2023-06-25T12:00:00",
-      "updated_at": "2023-06-26T10:30:00",
+      "created_at": "20-1-2023",
+      "updated_at": "20-1-2023",
       "created_by": "Admin001",
       "updated_by": "Admin002"
     },
     "ormawa": {
-      "id_ormawa": 33333,
+      "id_ormawa": 1111,
       "nama_ormawa": "Mikroskil Esport",
       "nama_singkatan_ormawa": "ME",
       "logo_ormawa": "link_photo",
       "list_anggota": [
-        "wfqfeq",
-        "1314321",
-        "12343r1r2"
+        "2222",
+        "3333",
+        "4444"
       ],
       "pembina": "Pembina Ormawa",
       "ketua": "Ketua Ormawa",
@@ -155,23 +156,23 @@
       "foto_wakil": "link_foto_wakil",
       "foto_sekretaris": "link_foto_sekretaris",
       "foto_bendahara": "link_foto_bendahara",
-      "created_at": "2023-06-26",
+      "created_at": "26-6-2023",
       "created_by": "John Doe",
-      "updated_by": "Jane Smith",
-      "updated_at": "2023-06-26"
+      "updated_at": "26-6-2023",
+      "updated_by": "Jane Smith"
     },
     "pembiayaan": "Mandiri",
     "nama_kegiatan": "Workshop Seni Rupa",
     "bentuk_kegiatan": "",
     "kategori_bentuk_kegiatan": "Luring",
     "deskripsi_kegiatan": "Workshop seni rupa untuk mengembangkan keterampilan seni peserta",
-    "tanggal_mulai_kegiatan": "2023-07-10",
-    "tanggal_selesai_kegiatan": "2023-07-12",
+    "tanggal_mulai_kegiatan": "26-6-2023",
+    "tanggal_selesai_kegiatan": "26-6-2023",
     "waktu_mulai_kegiatan": "09:00",
     "waktu_selesai_kegiatan": "16:00",
     "tempat_kegiatan": "tempat_kegiatan",
-    "tanggal_keberangkatan": "2023-07-09",
-    "tanggal_kepulangan": "2023-07-13",
+    "tanggal_keberangkatan": "26-6-2023",
+    "tanggal_kepulangan": "26-6-2023",
     "jumlah_partisipan": "30",
     "kategori_jumlah_partisipan": "Orang",
     "target_kegiatan": "Meningkatkan keterampilan seni peserta",
@@ -186,12 +187,12 @@
         "nama_partisipan": "John Doe",
         "nik": "1234567890",
         "tempat_lahir": "Jakarta",
-        "tgl_lahir": "1990-01-01",
+        "tgl_lahir": "26-6-2023",
         "peran_partisipan": "Peserta",
         "dasar_pengiriman": "Dalam rangka pengembangan keterampilan",
-        "created_at": "2023-06-26",
+        "created_at": "26-6-2023",
         "created_by": "John Doe",
-        "updated_at": "2023-06-26",
+        "updated_at": "26-6-2023",
         "updated_by": "Jane Smith"
       },
       {
@@ -200,12 +201,12 @@
         "nama_partisipan": "John Doe",
         "nik": "1234567890",
         "tempat_lahir": "Jakarta",
-        "tgl_lahir": "1990-01-01",
+        "tgl_lahir": "26-6-2023",
         "peran_partisipan": "Peserta",
         "dasar_pengiriman": "Dalam rangka pengembangan keterampilan",
-        "created_at": "2023-06-26",
+        "created_at": "26-6-2023",
         "created_by": "John Doe",
-        "updated_at": "2023-06-26",
+        "updated_at": "26-6-2023",
         "updated_by": "Jane Smith"
       }
     ],
@@ -217,11 +218,11 @@
         "harga_satuan": 5000,
         "total": 500000,
         "keterangan": "Biaya konsumsi untuk peserta selama kegiatan",
-        "created_at": "2023-06-26",
+        "created_at": "26-6-2023",
         "created_by": "John Doe",
-        "updated_at": "2023-06-26",
+        "updated_at": "26-6-2023",
         "updated_by": "Jane Smith"
-
+  
       },
       {
         "id_biaya_kegiatan": 234242,
@@ -230,9 +231,9 @@
         "harga_satuan": 5000,
         "total": 500000,
         "keterangan": "Biaya konsumsi untuk peserta selama kegiatan",
-        "created_at": "2023-06-26",
+        "created_at": "26-6-2023",
         "created_by": "John Doe",
-        "updated_at": "2023-06-26",
+        "updated_at": "26-6-2023",
         "updated_by": "Jane Smith"
       }
     ],
@@ -247,24 +248,24 @@
     "tertib_acara": [
       {
         "id_tertib_acara": 1467823,
-        "waktu_mulai": "2023-06-26 09:00",
-        "waktu_selesai": "2023-06-26 10:30",
+        "waktu_mulai": "09:00",
+        "waktu_selesai": "10:30",
         "aktivitas": "Presentasi hasil proyek",
         "keterangan": "Peserta diharapkan membawa laptop",
-        "created_at": "2023-06-26",
+        "created_at": "26-6-2023",
         "created_by": "John Doe",
-        "updated_at": "2023-06-26",
+        "updated_at": "26-6-2023",
         "updated_by": "Jane Smith"
       },
       {
         "id_tertib_acara": 1467823,
-        "waktu_mulai": "2023-06-26 09:00",
-        "waktu_selesai": "2023-06-26 10:30",
+        "waktu_mulai": "09:00",
+        "waktu_selesai": "10:30",
         "aktivitas": "Presentasi hasil proyek",
         "keterangan": "Peserta diharapkan membawa laptop",
-        "created_at": "2023-06-26",
+        "created_at": "26-6-2023",
         "created_by": "John Doe",
-        "updated_at": "2023-06-26",
+        "updated_at": "26-6-2023",
         "updated_by": "Jane Smith"
       }
     ],
@@ -277,20 +278,47 @@
     "file_usulan_kegiatan": "",
     "validasi_pembina": "true",
     "tanda_tangan_pembina": "TandaTanganPembina001",
-    "status_usulan": "Tertunda",
+    "status_usulan": "Disetujui",
     "roles": "Admin",
-    "created_at": "05-06-2023",
-    "updated_at": "05-06-2023",
+    "created_at": "26-6-2023",
+    "updated_at": "26-6-2023",
     "created_by": "Admin001",
     "updated_by": "Admin002"
   },
   {
-    "id_usulan": 535123,
+    "id_usulan": 22222,
     "revisi_usulan": {
       "id_revisi_usulan": 1,
       "user": {
         "id_user": "24313sfa1",
-        "ormawa": [],
+        "ormawa": [
+          {
+            "id_ormawa": 1111,
+            "nama_ormawa": "Mikroskil Esport",
+            "nama_singkatan_ormawa": "ME",
+            "logo_ormawa": "link_photo",
+            "list_anggota": [
+              "2222",
+              "3333",
+              "4444"
+            ],
+            "pembina": "Pembina Ormawa",
+            "ketua": "Ketua Ormawa",
+            "wakil": "Wakil Ketua Ormawa",
+            "sekretaris": "Sekretaris Ormawa",
+            "bendahara": "Bendahara Ormawa",
+            "jumlah_anggota": 50,
+            "foto_pembina": "link_foto_pembina",
+            "foto_ketua": "link_foto_ketua",
+            "foto_wakil": "link_foto_wakil",
+            "foto_sekretaris": "link_foto_sekretaris",
+            "foto_bendahara": "link_foto_bendahara",
+            "created_at": "26-6-2023",
+            "created_by": "John Doe",
+            "updated_at": "26-6-2023",
+            "updated_by": "Jane Smith"
+          }
+        ],
         "email": "john.doe@example.com",
         "nama_lengkap": "John Doe",
         "nim": "123456789",
@@ -302,8 +330,8 @@
         "periode_mpt": "2023-2024",
         "status_mpt": "Aktif",
         "prodi": "Teknik Informatika",
-        "created_at": "2023-06-25T12:00:00",
-        "updated_at": "2023-06-26T10:30:00",
+        "created_at": "20-1-2023",
+        "updated_at": "20-1-2023",
         "created_by": "Admin001",
         "updated_by": "Admin002"
       },
@@ -342,23 +370,23 @@
       "revisi_foto_surat_undangan_kegiatan": "http://example.com/foto-undangan.jpg",
       "revisi_foto_linimasa_kegiatan": "http://example.com/foto-linimasa.jpg",
       "revisi_foto_tempat_kegiatan": "http://example.com/foto1.jpg",
-      "created_at": "2023-06-26",
+      "created_at": "23-6-2022",
       "created_by": "John Doe",
-      "updated_at": "2023-06-26",
+      "updated_at": "23-6-2022",
       "updated_by": "Jane Smith"
     },
     "user": {
       "id_user": "24313sfa1",
       "ormawa": [
         {
-          "id_ormawa": 33333,
+          "id_ormawa": 1111,
           "nama_ormawa": "Mikroskil Esport",
           "nama_singkatan_ormawa": "ME",
           "logo_ormawa": "link_photo",
           "list_anggota": [
-            "wfqfeq",
-            "1314321",
-            "12343r1r2"
+            "2222",
+            "3333",
+            "4444"
           ],
           "pembina": "Pembina Ormawa",
           "ketua": "Ketua Ormawa",
@@ -371,36 +399,10 @@
           "foto_wakil": "link_foto_wakil",
           "foto_sekretaris": "link_foto_sekretaris",
           "foto_bendahara": "link_foto_bendahara",
-          "created_at": "2023-06-26",
+          "created_at": "26-6-2023",
           "created_by": "John Doe",
-          "updated_by": "Jane Smith",
-          "updated_at": "2023-06-26"
-        },
-        {
-          "id_ormawa": 4433,
-          "nama_ormawa": "Mikroskil Singing Club",
-          "nama_singkatan_ormawa": "MSC",
-          "logo_ormawa": "link_photo",
-          "list_anggota": [
-            "wfqfeq",
-            "1314321",
-            "12343r1r2"
-          ],
-          "pembina": "Pembina Ormawa",
-          "ketua": "Ketua Ormawa",
-          "wakil": "Wakil Ketua Ormawa",
-          "sekretaris": "Sekretaris Ormawa",
-          "bendahara": "Bendahara Ormawa",
-          "jumlah_anggota": 50,
-          "foto_pembina": "link_foto_pembina",
-          "foto_ketua": "link_foto_ketua",
-          "foto_wakil": "link_foto_wakil",
-          "foto_sekretaris": "link_foto_sekretaris",
-          "foto_bendahara": "link_foto_bendahara",
-          "created_at": "2023-06-26",
-          "created_by": "John Doe",
-          "updated_by": "Jane Smith",
-          "updated_at": "2023-06-26"
+          "updated_at": "26-6-2023",
+          "updated_by": "Jane Smith"
         }
       ],
       "email": "john.doe@example.com",
@@ -414,20 +416,20 @@
       "periode_mpt": "2023-2024",
       "status_mpt": "Aktif",
       "prodi": "Teknik Informatika",
-      "created_at": "2023-06-25T12:00:00",
-      "updated_at": "2023-06-26T10:30:00",
+      "created_at": "20-1-2023",
+      "updated_at": "20-1-2023",
       "created_by": "Admin001",
       "updated_by": "Admin002"
     },
     "ormawa": {
-      "id_ormawa": 33333,
+      "id_ormawa": 1111,
       "nama_ormawa": "Mikroskil Esport",
       "nama_singkatan_ormawa": "ME",
       "logo_ormawa": "link_photo",
       "list_anggota": [
-        "wfqfeq",
-        "1314321",
-        "12343r1r2"
+        "2222",
+        "3333",
+        "4444"
       ],
       "pembina": "Pembina Ormawa",
       "ketua": "Ketua Ormawa",
@@ -440,23 +442,23 @@
       "foto_wakil": "link_foto_wakil",
       "foto_sekretaris": "link_foto_sekretaris",
       "foto_bendahara": "link_foto_bendahara",
-      "created_at": "2023-06-26",
+      "created_at": "26-6-2023",
       "created_by": "John Doe",
-      "updated_by": "Jane Smith",
-      "updated_at": "2023-06-26"
+      "updated_at": "26-6-2023",
+      "updated_by": "Jane Smith"
     },
     "pembiayaan": "Mandiri",
-    "nama_kegiatan": "Live Tiktok Mandi Lumpur",
+    "nama_kegiatan": "Mandi Bola Mikroskil",
     "bentuk_kegiatan": "",
     "kategori_bentuk_kegiatan": "Luring",
     "deskripsi_kegiatan": "Workshop seni rupa untuk mengembangkan keterampilan seni peserta",
-    "tanggal_mulai_kegiatan": "2023-07-10",
-    "tanggal_selesai_kegiatan": "2023-07-12",
+    "tanggal_mulai_kegiatan": "26-6-2023",
+    "tanggal_selesai_kegiatan": "26-6-2023",
     "waktu_mulai_kegiatan": "09:00",
     "waktu_selesai_kegiatan": "16:00",
     "tempat_kegiatan": "tempat_kegiatan",
-    "tanggal_keberangkatan": "2023-07-09",
-    "tanggal_kepulangan": "2023-07-13",
+    "tanggal_keberangkatan": "26-6-2023",
+    "tanggal_kepulangan": "26-6-2023",
     "jumlah_partisipan": "30",
     "kategori_jumlah_partisipan": "Orang",
     "target_kegiatan": "Meningkatkan keterampilan seni peserta",
@@ -471,12 +473,12 @@
         "nama_partisipan": "John Doe",
         "nik": "1234567890",
         "tempat_lahir": "Jakarta",
-        "tgl_lahir": "1990-01-01",
+        "tgl_lahir": "26-6-2023",
         "peran_partisipan": "Peserta",
         "dasar_pengiriman": "Dalam rangka pengembangan keterampilan",
-        "created_at": "2023-06-26",
+        "created_at": "26-6-2023",
         "created_by": "John Doe",
-        "updated_at": "2023-06-26",
+        "updated_at": "26-6-2023",
         "updated_by": "Jane Smith"
       },
       {
@@ -485,12 +487,12 @@
         "nama_partisipan": "John Doe",
         "nik": "1234567890",
         "tempat_lahir": "Jakarta",
-        "tgl_lahir": "1990-01-01",
+        "tgl_lahir": "26-6-2023",
         "peran_partisipan": "Peserta",
         "dasar_pengiriman": "Dalam rangka pengembangan keterampilan",
-        "created_at": "2023-06-26",
+        "created_at": "26-6-2023",
         "created_by": "John Doe",
-        "updated_at": "2023-06-26",
+        "updated_at": "26-6-2023",
         "updated_by": "Jane Smith"
       }
     ],
@@ -502,11 +504,11 @@
         "harga_satuan": 5000,
         "total": 500000,
         "keterangan": "Biaya konsumsi untuk peserta selama kegiatan",
-        "created_at": "2023-06-26",
+        "created_at": "26-6-2023",
         "created_by": "John Doe",
-        "updated_at": "2023-06-26",
+        "updated_at": "26-6-2023",
         "updated_by": "Jane Smith"
-
+  
       },
       {
         "id_biaya_kegiatan": 234242,
@@ -515,9 +517,9 @@
         "harga_satuan": 5000,
         "total": 500000,
         "keterangan": "Biaya konsumsi untuk peserta selama kegiatan",
-        "created_at": "2023-06-26",
+        "created_at": "26-6-2023",
         "created_by": "John Doe",
-        "updated_at": "2023-06-26",
+        "updated_at": "26-6-2023",
         "updated_by": "Jane Smith"
       }
     ],
@@ -532,24 +534,24 @@
     "tertib_acara": [
       {
         "id_tertib_acara": 1467823,
-        "waktu_mulai": "2023-06-26 09:00",
-        "waktu_selesai": "2023-06-26 10:30",
+        "waktu_mulai": "09:00",
+        "waktu_selesai": "10:30",
         "aktivitas": "Presentasi hasil proyek",
         "keterangan": "Peserta diharapkan membawa laptop",
-        "created_at": "2023-06-26",
+        "created_at": "26-6-2023",
         "created_by": "John Doe",
-        "updated_at": "2023-06-26",
+        "updated_at": "26-6-2023",
         "updated_by": "Jane Smith"
       },
       {
         "id_tertib_acara": 1467823,
-        "waktu_mulai": "2023-06-26 09:00",
-        "waktu_selesai": "2023-06-26 10:30",
+        "waktu_mulai": "09:00",
+        "waktu_selesai": "10:30",
         "aktivitas": "Presentasi hasil proyek",
         "keterangan": "Peserta diharapkan membawa laptop",
-        "created_at": "2023-06-26",
+        "created_at": "26-6-2023",
         "created_by": "John Doe",
-        "updated_at": "2023-06-26",
+        "updated_at": "26-6-2023",
         "updated_by": "Jane Smith"
       }
     ],
@@ -562,11 +564,11 @@
     "file_usulan_kegiatan": "",
     "validasi_pembina": "true",
     "tanda_tangan_pembina": "TandaTanganPembina001",
-    "status_usulan": "Ditolak",
+    "status_usulan": "Disetujui",
     "roles": "Admin",
-    "created_at": "05-06-2023",
-    "updated_at": "05-06-2023",
+    "created_at": "26-6-2023",
+    "updated_at": "26-6-2023",
     "created_by": "Admin001",
     "updated_by": "Admin002"
-  }
+  }    
 ]

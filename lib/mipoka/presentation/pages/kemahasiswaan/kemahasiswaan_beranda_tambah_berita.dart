@@ -118,6 +118,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                           if (_judulBeritaController.text.isNotEmpty &&
                               _penulisController.text.isNotEmpty &&
                               _textBeritaController.text.isNotEmpty) {
+                            mipokaCustomToast("Menyimpan data.");
                             final result = this.result;
                             if (result != null) {
                               PlatformFile file = result.files.first;
@@ -134,26 +135,28 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                                 gambarUrl = await uploadBytesToFirebase(bytes, "$newId${file.name}");
                               }
 
-                              mipokaCustomToast("Berita berhasil ditambahkan.");
-                              Future.microtask(() {
-                                context.read<BeritaBloc>().add(
-                                  CreateBeritaEvent(
-                                    Berita(
-                                      idBerita: newId,
-                                      judul: _judulBeritaController.text,
-                                      penulis: _penulisController.text,
-                                      gambar: gambarUrl ?? "",
-                                      teks: _textBeritaController.text,
-                                      tglTerbit: currentDate,
-                                      createdAt: currentDate,
-                                      createdBy: user?.email ?? "unknown",
-                                      updatedAt: currentDate,
-                                      updatedBy: user?.email ?? "unknown",
-                                    ),
+                              context.read<BeritaBloc>().add(
+                                CreateBeritaEvent(
+                                  Berita(
+                                    idBerita: newId,
+                                    judul: _judulBeritaController.text,
+                                    penulis: _penulisController.text,
+                                    gambar: gambarUrl ?? "",
+                                    teks: _textBeritaController.text,
+                                    tglTerbit: currentDate,
+                                    createdAt: currentDate,
+                                    createdBy: user?.email ?? "unknown",
+                                    updatedAt: currentDate,
+                                    updatedBy: user?.email ?? "unknown",
                                   ),
-                                );
-                                Navigator.pop(context);
-                              });
+                                ),
+                              );
+
+                              mipokaCustomToast("Berita berhasil ditambahkan.");
+                              // Navigator.pop(context);
+
+                              // mipokaCustomToast("Berita berhasil ditambahkan.");
+                              // Navigator.pop(context);
                             } else {
                               mipokaCustomToast("Harap unggah file yang diperlukan.");
                             }
