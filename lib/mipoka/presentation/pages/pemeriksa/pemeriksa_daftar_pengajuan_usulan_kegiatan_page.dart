@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'dart:ui' as ui;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -12,6 +14,7 @@ import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_1_page.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -23,6 +26,8 @@ import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dar
 import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
+import '../../../../domain/utils/mobile_image_converter.dart'
+if (dart.library.html) '../../../../domain/utils/web_image_converter.dart';
 
 class PemeriksaDaftarPengajuanKegiatanPage extends StatefulWidget {
   const PemeriksaDaftarPengajuanKegiatanPage({super.key});
@@ -41,6 +46,152 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
       context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: user?.uid ?? ""));
     });
     super.initState();
+  }
+
+  final GlobalKey<SfSignaturePadState> _signaturePadKey = GlobalKey();
+
+  void _showPopup(UsulanKegiatan usulanKegiatan) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, void Function(void Function()) setState) {
+            const Color backgroundColor = Colors.white;
+            const Color textColor = Colors.black87;
+
+            return AlertDialog(
+              insetPadding: const EdgeInsets.all(12.0),
+              backgroundColor: backgroundColor,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  const Text(
+                    'Tanda Tangan Pembina',
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  InkWell(
+                    //ignore: sdk_version_set_literal
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Icon(
+                      Icons.clear,
+                      color: Color.fromRGBO(0, 0, 0, 0.54),
+                      size: 24.0,
+                    ),
+                  )
+                ],
+              ),
+              titlePadding: const EdgeInsets.all(16.0),
+              content: SingleChildScrollView(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width < 306
+                      ? MediaQuery.of(context).size.width
+                      : 306,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width < 300
+                            ? MediaQuery.of(context).size.width
+                            : 300,
+                        height: 170,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey[350]!),
+                        ),
+                        child: SfSignaturePad(
+                          backgroundColor: Colors.white,
+                          strokeColor: Colors.black,
+                          minimumStrokeWidth: 1.0,
+                          maximumStrokeWidth: 4.0,
+                          key: _signaturePadKey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 12.0),
+              actionsPadding: const EdgeInsets.all(8.0),
+              buttonPadding: EdgeInsets.zero,
+              actions: [
+                TextButton(
+                  onPressed: _handleClearButtonPressed,
+                  child: const Text(
+                    'Clear',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8.0),
+                TextButton(
+                  onPressed: () async {
+                    await _handleSaveButtonPressed(usulanKegiatan);
+                    if(context.mounted) {
+                      Navigator.pop(context);
+                    }
+                  },
+                  child: const Text(
+                    'Save',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
+                  ),
+                )
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _handleClearButtonPressed() {
+    _signaturePadKey.currentState!.clear();
+  }
+
+  Future<void> _handleSaveButtonPressed(UsulanKegiatan usulanKegiatan) async {
+    Uint8List? data;
+    String? tandaTanganPembina;
+
+    int timestampMicros = DateTime.now().microsecondsSinceEpoch;
+    int randomNum = Random().nextInt(9999999);
+    int uniqueId = timestampMicros + randomNum;
+
+    if (kIsWeb) {
+      final RenderSignaturePad renderSignaturePad =
+      _signaturePadKey.currentState!.context.findRenderObject()!
+      as RenderSignaturePad;
+      data = await ImageConverter.toImage(renderSignaturePad: renderSignaturePad);
+    } else {
+      final ui.Image imageData = await _signaturePadKey.currentState!.toImage(pixelRatio: 3.0);
+      final ByteData? bytes = await imageData.toByteData(format: ui.ImageByteFormat.png);
+      if (bytes != null) {
+        data = bytes.buffer.asUint8List();
+      }
+    }
+
+    tandaTanganPembina = await uploadBytesToFirebase(data!, "signature$uniqueId.png");
+
+    if(context.mounted) {
+      context.read<UsulanKegiatanBloc>().add(
+        UpdateUsulanKegiatanEvent(
+          usulanKegiatan: usulanKegiatan.copyWith(
+            tandaTanganPembina: tandaTanganPembina,
+            validasiPembina: disetujui,
+          ),
+        ),
+      );
+      print(tandaTanganPembina);
+    }
+    mipokaCustomToast("Usulan Kegiatan telah diterima");
   }
   
   @override
@@ -236,11 +387,11 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 InkWell(
-                                                  onTap: () => Future.microtask(() {
-                                                    showPop(context, usulanKegiatan);
+                                                  onTap: () {
+                                                    _showPopup(usulanKegiatan);
                                                     context.read<UsulanKegiatanBloc>().add(
                                                         ReadAllUsulanKegiatanEvent(filter: filter ?? "semua"));
-                                                  }),
+                                                  },
                                                   child: Image.asset(
                                                     'assets/icons/approve.png',
                                                     width: 24,

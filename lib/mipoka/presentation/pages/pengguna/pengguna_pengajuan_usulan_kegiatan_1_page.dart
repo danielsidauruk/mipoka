@@ -4,7 +4,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'dart:io';
@@ -50,18 +49,10 @@ class _PenggunaPengajuanUsulanKegiatan1State
     extends State<PenggunaPengajuanUsulanKegiatan1> {
 
   late Uint8List _signatureData;
-  bool _isSigned = false;
   final GlobalKey<SfSignaturePadState> _signaturePadKey = GlobalKey();
   final StreamController<Uint8List> _signatureDataStream = StreamController<Uint8List>.broadcast();
 
-  bool _handleOnDrawStart() {
-    _isSigned = true;
-    return false;
-  }
-
   void _showPopup() {
-    _isSigned = false;
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -119,7 +110,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                           strokeColor: Colors.black,
                           minimumStrokeWidth: 1.0,
                           maximumStrokeWidth: 4.0,
-                          onDrawStart: _handleOnDrawStart,
                           key: _signaturePadKey,
                         ),
                       ),
@@ -165,7 +155,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
   void _handleClearButtonPressed() {
     _signaturePadKey.currentState!.clear();
-    _isSigned = false;
   }
 
   Future<void> _handleSaveButtonPressed() async {
@@ -235,20 +224,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
   final TextEditingController _totalPendanaanController = TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
   String? _ormawaSignatureController;
-
-  // final LabeledGlobalKey<SfSignaturePadState> signatureGlobalKey = LabeledGlobalKey<SfSignaturePadState>("penggunaKey");
-
-  // Future<File> saveSignature() async {
-  //   final image = await signatureGlobalKey.currentState?.toImage(pixelRatio: 3.0);
-  //   final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
-  //   final bytes = byteData?.buffer.asUint8List();
-  //
-  //   final directory = await getApplicationDocumentsDirectory();
-  //   final file = File('${directory.path}/signature.png');
-  //   await file.writeAsBytes(bytes!);
-  //
-  //   return file;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -330,34 +305,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                   _ormawa = usulanKegiatan.mipokaUser.ormawa[index];
                                 }
                             ),
-                            // BlocBuilder<OrmawaBloc, OrmawaState>(
-                            //   builder: (context, state) {
-                            //     if (state is OrmawaLoading) {
-                            //       return const Text("Loading ....");
-                            //     } else if (state is AllOrmawaHasData) {
-                            //       List<String> ormawaList = state.ormawaList.map(
-                            //               (ormawa) => ormawa.namaOrmawa).toList();
-                            //
-                            //       // List<int> idOrmawaList = state.ormawaList.map(
-                            //       //         (ormawa) => ormawa.idOrmawa).toList();
-                            //       _ormawa = _ormawa ?? state.ormawaList[0];
-                            //
-                            //       return MipokaCustomDropdown(
-                            //           items: ormawaList,
-                            //           onValueChanged: (value) {
-                            //             int index = ormawaList.indexOf(value!);
-                            //             // int idOrmawa = idOrmawaList[index];
-                            //
-                            //             _ormawa = state.ormawaList[index];
-                            //           }
-                            //       );
-                            //     } else if (state is OrmawaError) {
-                            //       return Text(state.message);
-                            //     } else {
-                            //       return const Text("OrmawaBloc hasn't been triggered yet.");
-                            //     }
-                            //   },
-                            // ),
 
                             const CustomFieldSpacer(),
 
@@ -541,9 +488,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                               buildRevisiText(usulanKegiatan.revisiUsulan.revisiTargetKegiatan),
                             CustomTextField(controller: _targetKegiatanController),
 
-                            // const CustomFieldSpacer(),
-                            // buildTitle('Total Pendanaan'),
-
                             MipokaCustomSwitchButton(
                               title: 'Total Pendanaan',
                               option1: 'Uang',
@@ -558,10 +502,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                 && usulanKegiatan.revisiUsulan.revisiTotalPendanaan!= "")
                               buildRevisiText(usulanKegiatan.revisiUsulan.revisiTotalPendanaan),
 
-                            CustomTextField(
-                              controller: _totalPendanaanController,
-                              // textInputType: TextInputType.number,
-                            ),
+                            CustomTextField(controller: _totalPendanaanController),
                             const CustomFieldSpacer(),
 
                             buildTitle('Keterangan'),
@@ -600,8 +541,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                           child: Column(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              _ormawaSignatureController == ""
-                                                  ? InkWell(
+                                              _ormawaSignatureController == "" ?
+                                              InkWell(
                                                 onTap: () => _showPopup(),
                                                 child: signatureData!.isNotEmpty
                                                     ? Image.memory(signatureData)
@@ -612,11 +553,13 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                                     fontSize: 16,
                                                   ),
                                                 ),
-                                              )
-                                                  : Column(
+                                              ) :
+                                              Column(
                                                 children: [
                                                   Image.network(_ormawaSignatureController ?? ""),
+
                                                   const CustomFieldSpacer(),
+
                                                   InkWell(
                                                     onTap: () {
                                                       context.read<SignatureCubit>().toggleSignature();
@@ -630,7 +573,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                                         fontSize: 16,
                                                       ),
                                                     ),
-                                                  )
+                                                  ),
                                                 ],
                                               ),
                                             ],
@@ -638,8 +581,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                         ),
                                       );
                                     },
-                                  )
-                                  ;
+                                  );
                                 },
                               ),
                             ),
@@ -672,7 +614,10 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                     int uniqueId = timestampMicros + randomNum;
 
                                     mipokaCustomToast('Sedang menyimpan data...', time: 5);
-                                    _ormawaSignatureController = await uploadBytesToFirebase(_signatureData, "signature$uniqueId.png");
+
+                                    if (_ormawaSignatureController == "") {
+                                      _ormawaSignatureController = await uploadBytesToFirebase(_signatureData, "signature$uniqueId.png");
+                                    }
 
                                     Future.microtask(() {
                                       context.read<UsulanKegiatanBloc>().add(
@@ -704,9 +649,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                           ),
                                         ),
                                       );
-
-                                      // context.read<UsulanKegiatanBloc>().add(
-                                      //   ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan));
 
                                       _tempatKegiatanSwitchController == false ?
                                       Navigator.pushNamed(
@@ -776,249 +718,3 @@ Future<String> uploadFileFromSignature(File file, String fileName) async {
     rethrow;
   }
 }
-
-
-// Future<String> showSignatureDialog(BuildContext context) async {
-//   final Completer<String> completer = Completer<String>();
-//
-//   final LabeledGlobalKey<SfSignaturePadState> signatureGlobalKey = LabeledGlobalKey<SfSignaturePadState>("pemeriksaKey");
-//
-//   Future<File> saveSignature() async {
-//     final image = await signatureGlobalKey.currentState?.toImage(pixelRatio: 3.0);
-//     final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
-//     final bytes = byteData?.buffer.asUint8List();
-//
-//     final directory = await getApplicationDocumentsDirectory();
-//     final file = File('${directory.path}/signature.png');
-//     await file.writeAsBytes(bytes!);
-//
-//     return file;
-//   }
-//
-//   showDialog(
-//     context: context,
-//     builder: (BuildContext context) {
-//       return AlertDialog(
-//         contentPadding: const EdgeInsets.all(8.0),
-//         content: SingleChildScrollView(
-//           child: Column(
-//             children: [
-//               const Text("Tanda Tangan Pembina"),
-//
-//               const CustomFieldSpacer(),
-//
-//               Container(
-//                 alignment: Alignment.center,
-//                 padding: const EdgeInsets.all(8.0),
-//                 decoration: BoxDecoration(
-//                   borderRadius: BorderRadius.circular(5.0),
-//                   border: Border.all(color: Colors.white),
-//                 ),
-//                 child: Column(
-//                   children: [
-//                     SizedBox(
-//                       width: 300,
-//                       height: 200,
-//                       child: SfSignaturePad(
-//                         key: signatureGlobalKey,
-//                         backgroundColor: Colors.white,
-//                         strokeColor: Colors.black,
-//                         minimumStrokeWidth: 1.0,
-//                         maximumStrokeWidth: 4.0,
-//                       ),
-//                     ),
-//
-//                     const CustomFieldSpacer(),
-//
-//                     Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                       children: [
-//                         InkWell(
-//                           onTap: () async {
-//                             final randomId = Random().nextInt(9999999);
-//
-//                             mipokaCustomToast(savingDataMessage);
-//                             final file = await saveSignature();
-//                             final signatureUrl = await uploadFileFromSignature(
-//                               file,
-//                               "signature_$randomId",
-//                             );
-//
-//                             Future.microtask(() {
-//                               completer.complete(signatureUrl);
-//                               Navigator.pop(context);
-//                             });
-//                           },
-//                           child: const Text(
-//                             'Simpan',
-//                             style: TextStyle(
-//                               color: Colors.white,
-//                               fontSize: 16,
-//                             ),
-//                           ),
-//                         ),
-//                         InkWell(
-//                           onTap: () {
-//                             completer.complete("");
-//                             Navigator.pop(context);
-//                           },
-//                           child: const Text(
-//                             'Batal',
-//                             style: TextStyle(
-//                               color: Colors.white,
-//                               fontSize: 16,
-//                             ),
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       );
-//     },
-//   );
-//
-//   return completer.future;
-// }
-
-// Future<String> showSignatureDialog(BuildContext context) async {
-//   final Completer<String> completer = Completer<String>();
-//
-//   // final GlobalKey<SfSignaturePadState> signaturePadKey = GlobalKey();
-//   // final GlobalKey<SfSignaturePadState> _signaturePadKey = GlobalKey();
-//
-//   Future<String?> saveSignature() async {
-//     Uint8List? bytes1;
-//     String? signatureUrl;
-//     int randomId = Random().nextInt(99999999);
-//
-//     final image = await signaturePadKey.currentState?.toImage(pixelRatio: 3.0);
-//     final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
-//     final bytes = byteData?.buffer.asUint8List();
-//
-//     final directory = await getApplicationDocumentsDirectory();
-//     final file = File('${directory.path}/signature.png');
-//     await file.writeAsBytes(bytes!);
-//
-//     if (kIsWeb) {
-//       bytes1 = file.readAsBytesSync();
-//     } else if (Platform.isAndroid) {
-//       bytes1 = await File(file.path).readAsBytes();
-//     }
-//
-//     if (bytes1 != null) {
-//       signatureUrl = await uploadBytesToFirebase(bytes1, "signature$randomId.png");
-//     }
-//
-//     return signatureUrl;
-//   }
-//
-//   // Future<String?> uploadBytesToFirebase(Uint8List bytes, String fileName) async {
-//   //   try {
-//   //     final Reference storageRef = FirebaseStorage.instance.ref().child(fileName);
-//   //
-//   //     final UploadTask uploadTask = storageRef.putData(bytes);
-//   //     final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
-//   //
-//   //     final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
-//   //
-//   //     return downloadUrl;
-//   //   } catch (error) {
-//   //     mipokaCustomToast("Failed while uploading file : $error");
-//   //     rethrow;
-//   //   }
-//   // }
-//
-//   showDialog(
-//     context: context,
-//     builder: (BuildContext context) {
-//       return AlertDialog(
-//         contentPadding: const EdgeInsets.all(8.0),
-//         content: SingleChildScrollView(
-//           child: Column(
-//             children: [
-//               const Text("Tanda Tangan Pembina"),
-//
-//               const CustomFieldSpacer(),
-//
-//               Container(
-//                 alignment: Alignment.center,
-//                 padding: const EdgeInsets.all(8.0),
-//                 decoration: BoxDecoration(
-//                   borderRadius: BorderRadius.circular(5.0),
-//                   border: Border.all(color: Colors.white),
-//                 ),
-//                 child: Column(
-//                   children: [
-//                     SizedBox(
-//                       width: 300,
-//                       height: 200,
-//                       child: SfSignaturePad(
-//                         key: signaturePadKey,
-//                         backgroundColor: Colors.white,
-//                         strokeColor: Colors.black,
-//                         minimumStrokeWidth: 1.0,
-//                         maximumStrokeWidth: 4.0,
-//                       ),
-//                     ),
-//
-//                     const CustomFieldSpacer(),
-//
-//                     Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                       children: [
-//                         InkWell(
-//                           onTap: () async {
-//                             final randomId = Random().nextInt(9999999);
-//
-//                             mipokaCustomToast(savingDataMessage);
-//                             final file = await saveSignature();
-//                             // final signatureUrl = await uploadFileFromSignature(
-//                             //   file,
-//                             //   "signature_$randomId",
-//                             // );
-//
-//                             Future.microtask(() {
-//                               completer.complete(file);
-//                               Navigator.pop(context);
-//                             });
-//                           },
-//                           child: const Text(
-//                             'Simpan',
-//                             style: TextStyle(
-//                               color: Colors.white,
-//                               fontSize: 16,
-//                             ),
-//                           ),
-//                         ),
-//                         InkWell(
-//                           onTap: () {
-//                             completer.complete("");
-//                             Navigator.pop(context);
-//                           },
-//                           child: const Text(
-//                             'Batal',
-//                             style: TextStyle(
-//                               color: Colors.white,
-//                               fontSize: 16,
-//                             ),
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       );
-//     },
-//   );
-//
-//   return completer.future;
-// }

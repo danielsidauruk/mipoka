@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -12,6 +14,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dart';
+import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 
 class KemahasiswaanCekUsulanKegiatanPage extends StatefulWidget {
   const KemahasiswaanCekUsulanKegiatanPage({super.key});
@@ -23,6 +26,9 @@ class KemahasiswaanCekUsulanKegiatanPage extends StatefulWidget {
 
 class _KemahasiswaanCekUsulanKegiatanPageState
     extends State<KemahasiswaanCekUsulanKegiatanPage> {
+  late Uint8List _signatureData;
+  final GlobalKey<SfSignaturePadState> _signaturePadKey = GlobalKey();
+  final StreamController<Uint8List> _signatureDataStream = StreamController<Uint8List>.broadcast();
 
   late String filter;
 
