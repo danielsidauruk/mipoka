@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'dart:io';
@@ -14,6 +16,7 @@ import 'package:mipoka/mipoka/presentation/bloc/cubit/signature_cubit.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -46,13 +49,10 @@ class PenggunaPengajuanUsulanKegiatan1 extends StatefulWidget {
 class _PenggunaPengajuanUsulanKegiatan1State
     extends State<PenggunaPengajuanUsulanKegiatan1> {
 
-  final double _minWidth = 1.0;
-  final double _maxWidth = 4.0;
   late Uint8List _signatureData;
-  final double _fontSizeRegular = 12;
-
   bool _isSigned = false;
   final GlobalKey<SfSignaturePadState> _signaturePadKey = GlobalKey();
+  final StreamController<Uint8List> _signatureDataStream = StreamController<Uint8List>.broadcast();
 
   bool _handleOnDrawStart() {
     _isSigned = true;
@@ -62,12 +62,11 @@ class _PenggunaPengajuanUsulanKegiatan1State
   void _showPopup() {
     _isSigned = false;
 
-    showDialog<Widget>(
+    showDialog(
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(
-          builder:
-              (BuildContext context, void Function(void Function()) setState) {
+          builder: (BuildContext context, void Function(void Function()) setState) {
             const Color backgroundColor = Colors.white;
             const Color textColor = Colors.black87;
 
@@ -78,22 +77,23 @@ class _PenggunaPengajuanUsulanKegiatan1State
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   const Text(
-                    'Draw your signature',
+                    'Tanda Tangan Ormawa',
                     style: TextStyle(
                       color: textColor,
                       fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Roboto-Medium',
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   InkWell(
                     //ignore: sdk_version_set_literal
                     onTap: () {
-                      Navigator.of(context).pop();
+                      Navigator.pop(context);
                     },
-                    child: const Icon(Icons.clear,
-                        color: Color.fromRGBO(0, 0, 0, 0.54),
-                        size: 24.0),
+                    child: const Icon(
+                      Icons.clear,
+                      color: Color.fromRGBO(0, 0, 0, 0.54),
+                      size: 24.0,
+                    ),
                   )
                 ],
               ),
@@ -107,40 +107,21 @@ class _PenggunaPengajuanUsulanKegiatan1State
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        width: MediaQuery.of(context).size.width < 306
+                        width: MediaQuery.of(context).size.width < 300
                             ? MediaQuery.of(context).size.width
-                            : 306,
-                        height: 172,
+                            : 300,
+                        height: 170,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey[350]!),
                         ),
                         child: SfSignaturePad(
-                            minimumStrokeWidth: _minWidth,
-                            maximumStrokeWidth: _maxWidth,
-                            strokeColor: const Color.fromRGBO(0, 0, 0, 1),
-                            backgroundColor: Colors.white,
-                            onDrawStart: _handleOnDrawStart,
-                            key: _signaturePadKey),
-                      ),
-                      const SizedBox(height: 24),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            'Pen Color',
-                            style: TextStyle(
-                                color: textColor,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'Roboto-Regular'),
-                          ),
-                          SizedBox(
-                            width: 124,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              // children: _addStrokeColorPalettes(setState),
-                            ),
-                          )
-                        ],
+                          backgroundColor: Colors.white,
+                          strokeColor: Colors.black,
+                          minimumStrokeWidth: 1.0,
+                          maximumStrokeWidth: 4.0,
+                          onDrawStart: _handleOnDrawStart,
+                          key: _signaturePadKey,
+                        ),
                       ),
                     ],
                   ),
@@ -149,34 +130,30 @@ class _PenggunaPengajuanUsulanKegiatan1State
               contentPadding: const EdgeInsets.symmetric(horizontal: 12.0),
               actionsPadding: const EdgeInsets.all(8.0),
               buttonPadding: EdgeInsets.zero,
-              actions: <Widget>[
+              actions: [
                 TextButton(
                   onPressed: _handleClearButtonPressed,
-                  style: const ButtonStyle(
-                    // foregroundColor: MaterialStateProperty.all<Color>(
-                    //     model.currentPaletteColor),
-                  ),
                   child: const Text(
-                    'CLEAR',
+                    'Clear',
                     style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Roboto-Medium'),
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8.0),
                 TextButton(
                   onPressed: () {
                     _handleSaveButtonPressed();
-                    Navigator.of(context).pop();
+                    Navigator.pop(context);
                   },
-                  // style: ButtonStyle(
-                  //   foregroundColor: MaterialStateProperty.all<Color>(
-                  //       model.currentPaletteColor),
-                  // ),
-                  child: const Text('SAVE',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Roboto-Medium')),
+                  child: const Text(
+                    'Save',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
+                  ),
                 )
               ],
             );
@@ -200,19 +177,15 @@ class _PenggunaPengajuanUsulanKegiatan1State
       as RenderSignaturePad;
       data = await ImageConverter.toImage(renderSignaturePad: renderSignaturePad);
     } else {
-      final ui.Image imageData =
-      await _signaturePadKey.currentState!.toImage(pixelRatio: 3.0);
-      final ByteData? bytes =
-      await imageData.toByteData(format: ui.ImageByteFormat.png);
+      final ui.Image imageData = await _signaturePadKey.currentState!.toImage(pixelRatio: 3.0);
+      final ByteData? bytes = await imageData.toByteData(format: ui.ImageByteFormat.png);
       if (bytes != null) {
         data = bytes.buffer.asUint8List();
       }
     }
 
-    setState(() {
-      _signatureData = data;
-      },
-    );
+    _signatureData = data;
+    _signatureDataStream.add(_signatureData);
   }
 
   @override
@@ -230,10 +203,10 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
   @override
   void dispose() {
-    mipokaCustomToast('Sedang menyimpan data...', time: 5);
     context.read<UsulanKegiatanBloc>().close();
     context.read<MipokaUserBloc>().close();
     context.read<TempatKegiatanCubit>().close();
+    _signatureDataStream.close();
     super.dispose();
   }
 
@@ -495,9 +468,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                               option2: 'Luar Kota',
                               value: _tempatKegiatanSwitchController,
                               onChanged: (value) {
-                                // setState(() {
-                                //   _tempatKegiatanSwitchController = value;
-                                // });
                                 _tempatKegiatanSwitchController = value;
                                 context.read<TempatKegiatanCubit>().setTempatKegiatan(value);
                               },
@@ -611,73 +581,65 @@ class _PenggunaPengajuanUsulanKegiatan1State
                               create: (context) => SignatureCubit(),
                               child: BlocBuilder<SignatureCubit, SignatureState>(
                                 builder: (context, state) {
-                                  return InkWell(
-                                    onTap: () => context.read<SignatureCubit>().toggleSignature(),
-                                    child: Container(
-                                      width: 400,
-                                      alignment: Alignment.center,
-                                      padding: const EdgeInsets.all(8.0),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        border: Border.all(color: Colors.white),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          _ormawaSignatureController == "" ?
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            //ignore: sdk_version_set_literal
-                                            onTap: () {
-                                              _showPopup();
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                border: Border.all(color: Colors.grey[350]!),
-                                              ),
-                                              height: 170,
-                                              width: 300,
-                                              child: _isSigned
-                                                  ? Image.memory(_signatureData)
-                                                  : Center(
-                                                child: Text(
-                                                  'Tap here to sign',
-                                                  textScaleFactor: 1.0,
-                                                  style: TextStyle(
-                                                      fontSize: _fontSizeRegular,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.grey[700]),
-                                                ),
-                                              ),
-                                            ),
-                                          ) :
-                                          Column(
+                                  return StreamBuilder<Uint8List>(
+                                    stream: _signatureDataStream.stream,
+                                    initialData: Uint8List(0),
+                                    builder: (context, snapshot) {
+                                      final signatureData = snapshot.data;
+
+                                      return InkWell(
+                                        onTap: () => context.read<SignatureCubit>().toggleSignature(),
+                                        child: Container(
+                                          width: 400,
+                                          alignment: Alignment.center,
+                                          padding: const EdgeInsets.all(8.0),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(5.0),
+                                            border: Border.all(color: Colors.white),
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              Image.network(_ormawaSignatureController ?? ""),
-
-                                              const CustomFieldSpacer(),
-
-                                              InkWell(
-                                                onTap: () {
-                                                  context.read<SignatureCubit>().toggleSignature();
-                                                  deleteFileFromFirebase(_ormawaSignatureController ?? "");
-                                                  _ormawaSignatureController = "";
-                                                },
-                                                child: const Text(
-                                                  'Hapus',
+                                              _ormawaSignatureController == ""
+                                                  ? InkWell(
+                                                onTap: () => _showPopup(),
+                                                child: signatureData!.isNotEmpty
+                                                    ? Image.memory(signatureData)
+                                                    : const Text(
+                                                  'Tekan untuk tanda tangan',
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 16,
                                                   ),
                                                 ),
                                               )
+                                                  : Column(
+                                                children: [
+                                                  Image.network(_ormawaSignatureController ?? ""),
+                                                  const CustomFieldSpacer(),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      context.read<SignatureCubit>().toggleSignature();
+                                                      deleteFileFromFirebase(_ormawaSignatureController ?? "");
+                                                      _ormawaSignatureController = "";
+                                                    },
+                                                    child: const Text(
+                                                      'Hapus',
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ],
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
+                                        ),
+                                      );
+                                    },
+                                  )
+                                  ;
                                 },
                               ),
                             ),
@@ -704,10 +666,13 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                 const SizedBox(width: 8.0),
 
                                 CustomMipokaButton(
-                                  onTap: () {
-                                    mipokaCustomToast('Sedang menyimpan data...', time: 5);
+                                  onTap: () async {
+                                    int timestampMicros = DateTime.now().microsecondsSinceEpoch;
+                                    int randomNum = Random().nextInt(9999999);
+                                    int uniqueId = timestampMicros + randomNum;
 
-                                    print (_ormawaSignatureController);
+                                    mipokaCustomToast('Sedang menyimpan data...', time: 5);
+                                    _ormawaSignatureController = await uploadBytesToFirebase(_signatureData, "signature$uniqueId.png");
 
                                     Future.microtask(() {
                                       context.read<UsulanKegiatanBloc>().add(
