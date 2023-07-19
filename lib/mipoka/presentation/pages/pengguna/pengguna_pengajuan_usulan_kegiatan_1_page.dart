@@ -743,14 +743,15 @@ Future<String> uploadFileFromSignature(File file, String fileName) async {
 Future<String> showSignatureDialog(BuildContext context) async {
   final Completer<String> completer = Completer<String>();
 
-  final LabeledGlobalKey<SfSignaturePadState> signatureGlobalKey = LabeledGlobalKey<SfSignaturePadState>("pemeriksaKey");
+  final GlobalKey<SfSignaturePadState> signaturePadKey = GlobalKey();
+  // final GlobalKey<SfSignaturePadState> _signaturePadKey = GlobalKey();
 
   Future<String?> saveSignature() async {
     Uint8List? bytes1;
     String? signatureUrl;
     int randomId = Random().nextInt(99999999);
 
-    final image = await signatureGlobalKey.currentState?.toImage(pixelRatio: 3.0);
+    final image = await signaturePadKey.currentState?.toImage(pixelRatio: 3.0);
     final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
     final bytes = byteData?.buffer.asUint8List();
 
@@ -812,7 +813,7 @@ Future<String> showSignatureDialog(BuildContext context) async {
                       width: 300,
                       height: 200,
                       child: SfSignaturePad(
-                        key: signatureGlobalKey,
+                        key: signaturePadKey,
                         backgroundColor: Colors.white,
                         strokeColor: Colors.black,
                         minimumStrokeWidth: 1.0,

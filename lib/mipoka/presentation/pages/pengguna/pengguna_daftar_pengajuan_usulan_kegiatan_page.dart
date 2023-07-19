@@ -398,12 +398,12 @@ class _PenggunaDaftarPengajuanKegiatanState
                             ),
                           );
 
-                          // Navigator.pushNamed(
-                          //   context,
-                          //   penggunaPengajuanUsulanKegiatanPage1Route,
-                          //   arguments: UsulanArgs(idUsulan: newId),
-                          // ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                          //     ReadAllUsulanKegiatanEvent(filter: _filter!)));
+                          Navigator.pushNamed(
+                            context,
+                            penggunaPengajuanUsulanKegiatanPage1Route,
+                            arguments: UsulanArgs(idUsulan: newId),
+                          ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                              ReadAllUsulanKegiatanEvent(filter: _filter!)));
                         }),
                         text: 'Ajukan Kegiatan',
                       );
