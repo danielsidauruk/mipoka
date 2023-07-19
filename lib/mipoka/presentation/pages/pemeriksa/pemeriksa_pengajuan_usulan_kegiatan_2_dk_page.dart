@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
-import 'package:mipoka/mipoka/presentation/bloc/revisi_usulan_bloc/revisi_usulan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_comment_for_table.dart';
@@ -64,7 +63,10 @@ class _PemeriksaPengajuanUsulanKegiatan2DKPageState
                   if (state is UsulanKegiatanLoading) {
                     return const Text("Loading ...");
                   } else if (state is UsulanKegiatanHasData) {
-                    final usulanKegiatanList = state.usulanKegiatan;
+                    final usulanKegiatan = state.usulanKegiatan;
+
+                    _revisiPesertaKegiatanDalamKotaController.text = usulanKegiatan.revisiUsulan.revisiPartisipan;
+                    _revisiRincianBiayaKegiatanController.text = usulanKegiatan.revisiUsulan.revisiRincianBiayaKegiatan;
 
                     return CustomContentBox(
                       children: [
@@ -117,8 +119,8 @@ class _PemeriksaPengajuanUsulanKegiatan2DKPageState
                                     ),
                                   ),
                                 ],
-                                rows: List<DataRow>.generate(usulanKegiatanList.partisipan.length, (int index) {
-                                  final partisipan = usulanKegiatanList.partisipan[index];
+                                rows: List<DataRow>.generate(usulanKegiatan.partisipan.length, (int index) {
+                                  final partisipan = usulanKegiatan.partisipan[index];
 
                                   return DataRow(
                                     cells: [
@@ -227,8 +229,8 @@ class _PemeriksaPengajuanUsulanKegiatan2DKPageState
                                           ),
                                         ),
                                       ],
-                                      rows: List.generate(usulanKegiatanList.biayaKegiatan.length, (int index) {
-                                        final biayaKegiatan = usulanKegiatanList.biayaKegiatan[index];
+                                      rows: List.generate(usulanKegiatan.biayaKegiatan.length, (int index) {
+                                        final biayaKegiatan = usulanKegiatan.biayaKegiatan[index];
 
                                         return DataRow(
                                           cells: [
@@ -286,8 +288,8 @@ class _PemeriksaPengajuanUsulanKegiatan2DKPageState
                               onTap: () {
                                 context.read<UsulanKegiatanBloc>().add(
                                   UpdateUsulanKegiatanEvent(
-                                    usulanKegiatan: usulanKegiatanList.copyWith(
-                                      revisiUsulan: usulanKegiatanList.revisiUsulan.copyWith(
+                                    usulanKegiatan: usulanKegiatan.copyWith(
+                                      revisiUsulan: usulanKegiatan.revisiUsulan.copyWith(
                                         revisiPartisipan: _revisiPesertaKegiatanDalamKotaController.text,
                                         revisiRincianBiayaKegiatan: _revisiRincianBiayaKegiatanController.text,
                                       ),
@@ -304,7 +306,8 @@ class _PemeriksaPengajuanUsulanKegiatan2DKPageState
                                 context,
                                 pemeriksaPengajuanUsulanKegiatan3PageRoute,
                                 arguments: widget.idUsulan,
-                              ),
+                              ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                  ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan))),
                               text: 'Berikutnya',
                             ),
                           ],

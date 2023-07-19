@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
-import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/revisi_usulan_bloc/revisi_usulan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_comment_field.dart';
@@ -65,16 +63,14 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
 
   @override
   void initState() {
-    context.read<RevisiUsulanBloc>().add(
-      ReadRevisiUsulanEvent(idRevisiUsulan: widget.idUsulan));
+    context.read<UsulanKegiatanBloc>().add(
+      ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan));
     super.initState();
   }
 
   @override
   void dispose() {
     context.read<UsulanKegiatanBloc>().close();
-    context.read<RevisiUsulanBloc>().close();
-    context.read<OrmawaBloc>().close();
     super.dispose();
   }
 
@@ -210,8 +206,8 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
                           children: [
                             CustomMipokaButton(
                               onTap: () {
-                                context.read<RevisiUsulanBloc>().add(
-                                    DeleteRevisiUsulanEvent(idRevisiUsulan: widget.idUsulan));
+                                context.read<UsulanKegiatanBloc>().add(
+                                    ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan));
                                 Navigator.pop(context);
                               },
                               text: 'Batal',
@@ -256,14 +252,14 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
                                   context,
                                   pemeriksaPengajuanUsulanKegiatan2LKPageRoute,
                                   arguments: widget.idUsulan,
-                                ).then((_) => context.read<RevisiUsulanBloc>().add(
-                                    ReadRevisiUsulanEvent(idRevisiUsulan: widget.idUsulan))) :
+                                ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                    ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan))) :
                                 Navigator.pushNamed(
                                   context,
                                   pemeriksaPengajuanUsulanKegiatan2DKPageRoute,
                                   arguments: widget.idUsulan,
-                                ).then((_) => context.read<RevisiUsulanBloc>().add(
-                                    ReadRevisiUsulanEvent(idRevisiUsulan: widget.idUsulan)));
+                                ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                    ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan)));
                               },
                               text: 'Berikutnya',
                             ),

@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/core/constanst.dart';
+import 'package:mipoka/domain/utils/signature_dialog_utils.dart';
 import 'package:mipoka/mipoka/presentation/bloc/revisi_usulan_bloc/revisi_usulan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
-import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_daftar_pengajuan_usulan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_comment_for_table.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_load_image.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
@@ -401,7 +401,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                                         updatedBy: user?.email ?? "unknown",
                                         updatedAt: currentDate,
                                       ),
-                                      statusUsulan: "ditolak",
+                                      statusUsulan: ditolak,
                                     ),
                                   ),
                                 );
@@ -419,7 +419,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                         const CustomFieldSpacer(),
 
                         CustomMipokaButton(
-                          onTap: () => showPop(context, usulanKegiatan),
+                          onTap: () => SignatureDialogUtils.showPopup(context, usulanKegiatan),
                           text: 'Terima',
                         ),
                       ],

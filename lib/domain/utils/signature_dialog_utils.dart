@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
+import 'package:mipoka/core/routes.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
@@ -112,10 +114,7 @@ class SignatureDialogUtils {
       ) async {
     Uint8List? data;
     String? tandaTanganPembina;
-
-    int timestampMicros = DateTime.now().microsecondsSinceEpoch;
-    int randomNum = Random().nextInt(9999999);
-    int uniqueId = timestampMicros + randomNum;
+    int uniqueId = UniqueIdGenerator.generateUniqueId();
 
     if (kIsWeb) {
       final RenderSignaturePad renderSignaturePad =
@@ -129,6 +128,7 @@ class SignatureDialogUtils {
       }
     }
 
+    mipokaCustomToast("Menyimpan data ...");
     tandaTanganPembina = await uploadBytesToFirebase(data!, "signature$uniqueId.png");
 
     if(context.mounted) {
@@ -140,6 +140,7 @@ class SignatureDialogUtils {
           ),
         ),
       );
+      Navigator.pop(context);
     }
 
     mipokaCustomToast("Usulan Kegiatan telah diterima");

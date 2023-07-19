@@ -185,19 +185,12 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                         ),
                                         DataCell(
                                           onTap: () {
-                                            int uniqueIdGenerator = UniqueIdGenerator.generateUniqueId();
-
                                             Navigator.pushNamed(
                                               context,
                                               pemeriksaPengajuanUsulanKegiatan1PageRoute,
-                                              arguments: uniqueIdGenerator,
-                                            ).then((_) =>
-                                                context.read<
-                                                    UsulanKegiatanBloc>()
-                                                    .add(
-                                                    ReadAllUsulanKegiatanEvent(
-                                                        filter: filter ??
-                                                            "semua")));
+                                              arguments: usulanKegiatan.idUsulan,
+                                            ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                                    ReadAllUsulanKegiatanEvent(filter: filter ?? "semua")));
                                           },
                                           Align(
                                             alignment: Alignment.center,
@@ -232,7 +225,8 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 InkWell(
-                                                  onTap: () => SignatureDialogUtils.showPopup(context, usulanKegiatan),
+                                                  onTap: () => SignatureDialogUtils.showPopup(context, usulanKegiatan)
+                                                      .then((_) => context.read<UsulanKegiatanBloc>().add(ReadAllUsulanKegiatanEvent(filter: filter ?? "semua"))),
                                                   child: Image.asset(
                                                     'assets/icons/approve.png',
                                                     width: 24,
@@ -357,7 +351,6 @@ void showPop(BuildContext context, UsulanKegiatan usulanKegiatan) {
                                 "signature_$randomId",
                               );
                               Future.microtask(() {
-                                print(signatureUrl);
                                 context.read<UsulanKegiatanBloc>().add(
                                   UpdateUsulanKegiatanEvent(
                                     usulanKegiatan: usulanKegiatan.copyWith(
