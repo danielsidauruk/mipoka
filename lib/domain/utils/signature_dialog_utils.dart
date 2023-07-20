@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +15,11 @@ import '../../../../domain/utils/mobile_image_converter.dart'
 if (dart.library.html) '../../../../domain/utils/web_image_converter.dart';
 
 class SignatureDialogUtils {
-  static Future<void> showPopup(BuildContext context,
-      UsulanKegiatan usulanKegiatan) async {
+  static void showPopup(
+      BuildContext context,
+      UsulanKegiatan usulanKegiatan,
+      {bool isPop = true}
+      ) async {
 
     final GlobalKey<SfSignaturePadState> key = GlobalKey();
 
@@ -92,7 +94,7 @@ class SignatureDialogUtils {
             const SizedBox(width: 8.0),
             TextButton(
               onPressed: () async {
-                await _handleSaveButtonPressed(context, usulanKegiatan, key);
+                await _handleSaveButtonPressed(context, usulanKegiatan, key, isPop);
               },
               child: const Text(
                 'Save',
@@ -111,7 +113,9 @@ class SignatureDialogUtils {
       BuildContext context,
       UsulanKegiatan usulanKegiatan,
       GlobalKey<SfSignaturePadState> key,
+      bool isPop,
       ) async {
+
     Uint8List? data;
     String? tandaTanganPembina;
     int uniqueId = UniqueIdGenerator.generateUniqueId();
@@ -140,7 +144,17 @@ class SignatureDialogUtils {
           ),
         ),
       );
-      Navigator.pop(context);
+
+      if (isPop) {
+        context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+        Navigator.pop(context);
+      } else {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          pemeriksaDaftarUsulanKegiatanPageRoute,
+              (route) => false,
+        );
+      }
     }
 
     mipokaCustomToast("Usulan Kegiatan telah diterima");

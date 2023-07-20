@@ -37,7 +37,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
 
   @override
   void dispose() {
-    context.read<UsulanKegiatanBloc>().close();
+    context.read<LaporanBloc>().close();
     super.dispose();
   }
   

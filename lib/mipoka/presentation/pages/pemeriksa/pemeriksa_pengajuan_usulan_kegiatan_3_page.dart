@@ -419,7 +419,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                         const CustomFieldSpacer(),
 
                         CustomMipokaButton(
-                          onTap: () => SignatureDialogUtils.showPopup(context, usulanKegiatan),
+                          onTap: () => SignatureDialogUtils.showPopup(context, usulanKegiatan, isPop: false),
                           text: 'Terima',
                         ),
                       ],

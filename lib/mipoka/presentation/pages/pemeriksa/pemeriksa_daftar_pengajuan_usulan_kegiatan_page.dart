@@ -225,8 +225,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 InkWell(
-                                                  onTap: () => SignatureDialogUtils.showPopup(context, usulanKegiatan)
-                                                      .then((_) => context.read<UsulanKegiatanBloc>().add(ReadAllUsulanKegiatanEvent(filter: filter ?? "semua"))),
+                                                  onTap: () => SignatureDialogUtils.showPopup(context, usulanKegiatan),
                                                   child: Image.asset(
                                                     'assets/icons/approve.png',
                                                     width: 24,
@@ -272,7 +271,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                       } else if (state is UsulanKegiatanError) {
                         return Text(state.message);
                       } else {
-                        return const Text ("UsulanKegiatanBloc hasn't been triggered yet");
+                        return const Text ("AllUsulanKegiatanBloc hasn't been triggered yet");
                       }
                     },
                   ),
