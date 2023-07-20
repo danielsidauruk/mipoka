@@ -149,12 +149,12 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                               }
 
                               if (bytes != null) {
+                                mipokaCustomToast(savingDataMessage);
                                 _fotoBeritaController = await uploadBytesToFirebase(bytes, "${widget.berita.idBerita}${file.name}");
                               }
                             }
 
-                            mipokaCustomToast("Berita telah diupdate");
-                            Future.microtask(() {
+                            if (context.mounted) {
                               context.read<BeritaBloc>().add(
                                 UpdateBeritaEvent(
                                   widget.berita.copyWith(
@@ -167,13 +167,26 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                                   ),
                                 ),
                               );
-                              Navigator.pop(context);
-                            });
+                            }
                           } else {
                             mipokaCustomToast("Harap isi semua field.");
                           }
                         },
                         text: 'Simpan',
+                      ),
+
+                      BlocListener<BeritaBloc, BeritaState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
+                          if (state is BeritaSuccessMessage) {
+                            mipokaCustomToast("Berita telah diupdate");
+                            Navigator.pop(context);
+                          } else if (state is BeritaError) {
+                            mipokaCustomToast(state.message);
+                          }
+                        },
+                        child: const SizedBox(),
                       ),
                     ],
                   ),

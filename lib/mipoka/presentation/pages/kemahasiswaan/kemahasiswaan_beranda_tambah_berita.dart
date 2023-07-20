@@ -175,6 +175,8 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                       if (state is BeritaSuccessMessage) {
                         mipokaCustomToast("Berita berhasil ditambahkan.");
                         Navigator.pop(context);
+                      } else if (state is BeritaError) {
+                        mipokaCustomToast(state.message);
                       }
                     },
                     child: const SizedBox(),

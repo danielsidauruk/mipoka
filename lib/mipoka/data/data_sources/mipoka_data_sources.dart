@@ -295,8 +295,19 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<void> updateBerita(BeritaModel beritaModel) async {
-    if (kDebugMode) {
-      print(beritaModel.toJson());
+    try {
+      final response = await DioUtil.dio.put(
+        '/berita/${beritaModel.idBerita}',
+        data: beritaModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } catch (error) {
+      mipokaCustomToast(error.toString());
+      if (kDebugMode) {
+        print(error);
+      }
     }
   }
 
