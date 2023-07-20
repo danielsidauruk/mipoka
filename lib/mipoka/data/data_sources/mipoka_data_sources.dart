@@ -26,6 +26,7 @@ import 'package:mipoka/mipoka/data/models/session_model.dart';
 import 'package:mipoka/mipoka/data/models/tertib_acara_model.dart';
 import 'package:mipoka/mipoka/data/models/mipoka_user_model.dart';
 import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 abstract class MipokaDataSources {
   Future<List<BeritaModel>> readAllBerita(String filter);
@@ -174,38 +175,56 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     // if (kDebugMode) {
     //   print(beritaModel.toJson());
     // }
+    try {
+      final response = await DioUtil.dio.post(
+        '/berita',
+        data: beritaModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } catch (error) {
+      mipokaCustomToast(error.toString());
+      if (kDebugMode) {
+        print(error);
+      }
+    }
     // try {
-    //   final response = await DioUtil.dio.post(
-    //     '/berita',
-    //     data: beritaModel.toJson(),
+    //   final response = await http.post(
+    //     Uri.parse("$apiUrl/berita"),
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: jsonEncode(beritaModel.toJson()),
     //   );
-    //   print(response.data);
+    //
+    //   if (response.statusCode == 200) {
+    //     print('Usulan kegiatan berhasil dikirim.');
+    //   } else {
+    //     print('Terjadi kesalahan saat mengirim usulan kegiatan. Status code: ${response.statusCode}');
+    //   }
     // } catch (error) {
     //   print('Error: $error');
     // }
-    try {
-      final response = await http.post(
-        Uri.parse("$apiUrl/berita"),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(beritaModel.toJson()),
-      );
-
-      if (response.statusCode == 200) {
-        print('Usulan kegiatan berhasil dikirim.');
-      } else {
-        print('Terjadi kesalahan saat mengirim usulan kegiatan. Status code: ${response.statusCode}');
-      }
-    } catch (error) {
-      print('Error: $error');
-    }
   }
 
   @override
   Future<void> deleteBerita(int idBerita) async {
-    if (kDebugMode) {
-      print("Berita with id $idBerita has been deleted.");
+    // if (kDebugMode) {
+    //   print("Berita with id $idBerita has been deleted.");
+    // }
+    try {
+      final response = await DioUtil.dio.delete(
+        '/berita/$idBerita',
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } catch (error) {
+      mipokaCustomToast(error.toString());
+      if (kDebugMode) {
+        print(error);
+      }
     }
   }
 
@@ -224,43 +243,43 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     //
     // return result;
 
-    try {
-      final response = await http.get(
-        Uri.parse("$apiUrl/berita"),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final List<dynamic> responseData = jsonDecode(response.body);
-        final List<BeritaModel> beritaList = responseData.map((item) => BeritaModel.fromJson(item)).toList();
-        return beritaList;
-      } else {
-        throw Exception('Terjadi kesalahan saat mengambil data berita. Status code: ${response.statusCode}');
-      }
-    } catch (error) {
-      throw Exception('Error: $error');
-    }
-
     // try {
-    //   // final response = await DioUtil.dio.get('/berita?filter=$filter');
-    //   final response = await DioUtil.dio.get('/berita');
-    //   List<dynamic> resultList = response.data;
+    //   final response = await http.get(
+    //     Uri.parse("$apiUrl/berita"),
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //   );
     //
-    //   List<BeritaModel> result = resultList
-    //       .map((resultMap) => BeritaModel.fromJson(resultMap))
-    //       .toList();
-    //
-    //   if (kDebugMode) {
-    //     print(filter);
+    //   if (response.statusCode == 200) {
+    //     final List<dynamic> responseData = jsonDecode(response.body);
+    //     final List<BeritaModel> beritaList = responseData.map((item) => BeritaModel.fromJson(item)).toList();
+    //     return beritaList;
+    //   } else {
+    //     throw Exception('Terjadi kesalahan saat mengambil data berita. Status code: ${response.statusCode}');
     //   }
-    //
-    //   return result;
     // } catch (error) {
-    //   print('Error: $error');
-    //   return []; // Atau bisa Anda atur sebagai null atau lakukan penanganan kesalahan lainnya
+    //   throw Exception('Error: $error');
     // }
+    try {
+      final response = await DioUtil.dio.get('/berita');
+      List<dynamic> resultList = response.data;
+
+      List<BeritaModel> result = resultList
+          .map((resultMap) => BeritaModel.fromJson(resultMap))
+          .toList();
+
+      if (kDebugMode) {
+        print(filter);
+      }
+
+      return result;
+    } catch (error) {
+      if (kDebugMode) {
+        print(error);
+      }
+      return [];
+    }
   }
 
   @override

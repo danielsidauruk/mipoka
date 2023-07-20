@@ -1,7 +1,4 @@
 import 'dart:async';
-import 'dart:io';
-import 'dart:math';
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -10,12 +7,8 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/signature_dialog_utils.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
-import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
-import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
-import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
-import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_1_page.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -24,8 +17,6 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dart';
 import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 
 class PemeriksaDaftarPengajuanKegiatanPage extends StatefulWidget {
   const PemeriksaDaftarPengajuanKegiatanPage({super.key});
@@ -283,117 +274,4 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
       ),
     );
   }
-}
-
-void showPop(BuildContext context, UsulanKegiatan usulanKegiatan) {
-  final LabeledGlobalKey<SfSignaturePadState> signatureGlobalKey = LabeledGlobalKey<SfSignaturePadState>("pemeriksaKey");
-  String signatureUrl = "";
-
-  Future<File> saveSignature() async {
-    final image = await signatureGlobalKey.currentState?.toImage(pixelRatio: 3.0);
-    final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
-    final bytes = byteData?.buffer.asUint8List();
-
-    final directory = await getApplicationDocumentsDirectory();
-    final file = File('${directory.path}/signature.png');
-    await file.writeAsBytes(bytes!);
-
-    return file;
-  }
-
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-        return AlertDialog(
-          contentPadding: const EdgeInsets.all(8.0),
-          content: SingleChildScrollView(
-            child: Column(
-              children: [
-                const Text("Tanda Tangan Pembina"),
-
-                const CustomFieldSpacer(),
-
-                Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5.0),
-                    border: Border.all(color: Colors.white),
-                  ),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: 300,
-                        height: 200,
-                        child: SfSignaturePad(
-                          key: signatureGlobalKey,
-                          backgroundColor: Colors.white,
-                          strokeColor: Colors.black,
-                          minimumStrokeWidth: 1.0,
-                          maximumStrokeWidth: 4.0,
-                        ),
-                      ),
-
-                      const CustomFieldSpacer(),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          InkWell(
-                            onTap: () async {
-                              final randomId = Random().nextInt(9999999);
-
-                              mipokaCustomToast(savingDataMessage);
-                              final file = await saveSignature();
-                              signatureUrl = await uploadFileFromSignature(
-                                file,
-                                "signature_$randomId",
-                              );
-                              Future.microtask(() {
-                                context.read<UsulanKegiatanBloc>().add(
-                                  UpdateUsulanKegiatanEvent(
-                                    usulanKegiatan: usulanKegiatan.copyWith(
-                                      tandaTanganPembina: signatureUrl,
-                                      validasiPembina: "diterima",
-                                    ),
-                                  ),
-                                );
-                                mipokaCustomToast("Usulan Kegiatan telah diterima");
-                                Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute);
-                              });
-                            },
-                            child: const Text(
-                              'Simpan',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              signatureUrl = "";
-                              context.read<UsulanKegiatanBloc>().add(
-                                  const ReadAllUsulanKegiatanEvent());
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              'Batal',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-  );
 }

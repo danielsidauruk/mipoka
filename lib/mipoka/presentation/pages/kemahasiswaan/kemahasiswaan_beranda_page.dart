@@ -25,8 +25,7 @@ class KemahasiswaanBerandaPage extends StatefulWidget {
 class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
   @override
   void initState() {
-    _filter = "semua";
-
+    _filter = _filter!.isEmpty ? "" : _filter;
     context.read<BeritaBloc>().add(const ReadAllBeritaEvent());
     super.initState();
   }
@@ -73,14 +72,14 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                           onPressed: () => Navigator.pushNamed(
                             context,
                             kemahasiswaanBerandaTambahBeritaPageRoute,
-                          ).then((_) => Future.delayed(Duration(seconds: 5), () {
-                            context.read<BeritaBloc>().add(
-                                ReadAllBeritaEvent());
-                          })),
+                          ).then((_) => context.read<BeritaBloc>().add(const ReadAllBeritaEvent())),
                         ),
+
                         const CustomFieldSpacer(),
+
                         buildTitle('Penulis'),
                         MipokaCustomDropdown(
+                          initialItem: _filter,
                           items: penulisList,
                           onValueChanged: (value) {
                             _filter = value;
@@ -383,30 +382,39 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                                                 context,
                                                 kemahasiswaanBerandaUpdateBeritaPageRoute,
                                                 arguments: berita,
-                                              ),
+                                              ).then((_) => context.read<BeritaBloc>().add(ReadAllBeritaEvent(filter: _filter!))),
                                               // onTap:() =>
                                               child: Image.asset(
                                                 'assets/icons/edit.png',
                                                 width: 24,
                                               ),
                                             ),
+
                                             const SizedBox(
                                               width: 8.0,
                                             ),
+
                                             InkWell(
                                               onTap: () {
-                                                Future.microtask(() {
-                                                  context.read<BeritaBloc>().add(DeleteBeritaEvent(berita.idBerita),);
-                                                  context.read<BeritaBloc>().add(ReadAllBeritaEvent(filter: _filter!)
-                                                  );
-                                                  mipokaCustomToast("Berita telah dihapus");
-                                                });
+                                                context.read<BeritaBloc>().add(DeleteBeritaEvent(berita.idBerita));
+                                                mipokaCustomToast("Berita telah dihapus");
                                               },
                                               child: Image.asset(
                                                 'assets/icons/delete.png',
                                                 width: 24,
                                               ),
-                                            )
+                                            ),
+
+                                            // BlocListener<BeritaBloc, BeritaState>(
+                                            //   listenWhen: (prev, current) =>
+                                            //   prev.runtimeType != current.runtimeType,
+                                            //   listener: (context, state) {
+                                            //     if (state is BeritaSuccessMessage) {
+                                            //
+                                            //     }
+                                            //   },
+                                            //   child: const SizedBox(),
+                                            // ),
                                           ],
                                         ),
                                       ),

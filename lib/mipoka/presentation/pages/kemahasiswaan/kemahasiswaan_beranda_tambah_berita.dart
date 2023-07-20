@@ -7,6 +7,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -78,14 +79,14 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                       return MipokaFileUploader(
                         asset: "assets/icons/attach.png",
                         onTap: () async {
-                          result = await FilePicker.platform.pickFiles();
+                          result = await FilePicker.platform.pickFiles(type: FileType.image);
                           PlatformFile? file = result?.files.first;
                           if (result != null) {
                             if (file?.extension!.toLowerCase() == 'jpg' ||
                                 file?.extension!.toLowerCase() == 'jpeg' ||
                                 file?.extension!.toLowerCase() == 'png' ||
                                 file?.extension!.toLowerCase() == 'gif'){
-                              _filePickerStream.add(result?.files.first.name);
+                              _filePickerStream.add(file?.name);
                             } else {
                               mipokaCustomToast("Tipe data file bukan gambar.");
                             }
@@ -123,7 +124,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                             if (result != null) {
                               PlatformFile file = result.files.first;
                               Uint8List? bytes;
-                              String? gambarUrl;
+                              String? imageUrl;
 
                               if (kIsWeb) {
                                 bytes = file.bytes;
@@ -132,52 +133,29 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                               }
 
                               if (bytes != null) {
-                                gambarUrl = await uploadBytesToFirebase(bytes, "$newId${file.name}");
+                                imageUrl = await uploadBytesToFirebase(bytes, "$newId${file.name}");
                               }
 
-                              // Future.delayed(Duration(seconds: 2), () {
-                              //   context.read<BeritaBloc>().add(
-                              //     CreateBeritaEvent(
-                              //       Berita(
-                              //         idBerita: newId,
-                              //         judul: _judulBeritaController.text,
-                              //         penulis: _penulisController.text,
-                              //         gambar: gambarUrl ?? "",
-                              //         teks: _textBeritaController.text,
-                              //         tglTerbit: currentDate,
-                              //         createdAt: currentDate,
-                              //         createdBy: user?.email ?? "unknown",
-                              //         updatedAt: currentDate,
-                              //         updatedBy: user?.email ?? "unknown",
-                              //       ),
-                              //     ),
-                              //   );
-                              //
-                              //   mipokaCustomToast("Berita berhasil ditambahkan.");
-                              // });
+                              if(context.mounted) {
+                                int uniqueId = UniqueIdGenerator.generateUniqueId();
 
-                              context.read<BeritaBloc>().add(
-                                CreateBeritaEvent(
-                                  Berita(
-                                    idBerita: newId,
-                                    judul: _judulBeritaController.text,
-                                    penulis: _penulisController.text,
-                                    gambar: gambarUrl ?? "",
-                                    teks: _textBeritaController.text,
-                                    tglTerbit: currentDate,
-                                    createdAt: currentDate,
-                                    createdBy: user?.email ?? "unknown",
-                                    updatedAt: currentDate,
-                                    updatedBy: user?.email ?? "unknown",
+                                context.read<BeritaBloc>().add(
+                                  CreateBeritaEvent(
+                                    Berita(
+                                      idBerita: uniqueId,
+                                      judul: _judulBeritaController.text,
+                                      penulis: _penulisController.text,
+                                      gambar: imageUrl ?? "",
+                                      teks: _textBeritaController.text,
+                                      tglTerbit: currentDate,
+                                      createdAt: currentDate,
+                                      createdBy: user?.email ?? "unknown",
+                                      updatedAt: currentDate,
+                                      updatedBy: user?.email ?? "unknown",
+                                    ),
                                   ),
-                                ),
-                              );
-
-                              mipokaCustomToast("Berita berhasil ditambahkan.");
-                              Navigator.pop(context);
-
-                              // mipokaCustomToast("Berita berhasil ditambahkan.");
-                              // Navigator.pop(context);
+                                );
+                              }
                             } else {
                               mipokaCustomToast("Harap unggah file yang diperlukan.");
                             }
@@ -188,6 +166,18 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                         text: 'Simpan',
                       ),
                     ],
+                  ),
+
+                  BlocListener<BeritaBloc, BeritaState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) {
+                      if (state is BeritaSuccessMessage) {
+                        mipokaCustomToast("Berita berhasil ditambahkan.");
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: const SizedBox(),
                   ),
                 ],
               ),
@@ -210,8 +200,31 @@ Future<String?> uploadBytesToFirebase(Uint8List bytes, String fileName) async {
 
     return downloadUrl;
   } catch (error) {
-    mipokaCustomToast("Failed while uploading file : $error");
+    mipokaCustomToast("Failed while uploading file");
+    if (kDebugMode) {
+      print(error);
+    }
     rethrow;
   }
 }
 
+// Future.delayed(Duration(seconds: 2), () {
+//   context.read<BeritaBloc>().add(
+//     CreateBeritaEvent(
+//       Berita(
+//         idBerita: newId,
+//         judul: _judulBeritaController.text,
+//         penulis: _penulisController.text,
+//         gambar: gambarUrl ?? "",
+//         teks: _textBeritaController.text,
+//         tglTerbit: currentDate,
+//         createdAt: currentDate,
+//         createdBy: user?.email ?? "unknown",
+//         updatedAt: currentDate,
+//         updatedBy: user?.email ?? "unknown",
+//       ),
+//     ),
+//   );
+//
+//   mipokaCustomToast("Berita berhasil ditambahkan.");
+// });
