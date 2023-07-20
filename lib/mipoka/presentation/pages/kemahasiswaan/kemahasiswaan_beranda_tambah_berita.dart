@@ -119,7 +119,9 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                           if (_judulBeritaController.text.isNotEmpty &&
                               _penulisController.text.isNotEmpty &&
                               _textBeritaController.text.isNotEmpty) {
-                            mipokaCustomToast("Menyimpan data.");
+
+                            mipokaCustomToast(savingDataMessage);
+
                             final result = this.result;
                             if (result != null) {
                               PlatformFile file = result.files.first;

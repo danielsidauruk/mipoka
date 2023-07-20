@@ -90,7 +90,7 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                               onValueChanged: (value) {
                                 _filter = value;
                                 context.read<BeritaBloc>().add(
-                                    ReadAllBeritaEvent(filter: _filter!)
+                                    ReadAllBeritaEvent(filter: _filter ?? "")
                                 );
                               },
                             ),
@@ -188,8 +188,13 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                                                   context,
                                                   kemahasiswaanBerandaUpdateBeritaPageRoute,
                                                   arguments: berita,
-                                                ).then((_) => context.read<BeritaBloc>().add(
-                                                    ReadAllBeritaEvent(filter: _filter!))),
+                                                ).then((_) {
+                                                  context.read<BeritaBloc>().add(
+                                                      ReadAllBeritaEvent(filter: _filter ?? ""));
+                                                  if (_filter == berita.penulis) {
+                                                    _filter = "";
+                                                  }
+                                                }),
                                                 child: Image.asset(
                                                   'assets/icons/edit.png',
                                                   width: 24,
@@ -200,10 +205,14 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                                               ),
                                               InkWell(
                                                 onTap: () {
-                                                  context.read<BeritaBloc>().add(DeleteBeritaEvent(berita.idBerita));
-                                                  mipokaCustomToast("Berita telah dihapus");
-                                                  Future.delayed(const Duration(milliseconds: 100)).then((_) =>
-                                                      context.read<BeritaBloc>().add(ReadAllBeritaEvent(filter: _filter!)));
+                                                  Future.microtask(() {
+                                                    context.read<BeritaBloc>().add(DeleteBeritaEvent(berita.idBerita));
+                                                    if (_filter == berita.penulis) {
+                                                      _filter = "";
+                                                    }
+                                                    mipokaCustomToast("Berita telah dihapus");
+                                                    context.read<BeritaBloc>().add(ReadAllBeritaEvent(filter: _filter ?? ""));
+                                                  });
                                                 },
                                                 child: Image.asset(
                                                   'assets/icons/delete.png',
