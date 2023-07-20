@@ -91,14 +91,14 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                       return MipokaFileUploader(
                         asset: "assets/icons/attach.png",
                         onTap: () async {
-                          _result = await FilePicker.platform.pickFiles();
+                          _result = await FilePicker.platform.pickFiles(type: FileType.image);
                           PlatformFile? file = _result?.files.first;
                           if (_result != null) {
                             if (file?.extension!.toLowerCase() == 'jpg' ||
                                 file?.extension!.toLowerCase() == 'jpeg' ||
                                 file?.extension!.toLowerCase() == 'png' ||
                                 file?.extension!.toLowerCase() == 'gif'){
-                              _filePickerStream.add(_result?.files.first.name);
+                              _filePickerStream.add(file?.name);
                             } else {
                               mipokaCustomToast("Tipe data file bukan gambar.");
                             }
