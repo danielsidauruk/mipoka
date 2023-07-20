@@ -14,6 +14,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dart';
+import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 
 class KemahasiswaanBerandaPage extends StatefulWidget {
   const KemahasiswaanBerandaPage({super.key});
@@ -205,20 +206,35 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                                               ),
                                               InkWell(
                                                 onTap: () {
-                                                  Future.microtask(() {
-                                                    context.read<BeritaBloc>().add(DeleteBeritaEvent(berita.idBerita));
-                                                    if (_filter == berita.penulis) {
-                                                      _filter = "";
-                                                    }
-                                                    mipokaCustomToast("Berita telah dihapus");
-                                                    context.read<BeritaBloc>().add(ReadAllBeritaEvent(filter: _filter ?? ""));
-                                                  });
+                                                  context.read<BeritaBloc>().add(DeleteBeritaEvent(berita.idBerita));
+                                                  deleteFileFromFirebase(berita.gambar);
+                                                  if (_filter == berita.penulis) {
+                                                    _filter = "";
+                                                  }
+                                                  mipokaCustomToast("Berita berhasil dihapus.");
                                                 },
                                                 child: Image.asset(
                                                   'assets/icons/delete.png',
                                                   width: 24,
                                                 ),
                                               ),
+
+                                              // InkWell(
+                                              //   onTap: () {
+                                              //     context.read<BeritaBloc>().add(DeleteBeritaEvent(berita.idBerita));
+                                              //     if (_filter == berita.penulis) {
+                                              //       _filter = "";
+                                              //     }
+                                              //     Future.delayed(
+                                              //       const Duration(milliseconds: 500), () =>
+                                              //         context.read<BeritaBloc>().add(ReadAllBeritaEvent(filter: _filter ?? "")),
+                                              //     );
+                                              //   },
+                                              //   child: Image.asset(
+                                              //     'assets/icons/delete.png',
+                                              //     width: 24,
+                                              //   ),
+                                              // ),
                                             ],
                                           ),
                                         ),
@@ -230,7 +246,12 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                             ),
                           ],
                         );
-                      } else if (state is BeritaError) {
+                      } else if (state is BeritaSuccessMessage) {
+                        context.read<BeritaBloc>().add(ReadAllBeritaEvent(filter: _filter ?? ""));
+
+                        return const SizedBox();
+                      }
+                      else if (state is BeritaError) {
                         return Text(state.message);
                       } else {
                         if (kDebugMode) {

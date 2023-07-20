@@ -71,10 +71,15 @@ Future<void> deleteFileFromFirebase(String fileUrl) async {
   try {
     final Reference storageRef = FirebaseStorage.instance.refFromURL(fileUrl);
     await storageRef.delete();
+    if (kDebugMode) {
+      print("File Deleted Successfully.");
+    }
     // mipokaCustomToast("File deleted successfully.");
   } catch (error) {
     // mipokaCustomToast("Failed to delete file.");
-
+    if (kDebugMode) {
+      print(error);
+    }
   }
 }
 
