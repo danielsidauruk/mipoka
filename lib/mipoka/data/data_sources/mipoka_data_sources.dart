@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -25,7 +26,7 @@ import 'package:mipoka/mipoka/data/models/session_model.dart';
 import 'package:mipoka/mipoka/data/models/tertib_acara_model.dart';
 import 'package:mipoka/mipoka/data/models/mipoka_user_model.dart';
 import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
-import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
+import 'package:mipoka/mipoka/domain/entities/session.dart';
 
 abstract class MipokaDataSources {
   Future<List<BeritaModel>> readAllBerita(String filter);
@@ -169,62 +170,48 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   final http.Client client;
 
-
+  static const String beritaPath = "/berita";
+  static const String jenisKegiatanPath = "/jenis_kegiatan_mpt";
+  static const String kegiatanPerPeriodePath = "/kegiatan_per_periode_mpt";
+  static const String laporanPath = "/laporan";
+  static const String ormawaPath = "/ormawa";
+  static const String periodeMptPath = "/periode_mpt";
+  static const String prestasiPath = "/prestasi";
+  static const String riwayatMptPath = "/riwayat_mpt";
+  static const String sessionPath = "/session";
+  static const String userPath = "/user";
+  static const String usulanPath = "/usulan";
+  static const String mhsPerPeriodePath = "/mhs_per_periode_mpt";
 
   @override
   Future<void> createBerita(BeritaModel beritaModel) async {
-    // if (kDebugMode) {
-    //   print(beritaModel.toJson());
-    // }
     try {
-      final response = await DioUtil.dio.post(
-        '/berita',
+      final response = await DioUtil().dio.post(
+        beritaPath,
         data: beritaModel.toJson(),
       );
       if (kDebugMode) {
         print(response.data);
       }
-    } catch (error) {
-      mipokaCustomToast(error.toString());
+    } on DioError catch (e) {
       if (kDebugMode) {
-        print(error);
+        print(e);
       }
     }
-    // try {
-    //   final response = await http.post(
-    //     Uri.parse("$apiUrl/berita"),
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: jsonEncode(beritaModel.toJson()),
-    //   );
-    //
-    //   if (response.statusCode == 200) {
-    //     print('Usulan kegiatan berhasil dikirim.');
-    //   } else {
-    //     print('Terjadi kesalahan saat mengirim usulan kegiatan. Status code: ${response.statusCode}');
-    //   }
-    // } catch (error) {
-    //   print('Error: $error');
-    // }
   }
 
   @override
   Future<void> deleteBerita(int idBerita) async {
-    // if (kDebugMode) {
-    //   print("Berita with id $idBerita has been deleted.");
-    // }
     try {
-      final response = await DioUtil.dio.delete(
-        '/berita/$idBerita',
+      final response = await DioUtil().dio.delete(
+        '$beritaPath/$idBerita',
       );
       if (kDebugMode) {
         print(response.data);
       }
-    } catch (error) {
-      mipokaCustomToast(error.toString());
+    } on DioError catch (e) {
       if (kDebugMode) {
-        print(error);
+        print(e);
       }
     }
   }
@@ -232,7 +219,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<BeritaModel>> readAllBerita(String filter) async {
     try {
-      final response = await DioUtil().dio.get('/berita');
+      final response = await DioUtil().dio.get(beritaPath);
       List<dynamic> resultList = response.data;
 
       List<BeritaModel> result = resultList
@@ -244,9 +231,9 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       }
 
       return result;
-    } catch (error) {
+    } on DioError catch (e) {
       if (kDebugMode) {
-        print(error);
+        print(e);
       }
       return [];
     }
@@ -254,6 +241,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<BeritaModel> readBerita(int idBerita) async {
+    print("");
     final String response =
     await rootBundle.loadString('assets/json_file/berita.json');
     dynamic jsonDecode = json.decode(response);
@@ -266,17 +254,16 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<void> updateBerita(BeritaModel beritaModel) async {
     try {
-      final response = await DioUtil.dio.put(
-        '/berita/${beritaModel.idBerita}',
+      final response = await DioUtil().dio.put(
+        '$beritaPath/${beritaModel.idBerita}',
         data: beritaModel.toJson(),
       );
       if (kDebugMode) {
         print(response.data);
       }
-    } catch (error) {
-      mipokaCustomToast(error.toString());
+    } on DioError catch (e) {
       if (kDebugMode) {
-        print(error);
+        print(e);
       }
     }
   }
@@ -347,35 +334,59 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<void> createJenisKegiatanMpt(
       JenisKegiatanMptModel jenisKegiatanMptModel) async {
-    if (kDebugMode) {
-      print(jenisKegiatanMptModel.toJson());
+    try {
+      final response = await DioUtil().dio.post(
+        jenisKegiatanPath,
+        data: jenisKegiatanMptModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<void> deleteJenisKegiatanMpt(int idJenisKegiatanMpt) async {
-    if (kDebugMode) {
-      print("JenisKegiatanMpt with id $idJenisKegiatanMpt has been deleted.");
+    try {
+      final response = await DioUtil().dio.delete(
+        '$jenisKegiatanPath/$idJenisKegiatanMpt',
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<List<JenisKegiatanMptModel>> readAllJenisKegiatanMpt(
       String filter) async {
-    final String response =
-    await rootBundle.loadString(
-        'assets/json_file/jenis_kegiatan_mpt_list.json');
-    List<dynamic> resultList = json.decode(response);
+    try {
+      final response = await DioUtil().dio.get(jenisKegiatanPath);
+      List<dynamic> resultList = response.data;
 
-    List<JenisKegiatanMptModel> result =
-    resultList.map((resultMap) => JenisKegiatanMptModel.fromJson(resultMap))
-        .toList();
+      List<JenisKegiatanMptModel> result = resultList
+          .map((resultMap) => JenisKegiatanMptModel.fromJson(resultMap))
+          .toList();
 
-    if (kDebugMode) {
-      print(filter);
+      if (kDebugMode) {
+        print(filter);
+      }
+
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return [];
     }
-
-    return result;
   }
 
   @override
@@ -393,42 +404,77 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<void> updateJenisKegiatanMpt(
       JenisKegiatanMptModel jenisKegiatanMptModel) async {
-    if (kDebugMode) {
-      print(jenisKegiatanMptModel);
+    try {
+      final response = await DioUtil().dio.put(
+        '$jenisKegiatanPath/${jenisKegiatanMptModel.idJenisKegiatanMpt}',
+        data: jenisKegiatanMptModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
 
-  // => * KegiatanMPT DataSources
+  // => * KegiatanPerPeriodeMPT DataSources
   @override
-  Future<void> createKegiatanPerPeriodeMpt(KegiatanPerPeriodeMptModel kegiatanMptModel) async {
-    if (kDebugMode) {
-      print(kegiatanMptModel.toJson());
+  Future<void> createKegiatanPerPeriodeMpt(KegiatanPerPeriodeMptModel kegiatanPerPeriodeMptModel) async {
+    try {
+      final response = await DioUtil().dio.post(
+        beritaPath,
+        data: kegiatanPerPeriodeMptModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<void> deleteKegiatanPerPeriodeMpt(int idKegiatanMpt) async {
-    if (kDebugMode) {
-      print("KegiatanMpt with id $idKegiatanMpt has been deleted.");
+    try {
+      final response = await DioUtil().dio.delete(
+        '$kegiatanPerPeriodePath/$idKegiatanMpt',
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<List<KegiatanPerPeriodeMptModel>> readAllKegiatanPerPeriodeMpt(String filter) async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/kegiatan_per_periode_mpt_list.json');
-    List<dynamic> resultList = json.decode(response);
+    try {
+      final response = await DioUtil().dio.get(kegiatanPerPeriodePath);
+      List<dynamic> resultList = response.data;
 
-    List<KegiatanPerPeriodeMptModel> result =
-    resultList.map((resultMap) => KegiatanPerPeriodeMptModel.fromJson(resultMap))
-        .toList();
+      List<KegiatanPerPeriodeMptModel> result = resultList
+          .map((resultMap) => KegiatanPerPeriodeMptModel.fromJson(resultMap))
+          .toList();
 
-    if (kDebugMode) {
-      print(filter);
+      if (kDebugMode) {
+        print(filter);
+      }
+
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return [];
     }
-
-    return result;
   }
 
   @override
@@ -447,42 +493,78 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<void> updateKegiatanPerPeriodeMpt(KegiatanPerPeriodeMptModel kegiatanMptModel) async {
-    if (kDebugMode) {
-      print(kegiatanMptModel.toJson());
+  Future<void> updateKegiatanPerPeriodeMpt(KegiatanPerPeriodeMptModel kegiatanPerPeriodeMptModel) async {
+    try {
+      final response = await DioUtil().dio.put(
+        '$beritaPath/${kegiatanPerPeriodeMptModel.idKegiatanPerPeriodeMpt}',
+        data: kegiatanPerPeriodeMptModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
 
-  /* => Berita DataSources */
+  /* => Laporan DataSources */
   @override
   Future<void> createLaporan(LaporanModel laporanModel) async {
-    if (kDebugMode) {
-      print(laporanModel.toJson());
+    try {
+      final response = await DioUtil().dio.post(
+        laporanPath,
+        data: laporanModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<void> deleteLaporan(int idLaporan) async {
-    if (kDebugMode) {
-      print("Laporan with id $idLaporan has been deleted.");
+    try {
+      final response = await DioUtil().dio.delete(
+        '$laporanPath/$idLaporan',
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<List<LaporanModel>> readAllLaporan(String filter) async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/laporan_list.json');
-    List<dynamic> resultList = json.decode(response);
+    try {
+      final response = await DioUtil().dio.get(laporanPath);
+      List<dynamic> resultList = response.data;
 
-    List<LaporanModel> result =
-    resultList.map((resultMap) => LaporanModel.fromJson(resultMap)).toList();
+      List<LaporanModel> result = resultList
+          .map((resultMap) => LaporanModel.fromJson(resultMap))
+          .toList();
 
-    if (kDebugMode) {
-      print(filter);
+      if (kDebugMode) {
+        print(filter);
+      }
+
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return [];
     }
-
-    return result;
   }
 
   @override
@@ -498,8 +580,18 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<void> updateLaporan(LaporanModel laporanModel) async {
-    if (kDebugMode) {
-      print(laporanModel.toJson());
+    try {
+      final response = await DioUtil().dio.put(
+        '$laporanPath/${laporanModel.idLaporan}',
+        data: laporanModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -507,32 +599,59 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   //* => Ormawa DataSources */
   @override
   Future<void> createOrmawa(OrmawaModel ormawaModel) async {
-    if (kDebugMode) {
-      print(ormawaModel.toJson());
+    try {
+      final response = await DioUtil().dio.post(
+        ormawaPath,
+        data: ormawaModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<void> deleteOrmawa(int idOrmawa) async {
-    if (kDebugMode) {
-      print("Ormawa with id $idOrmawa has been deleted.");
+    try {
+      final response = await DioUtil().dio.delete(
+        '$ormawaPath/$idOrmawa',
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<List<OrmawaModel>> readAllOrmawa() async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/ormawa_list.json');
-    List<dynamic> resultList = json.decode(response);
+    try {
+      final response = await DioUtil().dio.get(ormawaPath);
+      List<dynamic> resultList = response.data;
 
-    List<OrmawaModel> result =
-    resultList.map((resultMap) => OrmawaModel.fromJson(resultMap)).toList();
+      List<OrmawaModel> result = resultList
+          .map((resultMap) => OrmawaModel.fromJson(resultMap))
+          .toList();
 
-    return result;
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return [];
+    }
   }
 
   @override
   Future<OrmawaModel> readOrmawa(int idOrmawa) async {
+    print("");
     final String response =
     await rootBundle.loadString('assets/json_file/ormawa.json');
     dynamic jsonDecode = json.decode(response);
@@ -544,8 +663,18 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<void> updateOrmawa(OrmawaModel ormawaModel) async {
-    if (kDebugMode) {
-      print(ormawaModel.toJson());
+    try {
+      final response = await DioUtil().dio.put(
+        '$ormawaPath/${ormawaModel.idOrmawa}',
+        data: ormawaModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -579,32 +708,59 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   /* PeriodeMpt DataSources */
   @override
   Future<void> createPeriodeMpt(PeriodeMptModel periodeMptModel) async {
-    if (kDebugMode) {
-      print(periodeMptModel.toJson());
+    try {
+      final response = await DioUtil().dio.post(
+        periodeMptPath,
+        data: periodeMptModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<void> deletePeriodeMpt(int idPeriode) async {
-    if (kDebugMode) {
-      print("Periode with id $idPeriode has been deleted.");
+    try {
+      final response = await DioUtil().dio.delete(
+        '$periodeMptPath/$idPeriode',
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<List<PeriodeMptModel>> readAllPeriodeMpt() async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/periode_mpt_list.json');
-    List<dynamic> resultList = json.decode(response);
+    try {
+      final response = await DioUtil().dio.get(periodeMptPath);
+      List<dynamic> resultList = response.data;
 
-    List<PeriodeMptModel> result =
-    resultList.map((resultMap) => PeriodeMptModel.fromJson(resultMap)).toList();
+      List<PeriodeMptModel> result = resultList
+          .map((resultMap) => PeriodeMptModel.fromJson(resultMap))
+          .toList();
 
-    return result;
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return [];
+    }
   }
 
   @override
   Future<PeriodeMptModel> readPeriodeMpt(int idPeriodeMpt) async {
+    print("");
     final String response =
     await rootBundle.loadString('assets/json_file/periode_mpt.json');
     dynamic jsonDecode = json.decode(response);
@@ -616,8 +772,18 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<void> updatePeriodeMpt(PeriodeMptModel periodeMptModel) async {
-    if (kDebugMode) {
-      print(periodeMptModel.toJson());
+    try {
+      final response = await DioUtil().dio.put(
+        '$periodeMptPath/${periodeMptModel.idPeriodeMpt}',
+        data: periodeMptModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -652,36 +818,63 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   /* Prestasi DataSources */
   @override
   Future<void> createPrestasi(PrestasiModel prestasiModel) async {
-    if (kDebugMode) {
-      print(prestasiModel.toJson());
+    try {
+      final response = await DioUtil().dio.post(
+        prestasiPath,
+        data: prestasiModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<void> deletePrestasi(int idPrestasi) async {
-    if (kDebugMode) {
-      print("Prestasi with id $idPrestasi has been deleted.");
+    try {
+      final response = await DioUtil().dio.delete(
+        '$prestasiPath/$idPrestasi',
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<List<PrestasiModel>> readAllPrestasi(String filter) async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/prestasi_list.json');
-    List<dynamic> resultList = json.decode(response);
+    try {
+      final response = await DioUtil().dio.get(prestasiPath);
+      List<dynamic> resultList = response.data;
 
-    List<PrestasiModel> result =
-    resultList.map((resultMap) => PrestasiModel.fromJson(resultMap)).toList();
+      List<PrestasiModel> result = resultList
+          .map((resultMap) => PrestasiModel.fromJson(resultMap))
+          .toList();
 
-    if (kDebugMode) {
-      print(filter);
+      if (kDebugMode) {
+        print(filter);
+      }
+
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return [];
     }
-
-    return result;
   }
 
   @override
   Future<PrestasiModel> readPrestasi(int idPrestasi) async {
+    print("");
     final String response =
     await rootBundle.loadString('assets/json_file/prestasi.json');
     dynamic jsonDecode = json.decode(response);
@@ -693,8 +886,18 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<void> updatePrestasi(PrestasiModel prestasiModel) async {
-    if (kDebugMode) {
-      print(prestasiModel.toJson());
+    try {
+      final response = await DioUtil().dio.put(
+        '$prestasiPath/${prestasiModel.idPrestasi}',
+        data: prestasiModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -800,32 +1003,58 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   /* => RiwayatMpt */
   @override
   Future<void> createRiwayatMpt(RiwayatMptModel riwayatMptModel) async {
-    if (kDebugMode) {
-      print(riwayatMptModel.toJson());
+    try {
+      final response = await DioUtil().dio.post(
+        riwayatMptPath,
+        data: riwayatMptModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<void> deleteRiwayatMpt(int idRiwayatMpt) async {
-    if (kDebugMode) {
-      print("RiwayatMpt with id $idRiwayatMpt has been deleted.");
+    try {
+      final response = await DioUtil().dio.delete(
+        '$riwayatMptPath/$idRiwayatMpt',
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<List<RiwayatMptModel>> readAllRiwayatMpt(String filter) async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/riwayat_kegiatan_mpt_list.json');
-    List<dynamic> resultList = json.decode(response);
+    try {
+      final response = await DioUtil().dio.get(riwayatMptPath);
+      List<dynamic> resultList = response.data;
 
-    List<RiwayatMptModel> result =
-    resultList.map((resultMap) => RiwayatMptModel.fromJson(resultMap)).toList();
+      List<RiwayatMptModel> result = resultList
+          .map((resultMap) => RiwayatMptModel.fromJson(resultMap))
+          .toList();
 
-    if (kDebugMode) {
-      print(filter);
+      if (kDebugMode) {
+        print(filter);
+      }
+
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return [];
     }
-
-    return result;
   }
 
   @override
@@ -841,8 +1070,18 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<void> updateRiwayatMpt(RiwayatMptModel riwayatMptModel) async {
-    if (kDebugMode) {
-      print(riwayatMptModel.toJson());
+    try {
+      final response = await DioUtil().dio.put(
+        '$riwayatMptPath/${riwayatMptModel.idRiwayatKegiatanMpt}',
+        data: riwayatMptModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -850,32 +1089,58 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   /* => Session DataSources */
   @override
   Future<void> createSession(SessionModel sessionModel) async {
-    if (kDebugMode) {
-      print(sessionModel.toJson());
+    try {
+      final response = await DioUtil().dio.post(
+        sessionPath,
+        data: sessionModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<void> deleteSession(int idSession) async {
-    if (kDebugMode) {
-      print("Session with id $idSession has been deleted.");
+    try {
+      final response = await DioUtil().dio.delete(
+        '$sessionPath/$idSession',
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<List<SessionModel>> readAllSession(String filter) async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/session_list.json');
-    List<dynamic> resultList = json.decode(response);
+    try {
+      final response = await DioUtil().dio.get(sessionPath);
+      List<dynamic> resultList = response.data;
 
-    List<SessionModel> result =
-    resultList.map((resultMap) => SessionModel.fromJson(resultMap)).toList();
+      List<SessionModel> result = resultList
+          .map((resultMap) => SessionModel.fromJson(resultMap))
+          .toList();
 
-    if (kDebugMode) {
-      print(filter);
+      if (kDebugMode) {
+        print(filter);
+      }
+
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return [];
     }
-
-    return result;
   }
 
   @override
@@ -891,8 +1156,18 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<void> updateSession(SessionModel sessionModel) async {
-    if (kDebugMode) {
-      print(sessionModel.toJson());
+    try {
+      final response = await DioUtil().dio.put(
+        '$sessionPath/${sessionModel.idSession}',
+        data: sessionModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -927,140 +1202,191 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<void> createMipokaUser(MipokaUserModel mipokaUserModel) async {
     try {
-      final response = await DioUtil.dio.post(
-        '/user',
+      final response = await DioUtil().dio.post(
+        userPath,
         data: mipokaUserModel.toJson(),
       );
-      print(response.data);
-    } catch (error) {
-      print('Error: $error');
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<void> deleteMipokaUser(String idMipokaUser) async {
-    if (kDebugMode) {
-      print("MipokaUser with id $idMipokaUser has been deleted.");
+    try {
+      final response = await DioUtil().dio.delete(
+        '$userPath/$idMipokaUser',
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<List<MipokaUserModel>> readAllMipokaUser() async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/mipoka_user_list.json');
-    List<dynamic> resultList = json.decode(response);
+    try {
+      final response = await DioUtil().dio.get(userPath);
+      List<dynamic> resultList = response.data;
 
-    List<MipokaUserModel> result =
-    resultList.map((resultMap) => MipokaUserModel.fromJson(resultMap)).toList();
+      List<MipokaUserModel> result = resultList
+          .map((resultMap) => MipokaUserModel.fromJson(resultMap))
+          .toList();
 
-    return result;
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return [];
+    }
   }
 
   @override
   Future<MipokaUserModel> readMipokaUser(String idMipokaUser) async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/mipoka_user.json');
-    dynamic jsonDecode = json.decode(response);
+    try {
+      final response = await DioUtil().dio.get("$userPath/$idMipokaUser");
+      final result = MipokaUserModel.fromJson(response.data);
 
-    MipokaUserModel result = MipokaUserModel.fromJson(jsonDecode);
-
-    return result;
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
+    }
   }
 
   @override
   Future<MipokaUserModel> readMipokaUserByNim(String nim) async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/mipoka_user.json');
-    dynamic jsonDecode = json.decode(response);
+    try {
+      final response = await DioUtil().dio.get("$userPath/$nim");
+      final result = MipokaUserModel.fromJson(response.data);
 
-    MipokaUserModel result = MipokaUserModel.fromJson(jsonDecode);
-
-    if (kDebugMode) {
-      print(nim);
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
     }
-
-    return result;
   }
 
   @override
   Future<void> updateMipokaUser(MipokaUserModel mipokaUserModel) async {
-    if (kDebugMode) {
-      print(mipokaUserModel.toJson());
+    try {
+      final response = await DioUtil().dio.put(
+        '$userPath/${mipokaUserModel.idUser}',
+        data: mipokaUserModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+
+  /* Create Usulan Kegiatan */
+  @override
+  Future<void> createUsulanKegiatan(
+      UsulanKegiatanModel usulanKegiatanModel) async {
+    try {
+      final response = await DioUtil().dio.post(
+        usulanPath,
+        data: usulanKegiatanModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
-  Future<void> createUsulanKegiatan(
-      UsulanKegiatanModel usulanKegiatanModel) async {
-    print(usulanKegiatanModel.toJson());
-    // try {
-    //   final response = await DioUtil.dio.post(
-    //     '/usulan',
-    //     data: usulanKegiatanModel.toJson(),
-    //   );
-    //   print(response.data);
-    // } catch (error) {
-    //   print('Error: $error');
-    // }
-    // try {
-    //   final response = await http.post(
-    //     Uri.parse("$apiUrl/usulan"),
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: jsonEncode(usulanKegiatanModel.toJson()),
-    //   );
-    //
-    //   if (response.statusCode == 200) {
-    //     print('Usulan kegiatan berhasil dikirim.');
-    //   } else {
-    //     print('Terjadi kesalahan saat mengirim usulan kegiatan. Status code: ${response.statusCode}');
-    //   }
-    // } catch (error) {
-    //   print('Error: $error');
-    // }
-  }
-
-  @override
   Future<void> deleteUsulanKegiatan(int idUsulan) async {
-    if (kDebugMode) {
-      print("UsulanKegiatan with id $idUsulan has been deleted.");
+    try {
+      final response = await DioUtil().dio.delete(
+        '$usulanPath/$idUsulan',
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<List<UsulanKegiatanModel>> readAllUsulanKegiatan(String filter) async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/usulan_kegiatan_list.json');
-    List<dynamic> resultList = json.decode(response);
+    try {
+      final response = await DioUtil().dio.get(usulanPath);
+      List<dynamic> resultList = response.data;
 
-    List<UsulanKegiatanModel> result =
-    resultList.map((resultMap) => UsulanKegiatanModel.fromJson(resultMap))
-        .toList();
+      List<UsulanKegiatanModel> result = resultList
+          .map((resultMap) => UsulanKegiatanModel.fromJson(resultMap))
+          .toList();
 
-    if (kDebugMode) {
-      print(filter);
+      if (kDebugMode) {
+        print(filter);
+      }
+
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return [];
     }
-
-    return result;
   }
 
   @override
   Future<UsulanKegiatanModel> readUsulanKegiatan(int idUsulanKegiatan) async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/usulan_kegiatan.json');
-    dynamic jsonDecode = json.decode(response);
+    try {
+      final response = await DioUtil().dio.get("$usulanPath/$idUsulanKegiatan");
+      final result = UsulanKegiatanModel.fromJson(response.data);
 
-    UsulanKegiatanModel result = UsulanKegiatanModel.fromJson(jsonDecode);
-
-    return result;
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
+    }
   }
 
   @override
   Future<void> updateUsulanKegiatan(
       UsulanKegiatanModel usulanKegiatanModel) async {
-    if (kDebugMode) {
-      print(usulanKegiatanModel.toJson());
+    try {
+      final response = await DioUtil().dio.put(
+        '$usulanPath/${usulanKegiatanModel.idUsulan}',
+        data: usulanKegiatanModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -1068,30 +1394,57 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   // * => MhsPerPeriodeMpt DataSources
   @override
   Future<void> createMhsPerPeriodeMpt(MhsPerPeriodeMptModel mhsPerPeriodeMptModel) async {
-    if (kDebugMode) {
-      print(mhsPerPeriodeMptModel.toJson());
+    try {
+      final response = await DioUtil().dio.post(
+        mhsPerPeriodePath,
+        data: mhsPerPeriodeMptModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<void> deleteMhsPerPeriodeMpt(int idMhsPerPeriodeMpt) async {
-    if (kDebugMode) {
-      print("MhsPerPeriodeMpt with id $idMhsPerPeriodeMpt has been deleted.");
+    try {
+      final response = await DioUtil().dio.delete(
+        '$mhsPerPeriodePath/$idMhsPerPeriodeMpt',
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<List<MhsPerPeriodeMptModel>> readAllMhsPerPeriodeMpt(String filter) async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/mhs_per_periode_mpt_list.json');
-    List<dynamic> resultList = json.decode(response);
+    try {
+      final response = await DioUtil().dio.get(beritaPath);
+      List<dynamic> resultList = response.data;
 
-    List<MhsPerPeriodeMptModel> result =
-    resultList.map((resultMap) => MhsPerPeriodeMptModel.fromJson(resultMap))
-        .toList();
+      List<BeritaModel> result = resultList
+          .map((resultMap) => BeritaModel.fromJson(resultMap))
+          .toList();
 
-    if (kDebugMode) {
-      print(filter);
+      if (kDebugMode) {
+        print(filter);
+      }
+
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return [];
     }
 
     return result;

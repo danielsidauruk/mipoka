@@ -59,7 +59,7 @@ final locator = GetIt.instance;
 Future<void> init() async {
   // EXTERNAL
   locator.registerLazySingleton<Client>(() => Client());
-  locator.registerLazySingleton<Dio>(() => DioUtil.dio);
+  locator.registerLazySingleton<Dio>(() => DioUtil().dio);
 
   // BLOC
   locator.registerFactory(() => AdminBloc(adminUseCase: locator()));
