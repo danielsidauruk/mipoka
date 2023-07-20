@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/domain/utils/dio_util.dart';
 import 'package:mipoka/mipoka/data/models/admin_model.dart';
 import 'package:mipoka/mipoka/data/models/berita_model.dart';
@@ -170,6 +169,8 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   final http.Client client;
 
+
+
   @override
   Future<void> createBerita(BeritaModel beritaModel) async {
     // if (kDebugMode) {
@@ -230,39 +231,8 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<List<BeritaModel>> readAllBerita(String filter) async {
-    // final String response =
-    // await rootBundle.loadString('assets/json_file/berita_list.json');
-    // List<dynamic> resultList = json.decode(response);
-    //
-    // List<BeritaModel> result =
-    // resultList.map((resultMap) => BeritaModel.fromJson(resultMap)).toList();
-    //
-    // if (kDebugMode) {
-    //   print(filter);
-    // }
-    //
-    // return result;
-
-    // try {
-    //   final response = await http.get(
-    //     Uri.parse("$apiUrl/berita"),
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //   );
-    //
-    //   if (response.statusCode == 200) {
-    //     final List<dynamic> responseData = jsonDecode(response.body);
-    //     final List<BeritaModel> beritaList = responseData.map((item) => BeritaModel.fromJson(item)).toList();
-    //     return beritaList;
-    //   } else {
-    //     throw Exception('Terjadi kesalahan saat mengambil data berita. Status code: ${response.statusCode}');
-    //   }
-    // } catch (error) {
-    //   throw Exception('Error: $error');
-    // }
     try {
-      final response = await DioUtil.dio.get('/berita');
+      final response = await DioUtil().dio.get('/berita');
       List<dynamic> resultList = response.data;
 
       List<BeritaModel> result = resultList
