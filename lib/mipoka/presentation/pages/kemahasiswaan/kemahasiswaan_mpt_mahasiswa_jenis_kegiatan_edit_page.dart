@@ -74,21 +74,33 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanEditPageState extends State<Kemahas
 
                       CustomMipokaButton(
                         onTap: () => (_namaJenisKegiatanController.text != "") ?
-                        Future.microtask(() {
-                          context.read<JenisKegiatanMptBloc>().add(
-                            UpdateJenisKegiatanMptEvent(
-                              jenisKegiatanMpt: widget.jenisKegiatanMpt.copyWith(
-                                namaJenisKegiatanMpt: _namaJenisKegiatanController.text,
-                                updatedAt: currentDate,
-                                updatedBy: user?.email ?? "",
-                              ),
+                        context.read<JenisKegiatanMptBloc>().add(
+                          UpdateJenisKegiatanMptEvent(
+                            jenisKegiatanMpt: widget.jenisKegiatanMpt
+                                .copyWith(
+                              namaJenisKegiatanMpt: _namaJenisKegiatanController
+                                  .text,
+                              updatedAt: currentDate,
+                              updatedBy: user?.email ?? "",
                             ),
-                          );
-                          mipokaCustomToast("Jenis Kegiatan MPT berhasil diupdate.");
-                          Navigator.pop(context);
-                        }) :
+                          ),
+                        ) :
                         mipokaCustomToast(emptyFieldMessage),
                         text: 'Simpan',
+                      ),
+
+                      BlocListener<JenisKegiatanMptBloc, JenisKegiatanMptState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
+                          if (state is JenisKegiatanMptSuccess) {
+                            mipokaCustomToast("Jenis Kegiatan MPT berhasil diupdate.");
+                            Navigator.pop(context);
+                          } else if (state is JenisKegiatanMptError) {
+                            mipokaCustomToast(state.message);
+                          }
+                        },
+                        child: const SizedBox(),
                       ),
                     ],
                   ),

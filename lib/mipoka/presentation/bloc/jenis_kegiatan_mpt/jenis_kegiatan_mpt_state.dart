@@ -38,8 +38,8 @@ class JenisKegiatanMptError extends JenisKegiatanMptState {
   List<Object> get props => [message];
 }
 
-class JenisKegiatanMptSuccessMessage extends JenisKegiatanMptState {
-  const JenisKegiatanMptSuccessMessage({this.message = "Data has changed"});
+class JenisKegiatanMptSuccess extends JenisKegiatanMptState {
+  const JenisKegiatanMptSuccess({this.message = "Data has changed"});
 
   final String message;
 

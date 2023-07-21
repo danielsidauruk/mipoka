@@ -18,7 +18,7 @@ class JenisKegiatanMptBloc extends Bloc<JenisKegiatanMptEvent, JenisKegiatanMptS
 
       jenisKegiatanMpt.fold(
             (failure) => emit(JenisKegiatanMptError(message: failure.message)),
-            (_) => emit(const JenisKegiatanMptSuccessMessage()),
+            (_) => emit(const JenisKegiatanMptSuccess()),
       );
     });
 
@@ -51,7 +51,7 @@ class JenisKegiatanMptBloc extends Bloc<JenisKegiatanMptEvent, JenisKegiatanMptS
 
       jenisKegiatanMpt.fold(
             (failure) => emit(JenisKegiatanMptError(message: failure.message)),
-            (_) => emit(const JenisKegiatanMptSuccessMessage()),
+            (_) => emit(const JenisKegiatanMptSuccess()),
       );
     });
 
@@ -62,7 +62,7 @@ class JenisKegiatanMptBloc extends Bloc<JenisKegiatanMptEvent, JenisKegiatanMptS
 
       jenisKegiatanMpt.fold(
             (failure) => emit(JenisKegiatanMptError(message: failure.message)),
-            (_) => emit(const JenisKegiatanMptSuccessMessage()),
+            (_) => emit(const JenisKegiatanMptSuccess()),
       );
     });
   }

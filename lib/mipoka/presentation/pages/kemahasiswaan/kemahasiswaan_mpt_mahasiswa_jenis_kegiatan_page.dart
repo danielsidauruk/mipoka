@@ -41,129 +41,138 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomKemahasiswaanDrawer(),
-      body: BlocBuilder<JenisKegiatanMptBloc, JenisKegiatanMptState>(
-        builder: (context, state) {
-          if (state is JenisKegiatanMptLoading) {
-            return const Text('Loading');
-          } else if (state is AllJenisKegiatanMptHasData) {
-            final jenisKegiatanMptList = state.jenisKegiatanMptList;
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const CustomMobileTitle(
+                  text: 'Kemahasiswaan - MPT Mahasiswa - Jenis Kegiatan'),
+              const CustomFieldSpacer(),
+              CustomContentBox(
+                children: [
+                  CustomAddButton(
+                    buttonText: 'Tambah',
+                    onPressed: () =>
+                        Navigator.pushNamed(
+                          context,
+                          kemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute,
+                        ).then((_) => context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent())),
+                  ),
 
-            return SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const CustomMobileTitle(
-                        text: 'Kemahasiswaan - MPT Mahasiswa - Jenis Kegiatan'),
-                    const CustomFieldSpacer(),
-                    CustomContentBox(
-                      children: [
-                        CustomAddButton(
-                          buttonText: 'Tambah',
-                          onPressed: () =>
-                              Navigator.pushNamed(
-                                context,
-                                kemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute,
-                              ).then((_) => context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent())),
-                        ),
+                  const CustomFieldSpacer(),
 
-                        const CustomFieldSpacer(),
+                  BlocBuilder<JenisKegiatanMptBloc, JenisKegiatanMptState>(
+                    builder: (context, state) {
+                      if (state is JenisKegiatanMptLoading) {
+                        return const Text('Loading');
+                      } else if (state is AllJenisKegiatanMptHasData) {
+                        final jenisKegiatanMptList = state.jenisKegiatanMptList;
 
-                        MipokaCountText(total: jenisKegiatanMptList.length),
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            MipokaCountText(total: jenisKegiatanMptList.length),
 
-                        const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
 
-                        SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: DataTable(
-                              // columnSpacing: 40,
-                              border: TableBorder.all(color: Colors.white),
-                              columns: const [
-                                DataColumn(
-                                  label: Text(
-                                    'Nama Jenis Kegiatan',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                DataColumn(
-                                  tooltip: 'Aksi yang akan dilakukan',
-                                  label: Text(
-                                    'Aksi',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ],
-                              rows: List<DataRow>.generate(jenisKegiatanMptList.length, (int index) {
-                                final jenisKegiatanMpt = jenisKegiatanMptList[index];
-
-                                return DataRow(
-                                  cells: [
-                                    DataCell(
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          jenisKegiatanMpt.namaJenisKegiatanMpt,
-                                        ),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: DataTable(
+                                  // columnSpacing: 40,
+                                  border: TableBorder.all(color: Colors.white),
+                                  columns: const [
+                                    DataColumn(
+                                      label: Text(
+                                        'Nama Jenis Kegiatan',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    DataCell(
-                                      Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          InkWell(
-                                            onTap: () => Navigator.pushNamed(
-                                              context,
-                                              kemahasiswaanMPTMahasiswaJenisKegiatanEditPageRoute,
-                                              arguments: jenisKegiatanMpt,
-                                            ).then((_) => context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent())),
-                                            child: Image.asset(
-                                              'assets/icons/edit.png',
-                                              width: 24,
-                                            ),
-                                          ),
-
-                                          const SizedBox(width: 8.0),
-
-                                          InkWell(
-                                            onTap: () => Future.microtask(() {
-                                              mipokaCustomToast("${jenisKegiatanMpt.namaJenisKegiatanMpt} telah dihapus.");
-                                              context.read<JenisKegiatanMptBloc>().add(DeleteJenisKegiatanMptEvent(idJenisKegiatan: jenisKegiatanMpt.idJenisKegiatanMpt));
-                                              context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
-                                            }),
-                                            child: Image.asset(
-                                              'assets/icons/delete.png',
-                                              width: 24,
-                                            ),
-                                          ),
-                                        ],
+                                    DataColumn(
+                                      tooltip: 'Aksi yang akan dilakukan',
+                                      label: Text(
+                                        'Aksi',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
                                   ],
-                                );
-                              }),
+                                  rows: List<DataRow>.generate(jenisKegiatanMptList.length, (int index) {
+                                    final jenisKegiatanMpt = jenisKegiatanMptList[index];
+
+                                    return DataRow(
+                                      cells: [
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              jenisKegiatanMpt.namaJenisKegiatanMpt,
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              InkWell(
+                                                onTap: () => Navigator.pushNamed(
+                                                  context,
+                                                  kemahasiswaanMPTMahasiswaJenisKegiatanEditPageRoute,
+                                                  arguments: jenisKegiatanMpt,
+                                                ).then((_) => context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent())),
+                                                child: Image.asset(
+                                                  'assets/icons/edit.png',
+                                                  width: 24,
+                                                ),
+                                              ),
+
+                                              const SizedBox(width: 8.0),
+
+                                              InkWell(
+                                                onTap: () {
+                                                  mipokaCustomToast("${jenisKegiatanMpt.namaJenisKegiatanMpt} telah dihapus.");
+                                                  context.read<JenisKegiatanMptBloc>().add(
+                                                      DeleteJenisKegiatanMptEvent(idJenisKegiatan: jenisKegiatanMpt.idJenisKegiatanMpt));
+                                                },
+                                                child: Image.asset(
+                                                  'assets/icons/delete.png',
+                                                  width: 24,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                          ],
+                        );
+                      } else if (state is JenisKegiatanMptSuccess) {
+                        context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+                        return const SizedBox();
+                      }
+                      else if (state is JenisKegiatanMptError) {
+                        return Text(state.message);
+                      } else {
+                        return const Text('IDK');
+                      }
+                    },
+                  ),
+                ],
               ),
-            );
-          } else if (state is JenisKegiatanMptError) {
-            return Text(state.message);
-          } else {
-            return const Text('IDK');
-          }
-        },
+            ],
+          ),
+        ),
       ),
     );
   }

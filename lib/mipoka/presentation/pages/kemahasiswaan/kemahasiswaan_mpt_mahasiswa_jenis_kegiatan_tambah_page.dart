@@ -62,25 +62,34 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanTambahPageState extends State<Kemah
 
                       CustomMipokaButton(
                         onTap: () => (_namaJenisKegiatanController.text != "") ?
-                        Future.microtask(() {
-                          context.read<JenisKegiatanMptBloc>().add(
-                              CreateJenisKegiatanMptEvent(
-                                jenisKegiatanMpt: JenisKegiatanMpt(
-                                  idJenisKegiatanMpt: newId,
-                                  namaJenisKegiatanMpt: _namaJenisKegiatanController.text,
-                                  createdAt: currentDate,
-                                  createdBy: user?.email ?? "",
-                                  updatedAt: currentDate,
-                                  updatedBy: user?.email ?? "",
-                                ),
-                              )
-                          );
-                          mipokaCustomToast("Jenis Kegiatan MPT berhasil dibuat.");
-                          context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
-                          Navigator.pop(context);
-                        }) :
+                        context.read<JenisKegiatanMptBloc>().add(
+                            CreateJenisKegiatanMptEvent(
+                              jenisKegiatanMpt: JenisKegiatanMpt(
+                                idJenisKegiatanMpt: newId,
+                                namaJenisKegiatanMpt: _namaJenisKegiatanController.text,
+                                createdAt: currentDate,
+                                createdBy: user?.email ?? "",
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "",
+                              ),
+                            )
+                        ) :
                         mipokaCustomToast(emptyFieldMessage),
                         text: 'Simpan',
+                      ),
+
+                      BlocListener<JenisKegiatanMptBloc, JenisKegiatanMptState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
+                          if (state is JenisKegiatanMptSuccess) {
+                            mipokaCustomToast("Jenis Kegiatan MPT berhasil dibuat.");
+                            Navigator.pop(context);
+                          } else if (state is JenisKegiatanMptError) {
+                            mipokaCustomToast(state.message);
+                          }
+                        },
+                        child: const SizedBox(),
                       ),
                     ],
                   ),

@@ -15,7 +15,7 @@ class MipokaCountText extends StatelessWidget {
     return Align(
       alignment: size.width < 501 ? Alignment.centerRight : Alignment.centerLeft,
       child: Text(
-        "Total Kegiatan per Jenis Kegiatan : $total",
+        "Total : $total",
         style: const TextStyle(fontSize: 15),
       ),
     );
