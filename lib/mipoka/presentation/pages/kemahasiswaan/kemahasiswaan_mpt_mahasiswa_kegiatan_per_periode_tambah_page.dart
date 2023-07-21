@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
@@ -186,26 +185,22 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
                             try {
                               final poinKegiatan = int.tryParse(_poinKegiatanController.text);
                               if (poinKegiatan != null) {
-                                Future.microtask(() {
-                                  mipokaCustomToast("Kegiatan Per Periode telah ditambah");
-                                  context.read<KegiatanPerPeriodeMptBloc>().add(
-                                    CreateKegiatanPerPeriodeMptEvent(
-                                      kegiatanPerPeriodeMpt: KegiatanPerPeriodeMpt(
-                                        idKegiatanPerPeriodeMpt: newId,
-                                        namaKegiatanMpt: _namaKegiatanMpt!,
-                                        periodeMpt: _periodeMpt!,
-                                        tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
-                                        tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
-                                        pointMptDiperoleh: poinKegiatan,
-                                        createdAt: currentDate,
-                                        createdBy: user?.email ?? "unknown",
-                                        updatedAt: currentDate,
-                                        updatedBy: user?.email ?? "unknown",
-                                      ),
+                                context.read<KegiatanPerPeriodeMptBloc>().add(
+                                  CreateKegiatanPerPeriodeMptEvent(
+                                    kegiatanPerPeriodeMpt: KegiatanPerPeriodeMpt(
+                                      idKegiatanPerPeriodeMpt: newId,
+                                      namaKegiatanMpt: _namaKegiatanMpt!,
+                                      periodeMpt: _periodeMpt!,
+                                      tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
+                                      tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
+                                      pointMptDiperoleh: poinKegiatan,
+                                      createdAt: currentDate,
+                                      createdBy: user?.email ?? "unknown",
+                                      updatedAt: currentDate,
+                                      updatedBy: user?.email ?? "unknown",
                                     ),
-                                  );
-                                  Navigator.pop(context);
-                                });
+                                  ),
+                                );
                               } else {
                                 mipokaCustomToast("Input poin kegiatan tidak valid.");
                               }
@@ -218,6 +213,20 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
 
                         },
                         text: 'Simpan',
+                      ),
+
+                      BlocListener<KegiatanPerPeriodeMptBloc, KegiatanPerPeriodeMptState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
+                          if (state is KegiatanPerPeriodeMptSuccess) {
+                            mipokaCustomToast("${_namaKegiatanMpt?.namaKegiatan} telah ditambahkan");
+                            Navigator.pop(context);
+                          } else if (state is KegiatanPerPeriodeMptError) {
+                            mipokaCustomToast(state.message);
+                          }
+                        },
+                        child: const SizedBox(),
                       ),
                     ],
                   ),

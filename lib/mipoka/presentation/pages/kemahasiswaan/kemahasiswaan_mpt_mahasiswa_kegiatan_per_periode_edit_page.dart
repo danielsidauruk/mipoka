@@ -6,7 +6,9 @@ import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegiatan_drop_down_bloc/nama_kegiatan_drop_down_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_dropdown_bloc/periode_mpt_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -73,12 +75,12 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                 children: [
 
                   buildTitle('Nama Kegiatan'),
-                  BlocBuilder<NamaKegiatanDropDownBloc, NamaKegiatanDropDownState>(
+                  BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
                     builder: (context, state) {
-                      if (state is NamaKegiatanDropDownLoading) {
+                      if (state is NamaKegiatanMptLoading) {
                         return const Text("Loading ...");
-                      } else if (state is NamaKegiatanDropDownHasData) {
-                        final namaKegiatanMptList = state.namaKegiatanList;
+                      } else if (state is AllNamaKegiatanMptHasData) {
+                        final namaKegiatanMptList = state.namaKegiatanMptList;
 
                         List<String> namaKegiatanDropDownList = namaKegiatanMptList.map(
                                 (namaKegiatan) => namaKegiatan.namaKegiatan).toList();
@@ -98,7 +100,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                           },
                         );
 
-                      } else if (state is NamaKegiatanDropDownError) {
+                      } else if (state is NamaKegiatanMptError) {
                         return Text(state.message);
                       } else {
                         return const Text("NamaKegiatanBloc hasn't been triggered yet.");
@@ -109,11 +111,11 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                   const CustomFieldSpacer(),
 
                   buildTitle('Periode MPT'),
-                  BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
+                  BlocBuilder<PeriodeMptBloc, PeriodeMptState>(
                     builder: (context, state) {
-                      if (state is PeriodeMptDropDownLoading) {
+                      if (state is PeriodeMptLoading) {
                         return const Text("Loading ....");
-                      } else if (state is PeriodeMptDropDownHasData) {
+                      } else if (state is AllPeriodeMptHasData) {
                         final periodeMptList = state.periodeMptList;
 
                         List<String> periodeMptDropDownList = periodeMptList.map(
@@ -136,7 +138,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                             _periodeMpt = periodeMptList[index];
                           },
                         );
-                      } else if (state is PeriodeMptDropDownError) {
+                      } else if (state is PeriodeMptError) {
                         return Text(state.message);
                       } else {
                         return const Text("PeriodeMptBloc hasn't been triggered yet.");
@@ -183,23 +185,19 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                             try {
                               final poinKegiatan = int.tryParse(_poinKegiatanController.text);
                               if (poinKegiatan != null) {
-                                Future.microtask(() {
-                                  mipokaCustomToast("Kegiatan Per Periode telah di update");
-                                  context.read<KegiatanPerPeriodeMptBloc>().add(
-                                    UpdateKegiatanPerPeriodeMptEvent(
-                                      kegiatanPerPeriodeMpt: widget.kegiatanPerPeriodeMpt.copyWith(
-                                        namaKegiatanMpt: _namaKegiatanMpt,
-                                        periodeMpt: _periodeMpt,
-                                        tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
-                                        tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
-                                        pointMptDiperoleh: poinKegiatan,
-                                        updatedAt: currentDate,
-                                        updatedBy: user?.email ?? "unknown",
-                                      ),
-                                    )
-                                  );
-                                  Navigator.pop(context);
-                                });
+                                context.read<KegiatanPerPeriodeMptBloc>().add(
+                                  UpdateKegiatanPerPeriodeMptEvent(
+                                    kegiatanPerPeriodeMpt: widget.kegiatanPerPeriodeMpt.copyWith(
+                                      namaKegiatanMpt: _namaKegiatanMpt,
+                                      periodeMpt: _periodeMpt,
+                                      tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
+                                      tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
+                                      pointMptDiperoleh: poinKegiatan,
+                                      updatedAt: currentDate,
+                                      updatedBy: user?.email ?? "unknown",
+                                    ),
+                                  ),
+                                );
                               } else {
                                 mipokaCustomToast("Input poin kegiatan tidak valid.");
                               }
@@ -212,6 +210,20 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
 
                         },
                         text: 'Simpan',
+                      ),
+
+                      BlocListener<KegiatanPerPeriodeMptBloc, KegiatanPerPeriodeMptState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
+                          if (state is KegiatanPerPeriodeMptSuccess) {
+                            mipokaCustomToast("${_namaKegiatanMpt?.namaKegiatan} telah di update");
+                            Navigator.pop(context);
+                          } else if (state is KegiatanPerPeriodeMptError) {
+                            mipokaCustomToast(state.message);
+                          }
+                        },
+                        child: const SizedBox(),
                       ),
                     ],
                   ),

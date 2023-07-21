@@ -315,14 +315,12 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                                                 const SizedBox(width: 16.0),
 
                                                 InkWell(
-                                                  onTap: () => Future.microtask(() {
-                                                    mipokaCustomToast("Kegiatan per Periode has been deleted.");
+                                                  onTap: () {
+                                                    mipokaCustomToast("${kegiatanPerPeriodeMpt.namaKegiatanMpt.namaKegiatan} has been deleted.");
                                                     context.read<KegiatanPerPeriodeMptBloc>().add(
                                                         DeleteKegiatanPerPeriodeMptEvent(
                                                             idKegiatanPerPeriodeMpt: kegiatanPerPeriodeMpt.idKegiatanPerPeriodeMpt));
-                                                    context.read<KegiatanPerPeriodeMptBloc>().add(
-                                                        ReadAllKegiatanPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idNamaKegiatanMpt"));
-                                                  }),
+                                                  },
                                                   child: Image.asset(
                                                     'assets/icons/delete.png',
                                                     width: 24,
@@ -339,6 +337,11 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                               ),
                             ],
                           );
+                        } else if (state is KegiatanPerPeriodeMptSuccess) {
+                          context.read<KegiatanPerPeriodeMptBloc>().add(
+                              ReadAllKegiatanPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idNamaKegiatanMpt"));
+
+                          return const SizedBox();
                         } else if (state is KegiatanPerPeriodeMptError) {
                           return Text(state.message);
                         } else {
