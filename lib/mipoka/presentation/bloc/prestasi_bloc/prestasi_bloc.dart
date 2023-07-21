@@ -40,7 +40,7 @@ class PrestasiBloc extends Bloc<PrestasiEvent, PrestasiState> {
 
       result.fold(
             (failure) => emit(PrestasiError(message: failure.message)),
-            (_) => emit(const PrestasiSuccessMessage()),
+            (_) => emit(const PrestasiSuccess()),
       );
     });
 
@@ -51,7 +51,7 @@ class PrestasiBloc extends Bloc<PrestasiEvent, PrestasiState> {
 
       result.fold(
             (failure) => emit(PrestasiError(message: failure.message)),
-            (_) => emit(const PrestasiSuccessMessage()),
+            (_) => emit(const PrestasiSuccess()),
       );
     });
 
@@ -62,7 +62,7 @@ class PrestasiBloc extends Bloc<PrestasiEvent, PrestasiState> {
 
       result.fold(
             (failure) => emit(PrestasiError(message: failure.message)),
-            (_) => emit(const PrestasiSuccessMessage()),
+            (_) => emit(const PrestasiSuccess()),
       );
     });
   }

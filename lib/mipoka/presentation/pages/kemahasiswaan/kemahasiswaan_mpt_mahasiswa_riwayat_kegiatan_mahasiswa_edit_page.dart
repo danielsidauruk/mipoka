@@ -11,7 +11,6 @@ import 'package:mipoka/mipoka/presentation/bloc/riwayat_kegiatan_mpt_bloc/riwaya
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_icon_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -138,12 +137,6 @@ class _MahasiswaRiwayatKegiatanMahasiswaEditPageState extends State<MahasiswaRiw
                   const CustomFieldSpacer(),
 
                   buildTitle('File Unggahan'),
-                  // CustomIconButton(
-                  //   text: 'loremipsum.pdf',
-                  //   onTap: () {},
-                  //   icon: Icons.picture_as_pdf,
-                  // ),
-
                   MipokaFileUploader(
                     onTap: () => downloadFileWithDio(
                       url: _fileSertifikatMpt,
@@ -229,23 +222,18 @@ class _MahasiswaRiwayatKegiatanMahasiswaEditPageState extends State<MahasiswaRiw
                           if (_keteranganKemahasiswaan.text.isNotEmpty && _poinController.text.isNotEmpty) {
                             try {
                               int? point = int.tryParse(_poinController.text);
-                              if (point != null) {
-                                context.read<RiwayatKegiatanMptBloc>().add(
-                                  UpdateRiwayatKegiatanMptEvent(
-                                    riwayatKegiatanMpt: widget.riwayatKegiatanMpt.copyWith(
-                                      keteranganSa: _keteranganKemahasiswaan.text,
-                                      kegiatanPerPeriodeMpt: widget.riwayatKegiatanMpt.kegiatanPerPeriodeMpt.copyWith(
-                                        pointMptDiperoleh: point,
-                                      ),
-                                      statusMpt: _statusVerifikasi,
+                              point != null ?
+                              context.read<RiwayatKegiatanMptBloc>().add(
+                                UpdateRiwayatKegiatanMptEvent(
+                                  riwayatKegiatanMpt: widget.riwayatKegiatanMpt.copyWith(
+                                    keteranganSa: _keteranganKemahasiswaan.text,
+                                    kegiatanPerPeriodeMpt: widget.riwayatKegiatanMpt.kegiatanPerPeriodeMpt.copyWith(
+                                      pointMptDiperoleh: point,
                                     ),
+                                    statusMpt: _statusVerifikasi,
                                   ),
-                                );
-                                mipokaCustomToast("Riwayat Kegiatan Mpt telah di update.");
-                                Navigator.pop(context);
-                              } else {
-                                mipokaCustomToast(dataTypeErrorMessage);
-                              }
+                                ),
+                              ) : mipokaCustomToast(dataTypeErrorMessage);
                             } catch (e) {
                               mipokaCustomToast(dataTypeErrorMessage);
                             }
@@ -254,6 +242,20 @@ class _MahasiswaRiwayatKegiatanMahasiswaEditPageState extends State<MahasiswaRiw
                           }
                         },
                         text: 'Simpan',
+                      ),
+
+                      BlocListener<RiwayatKegiatanMptBloc, RiwayatKegiatanMptState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
+                          if (state is RiwayatKegiatanMptSuccess) {
+                            mipokaCustomToast("Riwayat Kegiatan Mpt telah di update.");
+                            Navigator.pop(context);
+                          } else if (state is RiwayatKegiatanMptError) {
+                            mipokaCustomToast(state.message);
+                          }
+                        },
+                        child: const SizedBox(),
                       ),
                     ],
                   ),

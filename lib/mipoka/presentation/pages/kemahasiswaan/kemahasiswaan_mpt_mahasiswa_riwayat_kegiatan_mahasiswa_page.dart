@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_drop_down_bloc/jenis_kegiatan_drop_down_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/nama_kegiatan_drop_down_bloc/nama_kegiatan_drop_down_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_dropdown_bloc/periode_mpt_drop_down_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/riwayat_kegiatan_mpt_bloc/riwayat_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -51,9 +51,9 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
 
     Future.microtask(() {
       context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
-      context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
-      context.read<JenisKegiatanDropDownBloc>().add(ReadJenisKegiatanDropDownEvent());
-      context.read<NamaKegiatanDropDownBloc>().add(ReadNamaKegiatanDropDownEvent());
+      context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+      context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+      context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
     });
     super.initState();
   }
@@ -61,9 +61,9 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
   @override
   void dispose() {
     context.read<RiwayatKegiatanMptBloc>().close();
-    context.read<PeriodeMptDropDownBloc>().close();
-    context.read<JenisKegiatanDropDownBloc>().close();
-    context.read<NamaKegiatanDropDownBloc>().close();
+    context.read<PeriodeMptBloc>().close();
+    context.read<JenisKegiatanMptBloc>().close();
+    context.read<NamaKegiatanMptBloc>().close();
     _jenisKegiatanStream.close();
     super.dispose();
   }
@@ -107,11 +107,11 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                       const CustomFieldSpacer(),
 
                       buildTitle('Periode Kegiatan'),
-                      BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
+                      BlocBuilder<PeriodeMptBloc, PeriodeMptState>(
                         builder: (context, state) {
-                          if (state is PeriodeMptDropDownLoading) {
+                          if (state is PeriodeMptLoading) {
                             return const Text("Loading ....");
-                          } else if (state is PeriodeMptDropDownHasData) {
+                          } else if (state is AllPeriodeMptHasData) {
 
                             List<String> tahunPeriodeMptList = state.periodeMptList.map(
                                     (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
@@ -132,7 +132,7 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                                   _idPeriodeKegiatanMpt = idPeriodeMpt;
                                 }
                             );
-                          } else if (state is PeriodeMptDropDownError) {
+                          } else if (state is PeriodeMptError) {
                             return Text(state.message);
                           } else {
                             return const Text("PeriodeMptBloc hasn't been triggered yet.");
@@ -143,11 +143,11 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                       const CustomFieldSpacer(),
 
                       buildTitle('Jenis Kegiatan'),
-                      BlocBuilder<JenisKegiatanDropDownBloc, JenisKegiatanDropDownState>(
+                      BlocBuilder<JenisKegiatanMptBloc, JenisKegiatanMptState>(
                         builder: (context, state) {
-                          if (state is JenisKegiatanDropDownLoading) {
+                          if (state is JenisKegiatanMptLoading) {
                             return const Text("Loading ...");
-                          } else if (state is JenisKegiatanDropDownHasData) {
+                          } else if (state is AllJenisKegiatanMptHasData) {
 
                             List<String> jenisKegiatanList = state.jenisKegiatanMptList.map(
                                     (jenisKegiatanList) => jenisKegiatanList.namaJenisKegiatanMpt).toList();
@@ -165,7 +165,7 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                               },
                             );
 
-                          } else if (state is JenisKegiatanDropDownError) {
+                          } else if (state is JenisKegiatanMptError) {
                             return Text(state.message);
                           } else {
                             return const Text("NamaKegiatanBloc hasn't been triggered yet.");
@@ -176,16 +176,16 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                       const CustomFieldSpacer(),
 
                       buildTitle('Nama Kegiatan'),
-                      BlocBuilder<NamaKegiatanDropDownBloc, NamaKegiatanDropDownState>(
+                      BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
                         builder: (context, state) {
-                          if (state is NamaKegiatanDropDownLoading) {
+                          if (state is NamaKegiatanMptLoading) {
                             return const Text("Loading ...");
-                          } else if (state is NamaKegiatanDropDownHasData) {
-                            List<String> namaKegiatanList = state.namaKegiatanList.map(
+                          } else if (state is AllNamaKegiatanMptHasData) {
+                            List<String> namaKegiatanList = state.namaKegiatanMptList.map(
                                     (namaKegiatanList) => namaKegiatanList.namaKegiatan).toList();
                             namaKegiatanList.insert(0, "Semua");
 
-                            List<int> idKegiatanList = state.namaKegiatanList.map(
+                            List<int> idKegiatanList = state.namaKegiatanMptList.map(
                                     (namaKegiatanMptList) => namaKegiatanMptList.idNamaKegiatanMpt).toList();
                             idKegiatanList.insert(0, 0);
 
@@ -199,7 +199,7 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
 
                               },
                             );
-                          } else if (state is NamaKegiatanDropDownError) {
+                          } else if (state is NamaKegiatanMptError) {
                             return Text(state.message);
                           } else {
                             return const Text("NamaKegiatanBloc hasn't been triggered yet.");
@@ -422,14 +422,12 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                                               const SizedBox(width: 8.0,),
 
                                               InkWell(
-                                                onTap: () => Future.microtask(() {
+                                                onTap: () {
                                                   context.read<RiwayatKegiatanMptBloc>().add(
                                                       UpdateRiwayatKegiatanMptEvent(
-                                                          riwayatKegiatanMpt: riwayatKegiatanMpt.copyWith(statusMpt: "approve")));
-                                                  context.read<RiwayatKegiatanMptBloc>().add(
-                                                      ReadAllRiwayatKegiatanMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idJenisKegiatan/$_idNamaKegiatan/$_status/${_nimController.text}/$_isCheckedJenisKegiatan"));
+                                                          riwayatKegiatanMpt: riwayatKegiatanMpt.copyWith(statusMpt: disetujui)));
                                                   mipokaCustomToast("Riwayat kegiatan MPT telah di approve");
-                                                }),
+                                                },
                                                 child: Image.asset(
                                                   'assets/icons/approve.png',
                                                   width: 24,
@@ -439,13 +437,11 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                                               const SizedBox(width: 8.0,),
 
                                               InkWell(
-                                                onTap: () => Future.microtask(() {
+                                                onTap: () {
+                                                  mipokaCustomToast("Riwayat Kegiatan telah dihapus");
                                                   context.read<RiwayatKegiatanMptBloc>().add(
                                                       DeleteRiwayatMptEvent(idRiwayatKegiatanMpt: riwayatKegiatanMpt.idRiwayatKegiatanMpt));
-                                                  context.read<RiwayatKegiatanMptBloc>().add(
-                                                      ReadAllRiwayatKegiatanMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idJenisKegiatan/$_idNamaKegiatan/$_status/${_nimController.text}/$_isCheckedJenisKegiatan"));
-                                                  mipokaCustomToast("Riwayat Kegiatan telah dihapus");
-                                                }),
+                                                },
                                                 child: Image.asset(
                                                   'assets/icons/delete.png',
                                                   width: 24,
@@ -462,7 +458,13 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                             ),
                           ],
                         );
-                      } else if (state is RiwayatKegiatanMptError) {
+                      } else if (state is RiwayatKegiatanMptSuccess) {
+                        context.read<RiwayatKegiatanMptBloc>().add(
+                            ReadAllRiwayatKegiatanMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idJenisKegiatan/$_idNamaKegiatan/$_status/${_nimController.text}/$_isCheckedJenisKegiatan"));
+
+                        return const SizedBox();
+                      }
+                      else if (state is RiwayatKegiatanMptError) {
                         return Text(state.message);
                       } else {
                         return const Text("RiwayatKegiatanMpt hasn't been triggered yet.");

@@ -38,10 +38,10 @@ class RiwayatKegiatanMptError extends RiwayatKegiatanMptState {
   List<Object> get props => [message];
 }
 
-class RiwayatKegiatanMptSuccessMessage extends RiwayatKegiatanMptState {
+class RiwayatKegiatanMptSuccess extends RiwayatKegiatanMptState {
   final String message;
 
-  const RiwayatKegiatanMptSuccessMessage({this.message = "Data has changed"});
+  const RiwayatKegiatanMptSuccess({this.message = "Data has changed"});
 
   @override
   List<Object> get props => [message];

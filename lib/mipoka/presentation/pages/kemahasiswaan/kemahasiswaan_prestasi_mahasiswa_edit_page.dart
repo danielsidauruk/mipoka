@@ -5,7 +5,6 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/prestasi.dart';
-import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart';
@@ -188,26 +187,36 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                             && _namaKegiatanController.text.isNotEmpty && _yearController != null
                             && _tingkatController != null && _prestasiYangDicapaiController.text.isNotEmpty
                             && _mipokaUser?.idUser != "") ?
-                        Future.microtask(() {
-                          context.read<PrestasiBloc>().add(
-                            UpdatePrestasiEvent(
-                              prestasi: widget.prestasi.copyWith(
-                                ormawa: _ormawa,
-                                mipokaUser: _mipokaUser,
-                                namaKegiatan: _namaKegiatanController.text,
-                                tingkat: _tingkatController,
-                                waktuPenyelenggaraan: _yearController,
-                                prestasiDicapai: _prestasiYangDicapaiController.text,
-                                updatedAt: currentDate,
-                                updatedBy: user?.email ?? "unknown",
-                              ),
+                        context.read<PrestasiBloc>().add(
+                          UpdatePrestasiEvent(
+                            prestasi: widget.prestasi.copyWith(
+                              ormawa: _ormawa,
+                              mipokaUser: _mipokaUser,
+                              namaKegiatan: _namaKegiatanController.text,
+                              tingkat: _tingkatController,
+                              waktuPenyelenggaraan: _yearController,
+                              prestasiDicapai: _prestasiYangDicapaiController.text,
+                              updatedAt: currentDate,
+                              updatedBy: user?.email ?? "unknown",
                             ),
-                          );
-                          mipokaCustomToast("Prestasi telah diupdate.");
-                          Navigator.pop(context);
-                        }) :
+                          ),
+                        ) :
                         mipokaCustomToast(emptyFieldMessage),
                         text: 'Simpan',
+                      ),
+
+                      BlocListener<PrestasiBloc, PrestasiState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
+                          if (state is PrestasiSuccess) {
+                            mipokaCustomToast("Prestasi telah diupdate.");
+                            Navigator.pop(context);
+                          } else if (state is PrestasiError) {
+                            mipokaCustomToast(state.message);
+                          }
+                        },
+                        child: const SizedBox(),
                       ),
                     ],
                   ),

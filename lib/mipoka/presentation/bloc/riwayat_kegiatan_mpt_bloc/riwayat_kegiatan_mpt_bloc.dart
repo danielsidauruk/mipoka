@@ -42,7 +42,7 @@ class RiwayatKegiatanMptBloc extends Bloc<RiwayatKegiatanMptEvent, RiwayatKegiat
 
       result.fold(
             (failure) => emit(RiwayatKegiatanMptError(message: failure.message)),
-            (_) => emit(const RiwayatKegiatanMptSuccessMessage()),
+            (_) => emit(const RiwayatKegiatanMptSuccess()),
       );
     });
 
@@ -54,7 +54,7 @@ class RiwayatKegiatanMptBloc extends Bloc<RiwayatKegiatanMptEvent, RiwayatKegiat
 
       result.fold(
             (failure) => emit(RiwayatKegiatanMptError(message: failure.message)),
-            (_) => emit(const RiwayatKegiatanMptSuccessMessage()),
+            (_) => emit(const RiwayatKegiatanMptSuccess()),
       );
     });
 
@@ -66,7 +66,7 @@ class RiwayatKegiatanMptBloc extends Bloc<RiwayatKegiatanMptEvent, RiwayatKegiat
 
       result.fold(
             (failure) => emit(RiwayatKegiatanMptError(message: failure.message)),
-            (_) => emit(const RiwayatKegiatanMptSuccessMessage()),
+            (_) => emit(const RiwayatKegiatanMptSuccess()),
       );
     });
   }

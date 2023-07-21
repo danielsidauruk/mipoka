@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -51,274 +52,281 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomKemahasiswaanDrawer(),
-      body: BlocBuilder<PrestasiBloc, PrestasiState>(
-        builder: (context, state) {
-          if (state is PrestasiLoading) {
-            return const Text('Loading');
-          } else if (state is AllPrestasiHasData) {
-            final prestasiList = state.prestasiList;
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
 
-            context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
+              const CustomMobileTitle(text: 'Kemahasiswaan - Prestasi Mahasiswa'),
 
-            return SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
+              const CustomFieldSpacer(),
 
-                    const CustomMobileTitle(text: 'Kemahasiswaan - Prestasi Mahasiswa'),
+              CustomContentBox(
+                children: [
 
-                    const CustomFieldSpacer(),
+                  CustomAddButton(
+                    buttonText: 'Tambah',
+                    onPressed: () => Navigator.pushNamed(
+                      context,
+                      kemahasiswaanPrestasiMahasiswaTambahPageRoute,
+                    ).then((_) => context.read<PrestasiBloc>().add(
+                        ReadAllPrestasiEvent(filter: "$_idOrmawaController/$_tahun/$_tingkat"))),
+                  ),
 
-                    CustomContentBox(
-                      children: [
+                  const CustomFieldSpacer(),
 
-                        CustomAddButton(
-                          buttonText: 'Tambah',
-                          onPressed: () => Navigator.pushNamed(
-                            context,
-                            kemahasiswaanPrestasiMahasiswaTambahPageRoute,
-                          ).then((_) => context.read<PrestasiBloc>().add(
-                              ReadAllPrestasiEvent(filter: "$_idOrmawaController/$_tahun/$_tingkat"))),
-                        ),
+                  buildTitle('Nama Ormawa'),
+                  BlocBuilder<OrmawaBloc, OrmawaState>(
+                    builder: (context, state) {
+                      if (state is OrmawaLoading) {
+                        return const Text("Loading ....");
+                      } else if (state is AllOrmawaHasData) {
 
-                        const CustomFieldSpacer(),
+                        List<String> ormawaList = state.ormawaList.map(
+                                (ormawa) => ormawa.namaOrmawa).toList();
+                        ormawaList.insert(0, "Semua");
 
-                        buildTitle('Nama Ormawa'),
-                        BlocBuilder<OrmawaBloc, OrmawaState>(
-                          builder: (context, state) {
-                            if (state is OrmawaLoading) {
-                              return const Text("Loading ....");
-                            } else if (state is AllOrmawaHasData) {
+                        List<int> idOrmawaList = state.ormawaList.map(
+                                (ormawa) => ormawa.idOrmawa).toList();
+                        idOrmawaList.insert(0, 0);
 
-                              List<String> ormawaList = state.ormawaList.map(
-                                      (ormawa) => ormawa.namaOrmawa).toList();
-                              ormawaList.insert(0, "Semua");
+                        return MipokaCustomDropdown(
+                            items: ormawaList,
+                            onValueChanged: (value) {
+                              int index = ormawaList.indexOf(value!);
+                              int idOrmawa = idOrmawaList[index];
 
-                              List<int> idOrmawaList = state.ormawaList.map(
-                                      (ormawa) => ormawa.idOrmawa).toList();
-                              idOrmawaList.insert(0, 0);
-
-                              return MipokaCustomDropdown(
-                                  items: ormawaList,
-                                  onValueChanged: (value) {
-                                    int index = ormawaList.indexOf(value!);
-                                    int idOrmawa = idOrmawaList[index];
-
-                                    _idOrmawaController = idOrmawa;
-                                  }
-                              );
-                            } else if (state is OrmawaError) {
-                              return Text(state.message);
-                            } else {
-                              return const Text("OrmawaBloc hasn't been triggered yet.");
+                              _idOrmawaController = idOrmawa;
                             }
-                          },
-                        ),
+                        );
+                      } else if (state is OrmawaError) {
+                        return Text(state.message);
+                      } else {
+                        return const Text("OrmawaBloc hasn't been triggered yet.");
+                      }
+                    },
+                  ),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Tahun'),
-                        MipokaCustomDropdown(
-                          items: years2,
-                          onValueChanged: (value) => _tahun = value,
-                        ),
+                  buildTitle('Tahun'),
+                  MipokaCustomDropdown(
+                    items: years2,
+                    onValueChanged: (value) => _tahun = value,
+                  ),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Tingkat'),
-                        MipokaCustomDropdown(
-                          items: listTingkat2,
-                          onValueChanged: (value) => _tingkat = value,
-                        ),
+                  buildTitle('Tingkat'),
+                  MipokaCustomDropdown(
+                    items: listTingkat2,
+                    onValueChanged: (value) => _tingkat = value,
+                  ),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        CustomFilterButton(
-                          text: 'Filter',
-                          onPressed: () => context.read<PrestasiBloc>().add(
-                              ReadAllPrestasiEvent(filter: "$_idOrmawaController/$_tahun/$_tingkat")),
-                        ),
+                  CustomFilterButton(
+                    text: 'Filter',
+                    onPressed: () => context.read<PrestasiBloc>().add(
+                        ReadAllPrestasiEvent(filter: "$_idOrmawaController/$_tahun/$_tingkat")),
+                  ),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        MipokaCountText(total: prestasiList.length),
+                  BlocBuilder<PrestasiBloc, PrestasiState>(
+                    builder: (context, state) {
+                      if (state is PrestasiLoading) {
+                        return const Text('Loading');
+                      } else if (state is AllPrestasiHasData) {
+                        final prestasiList = state.prestasiList;
 
-                        const CustomFieldSpacer(),
+                        context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
 
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                          ),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: DataTable(
-                                columnSpacing: 40,
-                                border: TableBorder.all(color: Colors.white),
-                                columns: const [
-                                  DataColumn(
-                                    label: Text(
-                                      'No.',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'NIM',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Nama Mahasiswa',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Nama Kegiatan',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Waktu Penyelenggaraan',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Tingkat',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Prestasi yang Dicapai',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Aksi',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            MipokaCountText(total: prestasiList.length),
 
-                                rows: List<DataRow>.generate(prestasiList.length, (int index) {
-                                  final prestasi = prestasiList[index];
+                            const CustomFieldSpacer(),
 
-                                  return DataRow(
-                                    cells: [
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text('${index + 1}',),
-                                        ),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: DataTable(
+                                  columnSpacing: 40,
+                                  border: TableBorder.all(color: Colors.white),
+                                  columns: const [
+                                    DataColumn(
+                                      label: Text(
+                                        'No.',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(prestasi.mipokaUser.nim),
-                                        ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'NIM',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(prestasi.mipokaUser.namaLengkap),
-                                        ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Nama Mahasiswa',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(prestasi.namaKegiatan),
-                                        ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Nama Kegiatan',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(prestasi.waktuPenyelenggaraan,),
-                                        ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Waktu Penyelenggaraan',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(prestasi.tingkat,),
-                                        ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Tingkat',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(prestasi.prestasiDicapai),
-                                        ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Prestasi yang Dicapai',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      DataCell(
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            InkWell(
-                                              onTap: () => Navigator.pushNamed(
-                                                context,
-                                                kemahasiswaanPrestasiMahasiswaEditPageRoute,
-                                                arguments: prestasi,
-                                              ).then((_) => context.read<PrestasiBloc>().add(
-                                                  ReadAllPrestasiEvent(filter: "$_idOrmawaController/$_tahun/$_tingkat"))),
-                                              child: Image.asset(
-                                                'assets/icons/edit.png',
-                                                width: 24,
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Aksi',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+
+                                  rows: List<DataRow>.generate(prestasiList.length, (int index) {
+                                    final prestasi = prestasiList[index];
+
+                                    return DataRow(
+                                      cells: [
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text('${index + 1}',),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(prestasi.mipokaUser.nim),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(prestasi.mipokaUser.namaLengkap),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(prestasi.namaKegiatan),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(prestasi.waktuPenyelenggaraan,),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(prestasi.tingkat,),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(prestasi.prestasiDicapai),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              InkWell(
+                                                onTap: () => Navigator.pushNamed(
+                                                  context,
+                                                  kemahasiswaanPrestasiMahasiswaEditPageRoute,
+                                                  arguments: prestasi,
+                                                ).then((_) => context.read<PrestasiBloc>().add(
+                                                    ReadAllPrestasiEvent(filter: "$_idOrmawaController/$_tahun/$_tingkat"))),
+                                                child: Image.asset(
+                                                  'assets/icons/edit.png',
+                                                  width: 24,
+                                                ),
                                               ),
-                                            ),
 
-                                            const SizedBox(width: 8.0,),
+                                              const SizedBox(width: 8.0,),
 
-                                            InkWell(
-                                              onTap: () {
-                                                context.read<PrestasiBloc>().add(
-                                                    DeletePrestasiEvent(idPrestasi: prestasi.idPrestasi));
-                                                context.read<PrestasiBloc>().add(ReadAllPrestasiEvent(
-                                                    filter: "$_idOrmawaController/$_tahun/$_tingkat"));
-
-                                                mipokaCustomToast("Prestasi telah dihapus");
-                                              },
-                                              child: Image.asset(
-                                                'assets/icons/delete.png',
-                                                width: 24,
+                                              InkWell(
+                                                onTap: () {
+                                                  context.read<PrestasiBloc>().add(
+                                                      DeletePrestasiEvent(idPrestasi: prestasi.idPrestasi));
+                                                  mipokaCustomToast("Prestasi telah dihapus");
+                                                },
+                                                child: Image.asset(
+                                                  'assets/icons/delete.png',
+                                                  width: 24,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  );
-                                }),
+                                      ],
+                                    );
+                                  }),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                          ],
+                        );
+
+                      } else if (state is PrestasiSuccess) {
+                        context.read<PrestasiBloc>().add(ReadAllPrestasiEvent(
+                            filter: "$_idOrmawaController/$_tahun/$_tingkat"));
+
+                        return const SizedBox();
+                      }
+                      else if (state is PrestasiError) {
+                        return Text(state.message);
+                      } else {
+                        if (kDebugMode) {
+                          print("Prestasi BLoC hasn't been triggered yet.");
+                        }
+                        return const SizedBox();
+                      }
+                    },
+                  ),
+                ],
               ),
-            );
-          } else if (state is PrestasiError) {
-            return Text(state.message);
-          } else {
-            return const Text('IDK');
-          }
-        },
+            ],
+          ),
+        ),
       ),
     );
   }

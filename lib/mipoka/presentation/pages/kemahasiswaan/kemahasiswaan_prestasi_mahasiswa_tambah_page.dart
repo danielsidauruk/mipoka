@@ -183,28 +183,38 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                             && _namaKegiatanController.text.isNotEmpty && _tahun != null
                             && _tingkat != null && _prestasiYangDicapaiController.text.isNotEmpty
                             && _idUser != "" && _mipokaUser?.idUser != "") ?
-                        Future.microtask(() {
-                          context.read<PrestasiBloc>().add(
-                              CreatePrestasiEvent(prestasi: Prestasi(
-                                idPrestasi: newId,
-                                ormawa: _ormawa!,
-                                mipokaUser: _mipokaUser!,
-                                namaKegiatan: _namaKegiatanController.text,
-                                waktuPenyelenggaraan: _tahun ?? "",
-                                tingkat: _tingkat ?? "",
-                                prestasiDicapai: _prestasiYangDicapaiController.text,
-                                unggahSertifikat: "",
-                                createdAt: currentDate,
-                                createdBy: user?.email ?? "unknown",
-                                updatedAt: currentDate,
-                                updatedBy: user?.email ?? "unknown",
-                              ))
-                          );
-                          mipokaCustomToast("Prestasi telah ditambahkan.");
-                          context.read<PrestasiBloc>().add(const ReadAllPrestasiEvent());
-                        }) :
+                        context.read<PrestasiBloc>().add(
+                            CreatePrestasiEvent(prestasi: Prestasi(
+                              idPrestasi: newId,
+                              ormawa: _ormawa!,
+                              mipokaUser: _mipokaUser!,
+                              namaKegiatan: _namaKegiatanController.text,
+                              waktuPenyelenggaraan: _tahun ?? "",
+                              tingkat: _tingkat ?? "",
+                              prestasiDicapai: _prestasiYangDicapaiController.text,
+                              unggahSertifikat: "",
+                              createdAt: currentDate,
+                              createdBy: user?.email ?? "unknown",
+                              updatedAt: currentDate,
+                              updatedBy: user?.email ?? "unknown",
+                            ))
+                        ) :
                         mipokaCustomToast(emptyFieldMessage),
                         text: 'Simpan',
+                      ),
+
+                      BlocListener<PrestasiBloc, PrestasiState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
+                          if (state is PrestasiSuccess) {
+                            mipokaCustomToast("Prestasi telah ditambahkan.");
+                            Navigator.pop(context);
+                          } else if (state is PrestasiError) {
+                            mipokaCustomToast(state.message);
+                          }
+                        },
+                        child: const SizedBox(),
                       ),
                     ],
                   ),
