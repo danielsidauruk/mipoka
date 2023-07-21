@@ -7,6 +7,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
@@ -244,17 +245,19 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                       const CustomFieldSpacer(),
                       CustomMipokaButton(
                         onTap: () {
+                          int uniqueId = UniqueIdGenerator.generateUniqueId();
+
                           Navigator.pushNamed(
                             context,
                             penggunaPengajuanLaporanKegiatanPage1Route,
-                            arguments: LaporanArgs(idLaporan: newId),
+                            arguments: LaporanArgs(idLaporan: uniqueId),
                           ).then((_) => context.read<LaporanBloc>().add(
                               ReadAllLaporanEvent(filter: _filter ?? "Semua")));
 
                           context.read<LaporanBloc>().add(
                             CreateLaporanEvent(
                               laporan: Laporan(
-                                idLaporan: newId,
+                                idLaporan: uniqueId,
                                 revisiLaporan: const RevisiLaporan(
                                   idRevisiLaporan: 0, 
                                   mipokaUser: MipokaUser(
@@ -292,7 +295,7 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                   updatedBy: "",
                                 ),
                                 usulanKegiatan: UsulanKegiatan(
-                                  idUsulan: newId,
+                                  idUsulan: uniqueId,
                                   revisiUsulan: const RevisiUsulan(
                                     idRevisiUsulan: 0,
                                     mipokaUser: MipokaUser(

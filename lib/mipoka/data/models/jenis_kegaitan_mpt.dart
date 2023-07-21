@@ -28,13 +28,6 @@ class JenisKegiatanMptModel extends JenisKegiatanMpt {
     createdBy: json["created_by"],
     updatedAt: json["updated_at"],
     updatedBy: json["updated_by"],
-
-      // "id_jenis_kegiatan_mpt": 342421,
-      // "nama_jenis_kegiatan_mpt": "Pelayanan Masyarakat",
-      // "created_at": "2023-06-26",
-      // "created_by": "Jane Smith",
-      // "updated_at": "2023-06-26",
-      // "updated_by": "John Doe"
   );
 
   Map<String, dynamic> toJson() => {

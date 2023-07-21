@@ -208,7 +208,11 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                                     ),
                                   ),
                                 );
-                                Navigator.pushNamed(context, pemeriksaDaftarLaporanKegiatanPageRoute);
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  pemeriksaDaftarLaporanKegiatanPageRoute,
+                                      (route) => false,
+                                );
                               },
                               text: 'Tolak',
                             ),
@@ -217,12 +221,16 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
 
                             CustomMipokaButton(
                               onTap: () {
-                                Navigator.pushNamed(
-                                    context, pemeriksaDaftarLaporanKegiatanPageRoute);
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  pemeriksaDaftarLaporanKegiatanPageRoute,
+                                      (route) => false,
+                                );
+
                                 context.read<LaporanBloc>().add(
                                   UpdateLaporanEvent(
                                     laporan: laporan.copyWith(
-                                      validasiPembina: "diterima",
+                                      validasiPembina: disetujui,
                                     ),
                                   ),
                                 );

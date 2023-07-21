@@ -625,9 +625,10 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                         ),
                                       ),
                                     );
-                                    Navigator.pushNamed(
+                                    Navigator.pushNamedAndRemoveUntil(
                                       context,
                                       penggunaDaftarPengajuanKegiatanPageRoute,
+                                          (route) => false,
                                     );
                                     context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
                                     mipokaCustomToast("Usulan Kegiatan telah dikirim");

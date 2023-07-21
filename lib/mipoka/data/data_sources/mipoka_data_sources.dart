@@ -376,8 +376,9 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
           .map((resultMap) => JenisKegiatanMptModel.fromJson(resultMap))
           .toList();
 
+      print('res :$result');
       if (kDebugMode) {
-        print(filter);
+
       }
 
       return result;

@@ -392,7 +392,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                     }
                                   }
 
-                                  Future.microtask(() {
+                                  if (context.mounted) {
                                     context.read<LaporanBloc>().add(
                                       UpdateLaporanEvent(
                                         laporan: laporan.copyWith(
@@ -406,12 +406,14 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                         ),
                                       ),
                                     );
-                                    Navigator.pushNamed(
+                                    Navigator.pushNamedAndRemoveUntil(
                                       context,
                                       penggunaDaftarLaporanKegiatanPageRoute,
+                                          (route) => false,
                                     );
-                                    mipokaCustomToast('Laporan Kegiatan telah dikirim.');
-                                  });
+                                  }
+
+                                  mipokaCustomToast('Laporan Kegiatan telah dikirim.');
                                 } else {
                                   mipokaCustomToast(emptyFieldMessage);
                                 }

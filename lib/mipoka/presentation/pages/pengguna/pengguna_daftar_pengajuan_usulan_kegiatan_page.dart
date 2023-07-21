@@ -6,6 +6,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/revisi_usulan.dart';
@@ -260,11 +261,13 @@ class _PenggunaDaftarPengajuanKegiatanState
                       final mipokaUser = mipokaUserState.mipokaUser;
 
                       return CustomMipokaButton(
-                        onTap: () => Future.microtask(() {
+                        onTap: () {
+                          int uniqueId = UniqueIdGenerator.generateUniqueId();
+
                           context.read<UsulanKegiatanBloc>().add(
                             CreateUsulanKegiatanEvent(
                               usulanKegiatan: UsulanKegiatan(
-                                idUsulan: newId,
+                                idUsulan: uniqueId,
                                 revisiUsulan: const RevisiUsulan(
                                   idRevisiUsulan: 0,
                                   mipokaUser: MipokaUser(
@@ -326,28 +329,7 @@ class _PenggunaDaftarPengajuanKegiatanState
                                   updatedAt: "",
                                   updatedBy: "",
                                 ),
-                                ormawa: const Ormawa(
-                                  idOrmawa: 0,
-                                  namaOrmawa: "",
-                                  namaSingkatanOrmawa: "",
-                                  logoOrmawa: "",
-                                  listAnggota: [],
-                                  pembina: "",
-                                  ketua: "",
-                                  wakil: "",
-                                  sekretaris: "",
-                                  bendahara: "",
-                                  jumlahAnggota: 0,
-                                  fotoPembina: "",
-                                  fotoKetua: "",
-                                  fotoWakil: "",
-                                  fotoSekretaris: "",
-                                  fotoBendahara: "",
-                                  createdAt: "",
-                                  createdBy: "",
-                                  updatedBy: "",
-                                  updatedAt: "",
-                                ),
+                                ormawa: mipokaUser.ormawa[0],
                                 mipokaUser: mipokaUser,
                                 pembiayaan: "",
                                 namaKegiatan: "",
@@ -401,10 +383,10 @@ class _PenggunaDaftarPengajuanKegiatanState
                           Navigator.pushNamed(
                             context,
                             penggunaPengajuanUsulanKegiatanPage1Route,
-                            arguments: UsulanArgs(idUsulan: newId),
+                            arguments: UsulanArgs(idUsulan: uniqueId),
                           ).then((_) => context.read<UsulanKegiatanBloc>().add(
                               ReadAllUsulanKegiatanEvent(filter: _filter!)));
-                        }),
+                        },
                         text: 'Ajukan Kegiatan',
                       );
                     } else if (mipokaUserState is MipokaUserError) {
