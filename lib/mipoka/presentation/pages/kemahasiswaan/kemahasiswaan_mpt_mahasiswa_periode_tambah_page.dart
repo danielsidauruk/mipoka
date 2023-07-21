@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -121,30 +122,47 @@ class _KemahasiswaanMPTMahasiswaPeriodeTambahPageState extends State<Kemahasiswa
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => (_tahunController.text.isNotEmpty && _tanggalMulaiController.text.isNotEmpty &&
-                            _tanggalSelesaiController.text.isNotEmpty) ?
-                        Future.microtask(() {
-                          mipokaCustomToast("Periode telah ditambahkan.");
-                          context.read<PeriodeMptBloc>().add(
-                            CreatePeriodeMptEvent(
-                              periodeMpt: PeriodeMpt(
-                                idPeriodeMpt: newId,
-                                tahunPeriodeMpt: _tahunController.text,
-                                periodeMengulangMpt: _isPeriodeMengulangMpt,
-                                tanggalMulaiPeriodeMpt: _tanggalMulaiController.text,
-                                tanggalBerakhirPeriodeMpt: _tanggalSelesaiController.text,
-                                createdAt: currentDate,
-                                createdBy: user?.email ?? "unknown",
-                                updatedAt: currentDate,
-                                updatedBy: user?.email ?? "unknown",
-                              ),
-                            ),
-                          );
-                          context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
-                          Navigator.pop(context);
-                        }) :
-                        mipokaCustomToast("Harap semua field diisi."),
-                        text: 'Simpan',
+                          onTap: () {
+                            if (_tahunController.text.isNotEmpty && _tanggalMulaiController.text.isNotEmpty &&
+                                _tanggalSelesaiController.text.isNotEmpty) {
+
+                              mipokaCustomToast(savingDataMessage);
+                              int uniqueId = UniqueIdGenerator.generateUniqueId();
+
+                              context.read<PeriodeMptBloc>().add(
+                                CreatePeriodeMptEvent(
+                                  periodeMpt: PeriodeMpt(
+                                    idPeriodeMpt: uniqueId,
+                                    tahunPeriodeMpt: _tahunController.text,
+                                    periodeMengulangMpt: _isPeriodeMengulangMpt,
+                                    tanggalMulaiPeriodeMpt: _tanggalMulaiController.text,
+                                    tanggalBerakhirPeriodeMpt: _tanggalSelesaiController.text,
+                                    createdAt: currentDate,
+                                    createdBy: user?.email ?? "unknown",
+                                    updatedAt: currentDate,
+                                    updatedBy: user?.email ?? "unknown",
+                                  ),
+                                ),
+                              );
+                            } else {
+                              mipokaCustomToast(emptyFieldMessage);
+                            }
+                          },
+                          text: 'Simpan'
+                      ),
+
+                      BlocListener<PeriodeMptBloc, PeriodeMptState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
+                          if (state is PeriodeMptSuccessMessage) {
+                            mipokaCustomToast("Periode berhasil ditambahkan.");
+                            Navigator.pop(context);
+                          } else if (state is PeriodeMptError) {
+                            mipokaCustomToast(state.message);
+                          }
+                        },
+                        child: const SizedBox(),
                       ),
                     ],
                   ),

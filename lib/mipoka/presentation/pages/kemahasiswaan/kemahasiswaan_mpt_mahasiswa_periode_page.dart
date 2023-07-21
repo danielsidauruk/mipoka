@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
+import 'package:mipoka/domain/utils/format_date_indonesia.dart';
+import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -123,7 +125,8 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
                                           Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              periodeMpt.tahunPeriodeMpt,
+                                              "${periodeMpt.tahunPeriodeMpt} "
+                                                  "${periodeMpt.periodeMengulangMpt == true ? "(Ulang)" : ""}",
                                             ),
                                           ),
                                         ),
@@ -131,7 +134,7 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
                                           Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              periodeMpt.tanggalMulaiPeriodeMpt,
+                                              formatDateIndonesia(periodeMpt.tanggalMulaiPeriodeMpt),
                                             ),
                                           ),
                                         ),
@@ -139,7 +142,7 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
                                           Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              periodeMpt.tanggalBerakhirPeriodeMpt,
+                                              formatDateIndonesia(periodeMpt.tanggalBerakhirPeriodeMpt),
                                             ),
                                           ),
                                         ),
@@ -164,11 +167,10 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
                                               const SizedBox(width: 16.0,),
 
                                               InkWell(
-                                                onTap: () => Future.microtask(() {
-                                                  context.read<PeriodeMptBloc>().add(DeletePeriodeMptEvent(periodeMpt.idPeriodeMpt),);
-                                                  context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+                                                onTap: () {
+                                                  context.read<PeriodeMptBloc>().add(DeletePeriodeMptEvent(periodeMpt.idPeriodeMpt));
                                                   mipokaCustomToast("Periode MPT telah dihapus.");
-                                                }),
+                                                },
                                                 child: Image.asset(
                                                   'assets/icons/delete.png',
                                                   width: 24,
@@ -186,6 +188,10 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
                           ],
                         );
 
+                      } else if (state is PeriodeMptSuccessMessage) {
+                        context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+
+                        return const SizedBox();
                       } else if (state is PeriodeMptError) {
                         return Text(state.message);
                       } else {

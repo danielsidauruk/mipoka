@@ -129,27 +129,42 @@ class _KemahasiswaanMPTMahasiswaPeriodeEditPageState extends State<Kemahasiswaan
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => (_tahunController.text.isNotEmpty && _tanggalMulaiController.text.isNotEmpty &&
-                            _tanggalSelesaiController.text.isNotEmpty) ?
-                        Future.microtask(() {
-                          mipokaCustomToast("Periode telah diupdate.");
-                          context.read<PeriodeMptBloc>().add(
-                            UpdatePeriodeMptEvent(
-                              periodeMpt: widget.periodeMpt.copyWith(
-                                tahunPeriodeMpt: _tahunController.text,
-                                periodeMengulangMpt: _isPeriodeMengulangMpt,
-                                tanggalMulaiPeriodeMpt: _tanggalMulaiController.text,
-                                tanggalBerakhirPeriodeMpt: _tanggalSelesaiController.text,
-                                updatedAt: currentDate,
-                                updatedBy: user?.email ?? "unknown",
+                        onTap: () {
+                          if (_tahunController.text.isNotEmpty && _tanggalMulaiController.text.isNotEmpty &&
+                              _tanggalSelesaiController.text.isNotEmpty) {
+
+                            mipokaCustomToast(savingDataMessage);
+                            context.read<PeriodeMptBloc>().add(
+                              UpdatePeriodeMptEvent(
+                                periodeMpt: widget.periodeMpt.copyWith(
+                                  tahunPeriodeMpt: _tahunController.text,
+                                  periodeMengulangMpt: _isPeriodeMengulangMpt,
+                                  tanggalMulaiPeriodeMpt: _tanggalMulaiController.text,
+                                  tanggalBerakhirPeriodeMpt: _tanggalSelesaiController.text,
+                                  updatedAt: currentDate,
+                                  updatedBy: user?.email ?? "unknown",
+                                ),
                               ),
-                            ),
-                          );
-                          context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
-                          Navigator.pop(context);
-                        }) :
-                        mipokaCustomToast(emptyFieldMessage),
+                            );
+                          } else {
+                            mipokaCustomToast(emptyFieldMessage);
+                          }
+                        },
                         text: 'Simpan',
+                      ),
+
+                      BlocListener<PeriodeMptBloc, PeriodeMptState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
+                          if (state is PeriodeMptSuccessMessage) {
+                            mipokaCustomToast("Periode berhasil diupdate.");
+                            Navigator.pop(context);
+                          } else if (state is PeriodeMptError) {
+                            mipokaCustomToast(state.message);
+                          }
+                        },
+                        child: const SizedBox(),
                       ),
                     ],
                   ),
