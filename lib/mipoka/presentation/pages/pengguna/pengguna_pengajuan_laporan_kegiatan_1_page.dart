@@ -10,6 +10,7 @@ import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -52,7 +53,8 @@ class _PenggunaPengajuanLaporanKegiatan1State
     super.dispose();
   }
 
-  late QuillController _pencapaianController;
+  // late QuillController _pencapaianController;
+  TextEditingController _pencapaianController = TextEditingController();
   late String _namaKegiatanController;
   int? selectedIndex;
 
@@ -75,11 +77,11 @@ class _PenggunaPengajuanLaporanKegiatan1State
                 List<String> namaKegiatanList = usulan.map(
                         (usulanKegiatan) => usulanKegiatan.namaKegiatan).toList();
 
-                _pencapaianController =  QuillController(
-                  document: Document()..insert(0, laporan.pencapaian),
-                  selection: const TextSelection.collapsed(offset: 0),
-                );
-
+                // _pencapaianController =  QuillController(
+                //   document: Document()..insert(0, laporan.pencapaian),
+                //   selection: const TextSelection.collapsed(offset: 0),
+                // );
+                _pencapaianController.text = laporan.pencapaian;
                 _namaKegiatanController = usulan[selectedIndex ?? 0].namaKegiatan;
 
                 return SingleChildScrollView(
@@ -118,18 +120,12 @@ class _PenggunaPengajuanLaporanKegiatan1State
                                 && laporan.revisiLaporan.revisiPencapaian != "")
                               buildRevisiText(laporan.revisiLaporan.revisiPencapaian),
 
-                            CustomRichTextField(
-                                controller: _pencapaianController),
+                            // CustomRichTextField(
+                            //     controller: _pencapaianController),
+
+                            CustomTextField(controller: _pencapaianController),
 
                             const CustomFieldSpacer(),
-
-                            TextButton(onPressed: () {
-                              print(_pencapaianController.document.toPlainText());
-                              print(_pencapaianController.document.toDelta().toList());
-
-                            },
-                              child: Text("Print RichText Format"),
-                            ),
 
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -153,7 +149,7 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
                                 CustomMipokaButton(
                                   onTap: () {
-                                    if (_pencapaianController.document.toPlainText().isNotEmpty) {
+                                    if (_pencapaianController.text.isNotEmpty) {
                                       Navigator.pushNamed(
                                         context,
                                         penggunaPengajuanLaporanKegiatan2PageRoute,
@@ -165,7 +161,7 @@ class _PenggunaPengajuanLaporanKegiatan1State
                                         UpdateLaporanEvent(
                                           laporan: laporan.copyWith(
                                             usulanKegiatan: usulan[selectedIndex ?? 0],
-                                            pencapaian: _pencapaianController.document.toPlainText(),
+                                            pencapaian: _pencapaianController.text,
                                             updatedAt: currentDate,
                                             updatedBy: user?.email ?? "unknown",
                                           ),

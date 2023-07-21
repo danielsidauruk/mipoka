@@ -1259,17 +1259,24 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<MipokaUserModel> readMipokaUser(String idMipokaUser) async {
-    try {
-      final response = await DioUtil().dio.get("$userPath/$idMipokaUser");
-      final result = MipokaUserModel.fromJson(response.data);
+    // try {
+    //   final response = await DioUtil().dio.get("$userPath/$idMipokaUser");
+    //   final result = MipokaUserModel.fromJson(response.data);
+    //
+    //   return result;
+    // } on DioError catch (e) {
+    //   if (kDebugMode) {
+    //     print(e);
+    //   }
+    //   rethrow;
+    // }
+    final String response =
+    await rootBundle.loadString('assets/json_file/mipoka_user.json');
+    dynamic jsonDecode = json.decode(response);
 
-      return result;
-    } on DioError catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      rethrow;
-    }
+    MipokaUserModel result = MipokaUserModel.fromJson(jsonDecode);
+
+    return result;
   }
 
   @override
@@ -1309,90 +1316,117 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<void> createUsulanKegiatan(
       UsulanKegiatanModel usulanKegiatanModel) async {
-    try {
-      final response = await DioUtil().dio.post(
-        usulanPath,
-        data: usulanKegiatanModel.toJson(),
-      );
-      if (kDebugMode) {
-        print(response.data);
-      }
-    } on DioError catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-    }
+    print(usulanKegiatanModel.toJson());
+    // try {
+    //   final response = await DioUtil().dio.post(
+    //     usulanPath,
+    //     data: usulanKegiatanModel.toJson(),
+    //   );
+    //   if (kDebugMode) {
+    //     print(response.data);
+    //   }
+    // } on DioError catch (e) {
+    //   if (kDebugMode) {
+    //     print(e);
+    //   }
+    // }
   }
 
   @override
   Future<void> deleteUsulanKegiatan(int idUsulan) async {
-    try {
-      final response = await DioUtil().dio.delete(
-        '$usulanPath/$idUsulan',
-      );
-      if (kDebugMode) {
-        print(response.data);
-      }
-    } on DioError catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+    // try {
+    //   final response = await DioUtil().dio.delete(
+    //     '$usulanPath/$idUsulan',
+    //   );
+    //   if (kDebugMode) {
+    //     print(response.data);
+    //   }
+    // } on DioError catch (e) {
+    //   if (kDebugMode) {
+    //     print(e);
+    //   }
+    // }
+    if (kDebugMode) {
+      print("UsulanKegiatan with id $idUsulan has been deleted.");
     }
   }
 
   @override
   Future<List<UsulanKegiatanModel>> readAllUsulanKegiatan(String filter) async {
-    try {
-      final response = await DioUtil().dio.get(usulanPath);
-      List<dynamic> resultList = response.data;
+    // try {
+    //   final response = await DioUtil().dio.get(usulanPath);
+    //   List<dynamic> resultList = response.data;
+    //
+    //   List<UsulanKegiatanModel> result = resultList
+    //       .map((resultMap) => UsulanKegiatanModel.fromJson(resultMap))
+    //       .toList();
+    //
+    //   if (kDebugMode) {
+    //     print(filter);
+    //   }
+    //
+    //   return result;
+    // } on DioError catch (e) {
+    //   if (kDebugMode) {
+    //     print(e);
+    //   }
+    //   return [];
+    // }
+    final String response =
+    await rootBundle.loadString('assets/json_file/usulan_kegiatan_list.json');
+    List<dynamic> resultList = json.decode(response);
 
-      List<UsulanKegiatanModel> result = resultList
-          .map((resultMap) => UsulanKegiatanModel.fromJson(resultMap))
-          .toList();
+    List<UsulanKegiatanModel> result =
+    resultList.map((resultMap) => UsulanKegiatanModel.fromJson(resultMap))
+        .toList();
 
-      if (kDebugMode) {
-        print(filter);
-      }
-
-      return result;
-    } on DioError catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      return [];
+    if (kDebugMode) {
+      print(filter);
     }
+
+    return result;
   }
 
   @override
   Future<UsulanKegiatanModel> readUsulanKegiatan(int idUsulanKegiatan) async {
-    try {
-      final response = await DioUtil().dio.get("$usulanPath/$idUsulanKegiatan");
-      final result = UsulanKegiatanModel.fromJson(response.data);
+    // try {
+    //   final response = await DioUtil().dio.get("$usulanPath/$idUsulanKegiatan");
+    //   final result = UsulanKegiatanModel.fromJson(response.data);
+    //
+    //   return result;
+    // } on DioError catch (e) {
+    //   if (kDebugMode) {
+    //     print(e);
+    //   }
+    //   rethrow;
+    // }
+    final String response =
+    await rootBundle.loadString('assets/json_file/usulan_kegiatan.json');
+    dynamic jsonDecode = json.decode(response);
 
-      return result;
-    } on DioError catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      rethrow;
-    }
+    UsulanKegiatanModel result = UsulanKegiatanModel.fromJson(jsonDecode);
+
+    return result;
   }
 
   @override
   Future<void> updateUsulanKegiatan(
       UsulanKegiatanModel usulanKegiatanModel) async {
-    try {
-      final response = await DioUtil().dio.put(
-        '$usulanPath/${usulanKegiatanModel.idUsulan}',
-        data: usulanKegiatanModel.toJson(),
-      );
-      if (kDebugMode) {
-        print(response.data);
-      }
-    } on DioError catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+    // try {
+    //   final response = await DioUtil().dio.put(
+    //     '$usulanPath/${usulanKegiatanModel.idUsulan}',
+    //     data: usulanKegiatanModel.toJson(),
+    //   );
+    //   if (kDebugMode) {
+    //     print(response.data);
+    //   }
+    // } on DioError catch (e) {
+    //   if (kDebugMode) {
+    //     print(e);
+    //   }
+    // }
+    if (kDebugMode) {
+      print(usulanKegiatanModel.toJson());
     }
   }
 

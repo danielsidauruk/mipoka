@@ -7,7 +7,7 @@ import 'package:mipoka/mipoka/data/models/tertib_acara_model.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 
 class UsulanKegiatanModel extends UsulanKegiatan {
-  final RevisiUsulanModel revisiUsulanModel;
+  final RevisiUsulanModel? revisiUsulanModel;
   final MipokaUserModel mipokaUserModel;
   final OrmawaModel ormawaModel;
   final List<PartisipanModel> partisipanModel;
@@ -16,7 +16,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
 
   const UsulanKegiatanModel({
     required super.idUsulan,
-    required this.revisiUsulanModel,
+    this.revisiUsulanModel,
     required this.mipokaUserModel,
     required this.ormawaModel,
     required super.pembiayaan,
@@ -76,7 +76,9 @@ class UsulanKegiatanModel extends UsulanKegiatan {
   factory UsulanKegiatanModel.fromEntity(UsulanKegiatan usulanKegiatan) {
     return UsulanKegiatanModel(
       idUsulan: usulanKegiatan.idUsulan,
-      revisiUsulanModel: RevisiUsulanModel.fromEntity(usulanKegiatan.revisiUsulan),
+      revisiUsulanModel: usulanKegiatan.revisiUsulan != null
+          ? RevisiUsulanModel.fromEntity(usulanKegiatan.revisiUsulan!)
+          : null,
       mipokaUserModel: MipokaUserModel.fromEntity(usulanKegiatan.mipokaUser),
       ormawaModel: OrmawaModel.fromEntity(usulanKegiatan.ormawa),
       pembiayaan: usulanKegiatan.pembiayaan,
@@ -132,7 +134,9 @@ class UsulanKegiatanModel extends UsulanKegiatan {
 
   factory UsulanKegiatanModel.fromJson(Map<String, dynamic> json) => UsulanKegiatanModel(
     idUsulan: json["id_usulan"],
-    revisiUsulanModel: RevisiUsulanModel.fromJson(json["revisi_usulan"]),
+    revisiUsulanModel: json["revisi_usulan"] != null
+        ? RevisiUsulanModel.fromJson(json["revisi_usulan"])
+        : null,
     mipokaUserModel: MipokaUserModel.fromJson(json["user"]),
     ormawaModel: OrmawaModel.fromJson(json["ormawa"]),
     pembiayaan: json["pembiayaan"],
@@ -184,7 +188,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
 
   Map<String, dynamic> toJson() => {
     "id_usulan": idUsulan,
-    "revisi_usulan": revisiUsulanModel.toJson(),
+    "revisi_usulan": revisiUsulanModel?.toJson(),
     "user": mipokaUserModel.toJson(),
     "ormawa": ormawaModel.toJson(),
     "pembiayaan": pembiayaan,

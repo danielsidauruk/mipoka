@@ -310,8 +310,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                             buildTitle('Pembiayaan'),
                             if (widget.usulanArgs.isRevisiUsulan == true
-                                && usulanKegiatan.revisiUsulan.revisiPembiayaan != "")
-                              buildRevisiText(usulanKegiatan.revisiUsulan.revisiPembiayaan),
+                                && usulanKegiatan.revisiUsulan?.revisiPembiayaan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiPembiayaan ?? ""),
 
                             MipokaCustomDropdown(
                               items: listPembiayaan,
@@ -329,8 +329,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                             buildTitle('Nama Kegiatan'),
                             if (widget.usulanArgs.isRevisiUsulan == true
-                                && usulanKegiatan.revisiUsulan.revisiNamaKegiatan != "")
-                              buildRevisiText(usulanKegiatan.revisiUsulan.revisiNamaKegiatan),
+                                && usulanKegiatan.revisiUsulan?.revisiNamaKegiatan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiNamaKegiatan ?? ""),
 
                             CustomTextField(controller: _namaKegiatanController),
 
@@ -348,8 +348,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
                             ),
 
                             if (widget.usulanArgs.isRevisiUsulan == true
-                                && usulanKegiatan.revisiUsulan.revisiBentukKegiatan != "")
-                              buildRevisiText(usulanKegiatan.revisiUsulan.revisiBentukKegiatan),
+                                && usulanKegiatan.revisiUsulan?.revisiBentukKegiatan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiBentukKegiatan ?? ""),
 
                             MipokaCustomDropdown(
                               items: listBentukKegiatan,
@@ -366,8 +366,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                             buildTitle('Deskripsi Kegiatan'),
                             if (widget.usulanArgs.isRevisiUsulan == true
-                                && usulanKegiatan.revisiUsulan.revisiDeskripsiKegiatan != "")
-                              buildRevisiText(usulanKegiatan.revisiUsulan.revisiDeskripsiKegiatan),
+                                && usulanKegiatan.revisiUsulan?.revisiDeskripsiKegiatan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiDeskripsiKegiatan ?? ""),
                             CustomTextField(
                                 controller: _deskripsiKegiatanController),
 
@@ -375,8 +375,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                             buildTitle('Tanggal Mulai Kegiatan'),
                             if (widget.usulanArgs.isRevisiUsulan == true
-                                && usulanKegiatan.revisiUsulan.revisiTanggalMulaiKegiatan != "")
-                              buildRevisiText(usulanKegiatan.revisiUsulan.revisiTanggalMulaiKegiatan),
+                                && usulanKegiatan.revisiUsulan?.revisiTanggalMulaiKegiatan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTanggalMulaiKegiatan ?? ""),
 
                             CustomDatePickerField(
                                 controller: _tanggalMulaiController),
@@ -385,8 +385,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                             buildTitle('Tanggal Selesai Kegiatan'),
                             if (widget.usulanArgs.isRevisiUsulan == true
-                                && usulanKegiatan.revisiUsulan.revisiTanggalSelesaiKegiatan != "")
-                              buildRevisiText(usulanKegiatan.revisiUsulan.revisiTanggalSelesaiKegiatan),
+                                && usulanKegiatan.revisiUsulan?.revisiTanggalSelesaiKegiatan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTanggalSelesaiKegiatan ?? ""),
                             CustomDatePickerField(
                                 controller: _tanggalSelesaiController),
 
@@ -394,8 +394,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                             buildTitle('Waktu Mulai Kegiatan'),
                             if (widget.usulanArgs.isRevisiUsulan == true
-                                && usulanKegiatan.revisiUsulan.revisiWaktuMulaiKegiatan != "")
-                              buildRevisiText(usulanKegiatan.revisiUsulan.revisiWaktuMulaiKegiatan),
+                                && usulanKegiatan.revisiUsulan?.revisiWaktuMulaiKegiatan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiWaktuMulaiKegiatan ?? ""),
                             CustomTimePickerField(
                                 controller: _waktuMulaiController),
 
@@ -403,8 +403,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                             buildTitle('Waktu Selesai Kegiatan'),
                             if (widget.usulanArgs.isRevisiUsulan == true
-                                && usulanKegiatan.revisiUsulan.revisiWaktuSelesaiKegiatan != "")
-                              buildRevisiText(usulanKegiatan.revisiUsulan.revisiWaktuSelesaiKegiatan),
+                                && usulanKegiatan.revisiUsulan?.revisiWaktuSelesaiKegiatan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiWaktuSelesaiKegiatan ?? ""),
 
                             CustomTimePickerField(
                                 controller: _waktuSelesaiController),
@@ -421,8 +421,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
                             ),
 
                             if (widget.usulanArgs.isRevisiUsulan == true
-                                && usulanKegiatan.revisiUsulan.revisiTempatKegiatan != "")
-                              buildRevisiText(usulanKegiatan.revisiUsulan.revisiTempatKegiatan),
+                                && usulanKegiatan.revisiUsulan?.revisiTempatKegiatan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTempatKegiatan ?? ""),
 
                             CustomTextField(controller: _tempatKegiatanController),
 
@@ -439,8 +439,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                           children: [
                                             buildTitle('Tanggal Keberangkatan'),
                                             if (widget.usulanArgs.isRevisiUsulan == true
-                                                && usulanKegiatan.revisiUsulan.revisiTanggalKeberangkatan != "")
-                                              buildRevisiText(usulanKegiatan.revisiUsulan.revisiTanggalKeberangkatan),
+                                                && usulanKegiatan.revisiUsulan?.revisiTanggalKeberangkatan != "")
+                                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTanggalKeberangkatan ?? ""),
 
                                             CustomDatePickerField(
                                               controller:
@@ -451,8 +451,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                                             buildTitle('Tanggal Kepulangan'),
                                             if (widget.usulanArgs.isRevisiUsulan == true
-                                                && usulanKegiatan.revisiUsulan.revisiTanggalKepulangan != "")
-                                              buildRevisiText(usulanKegiatan.revisiUsulan.revisiTanggalKepulangan),
+                                                && usulanKegiatan.revisiUsulan?.revisiTanggalKepulangan != "")
+                                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTanggalKepulangan ?? ""),
                                             CustomDatePickerField(
                                               controller: _tanggalKepulanganController,
                                             ),
@@ -475,8 +475,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
                             ),
 
                             if (widget.usulanArgs.isRevisiUsulan == true
-                                && usulanKegiatan.revisiUsulan.revisiJumlahPartisipan != "")
-                              buildRevisiText(usulanKegiatan.revisiUsulan.revisiJumlahPartisipan),
+                                && usulanKegiatan.revisiUsulan?.revisiJumlahPartisipan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiJumlahPartisipan ?? ""),
 
                             CustomTextField(
                                 controller: _jumlahParsitipanController),
@@ -484,8 +484,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                             buildTitle('Target Kegiatan'),
                             if (widget.usulanArgs.isRevisiUsulan == true
-                                && usulanKegiatan.revisiUsulan.revisiTargetKegiatan!= "")
-                              buildRevisiText(usulanKegiatan.revisiUsulan.revisiTargetKegiatan),
+                                && usulanKegiatan.revisiUsulan?.revisiTargetKegiatan!= "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTargetKegiatan ?? ""),
                             CustomTextField(controller: _targetKegiatanController),
 
                             MipokaCustomSwitchButton(
@@ -499,24 +499,24 @@ class _PenggunaPengajuanUsulanKegiatan1State
                             ),
 
                             if (widget.usulanArgs.isRevisiUsulan == true
-                                && usulanKegiatan.revisiUsulan.revisiTotalPendanaan!= "")
-                              buildRevisiText(usulanKegiatan.revisiUsulan.revisiTotalPendanaan),
+                                && usulanKegiatan.revisiUsulan?.revisiTotalPendanaan!= "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTotalPendanaan ?? ""),
 
                             CustomTextField(controller: _totalPendanaanController),
                             const CustomFieldSpacer(),
 
                             buildTitle('Keterangan'),
                             if (widget.usulanArgs.isRevisiUsulan == true
-                                && usulanKegiatan.revisiUsulan.revisiKeterangan != "")
-                              buildRevisiText(usulanKegiatan.revisiUsulan.revisiKeterangan),
+                                && usulanKegiatan.revisiUsulan?.revisiKeterangan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiKeterangan ?? ""),
                             CustomTextField(controller: _keteranganController),
 
                             const CustomFieldSpacer(),
                             buildTitle('Tanda Tangan Ormawa'),
 
                             if (widget.usulanArgs.isRevisiUsulan == true
-                                && usulanKegiatan.revisiUsulan.revisiTandaTanganOrmawa != "")
-                              buildRevisiText(usulanKegiatan.revisiUsulan.revisiTandaTanganOrmawa),
+                                && usulanKegiatan.revisiUsulan?.revisiTandaTanganOrmawa != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTandaTanganOrmawa ?? ""),
 
                             BlocProvider<SignatureCubit>(
                               create: (context) => SignatureCubit(),
@@ -697,24 +697,5 @@ class TempatKegiatanCubit extends Cubit<bool> {
 
   void setTempatKegiatan(bool value) {
     emit(value);
-  }
-}
-
-
-// TODO: Please Edit this fucking code.
-Future<String> uploadFileFromSignature(File file, String fileName) async {
-  try {
-    final Reference storageRef = FirebaseStorage.instance.ref().child(fileName);
-
-    final UploadTask uploadTask = storageRef.putFile(file);
-    final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
-
-    final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
-
-    mipokaCustomToast('File uploaded successfully');
-    return downloadUrl;
-  } catch (error) {
-    mipokaCustomToast("Failed while uploading file: $error");
-    rethrow;
   }
 }

@@ -220,7 +220,7 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
                                 context.read<UsulanKegiatanBloc>().add(
                                   UpdateUsulanKegiatanEvent(
                                     usulanKegiatan: usulanKegiatan.copyWith(
-                                      revisiUsulan: usulanKegiatan.revisiUsulan.copyWith(
+                                      revisiUsulan: usulanKegiatan.revisiUsulan?.copyWith(
                                         revisiPembiayaan: _revisiPembiayaanController.text,
                                         revisiNamaKegiatan: _revisiNamaKegiatanController.text,
                                         revisiBentukKegiatan: _revisiBentukKegiatanController.text,

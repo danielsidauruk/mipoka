@@ -65,6 +65,11 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                     return CustomContentBox(
                       children: [
                         buildTitle('Data Peserta Kegiatan (Luar Kota)'),
+
+                        if (widget.usulanArgs.isRevisiUsulan == true
+                            && state.usulanKegiatan.revisiUsulan?.revisiPartisipan != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan?.revisiPartisipan ?? ""),
+
                         CustomAddButton(
                           buttonText: 'Data Partisipan',
                           onPressed: () => Navigator.pushNamed(
@@ -243,6 +248,11 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
 
                         const CustomFieldSpacer(),
                         buildTitle('Rincian Biaya Kegiatan'),
+
+                        if (widget.usulanArgs.isRevisiUsulan == true
+                            && state.usulanKegiatan.revisiUsulan?.revisiRincianBiayaKegiatan != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan?.revisiRincianBiayaKegiatan ?? ""),
+
                         CustomAddButton(
                           buttonText: 'Biaya Kegiatan',
                           onPressed: () => Navigator.pushNamed(

@@ -95,16 +95,16 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                   } else if (state is UsulanKegiatanHasData) {
                     final usulanKegiatan = state.usulanKegiatan;
 
-                    _latarBelakangController.text = usulanKegiatan.revisiUsulan.revisiLatarBelakang;
-                    _tujuanKegiatanController.text = usulanKegiatan.revisiUsulan.revisiTujuanKegiatan;
-                    _manfaatKegiatanController.text = usulanKegiatan.revisiUsulan.revisiManfaatKegiatan;
-                    _bentukPelaksanaanKegiatanController.text = usulanKegiatan.revisiUsulan.revisiBentukPelaksanaanKegiatan;
-                    _targetPencapaianKegiatanController.text = usulanKegiatan.revisiUsulan.revisiTargetPencapaianKegiatan;
-                    _waktuDanTempatPelaksanaanKegiatanController.text = usulanKegiatan.revisiUsulan.revisiWaktuDanTempatPelaksanaan;
-                    _rencanaAnggaranKegiatanController.text = usulanKegiatan.revisiUsulan.revisiRencanaAnggaranKegiatan;
-                    _perlengkapanDanPeralatanController.text = usulanKegiatan.revisiUsulan.revisiPerlengkapanDanPeralatan;
-                    _penutupController.text = usulanKegiatan.revisiUsulan.revisiPenutup;
-                    _tertibAcaraController.text = usulanKegiatan.revisiUsulan.revisiIdTertibAcara;
+                    _latarBelakangController.text = usulanKegiatan.revisiUsulan?.revisiLatarBelakang ?? "";
+                    _tujuanKegiatanController.text = usulanKegiatan.revisiUsulan?.revisiTujuanKegiatan ?? "";
+                    _manfaatKegiatanController.text = usulanKegiatan.revisiUsulan?.revisiManfaatKegiatan ?? "";
+                    _bentukPelaksanaanKegiatanController.text = usulanKegiatan.revisiUsulan?.revisiBentukPelaksanaanKegiatan ?? "";
+                    _targetPencapaianKegiatanController.text = usulanKegiatan.revisiUsulan?.revisiTargetPencapaianKegiatan ?? "";
+                    _waktuDanTempatPelaksanaanKegiatanController.text = usulanKegiatan.revisiUsulan?.revisiWaktuDanTempatPelaksanaan ?? "";
+                    _rencanaAnggaranKegiatanController.text = usulanKegiatan.revisiUsulan?.revisiRencanaAnggaranKegiatan ?? "";
+                    _perlengkapanDanPeralatanController.text = usulanKegiatan.revisiUsulan?.revisiPerlengkapanDanPeralatan ?? "";
+                    _penutupController.text = usulanKegiatan.revisiUsulan?.revisiPenutup ?? "";
+                    _tertibAcaraController.text = usulanKegiatan.revisiUsulan?.revisiIdTertibAcara ?? "";
 
                     return CustomContentBox(
                       children: [
@@ -358,7 +358,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                                 context.read<UsulanKegiatanBloc>().add(
                                   UpdateUsulanKegiatanEvent(
                                     usulanKegiatan: usulanKegiatan.copyWith(
-                                      revisiUsulan: usulanKegiatan.revisiUsulan.copyWith(
+                                      revisiUsulan: usulanKegiatan.revisiUsulan?.copyWith(
                                         revisiLatarBelakang: _latarBelakangController.text,
                                         revisiTujuanKegiatan: _tujuanKegiatanController.text,
                                         revisiManfaatKegiatan: _manfaatKegiatanController.text,
@@ -387,7 +387,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                                 context.read<UsulanKegiatanBloc>().add(
                                   UpdateUsulanKegiatanEvent(
                                     usulanKegiatan: usulanKegiatan.copyWith(
-                                      revisiUsulan: usulanKegiatan.revisiUsulan.copyWith(
+                                      revisiUsulan: usulanKegiatan.revisiUsulan?.copyWith(
                                         revisiLatarBelakang: _latarBelakangController.text,
                                         revisiTujuanKegiatan: _tujuanKegiatanController.text,
                                         revisiManfaatKegiatan: _manfaatKegiatanController.text,

@@ -11,10 +11,8 @@ import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
-import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_mpt_unggah_bukti_page.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_filter_button.dart';
 import 'package:excel/excel.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -404,53 +402,33 @@ class _KemahasiswaanEditOrmawaEditPageState
                             Uint8List? fotoSekretarisBytes;
                             Uint8List? fotoBendaharaBytes;
 
+
                             if (kIsWeb) {
                               if (logoOrmawaResult != null) {
                                 logoOrmawaBytes = logoOrmawaResult?.files.first.bytes;
-                              }
-
-                              if (fotoPembinaResult != null) {
+                              } else if (fotoPembinaResult != null) {
                                 fotoPembinaBytes = fotoPembinaResult?.files.first.bytes;
-                              }
-
-                              if (fotoKetuaResult != null) {
+                              } else if (fotoKetuaResult != null) {
                                 fotoKetuaBytes = fotoKetuaResult?.files.first.bytes;
-                              }
-
-                              if (fotoWakilKetuaResult != null) {
+                              } else if (fotoWakilKetuaResult != null) {
                                 fotoWakilKetuaBytes = fotoWakilKetuaResult?.files.first.bytes;
-                              }
-
-                              if (fotoSekretarisResult != null) {
+                              } else if (fotoSekretarisResult != null) {
                                 fotoSekretarisBytes = fotoSekretarisResult?.files.first.bytes;
-                              }
-
-                              if (fotoBendaharaResult != null) {
+                              } else if (fotoBendaharaResult != null) {
                                 fotoBendaharaBytes = fotoBendaharaResult?.files.first.bytes;
                               }
-
                             } else if (Platform.isAndroid) {
                               if (logoOrmawaResult != null) {
                                 logoOrmawaBytes = await File(logoOrmawaResult!.files.first.path!).readAsBytes();
-                              }
-
-                              if (fotoPembinaResult != null) {
+                              } else if (fotoPembinaResult != null) {
                                 fotoPembinaBytes = await File(fotoPembinaResult!.files.first.path!).readAsBytes();
-                              }
-
-                              if (fotoKetuaResult != null) {
+                              } else if (fotoKetuaResult != null) {
                                 fotoKetuaBytes = await File(fotoKetuaResult!.files.first.path!).readAsBytes();
-                              }
-
-                              if (fotoWakilKetuaResult != null) {
+                              } else if (fotoWakilKetuaResult != null) {
                                 fotoWakilKetuaBytes = await File(fotoWakilKetuaResult!.files.first.path!).readAsBytes();
-                              }
-
-                              if (fotoSekretarisResult != null) {
+                              } else if (fotoSekretarisResult != null) {
                                 fotoSekretarisBytes = await File(fotoSekretarisResult!.files.first.path!).readAsBytes();
-                              }
-
-                              if (fotoBendaharaResult != null) {
+                              } else if (fotoBendaharaResult != null) {
                                 fotoBendaharaBytes = await File(fotoBendaharaResult!.files.first.path!).readAsBytes();
                               }
                             }
@@ -460,27 +438,23 @@ class _KemahasiswaanEditOrmawaEditPageState
                             if (logoOrmawaBytes != null) {
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
                               _logoUrlController = await uploadBytesToFirebase(logoOrmawaBytes, "$uniqueId${logoOrmawaResult!.files.first.name}");
-                            }
-                            if (fotoPembinaBytes != null) {
+                            } else if (fotoPembinaBytes != null) {
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
                               _fotoPembinaUrlController = await uploadBytesToFirebase(fotoPembinaBytes, "$uniqueId${fotoPembinaResult!.files.first.name}");
-                            }
-                            if (fotoKetuaBytes != null) {
+                            } else if (fotoKetuaBytes != null) {
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
                               _fotoKetuaUrlController = await uploadBytesToFirebase(fotoKetuaBytes, "$uniqueId${fotoKetuaResult!.files.first.name}");
-                            }
-                            if (fotoWakilKetuaBytes != null) {
+                            } else if (fotoWakilKetuaBytes != null) {
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
                               _fotoWakilKetuaUrlController = await uploadBytesToFirebase(fotoWakilKetuaBytes, "$uniqueId${fotoWakilKetuaResult!.files.first.name}");
-                            }
-                            if (fotoSekretarisBytes != null) {
+                            } else if (fotoSekretarisBytes != null) {
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
                               _fotoSekretarisUrlController = await uploadBytesToFirebase(fotoSekretarisBytes, "$uniqueId${fotoSekretarisResult!.files.first.name}");
-                            }
-                            if (fotoBendaharaBytes != null) {
+                            } else if (fotoBendaharaBytes != null) {
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
                               _fotoBendaharaUrlController = await uploadBytesToFirebase(fotoBendaharaBytes, "$uniqueId${fotoBendaharaResult!.files.first.name}");
                             }
+
 
                             context.read<OrmawaBloc>().add(
                               UpdateOrmawaEvent(

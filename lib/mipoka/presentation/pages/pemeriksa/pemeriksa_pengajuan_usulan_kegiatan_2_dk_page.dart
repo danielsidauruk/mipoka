@@ -65,8 +65,8 @@ class _PemeriksaPengajuanUsulanKegiatan2DKPageState
                   } else if (state is UsulanKegiatanHasData) {
                     final usulanKegiatan = state.usulanKegiatan;
 
-                    _revisiPesertaKegiatanDalamKotaController.text = usulanKegiatan.revisiUsulan.revisiPartisipan;
-                    _revisiRincianBiayaKegiatanController.text = usulanKegiatan.revisiUsulan.revisiRincianBiayaKegiatan;
+                    _revisiPesertaKegiatanDalamKotaController.text = usulanKegiatan.revisiUsulan?.revisiPartisipan ?? "";
+                    _revisiRincianBiayaKegiatanController.text = usulanKegiatan.revisiUsulan?.revisiRincianBiayaKegiatan ?? "";
 
                     return CustomContentBox(
                       children: [
@@ -289,7 +289,7 @@ class _PemeriksaPengajuanUsulanKegiatan2DKPageState
                                 context.read<UsulanKegiatanBloc>().add(
                                   UpdateUsulanKegiatanEvent(
                                     usulanKegiatan: usulanKegiatan.copyWith(
-                                      revisiUsulan: usulanKegiatan.revisiUsulan.copyWith(
+                                      revisiUsulan: usulanKegiatan.revisiUsulan?.copyWith(
                                         revisiPartisipan: _revisiPesertaKegiatanDalamKotaController.text,
                                         revisiRincianBiayaKegiatan: _revisiRincianBiayaKegiatanController.text,
                                       ),

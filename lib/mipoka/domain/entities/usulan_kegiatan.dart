@@ -6,9 +6,9 @@ import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
 import 'package:mipoka/mipoka/domain/entities/revisi_usulan.dart';
 import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
 
-class UsulanKegiatan extends Equatable{
+class UsulanKegiatan extends Equatable {
   final int idUsulan;
-  final RevisiUsulan revisiUsulan;
+  final RevisiUsulan? revisiUsulan;
   final MipokaUser mipokaUser;
   final Ormawa ormawa;
   final String pembiayaan;
@@ -59,7 +59,7 @@ class UsulanKegiatan extends Equatable{
 
   const UsulanKegiatan({
     required this.idUsulan,
-    required this.revisiUsulan,
+    this.revisiUsulan,
     required this.mipokaUser,
     required this.ormawa,
     required this.pembiayaan,

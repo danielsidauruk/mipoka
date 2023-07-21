@@ -68,8 +68,8 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                           'Rincikan alur dari kegiatan yang akan dilaksanakan'),
 
                       if (widget.usulanArgs.isRevisiUsulan == true
-                          && state.usulanKegiatan.revisiUsulan.revisiIdTertibAcara != "")
-                        buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiIdTertibAcara),
+                          && state.usulanKegiatan.revisiUsulan?.revisiIdTertibAcara != "")
+                        buildRevisiText(state.usulanKegiatan.revisiUsulan?.revisiIdTertibAcara ?? ""),
 
                       CustomAddButton(
                         buttonText: 'Tertib Acara',

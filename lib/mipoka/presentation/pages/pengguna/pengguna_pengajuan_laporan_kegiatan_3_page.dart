@@ -10,6 +10,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_file_uploader.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
@@ -50,9 +51,12 @@ class _PenggunaPengajuanLaporanKegiatan3State
     super.dispose();
   }
 
-  late QuillController _latarBelakangController;
-  late QuillController _hasilKegiatanController;
-  late QuillController _penutupController;
+  // late QuillController _latarBelakangController;
+  // late QuillController _hasilKegiatanController;
+  // late QuillController _penutupController;
+  final TextEditingController _latarBelakangController = TextEditingController();
+  final TextEditingController _hasilKegiatanController = TextEditingController();
+  final TextEditingController _penutupController = TextEditingController();
 
   String? _postinganKegiatanController;
   String? _dokumentasiKegiatanController;
@@ -84,25 +88,15 @@ class _PenggunaPengajuanLaporanKegiatan3State
             } else if (state is LaporanHasData) {
               final laporan = state.laporan;
 
-              _latarBelakangController = QuillController(
-                document: Document()..insert(0, laporan.latarBelakang),
-                selection: const TextSelection.collapsed(offset: 0),
-              );
-              _hasilKegiatanController = QuillController(
-                document: Document()..insert(0, laporan.hasilKegiatan),
-                selection: const TextSelection.collapsed(offset: 0),
-              );
-              _penutupController = QuillController(
-                document: Document()..insert(0, laporan.penutup),
-                selection: const TextSelection.collapsed(offset: 0),
-              );
-
-              List<String> fotoDokumentasiKegiatanList = laporan.fotoDokumentasiKegiatan;
-
+              _latarBelakangController.text = laporan.latarBelakang;
+              _hasilKegiatanController.text = laporan.hasilKegiatan;
+              _penutupController.text = laporan.penutup;
               _postinganKegiatanController = laporan.fotoPostinganKegiatan;
               _tabulasiHasilKegiatanController = laporan.fotoTabulasiHasil;
               _fakturPembayaranController = laporan.fotoFakturPembayaran;
               _dokumentasiKegiatanController = laporan.fotoDokumentasiKegiatan[0];
+
+              List<String> fotoDokumentasiKegiatanList = laporan.fotoDokumentasiKegiatan;
 
               return Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -120,7 +114,8 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         if (widget.laporanArgs.isRevisiLaporan == true
                             && laporan.revisiLaporan.revisiLatarBelakang != "")
                           buildRevisiText(laporan.revisiLaporan.revisiLatarBelakang),
-                        CustomRichTextField(controller: _latarBelakangController),
+
+                        CustomTextField(controller: _latarBelakangController),
 
                         const CustomFieldSpacer(),
 
@@ -129,7 +124,8 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         if (widget.laporanArgs.isRevisiLaporan == true
                             && laporan.revisiLaporan.revisiHasilKegiatan != "")
                           buildRevisiText(laporan.revisiLaporan.revisiHasilKegiatan),
-                        CustomRichTextField(controller: _hasilKegiatanController),
+
+                        CustomTextField(controller: _hasilKegiatanController),
 
                         const CustomFieldSpacer(),
 
@@ -138,7 +134,8 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         if (widget.laporanArgs.isRevisiLaporan == true
                             && laporan.revisiLaporan.revisiPenutup != "")
                           buildRevisiText(laporan.revisiLaporan.revisiPenutup),
-                        CustomRichTextField(controller: _penutupController),
+
+                        CustomTextField(controller: _penutupController),
 
                         const CustomFieldSpacer(),
 
@@ -196,7 +193,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                             return MipokaFileUploader(
                               asset: "assets/icons/attach.png",
                               onTap: () async {
-                                _dokumentasiKegiatanResult = await FilePicker.platform.pickFiles();
+                                _dokumentasiKegiatanResult = await FilePicker.platform.pickFiles(type: FileType.image);
                                 PlatformFile? file = _dokumentasiKegiatanResult?.files.first;
                                 if (_dokumentasiKegiatanResult != null) {
                                   if (file?.extension!.toLowerCase() == 'jpg' ||
@@ -305,9 +302,9 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                 context.read<LaporanBloc>().add(
                                   UpdateLaporanEvent(
                                     laporan: laporan.copyWith(
-                                      latarBelakang: _latarBelakangController.document.toPlainText(),
-                                      hasilKegiatan: _hasilKegiatanController.document.toPlainText(),
-                                      penutup: _penutupController.document.toPlainText(),
+                                      latarBelakang: _latarBelakangController.text,
+                                      hasilKegiatan: _hasilKegiatanController.text,
+                                      penutup: _penutupController.text,
                                       fotoPostinganKegiatan: _postinganKegiatanController,
                                       fotoDokumentasiKegiatan: fotoDokumentasiKegiatanList,
                                       fotoTabulasiHasil: _tabulasiHasilKegiatanController,
@@ -324,8 +321,8 @@ class _PenggunaPengajuanLaporanKegiatan3State
                               onTap: () async {
                                 mipokaCustomToast('Sedang menyimpan data, mohon menunggu ...', time: 5);
 
-                                if (_latarBelakangController.document.toPlainText().isNotEmpty && _hasilKegiatanController.document.toPlainText().isNotEmpty
-                                && _penutupController.document.toPlainText().isNotEmpty) {
+                                if (_latarBelakangController.text.isNotEmpty && _hasilKegiatanController.text.isNotEmpty
+                                && _penutupController.text.isNotEmpty) {
 
                                   final postinganKegiatanResult = _postinganKegiatanResult;
                                   if (postinganKegiatanResult != null) {
@@ -396,9 +393,9 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                     context.read<LaporanBloc>().add(
                                       UpdateLaporanEvent(
                                         laporan: laporan.copyWith(
-                                          latarBelakang: _latarBelakangController.document.toPlainText(),
-                                          hasilKegiatan: _hasilKegiatanController.document.toPlainText(),
-                                          penutup: _penutupController.document.toPlainText(),
+                                          latarBelakang: _latarBelakangController.text,
+                                          hasilKegiatan: _hasilKegiatanController.text,
+                                          penutup: _penutupController.text,
                                           fotoPostinganKegiatan: _postinganKegiatanController,
                                           fotoDokumentasiKegiatan: fotoDokumentasiKegiatanList,
                                           fotoTabulasiHasil: _tabulasiHasilKegiatanController,

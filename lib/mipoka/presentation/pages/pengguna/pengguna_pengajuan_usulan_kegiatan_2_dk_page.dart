@@ -38,7 +38,6 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
 
   @override
   void dispose() {
-    // mipokaCustomToast('Sedang menyimpan data...', time: 5);
     context.read<UsulanKegiatanBloc>().close();
     super.dispose();
   }
@@ -67,8 +66,8 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                         buildTitle('Data Partisipan Kegiatan (Dalam Kota)'),
 
                         if (widget.usulanArgs.isRevisiUsulan == true
-                            && state.usulanKegiatan.revisiUsulan.revisiPartisipan != "")
-                          buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiPartisipan),
+                            && state.usulanKegiatan.revisiUsulan?.revisiPartisipan != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan?.revisiPartisipan ?? ""),
 
                         CustomAddButton(
                           buttonText: 'Data Partisipan',
@@ -223,8 +222,8 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                         const CustomFieldSpacer(),
                         buildTitle('Rincian Biaya Kegiatan'),
                         if (widget.usulanArgs.isRevisiUsulan == true
-                            && state.usulanKegiatan.revisiUsulan.revisiRincianBiayaKegiatan != "")
-                          buildRevisiText(state.usulanKegiatan.revisiUsulan.revisiRincianBiayaKegiatan),
+                            && state.usulanKegiatan.revisiUsulan?.revisiRincianBiayaKegiatan != "")
+                          buildRevisiText(state.usulanKegiatan.revisiUsulan?.revisiRincianBiayaKegiatan ?? ""),
 
                         CustomAddButton(
                           buttonText: 'Biaya Kegiatan',
