@@ -21,7 +21,6 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_rich_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 
 class PenggunaPengajuanUsulanKegiatan3 extends StatefulWidget {
