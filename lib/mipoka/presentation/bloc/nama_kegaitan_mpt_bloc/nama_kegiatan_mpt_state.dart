@@ -38,8 +38,8 @@ class NamaKegiatanMptHasData extends NamaKegiatanMptState {
   List<Object> get props => [namaKegiatanMpt];
 }
 
-class NamaKegiatanMptSuccessMessage extends NamaKegiatanMptState {
-  const NamaKegiatanMptSuccessMessage({this.message = "Data has changed"});
+class NamaKegiatanMptSuccess extends NamaKegiatanMptState {
+  const NamaKegiatanMptSuccess({this.message = "Data has changed"});
 
   final String message;
 

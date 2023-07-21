@@ -19,7 +19,7 @@ class NamaKegiatanMptBloc extends Bloc<NamaKegiatanMptEvent, NamaKegiatanMptStat
 
       result.fold(
             (failure) => emit(NamaKegiatanMptError(message: failure.message)),
-            (_) => emit(const NamaKegiatanMptSuccessMessage()),
+            (_) => emit(const NamaKegiatanMptSuccess()),
       );
     });
 
@@ -52,7 +52,7 @@ class NamaKegiatanMptBloc extends Bloc<NamaKegiatanMptEvent, NamaKegiatanMptStat
 
       result.fold(
             (failure) => emit(NamaKegiatanMptError(message: failure.message)),
-            (_) => emit(const NamaKegiatanMptSuccessMessage()),
+            (_) => emit(const NamaKegiatanMptSuccess()),
       );
     });
 
@@ -63,7 +63,7 @@ class NamaKegiatanMptBloc extends Bloc<NamaKegiatanMptEvent, NamaKegiatanMptStat
 
       result.fold(
             (failure) => emit(NamaKegiatanMptError(message: failure.message)),
-            (_) => emit(const NamaKegiatanMptSuccessMessage()),
+            (_) => emit(const NamaKegiatanMptSuccess()),
       );
     });
   }

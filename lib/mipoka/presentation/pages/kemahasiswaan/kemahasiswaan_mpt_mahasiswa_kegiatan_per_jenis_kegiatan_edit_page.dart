@@ -5,6 +5,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_drop_down_bloc/jenis_kegiatan_drop_down_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -36,6 +37,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageState extends St
 
   @override
   void initState() {
+    context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
     _namaJenisKegiatanController.text = widget.namaKegiatanMpt.namaKegiatan;
     _jenisKegiatanMpt = widget.namaKegiatanMpt.jenisKegiatanMpt;
     super.initState();
@@ -68,11 +70,11 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageState extends St
                   const CustomFieldSpacer(),
 
                   buildTitle('Jenis Kegiatan'),
-                  BlocBuilder<JenisKegiatanDropDownBloc, JenisKegiatanDropDownState>(
+                  BlocBuilder<JenisKegiatanMptBloc, JenisKegiatanMptState>(
                     builder: (context, state) {
-                      if (state is JenisKegiatanDropDownLoading) {
+                      if (state is JenisKegiatanMptLoading) {
                         return const Text("Loading ...");
-                      } else if (state is JenisKegiatanDropDownHasData) {
+                      } else if (state is AllJenisKegiatanMptHasData) {
 
                         List<String> jenisKegiatanList = state.jenisKegiatanMptList.map(
                                 (jenisKegiatan) => jenisKegiatan.namaJenisKegiatanMpt).toList();
@@ -91,7 +93,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageState extends St
                             _jenisKegiatanMpt = state.jenisKegiatanMptList[index];
                           },
                         );
-                      } else if (state is JenisKegiatanDropDownError) {
+                      } else if (state is JenisKegiatanMptError) {
                         return Text(state.message);
                       } else {
                         return const Text("NamaKegiatanBloc hasn't been triggered yet.");
@@ -113,22 +115,32 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageState extends St
 
                       CustomMipokaButton(
                         onTap: () => (_namaJenisKegiatanController.text.isNotEmpty && _jenisKegiatanMpt?.idJenisKegiatanMpt != 0) ?
-                        Future.microtask(() {
-                          mipokaCustomToast("Kegiatan per Jenis Kegiatan MPT berhasil diupdate.");
-                          context.read<NamaKegiatanMptBloc>().add(
-                            UpdateNamaKegiatanMptEvent(
-                              namaKegiatanMpt: widget.namaKegiatanMpt.copyWith(
+                        context.read<NamaKegiatanMptBloc>().add(
+                          UpdateNamaKegiatanMptEvent(
+                            namaKegiatanMpt: widget.namaKegiatanMpt.copyWith(
                                 namaKegiatan: _namaJenisKegiatanController.text,
                                 jenisKegiatanMpt: _jenisKegiatanMpt,
                                 updatedAt: currentDate,
                                 updatedBy: user?.email ?? "unknown"
-                              ),
                             ),
-                          );
-                          Navigator.pop(context);
-                        }) :
+                          ),
+                        ) :
                         mipokaCustomToast(emptyFieldMessage),
                         text: 'Simpan',
+                      ),
+
+                      BlocListener<NamaKegiatanMptBloc, NamaKegiatanMptState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
+                          if (state is NamaKegiatanMptSuccess) {
+                            mipokaCustomToast("Kegiatan per Jenis Kegiatan MPT berhasil diupdate.");
+                            Navigator.pop(context);
+                          } else if (state is NamaKegiatanMptError) {
+                            mipokaCustomToast(state.message);
+                          }
+                        },
+                        child: const SizedBox(),
                       ),
                     ],
                   ),

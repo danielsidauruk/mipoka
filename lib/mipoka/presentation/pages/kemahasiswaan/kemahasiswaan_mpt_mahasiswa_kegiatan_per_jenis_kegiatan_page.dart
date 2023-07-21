@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_drop_down_bloc/jenis_kegiatan_drop_down_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -192,13 +191,11 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                                               const SizedBox(width: 16.0,),
 
                                               InkWell(
-                                                onTap: () => Future.microtask(() {
+                                                onTap: () {
                                                   mipokaCustomToast("${namaKegiatanMpt.namaKegiatan} telah dihapus.");
                                                   context.read<NamaKegiatanMptBloc>().add(
                                                       DeleteNamaKegiatanMptEvent(idNamaKegiatanMpt: namaKegiatanMpt.idNamaKegiatanMpt));
-                                                  context.read<NamaKegiatanMptBloc>().add(
-                                                      ReadAllNamaKegiatanMptEvent(id: _idNamaKegiatanMpt ?? 0));
-                                                }),
+                                                },
                                                 child: Image.asset(
                                                   'assets/icons/delete.png',
                                                   width: 24,
@@ -215,7 +212,13 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                             ),
                           ],
                         );
-                      } else if (state is NamaKegiatanMptError) {
+                      } else if (state is NamaKegiatanMptSuccess) {
+                        context.read<NamaKegiatanMptBloc>().add(
+                            ReadAllNamaKegiatanMptEvent(id: _idNamaKegiatanMpt ?? 0));
+
+                        return const SizedBox();
+                      }
+                      else if (state is NamaKegiatanMptError) {
                         return Text(state.message);
                       } else {
                         return const Text("KegiatanMptBloc hasn't triggered yet.");

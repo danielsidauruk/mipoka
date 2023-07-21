@@ -4,7 +4,6 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
-import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_drop_down_bloc/jenis_kegiatan_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -34,6 +33,13 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageState extends 
     context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
     super.initState();
   }
+
+  @override
+  void dispose() {
+    context.read<JenisKegiatanMptBloc>().close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,25 +113,35 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageState extends 
 
                       CustomMipokaButton(
                         onTap: () => (_namaJenisKegiatanController.text.isNotEmpty && _jenisKegiatanMpt?.idJenisKegiatanMpt != 0) ?
-                        Future.microtask(() {
-                          mipokaCustomToast("Kegiatan per Jenis Kegiatan MPT berhasil dibuat.");
-                          context.read<NamaKegiatanMptBloc>().add(
-                            CreateNamaKegiatanMptEvent(
-                              namaKegiatanMpt: NamaKegiatanMpt(
-                                idNamaKegiatanMpt: newId,
-                                jenisKegiatanMpt: _jenisKegiatanMpt!,
-                                namaKegiatan: _namaJenisKegiatanController.text,
-                                createdAt: currentDate,
-                                createdBy: user?.email ?? "unknown",
-                                updatedAt: currentDate,
-                                updatedBy: user?.email ?? "unknown",
-                              ),
+                        context.read<NamaKegiatanMptBloc>().add(
+                          CreateNamaKegiatanMptEvent(
+                            namaKegiatanMpt: NamaKegiatanMpt(
+                              idNamaKegiatanMpt: newId,
+                              jenisKegiatanMpt: _jenisKegiatanMpt!,
+                              namaKegiatan: _namaJenisKegiatanController.text,
+                              createdAt: currentDate,
+                              createdBy: user?.email ?? "unknown",
+                              updatedAt: currentDate,
+                              updatedBy: user?.email ?? "unknown",
                             ),
-                          );
-                          Navigator.pop(context);
-                        }) :
+                          ),
+                        ) :
                         mipokaCustomToast(emptyFieldMessage),
                         text: 'Simpan',
+                      ),
+
+                      BlocListener<NamaKegiatanMptBloc, NamaKegiatanMptState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
+                          if (state is NamaKegiatanMptSuccess) {
+                            mipokaCustomToast("Kegiatan per Jenis Kegiatan MPT berhasil dibuat.");
+                            Navigator.pop(context);
+                          } else if (state is NamaKegiatanMptError) {
+                            mipokaCustomToast(state.message);
+                          }
+                        },
+                        child: const SizedBox(),
                       ),
                     ],
                   ),
