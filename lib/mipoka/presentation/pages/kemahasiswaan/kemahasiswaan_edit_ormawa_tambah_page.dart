@@ -8,12 +8,12 @@ import 'dart:io';
 import 'package:excel/excel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
-import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_mpt_unggah_bukti_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_field_picker.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_filter_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -22,6 +22,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_excel_uploader.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_file_uploader.dart';
 
 class KemahasiswaanEditOrmawaTambahPage extends StatefulWidget {
   const KemahasiswaanEditOrmawaTambahPage({super.key});
@@ -59,7 +60,13 @@ class _KemahasiswaanEditOrmawaTambahPageState
   final StreamController<String?> _excelFileStream = StreamController<String?>();
   String? _excelFileController;
 
-  FilePickerResult? result;
+  FilePickerResult? excelResult;
+  FilePickerResult? logoOrmawaResult;
+  FilePickerResult? fotoPembinaResult;
+  FilePickerResult? fotoKetuaResult;
+  FilePickerResult? fotoWakilKetuaResult;
+  FilePickerResult? fotoSekretarisResult;
+  FilePickerResult? fotoBendaharaResult;
 
   void _processUploadedFile(PlatformFile file) async {
     Uint8List? bytes;
@@ -122,15 +129,14 @@ class _KemahasiswaanEditOrmawaTambahPageState
                     stream: _logoUrlStream.stream,
                     builder: (context, snapshot) {
                       String text = snapshot.data ?? "";
-                      return CustomFilePickerButton(
+                      return MipokaFileUploader(
+                        asset: "assets/icons/attach.png",
                         onTap: () async {
-                          String? url = await selectAndUploadFile('logo_ormawa_${_namaOrmawaController.text}');
-                          _logoUrlController = url;
-                          _logoUrlStream.add(url);
-                        },
-                        onDelete: () {
-                          _logoUrlStream.add("");
-                          _logoUrlController = "";
+                          logoOrmawaResult = await FilePicker.platform.pickFiles(type: FileType.image);
+                          PlatformFile? file = logoOrmawaResult?.files.first;
+                          if (logoOrmawaResult != null) {
+                            _logoUrlStream.add(file?.name);
+                          }
                         },
                         text: text,
                       );
@@ -149,15 +155,14 @@ class _KemahasiswaanEditOrmawaTambahPageState
                     stream: _fotoPembinaUrlStream.stream,
                     builder: (context, snapshot) {
                       String text = snapshot.data ?? "";
-                      return CustomFilePickerButton(
+                      return MipokaFileUploader(
+                        asset: "assets/icons/attach.png",
                         onTap: () async {
-                          String? url = await selectAndUploadFile('foto_pembina_${_namaOrmawaController.text}');
-                          _fotoPembinaUrlController = url;
-                          _fotoPembinaUrlStream.add(url);
-                        },
-                        onDelete: () {
-                          _fotoPembinaUrlStream.add("");
-                          _fotoPembinaUrlController = "";
+                          fotoPembinaResult = await FilePicker.platform.pickFiles(type: FileType.image);
+                          PlatformFile? file = fotoPembinaResult?.files.first;
+                          if (fotoPembinaResult != null) {
+                            _fotoPembinaUrlStream.add(file?.name);
+                          }
                         },
                         text: text,
                       );
@@ -176,15 +181,14 @@ class _KemahasiswaanEditOrmawaTambahPageState
                     stream: _fotoKetuaUrlStream.stream,
                     builder: (context, snapshot) {
                       String text = snapshot.data ?? "";
-                      return CustomFilePickerButton(
+                      return MipokaFileUploader(
+                        asset: "assets/icons/attach.png",
                         onTap: () async {
-                          String? url = await selectAndUploadFile('foto_ketua_${_namaOrmawaController.text}');
-                          _fotoKetuaUrlController = url;
-                          _fotoKetuaUrlStream.add(url);
-                        },
-                        onDelete: () {
-                          _fotoKetuaUrlStream.add("");
-                          _fotoKetuaUrlController = "";
+                          fotoKetuaResult = await FilePicker.platform.pickFiles(type: FileType.image);
+                          PlatformFile? file = fotoKetuaResult?.files.first;
+                          if (fotoKetuaResult != null) {
+                            _fotoKetuaUrlStream.add(file?.name);
+                          }
                         },
                         text: text,
                       );
@@ -203,15 +207,14 @@ class _KemahasiswaanEditOrmawaTambahPageState
                     stream: _fotoWakilKetuaUrlStream.stream,
                     builder: (context, snapshot) {
                       String text = snapshot.data ?? "";
-                      return CustomFilePickerButton(
+                      return MipokaFileUploader(
+                        asset: "assets/icons/attach.png",
                         onTap: () async {
-                          String? url = await selectAndUploadFile('foto_wakil_ketua_${_namaOrmawaController.text}');
-                          _fotoWakilKetuaUrlController = url;
-                          _fotoWakilKetuaUrlStream.add(url);
-                        },
-                        onDelete: () {
-                          _fotoWakilKetuaUrlStream.add("");
-                          _fotoWakilKetuaUrlController = "";
+                          fotoWakilKetuaResult = await FilePicker.platform.pickFiles(type: FileType.image);
+                          PlatformFile? file = fotoWakilKetuaResult?.files.first;
+                          if (fotoWakilKetuaResult != null) {
+                            _fotoWakilKetuaUrlStream.add(file?.name);
+                          }
                         },
                         text: text,
                       );
@@ -230,15 +233,14 @@ class _KemahasiswaanEditOrmawaTambahPageState
                     stream: _fotoSekretarisUrlStream.stream,
                     builder: (context, snapshot) {
                       String text = snapshot.data ?? "";
-                      return CustomFilePickerButton(
+                      return MipokaFileUploader(
+                        asset: "assets/icons/attach.png",
                         onTap: () async {
-                          String? url = await selectAndUploadFile('foto_sekretaris_${_namaOrmawaController.text}');
-                          _fotoSekretarisUrlController = url;
-                          _fotoSekretarisUrlStream.add(url);
-                        },
-                        onDelete: () {
-                          _fotoSekretarisUrlStream.add("");
-                          _fotoSekretarisUrlController = "";
+                          fotoSekretarisResult = await FilePicker.platform.pickFiles(type: FileType.image);
+                          PlatformFile? file = fotoSekretarisResult?.files.first;
+                          if (fotoSekretarisResult != null) {
+                            _fotoSekretarisUrlStream.add(file?.name);
+                          }
                         },
                         text: text,
                       );
@@ -257,15 +259,14 @@ class _KemahasiswaanEditOrmawaTambahPageState
                     stream: _fotoBendaharaUrlStream.stream,
                     builder: (context, snapshot) {
                       String text = snapshot.data ?? "";
-                      return CustomFilePickerButton(
+                      return MipokaFileUploader(
+                        asset: "assets/icons/attach.png",
                         onTap: () async {
-                          String? url = await selectAndUploadFile('foto_bendahara_${_namaOrmawaController.text}');
-                          _fotoBendaharaUrlController = url;
-                          _fotoBendaharaUrlStream.add(url);
-                        },
-                        onDelete: () {
-                          _fotoBendaharaUrlStream.add("");
-                          _fotoBendaharaUrlController = "";
+                          fotoBendaharaResult = await FilePicker.platform.pickFiles(type: FileType.image);
+                          PlatformFile? file = fotoBendaharaResult?.files.first;
+                          if (fotoBendaharaResult != null) {
+                            _fotoBendaharaUrlStream.add(file?.name);
+                          }
                         },
                         text: text,
                       );
@@ -282,10 +283,10 @@ class _KemahasiswaanEditOrmawaTambahPageState
                       String filePath = snapshot.data ?? "";
                       return MipokaExcelUploader(
                         onTap: () async {
-                          result = await FilePicker.platform.pickFiles();
-                          if (result != null){
-                            _excelFileStream.add(result?.files.first.name);
-                            PlatformFile? file = result?.files.first;
+                          excelResult = await FilePicker.platform.pickFiles();
+                          if (excelResult != null){
+                            _excelFileStream.add(excelResult?.files.first.name);
+                            PlatformFile? file = excelResult?.files.first;
                             _processUploadedFile(file!);
                           }
                         },
@@ -319,47 +320,112 @@ class _KemahasiswaanEditOrmawaTambahPageState
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => (_namaOrmawaController.text.isNotEmpty && _namaSingkatanController.text.isNotEmpty
-                            && _namaPembinaController.text.isNotEmpty && _namaKetuaController.text.isNotEmpty
-                            && _namaWakilKetuaController.text.isNotEmpty && _namaSekretarisController.text.isNotEmpty
-                            && _namaBendaharaController.text.isNotEmpty && _logoUrlController != ""
-                            && _fotoPembinaUrlController != "" && _fotoKetuaUrlController != ""
-                            && _fotoWakilKetuaUrlController != "" && _fotoSekretarisUrlController != ""
-                            && _fotoBendaharaUrlController != "" && nimList.isNotEmpty
-                        ) ?
-                        Future.microtask(() {
-                          context.read<OrmawaBloc>().add(
-                            CreateOrmawaEvent(
-                              ormawa: Ormawa(
-                                idOrmawa: newId,
-                                namaOrmawa: _namaOrmawaController.text,
-                                namaSingkatanOrmawa: _namaSingkatanController.text,
-                                logoOrmawa: _logoUrlController ?? "",
-                                listAnggota: nimList,
-                                pembina: _namaPembinaController.text,
-                                ketua: _namaKetuaController.text,
-                                wakil: _namaWakilKetuaController.text,
-                                sekretaris: _namaSekretarisController.text,
-                                bendahara: _namaBendaharaController.text,
-                                jumlahAnggota: nimList.length,
-                                fotoPembina: _fotoPembinaUrlController ?? "",
-                                fotoKetua: _fotoKetuaUrlController ?? "",
-                                fotoWakil: _fotoWakilKetuaUrlController ?? "",
-                                fotoSekretaris: _fotoSekretarisUrlController ?? "",
-                                fotoBendahara: _fotoBendaharaUrlController ?? "",
-                                createdAt: currentDate,
-                                createdBy: user?.email ?? "unknown",
-                                updatedBy: currentDate,
-                                updatedAt: user?.email ?? "unknown",
+                        onTap: () async {
+                          if (_namaOrmawaController.text.isNotEmpty && _namaSingkatanController.text.isNotEmpty
+                              && _namaPembinaController.text.isNotEmpty && _namaKetuaController.text.isNotEmpty
+                              && _namaWakilKetuaController.text.isNotEmpty && _namaSekretarisController.text.isNotEmpty
+                              && _namaBendaharaController.text.isNotEmpty && nimList.isNotEmpty && excelResult != null
+                              && logoOrmawaResult != null && fotoPembinaResult != null && fotoKetuaResult != null
+                              && fotoWakilKetuaResult != null && fotoSekretarisResult != null && fotoBendaharaResult != null) {
+
+                            Uint8List? logoOrmawaBytes;
+                            Uint8List? fotoPembinaBytes;
+                            Uint8List? fotoKetuaBytes;
+                            Uint8List? fotoWakilKetuaBytes;
+                            Uint8List? fotoSekretarisBytes;
+                            Uint8List? fotoBendaharaBytes;
+
+                            if (kIsWeb) {
+                              logoOrmawaBytes = logoOrmawaResult?.files.first.bytes;
+                              fotoPembinaBytes = fotoPembinaResult?.files.first.bytes;
+                              fotoKetuaBytes = fotoKetuaResult?.files.first.bytes;
+                              fotoWakilKetuaBytes = fotoWakilKetuaResult?.files.first.bytes;
+                              fotoSekretarisBytes = fotoSekretarisResult?.files.first.bytes;
+                              fotoBendaharaBytes = fotoBendaharaResult?.files.first.bytes;
+                            } else if (Platform.isAndroid) {
+                              logoOrmawaBytes = await File(logoOrmawaResult!.files.first.path!).readAsBytes();
+                              fotoPembinaBytes = await File(fotoPembinaResult!.files.first.path!).readAsBytes();
+                              fotoKetuaBytes = await File(fotoKetuaResult!.files.first.path!).readAsBytes();
+                              fotoWakilKetuaBytes = await File(fotoWakilKetuaResult!.files.first.path!).readAsBytes();
+                              fotoSekretarisBytes = await File(fotoSekretarisResult!.files.first.path!).readAsBytes();
+                              fotoBendaharaBytes = await File(fotoBendaharaResult!.files.first.path!).readAsBytes();
+                            }
+
+                            mipokaCustomToast(savingDataMessage);
+
+                            if (logoOrmawaBytes != null) {
+                              int uniqueId = UniqueIdGenerator.generateUniqueId();
+                              _logoUrlController = await uploadBytesToFirebase(logoOrmawaBytes, "$uniqueId${logoOrmawaResult!.files.first.name}");
+                            }
+                            if (fotoPembinaBytes != null) {
+                              int uniqueId = UniqueIdGenerator.generateUniqueId();
+                              _fotoPembinaUrlController = await uploadBytesToFirebase(fotoPembinaBytes, "$uniqueId${fotoPembinaResult!.files.first.name}");
+                            }
+                            if (fotoKetuaBytes != null) {
+                              int uniqueId = UniqueIdGenerator.generateUniqueId();
+                              _fotoKetuaUrlController = await uploadBytesToFirebase(fotoKetuaBytes, "$uniqueId${fotoKetuaResult!.files.first.name}");
+                            }
+                            if (fotoWakilKetuaBytes != null) {
+                              int uniqueId = UniqueIdGenerator.generateUniqueId();
+                              _fotoWakilKetuaUrlController = await uploadBytesToFirebase(fotoWakilKetuaBytes, "$uniqueId${fotoWakilKetuaResult!.files.first.name}");
+                            }
+                            if (fotoSekretarisBytes != null) {
+                              int uniqueId = UniqueIdGenerator.generateUniqueId();
+                              _fotoSekretarisUrlController = await uploadBytesToFirebase(fotoSekretarisBytes, "$uniqueId${fotoSekretarisResult!.files.first.name}");
+                            }
+                            if (fotoBendaharaBytes != null) {
+                              int uniqueId = UniqueIdGenerator.generateUniqueId();
+                              _fotoBendaharaUrlController = await uploadBytesToFirebase(fotoBendaharaBytes, "$uniqueId${fotoBendaharaResult!.files.first.name}");
+                            }
+
+                            int uniqueId = UniqueIdGenerator.generateUniqueId();
+
+                            if (context.mounted) {context.read<OrmawaBloc>().add(
+                              CreateOrmawaEvent(
+                                ormawa: Ormawa(
+                                  idOrmawa: uniqueId,
+                                  namaOrmawa: _namaOrmawaController.text,
+                                  namaSingkatanOrmawa: _namaSingkatanController.text,
+                                  logoOrmawa: _logoUrlController ?? "",
+                                  listAnggota: nimList,
+                                  pembina: _namaPembinaController.text,
+                                  ketua: _namaKetuaController.text,
+                                  wakil: _namaWakilKetuaController.text,
+                                  sekretaris: _namaSekretarisController.text,
+                                  bendahara: _namaBendaharaController.text,
+                                  jumlahAnggota: nimList.length,
+                                  fotoPembina: _fotoPembinaUrlController ?? "",
+                                  fotoKetua: _fotoKetuaUrlController ?? "",
+                                  fotoWakil: _fotoWakilKetuaUrlController ?? "",
+                                  fotoSekretaris: _fotoSekretarisUrlController ?? "",
+                                  fotoBendahara: _fotoBendaharaUrlController ?? "",
+                                  createdAt: currentDate,
+                                  createdBy: user?.email ?? "unknown",
+                                  updatedBy: currentDate,
+                                  updatedAt: user?.email ?? "unknown",
+                                ),
                               ),
-                            ),
-                          );
-                          context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
-                          mipokaCustomToast("ormawa sudah ditambahkan.");
-                          Navigator.pop(context);
-                        }) :
-                        mipokaCustomToast(emptyFieldMessage),
+                            );
+                            }
+                          } else {
+                            mipokaCustomToast(emptyFieldMessage);
+                          }
+                        },
                         text: 'Simpan',
+                      ),
+
+                      BlocListener<OrmawaBloc, OrmawaState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
+                          if (state is OrmawaSuccessMessage) {
+                            mipokaCustomToast("Ormawa berhasil ditambah.");
+                            Navigator.pop(context);
+                          } else if (state is OrmawaError) {
+                            mipokaCustomToast(state.message);
+                          }
+                        },
+                        child: const SizedBox(),
                       ),
                     ],
                   ),

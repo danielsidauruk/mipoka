@@ -135,7 +135,8 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                               }
 
                               if (bytes != null) {
-                                imageUrl = await uploadBytesToFirebase(bytes, "$newId${file.name}");
+                                int uniqueId = UniqueIdGenerator.generateUniqueId();
+                                imageUrl = await uploadBytesToFirebase(bytes, "$uniqueId${file.name}");
                               }
 
                               if(context.mounted) {

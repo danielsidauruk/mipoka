@@ -611,6 +611,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
+      print(ormawaModel.toJson());
     } on DioError catch (e) {
       if (kDebugMode) {
         print(e);

@@ -63,7 +63,7 @@ class _KemahasiswaanEditOrmawaPageState
                           onPressed: () => Navigator.pushNamed(
                             context,
                             kemahasiswaanEditOrmawaTambahPageRoute,
-                          ),
+                          ).then((_) => context.read<OrmawaBloc>().add(ReadAllOrmawaEvent())),
                         ),
                         const CustomFieldSpacer(),
 
@@ -161,7 +161,7 @@ class _KemahasiswaanEditOrmawaPageState
                                               context,
                                               kemahasiswaanEditOrmawaEditPageRoute,
                                               arguments: ormawa,
-                                            ),
+                                            ).then((_) => context.read<OrmawaBloc>().add(ReadAllOrmawaEvent())),
                                             child: Image.asset(
                                               'assets/icons/edit.png',
                                               width: 24,
@@ -172,12 +172,7 @@ class _KemahasiswaanEditOrmawaPageState
 
                                           InkWell(
                                             onTap: () {
-                                              Future.microtask(() {
-                                                context.read<OrmawaBloc>().add(
-                                                    DeleteOrmawaEvent(idOrmawa: ormawa.idOrmawa));
-                                                context.read<OrmawaBloc>().add(
-                                                    ReadAllOrmawaEvent());
-                                              });
+                                              context.read<OrmawaBloc>().add(DeleteOrmawaEvent(idOrmawa: ormawa.idOrmawa));
                                               mipokaCustomToast("${ormawa.namaOrmawa} telah dihapus.");
                                             },
                                             child: Image.asset(
@@ -196,7 +191,10 @@ class _KemahasiswaanEditOrmawaPageState
                         ),
                       ],
                     );
+                  } else if (state is OrmawaSuccessMessage) {
+                    context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
 
+                    return const SizedBox();
                   } else if (state is OrmawaError) {
                     return Text(state.message);
                   } else {
