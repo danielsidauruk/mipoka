@@ -77,8 +77,12 @@ class LaporanModel extends Laporan {
 
   factory LaporanModel.fromJson(Map<String, dynamic> json) => LaporanModel(
     idLaporan: json["id_laporan"],
-    revisiLaporanModel: RevisiLaporanModel.fromJson(json["revisi_laporan"]),
-    usulanKegiatanModel: UsulanKegiatanModel.fromJson(json["usulan"]),
+    revisiLaporanModel: json["revisi_laporan"] != null
+        ? RevisiLaporanModel.fromJson(json["revisi_laporan"])
+        : null,
+    usulanKegiatanModel: json["usulan"] != null
+        ? UsulanKegiatanModel.fromJson(json["usulan"])
+        : null,
     pencapaian: json["pencapaian"],
     pesertaKegiatanLaporanModel: List<PesertaKegiatanLaporanModel>.from(json["peserta_kegiatan_laporan"].map((x) => PesertaKegiatanLaporanModel.fromJson(x))),
     rincianBiayaKegiatanModel: List<RincianBiayaKegiatanModel>.from(json["rincian_biaya_kegiatan"].map((x) => RincianBiayaKegiatanModel.fromJson(x))),

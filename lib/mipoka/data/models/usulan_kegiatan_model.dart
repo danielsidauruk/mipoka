@@ -9,7 +9,7 @@ import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 class UsulanKegiatanModel extends UsulanKegiatan {
   final RevisiUsulanModel? revisiUsulanModel;
   final MipokaUserModel mipokaUserModel;
-  final OrmawaModel ormawaModel;
+  final OrmawaModel? ormawaModel;
   final List<PartisipanModel> partisipanModel;
   final List<BiayaKegiatanModel> biayaKegiatanModel;
   final List<TertibAcaraModel> tertibAcaraModel;
@@ -18,7 +18,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
     required super.idUsulan,
     this.revisiUsulanModel,
     required this.mipokaUserModel,
-    required this.ormawaModel,
+    this.ormawaModel,
     required super.pembiayaan,
     required super.namaKegiatan,
     required super.bentukKegiatan,
@@ -80,7 +80,9 @@ class UsulanKegiatanModel extends UsulanKegiatan {
           ? RevisiUsulanModel.fromEntity(usulanKegiatan.revisiUsulan!)
           : null,
       mipokaUserModel: MipokaUserModel.fromEntity(usulanKegiatan.mipokaUser),
-      ormawaModel: OrmawaModel.fromEntity(usulanKegiatan.ormawa),
+      ormawaModel: usulanKegiatan.ormawa != null
+          ? OrmawaModel.fromEntity(usulanKegiatan.ormawa!)
+          : null,
       pembiayaan: usulanKegiatan.pembiayaan,
       namaKegiatan: usulanKegiatan.namaKegiatan,
       bentukKegiatan: usulanKegiatan.bentukKegiatan,
@@ -138,7 +140,9 @@ class UsulanKegiatanModel extends UsulanKegiatan {
         ? RevisiUsulanModel.fromJson(json["revisi_usulan"])
         : null,
     mipokaUserModel: MipokaUserModel.fromJson(json["user"]),
-    ormawaModel: OrmawaModel.fromJson(json["ormawa"]),
+    ormawaModel: json["ormawa"] != null
+        ? OrmawaModel.fromJson(json["ormawa"])
+        : null,
     pembiayaan: json["pembiayaan"],
     namaKegiatan: json["nama_kegiatan"],
     bentukKegiatan: json["bentuk_kegiatan"],
@@ -190,7 +194,7 @@ class UsulanKegiatanModel extends UsulanKegiatan {
     "id_usulan": idUsulan,
     "revisi_usulan": revisiUsulanModel?.toJson(),
     "user": mipokaUserModel.toJson(),
-    "ormawa": ormawaModel.toJson(),
+    "ormawa": ormawaModel?.toJson(),
     "pembiayaan": pembiayaan,
     "nama_kegiatan": namaKegiatan,
     "bentuk_kegiatan": bentukKegiatan,

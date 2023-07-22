@@ -1418,6 +1418,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   Future<UsulanKegiatanModel> readUsulanKegiatan(int idUsulanKegiatan) async {
     try {
       final response = await DioUtil().dio.get("$usulanPath/$idUsulanKegiatan");
+      print(response.data);
       final result = UsulanKegiatanModel.fromJson(response.data);
 
       return result;

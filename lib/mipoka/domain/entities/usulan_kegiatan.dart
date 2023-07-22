@@ -10,7 +10,7 @@ class UsulanKegiatan extends Equatable {
   final int idUsulan;
   final RevisiUsulan? revisiUsulan;
   final MipokaUser mipokaUser;
-  final Ormawa ormawa;
+  final Ormawa? ormawa;
   final String pembiayaan;
   final String namaKegiatan;
   final String bentukKegiatan;
@@ -61,7 +61,7 @@ class UsulanKegiatan extends Equatable {
     required this.idUsulan,
     this.revisiUsulan,
     required this.mipokaUser,
-    required this.ormawa,
+    this.ormawa,
     required this.pembiayaan,
     required this.namaKegiatan,
     required this.bentukKegiatan,

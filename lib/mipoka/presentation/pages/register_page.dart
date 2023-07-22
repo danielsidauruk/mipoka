@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/login_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
@@ -29,6 +29,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController _semesterController = TextEditingController();
   final TextEditingController _kelasController = TextEditingController();
   final TextEditingController _prodiController = TextEditingController();
+
+  @override
+  void initState() {
+    _prodiController.text = listProdi[0];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +110,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   title: "Kelas",
                 ),
 
+                const CustomFieldSpacer(),
+
+                const Text(
+                  "Prodi",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: 16,),
+                ),
+
+                const CustomFieldSpacer(),
+
                 MipokaCustomDropdown(
                   items: listProdi,
                   onValueChanged: (value) {
@@ -124,13 +140,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           password: _passwordController.text,
                         );
 
-                        Future.microtask(() {
-                          User? user = FirebaseAuth.instance.currentUser;
+                        int semester = int.parse(_semesterController.text);
 
+
+                        if (context.mounted) {
                           context.read<MipokaUserBloc>().add(
                             CreateMipokaUserEvent(
                               mipokaUser: MipokaUser(
-                                idUser: user?.uid ?? "",
+                                idUser: userCredential.user?.uid ?? "",
                                 ormawa: const [],
                                 email: _emailController.text,
                                 namaLengkap: _namaLengkapController.text,
@@ -138,7 +155,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 noHp: _noHpController.text,
                                 image: "",
                                 pointMpt: 0,
-                                semester: int.parse(_semesterController.text),
+                                semester: semester,
                                 kelas: _kelasController.text,
                                 periodeMpt: "",
                                 statusMpt: "",
@@ -152,16 +169,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           );
                           mipokaCustomToast('Your account has been registered.');
                           Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                        });
-                      } catch (e) {
-                        final errorMessage = e.toString();
-                        final int startIndex;
-                        if (e.toString().contains('Firebase:')) {
-                          startIndex = errorMessage.indexOf("Firebase:");
-                          mipokaCustomToast(errorMessage.substring(startIndex));
-                        } else {
-                          mipokaCustomToast(errorMessage);
                         }
+                      } catch (e) {
+                        mipokaCustomToast(e.toString());
                       }
                     } else {
                       mipokaCustomToast("all fields cannot be empty");

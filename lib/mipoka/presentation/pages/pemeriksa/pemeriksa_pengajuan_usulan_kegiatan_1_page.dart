@@ -101,7 +101,7 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
                       children: [
                         CustomCommentWidget(
                           title: 'Nama Ormawa',
-                          mainText: usulanKegiatan.ormawa.namaOrmawa,
+                          mainText: usulanKegiatan.ormawa?.namaOrmawa ?? "",
                           controller: _commentNamaOrmawaController,
                         ),
 

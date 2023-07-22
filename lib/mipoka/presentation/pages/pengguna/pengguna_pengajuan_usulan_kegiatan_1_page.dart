@@ -1,15 +1,13 @@
 import 'dart:async';
-import 'dart:math';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
-import 'dart:io';
 import 'dart:ui' as ui;
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/presentation/bloc/cubit/signature_cubit.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
@@ -318,10 +316,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                               items: listPembiayaan,
                               initialItem: _pembiayaanController,
                               onValueChanged: (value) {
-                                if (kDebugMode) {
-                                  print(
-                                      'Input $value to State Management BLoC or Database');
-                                }
                                 _pembiayaanController = value;
                               },
                             ),
@@ -342,9 +336,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                               value: _bentukKegiatanSwitchController,
                               onChanged: (value) {
                                 _bentukKegiatanSwitchController = value;
-                                if (kDebugMode) {
-                                  print(_bentukKegiatanSwitchController);
-                                }
                               },
                             ),
 
@@ -610,9 +601,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                                 CustomMipokaButton(
                                   onTap: () async {
-                                    int timestampMicros = DateTime.now().microsecondsSinceEpoch;
-                                    int randomNum = Random().nextInt(9999999);
-                                    int uniqueId = timestampMicros + randomNum;
+                                    int uniqueId = UniqueIdGenerator.generateUniqueId();
 
                                     mipokaCustomToast('Sedang menyimpan data...', time: 5);
 
@@ -620,51 +609,59 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                       _ormawaSignatureController = await uploadBytesToFirebase(_signatureData, "signature$uniqueId.png");
                                     }
 
-                                    Future.microtask(() {
-                                      context.read<UsulanKegiatanBloc>().add(
-                                        UpdateUsulanKegiatanEvent(
-                                          usulanKegiatan: usulanKegiatan.copyWith(
-                                            ormawa: _ormawa,
-                                            pembiayaan: _pembiayaanController,
-                                            namaKegiatan: _namaKegiatanController.text,
-                                            kategoriBentukKegiatan: _bentukKegiatanSwitchController == true ? "Luring" : "Daring",
-                                            bentukKegiatan: _bentukKegiatanController,
-                                            deskripsiKegiatan: _deskripsiKegiatanController.text,
-                                            tanggalMulaiKegiatan: _tanggalMulaiController.text,
-                                            tanggalSelesaiKegiatan: _tanggalSelesaiController.text,
-                                            waktuMulaiKegiatan: _waktuMulaiController.text,
-                                            waktuSelesaiKegiatan: _waktuSelesaiController.text,
-                                            tempatKegiatan: _tempatKegiatanController.text,
-                                            tanggalKeberangkatan: _tempatKegiatanSwitchController == true
-                                                ? _tanggalKeberangkatanController.text : "",
-                                            tanggalKepulangan: _tempatKegiatanSwitchController == true
-                                                ?  _tanggalKepulanganController.text : "",
-                                            kategoriJumlahPartisipan: _jumlahParsitipanSwitchController == true ? "Orang" : "Dll",
-                                            jumlahPartisipan: _jumlahParsitipanController.text,
-                                            targetKegiatan: _targetKegiatanController.text,
-                                            kategoriTotalPendanaan: _totalPendanaanSwitchController == true ? "Dll" : "Orang",
-                                            totalPendanaan: _totalPendanaanController.text,
-                                            tandaTanganOrmawa: _ormawaSignatureController,
-                                            updatedAt: currentDate,
-                                            updatedBy: user?.email ?? "unknown",
-                                          ),
+                                    context.read<UsulanKegiatanBloc>().add(
+                                      UpdateUsulanKegiatanEvent(
+                                        usulanKegiatan: usulanKegiatan.copyWith(
+                                          ormawa: _ormawa,
+                                          pembiayaan: _pembiayaanController,
+                                          namaKegiatan: _namaKegiatanController.text,
+                                          kategoriBentukKegiatan: _bentukKegiatanSwitchController == true ? "Luring" : "Daring",
+                                          bentukKegiatan: _bentukKegiatanController,
+                                          deskripsiKegiatan: _deskripsiKegiatanController.text,
+                                          tanggalMulaiKegiatan: _tanggalMulaiController.text,
+                                          tanggalSelesaiKegiatan: _tanggalSelesaiController.text,
+                                          waktuMulaiKegiatan: _waktuMulaiController.text,
+                                          waktuSelesaiKegiatan: _waktuSelesaiController.text,
+                                          tempatKegiatan: _tempatKegiatanController.text,
+                                          tanggalKeberangkatan: _tempatKegiatanSwitchController == true
+                                              ? _tanggalKeberangkatanController.text : "",
+                                          tanggalKepulangan: _tempatKegiatanSwitchController == true
+                                              ?  _tanggalKepulanganController.text : "",
+                                          kategoriJumlahPartisipan: _jumlahParsitipanSwitchController == true ? "Orang" : "Dll",
+                                          jumlahPartisipan: _jumlahParsitipanController.text,
+                                          targetKegiatan: _targetKegiatanController.text,
+                                          kategoriTotalPendanaan: _totalPendanaanSwitchController == true ? "Dll" : "Orang",
+                                          totalPendanaan: _totalPendanaanController.text,
+                                          keterangan: _keteranganController.text,
+                                          tandaTanganOrmawa: _ormawaSignatureController,
+                                          updatedAt: currentDate,
+                                          updatedBy: user?.email ?? "unknown",
                                         ),
-                                      );
+                                      ),
+                                    );
 
-                                      _tempatKegiatanSwitchController == false ?
-                                      Navigator.pushNamed(
-                                        context,
-                                        penggunaPengajuanUsulanKegiatan2DKPageRoute,
-                                        arguments: widget.usulanArgs,
-                                      ).then((_) => context.read<UsulanKegiatanBloc>()
-                                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))) :
-                                      Navigator.pushNamed(
-                                        context,
-                                        penggunaPengajuanUsulanKegiatan2LKPageRoute,
-                                        arguments: widget.usulanArgs,
-                                      ).then((_) => context.read<UsulanKegiatanBloc>()
-                                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
-                                    });
+                                    Navigator.pushNamed(
+                                      context,
+                                      penggunaPengajuanUsulanKegiatan2DKPageRoute,
+                                      arguments: widget.usulanArgs,
+                                    );
+                                    // .then((_) => context.read<UsulanKegiatanBloc>()
+                                    // .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
+
+                                    // _tempatKegiatanSwitchController == false ?
+                                    // Navigator.pushNamed(
+                                    //   context,
+                                    //   penggunaPengajuanUsulanKegiatan2DKPageRoute,
+                                    //   arguments: widget.usulanArgs,
+                                    // ).then((_) => context.read<UsulanKegiatanBloc>()
+                                    //     .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))) :
+                                    //
+                                    // Navigator.pushNamed(
+                                    //   context,
+                                    //   penggunaPengajuanUsulanKegiatan2LKPageRoute,
+                                    //   arguments: widget.usulanArgs,
+                                    // ).then((_) => context.read<UsulanKegiatanBloc>()
+                                    //     .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
                                   },
                                   text: 'Berikutnya',
                                 ),

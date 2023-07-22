@@ -78,7 +78,9 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                           ).then((_) => context.read<UsulanKegiatanBloc>().add(
                               ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
                         ),
+
                         const CustomFieldSpacer(),
+
                         Expanded(
                             child: SingleChildScrollView(
                               scrollDirection: Axis.vertical,

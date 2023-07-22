@@ -4,12 +4,10 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/domain/utils/format_date_indonesia.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
-import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
-import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
-import 'package:mipoka/mipoka/domain/entities/revisi_usulan.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
@@ -20,6 +18,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dart';
 
 class PenggunaDaftarPengajuanKegiatan extends StatefulWidget {
@@ -51,6 +50,8 @@ class _PenggunaDaftarPengajuanKegiatanState
     context.read<MipokaUserBloc>().close();
     super.dispose();
   }
+
+  int uniqueId = UniqueIdGenerator.generateUniqueId();
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +169,7 @@ class _PenggunaDaftarPengajuanKegiatanState
                                         Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            usulanKegiatan.createdAt,
+                                            formatDateIndonesia(usulanKegiatan.createdAt),
                                           ),
                                         ),
                                       ),
@@ -260,138 +261,70 @@ class _PenggunaDaftarPengajuanKegiatanState
                     } else if (mipokaUserState is MipokaUserHasData) {
                       final mipokaUser = mipokaUserState.mipokaUser;
 
-                      return  mipokaUser.ormawa != [] ?
-                      CustomMipokaButton(
-                        onTap: () {
-                          int uniqueId = UniqueIdGenerator.generateUniqueId();
-
-                          context.read<UsulanKegiatanBloc>().add(
-                            CreateUsulanKegiatanEvent(
-                              usulanKegiatan: UsulanKegiatan(
-                                idUsulan: uniqueId,
-                                // revisiUsulan: const RevisiUsulan(
-                                //   idRevisiUsulan: 0,
-                                //   mipokaUser: MipokaUser(
-                                //     idUser: "",
-                                //     ormawa: [],
-                                //     email: "",
-                                //     namaLengkap: "",
-                                //     nim: "",
-                                //     noHp: "",
-                                //     image: "",
-                                //     pointMpt: 0,
-                                //     semester: 0,
-                                //     kelas: "",
-                                //     periodeMpt: "",
-                                //     statusMpt: "",
-                                //     prodi: "",
-                                //     createdAt: "",
-                                //     updatedAt: "",
-                                //     createdBy: "",
-                                //     updatedBy: "",
-                                //   ),
-                                //   revisiPembiayaan: "",
-                                //   revisiNamaKegiatan: "",
-                                //   revisiBentukKegiatan: "",
-                                //   revisiKategoriBentukKegiatan: "",
-                                //   revisiTempatKegiatan: "",
-                                //   revisiDeskripsiKegiatan: "",
-                                //   revisiTanggalMulaiKegiatan: "",
-                                //   revisiTanggalSelesaiKegiatan: "",
-                                //   revisiWaktuMulaiKegiatan: "",
-                                //   revisiWaktuSelesaiKegiatan: "",
-                                //   revisiTanggalKeberangkatan: "",
-                                //   revisiTanggalKepulangan: "",
-                                //   revisiJumlahPartisipan: "",
-                                //   revisiKategoriJumlahPartisipan: "",
-                                //   revisiTargetKegiatan: "",
-                                //   revisiTotalPendanaan: "",
-                                //   revisiKategoriTotalPendanaan: "",
-                                //   revisiKeterangan: "",
-                                //   revisiTandaTanganOrmawa: "",
-                                //   revisiPartisipan: "",
-                                //   revisiRincianBiayaKegiatan: "",
-                                //   revisiLatarBelakang: "",
-                                //   revisiTujuanKegiatan: "",
-                                //   revisiManfaatKegiatan: "",
-                                //   revisiBentukPelaksanaanKegiatan: "",
-                                //   revisiTargetPencapaianKegiatan: "",
-                                //   revisiWaktuDanTempatPelaksanaan: "",
-                                //   revisiRencanaAnggaranKegiatan: "",
-                                //   revisiIdTertibAcara: "",
-                                //   revisiPerlengkapanDanPeralatan: "",
-                                //   revisiPenutup: "",
-                                //   revisiFotoPostinganKegiatan: "",
-                                //   revisiFotoSuratUndanganKegiatan: "",
-                                //   revisiFotoLinimasaKegiatan: "",
-                                //   revisiFotoTempatKegiatan: "",
-                                //   createdAt: "",
-                                //   createdBy: "",
-                                //   updatedAt: "",
-                                //   updatedBy: "",
-                                // ),
-                                revisiUsulan: null,
-                                ormawa: mipokaUser.ormawa[0],
-                                mipokaUser: mipokaUser,
-                                pembiayaan: "",
-                                namaKegiatan: "",
-                                bentukKegiatan: "",
-                                kategoriBentukKegiatan: "",
-                                deskripsiKegiatan: "",
-                                tanggalMulaiKegiatan: "",
-                                tanggalSelesaiKegiatan: "",
-                                waktuMulaiKegiatan: "",
-                                waktuSelesaiKegiatan: "",
-                                tempatKegiatan: "",
-                                tanggalKeberangkatan: "",
-                                tanggalKepulangan: "",
-                                jumlahPartisipan: "",
-                                kategoriJumlahPartisipan: "",
-                                targetKegiatan: "",
-                                totalPendanaan: "",
-                                kategoriTotalPendanaan: "",
-                                keterangan: "",
-                                tandaTanganOrmawa: "",
-                                partisipan: const [],
-                                biayaKegiatan: const [],
-                                totalBiaya: 0,
-                                latarBelakang: "",
-                                tujuanKegiatan: "",
-                                manfaatKegiatan: "",
-                                bentukPelaksanaanKegiatan: "",
-                                targetPencapaianKegiatan: "",
-                                waktuDanTempatPelaksanaan: "",
-                                rencanaAnggaranKegiatan: "",
-                                tertibAcara: const [],
-                                perlengkapanDanPeralatan: "",
-                                penutup: "",
-                                fotoPostinganKegiatan: "",
-                                fotoSuratUndanganKegiatan: "",
-                                fotoLinimasaKegiatan: "",
-                                fotoTempatKegiatan: "",
-                                fileUsulanKegiatan: "",
-                                validasiPembina: "",
-                                tandaTanganPembina: "",
-                                statusUsulan: "",
-                                roles: "",
-                                createdAt: currentDate,
-                                updatedAt: currentDate,
-                                createdBy: user?.email ?? "unknown",
-                                updatedBy: user?.email ?? "unknown",
+                      if (mipokaUser.ormawa != []) {
+                        return CustomMipokaButton(
+                          onTap: () {
+                            context.read<UsulanKegiatanBloc>().add(
+                              CreateUsulanKegiatanEvent(
+                                usulanKegiatan: UsulanKegiatan(
+                                  idUsulan: uniqueId,
+                                  revisiUsulan: null,
+                                  ormawa: mipokaUser.ormawa[0],
+                                  mipokaUser: mipokaUser,
+                                  pembiayaan: "",
+                                  namaKegiatan: "",
+                                  bentukKegiatan: "",
+                                  kategoriBentukKegiatan: "",
+                                  deskripsiKegiatan: "",
+                                  tanggalMulaiKegiatan: "",
+                                  tanggalSelesaiKegiatan: "",
+                                  waktuMulaiKegiatan: "",
+                                  waktuSelesaiKegiatan: "",
+                                  tempatKegiatan: "",
+                                  tanggalKeberangkatan: "",
+                                  tanggalKepulangan: "",
+                                  jumlahPartisipan: "",
+                                  kategoriJumlahPartisipan: "",
+                                  targetKegiatan: "",
+                                  totalPendanaan: "",
+                                  kategoriTotalPendanaan: "",
+                                  keterangan: "",
+                                  tandaTanganOrmawa: "",
+                                  partisipan: const [],
+                                  biayaKegiatan: const [],
+                                  totalBiaya: 0,
+                                  latarBelakang: "",
+                                  tujuanKegiatan: "",
+                                  manfaatKegiatan: "",
+                                  bentukPelaksanaanKegiatan: "",
+                                  targetPencapaianKegiatan: "",
+                                  waktuDanTempatPelaksanaan: "",
+                                  rencanaAnggaranKegiatan: "",
+                                  tertibAcara: const [],
+                                  perlengkapanDanPeralatan: "",
+                                  penutup: "",
+                                  fotoPostinganKegiatan: "",
+                                  fotoSuratUndanganKegiatan: "",
+                                  fotoLinimasaKegiatan: "",
+                                  fotoTempatKegiatan: "",
+                                  fileUsulanKegiatan: "",
+                                  validasiPembina: "",
+                                  tandaTanganPembina: "",
+                                  statusUsulan: "",
+                                  roles: "",
+                                  createdAt: currentDate,
+                                  updatedAt: currentDate,
+                                  createdBy: user?.email ?? "unknown",
+                                  updatedBy: user?.email ?? "unknown",
+                                ),
                               ),
-                            ),
-                          );
-
-                          Navigator.pushNamed(
-                            context,
-                            penggunaPengajuanUsulanKegiatanPage1Route,
-                            arguments: UsulanArgs(idUsulan: uniqueId),
-                          ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                              ReadAllUsulanKegiatanEvent(filter: _filter!)));
-                        },
-                        text: 'Ajukan Kegiatan',
-                      ) :
-                      const SizedBox();
+                            );
+                          },
+                          text: 'Ajukan Kegiatan',
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
 
                     } else if (mipokaUserState is MipokaUserError) {
                       return Text(mipokaUserState.message);
@@ -399,6 +332,25 @@ class _PenggunaDaftarPengajuanKegiatanState
                       return const Text("MipokaUserBloc hasn't been triggered.");
                     }
                   },
+                ),
+
+                BlocListener<UsulanKegiatanBloc, UsulanKegiatanState>(
+                  listenWhen: (prev, current) =>
+                  prev.runtimeType != current.runtimeType,
+                  listener: (context, state) {
+                    if (state is UsulanKegiatanSuccess) {
+                      Navigator.pushNamed(
+                        context,
+                        penggunaPengajuanUsulanKegiatanPage1Route,
+                        arguments: UsulanArgs(idUsulan: uniqueId),
+                      ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                          ReadAllUsulanKegiatanEvent(filter: _filter!)));
+
+                    } else if (state is UsulanKegiatanError) {
+                      mipokaCustomToast(state.message);
+                    }
+                  },
+                  child: const SizedBox(),
                 ),
               ],
             ),

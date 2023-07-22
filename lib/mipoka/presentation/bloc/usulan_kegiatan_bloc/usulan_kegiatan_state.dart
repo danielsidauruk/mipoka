@@ -38,10 +38,10 @@ class UsulanKegiatanError extends UsulanKegiatanState {
   List<Object> get props => [message];
 }
 
-class UsulanKegiatanSuccessMessage extends UsulanKegiatanState {
+class UsulanKegiatanSuccess extends UsulanKegiatanState {
   final String message;
 
-  const UsulanKegiatanSuccessMessage({this.message = "Data has changed"});
+  const UsulanKegiatanSuccess({this.message = "Data has changed"});
 
   @override
   List<Object> get props => [message];

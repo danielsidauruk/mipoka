@@ -83,7 +83,7 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                     return CustomContentBox(
                       children: [
                         buildTitle('Nama Ormawa'),
-                        customDisplayField(laporan.usulanKegiatan?.ormawa.namaOrmawa ?? ""),
+                        customDisplayField(laporan.usulanKegiatan?.ormawa?.namaOrmawa ?? ""),
 
                         const CustomFieldSpacer(),
 

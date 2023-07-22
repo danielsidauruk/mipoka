@@ -43,7 +43,7 @@ class UsulanKegiatanBloc
 
       result.fold(
         (failure) => emit(UsulanKegiatanError(message: failure.message)),
-        (message) => emit(const UsulanKegiatanSuccessMessage()),
+        (message) => emit(const UsulanKegiatanSuccess()),
       );
     });
 
@@ -55,7 +55,7 @@ class UsulanKegiatanBloc
 
       result.fold(
         (failure) => emit(UsulanKegiatanError(message: failure.message)),
-        (message) => emit(const UsulanKegiatanSuccessMessage()),
+        (message) => emit(const UsulanKegiatanSuccess()),
       );
     });
 
@@ -67,7 +67,7 @@ class UsulanKegiatanBloc
 
       result.fold(
         (failure) => emit(UsulanKegiatanError(message: failure.message)),
-        (message) => emit(const UsulanKegiatanSuccessMessage()),
+        (message) => emit(const UsulanKegiatanSuccess()),
       );
     });
   }
