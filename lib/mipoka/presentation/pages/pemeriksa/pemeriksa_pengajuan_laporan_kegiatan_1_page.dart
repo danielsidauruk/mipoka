@@ -83,13 +83,13 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                     return CustomContentBox(
                       children: [
                         buildTitle('Nama Ormawa'),
-                        customDisplayField(laporan.usulanKegiatan.ormawa.namaOrmawa),
+                        customDisplayField(laporan.usulanKegiatan?.ormawa.namaOrmawa ?? ""),
 
                         const CustomFieldSpacer(),
 
                         CustomCommentWidget(
                           title: "Nama Kegiatan",
-                          mainText: laporan.usulanKegiatan.namaKegiatan,
+                          mainText: laporan.usulanKegiatan?.namaKegiatan ?? "",
                           controller: _commentNamaKegiatanController,
                         ),
 
@@ -125,7 +125,7 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                                       context.read<LaporanBloc>().add(
                                         UpdateLaporanEvent(
                                           laporan: laporan.copyWith(
-                                            revisiLaporan: laporan.revisiLaporan.copyWith(
+                                            revisiLaporan: laporan.revisiLaporan?.copyWith(
                                               idRevisiLaporan: newId,
                                               mipokaUser: state.mipokaUser,
                                               revisiPencapaian: _revisiPencapaianController.text,

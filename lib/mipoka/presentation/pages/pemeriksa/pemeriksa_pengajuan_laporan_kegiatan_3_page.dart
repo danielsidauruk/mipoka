@@ -168,7 +168,7 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                                 context.read<LaporanBloc>().add(
                                   UpdateLaporanEvent(
                                     laporan: laporan.copyWith(
-                                      revisiLaporan: laporan.revisiLaporan.copyWith(
+                                      revisiLaporan: laporan.revisiLaporan?.copyWith(
                                         revisiLatarBelakang: _revisiLatarBelakangController.text,
                                         revisiHasilKegiatan: _revisiHasilKegiatanController.text,
                                         revisiPenutup: _revisiPenutupController.text,
@@ -194,7 +194,7 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                                 context.read<LaporanBloc>().add(
                                   UpdateLaporanEvent(
                                     laporan: laporan.copyWith(
-                                      revisiLaporan: laporan.revisiLaporan.copyWith(
+                                      revisiLaporan: laporan.revisiLaporan?.copyWith(
                                         revisiLatarBelakang: _revisiLatarBelakangController.text,
                                         revisiHasilKegiatan: _revisiHasilKegiatanController.text,
                                         revisiPenutup: _revisiPenutupController.text,

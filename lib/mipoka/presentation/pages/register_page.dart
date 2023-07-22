@@ -9,6 +9,7 @@ import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/login_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/register_textfield.dart';
 
@@ -103,9 +104,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   title: "Kelas",
                 ),
 
-                RegisterTextField(
-                  controller: _prodiController,
-                  title: "Prodi",
+                MipokaCustomDropdown(
+                  items: listProdi,
+                  onValueChanged: (value) {
+                    _prodiController.text = value ?? "";
+                  },
                 ),
 
                 LoginButton(

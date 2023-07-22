@@ -7,8 +7,6 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -168,7 +166,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                             Align(
                                               alignment: Alignment.center,
                                               child: Text(
-                                                laporanKegiatan.usulanKegiatan.mipokaUser.namaLengkap,
+                                                laporanKegiatan.usulanKegiatan?.mipokaUser.namaLengkap ?? "",
                                               ),
                                             )
                                         ),
@@ -176,7 +174,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                           Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              laporanKegiatan.usulanKegiatan.namaKegiatan,
+                                              laporanKegiatan.usulanKegiatan?.namaKegiatan ?? "",
                                               style: const TextStyle(
                                                 color: Colors.blue,
                                               ),

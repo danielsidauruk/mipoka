@@ -150,17 +150,10 @@ class _PenggunaPengajuanLaporanKegiatan3State
                             return MipokaFileUploader(
                               asset: "assets/icons/attach.png",
                               onTap: () async {
-                                _postinganKegiatanResult = await FilePicker.platform.pickFiles();
+                                _postinganKegiatanResult = await FilePicker.platform.pickFiles(type: FileType.image);
                                 PlatformFile? file = _postinganKegiatanResult?.files.first;
                                 if (_postinganKegiatanResult != null) {
-                                  if (file?.extension!.toLowerCase() == 'jpg' ||
-                                      file?.extension!.toLowerCase() == 'jpeg' ||
-                                      file?.extension!.toLowerCase() == 'png' ||
-                                      file?.extension!.toLowerCase() == 'gif'){
-                                    _postinganKegiatanStream.add(_postinganKegiatanResult?.files.first.name);
-                                  } else {
-                                    mipokaCustomToast("Tipe data file bukan gambar.");
-                                  }
+                                  _postinganKegiatanStream.add(file?.name);
                                 }
                               },
                               onDelete: () {
@@ -191,14 +184,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                 _dokumentasiKegiatanResult = await FilePicker.platform.pickFiles(type: FileType.image);
                                 PlatformFile? file = _dokumentasiKegiatanResult?.files.first;
                                 if (_dokumentasiKegiatanResult != null) {
-                                  if (file?.extension!.toLowerCase() == 'jpg' ||
-                                      file?.extension!.toLowerCase() == 'jpeg' ||
-                                      file?.extension!.toLowerCase() == 'png' ||
-                                      file?.extension!.toLowerCase() == 'gif'){
-                                    _dokumentasiKegiatanStream.add(_dokumentasiKegiatanResult?.files.first.name);
-                                  } else {
-                                    mipokaCustomToast("Tipe data file bukan gambar.");
-                                  }
+                                  _dokumentasiKegiatanStream.add(file?.name);
                                 }
                               },
                               onDelete: () {
@@ -229,14 +215,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                 _tabulasiHasilKegiatanResult = await FilePicker.platform.pickFiles();
                                 PlatformFile? file = _tabulasiHasilKegiatanResult?.files.first;
                                 if (_tabulasiHasilKegiatanResult != null) {
-                                  if (file?.extension!.toLowerCase() == 'jpg' ||
-                                      file?.extension!.toLowerCase() == 'jpeg' ||
-                                      file?.extension!.toLowerCase() == 'png' ||
-                                      file?.extension!.toLowerCase() == 'gif'){
-                                    _tabulasiHasilKegiatanStream.add(_tabulasiHasilKegiatanResult?.files.first.name);
-                                  } else {
-                                    mipokaCustomToast("Tipe data file bukan gambar.");
-                                  }
+                                  _tabulasiHasilKegiatanStream.add(file?.name);
                                 }
                               },
                               onDelete: () {
@@ -267,14 +246,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                 _fakturPembayaranResult = await FilePicker.platform.pickFiles();
                                 PlatformFile? file = _fakturPembayaranResult?.files.first;
                                 if (_fakturPembayaranResult != null) {
-                                  if (file?.extension!.toLowerCase() == 'jpg' ||
-                                      file?.extension!.toLowerCase() == 'jpeg' ||
-                                      file?.extension!.toLowerCase() == 'png' ||
-                                      file?.extension!.toLowerCase() == 'gif'){
-                                    _fakturPembayaranStream.add(_fakturPembayaranResult?.files.first.name);
-                                  } else {
-                                    mipokaCustomToast("Tipe data file bukan gambar.");
-                                  }
+                                  _fakturPembayaranStream.add(file?.name);
                                 }
                               },
                               onDelete: () {
