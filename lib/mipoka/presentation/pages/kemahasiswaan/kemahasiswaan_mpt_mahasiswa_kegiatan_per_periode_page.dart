@@ -239,15 +239,6 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                                     rows: List<DataRow>.generate(kegiatanPerPeriodeMptList.length, (int index) {
                                       final kegiatanPerPeriodeMpt = kegiatanPerPeriodeMptList[index];
 
-                                      // Future.microtask(() {
-                                      //   context.read<PeriodeMptBloc>().add(
-                                      //       ReadPeriodeMptEvent(idPeriodeMpt: kegiatanPerPeriodeMpt.idPeriodeMpt));
-                                      //   context.read<NamaKegiatanMptBloc>().add(
-                                      //       ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: kegiatanPerPeriodeMpt.idNamaKegiatanMpt));
-                                      //   context.read<JenisKegiatanMptBloc>().add(
-                                      //       ReadJenisKegiatanMptEvent(idJenisKegiatanMpt: kegiatanPerPeriodeMpt.idJenisKegiatanMpt));
-                                      // });
-
                                       return DataRow(
                                         cells: [
                                           DataCell(

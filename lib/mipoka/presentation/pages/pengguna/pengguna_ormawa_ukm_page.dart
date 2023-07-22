@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/ormawa_drop_down_bloc/ormawa_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -21,9 +22,18 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
 
   @override
   void initState() {
+    context.read<OrmawaDropDownBloc>().add(ReadOrmawaDropDownEvent());
     super.initState();
-    context.read<OrmawaBloc>().add(const ReadOrmawaEvent(idOrmawa: 1));
   }
+
+  @override
+  void dispose() {
+    context.read<OrmawaDropDownBloc>().close();
+    context.read<OrmawaBloc>().close();
+    super.dispose();
+  }
+
+  int? _idOrmawaController;
 
   @override
   Widget build(BuildContext context) {
@@ -33,113 +43,152 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
       drawer: const MobileCustomPenggunaDrawerWidget(),
 
       body: SingleChildScrollView(
-        child: BlocBuilder<OrmawaBloc, OrmawaState>(
-          builder: (context, state) {
-            if (state is OrmawaLoading) {
-              return const Text('Loading');
-            } else if (state is OrmawaHasData) {
-              final ormawa = state.ormawa;
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
 
-              return Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
+              const CustomMobileTitle(text: 'Ormawa - UKM'),
 
-                    const CustomMobileTitle(text: 'Ormawa - UKM'),
+              const CustomFieldSpacer(),
 
-                    const CustomFieldSpacer(),
+              CustomContentBox(
+                children: [
 
-                    CustomContentBox(
-                      children: [
+                  buildTitle('Nama Ormawa'),
 
-                        buildTitle('Nama Ormawa'),
+                  // MipokaCustomDropdown(
+                  //   items: listNamaOrmawa,
+                  //   onValueChanged: (value) {
+                  //     context.read<OrmawaBloc>().add(
+                  //       const ReadOrmawaEvent(idOrmawa: 1111),
+                  //     );
+                  //   },
+                  // ),
+                  BlocBuilder<OrmawaDropDownBloc, OrmawaDropDownState>(
+                    builder: (context, state) {
+                      if (state is OrmawaDropDownLoading) {
+                        return const Text("Loading ....");
+                      } else if (state is OrmawaDropDownHasData) {
 
-                        MipokaCustomDropdown(
-                          items: listNamaOrmawa,
-                          onValueChanged: (value) {
-                            context.read<OrmawaBloc>().add(
-                              const ReadOrmawaEvent(idOrmawa: 1),
-                            );
-                          },
-                        ),
+                        List<String> ormawaList = state.ormawaList.map(
+                                (ormawa) => ormawa.namaOrmawa).toList();
 
-                        const CustomFieldSpacer(),
+                        List<int> idOrmawaList = state.ormawaList.map(
+                                (ormawa) => ormawa.idOrmawa).toList();
 
-                        Center(
-                          child: Container(
-                            width: 200,
-                            height: 200,
-                            color: Colors.grey,
-                          ),
-                        ),
+                        if (_idOrmawaController == null) {
+                          context.read<OrmawaBloc>().add(ReadOrmawaEvent(idOrmawa: _idOrmawaController ?? idOrmawaList[0]));
+                          _idOrmawaController ??= idOrmawaList[0];
+                        }
 
-                        const CustomFieldSpacer(),
+                        return MipokaCustomDropdown(
+                            items: ormawaList,
+                            onValueChanged: (value) {
+                              int index = ormawaList.indexOf(value!);
+                              int idOrmawa = idOrmawaList[index];
 
-                        customBoxTitle("${ormawa.namaOrmawa} (${ormawa.namaSingkatanOrmawa})"),
-                        Text('Berdiri         : "ormawa.tanggalBerdiri"'),
-                        Text('Pendiri         : ${ormawa.ketua}'),
-                        Text('Jumlah Anggota  : ${ormawa.jumlahAnggota}',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
+                              _idOrmawaController = idOrmawa;
 
-                        const CustomFieldSpacer(),
+                              context.read<OrmawaBloc>().add(ReadOrmawaEvent(idOrmawa: _idOrmawaController ?? idOrmawaList[0]));
+                            }
+                        );
+                      } else if (state is OrmawaDropDownError) {
+                        return Text(state.message);
+                      } else {
+                        return const Text("OrmawaBloc hasn't been triggered yet.");
+                      }
+                    },
+                  ),
 
-                        customBoxTitle('Pembina'),
-                        const CustomFieldSpacer(height: 4.0),
+                  BlocBuilder<OrmawaBloc, OrmawaState>(
+                    builder: (context, state) {
+                      if (state is OrmawaLoading) {
+                        return const Text('Loading');
+                      } else if (state is OrmawaHasData) {
+                        final ormawa = state.ormawa;
 
-                        buildTitle(
-                          'Dosen',
-                          titlePadding: 0.0,
-                        ),
-                        Text(ormawa.pembina),
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const CustomFieldSpacer(),
 
-                        const CustomFieldSpacer(),
+                            Center(
+                              child: Container(
+                                width: 200,
+                                height: 200,
+                                color: Colors.grey,
+                              ),
+                            ),
 
-                        customBoxTitle('Pengurus Inti'),
-                        const CustomFieldSpacer(height: 4.0),
+                            const CustomFieldSpacer(),
 
-                        buildTitle(
-                          'Ketua UKM',
-                          titlePadding: 0.0,
-                        ),
-                        Text(ormawa.ketua),
+                            customBoxTitle("${ormawa.namaOrmawa} (${ormawa.namaSingkatanOrmawa})"),
+                            Text('Berdiri         : "ormawa.tanggalBerdiri"'),
+                            Text('Pendiri         : ${ormawa.ketua}'),
+                            Text('Jumlah Anggota  : ${ormawa.listAnggota.length}',
+                              style: const TextStyle(fontWeight: FontWeight.bold),
+                            ),
 
-                        const CustomFieldSpacer(height: 4.0),
+                            const CustomFieldSpacer(),
 
-                        buildTitle(
-                          'Wakil Ketua UKM',
-                          titlePadding: 0.0,
-                        ),
-                        Text(ormawa.wakil),
+                            customBoxTitle('Pembina'),
+                            const CustomFieldSpacer(height: 4.0),
 
-                        const CustomFieldSpacer(height: 4.0),
+                            buildTitle(
+                              'Dosen',
+                              titlePadding: 0.0,
+                            ),
+                            Text(ormawa.pembina),
 
-                        buildTitle(
-                          'Sekretaris UKM',
-                          titlePadding: 0.0,
-                        ),
-                        Text(ormawa.sekretaris),
+                            const CustomFieldSpacer(),
 
-                        const CustomFieldSpacer(height: 4.0),
+                            customBoxTitle('Pengurus Inti'),
+                            const CustomFieldSpacer(height: 4.0),
 
-                        buildTitle(
-                          'Bendahara UKM',
-                          titlePadding: 0.0,
-                        ),
-                        Text(ormawa.bendahara),
+                            buildTitle(
+                              'Ketua UKM',
+                              titlePadding: 0.0,
+                            ),
+                            Text(ormawa.ketua),
 
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            } else if (state is OrmawaError) {
-              return Text(state.message);
-            } else {
-              return const Text('IDK');
-            }
-          },
+                            const CustomFieldSpacer(height: 4.0),
+
+                            buildTitle(
+                              'Wakil Ketua UKM',
+                              titlePadding: 0.0,
+                            ),
+                            Text(ormawa.wakil),
+
+                            const CustomFieldSpacer(height: 4.0),
+
+                            buildTitle(
+                              'Sekretaris UKM',
+                              titlePadding: 0.0,
+                            ),
+                            Text(ormawa.sekretaris),
+
+                            const CustomFieldSpacer(height: 4.0),
+
+                            buildTitle(
+                              'Bendahara UKM',
+                              titlePadding: 0.0,
+                            ),
+                            Text(ormawa.bendahara),
+                          ],
+                        );
+                      } else if (state is OrmawaError) {
+                        return Text(state.message);
+                      } else {
+                        return const Text('IDK');
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -195,7 +195,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                     Align(
                                       alignment: Alignment.center,
                                       child: Text(
-                                        session.ormawa.namaOrmawa,
+                                        session.ormawa?.namaOrmawa ?? "",
                                       ),
                                     ),
                                   ),

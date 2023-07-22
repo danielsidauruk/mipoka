@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
@@ -112,21 +113,28 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageState extends 
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => (_namaJenisKegiatanController.text.isNotEmpty && _jenisKegiatanMpt?.idJenisKegiatanMpt != 0) ?
-                        context.read<NamaKegiatanMptBloc>().add(
-                          CreateNamaKegiatanMptEvent(
-                            namaKegiatanMpt: NamaKegiatanMpt(
-                              idNamaKegiatanMpt: newId,
-                              jenisKegiatanMpt: _jenisKegiatanMpt!,
-                              namaKegiatan: _namaJenisKegiatanController.text,
-                              createdAt: currentDate,
-                              createdBy: user?.email ?? "unknown",
-                              updatedAt: currentDate,
-                              updatedBy: user?.email ?? "unknown",
-                            ),
-                          ),
-                        ) :
-                        mipokaCustomToast(emptyFieldMessage),
+                        onTap: () {
+                          if (_namaJenisKegiatanController.text.isNotEmpty && _jenisKegiatanMpt?.idJenisKegiatanMpt != 0) {
+
+                            int uniqueId = UniqueIdGenerator.generateUniqueId();
+
+                            context.read<NamaKegiatanMptBloc>().add(
+                              CreateNamaKegiatanMptEvent(
+                                namaKegiatanMpt: NamaKegiatanMpt(
+                                  idNamaKegiatanMpt: uniqueId,
+                                  jenisKegiatanMpt: _jenisKegiatanMpt!,
+                                  namaKegiatan: _namaJenisKegiatanController.text,
+                                  createdAt: currentDate,
+                                  createdBy: user?.email ?? "unknown",
+                                  updatedAt: currentDate,
+                                  updatedBy: user?.email ?? "unknown",
+                                ),
+                              ),
+                            );
+                          } else {
+                            mipokaCustomToast(emptyFieldMessage);
+                          }
+                        },
                         text: 'Simpan',
                       ),
 

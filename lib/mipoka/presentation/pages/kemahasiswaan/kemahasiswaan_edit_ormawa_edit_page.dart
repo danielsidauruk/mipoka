@@ -437,49 +437,54 @@ class _KemahasiswaanEditOrmawaEditPageState
 
                             if (logoOrmawaBytes != null) {
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
-                              _logoUrlController = await uploadBytesToFirebase(logoOrmawaBytes, "$uniqueId${logoOrmawaResult!.files.first.name}");
+                              String? logoUrlController = await uploadBytesToFirebase(logoOrmawaBytes, "$uniqueId${logoOrmawaResult!.files.first.name}");
+                              _logoUrlController = logoUrlController;
                             } else if (fotoPembinaBytes != null) {
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
-                              _fotoPembinaUrlController = await uploadBytesToFirebase(fotoPembinaBytes, "$uniqueId${fotoPembinaResult!.files.first.name}");
+                              String? fotoPembinaUrlController = await uploadBytesToFirebase(fotoPembinaBytes, "$uniqueId${fotoPembinaResult!.files.first.name}");
+                              _fotoPembinaUrlController = fotoPembinaUrlController;
                             } else if (fotoKetuaBytes != null) {
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
-                              _fotoKetuaUrlController = await uploadBytesToFirebase(fotoKetuaBytes, "$uniqueId${fotoKetuaResult!.files.first.name}");
+                              String? fotoKetuaUrlController = await uploadBytesToFirebase(fotoKetuaBytes, "$uniqueId${fotoKetuaResult!.files.first.name}");
+                              _fotoKetuaUrlController = fotoKetuaUrlController;
                             } else if (fotoWakilKetuaBytes != null) {
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
-                              _fotoWakilKetuaUrlController = await uploadBytesToFirebase(fotoWakilKetuaBytes, "$uniqueId${fotoWakilKetuaResult!.files.first.name}");
+                              String? fotoWakilKetuaUrlController = await uploadBytesToFirebase(fotoWakilKetuaBytes, "$uniqueId${fotoWakilKetuaResult!.files.first.name}");
+                              _fotoWakilKetuaUrlController = fotoWakilKetuaUrlController;
                             } else if (fotoSekretarisBytes != null) {
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
-                              _fotoSekretarisUrlController = await uploadBytesToFirebase(fotoSekretarisBytes, "$uniqueId${fotoSekretarisResult!.files.first.name}");
+                              String? fotoSekretarisUrlController = await uploadBytesToFirebase(fotoSekretarisBytes, "$uniqueId${fotoSekretarisResult!.files.first.name}");
+                              _fotoSekretarisUrlController = fotoSekretarisUrlController;
                             } else if (fotoBendaharaBytes != null) {
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
-                              _fotoBendaharaUrlController = await uploadBytesToFirebase(fotoBendaharaBytes, "$uniqueId${fotoBendaharaResult!.files.first.name}");
+                              String? fotoBendaharaUrlController = await uploadBytesToFirebase(fotoBendaharaBytes, "$uniqueId${fotoBendaharaResult!.files.first.name}");
+                              _fotoBendaharaUrlController = fotoBendaharaUrlController;
                             }
+                            print("Logo Url : $_logoUrlController");
 
-                            if (context.mounted) {
-                              context.read<OrmawaBloc>().add(
-                                UpdateOrmawaEvent(
-                                  widget.ormawa.copyWith(
-                                    namaOrmawa: _namaOrmawaController.text,
-                                    namaSingkatanOrmawa: _namaSingkatanController.text,
-                                    logoOrmawa: _logoUrlController ?? "",
-                                    listAnggota: _nimList,
-                                    pembina: _namaPembinaController.text,
-                                    ketua: _namaKetuaController.text,
-                                    wakil: _namaWakilKetuaController.text,
-                                    sekretaris: _namaSekretarisController.text,
-                                    bendahara: _namaBendaharaController.text,
-                                    jumlahAnggota: _nimList.length,
-                                    fotoPembina: _fotoPembinaUrlController ?? "",
-                                    fotoKetua: _fotoKetuaUrlController ?? "",
-                                    fotoWakil: _fotoWakilKetuaUrlController ?? "",
-                                    fotoSekretaris: _fotoSekretarisUrlController ?? "",
-                                    fotoBendahara: _fotoBendaharaUrlController ?? "",
-                                    updatedBy: currentDate,
-                                    updatedAt: user?.email ?? "unknown",
-                                  ),
+                            context.read<OrmawaBloc>().add(
+                              UpdateOrmawaEvent(
+                                widget.ormawa.copyWith(
+                                  namaOrmawa: _namaOrmawaController.text,
+                                  namaSingkatanOrmawa: _namaSingkatanController.text,
+                                  logoOrmawa: _logoUrlController!,
+                                  listAnggota: _nimList,
+                                  pembina: _namaPembinaController.text,
+                                  ketua: _namaKetuaController.text,
+                                  wakil: _namaWakilKetuaController.text,
+                                  sekretaris: _namaSekretarisController.text,
+                                  bendahara: _namaBendaharaController.text,
+                                  jumlahAnggota: _nimList.length,
+                                  fotoPembina: _fotoPembinaUrlController ?? "",
+                                  fotoKetua: _fotoKetuaUrlController ?? "",
+                                  fotoWakil: _fotoWakilKetuaUrlController ?? "",
+                                  fotoSekretaris: _fotoSekretarisUrlController ?? "",
+                                  fotoBendahara: _fotoBendaharaUrlController ?? "",
+                                  updatedBy: currentDate,
+                                  updatedAt: user?.email ?? "unknown",
                                 ),
-                              );
-                            }
+                              ),
+                            );
                           } else {
                             mipokaCustomToast(emptyFieldMessage);
                           }

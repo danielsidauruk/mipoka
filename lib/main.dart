@@ -31,6 +31,7 @@ import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegi
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegiatan_drop_down_bloc/nama_kegiatan_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/notifikasi_bloc/notifikasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/ormawa_drop_down_bloc/ormawa_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/partisipan_bloc/partisipan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_dropdown_bloc/periode_mpt_drop_down_bloc.dart';
@@ -162,6 +163,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<PeriodeMptDropDownBloc>()),
         BlocProvider(create: (_) => di.locator<NamaKegiatanDropDownBloc>()),
         BlocProvider(create: (_) => di.locator<JenisKegiatanDropDownBloc>()),
+        BlocProvider(create: (_) => di.locator<OrmawaDropDownBloc>()),
         BlocProvider<TempatKegiatanCubit>(create: (context) => TempatKegiatanCubit()),
       ],
       child: MaterialApp(

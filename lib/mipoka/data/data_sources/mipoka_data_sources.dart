@@ -181,7 +181,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   static const String userPath = "/user";
   static const String usulanPath = "/usulan";
   static const String mhsPerPeriodePath = "/mhs_per_periode_mpt";
-  static const String namaKegiatanMptPath = "/nama-kegiatan-mpt";
+  static const String namaKegiatanMptPath = "/nama_kegiatan_mpt";
 
   @override
   Future<void> createBerita(BeritaModel beritaModel) async {
@@ -426,7 +426,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   Future<void> createKegiatanPerPeriodeMpt(KegiatanPerPeriodeMptModel kegiatanPerPeriodeMptModel) async {
     try {
       final response = await DioUtil().dio.post(
-        beritaPath,
+        kegiatanPerPeriodePath,
         data: kegiatanPerPeriodeMptModel.toJson(),
       );
       if (kDebugMode) {
@@ -497,7 +497,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   Future<void> updateKegiatanPerPeriodeMpt(KegiatanPerPeriodeMptModel kegiatanPerPeriodeMptModel) async {
     try {
       final response = await DioUtil().dio.put(
-        '$beritaPath/${kegiatanPerPeriodeMptModel.idKegiatanPerPeriodeMpt}',
+        '$kegiatanPerPeriodePath/${kegiatanPerPeriodeMptModel.idKegiatanPerPeriodeMpt}',
         data: kegiatanPerPeriodeMptModel.toJson(),
       );
       if (kDebugMode) {
@@ -657,14 +657,26 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<OrmawaModel> readOrmawa(int idOrmawa) async {
-    print("");
-    final String response =
-    await rootBundle.loadString('assets/json_file/ormawa.json');
-    dynamic jsonDecode = json.decode(response);
+    // print("");
+    // final String response =
+    // await rootBundle.loadString('assets/json_file/ormawa.json');
+    // dynamic jsonDecode = json.decode(response);
+    //
+    // OrmawaModel result = OrmawaModel.fromJson(jsonDecode);
+    //
+    // return result;
 
-    OrmawaModel result = OrmawaModel.fromJson(jsonDecode);
+    try {
+      final response = await DioUtil().dio.get("$ormawaPath/$idOrmawa");
+      final result = OrmawaModel.fromJson(response.data);
 
-    return result;
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
+    }
   }
 
   @override
@@ -677,6 +689,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
+      print(ormawaModel.toJson());
     } on DioError catch (e) {
       if (kDebugMode) {
         print(e);
@@ -1259,50 +1272,50 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<MipokaUserModel> readMipokaUser(String idMipokaUser) async {
-    // try {
-    //   final response = await DioUtil().dio.get("$userPath/$idMipokaUser");
-    //   final result = MipokaUserModel.fromJson(response.data);
+    try {
+      final response = await DioUtil().dio.get("$userPath/$idMipokaUser");
+      final result = MipokaUserModel.fromJson(response.data);
+
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
+    }
+    // final String response =
+    // await rootBundle.loadString('assets/json_file/mipoka_user.json');
+    // dynamic jsonDecode = json.decode(response);
     //
-    //   return result;
-    // } on DioError catch (e) {
-    //   if (kDebugMode) {
-    //     print(e);
-    //   }
-    //   rethrow;
-    // }
-    final String response =
-    await rootBundle.loadString('assets/json_file/mipoka_user.json');
-    dynamic jsonDecode = json.decode(response);
-
-    MipokaUserModel result = MipokaUserModel.fromJson(jsonDecode);
-
-    return result;
+    // MipokaUserModel result = MipokaUserModel.fromJson(jsonDecode);
+    //
+    // return result;
   }
 
   @override
   Future<MipokaUserModel> readMipokaUserByNim(String nim) async {
-    // try {
-    //   final response = await DioUtil().dio.get("$userPath/$nim");
-    //   final result = MipokaUserModel.fromJson(response.data);
-    //
-    //   return result;
-    // } on DioError catch (e) {
-    //   if (kDebugMode) {
-    //     print(e);
-    //   }
-    //   rethrow;
-    // }
-    final String response =
-    await rootBundle.loadString('assets/json_file/mipoka_user.json');
-    dynamic jsonDecode = json.decode(response);
+    try {
+      final response = await DioUtil().dio.get("$userPath/nim/$nim");
+      final result = MipokaUserModel.fromJson(response.data);
 
-    MipokaUserModel result = MipokaUserModel.fromJson(jsonDecode);
-
-    if (kDebugMode) {
-      print(nim);
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
     }
-
-    return result;
+    // final String response =
+    // await rootBundle.loadString('assets/json_file/mipoka_user.json');
+    // dynamic jsonDecode = json.decode(response);
+    //
+    // MipokaUserModel result = MipokaUserModel.fromJson(jsonDecode);
+    //
+    // if (kDebugMode) {
+    //   print(nim);
+    // }
+    //
+    // return result;
   }
 
   @override

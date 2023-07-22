@@ -12,6 +12,9 @@
         "list_anggota": [
           "2222",
           "3333",
+          "4444",
+          "2222",
+          "3333",
           "4444"
         ],
         "pembina": "Pembina Ormawa",
@@ -27,8 +30,8 @@
         "foto_bendahara": "link_foto_bendahara",
         "created_at": "26-6-2023",
         "created_by": "John Doe",
-        "updated_at": "26-6-2023",
-        "updated_by": "Jane Smith"
+        "updated_by": "Jane Smith",
+        "updated_at": "26-6-2023"
       }
     ],
     "email": "john.doe@example.com",

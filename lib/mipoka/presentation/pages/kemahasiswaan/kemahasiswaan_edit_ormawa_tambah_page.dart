@@ -335,9 +335,9 @@ class _KemahasiswaanEditOrmawaTambahPageState
                               && _namaPembinaController.text.isNotEmpty && _namaKetuaController.text.isNotEmpty
                               && _namaWakilKetuaController.text.isNotEmpty && _namaSekretarisController.text.isNotEmpty
                               && _namaBendaharaController.text.isNotEmpty
-                              // && nimList.isNotEmpty && excelResult != null
-                              // && logoOrmawaResult != null && fotoPembinaResult != null && fotoKetuaResult != null
-                              // && fotoWakilKetuaResult != null && fotoSekretarisResult != null && fotoBendaharaResult != null
+                              && nimList.isNotEmpty && excelResult != null
+                              && logoOrmawaResult != null && fotoPembinaResult != null && fotoKetuaResult != null
+                              && fotoWakilKetuaResult != null && fotoSekretarisResult != null && fotoBendaharaResult != null
                           )
 
                           {
@@ -349,21 +349,21 @@ class _KemahasiswaanEditOrmawaTambahPageState
                             Uint8List? fotoSekretarisBytes;
                             Uint8List? fotoBendaharaBytes;
 
-                            // if (kIsWeb) {
-                            //   logoOrmawaBytes = logoOrmawaResult?.files.first.bytes;
-                            //   fotoPembinaBytes = fotoPembinaResult?.files.first.bytes;
-                            //   fotoKetuaBytes = fotoKetuaResult?.files.first.bytes;
-                            //   fotoWakilKetuaBytes = fotoWakilKetuaResult?.files.first.bytes;
-                            //   fotoSekretarisBytes = fotoSekretarisResult?.files.first.bytes;
-                            //   fotoBendaharaBytes = fotoBendaharaResult?.files.first.bytes;
-                            // } else if (Platform.isAndroid) {
-                            //   logoOrmawaBytes = await File(logoOrmawaResult!.files.first.path!).readAsBytes();
-                            //   fotoPembinaBytes = await File(fotoPembinaResult!.files.first.path!).readAsBytes();
-                            //   fotoKetuaBytes = await File(fotoKetuaResult!.files.first.path!).readAsBytes();
-                            //   fotoWakilKetuaBytes = await File(fotoWakilKetuaResult!.files.first.path!).readAsBytes();
-                            //   fotoSekretarisBytes = await File(fotoSekretarisResult!.files.first.path!).readAsBytes();
-                            //   fotoBendaharaBytes = await File(fotoBendaharaResult!.files.first.path!).readAsBytes();
-                            // }
+                            if (kIsWeb) {
+                              logoOrmawaBytes = logoOrmawaResult?.files.first.bytes;
+                              fotoPembinaBytes = fotoPembinaResult?.files.first.bytes;
+                              fotoKetuaBytes = fotoKetuaResult?.files.first.bytes;
+                              fotoWakilKetuaBytes = fotoWakilKetuaResult?.files.first.bytes;
+                              fotoSekretarisBytes = fotoSekretarisResult?.files.first.bytes;
+                              fotoBendaharaBytes = fotoBendaharaResult?.files.first.bytes;
+                            } else if (Platform.isAndroid) {
+                              logoOrmawaBytes = await File(logoOrmawaResult!.files.first.path!).readAsBytes();
+                              fotoPembinaBytes = await File(fotoPembinaResult!.files.first.path!).readAsBytes();
+                              fotoKetuaBytes = await File(fotoKetuaResult!.files.first.path!).readAsBytes();
+                              fotoWakilKetuaBytes = await File(fotoWakilKetuaResult!.files.first.path!).readAsBytes();
+                              fotoSekretarisBytes = await File(fotoSekretarisResult!.files.first.path!).readAsBytes();
+                              fotoBendaharaBytes = await File(fotoBendaharaResult!.files.first.path!).readAsBytes();
+                            }
 
                             mipokaCustomToast(savingDataMessage);
 
@@ -415,14 +415,16 @@ class _KemahasiswaanEditOrmawaTambahPageState
                               updatedAt: user?.email ?? "unknown",
                             );
 
-                            for (int index = 0; index < nimList.length; index++) {
-                              await Future.delayed(const Duration(milliseconds: 1000));
-                              if (context.mounted) {
-                                context.read<MipokaUserByNimBloc>().add(
-                                  ReadMipokaUserByNimEvent(nim: nimList[index]),
-                                );
-                              }
-                            }
+                            print(ormawa);
+
+                            // for (int index = 0; index < nimList.length; index++) {
+                            //   await Future.delayed(const Duration(milliseconds: 1000));
+                            //   if (context.mounted) {
+                            //     context.read<MipokaUserByNimBloc>().add(
+                            //       ReadMipokaUserByNimEvent(nim: nimList[index]),
+                            //     );
+                            //   }
+                            // }
 
                             if (context.mounted) {
                               context.read<OrmawaBloc>().add(
@@ -438,40 +440,40 @@ class _KemahasiswaanEditOrmawaTambahPageState
 
 
 
-                      BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
-                        builder: (context, state) {
-                          if (excelResult != null) {
-                            if (state is MipokaUserByNimLoading) {
-                              print ("Loading ...");
-                              return const SizedBox();
-                            } else if (state is MipokaUserByNimByNimHasData) {
-                              final mipokaUser = state.mipokaUser;
-
-                              if(mipokaUser.ormawa.length <= 2) {
-                                context.read<MipokaUserBloc>().add(
-                                  UpdateMipokaUserEvent(
-                                    mipokaUser: mipokaUser.copyWith(
-                                      ormawa: [...mipokaUser.ormawa, ormawa!],
-                                    ),
-                                  ),
-                                );
-                              }
-
-                              return const SizedBox();
-
-                            } else if (state is MipokaUserByNimError) {
-                              return Text(state.message);
-                            } else {
-                              if (kDebugMode) {
-                                print("MhsPerPeriode hasn't been triggered yet.");
-                              }
-                              return const SizedBox();
-                            }
-                          } else {
-                            return const SizedBox();
-                          }
-                        },
-                      ),
+                      // BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
+                      //   builder: (context, state) {
+                      //     if (excelResult != null) {
+                      //       if (state is MipokaUserByNimLoading) {
+                      //         print ("Loading ...");
+                      //         return const SizedBox();
+                      //       } else if (state is MipokaUserByNimByNimHasData) {
+                      //         final mipokaUser = state.mipokaUser;
+                      //
+                      //         if(mipokaUser.ormawa.length <= 2) {
+                      //           context.read<MipokaUserBloc>().add(
+                      //             UpdateMipokaUserEvent(
+                      //               mipokaUser: mipokaUser.copyWith(
+                      //                 ormawa: [...mipokaUser.ormawa, ormawa!],
+                      //               ),
+                      //             ),
+                      //           );
+                      //         }
+                      //
+                      //         return const SizedBox();
+                      //
+                      //       } else if (state is MipokaUserByNimError) {
+                      //         return Text(state.message);
+                      //       } else {
+                      //         if (kDebugMode) {
+                      //           print("MhsPerPeriode hasn't been triggered yet.");
+                      //         }
+                      //         return const SizedBox();
+                      //       }
+                      //     } else {
+                      //       return const SizedBox();
+                      //     }
+                      //   },
+                      // ),
 
                       // BlocListener<OrmawaBloc, OrmawaState>(
                       //   listenWhen: (prev, current) =>

@@ -88,8 +88,12 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                       } else if (state is AllOrmawaHasData) {
                         final ormawaList = state.ormawaList;
 
-                        List<String> ormawaDropDownList = state.ormawaList.map(
-                                (ormawa) => ormawa.namaOrmawa).toList();
+                        List<String> ormawaDropDownList = [];
+                        state.ormawaList != []
+                            ? ormawaDropDownList = state.ormawaList.map(
+                                (ormawa) => ormawa.namaOrmawa).toList()
+                            : ormawaDropDownList.add("");
+
 
                         _ormawa = ormawaList[0];
 

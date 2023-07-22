@@ -183,7 +183,7 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Text(session.ormawa.namaOrmawa),
+                                            child: Text(session.ormawa?.namaOrmawa ?? ""),
                                           ),
                                         ),
                                         DataCell(

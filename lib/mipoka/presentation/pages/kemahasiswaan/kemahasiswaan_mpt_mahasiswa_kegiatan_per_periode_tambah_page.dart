@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
@@ -160,6 +161,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
                       CustomTextField(
                         textFieldWidth: 400,
                         controller: _poinKegiatanController,
+                        textInputType: TextInputType.number,
                       ),
                     ],
                   ),
@@ -184,11 +186,13 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
                               && _poinKegiatanController.text.isNotEmpty) {
                             try {
                               final poinKegiatan = int.tryParse(_poinKegiatanController.text);
+                              int uniqueId = UniqueIdGenerator.generateUniqueId();
+
                               if (poinKegiatan != null) {
                                 context.read<KegiatanPerPeriodeMptBloc>().add(
                                   CreateKegiatanPerPeriodeMptEvent(
                                     kegiatanPerPeriodeMpt: KegiatanPerPeriodeMpt(
-                                      idKegiatanPerPeriodeMpt: newId,
+                                      idKegiatanPerPeriodeMpt: uniqueId,
                                       namaKegiatanMpt: _namaKegiatanMpt!,
                                       periodeMpt: _periodeMpt!,
                                       tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
