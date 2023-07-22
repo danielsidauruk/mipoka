@@ -17,10 +17,8 @@ import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart'
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
-import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_rich_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 
 class PenggunaPengajuanLaporanKegiatan3 extends StatefulWidget {
@@ -51,9 +49,6 @@ class _PenggunaPengajuanLaporanKegiatan3State
     super.dispose();
   }
 
-  // late QuillController _latarBelakangController;
-  // late QuillController _hasilKegiatanController;
-  // late QuillController _penutupController;
   final TextEditingController _latarBelakangController = TextEditingController();
   final TextEditingController _hasilKegiatanController = TextEditingController();
   final TextEditingController _penutupController = TextEditingController();
@@ -112,8 +107,8 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         buildTitle('Latar Belakang'),
                         buildDescription('Berisi latar belakang kegiatan diusulkan'),
                         if (widget.laporanArgs.isRevisiLaporan == true
-                            && laporan.revisiLaporan.revisiLatarBelakang != "")
-                          buildRevisiText(laporan.revisiLaporan.revisiLatarBelakang),
+                            && laporan.revisiLaporan?.revisiLatarBelakang != "")
+                          buildRevisiText(laporan.revisiLaporan?.revisiLatarBelakang ?? ""),
 
                         CustomTextField(controller: _latarBelakangController),
 
@@ -122,8 +117,8 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         buildTitle('Hasil Kegiatan'),
                         buildDescription('Berisi hasil kegiatan yang telah selesai'),
                         if (widget.laporanArgs.isRevisiLaporan == true
-                            && laporan.revisiLaporan.revisiHasilKegiatan != "")
-                          buildRevisiText(laporan.revisiLaporan.revisiHasilKegiatan),
+                            && laporan.revisiLaporan?.revisiHasilKegiatan != "")
+                          buildRevisiText(laporan.revisiLaporan?.revisiHasilKegiatan ?? ""),
 
                         CustomTextField(controller: _hasilKegiatanController),
 
@@ -132,8 +127,8 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         buildTitle('Penutup'),
                         buildDescription('Ucapkan salam penutup.'),
                         if (widget.laporanArgs.isRevisiLaporan == true
-                            && laporan.revisiLaporan.revisiPenutup != "")
-                          buildRevisiText(laporan.revisiLaporan.revisiPenutup),
+                            && laporan.revisiLaporan?.revisiPenutup != "")
+                          buildRevisiText(laporan.revisiLaporan?.revisiPenutup ?? ""),
 
                         CustomTextField(controller: _penutupController),
 
@@ -145,8 +140,8 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         buildDescription(
                             'Unggah spanduk / pamflet mengenai kegiatan yang ingin dilaksanakan.'),
                         if (widget.laporanArgs.isRevisiLaporan == true
-                            && laporan.revisiLaporan.revisiFotoPostinganKegiatan != "")
-                          buildRevisiText(laporan.revisiLaporan.revisiFotoPostinganKegiatan),
+                            && laporan.revisiLaporan?.revisiFotoPostinganKegiatan != "")
+                          buildRevisiText(laporan.revisiLaporan?.revisiFotoPostinganKegiatan ?? ""),
                         StreamBuilder<String?>(
                           initialData: _postinganKegiatanController,
                           stream: _postinganKegiatanStream.stream,
@@ -183,8 +178,8 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         buildDescription(
                             'Unggah foto surat undangan dari kegiatan yang akan dilaksanakan.'),
                         if (widget.laporanArgs.isRevisiLaporan == true
-                            && laporan.revisiLaporan.revisiFotoDokumentasiKegiatan != "")
-                          buildRevisiText(laporan.revisiLaporan.revisiFotoDokumentasiKegiatan),
+                            && laporan.revisiLaporan?.revisiFotoDokumentasiKegiatan != "")
+                          buildRevisiText(laporan.revisiLaporan?.revisiFotoDokumentasiKegiatan ?? ""),
                         StreamBuilder<String?>(
                           initialData: _dokumentasiKegiatanController,
                           stream: _dokumentasiKegiatanStream.stream,
@@ -221,8 +216,8 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         buildDescription(
                             'Unggah foto pencapaian dari kegiatan yang telah dilaksanakan.'),
                         if (widget.laporanArgs.isRevisiLaporan == true
-                            && laporan.revisiLaporan.revisiFotoTabulasiHasil != "")
-                          buildRevisiText(laporan.revisiLaporan.revisiFotoTabulasiHasil),
+                            && laporan.revisiLaporan?.revisiFotoTabulasiHasil != "")
+                          buildRevisiText(laporan.revisiLaporan?.revisiFotoTabulasiHasil ?? ""),
                         StreamBuilder<String?>(
                           initialData: _tabulasiHasilKegiatanController,
                           stream: _tabulasiHasilKegiatanStream.stream,
@@ -259,8 +254,8 @@ class _PenggunaPengajuanLaporanKegiatan3State
                         buildDescription(
                             'Unggah bon transaksi kegiatan yang telah dilaksanakan.'),
                         if (widget.laporanArgs.isRevisiLaporan == true
-                            && laporan.revisiLaporan.revisiFotoFakturPembayaran != "")
-                          buildRevisiText(laporan.revisiLaporan.revisiFotoFakturPembayaran),
+                            && laporan.revisiLaporan?.revisiFotoFakturPembayaran != "")
+                          buildRevisiText(laporan.revisiLaporan?.revisiFotoFakturPembayaran ?? ""),
                         StreamBuilder<String?>(
                           initialData: _fakturPembayaranController,
                           stream: _fakturPembayaranStream.stream,

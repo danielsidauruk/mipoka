@@ -4,6 +4,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/session.dart';
@@ -16,6 +17,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class PenggunaDaftarPengajuanSaranaDanPrasarana extends StatefulWidget {
   const PenggunaDaftarPengajuanSaranaDanPrasarana({super.key});
@@ -28,8 +30,6 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
 
   @override
   void initState() {
-    // BlocProvider.of<SessionBloc>(context, listen: false)
-    //     .add(const ReadAllSessionEvent());
     context.read<SessionBloc>().add(const ReadAllSessionEvent());
     context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: user?.uid ?? "")
     );
@@ -43,6 +43,8 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
     context.read<OrmawaBloc>().close();
     super.dispose();
   }
+
+  int uniqueId = UniqueIdGenerator.generateUniqueId();
   
   @override
   Widget build(BuildContext context) {
@@ -271,69 +273,38 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 InkWell(
-                                  onTap: () => Future.microtask(() {
-                                    context.read<SessionBloc>().add(
-                                      CreateSessionEvent(
-                                        session: Session(
-                                          idSession: newId,
-                                          mipokaUser: mipokaUser,
-                                          ormawa: const Ormawa(
-                                            idOrmawa: 0,
-                                            namaOrmawa: "",
-                                            namaSingkatanOrmawa: "",
-                                            logoOrmawa: "",
-                                            listAnggota: [],
-                                            pembina: "",
-                                            ketua: "",
-                                            wakil: "",
-                                            sekretaris: "",
-                                            bendahara: "",
-                                            jumlahAnggota: 0,
-                                            fotoPembina: "",
-                                            fotoKetua: "",
-                                            fotoWakil: "",
-                                            fotoSekretaris: "",
-                                            fotoBendahara: "",
-                                            createdAt: "",
-                                            createdBy: "",
-                                            updatedBy: "",
-                                            updatedAt: "",
-                                          ),
-                                          tanggalMulai: "",
-                                          tanggalSelesai: "",
-                                          ruangan: "",
-                                          gedung: "",
-                                          waktuMulaiPenggunaan: "",
-                                          waktuSelesaiPenggunaan: "",
-                                          kegiatan: "",
-                                          proyektor: 0,
-                                          laptop: 0,
-                                          mikrofon: 0,
-                                          speaker: 0,
-                                          meja: 0,
-                                          kursi: 0,
-                                          papanTulis: 0,
-                                          spidol: 0,
-                                          lainLain: "",
-                                          status: "",
-                                          keterangan: "",
-                                          fileSession: "",
-                                          updatedAt: currentDate,
-                                          createdAt: currentDate,
-                                          updatedBy: user?.email ?? "unknown",
-                                          createdBy: user?.email ?? "unknown",
-                                        ),
+                                  onTap: () => context.read<SessionBloc>().add(
+                                    CreateSessionEvent(
+                                      session: Session(
+                                        idSession: uniqueId,
+                                        mipokaUser: mipokaUser,
+                                        ormawa: null,
+                                        tanggalMulai: "",
+                                        tanggalSelesai: "",
+                                        ruangan: "",
+                                        gedung: "",
+                                        waktuMulaiPenggunaan: "",
+                                        waktuSelesaiPenggunaan: "",
+                                        kegiatan: "",
+                                        proyektor: 0,
+                                        laptop: 0,
+                                        mikrofon: 0,
+                                        speaker: 0,
+                                        meja: 0,
+                                        kursi: 0,
+                                        papanTulis: 0,
+                                        spidol: 0,
+                                        lainLain: "",
+                                        status: "",
+                                        keterangan: "",
+                                        fileSession: "",
+                                        updatedAt: currentDate,
+                                        createdAt: currentDate,
+                                        updatedBy: mipokaUser.email,
+                                        createdBy: mipokaUser.email,
                                       ),
-                                    );
-
-                                    Navigator.pushNamed(
-                                      context,
-                                      penggunaPengajuanSaranaDanPrasaranaPageRoute,
-                                      arguments: newId,
-                                    ).then((_) {
-                                      setState(() => context.read<SessionBloc>().add(const ReadAllSessionEvent()));
-                                    });
-                                  }),
+                                    ),
+                                  ),
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 8.0, horizontal: 24),
@@ -357,6 +328,25 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                     ),
                                   ),
                                 ),
+
+                                // BlocListener<SessionBloc, SessionState>(
+                                //   listenWhen: (prev, current) =>
+                                //   prev.runtimeType != current.runtimeType,
+                                //   listener: (context, state) {
+                                //     if (state is SessionSuccess) {
+                                //       Navigator.pushNamed(
+                                //         context,
+                                //         penggunaPengajuanSaranaDanPrasaranaPageRoute,
+                                //         arguments: uniqueId,
+                                //       ).then((_) {
+                                //         setState(() => context.read<SessionBloc>().add(const ReadAllSessionEvent()));
+                                //       });
+                                //     } else if (state is SessionError) {
+                                //       mipokaCustomToast(state.message);
+                                //     }
+                                //   },
+                                //   child: const SizedBox(),
+                                // ),
                               ],
                             );
                           } else if (mipokaUserState is MipokaUserError) {

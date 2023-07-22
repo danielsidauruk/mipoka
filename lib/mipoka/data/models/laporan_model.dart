@@ -5,15 +5,15 @@ import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 
 class LaporanModel extends Laporan {
-  final RevisiLaporanModel revisiLaporanModel;
-  final UsulanKegiatanModel usulanKegiatanModel;
+  final RevisiLaporanModel? revisiLaporanModel;
+  final UsulanKegiatanModel? usulanKegiatanModel;
   final List<PesertaKegiatanLaporanModel> pesertaKegiatanLaporanModel;
   final List<RincianBiayaKegiatanModel> rincianBiayaKegiatanModel;
 
   const LaporanModel({
     required super.idLaporan,
-    required this.revisiLaporanModel,
-    required this.usulanKegiatanModel,
+    this.revisiLaporanModel,
+    this.usulanKegiatanModel,
     required super.pencapaian,
     required this.pesertaKegiatanLaporanModel,
     required this.rincianBiayaKegiatanModel,
@@ -44,8 +44,12 @@ class LaporanModel extends Laporan {
   factory LaporanModel.fromEntity(Laporan laporan) {
     return LaporanModel(
       idLaporan: laporan.idLaporan,
-      revisiLaporanModel: RevisiLaporanModel.fromEntity(laporan.revisiLaporan),
-      usulanKegiatanModel: UsulanKegiatanModel.fromEntity(laporan.usulanKegiatan),
+      revisiLaporanModel: laporan.revisiLaporan != null
+          ? RevisiLaporanModel.fromEntity(laporan.revisiLaporan!)
+          : null,
+      usulanKegiatanModel: laporan.usulanKegiatan != null
+          ? UsulanKegiatanModel.fromEntity(laporan.usulanKegiatan!)
+          : null,
       pencapaian: laporan.pencapaian,
       pesertaKegiatanLaporanModel: laporan.pesertaKegiatanLaporan.map((pesertaKegiatanLaporan) =>
           PesertaKegiatanLaporanModel.fromEntity(pesertaKegiatanLaporan)).toList(),
@@ -99,8 +103,8 @@ class LaporanModel extends Laporan {
 
   Map<String, dynamic> toJson() => {
     "id_laporan": idLaporan,
-    "revisi_usulan": revisiLaporanModel.toJson(),
-    "usulan": usulanKegiatanModel.toJson(),
+    "revisi_usulan": revisiLaporanModel?.toJson(),
+    "usulan": usulanKegiatanModel?.toJson(),
     "pencapaian": pencapaian,
     "peserta_kegiatan_laporan": List<dynamic>.from(pesertaKegiatanLaporanModel.map((x) => x.toJson())),
     "biaya_kegiatan": List<dynamic>.from(rincianBiayaKegiatanModel.map((x) => x.toJson())),

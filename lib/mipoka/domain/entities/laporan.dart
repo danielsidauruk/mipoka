@@ -6,8 +6,8 @@ import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 
 class Laporan extends Equatable {
   final int idLaporan;
-  final RevisiLaporan revisiLaporan;
-  final UsulanKegiatan usulanKegiatan;
+  final RevisiLaporan? revisiLaporan;
+  final UsulanKegiatan? usulanKegiatan;
   final String pencapaian;
   final List<PesertaKegiatanLaporan> pesertaKegiatanLaporan;
   final List<RincianBiayaKegiatan> rincianBiayaKegiatan;
@@ -31,8 +31,8 @@ class Laporan extends Equatable {
 
   const Laporan({
     required this.idLaporan,
-    required this.revisiLaporan,
-    required this.usulanKegiatan,
+    this.revisiLaporan,
+    this.usulanKegiatan,
     required this.pencapaian,
     required this.pesertaKegiatanLaporan,
     required this.rincianBiayaKegiatan,

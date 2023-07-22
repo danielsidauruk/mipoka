@@ -66,8 +66,8 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                       children: [
                         buildTitle('Data Peserta Kegiatan'),
                         if (widget.laporanArgs.isRevisiLaporan == true
-                            && laporan.revisiLaporan.revisiPesertaKegiatanLaporan != "")
-                          buildRevisiText(laporan.revisiLaporan.revisiPesertaKegiatanLaporan),
+                            && laporan.revisiLaporan?.revisiPesertaKegiatanLaporan != "")
+                          buildRevisiText(laporan.revisiLaporan?.revisiPesertaKegiatanLaporan ?? ""),
                         CustomAddButton(
                           buttonText: 'Import Peserta',
                           onPressed: () => Navigator.pushNamed(
@@ -161,8 +161,8 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                         const CustomFieldSpacer(),
                         buildTitle('Realisasi Biaya Kegiatan'),
                         if (widget.laporanArgs.isRevisiLaporan == true
-                            && laporan.revisiLaporan.revisiPencapaian != "")
-                          buildRevisiText(laporan.revisiLaporan.revisiPencapaian),
+                            && laporan.revisiLaporan?.revisiPencapaian != "")
+                          buildRevisiText(laporan.revisiLaporan?.revisiPencapaian ?? ""),
                         CustomAddButton(
                           buttonText: 'Biaya Kegiatan',
                           onPressed: () => Navigator.pushNamed(

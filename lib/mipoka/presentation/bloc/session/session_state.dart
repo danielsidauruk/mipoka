@@ -38,10 +38,10 @@ class SessionError extends SessionState {
   List<Object> get props => [message];
 }
 
-class SessionSuccessMessage extends SessionState {
+class SessionSuccess extends SessionState {
   final String message;
 
-  const SessionSuccessMessage({this.message = "Data has changed"});
+  const SessionSuccess({this.message = "Data has changed"});
 
   @override
   List<Object> get props => [message];

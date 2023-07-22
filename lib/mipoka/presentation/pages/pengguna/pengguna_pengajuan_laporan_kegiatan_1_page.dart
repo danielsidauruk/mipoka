@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
@@ -16,7 +15,6 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
-import 'package:mipoka/mipoka/presentation/widgets/custom_rich_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class PenggunaPengajuanLaporanKegiatan1 extends StatefulWidget {
@@ -117,8 +115,8 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
                             buildTitle('Pencapaian'),
                             if (widget.laporanArgs.isRevisiLaporan == true
-                                && laporan.revisiLaporan.revisiPencapaian != "")
-                              buildRevisiText(laporan.revisiLaporan.revisiPencapaian),
+                                && laporan.revisiLaporan?.revisiPencapaian != "")
+                              buildRevisiText(laporan.revisiLaporan?.revisiPencapaian ?? ""),
 
                             // CustomRichTextField(
                             //     controller: _pencapaianController),
