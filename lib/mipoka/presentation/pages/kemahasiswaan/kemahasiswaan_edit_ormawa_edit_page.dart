@@ -455,30 +455,31 @@ class _KemahasiswaanEditOrmawaEditPageState
                               _fotoBendaharaUrlController = await uploadBytesToFirebase(fotoBendaharaBytes, "$uniqueId${fotoBendaharaResult!.files.first.name}");
                             }
 
-
-                            context.read<OrmawaBloc>().add(
-                              UpdateOrmawaEvent(
-                                widget.ormawa.copyWith(
-                                  namaOrmawa: _namaOrmawaController.text,
-                                  namaSingkatanOrmawa: _namaSingkatanController.text,
-                                  logoOrmawa: _logoUrlController ?? "",
-                                  listAnggota: _nimList,
-                                  pembina: _namaPembinaController.text,
-                                  ketua: _namaKetuaController.text,
-                                  wakil: _namaWakilKetuaController.text,
-                                  sekretaris: _namaSekretarisController.text,
-                                  bendahara: _namaBendaharaController.text,
-                                  jumlahAnggota: _nimList.length,
-                                  fotoPembina: _fotoPembinaUrlController ?? "",
-                                  fotoKetua: _fotoKetuaUrlController ?? "",
-                                  fotoWakil: _fotoWakilKetuaUrlController ?? "",
-                                  fotoSekretaris: _fotoSekretarisUrlController ?? "",
-                                  fotoBendahara: _fotoBendaharaUrlController ?? "",
-                                  updatedBy: currentDate,
-                                  updatedAt: user?.email ?? "unknown",
+                            if (context.mounted) {
+                              context.read<OrmawaBloc>().add(
+                                UpdateOrmawaEvent(
+                                  widget.ormawa.copyWith(
+                                    namaOrmawa: _namaOrmawaController.text,
+                                    namaSingkatanOrmawa: _namaSingkatanController.text,
+                                    logoOrmawa: _logoUrlController ?? "",
+                                    listAnggota: _nimList,
+                                    pembina: _namaPembinaController.text,
+                                    ketua: _namaKetuaController.text,
+                                    wakil: _namaWakilKetuaController.text,
+                                    sekretaris: _namaSekretarisController.text,
+                                    bendahara: _namaBendaharaController.text,
+                                    jumlahAnggota: _nimList.length,
+                                    fotoPembina: _fotoPembinaUrlController ?? "",
+                                    fotoKetua: _fotoKetuaUrlController ?? "",
+                                    fotoWakil: _fotoWakilKetuaUrlController ?? "",
+                                    fotoSekretaris: _fotoSekretarisUrlController ?? "",
+                                    fotoBendahara: _fotoBendaharaUrlController ?? "",
+                                    updatedBy: currentDate,
+                                    updatedAt: user?.email ?? "unknown",
+                                  ),
                                 ),
-                              ),
-                            );
+                              );
+                            }
                           } else {
                             mipokaCustomToast(emptyFieldMessage);
                           }

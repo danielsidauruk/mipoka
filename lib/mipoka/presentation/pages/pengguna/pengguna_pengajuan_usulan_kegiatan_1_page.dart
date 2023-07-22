@@ -234,65 +234,66 @@ class _PenggunaPengajuanUsulanKegiatan1State
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomPenggunaDrawerWidget(),
-      body: BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
-        builder: (context, state) {
-          return BlocBuilder<MipokaUserBloc, MipokaUserState>(
-            builder: (context, mipokaUserState) {
-              if (state is UsulanKegiatanLoading) {
-                return const Text('Loading');
-              } else if (state is UsulanKegiatanHasData) {
-                final usulanKegiatan = state.usulanKegiatan;
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const CustomMobileTitle(
+                  text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
+              const CustomFieldSpacer(),
 
-                _ormawa = usulanKegiatan.ormawa;
-                _pembiayaanController = usulanKegiatan.pembiayaan;
-                _namaKegiatanController.text = usulanKegiatan.namaKegiatan;
-                usulanKegiatan.kategoriBentukKegiatan == "Luring"
-                    ? _bentukKegiatanSwitchController = false
-                    : _bentukKegiatanSwitchController = true;
-                _bentukKegiatanController = usulanKegiatan.bentukKegiatan;
-                _deskripsiKegiatanController.text = usulanKegiatan.deskripsiKegiatan;
-                _tanggalMulaiController.text = usulanKegiatan.tanggalMulaiKegiatan;
-                _tanggalSelesaiController.text = usulanKegiatan.tanggalSelesaiKegiatan;
-                _waktuMulaiController.text = usulanKegiatan.waktuMulaiKegiatan;
-                _waktuSelesaiController.text = usulanKegiatan.waktuSelesaiKegiatan;
-                _tempatKegiatanController.text = usulanKegiatan.tempatKegiatan;
-                _tanggalKeberangkatanController.text = usulanKegiatan.tanggalKeberangkatan;
-                _tanggalKepulanganController.text = usulanKegiatan.tanggalKepulangan;
-                usulanKegiatan.jumlahPartisipan == "Orang"
-                    ? _bentukKegiatanSwitchController = false
-                    : _bentukKegiatanSwitchController = true;
-                _jumlahParsitipanController.text = usulanKegiatan.jumlahPartisipan.toString();
-                usulanKegiatan.totalPendanaan == "Uang"
-                    ? _bentukKegiatanSwitchController = false
-                    : _bentukKegiatanSwitchController = true;
-                _targetKegiatanController.text = usulanKegiatan.targetKegiatan;
-                _totalPendanaanController.text = usulanKegiatan.totalPendanaan;
-                _keteranganController.text = usulanKegiatan.keterangan;
-                _ormawaSignatureController = usulanKegiatan.tandaTanganOrmawa;
+              BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+                builder: (context, state) {
+                  return BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                    builder: (context, mipokaUserState) {
+                      if (state is UsulanKegiatanLoading) {
+                        return const Text('Loading');
+                      } else if (state is UsulanKegiatanHasData) {
+                        final usulanKegiatan = state.usulanKegiatan;
 
-                _tanggalKeberangkatanController.text.isNotEmpty ?
-                _tempatKegiatanSwitchController = true :
-                _tempatKegiatanSwitchController = false;
+                        _ormawa = usulanKegiatan.ormawa;
+                        _pembiayaanController = usulanKegiatan.pembiayaan;
+                        _namaKegiatanController.text = usulanKegiatan.namaKegiatan;
+                        usulanKegiatan.kategoriBentukKegiatan == "Luring"
+                            ? _bentukKegiatanSwitchController = false
+                            : _bentukKegiatanSwitchController = true;
+                        _bentukKegiatanController = usulanKegiatan.bentukKegiatan;
+                        _deskripsiKegiatanController.text = usulanKegiatan.deskripsiKegiatan;
+                        _tanggalMulaiController.text = usulanKegiatan.tanggalMulaiKegiatan;
+                        _tanggalSelesaiController.text = usulanKegiatan.tanggalSelesaiKegiatan;
+                        _waktuMulaiController.text = usulanKegiatan.waktuMulaiKegiatan;
+                        _waktuSelesaiController.text = usulanKegiatan.waktuSelesaiKegiatan;
+                        _tempatKegiatanController.text = usulanKegiatan.tempatKegiatan;
+                        _tanggalKeberangkatanController.text = usulanKegiatan.tanggalKeberangkatan;
+                        _tanggalKepulanganController.text = usulanKegiatan.tanggalKepulangan;
+                        usulanKegiatan.jumlahPartisipan == "Orang"
+                            ? _bentukKegiatanSwitchController = false
+                            : _bentukKegiatanSwitchController = true;
+                        _jumlahParsitipanController.text = usulanKegiatan.jumlahPartisipan.toString();
+                        usulanKegiatan.totalPendanaan == "Uang"
+                            ? _bentukKegiatanSwitchController = false
+                            : _bentukKegiatanSwitchController = true;
+                        _targetKegiatanController.text = usulanKegiatan.targetKegiatan;
+                        _totalPendanaanController.text = usulanKegiatan.totalPendanaan;
+                        _keteranganController.text = usulanKegiatan.keterangan;
+                        _ormawaSignatureController = usulanKegiatan.tandaTanganOrmawa;
 
-                context.read<TempatKegiatanCubit>().setTempatKegiatan(_tempatKegiatanSwitchController!);
+                        _tanggalKeberangkatanController.text.isNotEmpty ?
+                        _tempatKegiatanSwitchController = true :
+                        _tempatKegiatanSwitchController = false;
 
-                List<String> ormawaList = usulanKegiatan.mipokaUser.ormawa
-                    .map((ormawa) => ormawa.namaOrmawa).toList();
+                        context.read<TempatKegiatanCubit>().setTempatKegiatan(_tempatKegiatanSwitchController!);
 
-                if (_ormawa?.idOrmawa == 0) {
-                  _ormawa = usulanKegiatan.mipokaUser.ormawa[0];
-                }
+                        List<String> ormawaList = usulanKegiatan.mipokaUser.ormawa
+                            .map((ormawa) => ormawa.namaOrmawa).toList();
 
-                return SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const CustomMobileTitle(
-                            text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
-                        const CustomFieldSpacer(),
-                        CustomContentBox(
+                        if (_ormawa?.idOrmawa == 0) {
+                          _ormawa = usulanKegiatan.mipokaUser.ormawa[0];
+                        }
+
+                        return CustomContentBox(
                           children: [
                             buildTitle('Nama Ormawa'),
                             MipokaCustomDropdown(
@@ -670,23 +671,23 @@ class _PenggunaPengajuanUsulanKegiatan1State
                               ],
                             ),
                           ],
-                        ),
-                      ],
-                    ),
-                  ),
-                );
+                        );
 
-              } else if (state is UsulanKegiatanError) {
-                return Text('UsulanKegiatanBloc Error : ${state.message}');
-              } else {
-                if (kDebugMode) {
-                  print('UsulanKegiatanBloc has not been triggered');
-                }
-                return const Center();
-              }
-            },
-          );
-        },
+                      } else if (state is UsulanKegiatanError) {
+                        return Text('UsulanKegiatanBloc Error : ${state.message}');
+                      } else {
+                        if (kDebugMode) {
+                          print('UsulanKegiatanBloc has not been triggered');
+                        }
+                        return const Center();
+                      }
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

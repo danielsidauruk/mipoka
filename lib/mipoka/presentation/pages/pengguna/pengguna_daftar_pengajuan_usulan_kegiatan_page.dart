@@ -260,7 +260,8 @@ class _PenggunaDaftarPengajuanKegiatanState
                     } else if (mipokaUserState is MipokaUserHasData) {
                       final mipokaUser = mipokaUserState.mipokaUser;
 
-                      return CustomMipokaButton(
+                      return  mipokaUser.ormawa != [] ?
+                      CustomMipokaButton(
                         onTap: () {
                           int uniqueId = UniqueIdGenerator.generateUniqueId();
 
@@ -389,7 +390,9 @@ class _PenggunaDaftarPengajuanKegiatanState
                               ReadAllUsulanKegiatanEvent(filter: _filter!)));
                         },
                         text: 'Ajukan Kegiatan',
-                      );
+                      ) :
+                      const SizedBox();
+
                     } else if (mipokaUserState is MipokaUserError) {
                       return Text(mipokaUserState.message);
                     } else {

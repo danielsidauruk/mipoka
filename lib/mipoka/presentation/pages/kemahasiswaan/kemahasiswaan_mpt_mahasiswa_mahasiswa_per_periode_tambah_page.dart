@@ -57,6 +57,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
   }
 
   void _processMahasiswaPerPeriode(PlatformFile file) async {
+    nimList = [];
     Uint8List? bytes;
 
     if (kIsWeb) {
@@ -66,8 +67,6 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
     }
 
     if (bytes != null) {
-      nimList = [];
-
       Excel excel = Excel.decodeBytes(bytes);
       Sheet? sheet = excel.tables[excel.tables.keys.first];
 
@@ -221,7 +220,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                           return const SizedBox();
                         }
                       } else {
-                        return Center();
+                        return const SizedBox();
                       }
                     },
                   ),

@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
@@ -28,7 +28,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController _semesterController = TextEditingController();
   final TextEditingController _kelasController = TextEditingController();
   final TextEditingController _prodiController = TextEditingController();
-  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -123,10 +122,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         );
 
                         Future.microtask(() {
+                          User? user = FirebaseAuth.instance.currentUser;
+
                           context.read<MipokaUserBloc>().add(
                             CreateMipokaUserEvent(
                               mipokaUser: MipokaUser(
-                                idUser: _nimController.text,
+                                idUser: user?.uid ?? "",
                                 ormawa: const [],
                                 email: _emailController.text,
                                 namaLengkap: _namaLengkapController.text,
@@ -139,8 +140,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 periodeMpt: "",
                                 statusMpt: "",
                                 prodi: _prodiController.text,
-                                createdAt: DateFormat('dd-MM-yyyy').format(DateTime.now()),
-                                updatedAt: DateFormat('dd-MM-yyyy').format(DateTime.now()),
+                                createdAt: currentDate,
+                                updatedAt: currentDate,
                                 createdBy: _emailController.text,
                                 updatedBy: _emailController.text,
                               ),
