@@ -55,253 +55,259 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                 text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
             const CustomFieldSpacer(),
 
-            BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
-              listenWhen: (prev, current) =>
-              prev.runtimeType != current.runtimeType,
-              listener: (context, state) {
-                if (state is ManageTertibAcaraSuccess) {
+            CustomContentBox(
+              children: [
+                buildTitle('Tertib Acara'),
+                buildDescription(
+                    'Rincikan alur dari kegiatan yang akan dilaksanakan'),
 
-                  mipokaCustomToast('Data telah berubah.');
-                  context.read<UsulanKegiatanBloc>().add(
-                      ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+                BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
+                  listenWhen: (prev, current) =>
+                  prev.runtimeType != current.runtimeType,
+                  listener: (context, state) {
+                    if (state is ManageTertibAcaraSuccess) {
 
-                }
-                else if (state is UsulanKegiatanError) {
-                  mipokaCustomToast(state.message);
-                }
-              },
-              builder: (context, state) {
-                if (state is UsulanKegiatanLoading) {
-                  return const Text('Loading ...');
-                } else if (state is UsulanKegiatanHasData) {
-                  final usulanKegiatan = state.usulanKegiatan;
+                      mipokaCustomToast('Data telah berubah.');
+                      context.read<UsulanKegiatanBloc>().add(
+                          ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
 
-                  return CustomContentBox(
-                    children: [
-                      buildTitle('Tertib Acara'),
-                      buildDescription(
-                          'Rincikan alur dari kegiatan yang akan dilaksanakan'),
+                    }
+                    else if (state is UsulanKegiatanError) {
+                      mipokaCustomToast(state.message);
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is UsulanKegiatanLoading) {
+                      return const Text('Loading ...');
+                    } else if (state is UsulanKegiatanHasData) {
+                      final usulanKegiatan = state.usulanKegiatan;
 
-                      if (widget.usulanArgs.isRevisiUsulan == true
-                          && state.usulanKegiatan.revisiUsulan?.revisiIdTertibAcara != "")
-                        buildRevisiText(state.usulanKegiatan.revisiUsulan?.revisiIdTertibAcara ?? ""),
-
-                      CustomAddButton(
-                        buttonText: 'Tertib Acara',
-                        onPressed: () async {
-                          final result = await Navigator.pushNamed(
-                            context,
-                            tambahTertibAcaraPageRoute,
-                            arguments: usulanKegiatan,
-                          );
-
-                          if (result != null && result is UsulanKegiatan) {
-                            if (context.mounted) {
-                              context.read<UsulanKegiatanBloc>().add(
-                                ManageBiayaKegiatanEvent(
-                                  usulanKegiatan: result,
-                                ),
-                              );
-                            }
-                          }
-                        },
-                      ),
-
-                      const CustomFieldSpacer(),
-
-                      SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: DataTable(
-                            columnSpacing: 40,
-                            border: TableBorder.all(color: Colors.white),
-                            columns: const [
-                              DataColumn(
-                                label: Text(
-                                  'No.',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Aktivitas',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Waktu Mulai',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Waktu Selesai',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Keterangan',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  "",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
-                            rows: List<DataRow>.generate(usulanKegiatan.tertibAcara.length, (int index) {
-                              final tertibAcara = usulanKegiatan.tertibAcara[index];
-                              return DataRow(
-                                cells: [
-                                  DataCell(
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        '${index + 1}',
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    InkWell(
-                                      onTap: () async {
-                                        final result = await Navigator.pushNamed(
-                                          context,
-                                          editTertibAcaraPageRoute,
-                                          arguments: TertibAcaraArgs(
-                                            index: index,
-                                            usulanKegiatan: usulanKegiatan,
-                                          ),
-                                        );
-
-                                        if (result != null && result is UsulanKegiatan) {
-                                          if (context.mounted) {
-                                            context.read<UsulanKegiatanBloc>().add(
-                                              ManageBiayaKegiatanEvent(
-                                                usulanKegiatan: result,
-                                              ),
-                                            );
-                                          }
-                                        }
-                                      },
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          tertibAcara.aktivitas,
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                            color: Colors.blue,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        tertibAcara.waktuMulai,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        tertibAcara.waktuSelesai,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        tertibAcara.keterangan,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    onTap: () {
-                                      final tertibAcaraList = usulanKegiatan.tertibAcara;
-
-                                      tertibAcaraList.removeAt(index);
-
-                                      mipokaCustomToast("Tertib Acara telah dihapus");
-
-                                      context.read<UsulanKegiatanBloc>().add(
-                                        ManageTertibAcaraEvent(
-                                          usulanKegiatan: usulanKegiatan.copyWith(
-                                            tertibAcara: tertibAcaraList,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Image.asset(
-                                        'assets/icons/delete.png',
-                                        width: 24,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            }),
-                          ),
-                        ),
-                      ),
-
-                      const CustomFieldSpacer(),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CustomMipokaButton(
-                            onTap: () => Navigator.pop(context, true),
-                            text: 'Sebelumnya',
-                          ),
-                          const SizedBox(width: 8.0),
-                          CustomMipokaButton(
-                            onTap: () async {
+                          if (widget.usulanArgs.isRevisiUsulan == true
+                              && state.usulanKegiatan.revisiUsulan?.revisiIdTertibAcara != "")
+                            buildRevisiText(state.usulanKegiatan.revisiUsulan?.revisiIdTertibAcara ?? ""),
+
+                          CustomAddButton(
+                            buttonText: 'Tertib Acara',
+                            onPressed: () async {
                               final result = await Navigator.pushNamed(
                                 context,
-                                penggunaPengajuanUsulanKegiatan3PageRoute,
-                                arguments: widget.usulanArgs,
+                                tambahTertibAcaraPageRoute,
+                                arguments: usulanKegiatan,
                               );
 
-                              if (result != null && result == true) {
+                              if (result != null && result is UsulanKegiatan) {
                                 if (context.mounted) {
-                                  context.read<UsulanKegiatanBloc>()
-                                      .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+                                  context.read<UsulanKegiatanBloc>().add(
+                                    ManageBiayaKegiatanEvent(
+                                      usulanKegiatan: result,
+                                    ),
+                                  );
                                 }
                               }
                             },
-                            text: 'Berikutnya',
+                          ),
+
+                          const CustomFieldSpacer(),
+
+                          SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: DataTable(
+                                columnSpacing: 40,
+                                border: TableBorder.all(color: Colors.white),
+                                columns: const [
+                                  DataColumn(
+                                    label: Text(
+                                      'No.',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  DataColumn(
+                                    label: Text(
+                                      'Aktivitas',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  DataColumn(
+                                    label: Text(
+                                      'Waktu Mulai',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  DataColumn(
+                                    label: Text(
+                                      'Waktu Selesai',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  DataColumn(
+                                    label: Text(
+                                      'Keterangan',
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  DataColumn(
+                                    label: Text(
+                                      "",
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                                rows: List<DataRow>.generate(usulanKegiatan.tertibAcara.length, (int index) {
+                                  final tertibAcara = usulanKegiatan.tertibAcara[index];
+                                  return DataRow(
+                                    cells: [
+                                      DataCell(
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            '${index + 1}',
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                      DataCell(
+                                        InkWell(
+                                          onTap: () async {
+                                            final result = await Navigator.pushNamed(
+                                              context,
+                                              editTertibAcaraPageRoute,
+                                              arguments: TertibAcaraArgs(
+                                                index: index,
+                                                usulanKegiatan: usulanKegiatan,
+                                              ),
+                                            );
+
+                                            if (result != null && result is UsulanKegiatan) {
+                                              if (context.mounted) {
+                                                context.read<UsulanKegiatanBloc>().add(
+                                                  ManageBiayaKegiatanEvent(
+                                                    usulanKegiatan: result,
+                                                  ),
+                                                );
+                                              }
+                                            }
+                                          },
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              tertibAcara.aktivitas,
+                                              textAlign: TextAlign.center,
+                                              style: const TextStyle(
+                                                color: Colors.blue,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      DataCell(
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            tertibAcara.waktuMulai,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                      DataCell(
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            tertibAcara.waktuSelesai,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                      DataCell(
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            tertibAcara.keterangan,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                      DataCell(
+                                        onTap: () {
+                                          final tertibAcaraList = usulanKegiatan.tertibAcara;
+
+                                          tertibAcaraList.removeAt(index);
+
+                                          mipokaCustomToast("Tertib Acara telah dihapus");
+
+                                          context.read<UsulanKegiatanBloc>().add(
+                                            ManageTertibAcaraEvent(
+                                              usulanKegiatan: usulanKegiatan.copyWith(
+                                                tertibAcara: tertibAcaraList,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Image.asset(
+                                            'assets/icons/delete.png',
+                                            width: 24,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }),
+                              ),
+                            ),
+                          ),
+
+                          const CustomFieldSpacer(),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              CustomMipokaButton(
+                                onTap: () => Navigator.pop(context, true),
+                                text: 'Sebelumnya',
+                              ),
+                              const SizedBox(width: 8.0),
+                              CustomMipokaButton(
+                                onTap: () async {
+                                  final result = await Navigator.pushNamed(
+                                    context,
+                                    penggunaPengajuanUsulanKegiatan3PageRoute,
+                                    arguments: widget.usulanArgs,
+                                  );
+
+                                  if (result != null && result == true) {
+                                    if (context.mounted) {
+                                      context.read<UsulanKegiatanBloc>()
+                                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+                                    }
+                                  }
+                                },
+                                text: 'Berikutnya',
+                              ),
+                            ],
                           ),
                         ],
-                      ),
-                    ],
-                  );
-                } else if (state is UsulanKegiatanError) {
-                  return Text(state.message);
-                } else {
-                  return const Text("UsulanKegiatan hasn't been triggered");
-                }
-              },
+                      );
+                    } else if (state is UsulanKegiatanError) {
+                      return Text(state.message);
+                    } else {
+                      return const Text("UsulanKegiatan hasn't been triggered");
+                    }
+                  },
+                ),
+
+              ],
             ),
           ],
         ),
