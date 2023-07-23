@@ -270,7 +270,7 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                 hasilKegiatan: "",
                                 penutup: "",
                                 fotoPostinganKegiatan: "",
-                                fotoDokumentasiKegiatan: const [],
+                                fotoDokumentasiKegiatan: "",
                                 fotoTabulasiHasil: "",
                                 fotoFakturPembayaran: "",
                                 fileLaporanKegiatan: "",

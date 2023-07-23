@@ -74,7 +74,7 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                           onPressed: () => Navigator.pushNamed(
                             context,
                             tambahDataPesertaDalamKotaPageRoute,
-                            arguments: widget.usulanArgs,
+                            arguments: widget.usulanArgs.idUsulan,
                           ).then((_) => context.read<UsulanKegiatanBloc>().add(
                               ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
                         ),
@@ -232,7 +232,7 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                           onPressed: () => Navigator.pushNamed(
                             context,
                             penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute,
-                            arguments: widget.usulanArgs,
+                            arguments: widget.usulanArgs.idUsulan,
                           ).then((_) => context.read<UsulanKegiatanBloc>().add(
                               ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)))
                         ),

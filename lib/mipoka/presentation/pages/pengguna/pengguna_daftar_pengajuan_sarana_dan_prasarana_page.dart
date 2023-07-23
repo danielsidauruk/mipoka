@@ -278,7 +278,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                       session: Session(
                                         idSession: uniqueId,
                                         mipokaUser: mipokaUser,
-                                        ormawa: null,
+                                        ormawa: mipokaUser.ormawa[0],
                                         tanggalMulai: "",
                                         tanggalSelesai: "",
                                         ruangan: "",
@@ -334,13 +334,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                 //   prev.runtimeType != current.runtimeType,
                                 //   listener: (context, state) {
                                 //     if (state is SessionSuccess) {
-                                //       Navigator.pushNamed(
-                                //         context,
-                                //         penggunaPengajuanSaranaDanPrasaranaPageRoute,
-                                //         arguments: uniqueId,
-                                //       ).then((_) {
-                                //         setState(() => context.read<SessionBloc>().add(const ReadAllSessionEvent()));
-                                //       });
+                                //
                                 //     } else if (state is SessionError) {
                                 //       mipokaCustomToast(state.message);
                                 //     }
@@ -349,7 +343,8 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                 // ),
                               ],
                             );
-                          } else if (mipokaUserState is MipokaUserError) {
+                          }
+                          else if (mipokaUserState is MipokaUserError) {
                             return Text(mipokaUserState.message);
                           } else {
                             return const Text("MipokaUserBloc hasn't been triggered.");
@@ -358,6 +353,14 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                       ),
                     ],
                   );
+                } else if (state is SessionSuccess) {
+                  Navigator.pushNamed(
+                    context,
+                    penggunaPengajuanSaranaDanPrasaranaPageRoute,
+                    arguments: uniqueId,
+                  ).then((_) => context.read<SessionBloc>().add(const ReadAllSessionEvent()));
+
+                  return const SizedBox();
                 } else if (state is SessionError) {
                   return const Text('Error');
                 } else {

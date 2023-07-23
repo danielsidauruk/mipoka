@@ -75,7 +75,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                           onPressed: () => Navigator.pushNamed(
                             context,
                             tambahDataPesertaLuarKotaPageRoute,
-                            arguments: widget.usulanArgs,
+                            arguments: widget.usulanArgs.idUsulan,
                           ),
                         ),
                         const CustomFieldSpacer(),
@@ -258,7 +258,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                           onPressed: () => Navigator.pushNamed(
                             context,
                             penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute,
-                            arguments: widget.usulanArgs,
+                            arguments: widget.usulanArgs.idUsulan,
                           ),
                         ),
                         const CustomFieldSpacer(),
@@ -431,7 +431,9 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                               onTap: () => Navigator.pop(context),
                               text: 'Sebelumnya',
                             ),
+
                             const SizedBox(width: 8.0),
+
                             CustomMipokaButton(
                               onTap: () => Navigator.pushNamed(
                                 context,

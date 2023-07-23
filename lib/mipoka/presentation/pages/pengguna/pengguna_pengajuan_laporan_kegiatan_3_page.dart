@@ -89,9 +89,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
               _postinganKegiatanController = laporan.fotoPostinganKegiatan;
               _tabulasiHasilKegiatanController = laporan.fotoTabulasiHasil;
               _fakturPembayaranController = laporan.fotoFakturPembayaran;
-              _dokumentasiKegiatanController = laporan.fotoDokumentasiKegiatan[0];
-
-              List<String> fotoDokumentasiKegiatanList = laporan.fotoDokumentasiKegiatan;
+              _dokumentasiKegiatanController = laporan.fotoDokumentasiKegiatan;
 
               return Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -273,7 +271,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                       hasilKegiatan: _hasilKegiatanController.text,
                                       penutup: _penutupController.text,
                                       fotoPostinganKegiatan: _postinganKegiatanController,
-                                      fotoDokumentasiKegiatan: fotoDokumentasiKegiatanList,
+                                      fotoDokumentasiKegiatan: _dokumentasiKegiatanController,
                                       fotoTabulasiHasil: _tabulasiHasilKegiatanController,
                                       fotoFakturPembayaran: _fakturPembayaranController,
                                     ),
@@ -320,7 +318,6 @@ class _PenggunaPengajuanLaporanKegiatan3State
 
                                     if (bytes != null) {
                                       _dokumentasiKegiatanController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
-                                      fotoDokumentasiKegiatanList.add(_dokumentasiKegiatanController ?? "");
                                     }
                                   }
 
@@ -364,7 +361,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                           hasilKegiatan: _hasilKegiatanController.text,
                                           penutup: _penutupController.text,
                                           fotoPostinganKegiatan: _postinganKegiatanController,
-                                          fotoDokumentasiKegiatan: fotoDokumentasiKegiatanList,
+                                          fotoDokumentasiKegiatan: _dokumentasiKegiatanController,
                                           fotoTabulasiHasil: _tabulasiHasilKegiatanController,
                                           fotoFakturPembayaran: _fakturPembayaranController,
                                         ),

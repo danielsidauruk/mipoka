@@ -18,7 +18,7 @@ class Laporan extends Equatable {
   final String hasilKegiatan;
   final String penutup;
   final String fotoPostinganKegiatan;
-  final List<String> fotoDokumentasiKegiatan;
+  final String fotoDokumentasiKegiatan;
   final String fotoTabulasiHasil;
   final String fotoFakturPembayaran;
   final String fileLaporanKegiatan;
@@ -69,7 +69,7 @@ class Laporan extends Equatable {
     String? hasilKegiatan,
     String? penutup,
     String? fotoPostinganKegiatan,
-    List<String>? fotoDokumentasiKegiatan,
+    String? fotoDokumentasiKegiatan,
     String? fotoTabulasiHasil,
     String? fotoFakturPembayaran,
     String? fileLaporanKegiatan,

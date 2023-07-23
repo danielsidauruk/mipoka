@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/presentation/bloc/partisipan_bloc/partisipan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -98,6 +99,10 @@ class _EditDataPesertaDalamKotaState extends State<EditDataPesertaDalamKota> {
 
                       CustomMipokaButton(
                         onTap: () {
+                          // context.read<UsulanKegiatanBloc>().add(
+                          //   UpdateUsulanKegiatanEvent(
+                          //       usulanKegiatan: ),
+                          // );
                           BlocProvider.of<PartisipanBloc>(context, listen: false).add(
                             UpdatePartisipanEvent(
                               widget.multipleArgs.partisipan.copyWith(
