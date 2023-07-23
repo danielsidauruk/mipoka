@@ -43,12 +43,47 @@ class DeleteUsulanKegiatanEvent extends UsulanKegiatanEvent {
   List<Object> get props => [idUsulan];
 }
 
+class SaveUsulanKegiatanFirstPageEvent extends UsulanKegiatanEvent {
+  final UsulanKegiatan usulanKegiatan;
 
-// class DeleteUsulanKegiatanEvent extends UsulanKegiatanEvent {
-//   final UsulanKegiatan usulanKegiatan;
-//
-//   const DeleteUsulanKegiatanEvent({required this.usulanKegiatan});
-//
-//   @override
-//   List<Object> get props => [usulanKegiatan];
-// }
+  const SaveUsulanKegiatanFirstPageEvent({required this.usulanKegiatan});
+
+  @override
+  List<Object> get props => [usulanKegiatan];
+}
+
+class ManagePartisipanEvent extends UsulanKegiatanEvent {
+  final UsulanKegiatan usulanKegiatan;
+
+  const ManagePartisipanEvent({required this.usulanKegiatan});
+
+  @override
+  List<Object> get props => [usulanKegiatan];
+}
+
+class ManageBiayaKegiatanEvent extends UsulanKegiatanEvent {
+  final UsulanKegiatan usulanKegiatan;
+
+  const ManageBiayaKegiatanEvent({required this.usulanKegiatan});
+
+  @override
+  List<Object> get props => [usulanKegiatan];
+}
+
+class ManageTertibAcaraEvent extends UsulanKegiatanEvent {
+  final UsulanKegiatan usulanKegiatan;
+
+  const ManageTertibAcaraEvent({required this.usulanKegiatan});
+
+  @override
+  List<Object> get props => [usulanKegiatan];
+}
+
+class SaveUsulanKegiatanLastPageEvent extends UsulanKegiatanEvent {
+  final UsulanKegiatan usulanKegiatan;
+
+  const SaveUsulanKegiatanLastPageEvent({required this.usulanKegiatan});
+
+  @override
+  List<Object> get props => [usulanKegiatan];
+}

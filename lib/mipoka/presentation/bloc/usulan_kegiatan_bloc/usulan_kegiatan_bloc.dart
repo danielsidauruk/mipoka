@@ -72,5 +72,65 @@ class UsulanKegiatanBloc
         (_) => emit(UsulanKegiatanDeleted()),
       );
     });
+
+    on<SaveUsulanKegiatanFirstPageEvent>((event, emit) async {
+      emit(UsulanKegiatanLoading());
+
+      final result = await usulanKegiatanUseCase
+          .updateUsulanKegiatan(event.usulanKegiatan);
+
+      result.fold(
+            (failure) => emit(UsulanKegiatanError(message: failure.message)),
+            (_) => emit(SaveUsulanKegiatanFirstPageSuccess()),
+      );
+    });
+
+    on<ManagePartisipanEvent>((event, emit) async {
+      emit(UsulanKegiatanLoading());
+
+      final result = await usulanKegiatanUseCase
+          .updateUsulanKegiatan(event.usulanKegiatan);
+
+      result.fold(
+            (failure) => emit(UsulanKegiatanError(message: failure.message)),
+            (_) => emit(ManagePartisipanSuccess()),
+      );
+    });
+
+    on<ManageBiayaKegiatanEvent>((event, emit) async {
+      emit(UsulanKegiatanLoading());
+
+      final result = await usulanKegiatanUseCase
+          .updateUsulanKegiatan(event.usulanKegiatan);
+
+      result.fold(
+            (failure) => emit(UsulanKegiatanError(message: failure.message)),
+            (_) => emit(ManageBiayaKegiatanSuccess()),
+      );
+    });
+
+    on<ManageTertibAcaraEvent>((event, emit) async {
+      emit(UsulanKegiatanLoading());
+
+      final result = await usulanKegiatanUseCase
+          .updateUsulanKegiatan(event.usulanKegiatan);
+
+      result.fold(
+            (failure) => emit(UsulanKegiatanError(message: failure.message)),
+            (_) => emit(ManageTertibAcaraSuccess()),
+      );
+    });
+
+    on<SaveUsulanKegiatanLastPageEvent>((event, emit) async {
+      emit(UsulanKegiatanLoading());
+
+      final result = await usulanKegiatanUseCase
+          .updateUsulanKegiatan(event.usulanKegiatan);
+
+      result.fold(
+            (failure) => emit(UsulanKegiatanError(message: failure.message)),
+            (_) => emit(SaveUsulanKegiatanLastPageSuccess()),
+      );
+    });
   }
 }

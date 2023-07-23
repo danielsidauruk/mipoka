@@ -50,3 +50,15 @@ class UsulanKegiatanSuccess extends UsulanKegiatanState {
 class UsulanKegiatanDeleted extends UsulanKegiatanState {}
 
 class UpdateUsulanKegiatanSuccess extends UsulanKegiatanState {}
+
+
+
+class SaveUsulanKegiatanFirstPageSuccess extends UsulanKegiatanState {}
+
+class ManagePartisipanSuccess extends UsulanKegiatanState {}
+
+class ManageBiayaKegiatanSuccess extends UsulanKegiatanState {}
+
+class ManageTertibAcaraSuccess extends UsulanKegiatanState {}
+
+class SaveUsulanKegiatanLastPageSuccess extends UsulanKegiatanState {}
