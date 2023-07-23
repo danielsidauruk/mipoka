@@ -248,11 +248,11 @@ class _PenggunaPengajuanUsulanKegiatan1State
                     //       .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
                     // }
                   } else if (state is UpdateUsulanKegiatanSuccess) {
-                    await Navigator.pushNamed(
-                      context,
-                      penggunaPengajuanUsulanKegiatan2DKPageRoute,
-                      arguments: widget.usulanArgs,
-                    );
+                    //  await Navigator.pushNamed(
+                    //   context,
+                    //   penggunaPengajuanUsulanKegiatan2LKPageRoute,
+                    //   arguments: widget.usulanArgs,
+                    // );
 
                   } else if (state is UsulanKegiatanDeleted) {
                     mipokaCustomToast("Usulan Kegiatan telah dihapus.");
@@ -625,6 +625,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                 }
 
                                 if (context.mounted) {
+
                                   context.read<UsulanKegiatanBloc>().add(
                                     UpdateUsulanKegiatanEvent(
                                       usulanKegiatan: usulanKegiatan.copyWith(
@@ -655,6 +656,14 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                       ),
                                     ),
                                   );
+
+                                  Future.delayed(const Duration(seconds: 3), () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      penggunaPengajuanUsulanKegiatan2DKPageRoute,
+                                      arguments: widget.usulanArgs,
+                                    );
+                                  });
                                 }
                               },
                               text: 'Berikutnya',

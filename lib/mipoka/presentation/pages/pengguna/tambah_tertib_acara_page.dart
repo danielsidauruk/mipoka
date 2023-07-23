@@ -128,8 +128,6 @@ class _TambahTertibAcaraPageState extends State<TambahTertibAcaraPage> {
                                 ),
                               ),
                             );
-
-                            Navigator.po
                           } else {
                             mipokaCustomToast(emptyFieldMessage);
                           }

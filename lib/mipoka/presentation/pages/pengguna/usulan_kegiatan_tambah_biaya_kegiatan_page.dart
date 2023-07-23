@@ -137,7 +137,7 @@ class _UsulanKegiatanTambahBiayaKegiatanPageState extends State<UsulanKegiatanTa
                         listenWhen: (prev, current) =>
                         prev.runtimeType != current.runtimeType,
                         listener: (context, state) {
-                          if (state is UsulanKegiatanSuccess) {
+                          if (state is UpdateUsulanKegiatanSuccess) {
 
                             mipokaCustomToast("Biaya Kegiatan telah ditambah.");
                             Navigator.pop(context);
