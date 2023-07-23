@@ -432,8 +432,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                         latarBelakang: _latarBelakangController.text,
                                         tujuanKegiatan: _tujuanKegiatanController.text,
                                         manfaatKegiatan: _manfaatKegiatanController.text,
-                                        bentukKegiatan: _bentukPelaksanaanKegiatanController.text,
-                                        targetKegiatan: _targetPencapaianKegiatanController.text,
+                                        bentukPelaksanaanKegiatan: _bentukPelaksanaanKegiatanController.text,
+                                        targetPencapaianKegiatan: _targetPencapaianKegiatanController.text,
                                         waktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
                                         rencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
                                         perlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
@@ -444,6 +444,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                         fotoTempatKegiatan: _fotoTempatKegiatanController,
                                         updatedAt: currentDate,
                                         updatedBy: user?.email,
+
                                       ),
                                     ),
                                   );
@@ -521,6 +522,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                   print("Foto Tempat Kegiatan : $_fotoTempatKegiatanController");
 
                                   if (context.mounted) {
+                                    int totalBiaya = usulanKegiatan.biayaKegiatan.fold(0, (sum, biayaKegiatan) => sum + biayaKegiatan.total);
+
                                     context.read<UsulanKegiatanBloc>().add(
                                       SaveAndSendLastPageEvent(
                                         usulanKegiatan: usulanKegiatan.copyWith(
@@ -537,7 +540,9 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                           fotoSuratUndanganKegiatan: _suratUndanganKegiatanController,
                                           fotoLinimasaKegiatan: _linimasaKegiatanController,
                                           fotoTempatKegiatan: _fotoTempatKegiatanController,
+                                          totalBiaya: totalBiaya,
                                           updatedAt: currentDate,
+                                          updatedBy: user?.email,
                                         ),
                                       ),
                                     );

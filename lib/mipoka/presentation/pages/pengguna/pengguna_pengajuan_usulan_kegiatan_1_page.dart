@@ -180,7 +180,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
   }
 
   Ormawa? _ormawa;
-  String? _pembiayaanController;
+  String _pembiayaanController = listPembiayaan[0];
   final TextEditingController _namaKegiatanController = TextEditingController();
   String? _bentukKegiatanController;
   bool? _bentukKegiatanSwitchController;
@@ -334,7 +334,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                           items: listPembiayaan,
                           initialItem: _pembiayaanController,
                           onValueChanged: (value) {
-                            _pembiayaanController = value;
+                            _pembiayaanController = value ?? "";
                           },
                         ),
 
