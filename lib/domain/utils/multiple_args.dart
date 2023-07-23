@@ -1,34 +1,32 @@
-import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
-import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
-import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
+import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 
 class PartisipanArgs {
-  final Partisipan partisipan;
-  final int id;
+  final int index;
+  final UsulanKegiatan usulanKegiatan;
 
   PartisipanArgs({
-    required this.partisipan, 
-    required this.id,
+    required this.index,
+    required this.usulanKegiatan,
   });
 }
 
 class BiayaKegiatanArgs {
-  final BiayaKegiatan biayaKegiatan;
-  final int id;
+  final int index;
+  final UsulanKegiatan usulanKegiatan;
 
   BiayaKegiatanArgs({
-    required this.biayaKegiatan,
-    required this.id,
+    required this.index,
+    required this.usulanKegiatan,
   });
 }
 
 class TertibAcaraArgs {
-  final TertibAcara tertibAcara;
-  final int id;
+  final int index;
+  final UsulanKegiatan usulanKegiatan;
 
   TertibAcaraArgs({
-    required this.tertibAcara,
-    required this.id,
+    required this.index,
+    required this.usulanKegiatan,
   });
 }
 

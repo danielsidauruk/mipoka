@@ -19,8 +19,10 @@ class UsulanKegiatanBloc
 
       final result = await usulanKegiatanUseCase.readUsulanKegiatan(event.idUsulanKegiatan);
 
-      result.fold((failure) => emit(UsulanKegiatanError(message: failure.message)),
-              (usulanKegiatan) => emit(UsulanKegiatanHasData(usulanKegiatan: usulanKegiatan)));
+      result.fold(
+            (failure) => emit(UsulanKegiatanError(message: failure.message)),
+            (usulanKegiatan) => emit(UsulanKegiatanHasData(usulanKegiatan: usulanKegiatan)),
+      );
     });
 
     on<ReadAllUsulanKegiatanEvent>((event, emit) async {

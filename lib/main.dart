@@ -16,6 +16,7 @@ import 'package:mipoka/mipoka/domain/entities/prestasi.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
+import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiatan_bloc.dart';
@@ -250,10 +251,10 @@ class MyApp extends StatelessWidget {
                       usulanArgs: usulanArgs
                   ));
             case tambahDataPesertaLuarKotaPageRoute:
-              final idUsulanKegiatan = settings.arguments as int;
+              final usulanKegiatan = settings.arguments as UsulanKegiatan;
               return MaterialPageRoute(
                 builder: (_) => TambahDataPesertaLuarKotaPage(
-                    idUsulanKegiatan: idUsulanKegiatan),
+                    usulanKegiatan: usulanKegiatan),
               );
             case editDataPesertaLuarKotaPageRoute:
               final partisipanArgs = settings.arguments as PartisipanArgs;
@@ -267,20 +268,20 @@ class MyApp extends StatelessWidget {
                     usulanArgs: usulanArgs),
               );
             case tambahDataPesertaDalamKotaPageRoute:
-              final idUsulanKegiatan = settings.arguments as int;
+              final usulanKegiatan = settings.arguments as UsulanKegiatan;
               return MaterialPageRoute(
-                  builder: (_) => TambahDataPesertaDalamKota(idUsulanKegiatan: idUsulanKegiatan));
+                  builder: (_) => TambahDataPesertaDalamKota(usulanKegiatan: usulanKegiatan));
             case editDataPesertaDalamKotaPageRoute:
               final partisipanArgs = settings.arguments as PartisipanArgs;
               return MaterialPageRoute(
                 builder: (_) => EditDataPesertaDalamKota(
-                  multipleArgs: partisipanArgs,
+                  partisipanArgs: partisipanArgs,
                 ),
               );
             case penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute:
-              final idUsulanKegiatan = settings.arguments as int;
+              final usulanKegiatan = settings.arguments as UsulanKegiatan;
               return MaterialPageRoute(
-                builder: (_) => UsulanKegiatanTambahBiayaKegiatanPage(idUsulanKegiatan: idUsulanKegiatan),
+                builder: (_) => UsulanKegiatanTambahBiayaKegiatanPage(usulanKegiatan: usulanKegiatan),
               );
             case usulanKegiatanEditBiayaKegiatanPageRoute:
               final biayaKegiatanArgs = settings.arguments as BiayaKegiatanArgs;
@@ -302,9 +303,9 @@ class MyApp extends StatelessWidget {
             //       builder: (_) =>
             //           PenggunaPengajuanUsulanKegiatan3TertibAcara(idUsulanKegiatan: idUsulanKegiatan));
             case tambahTertibAcaraPageRoute:
-              final idUsulanKegiatan = settings.arguments as int;
+              final usulanKegiatan = settings.arguments as UsulanKegiatan;
               return MaterialPageRoute(
-                  builder: (_) => TambahTertibAcaraPage(idUsulanKegiatan: idUsulanKegiatan));
+                  builder: (_) => TambahTertibAcaraPage(usulanKegiatan: usulanKegiatan));
             case editTertibAcaraPageRoute:
               final tertibAcara = settings.arguments as TertibAcara;
               return MaterialPageRoute(

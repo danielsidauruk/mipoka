@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
+import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -18,10 +20,10 @@ import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 class TambahTertibAcaraPage extends StatefulWidget {
   const TambahTertibAcaraPage({
     super.key,
-    required this.idUsulanKegiatan,
+    required this.usulanKegiatan,
   });
 
-  final int idUsulanKegiatan;
+  final UsulanKegiatan usulanKegiatan;
 
   @override
   State<TambahTertibAcaraPage> createState() => _TambahTertibAcaraPageState();
@@ -31,9 +33,6 @@ class _TambahTertibAcaraPageState extends State<TambahTertibAcaraPage> {
 
   @override
   void initState() {
-    BlocProvider.of<UsulanKegiatanBloc>(context).add(
-      ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulanKegiatan),
-    );
     super.initState();
   }
 
@@ -62,68 +61,67 @@ class _TambahTertibAcaraPageState extends State<TambahTertibAcaraPage> {
 
               const CustomFieldSpacer(),
 
-              BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
-                builder: (context, state) {
-                  if (state is UsulanKegiatanLoading) {
-                    return const Text('Loading ...');
-                  } else if (state is UsulanKegiatanHasData) {
-                    return CustomContentBox(
-                      children: [
+              CustomContentBox(
+                children: [
 
-                        customBoxTitle('Tambah Tertib Acara'),
+                  customBoxTitle('Tambah Tertib Acara'),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Waktu Mulai'),
-                        CustomTimePickerField(controller: _waktuMulaiController),
+                  buildTitle('Waktu Mulai'),
+                  CustomTimePickerField(controller: _waktuMulaiController),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Waktu Selesai'),
-                        CustomTimePickerField(
-                            controller: _waktuSelesaiController),
+                  buildTitle('Waktu Selesai'),
+                  CustomTimePickerField(
+                      controller: _waktuSelesaiController),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Aktivitas'),
-                        CustomTextField(controller: _aktivitasController),
+                  buildTitle('Aktivitas'),
+                  CustomTextField(controller: _aktivitasController),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        buildTitle('Keterangan'),
-                        CustomTextField(controller: _keteranganController),
+                  buildTitle('Keterangan'),
+                  CustomTextField(controller: _keteranganController),
 
-                        const CustomFieldSpacer(),
+                  const CustomFieldSpacer(),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            CustomMipokaButton(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              text: 'Kembali',
-                            ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomMipokaButton(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        text: 'Kembali',
+                      ),
 
-                            const SizedBox(width: 8.0),
+                      const SizedBox(width: 8.0),
 
-                            // CustomMipokaButton(
-                            //   onTap: () {
-                            //
-                            //     Navigator.pop(context);
-                            //   },
-                            //   text: 'Tambahkan Peserta',
-                            // ),
-                            CustomMipokaButton(
-                              onTap: () => (_waktuMulaiController.text.isNotEmpty && _waktuSelesaiController.text.isNotEmpty
-                                  && _aktivitasController.text.isNotEmpty && _keteranganController.text.isNotEmpty) ?
-                              Future.microtask(() {
-                                mipokaCustomToast("Tertib Acara telah diupdate.");
-                                context.read<TertibAcaraBloc>().add(
-                                  CreateTertibAcaraEvent(
-                                    idUsulanKegiatan: widget.idUsulanKegiatan,
-                                    tertibAcara: TertibAcara(
-                                      idTertibAcara: newId,
+                      // CustomMipokaButton(
+                      //   onTap: () {
+                      //
+                      //     Navigator.pop(context);
+                      //   },
+                      //   text: 'Tambahkan Peserta',
+                      // ),
+                      CustomMipokaButton(
+                        onTap: () {
+                          if (_waktuMulaiController.text.isNotEmpty && _waktuSelesaiController.text.isNotEmpty
+                              && _aktivitasController.text.isNotEmpty && _keteranganController.text.isNotEmpty)
+                          {
+                            int uniqueId = UniqueIdGenerator.generateUniqueId();
+
+                            context.read<UsulanKegiatanBloc>().add(
+                              UpdateUsulanKegiatanEvent(
+                                usulanKegiatan: widget.usulanKegiatan.copyWith(
+                                  tertibAcara: [
+                                    ...widget.usulanKegiatan.tertibAcara,
+                                    TertibAcara(
+                                      idTertibAcara: uniqueId,
                                       waktuMulai: _waktuMulaiController.text,
                                       waktuSelesai: _waktuSelesaiController.text,
                                       aktivitas: _aktivitasController.text,
@@ -133,23 +131,34 @@ class _TambahTertibAcaraPageState extends State<TambahTertibAcaraPage> {
                                       updatedAt: currentDate,
                                       updatedBy: user?.email ?? "unknown",
                                     ),
-                                  ),
-                                );
-                                Navigator.pop(context);
-                              }) :
-                              mipokaCustomToast(emptyFieldMessage),
-                              text: 'Tambahkan Peserta',
-                            ),
-                          ],
-                        ),
-                      ],
-                    );
-                  } else if (state is UsulanKegiatanError) {
-                    return Text(state.message);
-                  } else {
-                    return const Text('IDK Tambah Tertib Acara');
-                  }
-                },
+                                  ],
+                                ),
+                              ),
+                            );
+                          } else {
+                            mipokaCustomToast(emptyFieldMessage);
+                          }
+                        },
+                        text: 'Tambahkan Tertib Acara',
+                      ),
+
+                      BlocListener<UsulanKegiatanBloc, UsulanKegiatanState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
+                          if (state is UsulanKegiatanSuccess) {
+                            mipokaCustomToast("Tertib Acara telah ditambahkan");
+                            Navigator.pop(context);
+                          }
+                          else if (state is UsulanKegiatanError) {
+                            mipokaCustomToast(state.message);
+                          }
+                        },
+                        child: const SizedBox(),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),

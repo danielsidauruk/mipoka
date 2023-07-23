@@ -38,7 +38,6 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
 
   @override
   void dispose() {
-    mipokaCustomToast('Sedang menyimpan data...', time: 5);
     context.read<UsulanKegiatanBloc>().close();
     super.dispose();
   }
@@ -57,11 +56,28 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                 text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
             const CustomFieldSpacer(),
             Expanded(
-              child: BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+              child: BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
+                listenWhen: (prev, current) =>
+                prev.runtimeType != current.runtimeType,
+                listener: (context, state) {
+                  if (state is UsulanKegiatanSuccess) {
+
+                    mipokaCustomToast('Data telah berubah.');
+                    context.read<UsulanKegiatanBloc>().add(
+                        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+
+                  }
+                  else if (state is UsulanKegiatanError) {
+                    mipokaCustomToast(state.message);
+                  }
+                },
+
                 builder: (context, state) {
                   if (state is UsulanKegiatanLoading) {
                     return const Text('Loading ...');
                   } else if (state is UsulanKegiatanHasData) {
+                    final usulanKegiatan = state.usulanKegiatan;
+
                     return CustomContentBox(
                       children: [
                         buildTitle('Data Peserta Kegiatan (Luar Kota)'),
@@ -75,7 +91,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                           onPressed: () => Navigator.pushNamed(
                             context,
                             tambahDataPesertaLuarKotaPageRoute,
-                            arguments: widget.usulanArgs.idUsulan,
+                            arguments: usulanKegiatan,
                           ),
                         ),
                         const CustomFieldSpacer(),
@@ -171,8 +187,8 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                                               context,
                                               editDataPesertaLuarKotaPageRoute,
                                               arguments: PartisipanArgs(
-                                                partisipan: partisipan,
-                                                id: widget.usulanArgs.idUsulan,
+                                                index: index,
+                                                usulanKegiatan: usulanKegiatan,
                                               ),
                                             );
                                           },
@@ -224,11 +240,21 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                                         ),
                                       ),
                                       DataCell(
-                                        onTap: () => Future.microtask(() {
-                                          context.read<PartisipanBloc>().add(
-                                              DeletePartisipanEvent(partisipan.idPartisipan));
+                                        onTap: () {
                                           mipokaCustomToast('${partisipan.namaPartisipan} has been deleted.');
-                                        }),
+
+                                          final partisipanList = usulanKegiatan.partisipan;
+
+                                          partisipanList.removeAt(index);
+
+                                          context.read<UsulanKegiatanBloc>().add(
+                                            UpdateUsulanKegiatanEvent(
+                                              usulanKegiatan: usulanKegiatan.copyWith(
+                                                partisipan: partisipanList,
+                                              ),
+                                            ),
+                                          );
+                                        },
                                         Align(
                                           alignment: Alignment.center,
                                           child: Image.asset(
@@ -258,7 +284,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                           onPressed: () => Navigator.pushNamed(
                             context,
                             penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute,
-                            arguments: widget.usulanArgs.idUsulan,
+                            arguments: usulanKegiatan,
                           ),
                         ),
                         const CustomFieldSpacer(),
@@ -350,8 +376,8 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                                                 context,
                                                 usulanKegiatanEditBiayaKegiatanPageRoute,
                                                 arguments: BiayaKegiatanArgs(
-                                                  biayaKegiatan: biayaKegiatan,
-                                                  id: widget.usulanArgs.idUsulan,
+                                                  index: index,
+                                                  usulanKegiatan: usulanKegiatan,
                                                 ),
                                               ),
                                               Align(
@@ -400,11 +426,19 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                                               ),
                                             ),
                                             DataCell(
-                                              onTap: () => Future.microtask(() {
-                                                context.read<BiayaKegiatanBloc>().add(
-                                                    DeleteBiayaKegiatanEvent(biayaKegiatan.idBiayaKegiatan));
-                                                mipokaCustomToast("${biayaKegiatan.namaBiayaKegiatan} telah dihapus.");
-                                              }),
+                                              onTap: () {
+                                                final biayaKegiatanList = usulanKegiatan.biayaKegiatan;
+
+                                                biayaKegiatanList.removeAt(index);
+
+                                                context.read<UsulanKegiatanBloc>().add(
+                                                  UpdateUsulanKegiatanEvent(
+                                                    usulanKegiatan: usulanKegiatan.copyWith(
+                                                      biayaKegiatan: biayaKegiatanList,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
                                               Align(
                                                 alignment: Alignment.center,
                                                 child: Image.asset(

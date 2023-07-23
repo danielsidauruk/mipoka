@@ -50,16 +50,35 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const CustomMobileTitle(
                 text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
-            const SizedBox(height: 8.0),
-            BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+
+            const CustomFieldSpacer(),
+
+            BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
+              listenWhen: (prev, current) =>
+              prev.runtimeType != current.runtimeType,
+              listener: (context, state) {
+                if (state is UsulanKegiatanSuccess) {
+
+                  mipokaCustomToast('Data telah berubah.');
+                  context.read<UsulanKegiatanBloc>().add(
+                      ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+
+                }
+                else if (state is UsulanKegiatanError) {
+                  mipokaCustomToast(state.message);
+                }
+              },
+
               builder: (context, state) {
                 if (state is UsulanKegiatanLoading) {
                   return const Text('Loading ...');
                 } else if (state is UsulanKegiatanHasData) {
+                  final usulanKegiatan = state.usulanKegiatan;
+
                   return Expanded(
                     child: CustomContentBox(
                       children: [
@@ -74,7 +93,7 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                           onPressed: () => Navigator.pushNamed(
                             context,
                             tambahDataPesertaDalamKotaPageRoute,
-                            arguments: widget.usulanArgs.idUsulan,
+                            arguments: usulanKegiatan,
                           ).then((_) => context.read<UsulanKegiatanBloc>().add(
                               ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
                         ),
@@ -155,8 +174,8 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                               context,
                                               editDataPesertaDalamKotaPageRoute,
                                               arguments: PartisipanArgs(
-                                                partisipan: partisipan,
-                                                id: widget.usulanArgs.idUsulan,
+                                                index: index,
+                                                usulanKegiatan: usulanKegiatan,
                                               ),
                                             ).then((_) => context.read<UsulanKegiatanBloc>().add(
                                                 ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
@@ -198,12 +217,18 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                           ),
                                         ),
                                         DataCell(
-                                          onTap: (){
-                                            context.read<PartisipanBloc>().add(
-                                                DeletePartisipanEvent(partisipan.idPartisipan));
+                                          onTap: () {
+                                            final partisipanList = usulanKegiatan.partisipan;
+
+                                            partisipanList.removeAt(index);
+
                                             context.read<UsulanKegiatanBloc>().add(
-                                                ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
-                                            mipokaCustomToast('${partisipan.namaPartisipan} has been deleted.');
+                                              UpdateUsulanKegiatanEvent(
+                                                usulanKegiatan: usulanKegiatan.copyWith(
+                                                  partisipan: partisipanList,
+                                                ),
+                                              ),
+                                            );
                                           },
                                           Align(
                                             alignment: Alignment.center,
@@ -232,7 +257,7 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                           onPressed: () => Navigator.pushNamed(
                             context,
                             penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute,
-                            arguments: widget.usulanArgs.idUsulan,
+                            arguments: usulanKegiatan,
                           ).then((_) => context.read<UsulanKegiatanBloc>().add(
                               ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)))
                         ),
@@ -325,8 +350,8 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                                 context,
                                                 usulanKegiatanEditBiayaKegiatanPageRoute,
                                                 arguments: BiayaKegiatanArgs(
-                                                  biayaKegiatan: biayaKegiatan,
-                                                  id: widget.usulanArgs.idUsulan,
+                                                  index: index,
+                                                  usulanKegiatan: usulanKegiatan,
                                                 ),
                                               ).then((_) => context.read<UsulanKegiatanBloc>().add(
                                                   ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
@@ -376,13 +401,19 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                               ),
                                             ),
                                             DataCell(
-                                              onTap: () => Future.microtask(() {
-                                                context.read<BiayaKegiatanBloc>().add(
-                                                    DeleteBiayaKegiatanEvent(biayaKegiatan.idBiayaKegiatan));
+                                              onTap: () {
+                                                final biayaKegiatanList = usulanKegiatan.biayaKegiatan;
+
+                                                biayaKegiatanList.removeAt(index);
+
                                                 context.read<UsulanKegiatanBloc>().add(
-                                                    ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
-                                                mipokaCustomToast("${biayaKegiatan.namaBiayaKegiatan} telah dihapus.");
-                                              }),
+                                                  UpdateUsulanKegiatanEvent(
+                                                    usulanKegiatan: usulanKegiatan.copyWith(
+                                                      biayaKegiatan: biayaKegiatanList,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
                                               Align(
                                                 alignment: Alignment.center,
                                                 child: Image.asset(
@@ -394,6 +425,7 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                           ],
                                         );
                                       }),
+
                                     ),
                                   ),
                                 ),

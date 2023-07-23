@@ -4,7 +4,6 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
 import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -104,26 +103,28 @@ class _EditTertibAcaraPageState extends State<EditTertibAcaraPage> {
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => (_waktuMulaiController.text.isNotEmpty && _waktuSelesaiController.text.isNotEmpty
-                            && _aktivitasController.text.isNotEmpty && _keteranganController.text.isNotEmpty) ?
-                        Future.microtask(() {
-                          mipokaCustomToast("Tertib Acara telah diupdate.");
-                          context.read<TertibAcaraBloc>().add(
-                            UpdateTertibAcaraEvent(
-                              tertibAcara: widget.tertibAcara.copyWith(
-                                waktuMulai: _waktuMulaiController.text,
-                                waktuSelesai: _waktuSelesaiController.text,
-                                aktivitas: _aktivitasController.text,
-                                keterangan: _keteranganController.text,
-                                updatedAt: currentDate,
-                                updatedBy: user?.email ?? "unknown",
+                        onTap: () {
+                          if (_waktuMulaiController.text.isNotEmpty && _waktuSelesaiController.text.isNotEmpty
+                              && _aktivitasController.text.isNotEmpty && _keteranganController.text.isNotEmpty)
+                          {
+                            mipokaCustomToast("Tertib Acara telah diupdate.");
+                            context.read<TertibAcaraBloc>().add(
+                              UpdateTertibAcaraEvent(
+                                tertibAcara: widget.tertibAcara.copyWith(
+                                  waktuMulai: _waktuMulaiController.text,
+                                  waktuSelesai: _waktuSelesaiController.text,
+                                  aktivitas: _aktivitasController.text,
+                                  keterangan: _keteranganController.text,
+                                  updatedAt: currentDate,
+                                  updatedBy: user?.email ?? "unknown",
+                                ),
                               ),
-                            ),
-                          );
-                          Navigator.pop(context);
-                        }) :
-                        mipokaCustomToast(emptyFieldMessage),
-
+                            );
+                            Navigator.pop(context);
+                          } else {
+                            mipokaCustomToast(emptyFieldMessage);
+                          }
+                        },
                         text: 'Tambahkan Peserta',
                       ),
                     ],

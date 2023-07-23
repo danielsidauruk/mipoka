@@ -73,14 +73,12 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
 
                       CustomAddButton(
                         buttonText: 'Tertib Acara',
-                        onPressed: () => Future.microtask(() {
-                          Navigator.pushNamed(
-                            context,
-                            tambahTertibAcaraPageRoute,
-                            arguments: widget.usulanArgs,
-                          ).then((_) => context.read<UsulanKegiatanBloc>()
-                              .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
-                        }),
+                        onPressed: () => Navigator.pushNamed(
+                          context,
+                          tambahTertibAcaraPageRoute,
+                          arguments: usulanKegiatan,
+                        ).then((_) => context.read<UsulanKegiatanBloc>()
+                            .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
                       ),
 
                       const CustomFieldSpacer(),
@@ -130,7 +128,7 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Aksi',
+                                  "",
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                   textAlign: TextAlign.center,
                                 ),
