@@ -48,3 +48,5 @@ class UsulanKegiatanSuccess extends UsulanKegiatanState {
 }
 
 class UsulanKegiatanDeleted extends UsulanKegiatanState {}
+
+class UpdateUsulanKegiatanSuccess extends UsulanKegiatanState {}

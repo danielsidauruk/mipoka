@@ -122,32 +122,39 @@ class _EditDataPesertaDalamKotaState extends State<EditDataPesertaDalamKota> {
 
                             usulanKegiatan.partisipan[widget.partisipanArgs.index] = PartisipanModel.fromEntity(newPartisipan);
 
-                            context.read<UsulanKegiatanBloc>().add(
-                              UpdateUsulanKegiatanEvent(
-                                usulanKegiatan: usulanKegiatan.copyWith(
-                                  partisipan: usulanKegiatan.partisipan,
-                                ),
+                            Navigator.pop(
+                              context,
+                              usulanKegiatan.copyWith(
+                                partisipan: usulanKegiatan.partisipan,
                               ),
                             );
+
+                            // context.read<UsulanKegiatanBloc>().add(
+                            //   UpdateUsulanKegiatanEvent(
+                            //     usulanKegiatan: usulanKegiatan.copyWith(
+                            //       partisipan: usulanKegiatan.partisipan,
+                            //     ),
+                            //   ),
+                            // );
                           }
                         },
                         text: 'Simpan',
                       ),
 
-                      BlocListener<UsulanKegiatanBloc, UsulanKegiatanState>(
-                        listenWhen: (prev, current) =>
-                        prev.runtimeType != current.runtimeType,
-                        listener: (context, state) {
-                          if (state is UsulanKegiatanSuccess) {
-                            mipokaCustomToast("Data Peserta telah diupdate");
-                            Navigator.pop(context);
-                          }
-                          else if (state is UsulanKegiatanError) {
-                            mipokaCustomToast(state.message);
-                          }
-                        },
-                        child: const SizedBox(),
-                      ),
+                      // BlocListener<UsulanKegiatanBloc, UsulanKegiatanState>(
+                      //   listenWhen: (prev, current) =>
+                      //   prev.runtimeType != current.runtimeType,
+                      //   listener: (context, state) {
+                      //     if (state is UsulanKegiatanSuccess) {
+                      //       mipokaCustomToast("Data Peserta telah diupdate");
+                      //       Navigator.pop(context);
+                      //     }
+                      //     else if (state is UsulanKegiatanError) {
+                      //       mipokaCustomToast(state.message);
+                      //     }
+                      //   },
+                      //   child: const SizedBox(),
+                      // ),
                     ],
                   ),
                 ],

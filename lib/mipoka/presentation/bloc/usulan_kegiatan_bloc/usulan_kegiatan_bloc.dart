@@ -57,7 +57,7 @@ class UsulanKegiatanBloc
 
       result.fold(
         (failure) => emit(UsulanKegiatanError(message: failure.message)),
-        (message) => emit(const UsulanKegiatanSuccess()),
+        (_) => emit(UpdateUsulanKegiatanSuccess()),
       );
     });
 

@@ -61,8 +61,8 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                 if (state is UsulanKegiatanSuccess) {
 
                   mipokaCustomToast('Data telah berubah.');
-                  context.read<UsulanKegiatanBloc>().add(
-                      ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+                  // context.read<UsulanKegiatanBloc>().add(
+                  //     ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
 
                 }
                 else if (state is UsulanKegiatanError) {
@@ -91,8 +91,9 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                           context,
                           tambahTertibAcaraPageRoute,
                           arguments: usulanKegiatan,
-                        ).then((_) => context.read<UsulanKegiatanBloc>()
-                            .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
+                        )
+                            // .then((_) => context.read<UsulanKegiatanBloc>()
+                            // .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
                       ),
 
                       const CustomFieldSpacer(),

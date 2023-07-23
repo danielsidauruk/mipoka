@@ -37,10 +37,8 @@ class _PenggunaDaftarPengajuanKegiatanState
 
   @override
   void initState() {
-    Future.microtask(() {
-      context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
-      context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: user!.uid));
-    });
+    context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+    context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: user!.uid));
     super.initState();
   }
 
@@ -75,14 +73,32 @@ class _PenggunaDaftarPengajuanKegiatanState
                     items: listStatus,
                     onValueChanged: (value) {
                       _filter = value;
-                      context.read<UsulanKegiatanBloc>().add(
-                        ReadAllUsulanKegiatanEvent(filter: _filter!),
-                      );
+                      // context.read<UsulanKegiatanBloc>().add(
+                      //   ReadAllUsulanKegiatanEvent(filter: _filter!),
+                      // );
                     },
                   ),
                   const CustomFieldSpacer(),
 
-                  BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+                  BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) {
+
+                      if (state is UsulanKegiatanSuccess) {
+                        Navigator.pushNamed(
+                          context,
+                          penggunaPengajuanUsulanKegiatanPage1Route,
+                          arguments: UsulanArgs(idUsulan: uniqueId),
+                        );
+                            // .then((_) => context.read<UsulanKegiatanBloc>().add(
+                            // ReadAllUsulanKegiatanEvent(filter: _filter!)));
+
+                      } else if (state is UsulanKegiatanError) {
+                        mipokaCustomToast(state.message);
+                      }
+
+                    },
                     builder: (context, state) {
                       if (state is UsulanKegiatanLoading) {
                         return const Text('Loading');
@@ -309,9 +325,9 @@ class _PenggunaDaftarPengajuanKegiatanState
                                     fotoLinimasaKegiatan: "",
                                     fotoTempatKegiatan: "",
                                     fileUsulanKegiatan: "",
-                                    validasiPembina: "",
+                                    validasiPembina: tertunda,
                                     tandaTanganPembina: "",
-                                    statusUsulan: "",
+                                    statusUsulan: tertunda,
                                     roles: "",
                                     createdAt: currentDate,
                                     updatedAt: currentDate,
@@ -333,25 +349,6 @@ class _PenggunaDaftarPengajuanKegiatanState
                         return const Text("MipokaUserBloc hasn't been triggered.");
                       }
                     },
-                  ),
-
-                  BlocListener<UsulanKegiatanBloc, UsulanKegiatanState>(
-                    listenWhen: (prev, current) =>
-                    prev.runtimeType != current.runtimeType,
-                    listener: (context, state) {
-                      if (state is UsulanKegiatanSuccess) {
-                        Navigator.pushNamed(
-                          context,
-                          penggunaPengajuanUsulanKegiatanPage1Route,
-                          arguments: UsulanArgs(idUsulan: uniqueId),
-                        ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                            ReadAllUsulanKegiatanEvent(filter: _filter!)));
-
-                      } else if (state is UsulanKegiatanError) {
-                        mipokaCustomToast(state.message);
-                      }
-                    },
-                    child: const SizedBox(),
                   ),
                 ],
               ),

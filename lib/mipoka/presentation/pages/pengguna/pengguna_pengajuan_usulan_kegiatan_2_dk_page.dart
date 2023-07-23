@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
-import 'package:mipoka/mipoka/presentation/bloc/biaya_kegiatan_bloc/biaya_kegiatan_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/partisipan_bloc/partisipan_bloc.dart';
+import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -29,6 +28,7 @@ class PenggunaPengajuanUsulanKegiatan2DK extends StatefulWidget {
 
 class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUsulanKegiatan2DK> {
 
+
   @override
   void initState() {
     context.read<UsulanKegiatanBloc>().add(
@@ -44,6 +44,8 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
 
   @override
   Widget build(BuildContext context) {
+    print ("page 2 dk reloaded");
+
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomPenggunaDrawerWidget(),
@@ -57,25 +59,31 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
 
             const CustomFieldSpacer(),
 
-            BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
-              listenWhen: (prev, current) =>
-              prev.runtimeType != current.runtimeType,
-              listener: (context, state) {
-                if (state is UsulanKegiatanSuccess) {
-
-                  mipokaCustomToast('Data telah berubah.');
-                  context.read<UsulanKegiatanBloc>().add(
-                      ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
-
-                }
-                else if (state is UsulanKegiatanError) {
-                  mipokaCustomToast(state.message);
-                }
-              },
+            BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+              // listenWhen: (prev, current) =>
+              // prev.runtimeType != current.runtimeType,
+              // listener: (context, state) {
+              //   if (state is UsulanKegiatanSuccess) {
+              //
+              //     // mipokaCustomToast('Data telah berubah.');
+              //     // context.read<UsulanKegiatanBloc>().add(
+              //     //     ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+              //   } else if (state is UpdateUsulanKegiatanSuccess) {
+              //     context.read<UsulanKegiatanBloc>().add(
+              //         ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+              //   } else if (state is UsulanKegiatanError) {
+              //     mipokaCustomToast(state.message);
+              //   }
+              // },
 
               builder: (context, state) {
                 if (state is UsulanKegiatanLoading) {
                   return const Text('Loading ...');
+                } else if (state is UpdateUsulanKegiatanSuccess) {
+                  context.read<UsulanKegiatanBloc>().add(
+                      ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+
+                  return const SizedBox();
                 } else if (state is UsulanKegiatanHasData) {
                   final usulanKegiatan = state.usulanKegiatan;
 
@@ -90,12 +98,33 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
 
                         CustomAddButton(
                           buttonText: 'Data Partisipan',
-                          onPressed: () => Navigator.pushNamed(
-                            context,
-                            tambahDataPesertaDalamKotaPageRoute,
-                            arguments: usulanKegiatan,
-                          ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                              ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
+                          // onPressed: () => Navigator.pushNamed(
+                          //   context,
+                          //   tambahDataPesertaDalamKotaPageRoute,
+                          //   arguments: usulanKegiatan,
+                          // ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                          //     ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
+                          onPressed: () async {
+
+                            print("data partisipan route triggered");
+                            final result = await Navigator.pushNamed(
+                              context,
+                              tambahDataPesertaDalamKotaPageRoute,
+                              arguments: usulanKegiatan,
+                            );
+
+                            print(result?.runtimeType);
+
+                            if (result != null && result is UsulanKegiatan) {
+                              if (context.mounted) {
+                                context.read<UsulanKegiatanBloc>().add(
+                                  UpdateUsulanKegiatanEvent(
+                                    usulanKegiatan: result,
+                                  ),
+                                );
+                              }
+                            }
+                          },
                         ),
 
                         const CustomFieldSpacer(),
@@ -169,17 +198,40 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                           ),
                                         ),
                                         DataCell(
-                                          onTap: () {
-                                            Navigator.pushNamed(
+                                          // onTap: () {
+                                          //   Navigator.pushNamed(
+                                          //     context,
+                                          //     editDataPesertaDalamKotaPageRoute,
+                                          //     arguments: PartisipanArgs(
+                                          //       index: index,
+                                          //       usulanKegiatan: usulanKegiatan,
+                                          //     ),
+                                          //   ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                          //       ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
+                                          // },
+                                          onTap: () async {
+                                            final result = await Navigator.pushNamed(
                                               context,
                                               editDataPesertaDalamKotaPageRoute,
                                               arguments: PartisipanArgs(
                                                 index: index,
                                                 usulanKegiatan: usulanKegiatan,
                                               ),
-                                            ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                                ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
+                                            );
+
+                                            print("edit data partisipan route triggered");
+
+                                            if (result != null && result is UsulanKegiatan) {
+                                              if (context.mounted) {
+                                                context.read<UsulanKegiatanBloc>().add(
+                                                  UpdateUsulanKegiatanEvent(
+                                                    usulanKegiatan: result,
+                                                  ),
+                                                );
+                                              }
+                                            }
                                           },
+
                                           Align(
                                             alignment: Alignment.center,
                                             child: Text(
@@ -246,7 +298,9 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                               ),
                             ),
                         ),
+
                         const CustomFieldSpacer(),
+
                         buildTitle('Rincian Biaya Kegiatan'),
                         if (widget.usulanArgs.isRevisiUsulan == true
                             && state.usulanKegiatan.revisiUsulan?.revisiRincianBiayaKegiatan != "")
@@ -258,8 +312,9 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                             context,
                             penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute,
                             arguments: usulanKegiatan,
-                          ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                              ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)))
+                          ),
+                              // .then((_) => context.read<UsulanKegiatanBloc>().add(
+                              // ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)))
                         ),
                         const CustomFieldSpacer(),
                         Expanded(
@@ -353,8 +408,9 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                                   index: index,
                                                   usulanKegiatan: usulanKegiatan,
                                                 ),
-                                              ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                                  ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
+                                              ),
+                                                  // .then((_) => context.read<UsulanKegiatanBloc>().add(
+                                                  // ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
                                               Align(
                                                 alignment: Alignment.center,
                                                 child: Text(
@@ -437,18 +493,22 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
+
                             CustomMipokaButton(
                               onTap: () => Navigator.pop(context),
                               text: 'Sebelumnya',
                             ),
+
                             const SizedBox(width: 8.0),
+
                             CustomMipokaButton(
                               onTap: () => Navigator.pushNamed(
                                 context,
                                 penggunaPengajuanUsulanKegiatanTertibAcaraRoute,
                                 arguments: widget.usulanArgs,
-                              ).then((_) => context.read<UsulanKegiatanBloc>()
-                                  .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
+                              ),
+                    // .then((_) => context.read<UsulanKegiatanBloc>()
+                    //               .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
                               text: 'Berikutnya',
                             ),
                           ],

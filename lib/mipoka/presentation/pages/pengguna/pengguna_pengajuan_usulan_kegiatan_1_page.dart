@@ -10,7 +10,6 @@ import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/presentation/bloc/cubit/signature_cubit.dart';
-import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -167,22 +166,16 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
   @override
   void initState() {
-    Future.microtask(() {
-      context.read<UsulanKegiatanBloc>().add(
-          ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
-      context.read<MipokaUserBloc>().add(
-        ReadMipokaUserEvent(idMipokaUser: user!.uid));
-      context.read<TempatKegiatanCubit>();
-    });
+    context.read<UsulanKegiatanBloc>().add(
+        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
     super.initState();
   }
 
   @override
   void dispose() {
     context.read<UsulanKegiatanBloc>().close();
-    context.read<MipokaUserBloc>().close();
-    context.read<TempatKegiatanCubit>().close();
     _signatureDataStream.close();
+    _tempatKegiatanSwitchStream.close();
     super.dispose();
   }
 
@@ -212,10 +205,12 @@ class _PenggunaPengajuanUsulanKegiatan1State
   final TextEditingController _keteranganController = TextEditingController();
   String? _ormawaSignatureController;
 
+  final StreamController<bool> _tempatKegiatanSwitchStream = StreamController<bool>.broadcast();
+
   @override
   Widget build(BuildContext context) {
     if (kDebugMode) {
-      print('Page reloaded');
+      print('Page 1 reloaded');
     }
 
     return Scaffold(
@@ -234,23 +229,31 @@ class _PenggunaPengajuanUsulanKegiatan1State
               BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
                 listenWhen: (prev, current) =>
                 prev.runtimeType != current.runtimeType,
-                listener: (context, state) {
+                listener: (context, state) async {
                   if (state is UsulanKegiatanSuccess) {
-                    if (_tempatKegiatanSwitchController == false) {
-                      Navigator.pushNamed(
-                        context,
-                        penggunaPengajuanUsulanKegiatan2DKPageRoute,
-                        arguments: widget.usulanArgs,
-                      ).then((_) => context.read<UsulanKegiatanBloc>()
-                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
-                    } else {
-                      Navigator.pushNamed(
-                        context,
-                        penggunaPengajuanUsulanKegiatan2LKPageRoute,
-                        arguments: widget.usulanArgs,
-                      ).then((_) => context.read<UsulanKegiatanBloc>()
-                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
-                    }
+                    // if (_tempatKegiatanSwitchController == false) {
+                    //   await Navigator.pushNamed(
+                    //     context,
+                    //     penggunaPengajuanUsulanKegiatan2DKPageRoute,
+                    //     arguments: widget.usulanArgs,
+                    //   );
+                    //       .then((_) => context.read<UsulanKegiatanBloc>()
+                    //       .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
+                    // } else {
+                    //   await Navigator.pushNamed(
+                    //     context,
+                    //     penggunaPengajuanUsulanKegiatan2LKPageRoute,
+                    //     arguments: widget.usulanArgs,
+                    //   ).then((_) => context.read<UsulanKegiatanBloc>()
+                    //       .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
+                    // }
+                  } else if (state is UpdateUsulanKegiatanSuccess) {
+                    await Navigator.pushNamed(
+                      context,
+                      penggunaPengajuanUsulanKegiatan2DKPageRoute,
+                      arguments: widget.usulanArgs,
+                    );
+
                   } else if (state is UsulanKegiatanDeleted) {
                     mipokaCustomToast("Usulan Kegiatan telah dihapus.");
                     Navigator.pop(context);
@@ -296,8 +299,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                     _tanggalKeberangkatanController.text.isNotEmpty ?
                     _tempatKegiatanSwitchController = true :
                     _tempatKegiatanSwitchController = false;
-
-                    context.read<TempatKegiatanCubit>().setTempatKegiatan(_tempatKegiatanSwitchController!);
 
                     List<String> ormawaList = usulanKegiatan.mipokaUser.ormawa
                         .map((ormawa) => ormawa.namaOrmawa).toList();
@@ -423,7 +424,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                           value: _tempatKegiatanSwitchController,
                           onChanged: (value) {
                             _tempatKegiatanSwitchController = value;
-                            context.read<TempatKegiatanCubit>().setTempatKegiatan(value);
+                            _tempatKegiatanSwitchStream.add(value);
                           },
                         ),
 
@@ -435,40 +436,40 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                         const CustomFieldSpacer(),
 
-                        BlocProvider<TempatKegiatanCubit>.value(
-                            value: context.read<TempatKegiatanCubit>(),
-                            child: BlocBuilder<TempatKegiatanCubit, bool> (
-                                builder: (context, isTempatKegiatan) {
-                                  return isTempatKegiatan == true ?
-                                  SizedBox(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        buildTitle('Tanggal Keberangkatan'),
-                                        if (widget.usulanArgs.isRevisiUsulan == true
-                                            && usulanKegiatan.revisiUsulan?.revisiTanggalKeberangkatan != "")
-                                          buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTanggalKeberangkatan ?? ""),
+                        StreamBuilder<bool>(
+                          initialData: _tempatKegiatanSwitchController,
+                          stream: _tempatKegiatanSwitchStream.stream,
+                          builder: (context, snapshot) {
+                            bool? isLuarKota = snapshot.data;
+                            return isLuarKota == true ?
 
-                                        CustomDatePickerField(
-                                          controller:
-                                          _tanggalKeberangkatanController,
-                                        ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                buildTitle('Tanggal Keberangkatan'),
+                                if (widget.usulanArgs.isRevisiUsulan == true
+                                    && usulanKegiatan.revisiUsulan?.revisiTanggalKeberangkatan != "")
+                                  buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTanggalKeberangkatan ?? ""),
 
-                                        const CustomFieldSpacer(),
+                                CustomDatePickerField(
+                                  controller:
+                                  _tanggalKeberangkatanController,
+                                ),
 
-                                        buildTitle('Tanggal Kepulangan'),
-                                        if (widget.usulanArgs.isRevisiUsulan == true
-                                            && usulanKegiatan.revisiUsulan?.revisiTanggalKepulangan != "")
-                                          buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTanggalKepulangan ?? ""),
-                                        CustomDatePickerField(
-                                          controller: _tanggalKepulanganController,
-                                        ),
-                                      ],
-                                    ),
-                                  ) :
-                                  const Center();
-                                }
-                            )
+                                const CustomFieldSpacer(),
+
+                                buildTitle('Tanggal Kepulangan'),
+                                if (widget.usulanArgs.isRevisiUsulan == true
+                                    && usulanKegiatan.revisiUsulan?.revisiTanggalKepulangan != "")
+                                  buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTanggalKepulangan ?? ""),
+                                CustomDatePickerField(
+                                  controller: _tanggalKepulanganController,
+                                ),
+                              ],
+                            ) :
+
+                            const SizedBox();
+                          },
                         ),
 
                         MipokaCustomSwitchButton(
@@ -678,13 +679,5 @@ class _PenggunaPengajuanUsulanKegiatan1State
         ),
       ),
     );
-  }
-}
-
-class TempatKegiatanCubit extends Cubit<bool> {
-  TempatKegiatanCubit() : super(false);
-
-  void setTempatKegiatan(bool value) {
-    emit(value);
   }
 }

@@ -128,6 +128,8 @@ class _TambahTertibAcaraPageState extends State<TambahTertibAcaraPage> {
                                 ),
                               ),
                             );
+
+                            Navigator.po
                           } else {
                             mipokaCustomToast(emptyFieldMessage);
                           }
@@ -135,20 +137,20 @@ class _TambahTertibAcaraPageState extends State<TambahTertibAcaraPage> {
                         text: 'Tambahkan Tertib Acara',
                       ),
 
-                      BlocListener<UsulanKegiatanBloc, UsulanKegiatanState>(
-                        listenWhen: (prev, current) =>
-                        prev.runtimeType != current.runtimeType,
-                        listener: (context, state) {
-                          if (state is UsulanKegiatanSuccess) {
-                            mipokaCustomToast("Tertib Acara telah ditambahkan");
-                            Navigator.pop(context);
-                          }
-                          else if (state is UsulanKegiatanError) {
-                            mipokaCustomToast(state.message);
-                          }
-                        },
-                        child: const SizedBox(),
-                      ),
+                      // BlocListener<UsulanKegiatanBloc, UsulanKegiatanState>(
+                      //   listenWhen: (prev, current) =>
+                      //   prev.runtimeType != current.runtimeType,
+                      //   listener: (context, state) {
+                      //     if (state is UsulanKegiatanSuccess) {
+                      //       mipokaCustomToast("Tertib Acara telah ditambahkan");
+                      //       Navigator.pop(context);
+                      //     }
+                      //     else if (state is UsulanKegiatanError) {
+                      //       mipokaCustomToast(state.message);
+                      //     }
+                      //   },
+                      //   child: const SizedBox(),
+                      // ),
                     ],
                   ),
                 ],

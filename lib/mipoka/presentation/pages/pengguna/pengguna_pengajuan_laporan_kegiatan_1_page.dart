@@ -52,7 +52,7 @@ class _PenggunaPengajuanLaporanKegiatan1State
   }
 
   // late QuillController _pencapaianController;
-  TextEditingController _pencapaianController = TextEditingController();
+  final TextEditingController _pencapaianController = TextEditingController();
   late String _namaKegiatanController;
   int? selectedIndex;
 

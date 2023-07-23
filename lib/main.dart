@@ -164,7 +164,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<NamaKegiatanDropDownBloc>()),
         BlocProvider(create: (_) => di.locator<JenisKegiatanDropDownBloc>()),
         BlocProvider(create: (_) => di.locator<OrmawaDropDownBloc>()),
-        BlocProvider<TempatKegiatanCubit>(create: (context) => TempatKegiatanCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
