@@ -485,19 +485,25 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                           children: [
 
                             CustomMipokaButton(
-                              onTap: () => Navigator.pop(context),
+                              onTap: () => Navigator.pop(context, true),
                               text: 'Sebelumnya',
                             ),
 
                             const SizedBox(width: 8.0),
 
                             CustomMipokaButton(
-                              onTap: () => Navigator.pushNamed(
-                                context,
-                                penggunaPengajuanUsulanKegiatanTertibAcaraRoute,
-                                arguments: widget.usulanArgs,
-                              ).then((_) => context.read<UsulanKegiatanBloc>()
-                                  .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
+                              onTap: () async {
+                                final result = await Navigator.pushNamed(
+                                  context,
+                                  penggunaPengajuanUsulanKegiatanTertibAcaraRoute,
+                                  arguments: widget.usulanArgs,
+                                );
+
+                                if (result != null && result == true && context.mounted) {
+                                  context.read<UsulanKegiatanBloc>()
+                                      .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+                                }
+                              },
                               text: 'Berikutnya',
                             ),
                           ],

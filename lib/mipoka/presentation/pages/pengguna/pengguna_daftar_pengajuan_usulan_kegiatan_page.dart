@@ -73,9 +73,6 @@ class _PenggunaDaftarPengajuanKegiatanState
                     items: listStatus,
                     onValueChanged: (value) {
                       _filter = value;
-                      // context.read<UsulanKegiatanBloc>().add(
-                      //   ReadAllUsulanKegiatanEvent(filter: _filter!),
-                      // );
                     },
                   ),
                   const CustomFieldSpacer(),
@@ -83,16 +80,19 @@ class _PenggunaDaftarPengajuanKegiatanState
                   BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
                     listenWhen: (prev, current) =>
                     prev.runtimeType != current.runtimeType,
-                    listener: (context, state) {
+                    listener: (context, state) async {
 
                       if (state is UsulanKegiatanSuccess) {
-                        Navigator.pushNamed(
+                        final result = await Navigator.pushNamed(
                           context,
                           penggunaPengajuanUsulanKegiatanPage1Route,
                           arguments: UsulanArgs(idUsulan: uniqueId),
                         );
-                            // .then((_) => context.read<UsulanKegiatanBloc>().add(
-                            // ReadAllUsulanKegiatanEvent(filter: _filter!)));
+
+                        if (result != null && result == true && context.mounted) {
+                          context.read<UsulanKegiatanBloc>().add(
+                              ReadAllUsulanKegiatanEvent(filter: _filter!));
+                        }
 
                       } else if (state is UsulanKegiatanError) {
                         mipokaCustomToast(state.message);

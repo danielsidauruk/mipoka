@@ -271,18 +271,24 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           CustomMipokaButton(
-                            onTap: () => Navigator.pop(context),
+                            onTap: () => Navigator.pop(context, true),
                             text: 'Sebelumnya',
                           ),
                           const SizedBox(width: 8.0),
                           CustomMipokaButton(
-                            onTap: () {
-                              Navigator.pushNamed(
+                            onTap: () async {
+                              final result = await Navigator.pushNamed(
                                 context,
                                 penggunaPengajuanUsulanKegiatan3PageRoute,
                                 arguments: widget.usulanArgs,
-                              ).then((_) => context.read<UsulanKegiatanBloc>()
-                                  .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
+                              );
+
+                              if (result != null && result == true) {
+                                if (context.mounted) {
+                                  context.read<UsulanKegiatanBloc>()
+                                      .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+                                }
+                              }
                             },
                             text: 'Berikutnya',
                           ),

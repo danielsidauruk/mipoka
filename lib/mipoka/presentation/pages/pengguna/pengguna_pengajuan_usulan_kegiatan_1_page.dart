@@ -232,25 +232,30 @@ class _PenggunaPengajuanUsulanKegiatan1State
                 listener: (context, state) async {
                   if (state is SaveUsulanKegiatanFirstPageSuccess) {
 
+                    final Object? result;
+
                     if (_tempatKegiatanSwitchController == false) {
-                      await Navigator.pushNamed(
+                      result = await Navigator.pushNamed(
                         context,
                         penggunaPengajuanUsulanKegiatan2DKPageRoute,
                         arguments: widget.usulanArgs,
-                      ).then((_) => context.read<UsulanKegiatanBloc>()
-                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
+                      );
                     } else {
-                      await Navigator.pushNamed(
+                      result = await Navigator.pushNamed(
                         context,
                         penggunaPengajuanUsulanKegiatan2LKPageRoute,
                         arguments: widget.usulanArgs,
-                      ).then((_) => context.read<UsulanKegiatanBloc>()
-                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
+                      );
+                    }
+
+                    if (result != null && result == true && context.mounted) {
+                      context.read<UsulanKegiatanBloc>()
+                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
                     }
 
                   } else if (state is UsulanKegiatanDeleted) {
                     mipokaCustomToast("Usulan Kegiatan telah dihapus.");
-                    Navigator.pop(context);
+                    Navigator.pop(context, true);
                   }
                   else if (state is UsulanKegiatanError) {
                     mipokaCustomToast(state.message);
@@ -300,6 +305,9 @@ class _PenggunaPengajuanUsulanKegiatan1State
                     if (_ormawa?.idOrmawa == 0) {
                       _ormawa = usulanKegiatan.mipokaUser.ormawa[0];
                     }
+
+                    _bentukKegiatanController == "" ? listBentukKegiatan[0] : _bentukKegiatanController;
+                    _pembiayaanController == "" ? listPembiayaan[0] : _pembiayaanController;
 
                     return CustomContentBox(
                       children: [
@@ -355,7 +363,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                         MipokaCustomDropdown(
                           items: listBentukKegiatan,
-                          initialItem: _bentukKegiatanController ?? "",
+                          initialItem: _bentukKegiatanController ?? listBentukKegiatan[0],
                           onValueChanged: (value) {
                             if (kDebugMode) {
                               print('Input "$value" to State Management BLoC');

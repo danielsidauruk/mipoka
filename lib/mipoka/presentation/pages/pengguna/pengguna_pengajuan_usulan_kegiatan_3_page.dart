@@ -105,7 +105,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                 prev.runtimeType != current.runtimeType,
                 listener: (context, state) {
                   if (state is SaveAndGoBackLastPageSuccess) {
-                    Navigator.pop(context);
+                    Navigator.pop(context, true);
 
                   } else if (state is SaveAndSendLastPageSuccess) {
 
@@ -447,7 +447,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                       ),
                                     ),
                                   );
-                                  Navigator.pop(context);
+                                  Navigator.pop(context, true);
                                 }
                               },
                               text: 'Sebelumnya',
