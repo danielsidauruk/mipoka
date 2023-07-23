@@ -180,7 +180,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
   }
 
   Ormawa? _ormawa;
-  String _pembiayaanController = listPembiayaan[0];
+  String? _pembiayaanController;
   final TextEditingController _namaKegiatanController = TextEditingController();
   String? _bentukKegiatanController;
   bool? _bentukKegiatanSwitchController;
@@ -224,456 +224,466 @@ class _PenggunaPengajuanUsulanKegiatan1State
             children: [
               const CustomMobileTitle(
                   text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
+
               const CustomFieldSpacer(),
 
-              BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
-                listenWhen: (prev, current) =>
-                prev.runtimeType != current.runtimeType,
-                listener: (context, state) async {
-                  if (state is SaveUsulanKegiatanFirstPageSuccess) {
+              CustomContentBox(
+                children: [
+                  BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) async {
+                      if (state is SaveUsulanKegiatanFirstPageSuccess) {
 
-                    final Object? result;
+                        final Object? result;
 
-                    if (_tempatKegiatanSwitchController == false) {
-                      result = await Navigator.pushNamed(
-                        context,
-                        penggunaPengajuanUsulanKegiatan2DKPageRoute,
-                        arguments: widget.usulanArgs,
-                      );
-                    } else {
-                      result = await Navigator.pushNamed(
-                        context,
-                        penggunaPengajuanUsulanKegiatan2LKPageRoute,
-                        arguments: widget.usulanArgs,
-                      );
-                    }
+                        if (_tempatKegiatanSwitchController == false) {
+                          result = await Navigator.pushNamed(
+                            context,
+                            penggunaPengajuanUsulanKegiatan2DKPageRoute,
+                            arguments: widget.usulanArgs,
+                          );
+                        } else {
+                          result = await Navigator.pushNamed(
+                            context,
+                            penggunaPengajuanUsulanKegiatan2LKPageRoute,
+                            arguments: widget.usulanArgs,
+                          );
+                        }
 
-                    if (result != null && result == true && context.mounted) {
-                      context.read<UsulanKegiatanBloc>()
-                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
-                    }
+                        if (result != null && result == true && context.mounted) {
+                          context.read<UsulanKegiatanBloc>()
+                              .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+                        }
 
-                  } else if (state is UsulanKegiatanDeleted) {
-                    mipokaCustomToast("Usulan Kegiatan telah dihapus.");
-                    Navigator.pop(context, true);
-                  }
-                  else if (state is UsulanKegiatanError) {
-                    mipokaCustomToast(state.message);
-                  }
-                },
+                      } else if (state is UsulanKegiatanDeleted) {
+                        mipokaCustomToast("Usulan Kegiatan telah dihapus.");
+                        Navigator.pop(context, true);
+                      }
+                      else if (state is UsulanKegiatanError) {
+                        mipokaCustomToast(state.message);
+                      }
+                    },
 
-                builder: (context, state) {
-                  if (state is UsulanKegiatanLoading) {
-                    return const Text('Loading');
-                  } else if (state is UsulanKegiatanHasData) {
-                    final usulanKegiatan = state.usulanKegiatan;
+                    builder: (context, state) {
+                      if (state is UsulanKegiatanLoading) {
+                        return const Text('Loading');
+                      } else if (state is UsulanKegiatanHasData) {
+                        final usulanKegiatan = state.usulanKegiatan;
 
-                    _ormawa = usulanKegiatan.ormawa;
-                    _pembiayaanController = usulanKegiatan.pembiayaan;
-                    _namaKegiatanController.text = usulanKegiatan.namaKegiatan;
-                    usulanKegiatan.kategoriBentukKegiatan == "Luring"
-                        ? _bentukKegiatanSwitchController = false
-                        : _bentukKegiatanSwitchController = true;
-                    _bentukKegiatanController = usulanKegiatan.bentukKegiatan;
-                    _deskripsiKegiatanController.text = usulanKegiatan.deskripsiKegiatan;
-                    _tanggalMulaiController.text = usulanKegiatan.tanggalMulaiKegiatan;
-                    _tanggalSelesaiController.text = usulanKegiatan.tanggalSelesaiKegiatan;
-                    _waktuMulaiController.text = usulanKegiatan.waktuMulaiKegiatan;
-                    _waktuSelesaiController.text = usulanKegiatan.waktuSelesaiKegiatan;
-                    _tempatKegiatanController.text = usulanKegiatan.tempatKegiatan;
-                    _tanggalKeberangkatanController.text = usulanKegiatan.tanggalKeberangkatan;
-                    _tanggalKepulanganController.text = usulanKegiatan.tanggalKepulangan;
-                    usulanKegiatan.jumlahPartisipan == "Orang"
-                        ? _bentukKegiatanSwitchController = false
-                        : _bentukKegiatanSwitchController = true;
-                    _jumlahParsitipanController.text = usulanKegiatan.jumlahPartisipan.toString();
-                    usulanKegiatan.totalPendanaan == "Uang"
-                        ? _bentukKegiatanSwitchController = false
-                        : _bentukKegiatanSwitchController = true;
-                    _targetKegiatanController.text = usulanKegiatan.targetKegiatan;
-                    _totalPendanaanController.text = usulanKegiatan.totalPendanaan;
-                    _keteranganController.text = usulanKegiatan.keterangan;
-                    _ormawaSignatureController = usulanKegiatan.tandaTanganOrmawa;
+                        _ormawa = usulanKegiatan.ormawa;
+                        _pembiayaanController = usulanKegiatan.pembiayaan;
+                        _namaKegiatanController.text = usulanKegiatan.namaKegiatan;
+                        usulanKegiatan.kategoriBentukKegiatan == "Luring"
+                            ? _bentukKegiatanSwitchController = false
+                            : _bentukKegiatanSwitchController = true;
+                        _bentukKegiatanController = usulanKegiatan.bentukKegiatan;
+                        _deskripsiKegiatanController.text = usulanKegiatan.deskripsiKegiatan;
+                        _tanggalMulaiController.text = usulanKegiatan.tanggalMulaiKegiatan;
+                        _tanggalSelesaiController.text = usulanKegiatan.tanggalSelesaiKegiatan;
+                        _waktuMulaiController.text = usulanKegiatan.waktuMulaiKegiatan;
+                        _waktuSelesaiController.text = usulanKegiatan.waktuSelesaiKegiatan;
+                        _tempatKegiatanController.text = usulanKegiatan.tempatKegiatan;
+                        _tanggalKeberangkatanController.text = usulanKegiatan.tanggalKeberangkatan;
+                        _tanggalKepulanganController.text = usulanKegiatan.tanggalKepulangan;
+                        usulanKegiatan.jumlahPartisipan == "Orang"
+                            ? _bentukKegiatanSwitchController = false
+                            : _bentukKegiatanSwitchController = true;
+                        _jumlahParsitipanController.text = usulanKegiatan.jumlahPartisipan.toString();
+                        usulanKegiatan.totalPendanaan == "Uang"
+                            ? _bentukKegiatanSwitchController = false
+                            : _bentukKegiatanSwitchController = true;
+                        _targetKegiatanController.text = usulanKegiatan.targetKegiatan;
+                        _totalPendanaanController.text = usulanKegiatan.totalPendanaan;
+                        _keteranganController.text = usulanKegiatan.keterangan;
+                        _ormawaSignatureController = usulanKegiatan.tandaTanganOrmawa;
 
-                    _tanggalKeberangkatanController.text.isNotEmpty ?
-                    _tempatKegiatanSwitchController = true :
-                    _tempatKegiatanSwitchController = false;
+                        _tanggalKeberangkatanController.text.isNotEmpty ?
+                        _tempatKegiatanSwitchController = true :
+                        _tempatKegiatanSwitchController = false;
 
-                    List<String> ormawaList = usulanKegiatan.mipokaUser.ormawa
-                        .map((ormawa) => ormawa.namaOrmawa).toList();
+                        List<String> ormawaList = usulanKegiatan.mipokaUser.ormawa
+                            .map((ormawa) => ormawa.namaOrmawa).toList();
 
-                    if (_ormawa?.idOrmawa == 0) {
-                      _ormawa = usulanKegiatan.mipokaUser.ormawa[0];
-                    }
+                        if (_ormawa?.idOrmawa == 0) {
+                          _ormawa = usulanKegiatan.mipokaUser.ormawa[0];
+                        }
 
-                    _bentukKegiatanController == "" ? listBentukKegiatan[0] : _bentukKegiatanController;
-                    _pembiayaanController == "" ? listPembiayaan[0] : _pembiayaanController;
+                        _bentukKegiatanController == "" ? listBentukKegiatan[0] : _bentukKegiatanController;
+                        if (usulanKegiatan.pembiayaan == "") {
+                          _pembiayaanController = listPembiayaan[0];
+                        }
+                        // _pembiayaanController == "" ? listPembiayaan[0] : _pembiayaanController;
 
-                    return CustomContentBox(
-                      children: [
-                        buildTitle('Nama Ormawa'),
-                        MipokaCustomDropdown(
-                            items: ormawaList,
-                            initialItem: _ormawa?.idOrmawa != 0 ? _ormawa?.namaOrmawa : ormawaList[0],
-                            onValueChanged: (value) {
-                              int index = ormawaList.indexOf(value!);
-                              // int idOrmawa = idOrmawaList[index];
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            buildTitle('Nama Ormawa'),
+                            MipokaCustomDropdown(
+                                items: ormawaList,
+                                initialItem: _ormawa?.idOrmawa != 0 ? _ormawa?.namaOrmawa : ormawaList[0],
+                                onValueChanged: (value) {
+                                  int index = ormawaList.indexOf(value!);
+                                  // int idOrmawa = idOrmawaList[index];
 
-                              _ormawa = usulanKegiatan.mipokaUser.ormawa[index];
-                            }
-                        ),
+                                  _ormawa = usulanKegiatan.mipokaUser.ormawa[index];
+                                }
+                            ),
 
-                        const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
 
-                        buildTitle('Pembiayaan'),
-                        if (widget.usulanArgs.isRevisiUsulan == true
-                            && usulanKegiatan.revisiUsulan?.revisiPembiayaan != "")
-                          buildRevisiText(usulanKegiatan.revisiUsulan?.revisiPembiayaan ?? ""),
+                            buildTitle('Pembiayaan'),
+                            if (widget.usulanArgs.isRevisiUsulan == true
+                                && usulanKegiatan.revisiUsulan?.revisiPembiayaan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiPembiayaan ?? ""),
 
-                        MipokaCustomDropdown(
-                          items: listPembiayaan,
-                          initialItem: _pembiayaanController,
-                          onValueChanged: (value) {
-                            _pembiayaanController = value ?? "";
-                          },
-                        ),
+                            MipokaCustomDropdown(
+                              items: listPembiayaan,
+                              initialItem: _pembiayaanController,
+                              onValueChanged: (value) {
+                                _pembiayaanController = value ?? "";
+                              },
+                            ),
 
-                        const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
 
-                        buildTitle('Nama Kegiatan'),
-                        if (widget.usulanArgs.isRevisiUsulan == true
-                            && usulanKegiatan.revisiUsulan?.revisiNamaKegiatan != "")
-                          buildRevisiText(usulanKegiatan.revisiUsulan?.revisiNamaKegiatan ?? ""),
+                            buildTitle('Nama Kegiatan'),
+                            if (widget.usulanArgs.isRevisiUsulan == true
+                                && usulanKegiatan.revisiUsulan?.revisiNamaKegiatan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiNamaKegiatan ?? ""),
 
-                        CustomTextField(controller: _namaKegiatanController),
+                            CustomTextField(controller: _namaKegiatanController),
 
-                        MipokaCustomSwitchButton(
-                          title: 'Bentuk Kegiatan',
-                          option1: 'Daring',
-                          option2: 'Luring',
-                          value: _bentukKegiatanSwitchController,
-                          onChanged: (value) {
-                            _bentukKegiatanSwitchController = value;
-                          },
-                        ),
+                            MipokaCustomSwitchButton(
+                              title: 'Bentuk Kegiatan',
+                              option1: 'Daring',
+                              option2: 'Luring',
+                              value: _bentukKegiatanSwitchController,
+                              onChanged: (value) {
+                                _bentukKegiatanSwitchController = value;
+                              },
+                            ),
 
-                        if (widget.usulanArgs.isRevisiUsulan == true
-                            && usulanKegiatan.revisiUsulan?.revisiBentukKegiatan != "")
-                          buildRevisiText(usulanKegiatan.revisiUsulan?.revisiBentukKegiatan ?? ""),
+                            if (widget.usulanArgs.isRevisiUsulan == true
+                                && usulanKegiatan.revisiUsulan?.revisiBentukKegiatan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiBentukKegiatan ?? ""),
 
-                        MipokaCustomDropdown(
-                          items: listBentukKegiatan,
-                          initialItem: _bentukKegiatanController ?? listBentukKegiatan[0],
-                          onValueChanged: (value) {
-                            if (kDebugMode) {
-                              print('Input "$value" to State Management BLoC');
-                            }
-                            _bentukKegiatanController = value;
-                          },
-                        ),
+                            MipokaCustomDropdown(
+                              items: listBentukKegiatan,
+                              initialItem: _bentukKegiatanController ?? listBentukKegiatan[0],
+                              onValueChanged: (value) {
+                                if (kDebugMode) {
+                                  print('Input "$value" to State Management BLoC');
+                                }
+                                _bentukKegiatanController = value;
+                              },
+                            ),
 
-                        const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
 
-                        buildTitle('Deskripsi Kegiatan'),
-                        if (widget.usulanArgs.isRevisiUsulan == true
-                            && usulanKegiatan.revisiUsulan?.revisiDeskripsiKegiatan != "")
-                          buildRevisiText(usulanKegiatan.revisiUsulan?.revisiDeskripsiKegiatan ?? ""),
-                        CustomTextField(
-                            controller: _deskripsiKegiatanController),
+                            buildTitle('Deskripsi Kegiatan'),
+                            if (widget.usulanArgs.isRevisiUsulan == true
+                                && usulanKegiatan.revisiUsulan?.revisiDeskripsiKegiatan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiDeskripsiKegiatan ?? ""),
+                            CustomTextField(
+                                controller: _deskripsiKegiatanController),
 
-                        const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
 
-                        buildTitle('Tanggal Mulai Kegiatan'),
-                        if (widget.usulanArgs.isRevisiUsulan == true
-                            && usulanKegiatan.revisiUsulan?.revisiTanggalMulaiKegiatan != "")
-                          buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTanggalMulaiKegiatan ?? ""),
+                            buildTitle('Tanggal Mulai Kegiatan'),
+                            if (widget.usulanArgs.isRevisiUsulan == true
+                                && usulanKegiatan.revisiUsulan?.revisiTanggalMulaiKegiatan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTanggalMulaiKegiatan ?? ""),
 
-                        CustomDatePickerField(
-                            controller: _tanggalMulaiController),
+                            CustomDatePickerField(
+                                controller: _tanggalMulaiController),
 
-                        const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
 
-                        buildTitle('Tanggal Selesai Kegiatan'),
-                        if (widget.usulanArgs.isRevisiUsulan == true
-                            && usulanKegiatan.revisiUsulan?.revisiTanggalSelesaiKegiatan != "")
-                          buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTanggalSelesaiKegiatan ?? ""),
-                        CustomDatePickerField(
-                            controller: _tanggalSelesaiController),
+                            buildTitle('Tanggal Selesai Kegiatan'),
+                            if (widget.usulanArgs.isRevisiUsulan == true
+                                && usulanKegiatan.revisiUsulan?.revisiTanggalSelesaiKegiatan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTanggalSelesaiKegiatan ?? ""),
+                            CustomDatePickerField(
+                                controller: _tanggalSelesaiController),
 
-                        const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
 
-                        buildTitle('Waktu Mulai Kegiatan'),
-                        if (widget.usulanArgs.isRevisiUsulan == true
-                            && usulanKegiatan.revisiUsulan?.revisiWaktuMulaiKegiatan != "")
-                          buildRevisiText(usulanKegiatan.revisiUsulan?.revisiWaktuMulaiKegiatan ?? ""),
-                        CustomTimePickerField(
-                            controller: _waktuMulaiController),
+                            buildTitle('Waktu Mulai Kegiatan'),
+                            if (widget.usulanArgs.isRevisiUsulan == true
+                                && usulanKegiatan.revisiUsulan?.revisiWaktuMulaiKegiatan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiWaktuMulaiKegiatan ?? ""),
+                            CustomTimePickerField(
+                                controller: _waktuMulaiController),
 
-                        const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
 
-                        buildTitle('Waktu Selesai Kegiatan'),
-                        if (widget.usulanArgs.isRevisiUsulan == true
-                            && usulanKegiatan.revisiUsulan?.revisiWaktuSelesaiKegiatan != "")
-                          buildRevisiText(usulanKegiatan.revisiUsulan?.revisiWaktuSelesaiKegiatan ?? ""),
+                            buildTitle('Waktu Selesai Kegiatan'),
+                            if (widget.usulanArgs.isRevisiUsulan == true
+                                && usulanKegiatan.revisiUsulan?.revisiWaktuSelesaiKegiatan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiWaktuSelesaiKegiatan ?? ""),
 
-                        CustomTimePickerField(
-                            controller: _waktuSelesaiController),
+                            CustomTimePickerField(
+                                controller: _waktuSelesaiController),
 
-                        MipokaCustomSwitchButton(
-                          title: 'Tempat Kegiatan',
-                          option1: 'Dalam Kota',
-                          option2: 'Luar Kota',
-                          value: _tempatKegiatanSwitchController,
-                          onChanged: (value) {
-                            _tempatKegiatanSwitchController = value;
-                            _tempatKegiatanSwitchStream.add(value);
-                          },
-                        ),
+                            MipokaCustomSwitchButton(
+                              title: 'Tempat Kegiatan',
+                              option1: 'Dalam Kota',
+                              option2: 'Luar Kota',
+                              value: _tempatKegiatanSwitchController,
+                              onChanged: (value) {
+                                _tempatKegiatanSwitchController = value;
+                                _tempatKegiatanSwitchStream.add(value);
+                              },
+                            ),
 
-                        if (widget.usulanArgs.isRevisiUsulan == true
-                            && usulanKegiatan.revisiUsulan?.revisiTempatKegiatan != "")
-                          buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTempatKegiatan ?? ""),
+                            if (widget.usulanArgs.isRevisiUsulan == true
+                                && usulanKegiatan.revisiUsulan?.revisiTempatKegiatan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTempatKegiatan ?? ""),
 
-                        CustomTextField(controller: _tempatKegiatanController),
+                            CustomTextField(controller: _tempatKegiatanController),
 
-                        const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
 
-                        StreamBuilder<bool>(
-                          initialData: _tempatKegiatanSwitchController,
-                          stream: _tempatKegiatanSwitchStream.stream,
-                          builder: (context, snapshot) {
-                            bool? isLuarKota = snapshot.data;
-                            return isLuarKota == true ?
+                            StreamBuilder<bool>(
+                              initialData: _tempatKegiatanSwitchController,
+                              stream: _tempatKegiatanSwitchStream.stream,
+                              builder: (context, snapshot) {
+                                bool? isLuarKota = snapshot.data;
+                                return isLuarKota == true ?
 
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                buildTitle('Tanggal Keberangkatan'),
-                                if (widget.usulanArgs.isRevisiUsulan == true
-                                    && usulanKegiatan.revisiUsulan?.revisiTanggalKeberangkatan != "")
-                                  buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTanggalKeberangkatan ?? ""),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    buildTitle('Tanggal Keberangkatan'),
+                                    if (widget.usulanArgs.isRevisiUsulan == true
+                                        && usulanKegiatan.revisiUsulan?.revisiTanggalKeberangkatan != "")
+                                      buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTanggalKeberangkatan ?? ""),
 
-                                CustomDatePickerField(
-                                  controller:
-                                  _tanggalKeberangkatanController,
-                                ),
+                                    CustomDatePickerField(
+                                      controller:
+                                      _tanggalKeberangkatanController,
+                                    ),
 
-                                const CustomFieldSpacer(),
+                                    const CustomFieldSpacer(),
 
-                                buildTitle('Tanggal Kepulangan'),
-                                if (widget.usulanArgs.isRevisiUsulan == true
-                                    && usulanKegiatan.revisiUsulan?.revisiTanggalKepulangan != "")
-                                  buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTanggalKepulangan ?? ""),
-                                CustomDatePickerField(
-                                  controller: _tanggalKepulanganController,
-                                ),
-                              ],
-                            ) :
+                                    buildTitle('Tanggal Kepulangan'),
+                                    if (widget.usulanArgs.isRevisiUsulan == true
+                                        && usulanKegiatan.revisiUsulan?.revisiTanggalKepulangan != "")
+                                      buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTanggalKepulangan ?? ""),
+                                    CustomDatePickerField(
+                                      controller: _tanggalKepulanganController,
+                                    ),
+                                  ],
+                                ) :
 
-                            const SizedBox();
-                          },
-                        ),
+                                const SizedBox();
+                              },
+                            ),
 
-                        MipokaCustomSwitchButton(
-                          title: 'Jumlah Partisipan',
-                          option1: 'Tim',
-                          option2: 'Orang',
-                          value: _jumlahParsitipanSwitchController,
-                          onChanged: (value) {
-                            _jumlahParsitipanSwitchController = value;
-                          },
-                        ),
+                            MipokaCustomSwitchButton(
+                              title: 'Jumlah Partisipan',
+                              option1: 'Tim',
+                              option2: 'Orang',
+                              value: _jumlahParsitipanSwitchController,
+                              onChanged: (value) {
+                                _jumlahParsitipanSwitchController = value;
+                              },
+                            ),
 
-                        if (widget.usulanArgs.isRevisiUsulan == true
-                            && usulanKegiatan.revisiUsulan?.revisiJumlahPartisipan != "")
-                          buildRevisiText(usulanKegiatan.revisiUsulan?.revisiJumlahPartisipan ?? ""),
+                            if (widget.usulanArgs.isRevisiUsulan == true
+                                && usulanKegiatan.revisiUsulan?.revisiJumlahPartisipan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiJumlahPartisipan ?? ""),
 
-                        CustomTextField(
-                            controller: _jumlahParsitipanController),
-                        const CustomFieldSpacer(),
+                            CustomTextField(
+                                controller: _jumlahParsitipanController),
+                            const CustomFieldSpacer(),
 
-                        buildTitle('Target Kegiatan'),
-                        if (widget.usulanArgs.isRevisiUsulan == true
-                            && usulanKegiatan.revisiUsulan?.revisiTargetKegiatan!= "")
-                          buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTargetKegiatan ?? ""),
-                        CustomTextField(controller: _targetKegiatanController),
+                            buildTitle('Target Kegiatan'),
+                            if (widget.usulanArgs.isRevisiUsulan == true
+                                && usulanKegiatan.revisiUsulan?.revisiTargetKegiatan!= "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTargetKegiatan ?? ""),
+                            CustomTextField(controller: _targetKegiatanController),
 
-                        MipokaCustomSwitchButton(
-                          title: 'Total Pendanaan',
-                          option1: 'Uang',
-                          option2: 'Dll',
-                          value: _totalPendanaanSwitchController,
-                          onChanged: (value) {
-                            _totalPendanaanSwitchController = value;
-                          },
-                        ),
+                            MipokaCustomSwitchButton(
+                              title: 'Total Pendanaan',
+                              option1: 'Uang',
+                              option2: 'Dll',
+                              value: _totalPendanaanSwitchController,
+                              onChanged: (value) {
+                                _totalPendanaanSwitchController = value;
+                              },
+                            ),
 
-                        if (widget.usulanArgs.isRevisiUsulan == true
-                            && usulanKegiatan.revisiUsulan?.revisiTotalPendanaan!= "")
-                          buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTotalPendanaan ?? ""),
+                            if (widget.usulanArgs.isRevisiUsulan == true
+                                && usulanKegiatan.revisiUsulan?.revisiTotalPendanaan!= "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTotalPendanaan ?? ""),
 
-                        CustomTextField(controller: _totalPendanaanController),
-                        const CustomFieldSpacer(),
+                            CustomTextField(controller: _totalPendanaanController),
+                            const CustomFieldSpacer(),
 
-                        buildTitle('Keterangan'),
-                        if (widget.usulanArgs.isRevisiUsulan == true
-                            && usulanKegiatan.revisiUsulan?.revisiKeterangan != "")
-                          buildRevisiText(usulanKegiatan.revisiUsulan?.revisiKeterangan ?? ""),
-                        CustomTextField(controller: _keteranganController),
+                            buildTitle('Keterangan'),
+                            if (widget.usulanArgs.isRevisiUsulan == true
+                                && usulanKegiatan.revisiUsulan?.revisiKeterangan != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiKeterangan ?? ""),
+                            CustomTextField(controller: _keteranganController),
 
-                        const CustomFieldSpacer(),
-                        buildTitle('Tanda Tangan Ormawa'),
+                            const CustomFieldSpacer(),
+                            buildTitle('Tanda Tangan Ormawa'),
 
-                        if (widget.usulanArgs.isRevisiUsulan == true
-                            && usulanKegiatan.revisiUsulan?.revisiTandaTanganOrmawa != "")
-                          buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTandaTanganOrmawa ?? ""),
+                            if (widget.usulanArgs.isRevisiUsulan == true
+                                && usulanKegiatan.revisiUsulan?.revisiTandaTanganOrmawa != "")
+                              buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTandaTanganOrmawa ?? ""),
 
-                        BlocProvider<SignatureCubit>(
-                          create: (context) => SignatureCubit(),
-                          child: BlocBuilder<SignatureCubit, SignatureState>(
-                            builder: (context, state) {
-                              return StreamBuilder<Uint8List>(
-                                stream: _signatureDataStream.stream,
-                                initialData: Uint8List(0),
-                                builder: (context, snapshot) {
-                                  final signatureData = snapshot.data;
+                            BlocProvider<SignatureCubit>(
+                              create: (context) => SignatureCubit(),
+                              child: BlocBuilder<SignatureCubit, SignatureState>(
+                                builder: (context, state) {
+                                  return StreamBuilder<Uint8List>(
+                                    stream: _signatureDataStream.stream,
+                                    initialData: Uint8List(0),
+                                    builder: (context, snapshot) {
+                                      final signatureData = snapshot.data;
 
-                                  return InkWell(
-                                    onTap: () => context.read<SignatureCubit>().toggleSignature(),
-                                    child: Container(
-                                      width: 400,
-                                      alignment: Alignment.center,
-                                      padding: const EdgeInsets.all(8.0),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        border: Border.all(color: Colors.white),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          _ormawaSignatureController == "" ?
-                                          InkWell(
-                                            onTap: () => _showPopup(),
-                                            child: signatureData!.isNotEmpty
-                                                ? Image.memory(signatureData)
-                                                : const Text(
-                                              'Tekan untuk tanda tangan',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16,
-                                              ),
-                                            ),
-                                          ) :
-                                          Column(
+                                      return InkWell(
+                                        onTap: () => context.read<SignatureCubit>().toggleSignature(),
+                                        child: Container(
+                                          width: 400,
+                                          alignment: Alignment.center,
+                                          padding: const EdgeInsets.all(8.0),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(5.0),
+                                            border: Border.all(color: Colors.white),
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              Image.network(_ormawaSignatureController ?? ""),
-
-                                              const CustomFieldSpacer(),
-
+                                              _ormawaSignatureController == "" ?
                                               InkWell(
-                                                onTap: () {
-                                                  context.read<SignatureCubit>().toggleSignature();
-                                                  deleteFileFromFirebase(_ormawaSignatureController ?? "");
-                                                  _ormawaSignatureController = "";
-                                                },
-                                                child: const Text(
-                                                  'Hapus',
+                                                onTap: () => _showPopup(),
+                                                child: signatureData!.isNotEmpty
+                                                    ? Image.memory(signatureData)
+                                                    : const Text(
+                                                  'Tekan untuk tanda tangan',
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 16,
                                                   ),
                                                 ),
+                                              ) :
+                                              Column(
+                                                children: [
+                                                  Image.network(_ormawaSignatureController ?? ""),
+
+                                                  const CustomFieldSpacer(),
+
+                                                  InkWell(
+                                                    onTap: () {
+                                                      context.read<SignatureCubit>().toggleSignature();
+                                                      deleteFileFromFirebase(_ormawaSignatureController ?? "");
+                                                      _ormawaSignatureController = "";
+                                                    },
+                                                    child: const Text(
+                                                      'Hapus',
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                        ],
-                                      ),
-                                    ),
+                                        ),
+                                      );
+                                    },
                                   );
                                 },
-                              );
-                            },
-                          ),
-                        ),
-
-                        const CustomFieldSpacer(),
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            widget.usulanArgs.isRevisiUsulan == false ?
-                            CustomMipokaButton(
-                              onTap: () => context.read<UsulanKegiatanBloc>()
-                                  .add(DeleteUsulanKegiatanEvent(idUsulan: widget.usulanArgs.idUsulan)),
-                              text: 'Batal',
-                            ) :
-                            CustomMipokaButton(
-                              onTap: () => Navigator.pop(context),
-                              text: 'Batal',
+                              ),
                             ),
 
-                            const SizedBox(width: 8.0),
+                            const CustomFieldSpacer(),
 
-                            CustomMipokaButton(
-                              onTap: () async {
-                                int uniqueId = UniqueIdGenerator.generateUniqueId();
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                widget.usulanArgs.isRevisiUsulan == false ?
+                                CustomMipokaButton(
+                                  onTap: () => context.read<UsulanKegiatanBloc>()
+                                      .add(DeleteUsulanKegiatanEvent(idUsulan: widget.usulanArgs.idUsulan)),
+                                  text: 'Batal',
+                                ) :
+                                CustomMipokaButton(
+                                  onTap: () => Navigator.pop(context),
+                                  text: 'Batal',
+                                ),
 
-                                mipokaCustomToast(savingDataMessage);
+                                const SizedBox(width: 8.0),
 
-                                if (_ormawaSignatureController == "") {
-                                  _ormawaSignatureController = await uploadBytesToFirebase(_signatureData, "signature$uniqueId.png");
-                                }
+                                CustomMipokaButton(
+                                  onTap: () async {
+                                    int uniqueId = UniqueIdGenerator.generateUniqueId();
 
-                                if (context.mounted) {
+                                    mipokaCustomToast(savingDataMessage);
 
-                                  context.read<UsulanKegiatanBloc>().add(
-                                    SaveUsulanKegiatanFirstPageEvent(
-                                      usulanKegiatan: usulanKegiatan.copyWith(
-                                        ormawa: _ormawa,
-                                        pembiayaan: _pembiayaanController,
-                                        namaKegiatan: _namaKegiatanController.text,
-                                        kategoriBentukKegiatan: _bentukKegiatanSwitchController == true ? "Luring" : "Daring",
-                                        bentukKegiatan: _bentukKegiatanController,
-                                        deskripsiKegiatan: _deskripsiKegiatanController.text,
-                                        tanggalMulaiKegiatan: _tanggalMulaiController.text,
-                                        tanggalSelesaiKegiatan: _tanggalSelesaiController.text,
-                                        waktuMulaiKegiatan: _waktuMulaiController.text,
-                                        waktuSelesaiKegiatan: _waktuSelesaiController.text,
-                                        tempatKegiatan: _tempatKegiatanController.text,
-                                        tanggalKeberangkatan: _tempatKegiatanSwitchController == true
-                                            ? _tanggalKeberangkatanController.text : "",
-                                        tanggalKepulangan: _tempatKegiatanSwitchController == true
-                                            ?  _tanggalKepulanganController.text : "",
-                                        kategoriJumlahPartisipan: _jumlahParsitipanSwitchController == true ? "Orang" : "Dll",
-                                        jumlahPartisipan: _jumlahParsitipanController.text,
-                                        targetKegiatan: _targetKegiatanController.text,
-                                        kategoriTotalPendanaan: _totalPendanaanSwitchController == true ? "Dll" : "Orang",
-                                        totalPendanaan: _totalPendanaanController.text,
-                                        keterangan: _keteranganController.text,
-                                        tandaTanganOrmawa: _ormawaSignatureController,
-                                        updatedAt: currentDate,
-                                        updatedBy: user?.email ?? "unknown",
-                                      ),
-                                    ),
-                                  );
-                                }
-                              },
-                              text: 'Berikutnya',
+                                    if (_ormawaSignatureController == "") {
+                                      _ormawaSignatureController = await uploadBytesToFirebase(_signatureData, "signature$uniqueId.png");
+                                    }
+
+                                    if (context.mounted) {
+
+                                      context.read<UsulanKegiatanBloc>().add(
+                                        SaveUsulanKegiatanFirstPageEvent(
+                                          usulanKegiatan: usulanKegiatan.copyWith(
+                                            ormawa: _ormawa,
+                                            pembiayaan: _pembiayaanController,
+                                            namaKegiatan: _namaKegiatanController.text,
+                                            kategoriBentukKegiatan: _bentukKegiatanSwitchController == true ? "Luring" : "Daring",
+                                            bentukKegiatan: _bentukKegiatanController,
+                                            deskripsiKegiatan: _deskripsiKegiatanController.text,
+                                            tanggalMulaiKegiatan: _tanggalMulaiController.text,
+                                            tanggalSelesaiKegiatan: _tanggalSelesaiController.text,
+                                            waktuMulaiKegiatan: _waktuMulaiController.text,
+                                            waktuSelesaiKegiatan: _waktuSelesaiController.text,
+                                            tempatKegiatan: _tempatKegiatanController.text,
+                                            tanggalKeberangkatan: _tempatKegiatanSwitchController == true
+                                                ? _tanggalKeberangkatanController.text : "",
+                                            tanggalKepulangan: _tempatKegiatanSwitchController == true
+                                                ?  _tanggalKepulanganController.text : "",
+                                            kategoriJumlahPartisipan: _jumlahParsitipanSwitchController == true ? "Orang" : "Dll",
+                                            jumlahPartisipan: _jumlahParsitipanController.text,
+                                            targetKegiatan: _targetKegiatanController.text,
+                                            kategoriTotalPendanaan: _totalPendanaanSwitchController == true ? "Dll" : "Orang",
+                                            totalPendanaan: _totalPendanaanController.text,
+                                            keterangan: _keteranganController.text,
+                                            tandaTanganOrmawa: _ormawaSignatureController,
+                                            updatedAt: currentDate,
+                                            updatedBy: user?.email ?? "unknown",
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  text: 'Berikutnya',
+                                ),
+                              ],
                             ),
                           ],
-                        ),
-                      ],
-                    );
+                        );
 
-                  } else if (state is UsulanKegiatanError) {
-                    return Text('UsulanKegiatanBloc Error : ${state.message}');
-                  } else {
-                    if (kDebugMode) {
-                      print('UsulanKegiatanBloc has not been triggered');
-                    }
-                    return const Center();
-                  }
-                },
+                      } else if (state is UsulanKegiatanError) {
+                        return Text('UsulanKegiatanBloc Error : ${state.message}');
+                      } else {
+                        if (kDebugMode) {
+                          print('UsulanKegiatanBloc has not been triggered');
+                        }
+                        return const Center();
+                      }
+                    },
+                  ),
+                ],
               ),
             ],
           ),

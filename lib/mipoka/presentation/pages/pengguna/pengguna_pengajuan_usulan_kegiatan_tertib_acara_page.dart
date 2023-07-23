@@ -286,11 +286,9 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                                     arguments: widget.usulanArgs,
                                   );
 
-                                  if (result != null && result == true) {
-                                    if (context.mounted) {
-                                      context.read<UsulanKegiatanBloc>()
-                                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
-                                    }
+                                  if (result != null && result == true && context.mounted) {
+                                    context.read<UsulanKegiatanBloc>()
+                                        .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
                                   }
                                 },
                                 text: 'Berikutnya',
@@ -302,7 +300,18 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                     } else if (state is UsulanKegiatanError) {
                       return Text(state.message);
                     } else {
-                      return const Text("UsulanKegiatan hasn't been triggered");
+
+                      return IconButton(
+                        onPressed: () => context.read<UsulanKegiatanBloc>()
+                            .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)),
+                        icon: const Center(
+                          child: Icon(
+                            Icons.replay,
+                            size: 34,
+                          ),
+                        ),
+                      );
+                      // return const Text("UsulanKegiatan hasn't been triggered");
                     }
                   },
                 ),
