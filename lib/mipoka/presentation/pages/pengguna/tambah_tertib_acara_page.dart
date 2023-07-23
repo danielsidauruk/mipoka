@@ -5,7 +5,6 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
-import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -32,8 +31,9 @@ class TambahTertibAcaraPage extends StatefulWidget {
 class _TambahTertibAcaraPageState extends State<TambahTertibAcaraPage> {
 
   @override
-  void initState() {
-    super.initState();
+  void dispose() {
+    context.read<UsulanKegiatanBloc>().close();
+    super.dispose();
   }
 
   final TextEditingController _waktuMulaiController = TextEditingController();
@@ -101,13 +101,6 @@ class _TambahTertibAcaraPageState extends State<TambahTertibAcaraPage> {
 
                       const SizedBox(width: 8.0),
 
-                      // CustomMipokaButton(
-                      //   onTap: () {
-                      //
-                      //     Navigator.pop(context);
-                      //   },
-                      //   text: 'Tambahkan Peserta',
-                      // ),
                       CustomMipokaButton(
                         onTap: () {
                           if (_waktuMulaiController.text.isNotEmpty && _waktuSelesaiController.text.isNotEmpty

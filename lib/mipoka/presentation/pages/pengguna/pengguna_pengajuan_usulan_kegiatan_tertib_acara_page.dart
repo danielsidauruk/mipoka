@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
-import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -54,7 +53,22 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
             const CustomMobileTitle(
                 text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
             const CustomFieldSpacer(),
-            BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+
+            BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
+              listenWhen: (prev, current) =>
+              prev.runtimeType != current.runtimeType,
+              listener: (context, state) {
+                if (state is UsulanKegiatanSuccess) {
+
+                  mipokaCustomToast('Data telah berubah.');
+                  context.read<UsulanKegiatanBloc>().add(
+                      ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+
+                }
+                else if (state is UsulanKegiatanError) {
+                  mipokaCustomToast(state.message);
+                }
+              },
               builder: (context, state) {
                 if (state is UsulanKegiatanLoading) {
                   return const Text('Loading ...');
@@ -153,7 +167,10 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                                         Navigator.pushNamed(
                                           context,
                                           editTertibAcaraPageRoute,
-                                          arguments: tertibAcara,
+                                          arguments: TertibAcaraArgs(
+                                            index: index,
+                                            usulanKegiatan: usulanKegiatan,
+                                          ),
                                         );
                                       },
                                       child: Align(
@@ -197,9 +214,18 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                                   ),
                                   DataCell(
                                     onTap: () {
-                                      context.read<TertibAcaraBloc>().add(
-                                          DeleteTertibAcaraEvent(idTertibAcara: tertibAcara.idTertibAcara));
+                                      final tertibAcaraList = usulanKegiatan.tertibAcara;
+
+                                      tertibAcaraList.removeAt(index);
+
                                       mipokaCustomToast("Tertib Acara telah dihapus");
+                                      context.read<UsulanKegiatanBloc>().add(
+                                        UpdateUsulanKegiatanEvent(
+                                          usulanKegiatan: usulanKegiatan.copyWith(
+                                            tertibAcara: tertibAcaraList,
+                                          ),
+                                        ),
+                                      );
                                     },
                                     Align(
                                       alignment: Alignment.center,

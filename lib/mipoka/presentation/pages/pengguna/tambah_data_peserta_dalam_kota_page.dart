@@ -34,6 +34,12 @@ class _TambahDataPesertaDalamKotaState extends State<TambahDataPesertaDalamKota>
   final TextEditingController _dasarPengirimanController = TextEditingController();
 
   @override
+  void dispose() {
+    context.read<UsulanKegiatanBloc>().close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaMobileAppBar(),

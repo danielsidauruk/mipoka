@@ -4,7 +4,6 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
-import 'package:mipoka/mipoka/presentation/bloc/cubit/pengajuan_kegiatan_cubit.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -33,6 +32,12 @@ class _UsulanKegiatanTambahBiayaKegiatanPageState extends State<UsulanKegiatanTa
   final TextEditingController _kuantitiController = TextEditingController();
   final TextEditingController _hargaSatuanController = TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
+
+  @override
+  void dispose() {
+    context.read<UsulanKegiatanBloc>().close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +98,7 @@ class _UsulanKegiatanTambahBiayaKegiatanPageState extends State<UsulanKegiatanTa
                               final kuantiti = int.tryParse(_kuantitiController.text);
                               final hargaSatuan = int.tryParse(_hargaSatuanController.text);
                               if (kuantiti != null && hargaSatuan != null) {
+
                                 int uniqueId = UniqueIdGenerator.generateUniqueId();
 
                                 context.read<UsulanKegiatanBloc>().add(

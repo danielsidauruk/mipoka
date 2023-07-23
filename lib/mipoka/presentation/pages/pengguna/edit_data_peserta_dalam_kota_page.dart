@@ -41,6 +41,12 @@ class _EditDataPesertaDalamKotaState extends State<EditDataPesertaDalamKota> {
   }
 
   @override
+  void dispose() {
+    context.read<UsulanKegiatanBloc>().close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaMobileAppBar(),

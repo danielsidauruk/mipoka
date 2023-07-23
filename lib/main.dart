@@ -307,9 +307,9 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) => TambahTertibAcaraPage(usulanKegiatan: usulanKegiatan));
             case editTertibAcaraPageRoute:
-              final tertibAcara = settings.arguments as TertibAcara;
+              final tertibAcaraArgs = settings.arguments as TertibAcaraArgs;
               return MaterialPageRoute(
-                  builder: (_) => EditTertibAcaraPage(tertibAcara: tertibAcara));
+                  builder: (_) => EditTertibAcaraPage(tertibAcaraArgs: tertibAcaraArgs));
 
             case penggunaDaftarLaporanKegiatanPageRoute:
               return MaterialPageRoute(

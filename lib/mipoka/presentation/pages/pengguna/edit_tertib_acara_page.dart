@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/multiple_args.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/mipoka/data/models/tertib_acara_model.dart';
 import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
 import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -17,10 +21,10 @@ import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 class EditTertibAcaraPage extends StatefulWidget {
   const EditTertibAcaraPage({
     super.key,
-    required this.tertibAcara,
+    required this.tertibAcaraArgs,
   });
 
-  final TertibAcara tertibAcara;
+  final TertibAcaraArgs tertibAcaraArgs;
 
   @override
   State<EditTertibAcaraPage> createState() => _EditTertibAcaraPageState();
@@ -35,11 +39,17 @@ class _EditTertibAcaraPageState extends State<EditTertibAcaraPage> {
 
   @override
   void initState() {
-    _waktuMulaiController.text = widget.tertibAcara.waktuMulai;
-    _waktuSelesaiController.text = widget.tertibAcara.waktuSelesai;
-    _aktivitasController.text  = widget.tertibAcara.aktivitas;
-    _keteranganController.text = widget.tertibAcara.keterangan;
+    _waktuMulaiController.text = widget.tertibAcaraArgs.usulanKegiatan.tertibAcara[widget.tertibAcaraArgs.index].waktuMulai;
+    _waktuSelesaiController.text =widget.tertibAcaraArgs.usulanKegiatan.tertibAcara[widget.tertibAcaraArgs.index].waktuSelesai;
+    _aktivitasController.text  = widget.tertibAcaraArgs.usulanKegiatan.tertibAcara[widget.tertibAcaraArgs.index].aktivitas;
+    _keteranganController.text = widget.tertibAcaraArgs.usulanKegiatan.tertibAcara[widget.tertibAcaraArgs.index].keterangan;
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    context.read<UsulanKegiatanBloc>().close();
+    super.dispose();
   }
 
   @override
@@ -107,25 +117,51 @@ class _EditTertibAcaraPageState extends State<EditTertibAcaraPage> {
                           if (_waktuMulaiController.text.isNotEmpty && _waktuSelesaiController.text.isNotEmpty
                               && _aktivitasController.text.isNotEmpty && _keteranganController.text.isNotEmpty)
                           {
-                            mipokaCustomToast("Tertib Acara telah diupdate.");
-                            context.read<TertibAcaraBloc>().add(
-                              UpdateTertibAcaraEvent(
-                                tertibAcara: widget.tertibAcara.copyWith(
-                                  waktuMulai: _waktuMulaiController.text,
-                                  waktuSelesai: _waktuSelesaiController.text,
-                                  aktivitas: _aktivitasController.text,
-                                  keterangan: _keteranganController.text,
-                                  updatedAt: currentDate,
-                                  updatedBy: user?.email ?? "unknown",
+                            int uniqueId = UniqueIdGenerator.generateUniqueId();
+
+                            final usulanKegiatan = widget.tertibAcaraArgs.usulanKegiatan;
+                            final tertibAcara = usulanKegiatan.tertibAcara[widget.tertibAcaraArgs.index];
+
+                            final newTertibAcara = tertibAcara.copyWith(
+                              waktuMulai: _waktuMulaiController.text,
+                              waktuSelesai: _waktuSelesaiController.text,
+                              aktivitas: _aktivitasController.text,
+                              keterangan: _keteranganController.text,
+                              updatedAt: currentDate,
+                              updatedBy: user?.email ?? "unknown",
+                            );
+
+                            usulanKegiatan.tertibAcara[widget.tertibAcaraArgs.index] = TertibAcaraModel.fromEntity(newTertibAcara);
+
+                            context.read<UsulanKegiatanBloc>().add(
+                              UpdateUsulanKegiatanEvent(
+                                usulanKegiatan: widget.tertibAcaraArgs.usulanKegiatan.copyWith(
+                                  tertibAcara: usulanKegiatan.tertibAcara,
                                 ),
                               ),
                             );
+
                             Navigator.pop(context);
                           } else {
                             mipokaCustomToast(emptyFieldMessage);
                           }
                         },
-                        text: 'Tambahkan Peserta',
+                        text: 'Simpan',
+                      ),
+
+                      BlocListener<UsulanKegiatanBloc, UsulanKegiatanState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
+                          if (state is UsulanKegiatanSuccess) {
+                            mipokaCustomToast("Tertib Acara telah diedit");
+                            Navigator.pop(context);
+                          }
+                          else if (state is UsulanKegiatanError) {
+                            mipokaCustomToast(state.message);
+                          }
+                        },
+                        child: const SizedBox(),
                       ),
                     ],
                   ),

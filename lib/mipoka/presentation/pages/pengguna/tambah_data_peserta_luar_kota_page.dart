@@ -40,6 +40,12 @@ class _TambahDataPesertaLuarKotaPageState extends State<TambahDataPesertaLuarKot
   final TextEditingController _tglLahirController = TextEditingController();
 
   @override
+  void dispose() {
+    context.read<UsulanKegiatanBloc>().close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaMobileAppBar(),

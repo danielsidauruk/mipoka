@@ -3,8 +3,6 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
-import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
-import 'package:mipoka/mipoka/presentation/bloc/cubit/pengajuan_kegiatan_cubit.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -42,6 +40,13 @@ class _UsulanKegiatanEditBiayaKegiatanPageState extends State<UsulanKegiatanEdit
     _keteranganController.text = widget.biayaKegiatanArgs.usulanKegiatan.biayaKegiatan[widget.biayaKegiatanArgs.index].keterangan.toString();
     super.initState();
   }
+
+  @override
+  void dispose() {
+    context.read<UsulanKegiatanBloc>().close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -170,7 +170,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                           Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              usulanKegiatan.mipokaUser.namaLengkap,
+                                              usulanKegiatan.mipokaUser?.namaLengkap ?? "",
                                             ),
                                           ),
                                         ),
