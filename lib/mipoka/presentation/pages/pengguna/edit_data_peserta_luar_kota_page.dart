@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
-import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -46,12 +44,6 @@ class _EditDataPesertaLuarKotaPageState extends State<EditDataPesertaLuarKotaPag
     _dasarPengirimanController.text = widget.partisipanArgs.usulanKegiatan.partisipan[widget.partisipanArgs.index].dasarPengiriman;
     _tglLahirController.text = widget.partisipanArgs.usulanKegiatan.partisipan[widget.partisipanArgs.index].tglLahir;
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    context.read<UsulanKegiatanBloc>().close();
-    super.dispose();
   }
 
   @override
@@ -150,33 +142,18 @@ class _EditDataPesertaLuarKotaPageState extends State<EditDataPesertaLuarKotaPag
 
                             usulanKegiatan.partisipan[widget.partisipanArgs.index] = PartisipanModel.fromEntity(newPartisipan);
 
-                            context.read<UsulanKegiatanBloc>().add(
-                              UpdateUsulanKegiatanEvent(
-                                usulanKegiatan: usulanKegiatan.copyWith(
-                                  partisipan: usulanKegiatan.partisipan,
-                                ),
+                            Navigator.pop(
+                              context,
+                              usulanKegiatan.copyWith(
+                                partisipan: usulanKegiatan.partisipan,
                               ),
                             );
+
                           } else {
                             mipokaCustomToast(emptyFieldMessage);
                           }
                         },
                         text: 'Simpan',
-                      ),
-
-                      BlocListener<UsulanKegiatanBloc, UsulanKegiatanState>(
-                        listenWhen: (prev, current) =>
-                        prev.runtimeType != current.runtimeType,
-                        listener: (context, state) {
-                          if (state is UsulanKegiatanSuccess) {
-                            mipokaCustomToast("Data Peserta telah ditambahkan");
-                            Navigator.pop(context);
-                          }
-                          else if (state is UsulanKegiatanError) {
-                            mipokaCustomToast(state.message);
-                          }
-                        },
-                        child: const SizedBox(),
                       ),
                     ],
                   ),

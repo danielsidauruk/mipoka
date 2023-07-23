@@ -5,7 +5,6 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
-import 'package:mipoka/mipoka/presentation/bloc/partisipan_bloc/partisipan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -126,50 +125,35 @@ class _TambahDataPesertaLuarKotaPageState extends State<TambahDataPesertaLuarKot
                           {
                             int uniqueId = UniqueIdGenerator.generateUniqueId();
 
-                            context.read<UsulanKegiatanBloc>().add(
-                                CreateUsulanKegiatanEvent(
-                                  usulanKegiatan: widget.usulanKegiatan.copyWith(
-                                      partisipan: [
-                                        ...widget.usulanKegiatan.partisipan,
-                                        Partisipan(
-                                          idPartisipan: uniqueId,
-                                          noInduk: _noIndukController.text,
-                                          namaPartisipan: _namaPartisipanController.text,
-                                          nik: _nikController.text,
-                                          tempatLahir: _tempatLahirController.text,
-                                          tglLahir: _tglLahirController.text,
-                                          peranPartisipan: _peranPartisipanController.text,
-                                          dasarPengiriman: _dasarPengirimanController.text,
-                                          createdAt: currentDate,
-                                          createdBy: user?.email ?? "unknown",
-                                          updatedAt: currentDate,
-                                          updatedBy: user?.email ?? "unknown",
-                                        ),
-                                      ]
-                                  ),
-                                )
+                            Navigator.pop(
+                              context,
+                              widget.usulanKegiatan.copyWith(
+                                  partisipan: [
+                                    ...widget.usulanKegiatan.partisipan,
+                                    Partisipan(
+                                      idPartisipan: uniqueId,
+                                      noInduk: _noIndukController.text,
+                                      namaPartisipan: _namaPartisipanController.text,
+                                      nik: _nikController.text,
+                                      tempatLahir: _tempatLahirController.text,
+                                      tglLahir: _tglLahirController.text,
+                                      peranPartisipan: _peranPartisipanController.text,
+                                      dasarPengiriman: _dasarPengirimanController.text,
+                                      createdAt: currentDate,
+                                      createdBy: user?.email ?? "unknown",
+                                      updatedAt: currentDate,
+                                      updatedBy: user?.email ?? "unknown",
+                                    ),
+                                  ]
+                              ),
                             );
+
                           }
                          else {
                             mipokaCustomToast(emptyFieldMessage);
                           }
                          },
                         text: 'Tambahkan Peserta',
-                      ),
-
-                      BlocListener<UsulanKegiatanBloc, UsulanKegiatanState>(
-                        listenWhen: (prev, current) =>
-                        prev.runtimeType != current.runtimeType,
-                        listener: (context, state) {
-                          if (state is UsulanKegiatanSuccess) {
-                            mipokaCustomToast("Data Peserta telah ditambahkan");
-                            Navigator.pop(context);
-                          }
-                          else if (state is UsulanKegiatanError) {
-                            mipokaCustomToast(state.message);
-                          }
-                        },
-                        child: const SizedBox(),
                       ),
                     ],
                   ),

@@ -79,10 +79,19 @@ class ManageTertibAcaraEvent extends UsulanKegiatanEvent {
   List<Object> get props => [usulanKegiatan];
 }
 
-class SaveUsulanKegiatanLastPageEvent extends UsulanKegiatanEvent {
+class SaveAndSendLastPageEvent extends UsulanKegiatanEvent {
   final UsulanKegiatan usulanKegiatan;
 
-  const SaveUsulanKegiatanLastPageEvent({required this.usulanKegiatan});
+  const SaveAndSendLastPageEvent({required this.usulanKegiatan});
+
+  @override
+  List<Object> get props => [usulanKegiatan];
+}
+
+class SaveAndGoBackLastPageEvent extends UsulanKegiatanEvent {
+  final UsulanKegiatan usulanKegiatan;
+
+  const SaveAndGoBackLastPageEvent({required this.usulanKegiatan});
 
   @override
   List<Object> get props => [usulanKegiatan];

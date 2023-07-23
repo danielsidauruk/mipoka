@@ -3,7 +3,6 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/data/models/biaya_kegiatan_model.dart';
-import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -11,7 +10,6 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class UsulanKegiatanEditBiayaKegiatanPage extends StatefulWidget {
@@ -39,12 +37,6 @@ class _UsulanKegiatanEditBiayaKegiatanPageState extends State<UsulanKegiatanEdit
     _hargaSatuanController.text = widget.biayaKegiatanArgs.usulanKegiatan.biayaKegiatan[widget.biayaKegiatanArgs.index].hargaSatuan.toString();
     _keteranganController.text = widget.biayaKegiatanArgs.usulanKegiatan.biayaKegiatan[widget.biayaKegiatanArgs.index].keterangan.toString();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    context.read<UsulanKegiatanBloc>().close();
-    super.dispose();
   }
 
   @override
@@ -121,13 +113,13 @@ class _UsulanKegiatanEditBiayaKegiatanPageState extends State<UsulanKegiatanEdit
 
                                 usulanKegiatan.biayaKegiatan[widget.biayaKegiatanArgs.index] = BiayaKegiatanModel.fromEntity(newBiayaKegiatan);
 
-                                context.read<UsulanKegiatanBloc>().add(
-                                  UpdateUsulanKegiatanEvent(
-                                    usulanKegiatan: usulanKegiatan.copyWith(
-                                      biayaKegiatan: usulanKegiatan.biayaKegiatan,
-                                    ),
+                                Navigator.pop(
+                                  context,
+                                  usulanKegiatan.copyWith(
+                                    biayaKegiatan: usulanKegiatan.biayaKegiatan,
                                   ),
                                 );
+
                               } else {
                                 mipokaCustomToast(dataTypeErrorMessage);
                               }
@@ -137,21 +129,6 @@ class _UsulanKegiatanEditBiayaKegiatanPageState extends State<UsulanKegiatanEdit
                           }
                         },
                         text: 'Simpan',
-                      ),
-
-                      BlocListener<UsulanKegiatanBloc, UsulanKegiatanState>(
-                        listenWhen: (prev, current) =>
-                        prev.runtimeType != current.runtimeType,
-                        listener: (context, state) {
-                          if (state is UsulanKegiatanSuccess) {
-                            mipokaCustomToast("Biaya Kegiatan telah diupdate.");
-                            Navigator.pop(context);
-                          }
-                          else if (state is UsulanKegiatanError) {
-                            mipokaCustomToast(state.message);
-                          }
-                        },
-                        child: const SizedBox(),
                       ),
                     ],
                   ),

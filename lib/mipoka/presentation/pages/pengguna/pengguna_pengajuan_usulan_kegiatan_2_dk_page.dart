@@ -59,31 +59,23 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
 
             const CustomFieldSpacer(),
 
-            BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
-              // listenWhen: (prev, current) =>
-              // prev.runtimeType != current.runtimeType,
-              // listener: (context, state) {
-              //   if (state is UsulanKegiatanSuccess) {
-              //
-              //     // mipokaCustomToast('Data telah berubah.');
-              //     // context.read<UsulanKegiatanBloc>().add(
-              //     //     ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
-              //   } else if (state is UpdateUsulanKegiatanSuccess) {
-              //     context.read<UsulanKegiatanBloc>().add(
-              //         ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
-              //   } else if (state is UsulanKegiatanError) {
-              //     mipokaCustomToast(state.message);
-              //   }
-              // },
+            BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
+              listenWhen: (prev, current) =>
+              prev.runtimeType != current.runtimeType,
+              listener: (context, state) {
+                if (state is ManagePartisipanSuccess || state is ManageBiayaKegiatanSuccess) {
+
+                  context.read<UsulanKegiatanBloc>().add(
+                      ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+
+                } else if (state is UsulanKegiatanError) {
+                  mipokaCustomToast(state.message);
+                }
+              },
 
               builder: (context, state) {
                 if (state is UsulanKegiatanLoading) {
                   return const Text('Loading ...');
-                } else if (state is UpdateUsulanKegiatanSuccess) {
-                  context.read<UsulanKegiatanBloc>().add(
-                      ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
-
-                  return const SizedBox();
                 } else if (state is UsulanKegiatanHasData) {
                   final usulanKegiatan = state.usulanKegiatan;
 
@@ -98,27 +90,17 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
 
                         CustomAddButton(
                           buttonText: 'Data Partisipan',
-                          // onPressed: () => Navigator.pushNamed(
-                          //   context,
-                          //   tambahDataPesertaDalamKotaPageRoute,
-                          //   arguments: usulanKegiatan,
-                          // ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                          //     ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
                           onPressed: () async {
-
-                            print("data partisipan route triggered");
                             final result = await Navigator.pushNamed(
                               context,
                               tambahDataPesertaDalamKotaPageRoute,
                               arguments: usulanKegiatan,
                             );
 
-                            print(result?.runtimeType);
-
                             if (result != null && result is UsulanKegiatan) {
                               if (context.mounted) {
                                 context.read<UsulanKegiatanBloc>().add(
-                                  UpdateUsulanKegiatanEvent(
+                                  ManagePartisipanEvent(
                                     usulanKegiatan: result,
                                   ),
                                 );
@@ -198,17 +180,6 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                           ),
                                         ),
                                         DataCell(
-                                          // onTap: () {
-                                          //   Navigator.pushNamed(
-                                          //     context,
-                                          //     editDataPesertaDalamKotaPageRoute,
-                                          //     arguments: PartisipanArgs(
-                                          //       index: index,
-                                          //       usulanKegiatan: usulanKegiatan,
-                                          //     ),
-                                          //   ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                          //       ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
-                                          // },
                                           onTap: () async {
                                             final result = await Navigator.pushNamed(
                                               context,
@@ -219,12 +190,10 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                               ),
                                             );
 
-                                            print("edit data partisipan route triggered");
-
                                             if (result != null && result is UsulanKegiatan) {
                                               if (context.mounted) {
                                                 context.read<UsulanKegiatanBloc>().add(
-                                                  UpdateUsulanKegiatanEvent(
+                                                  ManagePartisipanEvent(
                                                     usulanKegiatan: result,
                                                   ),
                                                 );
@@ -275,7 +244,7 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                             partisipanList.removeAt(index);
 
                                             context.read<UsulanKegiatanBloc>().add(
-                                              UpdateUsulanKegiatanEvent(
+                                              ManagePartisipanEvent(
                                                 usulanKegiatan: usulanKegiatan.copyWith(
                                                   partisipan: partisipanList,
                                                 ),
@@ -308,13 +277,23 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
 
                         CustomAddButton(
                           buttonText: 'Biaya Kegiatan',
-                          onPressed: () => Navigator.pushNamed(
-                            context,
-                            penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute,
-                            arguments: usulanKegiatan,
-                          ),
-                              // .then((_) => context.read<UsulanKegiatanBloc>().add(
-                              // ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)))
+                          onPressed: () async {
+                            final result = await Navigator.pushNamed(
+                              context,
+                              penggunaPengajuanUsulanKegiatan2BiayaKegiatanPageRoute,
+                              arguments: usulanKegiatan,
+                            );
+
+                            if (result != null && result is UsulanKegiatan) {
+                              if (context.mounted) {
+                                context.read<UsulanKegiatanBloc>().add(
+                                  ManageBiayaKegiatanEvent(
+                                    usulanKegiatan: result,
+                                  ),
+                                );
+                              }
+                            }
+                          },
                         ),
                         const CustomFieldSpacer(),
                         Expanded(
@@ -401,16 +380,27 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                             ),
 
                                             DataCell(
-                                              onTap: () => Navigator.pushNamed(
-                                                context,
-                                                usulanKegiatanEditBiayaKegiatanPageRoute,
-                                                arguments: BiayaKegiatanArgs(
-                                                  index: index,
-                                                  usulanKegiatan: usulanKegiatan,
-                                                ),
-                                              ),
-                                                  // .then((_) => context.read<UsulanKegiatanBloc>().add(
-                                                  // ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
+                                              onTap: () async {
+                                                final result = await Navigator.pushNamed(
+                                                  context,
+                                                  usulanKegiatanEditBiayaKegiatanPageRoute,
+                                                  arguments: BiayaKegiatanArgs(
+                                                    index: index,
+                                                    usulanKegiatan: usulanKegiatan,
+                                                  ),
+                                                );
+
+                                                if (result != null && result is UsulanKegiatan) {
+                                                  if (context.mounted) {
+                                                    context.read<UsulanKegiatanBloc>().add(
+                                                      ManageBiayaKegiatanEvent(
+                                                        usulanKegiatan: result,
+                                                      ),
+                                                    );
+                                                  }
+                                                }
+                                              },
+
                                               Align(
                                                 alignment: Alignment.center,
                                                 child: Text(
@@ -463,7 +453,7 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                                 biayaKegiatanList.removeAt(index);
 
                                                 context.read<UsulanKegiatanBloc>().add(
-                                                  UpdateUsulanKegiatanEvent(
+                                                  ManageBiayaKegiatanEvent(
                                                     usulanKegiatan: usulanKegiatan.copyWith(
                                                       biayaKegiatan: biayaKegiatanList,
                                                     ),
@@ -506,9 +496,8 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                 context,
                                 penggunaPengajuanUsulanKegiatanTertibAcaraRoute,
                                 arguments: widget.usulanArgs,
-                              ),
-                    // .then((_) => context.read<UsulanKegiatanBloc>()
-                    //               .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
+                              ).then((_) => context.read<UsulanKegiatanBloc>()
+                                  .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
                               text: 'Berikutnya',
                             ),
                           ],

@@ -230,29 +230,23 @@ class _PenggunaPengajuanUsulanKegiatan1State
                 listenWhen: (prev, current) =>
                 prev.runtimeType != current.runtimeType,
                 listener: (context, state) async {
-                  if (state is UsulanKegiatanSuccess) {
-                    // if (_tempatKegiatanSwitchController == false) {
-                    //   await Navigator.pushNamed(
-                    //     context,
-                    //     penggunaPengajuanUsulanKegiatan2DKPageRoute,
-                    //     arguments: widget.usulanArgs,
-                    //   );
-                    //       .then((_) => context.read<UsulanKegiatanBloc>()
-                    //       .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
-                    // } else {
-                    //   await Navigator.pushNamed(
-                    //     context,
-                    //     penggunaPengajuanUsulanKegiatan2LKPageRoute,
-                    //     arguments: widget.usulanArgs,
-                    //   ).then((_) => context.read<UsulanKegiatanBloc>()
-                    //       .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
-                    // }
-                  } else if (state is UpdateUsulanKegiatanSuccess) {
-                    //  await Navigator.pushNamed(
-                    //   context,
-                    //   penggunaPengajuanUsulanKegiatan2LKPageRoute,
-                    //   arguments: widget.usulanArgs,
-                    // );
+                  if (state is SaveUsulanKegiatanFirstPageSuccess) {
+
+                    if (_tempatKegiatanSwitchController == false) {
+                      await Navigator.pushNamed(
+                        context,
+                        penggunaPengajuanUsulanKegiatan2DKPageRoute,
+                        arguments: widget.usulanArgs,
+                      ).then((_) => context.read<UsulanKegiatanBloc>()
+                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
+                    } else {
+                      await Navigator.pushNamed(
+                        context,
+                        penggunaPengajuanUsulanKegiatan2LKPageRoute,
+                        arguments: widget.usulanArgs,
+                      ).then((_) => context.read<UsulanKegiatanBloc>()
+                          .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
+                    }
 
                   } else if (state is UsulanKegiatanDeleted) {
                     mipokaCustomToast("Usulan Kegiatan telah dihapus.");
@@ -601,10 +595,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
                           children: [
                             widget.usulanArgs.isRevisiUsulan == false ?
                             CustomMipokaButton(
-                              onTap: () {
-                                context.read<UsulanKegiatanBloc>()
-                                    .add(DeleteUsulanKegiatanEvent(idUsulan: widget.usulanArgs.idUsulan));
-                              },
+                              onTap: () => context.read<UsulanKegiatanBloc>()
+                                  .add(DeleteUsulanKegiatanEvent(idUsulan: widget.usulanArgs.idUsulan)),
                               text: 'Batal',
                             ) :
                             CustomMipokaButton(
@@ -627,7 +619,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                 if (context.mounted) {
 
                                   context.read<UsulanKegiatanBloc>().add(
-                                    UpdateUsulanKegiatanEvent(
+                                    SaveUsulanKegiatanFirstPageEvent(
                                       usulanKegiatan: usulanKegiatan.copyWith(
                                         ormawa: _ormawa,
                                         pembiayaan: _pembiayaanController,
@@ -656,14 +648,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                       ),
                                     ),
                                   );
-
-                                  Future.delayed(const Duration(seconds: 3), () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      penggunaPengajuanUsulanKegiatan2DKPageRoute,
-                                      arguments: widget.usulanArgs,
-                                    );
-                                  });
                                 }
                               },
                               text: 'Berikutnya',

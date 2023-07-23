@@ -121,7 +121,7 @@ class UsulanKegiatanBloc
       );
     });
 
-    on<SaveUsulanKegiatanLastPageEvent>((event, emit) async {
+    on<SaveAndSendLastPageEvent>((event, emit) async {
       emit(UsulanKegiatanLoading());
 
       final result = await usulanKegiatanUseCase
@@ -129,7 +129,19 @@ class UsulanKegiatanBloc
 
       result.fold(
             (failure) => emit(UsulanKegiatanError(message: failure.message)),
-            (_) => emit(SaveUsulanKegiatanLastPageSuccess()),
+            (_) => emit(SaveAndSendLastPageSuccess()),
+      );
+    });
+
+    on<SaveAndGoBackLastPageEvent>((event, emit) async {
+      emit(UsulanKegiatanLoading());
+
+      final result = await usulanKegiatanUseCase
+          .updateUsulanKegiatan(event.usulanKegiatan);
+
+      result.fold(
+            (failure) => emit(UsulanKegiatanError(message: failure.message)),
+            (_) => emit(SaveAndGoBackLastPageSuccess()),
       );
     });
   }

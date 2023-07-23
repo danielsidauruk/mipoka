@@ -47,11 +47,10 @@ class UsulanKegiatanSuccess extends UsulanKegiatanState {
   List<Object> get props => [message];
 }
 
-class UsulanKegiatanDeleted extends UsulanKegiatanState {}
-
 class UpdateUsulanKegiatanSuccess extends UsulanKegiatanState {}
 
 
+class UsulanKegiatanDeleted extends UsulanKegiatanState {}
 
 class SaveUsulanKegiatanFirstPageSuccess extends UsulanKegiatanState {}
 
@@ -61,4 +60,6 @@ class ManageBiayaKegiatanSuccess extends UsulanKegiatanState {}
 
 class ManageTertibAcaraSuccess extends UsulanKegiatanState {}
 
-class SaveUsulanKegiatanLastPageSuccess extends UsulanKegiatanState {}
+class SaveAndSendLastPageSuccess extends UsulanKegiatanState {}
+
+class SaveAndGoBackLastPageSuccess extends UsulanKegiatanState {}

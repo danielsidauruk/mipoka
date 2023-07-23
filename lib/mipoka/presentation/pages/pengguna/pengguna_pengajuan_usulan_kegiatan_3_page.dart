@@ -18,7 +18,6 @@ import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart'
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
-import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -101,7 +100,26 @@ class _PenggunaPengajuanUsulanKegiatan3State
               const CustomMobileTitle(
                   text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
               const CustomFieldSpacer(),
-              BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+              BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
+                listenWhen: (prev, current) =>
+                prev.runtimeType != current.runtimeType,
+                listener: (context, state) {
+                  if (state is SaveAndGoBackLastPageSuccess) {
+                    Navigator.pop(context);
+
+                  } else if (state is SaveAndSendLastPageSuccess) {
+
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      penggunaDaftarPengajuanKegiatanPageRoute,
+                          (route) => false,
+                    );
+                  }
+                  else if (state is UsulanKegiatanError) {
+                    mipokaCustomToast(state.message);
+                  }
+                },
+
                 builder: (context, state) {
                   if (state is UsulanKegiatanLoading) {
                     return const Text('Loading');
@@ -360,6 +378,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
                             CustomMipokaButton(
                               onTap: () async {
 
+                                mipokaCustomToast(savingDataMessage);
+
                                 if (kIsWeb) {
                                   if (_postinganKegiatanResult != null) {
                                     postinganKegiatanBytes = _postinganKegiatanResult?.files.first.bytes;
@@ -388,8 +408,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                   }
                                 }
 
-                                mipokaCustomToast(savingDataMessage);
-                                
                                 if (postinganKegiatanBytes != null) {
                                   int uniqueId = UniqueIdGenerator.generateUniqueId();
                                   _postinganKegiatanController = await uploadBytesToFirebase(postinganKegiatanBytes!, "$uniqueId${_postinganKegiatanResult!.files.first.name}");
@@ -407,14 +425,9 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                   _fotoTempatKegiatanController = await uploadBytesToFirebase(fotoTempatKegiatanBytes!, "$uniqueId${_fotoTempatKegiatanResult!.files.first.name}");
                                 }
 
-                                print("Postingan Kegiatan : $_postinganKegiatanController");
-                                print("Surat Undangan : $_suratUndanganKegiatanController");
-                                print("Linimasa Kegiatan  : $_linimasaKegiatanController");
-                                print("Foto Tempat Kegiatan : $_fotoTempatKegiatanController");
-
                                 if (context.mounted) {
                                   context.read<UsulanKegiatanBloc>().add(
-                                    UpdateUsulanKegiatanEvent(
+                                    SaveAndGoBackLastPageEvent(
                                       usulanKegiatan: usulanKegiatan.copyWith(
                                         latarBelakang: _latarBelakangController.text,
                                         tujuanKegiatan: _tujuanKegiatanController.text,
@@ -485,8 +498,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                     }
                                   }
 
-                                  mipokaCustomToast(savingDataMessage);
-
                                   if (postinganKegiatanBytes != null) {
                                     int uniqueId = UniqueIdGenerator.generateUniqueId();
                                     _postinganKegiatanController = await uploadBytesToFirebase(postinganKegiatanBytes!, "$uniqueId${_postinganKegiatanResult!.files.first.name}");
@@ -511,7 +522,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
 
                                   if (context.mounted) {
                                     context.read<UsulanKegiatanBloc>().add(
-                                      UpdateUsulanKegiatanEvent(
+                                      SaveAndSendLastPageEvent(
                                         usulanKegiatan: usulanKegiatan.copyWith(
                                           latarBelakang: _latarBelakangController.text,
                                           tujuanKegiatan: _tujuanKegiatanController.text,
@@ -530,11 +541,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                         ),
                                       ),
                                     );
-                                    Navigator.pushNamedAndRemoveUntil(
-                                      context,
-                                      penggunaDaftarPengajuanKegiatanPageRoute,
-                                          (route) => false,
-                                    );
+
                                     mipokaCustomToast("Usulan Kegiatan telah dikirim");
                                   }
                                 } else {

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
+import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -58,11 +59,11 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
               listenWhen: (prev, current) =>
               prev.runtimeType != current.runtimeType,
               listener: (context, state) {
-                if (state is UsulanKegiatanSuccess) {
+                if (state is ManageTertibAcaraSuccess) {
 
                   mipokaCustomToast('Data telah berubah.');
-                  // context.read<UsulanKegiatanBloc>().add(
-                  //     ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+                  context.read<UsulanKegiatanBloc>().add(
+                      ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
 
                 }
                 else if (state is UsulanKegiatanError) {
@@ -87,13 +88,23 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
 
                       CustomAddButton(
                         buttonText: 'Tertib Acara',
-                        onPressed: () => Navigator.pushNamed(
-                          context,
-                          tambahTertibAcaraPageRoute,
-                          arguments: usulanKegiatan,
-                        )
-                            // .then((_) => context.read<UsulanKegiatanBloc>()
-                            // .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan))),
+                        onPressed: () async {
+                          final result = await Navigator.pushNamed(
+                            context,
+                            tambahTertibAcaraPageRoute,
+                            arguments: usulanKegiatan,
+                          );
+
+                          if (result != null && result is UsulanKegiatan) {
+                            if (context.mounted) {
+                              context.read<UsulanKegiatanBloc>().add(
+                                ManageBiayaKegiatanEvent(
+                                  usulanKegiatan: result,
+                                ),
+                              );
+                            }
+                          }
+                        },
                       ),
 
                       const CustomFieldSpacer(),
@@ -164,8 +175,8 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                                   ),
                                   DataCell(
                                     InkWell(
-                                      onTap: () {
-                                        Navigator.pushNamed(
+                                      onTap: () async {
+                                        final result = await Navigator.pushNamed(
                                           context,
                                           editTertibAcaraPageRoute,
                                           arguments: TertibAcaraArgs(
@@ -173,6 +184,16 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                                             usulanKegiatan: usulanKegiatan,
                                           ),
                                         );
+
+                                        if (result != null && result is UsulanKegiatan) {
+                                          if (context.mounted) {
+                                            context.read<UsulanKegiatanBloc>().add(
+                                              ManageBiayaKegiatanEvent(
+                                                usulanKegiatan: result,
+                                              ),
+                                            );
+                                          }
+                                        }
                                       },
                                       child: Align(
                                         alignment: Alignment.center,
@@ -220,8 +241,9 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                                       tertibAcaraList.removeAt(index);
 
                                       mipokaCustomToast("Tertib Acara telah dihapus");
+
                                       context.read<UsulanKegiatanBloc>().add(
-                                        UpdateUsulanKegiatanEvent(
+                                        ManageTertibAcaraEvent(
                                           usulanKegiatan: usulanKegiatan.copyWith(
                                             tertibAcara: tertibAcaraList,
                                           ),
@@ -255,14 +277,12 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                           const SizedBox(width: 8.0),
                           CustomMipokaButton(
                             onTap: () {
-                              mipokaCustomToast('Sedang menyimpan data...', time: 5);
                               Navigator.pushNamed(
                                 context,
                                 penggunaPengajuanUsulanKegiatan3PageRoute,
                                 arguments: widget.usulanArgs,
                               ).then((_) => context.read<UsulanKegiatanBloc>()
-                                  .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)),
-                              );
+                                  .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
                             },
                             text: 'Berikutnya',
                           ),
