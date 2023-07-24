@@ -9,6 +9,7 @@ import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
@@ -314,30 +315,28 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) => const PenggunaDaftarLaporanKegiatan());
             case penggunaPengajuanLaporanKegiatanPage1Route:
-              // final idLaporan = settings.arguments as int;
               final laporanArgs = settings.arguments as LaporanArgs;
               return MaterialPageRoute(
                   builder: (_) => PenggunaPengajuanLaporanKegiatan1(laporanArgs: laporanArgs));
             case penggunaPengajuanLaporanKegiatan2PageRoute:
               final laporanArgs = settings.arguments as LaporanArgs;
-              // final idLaporan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) => PenggunaPengajuanLaporanKegiatan2(laporanArgs: laporanArgs));
             case laporanKegiatanTambahBiayaKegiatanPageRoute:
-              final idLaporan = settings.arguments as int;
+              final laporan = settings.arguments as Laporan;
               return MaterialPageRoute(
                   builder: (_) =>
-                      LaporanKegiatanTambahBiayaKegiatanPage(idLaporan: idLaporan));
+                      LaporanKegiatanTambahBiayaKegiatanPage(laporan: laporan));
             case laporanKegiatanEditBiayaKegiatanPageRoute:
               final rincianBiayaKegiatan = settings.arguments as RincianBiayaKegiatan;
               return MaterialPageRoute(
                   builder: (_) =>
                       LaporanKegiatanEditBiayaKegiatanPage(rincianBiayaLaporan: rincianBiayaKegiatan));
             case importPesertaLaporanPageRoute:
-              final idLaporan = settings.arguments as int;
+              final laporan = settings.arguments as Laporan;
               return MaterialPageRoute(
                   builder: (_) =>
-                      ImportPesertaLaporanPage(idLaporan: idLaporan));
+                      ImportPesertaLaporanPage(laporan: laporan));
             case penggunaPengajuanLaporanKegiatan3PageRoute:
               final laporanArgs = settings.arguments as LaporanArgs;
               return MaterialPageRoute(
@@ -488,7 +487,7 @@ class MyApp extends StatelessWidget {
             case kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute:
               // final idRiwayatKegiatan = settings.arguments as int;
               return MaterialPageRoute(
-                  builder: (_) => KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage());
+                  builder: (_) => const KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage());
             case mptMahasiswaRiwayatKegiatanMahasiswaEditPageRoute:
               final riwayatKegiatanMpt = settings.arguments as RiwayatKegiatanMpt;
               return MaterialPageRoute(

@@ -14,8 +14,9 @@ class DioUtil {
     Dio(
       BaseOptions(
         baseUrl: 'https://oafish-eggnog-production.up.railway.app',
-        connectTimeout: 5000,
-        receiveTimeout: 5000,
+        connectTimeout: 100000,
+        receiveTimeout: 100000,
+        sendTimeout: 100000,
       ),
     ),
   );

@@ -94,14 +94,7 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                           _result = await FilePicker.platform.pickFiles(type: FileType.image);
                           PlatformFile? file = _result?.files.first;
                           if (_result != null) {
-                            if (file?.extension!.toLowerCase() == 'jpg' ||
-                                file?.extension!.toLowerCase() == 'jpeg' ||
-                                file?.extension!.toLowerCase() == 'png' ||
-                                file?.extension!.toLowerCase() == 'gif'){
-                              _filePickerStream.add(file?.name);
-                            } else {
-                              mipokaCustomToast("Tipe data file bukan gambar.");
-                            }
+                            _filePickerStream.add(file?.name);
                           }
                         },
                         onDelete: () {
@@ -155,16 +148,15 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                             }
 
                             if (context.mounted) {
-                              context.read<BeritaBloc>().add(
-                                UpdateBeritaEvent(
-                                  widget.berita.copyWith(
-                                    judul: _judulBeritaController.text,
-                                    penulis: _penulisController.text,
-                                    gambar: _fotoBeritaController,
-                                    teks: _textBeritaController.text,
-                                    updatedBy: user?.email ?? "unknown",
-                                    updatedAt: currentDate,
-                                  ),
+                              Navigator.pop(
+                                context,
+                                widget.berita.copyWith(
+                                  judul: _judulBeritaController.text,
+                                  penulis: _penulisController.text,
+                                  gambar: _fotoBeritaController,
+                                  teks: _textBeritaController.text,
+                                  updatedBy: user?.email ?? "unknown",
+                                  updatedAt: currentDate,
                                 ),
                               );
                             }
@@ -174,23 +166,8 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                         },
                         text: 'Simpan',
                       ),
-
-                      BlocListener<BeritaBloc, BeritaState>(
-                        listenWhen: (prev, current) =>
-                        prev.runtimeType != current.runtimeType,
-                        listener: (context, state) {
-                          if (state is BeritaSuccessMessage) {
-                            mipokaCustomToast("Berita telah diupdate");
-                            Navigator.pop(context);
-                          } else if (state is BeritaError) {
-                            mipokaCustomToast(state.message);
-                          }
-                        },
-                        child: const SizedBox(),
-                      ),
                     ],
                   ),
-
                 ],
               )
             ],

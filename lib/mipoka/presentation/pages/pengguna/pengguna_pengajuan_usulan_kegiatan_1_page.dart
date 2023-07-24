@@ -305,9 +305,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
                         List<String> ormawaList = usulanKegiatan.mipokaUser.ormawa
                             .map((ormawa) => ormawa.namaOrmawa).toList();
 
-                        if (_ormawa?.idOrmawa == 0) {
-                          _ormawa = usulanKegiatan.mipokaUser.ormawa[0];
-                        }
+                        _ormawa = usulanKegiatan.ormawa;
+                        // usulanKegiatan.mipokaUser.ormawa[0];
 
                         _bentukKegiatanController == "" ? listBentukKegiatan[0] : _bentukKegiatanController;
                         if (usulanKegiatan.pembiayaan == "") {
@@ -322,7 +321,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                             buildTitle('Nama Ormawa'),
                             MipokaCustomDropdown(
                                 items: ormawaList,
-                                initialItem: _ormawa?.idOrmawa != 0 ? _ormawa?.namaOrmawa : ormawaList[0],
+                                initialItem: _ormawa?.namaOrmawa,
                                 onValueChanged: (value) {
                                   int index = ormawaList.indexOf(value!);
                                   // int idOrmawa = idOrmawaList[index];

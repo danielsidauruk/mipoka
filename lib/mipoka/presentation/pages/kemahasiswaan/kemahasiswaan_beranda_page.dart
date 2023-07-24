@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/format_date_indonesia.dart';
+import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -62,15 +63,33 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                 children: [
                   CustomAddButton(
                     buttonText: 'Tambah',
-                    onPressed: () => Navigator.pushNamed(
-                      context,
-                      kemahasiswaanBerandaTambahBeritaPageRoute,
-                    ).then((_) => context.read<BeritaBloc>().add(const ReadAllBeritaEvent())),
+                    onPressed: () async {
+                      final result = await Navigator.pushNamed(
+                        context,
+                        kemahasiswaanBerandaTambahBeritaPageRoute,
+                      );
+
+                      if (result != null && result is Berita && context.mounted) {
+                        context.read<BeritaBloc>().add(
+                            UpdateBeritaEvent(berita: result)
+                        );
+                      }
+                    }
                   ),
 
                   const CustomFieldSpacer(),
 
-                  BlocBuilder<BeritaBloc, BeritaState>(
+                  BlocConsumer<BeritaBloc, BeritaState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) {
+                      if (state is BeritaSuccessMessage) {
+                        context.read<BeritaBloc>().add(ReadAllBeritaEvent(filter: _filter ?? ""));
+
+                      } else if (state is BeritaError) {
+                        mipokaCustomToast(state.message);
+                      }
+                    },
                     builder: (context, state) {
                       if (state is BeritaLoading) {
                         return const Text('Loading');

@@ -29,7 +29,7 @@ class ReadBeritaEvent extends BeritaEvent {
 
 class UpdateBeritaEvent extends BeritaEvent {
   final Berita berita;
-  const UpdateBeritaEvent(this.berita);
+  const UpdateBeritaEvent({required this.berita});
 }
 
 class DeleteBeritaEvent extends BeritaEvent {

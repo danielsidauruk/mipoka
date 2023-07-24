@@ -123,7 +123,7 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                                   return CustomMipokaButton(
                                     onTap: () {
                                       context.read<LaporanBloc>().add(
-                                        UpdateLaporanEvent(
+                                        UpdateLaporanFirstPageEvent(
                                           laporan: laporan.copyWith(
                                             revisiLaporan: laporan.revisiLaporan?.copyWith(
                                               idRevisiLaporan: newId,

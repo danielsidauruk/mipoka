@@ -18,7 +18,7 @@ class LaporanBloc extends Bloc<LaporanEvent, LaporanState> {
 
       result.fold(
             (failure) => emit(LaporanError(message: failure.message)),
-            (_) => emit(const LaporanSuccessMessage()),
+            (_) => emit(CreateLaporanSuccess()),
       );
     });
 
@@ -44,14 +44,47 @@ class LaporanBloc extends Bloc<LaporanEvent, LaporanState> {
       );
     });
 
-    on<UpdateLaporanEvent>((event, emit) async {
+    on<UpdateLaporanFirstPageEvent>((event, emit) async {
       emit(LaporanLoading());
 
       final result = await laporanUseCase.updateLaporan(event.laporan);
 
       result.fold(
             (failure) => emit(LaporanError(message: failure.message)),
-            (_) => emit(const LaporanSuccessMessage()),
+            (_) => emit(const UpdateLaporanFirstPageSuccess()),
+      );
+    });
+
+    on<UpdateLaporanSecondPageEvent>((event, emit) async {
+      emit(LaporanLoading());
+
+      final result = await laporanUseCase.updateLaporan(event.laporan);
+
+      result.fold(
+            (failure) => emit(LaporanError(message: failure.message)),
+            (_) => emit(UpdateLaporanSecondPageSuccess()),
+      );
+    });
+
+    on<UpdateLaporanLastPageEvent>((event, emit) async {
+      emit(LaporanLoading());
+
+      final result = await laporanUseCase.updateLaporan(event.laporan);
+
+      result.fold(
+            (failure) => emit(LaporanError(message: failure.message)),
+            (_) => emit(UpdateLaporanLastPageSuccess()),
+      );
+    });
+
+    on<UpdateLaporanAndSendEvent>((event, emit) async {
+      emit(LaporanLoading());
+
+      final result = await laporanUseCase.updateLaporan(event.laporan);
+
+      result.fold(
+            (failure) => emit(LaporanError(message: failure.message)),
+            (_) => emit(UpdateLaporanAndSendSuccess()),
       );
     });
 
@@ -62,7 +95,7 @@ class LaporanBloc extends Bloc<LaporanEvent, LaporanState> {
 
       result.fold(
             (failure) => emit(LaporanError(message: failure.message)),
-            (_) => emit(const LaporanSuccessMessage()),
+            (_) => emit(DeleteLaporanSuccess()),
       );
     });
   }

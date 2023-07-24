@@ -8,7 +8,10 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
+import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/peserta_kegiatan_laporan_bloc/peserta_kegiatan_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
@@ -22,10 +25,10 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 class ImportPesertaLaporanPage extends StatefulWidget {
   const ImportPesertaLaporanPage({
     super.key,
-    required this.idLaporan,
+    required this.laporan,
   });
 
-  final int idLaporan;
+  final Laporan laporan;
 
   @override
   State<ImportPesertaLaporanPage> createState() => _ImportPesertaLaporanPageState();
@@ -36,6 +39,9 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
   final StreamController<String?> _excelFileStream = StreamController<String?>.broadcast();
   String? _excelFileController;
   FilePickerResult? result;
+
+  List nimList = [];
+  List peranList = [];
 
   void _processUploadedFile(PlatformFile file) async {
     Uint8List? bytes;
@@ -51,40 +57,40 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
         Excel excel = Excel.decodeBytes(bytes);
         Sheet? sheet = excel.tables[excel.tables.keys.first];
 
-        List nimList = [];
-        List peranList = [];
+        nimList = [];
+        peranList = [];
 
-        for (var row in sheet!.rows) {
+        for (var i = 1; i < sheet!.rows.length; i++) {
+          var row = sheet.rows[i];
           var nim = row[0]?.value;
           var peran = row[1]?.value;
 
           if (nim != null && peran != null) {
-            nimList.add(nim);
-            peranList.add(peran);
+            nimList.add(nim.toString());
+            peranList.add(peran.toString());
           }
         }
 
-        for (var i = 1; i < nimList.length; i++) {
-          Future.microtask(() => context.read<PesertaKegiatanLaporanBloc>().add(
-            CreatePesertaKegiatanLaporanEvent(
-              idLaporanKegiatan: widget.idLaporan,
-              pesertaKegiatanLaporan: PesertaKegiatanLaporan(
-                idPesertaKegiatanLaporan: newId + i,
-                nim: nimList[i].toString(),
-                namaLengkap: "",
-                peran: peranList[i].toString(),
-                createdAt: currentDate,
-                createdBy: user?.email ?? "unknown",
-                updatedAt: currentDate,
-                updatedBy: user?.email ?? "unknown",
-              ),
-            ),
-          ));
-        }
-        Future.microtask(() {
-          mipokaCustomToast("Data telah di update.");
-          Navigator.pop(context);
-        });
+        // for (var i = 1; i < nimList.length; i++) {
+        //   int uniqueId = UniqueIdGenerator.generateUniqueId();
+        //
+        //   context.read<LaporanBloc>().add(
+        //     UpdateLaporanSecondPageEvent(
+        //       laporan: widget.laporan.copyWith(
+        //         pesertaKegiatanLaporan: [
+        //           ...widget.laporan.pesertaKegiatanLaporan,
+        //           PesertaKegiatanLaporan(
+        //               idPesertaKegiatanLaporan: , nim: nim, namaLengkap: namaLengkap, peran: peran, createdAt: createdAt, createdBy: createdBy, updatedAt: updatedAt, updatedBy: updatedBy,
+        //           )
+        //         ]
+        //       ),
+        //     ),
+        //   );
+        // }
+        // Future.microtask(() {
+        //   mipokaCustomToast("Data telah di update.");
+        //   Navigator.pop(context);
+        // });
       } catch (e) {
         mipokaCustomToast("Format/file yang dimasukkan salah.");
       }
@@ -130,7 +136,7 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                           result = await FilePicker.platform.pickFiles();
                           if (result != null){
                             _excelFileStream.add(result?.files.first.name);
-
+                            _processUploadedFile(result!.files.first);
                           }
                         },
                         text: filePath,

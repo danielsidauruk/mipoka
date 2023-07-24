@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/rincian_biaya_kegiatan_bloc/rincian_biaya_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -15,11 +17,11 @@ import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class LaporanKegiatanTambahBiayaKegiatanPage extends StatefulWidget {
   const LaporanKegiatanTambahBiayaKegiatanPage({
-    required this.idLaporan,
+    required this.laporan,
     super.key,
   });
   
-  final int idLaporan;
+  final Laporan laporan;
 
   @override
   State<LaporanKegiatanTambahBiayaKegiatanPage> createState() => _LaporanKegiatanTambahBiayaKegiatanPageState();
@@ -125,34 +127,37 @@ class _LaporanKegiatanTambahBiayaKegiatanPageState extends State<LaporanKegiatan
                               final hargaSatuan = int.tryParse(_hargaSatuanController.text);
 
                               int? selisih;
+                              int uniqueId = UniqueIdGenerator.generateUniqueId();
 
                               if (usulanAnggaran != null && realisasiAnggaran != null
                                   && kuantitas != null && hargaSatuan != null) {
+
                                 selisih = usulanAnggaran > realisasiAnggaran
                                     ? usulanAnggaran - realisasiAnggaran
                                     : realisasiAnggaran - usulanAnggaran;
 
-                                context.read<RincianBiayaKegiatanBloc>().add(
-                                  CreateRincianBiayaKegiatanEvent(
-                                    idLaporan: widget.idLaporan,
-                                    rincianBiayaKegiatan: RincianBiayaKegiatan(
-                                      idRincianBiayaKegiatan: newId,
-                                      namaBiaya: _namaBiayaKegiatanController.text,
-                                      keterangan: _keteranganController.text,
-                                      kuantitas: kuantitas,
-                                      hargaSatuan: hargaSatuan,
-                                      usulanAnggaran: usulanAnggaran,
-                                      realisasiAnggaran: realisasiAnggaran,
-                                      selisih: selisih,
-                                      createdAt: currentDate,
-                                      createdBy: user?.email ?? "unknown",
-                                      updatedAt: currentDate,
-                                      updatedBy: user?.email ?? "unknown",
-                                    ),
+                                Navigator.pop(
+                                  context,
+                                  widget.laporan.copyWith(
+                                    rincianBiayaKegiatan: [
+                                      ...widget.laporan.rincianBiayaKegiatan,
+                                      RincianBiayaKegiatan(
+                                        idRincianBiayaKegiatan: uniqueId,
+                                        namaBiaya: _namaBiayaKegiatanController.text,
+                                        keterangan: _keteranganController.text,
+                                        kuantitas: kuantitas,
+                                        hargaSatuan: hargaSatuan,
+                                        usulanAnggaran: usulanAnggaran,
+                                        realisasiAnggaran: realisasiAnggaran,
+                                        selisih: selisih,
+                                        createdAt: currentDate,
+                                        createdBy: user?.email ?? "unknown",
+                                        updatedAt: currentDate,
+                                        updatedBy: user?.email ?? "unknown",
+                                      ),
+                                    ]
                                   ),
                                 );
-                                mipokaCustomToast("Laporan Biaya Kegiatan telah ditambah.");
-                                Navigator.pop(context);
                               }
                             } catch (e) {
                               mipokaCustomToast(dataTypeErrorMessage);
@@ -160,7 +165,6 @@ class _LaporanKegiatanTambahBiayaKegiatanPageState extends State<LaporanKegiatan
                           } else {
                             mipokaCustomToast(emptyFieldMessage);
                           }
-
                         },
                         text: 'Tambahkan Peserta',
                       ),

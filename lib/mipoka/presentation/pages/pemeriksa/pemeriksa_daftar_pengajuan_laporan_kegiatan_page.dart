@@ -209,7 +209,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                                 InkWell(
                                                   onTap: () => Future.microtask(() {
                                                     context.read<LaporanBloc>().add(
-                                                      UpdateLaporanEvent(
+                                                      UpdateLaporanFirstPageEvent(
                                                         laporan: laporanKegiatan.copyWith(
                                                           statusLaporan: "diterima",
                                                         ),
@@ -227,7 +227,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                                 InkWell(
                                                   onTap: () => Future.microtask(() {
                                                     context.read<LaporanBloc>().add(
-                                                      UpdateLaporanEvent(
+                                                      UpdateLaporanFirstPageEvent(
                                                         laporan: laporanKegiatan.copyWith(
                                                           statusLaporan: "ditolak",
                                                         ),

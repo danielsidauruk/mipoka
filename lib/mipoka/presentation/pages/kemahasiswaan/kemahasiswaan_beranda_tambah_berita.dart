@@ -5,7 +5,6 @@ import 'package:mipoka/core/theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
@@ -13,7 +12,6 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
-import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -82,14 +80,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                           result = await FilePicker.platform.pickFiles(type: FileType.image);
                           PlatformFile? file = result?.files.first;
                           if (result != null) {
-                            if (file?.extension!.toLowerCase() == 'jpg' ||
-                                file?.extension!.toLowerCase() == 'jpeg' ||
-                                file?.extension!.toLowerCase() == 'png' ||
-                                file?.extension!.toLowerCase() == 'gif'){
-                              _filePickerStream.add(file?.name);
-                            } else {
-                              mipokaCustomToast("Tipe data file bukan gambar.");
-                            }
+                            _filePickerStream.add(file?.name);
                           }
                         },
                         text: text,
@@ -140,22 +131,22 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                               }
 
                               if(context.mounted) {
+
                                 int uniqueId = UniqueIdGenerator.generateUniqueId();
 
-                                context.read<BeritaBloc>().add(
-                                  CreateBeritaEvent(
-                                    Berita(
-                                      idBerita: uniqueId,
-                                      judul: _judulBeritaController.text,
-                                      penulis: _penulisController.text,
-                                      gambar: imageUrl ?? "",
-                                      teks: _textBeritaController.text,
-                                      tglTerbit: currentDate,
-                                      createdAt: currentDate,
-                                      createdBy: user?.email ?? "unknown",
-                                      updatedAt: currentDate,
-                                      updatedBy: user?.email ?? "unknown",
-                                    ),
+                                Navigator.pop(
+                                  context,
+                                  Berita(
+                                    idBerita: uniqueId,
+                                    judul: _judulBeritaController.text,
+                                    penulis: _penulisController.text,
+                                    gambar: imageUrl ?? "",
+                                    teks: _textBeritaController.text,
+                                    tglTerbit: currentDate,
+                                    createdAt: currentDate,
+                                    createdBy: user?.email ?? "unknown",
+                                    updatedAt: currentDate,
+                                    updatedBy: user?.email ?? "unknown",
                                   ),
                                 );
                               }
@@ -169,20 +160,6 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                         text: 'Simpan',
                       ),
                     ],
-                  ),
-
-                  BlocListener<BeritaBloc, BeritaState>(
-                    listenWhen: (prev, current) =>
-                    prev.runtimeType != current.runtimeType,
-                    listener: (context, state) {
-                      if (state is BeritaSuccessMessage) {
-                        mipokaCustomToast("Berita berhasil ditambahkan.");
-                        Navigator.pop(context);
-                      } else if (state is BeritaError) {
-                        mipokaCustomToast(state.message);
-                      }
-                    },
-                    child: const SizedBox(),
                   ),
                 ],
               ),

@@ -166,7 +166,7 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                             CustomMipokaButton(
                               onTap: () {
                                 context.read<LaporanBloc>().add(
-                                  UpdateLaporanEvent(
+                                  UpdateLaporanFirstPageEvent(
                                     laporan: laporan.copyWith(
                                       revisiLaporan: laporan.revisiLaporan?.copyWith(
                                         revisiLatarBelakang: _revisiLatarBelakangController.text,
@@ -192,7 +192,7 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                             CustomMipokaButton(
                               onTap: () {
                                 context.read<LaporanBloc>().add(
-                                  UpdateLaporanEvent(
+                                  UpdateLaporanFirstPageEvent(
                                     laporan: laporan.copyWith(
                                       revisiLaporan: laporan.revisiLaporan?.copyWith(
                                         revisiLatarBelakang: _revisiLatarBelakangController.text,
@@ -228,7 +228,7 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                                 );
 
                                 context.read<LaporanBloc>().add(
-                                  UpdateLaporanEvent(
+                                  UpdateLaporanFirstPageEvent(
                                     laporan: laporan.copyWith(
                                       validasiPembina: disetujui,
                                     ),

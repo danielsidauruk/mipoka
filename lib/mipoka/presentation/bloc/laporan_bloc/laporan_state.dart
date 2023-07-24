@@ -38,11 +38,21 @@ class LaporanHasData extends LaporanState {
   List<Object> get props => [laporan];
 }
 
-class LaporanSuccessMessage extends LaporanState {
-  const LaporanSuccessMessage({this.message = "Data has changed"});
+class UpdateLaporanFirstPageSuccess extends LaporanState {
+  const UpdateLaporanFirstPageSuccess({this.message = "Data has changed"});
 
   final String message;
 
   @override
   List<Object> get props => [message];
 }
+
+class CreateLaporanSuccess extends LaporanState {}
+
+class UpdateLaporanSecondPageSuccess extends LaporanState {}
+
+class UpdateLaporanLastPageSuccess extends LaporanState {}
+
+class UpdateLaporanAndSendSuccess extends LaporanState {}
+
+class DeleteLaporanSuccess extends LaporanState {}

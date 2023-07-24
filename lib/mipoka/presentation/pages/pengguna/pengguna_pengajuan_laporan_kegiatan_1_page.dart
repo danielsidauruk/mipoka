@@ -5,6 +5,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
+import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -35,12 +36,10 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
   @override
   void initState() {
-    Future.microtask(() {
-      context.read<LaporanBloc>().add(
-          ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
-      context.read<UsulanKegiatanBloc>().add(
-          const ReadAllUsulanKegiatanEvent());
-    });
+    context.read<LaporanBloc>().add(
+        ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
+    context.read<UsulanKegiatanBloc>().add(
+        const ReadAllUsulanKegiatanEvent());
     super.initState();
   }
 
@@ -51,63 +50,88 @@ class _PenggunaPengajuanLaporanKegiatan1State
     super.dispose();
   }
 
-  // late QuillController _pencapaianController;
   final TextEditingController _pencapaianController = TextEditingController();
-  late String _namaKegiatanController;
-  int? selectedIndex;
+  UsulanKegiatan? _usulanKegiatan;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomPenggunaDrawerWidget(),
-      body: BlocBuilder<LaporanBloc, LaporanState>(
-        builder: (context, laporanState) {
-          return BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
-            builder: (context, usulanState) {
-              if (laporanState is LaporanLoading && usulanState is UsulanKegiatanLoading) {
-                return const Text('Loading ...');
-              } else if (laporanState is LaporanHasData &&
-                  usulanState is AllUsulanKegiatanHasData){
-                final laporan = laporanState.laporan;
-                final usulan = usulanState.usulanKegiatanList;
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const CustomMobileTitle(
+                  text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
+              const CustomFieldSpacer(),
+              CustomContentBox(
+                children: [
 
-                List<String> namaKegiatanList = usulan.map(
-                        (usulanKegiatan) => usulanKegiatan.namaKegiatan).toList();
+                  BlocConsumer<LaporanBloc, LaporanState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) async {
+                      if (state is UpdateLaporanFirstPageSuccess) {
+                        final result = await Navigator.pushNamed(
+                          context,
+                          penggunaPengajuanLaporanKegiatan2PageRoute,
+                          arguments: widget.laporanArgs,
+                        );
 
-                // _pencapaianController =  QuillController(
-                //   document: Document()..insert(0, laporan.pencapaian),
-                //   selection: const TextSelection.collapsed(offset: 0),
-                // );
-                _pencapaianController.text = laporan.pencapaian;
-                _namaKegiatanController = usulan[selectedIndex ?? 0].namaKegiatan;
+                        if (result != null && result == true && context.mounted) {
+                          context.read<LaporanBloc>().add(
+                              ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
+                        }
 
-                return SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const CustomMobileTitle(
-                            text: 'Pengajuan - Kegiatan - Laporan Kegiatan'),
-                        const CustomFieldSpacer(),
-                        CustomContentBox(
+                      } else if (state is DeleteLaporanSuccess) {
+                        Navigator.pop(context, true);
+                      }
+
+                    },
+                    builder: (context, laporanState) {
+                      if (laporanState is LaporanLoading) {
+                        return const Text('Loading ...');
+                      } else if (laporanState is LaporanHasData){
+
+                        final laporan = laporanState.laporan;
+                        _pencapaianController.text = laporan.pencapaian;
+
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // buildTitle('Nama Ormawa'),
-                            // buildTitle(namaOrmawa ?? ""),
-
-                            // const CustomFieldSpacer(),
-
                             buildTitle('Nama Kegiatan'),
 
-                            MipokaCustomDropdown(
-                              items: namaKegiatanList,
-                              initialItem: _namaKegiatanController,
-                              onValueChanged: (value) {
-                                setState(() {
-                                  _namaKegiatanController = value!;
-                                  selectedIndex = namaKegiatanList.indexOf(_namaKegiatanController);
-                                });
+                            BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+                              builder: (context, state) {
+                                if (state is UsulanKegiatanLoading) {
+                                  return const Text("Loading ...");
+                                } else if (state is AllUsulanKegiatanHasData) {
+
+                                  final usulanKegiatanList = state.usulanKegiatanList;
+
+                                  List<String> namaUsulanKegiatan = usulanKegiatanList.map(
+                                          (usulanKegiatan) => usulanKegiatan.namaKegiatan).toList();
+
+                                  _usulanKegiatan ??= usulanKegiatanList.first;
+
+                                  return MipokaCustomDropdown(
+                                    items: namaUsulanKegiatan,
+                                    initialItem: _usulanKegiatan?.namaKegiatan,
+                                    onValueChanged: (value) {
+                                      int index = namaUsulanKegiatan.indexOf(value ?? _usulanKegiatan!.namaKegiatan);
+                                      _usulanKegiatan = usulanKegiatanList[index];
+                                    },
+                                  );
+
+                                } else if (state is UsulanKegiatanError) {
+                                  print("Error ${state.message}");
+                                  return const SizedBox();
+                                } else {
+                                  return const SizedBox();
+                                }
                               },
                             ),
 
@@ -118,9 +142,6 @@ class _PenggunaPengajuanLaporanKegiatan1State
                                 && laporan.revisiLaporan?.revisiPencapaian != "")
                               buildRevisiText(laporan.revisiLaporan?.revisiPencapaian ?? ""),
 
-                            // CustomRichTextField(
-                            //     controller: _pencapaianController),
-
                             CustomTextField(controller: _pencapaianController),
 
                             const CustomFieldSpacer(),
@@ -130,16 +151,12 @@ class _PenggunaPengajuanLaporanKegiatan1State
                               children: [
                                 widget.laporanArgs.isRevisiLaporan == true ?
                                 CustomMipokaButton(
-                                  onTap: () => Navigator.pop(context),
+                                  onTap: () => Navigator.pop(context, true),
                                   text: 'Batal',
                                 ) :
                                 CustomMipokaButton(
-                                  onTap: () {
-                                    context.read<LaporanBloc>().add(
-                                        DeleteLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
-                                    mipokaCustomToast("Laporan telah dihapus.");
-                                    Navigator.pop(context);
-                                  },
+                                  onTap: () => context.read<LaporanBloc>().add(
+                                      DeleteLaporanEvent(idLaporan: widget.laporanArgs.idLaporan)),
                                   text: 'Batal',
                                 ),
 
@@ -147,24 +164,19 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
                                 CustomMipokaButton(
                                   onTap: () {
-                                    if (_pencapaianController.text.isNotEmpty) {
-                                      Navigator.pushNamed(
-                                        context,
-                                        penggunaPengajuanLaporanKegiatan2PageRoute,
-                                        arguments: widget.laporanArgs,
-                                      ).then((_) => context.read<LaporanBloc>().add(
-                                          ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan)));
+                                    if (_pencapaianController.text.isNotEmpty && _usulanKegiatan != null) {
 
                                       context.read<LaporanBloc>().add(
-                                        UpdateLaporanEvent(
+                                        UpdateLaporanFirstPageEvent(
                                           laporan: laporan.copyWith(
-                                            usulanKegiatan: usulan[selectedIndex ?? 0],
+                                            usulanKegiatan: _usulanKegiatan,
                                             pencapaian: _pencapaianController.text,
                                             updatedAt: currentDate,
                                             updatedBy: user?.email ?? "unknown",
                                           ),
                                         ),
                                       );
+
                                     } else {
                                       mipokaCustomToast(emptyFieldMessage);
                                     }
@@ -174,25 +186,23 @@ class _PenggunaPengajuanLaporanKegiatan1State
                               ],
                             ),
                           ],
-                        ),
-                      ],
-                    ),
-                  ),
-                );
+                        );
 
-              } else if (laporanState is LaporanError) {
-                return Text(laporanState.message);
-              } else if (usulanState is UsulanKegiatanError) {
-                return Text(usulanState.message);
-              } else {
-                if (kDebugMode) {
-                  print("Bloc hasn't been trigerred.");
-                }
-                return const Center();
-              }
-            },
-          );
-        },
+                      } else if (laporanState is LaporanError) {
+                        return Text(laporanState.message);
+                      } else {
+                        if (kDebugMode) {
+                          print("Bloc hasn't been trigerred.");
+                        }
+                        return const Center();
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

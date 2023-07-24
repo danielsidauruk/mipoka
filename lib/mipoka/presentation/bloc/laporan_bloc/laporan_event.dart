@@ -31,10 +31,37 @@ class ReadLaporanEvent extends LaporanEvent {
   const ReadLaporanEvent({required this.idLaporan});
 }
 
-class UpdateLaporanEvent extends LaporanEvent {
+class UpdateLaporanFirstPageEvent extends LaporanEvent {
   final Laporan laporan;
 
-  const UpdateLaporanEvent({required this.laporan});
+  const UpdateLaporanFirstPageEvent({required this.laporan});
+
+  @override
+  List<Object?> get props => [laporan];
+}
+
+class UpdateLaporanSecondPageEvent extends LaporanEvent {
+  final Laporan laporan;
+
+  const UpdateLaporanSecondPageEvent({required this.laporan});
+
+  @override
+  List<Object?> get props => [laporan];
+}
+
+class UpdateLaporanLastPageEvent extends LaporanEvent {
+  final Laporan laporan;
+
+  const UpdateLaporanLastPageEvent({required this.laporan});
+
+  @override
+  List<Object?> get props => [laporan];
+}
+
+class UpdateLaporanAndSendEvent extends LaporanEvent {
+  final Laporan laporan;
+
+  const UpdateLaporanAndSendEvent({required this.laporan});
 
   @override
   List<Object?> get props => [laporan];

@@ -1224,6 +1224,9 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       final response = await DioUtil().dio.post(
         userPath,
         data: mipokaUserModel.toJson(),
+        options: Options(
+          receiveTimeout: 100000,
+        ),
       );
       if (kDebugMode) {
         print(response.data);
@@ -1457,7 +1460,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     //   print(usulanKegiatanModel.toJson());
     // }
   }
-
 
   // * => MhsPerPeriodeMpt DataSources
   @override

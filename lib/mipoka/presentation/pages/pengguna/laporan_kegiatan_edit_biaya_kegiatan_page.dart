@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/rincian_biaya_kegiatan_bloc/rincian_biaya_kegiatan_bloc.dart';
@@ -126,8 +127,6 @@ class _LaporanKegiatanEditBiayaKegiatanPageState extends State<LaporanKegiatanEd
 
                       CustomMipokaButton(
                         onTap: () {
-                          User? user = FirebaseAuth.instance.currentUser;
-                          String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                           if (_usulanAnggaranController.text.isNotEmpty && _realisasiAnggaranController.text.isNotEmpty) {
                             int? usulanAnggaran = int.tryParse(_usulanAnggaranController.text);
