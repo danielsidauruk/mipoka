@@ -99,6 +99,8 @@ class _PenggunaPengajuanLaporanKegiatan3State
 
                       } else if (state is UpdateLaporanAndSendSuccess) {
 
+                        mipokaCustomToast('Laporan Kegiatan telah dikirim.');
+
                         Navigator.pushNamedAndRemoveUntil(
                           context,
                           penggunaDaftarLaporanKegiatanPageRoute,
@@ -237,7 +239,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                 return MipokaFileUploader(
                                   asset: "assets/icons/attach.png",
                                   onTap: () async {
-                                    _tabulasiHasilKegiatanResult = await FilePicker.platform.pickFiles();
+                                    _tabulasiHasilKegiatanResult = await FilePicker.platform.pickFiles(type: FileType.image);
                                     PlatformFile? file = _tabulasiHasilKegiatanResult?.files.first;
                                     if (_tabulasiHasilKegiatanResult != null) {
                                       _tabulasiHasilKegiatanStream.add(file?.name);
@@ -268,7 +270,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                 return MipokaFileUploader(
                                   asset: "assets/icons/attach.png",
                                   onTap: () async {
-                                    _fakturPembayaranResult = await FilePicker.platform.pickFiles();
+                                    _fakturPembayaranResult = await FilePicker.platform.pickFiles(type: FileType.image);
                                     PlatformFile? file = _fakturPembayaranResult?.files.first;
                                     if (_fakturPembayaranResult != null) {
                                       _fakturPembayaranStream.add(file?.name);
@@ -378,8 +380,14 @@ class _PenggunaPengajuanLaporanKegiatan3State
 
                                 CustomMipokaButton(
                                   onTap: () async {
-                                    if (_latarBelakangController.text.isNotEmpty && _hasilKegiatanController.text.isNotEmpty
-                                        && _penutupController.text.isNotEmpty) {
+                                    if (
+                                    _latarBelakangController.text.isNotEmpty && _hasilKegiatanController.text.isNotEmpty
+                                        && _penutupController.text.isNotEmpty &&
+                                        (_postinganKegiatanController != "" || _postinganKegiatanResult != null &&
+                                            _dokumentasiKegiatanController != "" || _dokumentasiKegiatanResult != null &&
+                                            _tabulasiHasilKegiatanController != "" || _tabulasiHasilKegiatanResult != null &&
+                                            _fakturPembayaranController != "" || _fakturPembayaranResult != null))
+                                    {
 
                                       final postinganKegiatanResult = _postinganKegiatanResult;
                                       if (postinganKegiatanResult != null) {
@@ -446,8 +454,9 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                       }
 
                                       if (context.mounted) {
+                                        mipokaCustomToast(savingDataMessage);
                                         context.read<LaporanBloc>().add(
-                                          UpdateLaporanLastPageEvent(
+                                          UpdateLaporanAndSendEvent(
                                             laporan: laporan.copyWith(
                                               latarBelakang: _latarBelakangController.text,
                                               hasilKegiatan: _hasilKegiatanController.text,
@@ -460,8 +469,6 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                           ),
                                         );
                                       }
-
-                                      mipokaCustomToast('Laporan Kegiatan telah dikirim.');
                                     } else {
                                       mipokaCustomToast(emptyFieldMessage);
                                     }

@@ -6,10 +6,8 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
-import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/session.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -40,7 +38,6 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
   void dispose() {
     context.read<SessionBloc>().close();
     context.read<MipokaUserBloc>().close();
-    context.read<OrmawaBloc>().close();
     super.dispose();
   }
 
@@ -57,8 +54,29 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const CustomMobileTitle(text: 'Pengajuan - Sarana & Prasarana'),
+
             const CustomFieldSpacer(),
-            BlocBuilder<SessionBloc, SessionState>(
+
+            BlocConsumer<SessionBloc, SessionState>(
+              listenWhen: (prev, current) =>
+              prev.runtimeType != current.runtimeType,
+              listener: (context, state) async {
+                if (state is SessionSuccess) {
+                  final result = await Navigator.pushNamed(
+                    context,
+                    penggunaPengajuanSaranaDanPrasaranaPageRoute,
+                    arguments: uniqueId,
+                  );
+
+                  if (result != null && result == true && context.mounted) {
+                    context.read<SessionBloc>().add(const ReadAllSessionEvent());
+                  }
+
+                } else if (state is SessionError) {
+                  mipokaCustomToast(state.message);
+                }
+              },
+
               builder: (context, state) {
                 if (state is SessionLoading) {
                   return const Text('Loading');
@@ -161,12 +179,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                             ],
                             rows: List<DataRow>.generate(state.sessionList.length, (int index) {
                               final session = state.sessionList[index];
-                              
-                              // context.read<MipokaUserBloc>().add(
-                              //   ReadMipokaUserEvent(idMipokaUser: session.idUser)
-                              // );
-                              // context.read<OrmawaBloc>().add(
-                              //     ReadOrmawaEvent(idOrmawa: session.idOrmawa));
+
                               return DataRow(
                                 cells: [
                                   DataCell(
@@ -328,19 +341,6 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                     ),
                                   ),
                                 ),
-
-                                // BlocListener<SessionBloc, SessionState>(
-                                //   listenWhen: (prev, current) =>
-                                //   prev.runtimeType != current.runtimeType,
-                                //   listener: (context, state) {
-                                //     if (state is SessionSuccess) {
-                                //
-                                //     } else if (state is SessionError) {
-                                //       mipokaCustomToast(state.message);
-                                //     }
-                                //   },
-                                //   child: const SizedBox(),
-                                // ),
                               ],
                             );
                           }
@@ -353,14 +353,6 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                       ),
                     ],
                   );
-                } else if (state is SessionSuccess) {
-                  Navigator.pushNamed(
-                    context,
-                    penggunaPengajuanSaranaDanPrasaranaPageRoute,
-                    arguments: uniqueId,
-                  ).then((_) => context.read<SessionBloc>().add(const ReadAllSessionEvent()));
-
-                  return const SizedBox();
                 } else if (state is SessionError) {
                   return const Text('Error');
                 } else {

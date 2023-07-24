@@ -89,8 +89,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
   }
 
   Future<String?> generateUsulanDocx(UsulanKegiatanModel usulanKegiatanModel) async {
-    const String localUrl = "http://localhost:3000/usulan-kegiatan";
-    // const String localUrl = "http://192.168.43.183:3000/usulan-kegiatan";
+    // const String localUrl = "http://localhost:3000/usulan-kegiatan";
+    const String localUrl = "http://192.168.43.183:3000/usulan-kegiatan";
     try {
       final response = await DioUtil().dio.post(
         localUrl,

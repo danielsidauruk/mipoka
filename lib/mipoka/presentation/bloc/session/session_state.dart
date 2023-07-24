@@ -46,3 +46,7 @@ class SessionSuccess extends SessionState {
   @override
   List<Object> get props => [message];
 }
+
+class DeleteSessionSuccess extends SessionState {}
+
+class SentSessionSuccess extends SessionState {}

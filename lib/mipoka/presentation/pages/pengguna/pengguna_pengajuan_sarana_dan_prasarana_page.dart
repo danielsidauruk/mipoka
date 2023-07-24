@@ -38,12 +38,14 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
   @override
   void initState() {
     context.read<SessionBloc>().add(ReadSessionEvent(idSession: widget.idSession));
+    context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
     super.initState();
   }
 
   @override
   void dispose() {
-    context.read<SessionBloc>().add(const ReadAllSessionEvent());
+    context.read<SessionBloc>().close();
+    context.read<OrmawaBloc>().close();
     super.dispose();
   }
 
@@ -53,7 +55,6 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
   final TextEditingController _ruangController = TextEditingController();
   final TextEditingController _waktuMulaiController = TextEditingController();
   final TextEditingController _waktuSelesaiController = TextEditingController();
-  Ormawa? _ormawa;
 
   final TextEditingController _proyektorLcdController = TextEditingController();
   final TextEditingController _laptopController = TextEditingController();
@@ -65,6 +66,8 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
   final TextEditingController _spidolController = TextEditingController();
   final TextEditingController _lainController = TextEditingController();
 
+  Ormawa? _ormawa;
+
   @override
   Widget build(BuildContext context) {
 
@@ -75,250 +78,278 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
       drawer: const MobileCustomPenggunaDrawerWidget(),
-      body: BlocBuilder<SessionBloc, SessionState>(
-        builder: (context, state) {
-          if (state is SessionLoading) {
-            return const Text('Loading');
-          } else if (state is SessionHasData) {
-            final session = state.session;
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const CustomMobileTitle(
+                  text: 'Pengajuan - Sarana dan Prasarana'),
+              const CustomFieldSpacer(),
+              CustomContentBox(
+                children: [
+                  BlocConsumer<SessionBloc, SessionState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) async {
+                      if (state is SentSessionSuccess) {
+                        mipokaCustomToast('Pengajuan Sarana dan Prasarana telah dikirim.');
 
-            context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          penggunaDaftarPengajuanSaranaDanPrasaranaPageRoute,
+                              (route) => false,
+                        );
+                      } else if (state is DeleteSessionSuccess) {
+                        Navigator.pop(context, true);
+                      } else if (state is SessionError) {
+                        mipokaCustomToast(state.message);
+                      }
+                    },
 
-            _ormawa = session.ormawa;
-            _tanggalMulaiController.text = session.tanggalMulai;
-            _tanggalSelesaiController.text = session.tanggalSelesai;
-            _gedungController.text = session.gedung;
-            _ruangController.text = session.ruangan;
-            _waktuMulaiController.text = session.waktuMulaiPenggunaan;
-            _waktuSelesaiController.text = session.waktuSelesaiPenggunaan;
+                    builder: (context, state) {
+                      if (state is SessionLoading) {
+                        return const Text('Loading');
+                      } else if (state is SessionHasData) {
+                        final session = state.session;
 
-            _proyektorLcdController.text = session.proyektor.toString();
-            _laptopController.text = session.laptop.toString();
-            _mikrofonController.text = session.mikrofon.toString();
-            _speakerController.text = session.speaker.toString();
-            _mejaController.text = session.meja.toString();
-            _kursiController.text = session.kursi.toString();
-            _papanTulisController.text = session.papanTulis.toString();
-            _spidolController.text = session.spidol.toString();
-            _lainController.text = session.lainLain;
+                        final ormawaList = session.mipokaUser.ormawa;
+                        List<String> namaOrmawaList = ormawaList.map(
+                                (ormawa) => ormawa.namaOrmawa).toList();
 
-            return SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const CustomMobileTitle(
-                        text: 'Pengajuan - Sarana dan Prasarana'),
-                    const CustomFieldSpacer(),
-                    CustomContentBox(
+                        _ormawa ??= ormawaList.first;
+                        _ormawa = session.ormawa;
+                        _tanggalMulaiController.text = session.tanggalMulai;
+                        _tanggalSelesaiController.text = session.tanggalSelesai;
+                        _gedungController.text = session.gedung;
+                        _ruangController.text = session.ruangan;
+                        _waktuMulaiController.text = session.waktuMulaiPenggunaan;
+                        _waktuSelesaiController.text = session.waktuSelesaiPenggunaan;
 
-                      children: [
-                        buildTitle('Nama Ormawa'),
-                        BlocBuilder<OrmawaBloc, OrmawaState>(
-                          builder: (context, state) {
-                            if (state is OrmawaLoading) {
-                              return const Text("Loading ....");
-                            } else if (state is AllOrmawaHasData) {
+                        _proyektorLcdController.text = session.proyektor.toString();
+                        _laptopController.text = session.laptop.toString();
+                        _mikrofonController.text = session.mikrofon.toString();
+                        _speakerController.text = session.speaker.toString();
+                        _mejaController.text = session.meja.toString();
+                        _kursiController.text = session.kursi.toString();
+                        _papanTulisController.text = session.papanTulis.toString();
+                        _spidolController.text = session.spidol.toString();
+                        _lainController.text = session.lainLain;
 
-                              List<String> ormawaList = state.ormawaList.map(
-                                      (ormawa) => ormawa.namaOrmawa).toList();
-
-                              // List<int> idOrmawaList = state.ormawaList.map(
-                              //         (ormawa) => ormawa.idOrmawa).toList();
-
-                              // _idOrmawaController = idOrmawaList[0];
-                              _ormawa = state.ormawaList[0];
-
-                              return MipokaCustomDropdown(
-                                  items: ormawaList,
-                                  onValueChanged: (value) {
-                                    int index = ormawaList.indexOf(value!);
-                                    // int idOrmawa = idOrmawaList[index];
-                                    _ormawa = state.ormawaList[index];
-                                    // _idOrmawaController = idOrmawa;
-                                  }
-                              );
-                            } else if (state is OrmawaError) {
-                              return Text(state.message);
-                            } else {
-                              return const Text("OrmawaBloc hasn't been triggered yet.");
-                            }
-                          },
-                        ),
-
-                        const CustomFieldSpacer(),
-                        buildTitle('Tanggal Mulai Kegiatan'),
-                        CustomDatePickerField(controller: _tanggalMulaiController),
-
-                        const CustomFieldSpacer(),
-
-                        buildTitle('Tanggal Selesai Kegiatan'),
-                        CustomDatePickerField(controller: _tanggalSelesaiController),
-
-                        const CustomFieldSpacer(),
-
-                        buildTitle('Gedung'),
-                        MipokaCustomDropdown(
-                          items: listGedung,
-                          onValueChanged: (value) {},
-                        ),
-
-                        const CustomFieldSpacer(),
-
-                        buildTitle('Ruang'),
-
-                        MipokaCustomDropdown(
-                          items: listGedung,
-                          onValueChanged: (value) {},
-                        ),
-
-                        const CustomFieldSpacer(),
-
-                        buildTitle('Waktu Mulai Kegiatan'),
-                        CustomTimePickerField(controller: _waktuMulaiController),
-
-                        const CustomFieldSpacer(),
-
-                        buildTitle('Waktu Selesai Kegiatan'),
-                        CustomTimePickerField(controller: _waktuSelesaiController),
-
-                        const CustomFieldSpacer(),
-
-                        buildTitle('Perlengkapan yang dibutuhkan'),
-
-                        const SizedBox(height: 4.0),
-
-                        CustomCheckBox(
-                          title: 'Proyektor/LCD',
-                          controller: _proyektorLcdController,
-                        ),
-                        const SizedBox(height: 4.0),
-                        CustomCheckBox(
-                          title: 'Laptop',
-                          controller: _laptopController,
-                        ),
-                        const SizedBox(height: 4.0),
-                        CustomCheckBox(
-                          title: 'Mikrofon',
-                          controller: _mikrofonController,
-                        ),
-                        const SizedBox(height: 4.0),
-                        CustomCheckBox(
-                          title: 'Speaker',
-                          controller: _speakerController,
-                        ),
-                        const SizedBox(height: 4.0),
-                        CustomCheckBox(
-                          title: 'Meja',
-                          controller: _mejaController,
-                        ),
-                        const SizedBox(height: 4.0),
-                        CustomCheckBox(
-                          title: 'Kursi',
-                          controller: _kursiController,
-                        ),
-                        const SizedBox(height: 4.0),
-                        CustomCheckBox(
-                          title: 'Papan Tulis',
-                          controller: _papanTulisController,
-                        ),
-                        const SizedBox(height: 4.0),
-                        CustomCheckBox(
-                          title: 'Spidol',
-                          controller: _spidolController,
-                        ),
-                        const CustomFieldSpacer(),
-                        buildTitle('Lain - lain'),
-
-                        CustomTextField(controller: _lainController),
-
-                        const CustomFieldSpacer(),
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CustomMipokaButton(
-                              onTap: () {
-                                context.read<SessionBloc>().add(
-                                  DeleteSessionEvent(idSession: widget.idSession),
-                                );
-                                Navigator.pop(context);
-                              },
-                              text: 'Batal',
-                            ),
-                            const SizedBox(width: 8.0),
-                            CustomMipokaButton(
-                              onTap: () {
-                                if (_tanggalMulaiController.text.isNotEmpty &&
-                                    _tanggalSelesaiController.text.isNotEmpty &&
-                                    _gedungController.text.isNotEmpty &&
-                                    _ruangController.text.isNotEmpty &&
-                                    _waktuMulaiController.text.isNotEmpty &&
-                                    _waktuSelesaiController.text.isNotEmpty) {
-                                  try {
-                                    final proyektorLcd = int.tryParse(_proyektorLcdController.text);
-                                    final laptop = int.tryParse(_laptopController.text);
-                                    final mikrofon = int.tryParse(_mikrofonController.text);
-                                    final speaker = int.tryParse(_speakerController.text);
-                                    final meja = int.tryParse(_mejaController.text);
-                                    final kursi = int.tryParse(_kursiController.text);
-                                    final papanTulis = int.tryParse(_papanTulisController.text);
-                                    final spidol = int.tryParse(_spidolController.text);
+                            buildTitle('Nama Ormawa'),
+                            // BlocBuilder<OrmawaBloc, OrmawaState>(
+                            //   builder: (context, state) {
+                            //     if (state is OrmawaLoading) {
+                            //       return const Text("Loading ....");
+                            //     } else if (state is AllOrmawaHasData) {
+                            //
+                            //       final ormawaList = session.mipokaUser.ormawa;
+                            //
+                            //       List<String> namaOrmawaList = state.ormawaList.map(
+                            //               (ormawa) => ormawa.namaOrmawa).toList();
+                            //
+                            //       _ormawa ??= ormawaList.first;
+                            //
+                            //       return MipokaCustomDropdown(
+                            //           items: namaOrmawaList,
+                            //           initialItem: _ormawa?.namaOrmawa ?? "",
+                            //           onValueChanged: (value) {
+                            //             int index = namaOrmawaList.indexOf(value!);
+                            //             _ormawa = state.ormawaList[index];
+                            //           }
+                            //       );
+                            //     } else if (state is OrmawaError) {
+                            //       return Text(state.message);
+                            //     } else {
+                            //       return const Text("OrmawaBloc hasn't been triggered yet.");
+                            //     }
+                            //   },
+                            // ),
 
-                                    mipokaCustomToast("Pengajuan Sarana & Prasarana telah dikirim.");
-                                    context.read<SessionBloc>().add(
-                                      UpdateSessionEvent(
-                                        session: session.copyWith(
-                                          ormawa: _ormawa,
-                                          tanggalMulai: _tanggalMulaiController.text,
-                                          tanggalSelesai: _tanggalSelesaiController.text,
-                                          gedung: _gedungController.text,
-                                          ruangan: _ruangController.text,
-                                          waktuMulaiPenggunaan: _waktuMulaiController.text,
-                                          waktuSelesaiPenggunaan: _waktuSelesaiController.text,
-                                          proyektor: proyektorLcd,
-                                          laptop: laptop,
-                                          mikrofon: mikrofon,
-                                          speaker: speaker,
-                                          meja: meja,
-                                          kursi: kursi,
-                                          papanTulis: papanTulis,
-                                          spidol: spidol,
-                                          lainLain: _lainController.text,
-                                          updatedBy: user?.email ?? "unknown",
-                                          updatedAt: currentDate,
-                                        ),
-                                      ),
-                                    );
-                                    Navigator.pushNamed(
-                                      context,
-                                      penggunaDaftarPengajuanSaranaDanPrasaranaPageRoute,
-                                    );
-                                  } catch (e) {
-                                    mipokaCustomToast(dataTypeErrorMessage);
-                                  }
-                                } else {
-                                  mipokaCustomToast(emptyFieldMessage);
+                            MipokaCustomDropdown(
+                                items: namaOrmawaList,
+                                initialItem: _ormawa?.namaOrmawa ?? "",
+                                onValueChanged: (value) {
+                                  int index = namaOrmawaList.indexOf(value!);
+                                  _ormawa = ormawaList[index];
                                 }
+                            ),
+
+                            const CustomFieldSpacer(),
+                            buildTitle('Tanggal Mulai Kegiatan'),
+                            CustomDatePickerField(controller: _tanggalMulaiController),
+
+                            const CustomFieldSpacer(),
+
+                            buildTitle('Tanggal Selesai Kegiatan'),
+                            CustomDatePickerField(controller: _tanggalSelesaiController),
+
+                            const CustomFieldSpacer(),
+
+                            buildTitle('Gedung'),
+                            MipokaCustomDropdown(
+                              items: listGedung,
+                              onValueChanged: (value) {
+                                _gedungController.text = value ?? "";
                               },
-                              text: 'Kirim',
+                            ),
+
+                            const CustomFieldSpacer(),
+
+                            buildTitle('Ruang'),
+
+                            MipokaCustomDropdown(
+                              items: listGedung,
+                              onValueChanged: (value) {
+                                _ruangController.text = value ?? "";
+                              },
+                            ),
+
+                            const CustomFieldSpacer(),
+
+                            buildTitle('Waktu Mulai Kegiatan'),
+                            CustomTimePickerField(controller: _waktuMulaiController),
+
+                            const CustomFieldSpacer(),
+
+                            buildTitle('Waktu Selesai Kegiatan'),
+                            CustomTimePickerField(controller: _waktuSelesaiController),
+
+                            const CustomFieldSpacer(),
+
+                            buildTitle('Perlengkapan yang dibutuhkan'),
+
+                            const SizedBox(height: 4.0),
+
+                            CustomCheckBox(
+                              title: 'Proyektor/LCD',
+                              controller: _proyektorLcdController,
+                            ),
+                            const SizedBox(height: 4.0),
+                            CustomCheckBox(
+                              title: 'Laptop',
+                              controller: _laptopController,
+                            ),
+                            const SizedBox(height: 4.0),
+                            CustomCheckBox(
+                              title: 'Mikrofon',
+                              controller: _mikrofonController,
+                            ),
+                            const SizedBox(height: 4.0),
+                            CustomCheckBox(
+                              title: 'Speaker',
+                              controller: _speakerController,
+                            ),
+                            const SizedBox(height: 4.0),
+                            CustomCheckBox(
+                              title: 'Meja',
+                              controller: _mejaController,
+                            ),
+                            const SizedBox(height: 4.0),
+                            CustomCheckBox(
+                              title: 'Kursi',
+                              controller: _kursiController,
+                            ),
+                            const SizedBox(height: 4.0),
+                            CustomCheckBox(
+                              title: 'Papan Tulis',
+                              controller: _papanTulisController,
+                            ),
+                            const SizedBox(height: 4.0),
+                            CustomCheckBox(
+                              title: 'Spidol',
+                              controller: _spidolController,
+                            ),
+                            const CustomFieldSpacer(),
+                            buildTitle('Lain - lain'),
+
+                            CustomTextField(controller: _lainController),
+
+                            const CustomFieldSpacer(),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                CustomMipokaButton(
+                                  onTap: () => context.read<SessionBloc>().add(
+                                      DeleteSessionEvent(idSession: widget.idSession)),
+                                  text: 'Batal',
+                                ),
+                                const SizedBox(width: 8.0),
+                                CustomMipokaButton(
+                                  onTap: () {
+                                    if (_tanggalMulaiController.text.isNotEmpty &&
+                                        _tanggalSelesaiController.text.isNotEmpty &&
+                                        _gedungController.text.isNotEmpty &&
+                                        _ruangController.text.isNotEmpty &&
+                                        _waktuMulaiController.text.isNotEmpty &&
+                                        _waktuSelesaiController.text.isNotEmpty) {
+                                      try {
+                                        final proyektorLcd = int.tryParse(_proyektorLcdController.text);
+                                        final laptop = int.tryParse(_laptopController.text);
+                                        final mikrofon = int.tryParse(_mikrofonController.text);
+                                        final speaker = int.tryParse(_speakerController.text);
+                                        final meja = int.tryParse(_mejaController.text);
+                                        final kursi = int.tryParse(_kursiController.text);
+                                        final papanTulis = int.tryParse(_papanTulisController.text);
+                                        final spidol = int.tryParse(_spidolController.text);
+
+                                        mipokaCustomToast(savingDataMessage);
+                                        context.read<SessionBloc>().add(
+                                          UpdateSessionEvent(
+                                            session: session.copyWith(
+                                              ormawa: _ormawa,
+                                              tanggalMulai: _tanggalMulaiController.text,
+                                              tanggalSelesai: _tanggalSelesaiController.text,
+                                              gedung: _gedungController.text,
+                                              ruangan: _ruangController.text,
+                                              waktuMulaiPenggunaan: _waktuMulaiController.text,
+                                              waktuSelesaiPenggunaan: _waktuSelesaiController.text,
+                                              proyektor: proyektorLcd,
+                                              laptop: laptop,
+                                              mikrofon: mikrofon,
+                                              speaker: speaker,
+                                              meja: meja,
+                                              kursi: kursi,
+                                              papanTulis: papanTulis,
+                                              spidol: spidol,
+                                              lainLain: _lainController.text,
+                                              updatedBy: user?.email ?? "unknown",
+                                              updatedAt: currentDate,
+                                            ),
+                                          ),
+                                        );
+                                      } catch (e) {
+                                        mipokaCustomToast(dataTypeErrorMessage);
+                                      }
+                                    } else {
+                                      mipokaCustomToast(emptyFieldMessage);
+                                    }
+                                  },
+                                  text: 'Kirim',
+                                ),
+                              ],
                             ),
                           ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                        );
+                      } else if (state is SessionError) {
+                        return Text(state.message);
+                      } else {
+                        return const Text('IDK');
+                      }
+                    },
+                  ),
+                ],
               ),
-            );
-          } else if (state is SessionError) {
-            return Text(state.message);
-          } else {
-            return const Text('IDK');
-          }
-        },
-      ),
+            ],
+          ),
+        ),
+      )
     );
   }
 }

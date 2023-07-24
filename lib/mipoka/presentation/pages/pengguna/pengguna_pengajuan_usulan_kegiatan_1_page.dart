@@ -291,8 +291,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
                             : _bentukKegiatanSwitchController = true;
                         _jumlahParsitipanController.text = usulanKegiatan.jumlahPartisipan.toString();
                         usulanKegiatan.totalPendanaan == "Uang"
-                            ? _bentukKegiatanSwitchController = false
-                            : _bentukKegiatanSwitchController = true;
+                            ? _totalPendanaanSwitchController = false
+                            : _totalPendanaanSwitchController = true;
                         _targetKegiatanController.text = usulanKegiatan.targetKegiatan;
                         _totalPendanaanController.text = usulanKegiatan.totalPendanaan;
                         _keteranganController.text = usulanKegiatan.keterangan;
@@ -631,38 +631,52 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                       _ormawaSignatureController = await uploadBytesToFirebase(_signatureData, "signature$uniqueId.png");
                                     }
 
-                                    if (context.mounted) {
-
-                                      context.read<UsulanKegiatanBloc>().add(
-                                        SaveUsulanKegiatanFirstPageEvent(
-                                          usulanKegiatan: usulanKegiatan.copyWith(
-                                            ormawa: _ormawa,
-                                            pembiayaan: _pembiayaanController,
-                                            namaKegiatan: _namaKegiatanController.text,
-                                            kategoriBentukKegiatan: _bentukKegiatanSwitchController == true ? "Luring" : "Daring",
-                                            bentukKegiatan: _bentukKegiatanController,
-                                            deskripsiKegiatan: _deskripsiKegiatanController.text,
-                                            tanggalMulaiKegiatan: _tanggalMulaiController.text,
-                                            tanggalSelesaiKegiatan: _tanggalSelesaiController.text,
-                                            waktuMulaiKegiatan: _waktuMulaiController.text,
-                                            waktuSelesaiKegiatan: _waktuSelesaiController.text,
-                                            tempatKegiatan: _tempatKegiatanController.text,
-                                            tanggalKeberangkatan: _tempatKegiatanSwitchController == true
-                                                ? _tanggalKeberangkatanController.text : "",
-                                            tanggalKepulangan: _tempatKegiatanSwitchController == true
-                                                ?  _tanggalKepulanganController.text : "",
-                                            kategoriJumlahPartisipan: _jumlahParsitipanSwitchController == true ? "Orang" : "Dll",
-                                            jumlahPartisipan: _jumlahParsitipanController.text,
-                                            targetKegiatan: _targetKegiatanController.text,
-                                            kategoriTotalPendanaan: _totalPendanaanSwitchController == true ? "Dll" : "Orang",
-                                            totalPendanaan: _totalPendanaanController.text,
-                                            keterangan: _keteranganController.text,
-                                            tandaTanganOrmawa: _ormawaSignatureController,
-                                            updatedAt: currentDate,
-                                            updatedBy: user?.email ?? "unknown",
+                                    if(
+                                    _ormawa != null && _pembiayaanController != ""
+                                    && _namaKegiatanController.text != "" && _bentukKegiatanSwitchController != null
+                                    && _bentukKegiatanController != "" && _deskripsiKegiatanController.text != ""
+                                    && _tanggalMulaiController.text != "" && _tanggalSelesaiController.text != ""
+                                    && _waktuMulaiController.text != "" && _waktuSelesaiController.text != ""
+                                    && _tempatKegiatanController.text != "" && _bentukKegiatanSwitchController != null
+                                    && _jumlahParsitipanController.text != "" && _totalPendanaanSwitchController != null
+                                    && _targetKegiatanController.text != "" && _totalPendanaanController.text != ""
+                                    && _keteranganController.text != "" && _ormawaSignatureController != ""
+                                    )
+                                    {
+                                      if (context.mounted) {
+                                        context.read<UsulanKegiatanBloc>().add(
+                                          SaveUsulanKegiatanFirstPageEvent(
+                                            usulanKegiatan: usulanKegiatan.copyWith(
+                                              ormawa: _ormawa,
+                                              pembiayaan: _pembiayaanController,
+                                              namaKegiatan: _namaKegiatanController.text,
+                                              kategoriBentukKegiatan: _bentukKegiatanSwitchController == true ? "Luring" : "Daring",
+                                              bentukKegiatan: _bentukKegiatanController,
+                                              deskripsiKegiatan: _deskripsiKegiatanController.text,
+                                              tanggalMulaiKegiatan: _tanggalMulaiController.text,
+                                              tanggalSelesaiKegiatan: _tanggalSelesaiController.text,
+                                              waktuMulaiKegiatan: _waktuMulaiController.text,
+                                              waktuSelesaiKegiatan: _waktuSelesaiController.text,
+                                              tempatKegiatan: _tempatKegiatanController.text,
+                                              tanggalKeberangkatan: _tempatKegiatanSwitchController == true
+                                                  ? _tanggalKeberangkatanController.text : "",
+                                              tanggalKepulangan: _tempatKegiatanSwitchController == true
+                                                  ?  _tanggalKepulanganController.text : "",
+                                              kategoriJumlahPartisipan: _jumlahParsitipanSwitchController == true ? "Orang" : "Dll",
+                                              jumlahPartisipan: _jumlahParsitipanController.text,
+                                              targetKegiatan: _targetKegiatanController.text,
+                                              kategoriTotalPendanaan: _totalPendanaanSwitchController == true ? "Dll" : "Orang",
+                                              totalPendanaan: _totalPendanaanController.text,
+                                              keterangan: _keteranganController.text,
+                                              tandaTanganOrmawa: _ormawaSignatureController,
+                                              updatedAt: currentDate,
+                                              updatedBy: user?.email ?? "unknown",
+                                            ),
                                           ),
-                                        ),
-                                      );
+                                        );
+                                      }
+                                    } else {
+                                      mipokaCustomToast(emptyFieldMessage);
                                     }
                                   },
                                   text: 'Berikutnya',
