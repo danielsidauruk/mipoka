@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegiatan_drop_down_bloc/nama_kegiatan_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_dropdown_bloc/periode_mpt_drop_down_bloc.dart';
@@ -74,11 +75,20 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
 
                     CustomAddButton(
                       buttonText: 'Tambah',
-                      onPressed: () => Navigator.pushNamed(
-                        context,
-                        kemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageRoute,
-                      ).then((_) => context.read<KegiatanPerPeriodeMptBloc>().add(
-                          ReadAllKegiatanPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idNamaKegiatanMpt"))),
+                      onPressed: () async {
+                        final result = await Navigator.pushNamed(
+                          context,
+                          kemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageRoute,
+                        );
+
+                        if (result is KegiatanPerPeriodeMpt && context.mounted) {
+                          context.read<KegiatanPerPeriodeMptBloc>().add(
+                            CreateKegiatanPerPeriodeMptEvent(
+                              kegiatanPerPeriodeMpt: result,
+                            ),
+                          );
+                        }
+                      }
                     ),
 
                     const CustomFieldSpacer(),
@@ -89,6 +99,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                         if (state is PeriodeMptDropDownLoading) {
                           return const Text("Loading ....");
                         } else if (state is PeriodeMptDropDownHasData) {
+
                           final periodeMptList = state.periodeMptList;
 
                           List<String> periodeMptDropDownList = periodeMptList.map(
@@ -162,7 +173,20 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
 
                     const CustomFieldSpacer(),
 
-                    BlocBuilder<KegiatanPerPeriodeMptBloc, KegiatanPerPeriodeMptState>(
+                    BlocConsumer<KegiatanPerPeriodeMptBloc, KegiatanPerPeriodeMptState>(
+                      listenWhen: (prev, current) =>
+                      prev.runtimeType != current.runtimeType,
+                      listener: (context, state) async {
+
+                        if (state is KegiatanPerPeriodeMptSuccess) {
+                          print ("create / update ini ke trigger");
+                          // context.read<KegiatanPerPeriodeMptBloc>().add(
+                          //     ReadAllKegiatanPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idNamaKegiatanMpt"));
+
+                        } else if (state is KegiatanPerPeriodeMptError) {
+                          mipokaCustomToast(state.message);
+                        }
+                      },
                       builder: (context, state) {
                         if (state is KegiatanPerPeriodeMptLoading) {
                           return const Text("Loading ....");
@@ -289,7 +313,20 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                                               MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 InkWell(
-                                                  onTap: () {
+                                                  onTap: () async {
+                                                    // final result = await Navigator.pushNamed(
+                                                    //   context,
+                                                    //   kemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageRoute,
+                                                    //   arguments: kegiatanPerPeriodeMpt,
+                                                    // );
+                                                    //
+                                                    // if (result is KegiatanPerPeriodeMpt && context.mounted) {
+                                                    //   context.read<KegiatanPerPeriodeMptBloc>().add(
+                                                    //     UpdateKegiatanPerPeriodeMptEvent(
+                                                    //       kegiatanPerPeriodeMpt: result,
+                                                    //     ),
+                                                    //   );
+                                                    // }
                                                     Navigator.pushNamed(
                                                       context,
                                                       kemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageRoute,
@@ -307,7 +344,6 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
 
                                                 InkWell(
                                                   onTap: () {
-                                                    mipokaCustomToast("${kegiatanPerPeriodeMpt.namaKegiatanMpt.namaKegiatan} has been deleted.");
                                                     context.read<KegiatanPerPeriodeMptBloc>().add(
                                                         DeleteKegiatanPerPeriodeMptEvent(
                                                             idKegiatanPerPeriodeMpt: kegiatanPerPeriodeMpt.idKegiatanPerPeriodeMpt));
@@ -328,11 +364,6 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                               ),
                             ],
                           );
-                        } else if (state is KegiatanPerPeriodeMptSuccess) {
-                          context.read<KegiatanPerPeriodeMptBloc>().add(
-                              ReadAllKegiatanPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idNamaKegiatanMpt"));
-
-                          return const SizedBox();
                         } else if (state is KegiatanPerPeriodeMptError) {
                           return Text(state.message);
                         } else {
@@ -341,7 +372,8 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                       },
                     ),
                   ],
-                ),],
+                ),
+              ],
             ),
           )
       ),

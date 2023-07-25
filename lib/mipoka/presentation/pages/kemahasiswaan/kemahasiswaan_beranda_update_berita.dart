@@ -128,7 +128,7 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                       CustomMipokaButton(
                         onTap: () async {
                           if (_judulBeritaController.text.isNotEmpty && _penulisController.text.isNotEmpty &&
-                              _textBeritaController.text.isNotEmpty) {
+                              _textBeritaController.text.isNotEmpty && (_fotoBeritaController != "" || _result !=null)) {
 
                             final result = _result;
                             if (result != null) {

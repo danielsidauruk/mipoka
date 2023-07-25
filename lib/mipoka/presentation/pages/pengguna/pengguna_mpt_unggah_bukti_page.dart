@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 import 'package:crypto/crypto.dart';
@@ -24,7 +23,6 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
-import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 
 class PenggunaMPTUnggahBuktiPage extends StatefulWidget {
   const PenggunaMPTUnggahBuktiPage({
@@ -245,24 +243,26 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                               _fileSertifikatMptController.text = fileUrl ?? "";
 
                                               if (context.mounted) {
-                                                context.read<RiwayatKegiatanMptBloc>().add(
-                                                  CreateRiwayatKegiatanMptEvent(
-                                                    riwayatKegiatanMpt: RiwayatKegiatanMpt(
-                                                      kegiatanPerPeriodeMpt: widget.kegiatanPerPeriodeMpt,
-                                                      idRiwayatKegiatanMpt: newId,
-                                                      mipokaUser: state.mipokaUser,
-                                                      statusMpt: tertunda,
-                                                      fileSertifikatMpt: _fileSertifikatMptController.text,
-                                                      hash: _shaController.text,
-                                                      keteranganMhs: _keteranganController.text,
-                                                      keteranganSa: "",
-                                                      createdAt: currentDate,
-                                                      createdBy: user?.email ?? "unknown",
-                                                      updatedAt: currentDate,
-                                                      updatedBy: user?.email ?? "unknown",
-                                                    ),
+                                                int uniqueId = UniqueIdGenerator.generateUniqueId();
+
+                                                Navigator.pop(
+                                                  context,
+                                                  RiwayatKegiatanMpt(
+                                                    kegiatanPerPeriodeMpt: widget.kegiatanPerPeriodeMpt,
+                                                    idRiwayatKegiatanMpt: uniqueId,
+                                                    mipokaUser: state.mipokaUser,
+                                                    statusMpt: tertunda,
+                                                    fileSertifikatMpt: _fileSertifikatMptController.text,
+                                                    hash: _shaController.text,
+                                                    keteranganMhs: _keteranganController.text,
+                                                    keteranganSa: tertunda,
+                                                    createdAt: currentDate,
+                                                    createdBy: user?.email ?? "unknown",
+                                                    updatedAt: currentDate,
+                                                    updatedBy: user?.email ?? "unknown",
                                                   ),
                                                 );
+
                                               }
                                             }
                                           } else {
@@ -289,19 +289,19 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                             ),
 
 
-                            BlocListener<RiwayatKegiatanMptBloc, RiwayatKegiatanMptState>(
-                              listenWhen: (prev, current) =>
-                              prev.runtimeType != current.runtimeType,
-                              listener: (context, state) {
-                                if (state is RiwayatKegiatanMptSuccess) {
-                                  mipokaCustomToast('File Berhasil di Upload');
-                                  Navigator.pop(context);
-                                } else if (state is RiwayatKegiatanMptError) {
-                                  mipokaCustomToast(state.message);
-                                }
-                              },
-                              child: const SizedBox(),
-                            ),
+                            // BlocListener<RiwayatKegiatanMptBloc, RiwayatKegiatanMptState>(
+                            //   listenWhen: (prev, current) =>
+                            //   prev.runtimeType != current.runtimeType,
+                            //   listener: (context, state) {
+                            //     if (state is RiwayatKegiatanMptSuccess) {
+                            //       mipokaCustomToast('File Berhasil di Upload');
+                            //       Navigator.pop(context);
+                            //     } else if (state is RiwayatKegiatanMptError) {
+                            //       mipokaCustomToast(state.message);
+                            //     }
+                            //   },
+                            //   child: const SizedBox(),
+                            // ),
                           ],
                         ),
                       ],

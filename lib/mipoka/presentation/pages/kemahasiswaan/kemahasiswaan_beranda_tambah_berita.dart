@@ -111,8 +111,6 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                               _penulisController.text.isNotEmpty &&
                               _textBeritaController.text.isNotEmpty) {
 
-                            mipokaCustomToast(savingDataMessage);
-
                             final result = this.result;
                             if (result != null) {
                               PlatformFile file = result.files.first;
@@ -126,6 +124,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                               }
 
                               if (bytes != null) {
+                                mipokaCustomToast(savingDataMessage);
                                 int uniqueId = UniqueIdGenerator.generateUniqueId();
                                 imageUrl = await uploadBytesToFirebase(bytes, "$uniqueId${file.name}");
                               }

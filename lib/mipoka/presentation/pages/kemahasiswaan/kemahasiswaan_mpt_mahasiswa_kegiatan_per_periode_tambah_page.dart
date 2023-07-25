@@ -189,6 +189,23 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
 
                               if (poinKegiatan != null) {
+
+                                // Navigator.pop(
+                                //   context,
+                                //   KegiatanPerPeriodeMpt(
+                                //     idKegiatanPerPeriodeMpt: uniqueId,
+                                //     namaKegiatanMpt: _namaKegiatanMpt!,
+                                //     periodeMpt: _periodeMpt!,
+                                //     tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
+                                //     tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
+                                //     pointMptDiperoleh: poinKegiatan,
+                                //     createdAt: currentDate,
+                                //     createdBy: user?.email ?? "unknown",
+                                //     updatedAt: currentDate,
+                                //     updatedBy: user?.email ?? "unknown",
+                                //   ),
+                                // );
+
                                 context.read<KegiatanPerPeriodeMptBloc>().add(
                                   CreateKegiatanPerPeriodeMptEvent(
                                     kegiatanPerPeriodeMpt: KegiatanPerPeriodeMpt(
@@ -205,6 +222,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
                                     ),
                                   ),
                                 );
+
                               } else {
                                 mipokaCustomToast("Input poin kegiatan tidak valid.");
                               }

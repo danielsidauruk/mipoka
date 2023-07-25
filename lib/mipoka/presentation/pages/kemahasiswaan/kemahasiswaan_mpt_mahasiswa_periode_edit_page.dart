@@ -76,6 +76,7 @@ class _KemahasiswaanMPTMahasiswaPeriodeEditPageState extends State<Kemahasiswaan
 
                   MipokaCustomDropdown(
                     items: periodeYears,
+                    initialItem: _tahunController.text,
                     onValueChanged: (value) {
                       _tahunController.text = value ?? "";
                     },
@@ -134,37 +135,24 @@ class _KemahasiswaanMPTMahasiswaPeriodeEditPageState extends State<Kemahasiswaan
                               _tanggalSelesaiController.text.isNotEmpty) {
 
                             mipokaCustomToast(savingDataMessage);
-                            context.read<PeriodeMptBloc>().add(
-                              UpdatePeriodeMptEvent(
-                                periodeMpt: widget.periodeMpt.copyWith(
-                                  tahunPeriodeMpt: _tahunController.text,
-                                  periodeMengulangMpt: _isPeriodeMengulangMpt,
-                                  tanggalMulaiPeriodeMpt: _tanggalMulaiController.text,
-                                  tanggalBerakhirPeriodeMpt: _tanggalSelesaiController.text,
-                                  updatedAt: currentDate,
-                                  updatedBy: user?.email ?? "unknown",
-                                ),
+
+                            Navigator.pop(
+                              context,
+                              widget.periodeMpt.copyWith(
+                                tahunPeriodeMpt: _tahunController.text,
+                                periodeMengulangMpt: _isPeriodeMengulangMpt,
+                                tanggalMulaiPeriodeMpt: _tanggalMulaiController.text,
+                                tanggalBerakhirPeriodeMpt: _tanggalSelesaiController.text,
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "unknown",
                               ),
                             );
+
                           } else {
                             mipokaCustomToast(emptyFieldMessage);
                           }
                         },
                         text: 'Simpan',
-                      ),
-
-                      BlocListener<PeriodeMptBloc, PeriodeMptState>(
-                        listenWhen: (prev, current) =>
-                        prev.runtimeType != current.runtimeType,
-                        listener: (context, state) {
-                          if (state is PeriodeMptSuccessMessage) {
-                            mipokaCustomToast("Periode berhasil diupdate.");
-                            Navigator.pop(context);
-                          } else if (state is PeriodeMptError) {
-                            mipokaCustomToast(state.message);
-                          }
-                        },
-                        child: const SizedBox(),
                       ),
                     ],
                   ),

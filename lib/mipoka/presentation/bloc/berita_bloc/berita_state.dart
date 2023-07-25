@@ -36,10 +36,4 @@ class BeritaHasData extends BeritaState {
   List<Object> get props => [berita];
 }
 
-class BeritaSuccessMessage extends BeritaState {
-  const BeritaSuccessMessage({this.message = "Data has changed"});
-  final String message;
-
-  @override
-  List<Object> get props => [message];
-}
+class BeritaSuccess extends BeritaState {}

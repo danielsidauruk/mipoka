@@ -57,15 +57,36 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
                 children: [
                   CustomAddButton(
                     buttonText: 'Tambah',
-                    onPressed: () => Navigator.pushNamed(
-                      context,
-                      kemahasiswaanMPTMahasiswaTambahPeriodePageRoute,
-                    ).then((_) => context.read<PeriodeMptBloc>().add(
-                        ReadAllPeriodeMptEvent())),
+                    onPressed: () async {
+                      final result = await Navigator.pushNamed(
+                        context,
+                        kemahasiswaanMPTMahasiswaTambahPeriodePageRoute,
+                      );
+
+                      if (result != null && result is PeriodeMpt && context.mounted) {
+                        context.read<PeriodeMptBloc>().add(
+                          CreatePeriodeMptEvent(periodeMpt: result),
+                        );
+                      }
+                    }
                   ),
+
                   const CustomFieldSpacer(),
 
-                  BlocBuilder<PeriodeMptBloc, PeriodeMptState>(
+                  BlocConsumer<PeriodeMptBloc, PeriodeMptState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) {
+                      if (state is PeriodeMptSuccess) {
+
+                        context.read<PeriodeMptBloc>().add(
+                            ReadAllPeriodeMptEvent());
+
+                      } else if (state is PeriodeMptError) {
+                        mipokaCustomToast(state.message);
+                      }
+                    },
+
                     builder: (context, state) {
                       if(state is PeriodeMptLoading) {
                         return const Text('Loading ...');
@@ -152,12 +173,20 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
                                             MainAxisAlignment.spaceEvenly,
                                             children: [
                                               InkWell(
-                                                onTap: () => Navigator.pushNamed(
-                                                  context,
-                                                  kemahasiswaanMPTMahasiswaPeriodeEditPageRoute,
-                                                  arguments: periodeMpt,
-                                                ).then((_) => context.read<PeriodeMptBloc>().add(
-                                                    ReadAllPeriodeMptEvent())),
+                                                onTap: () async {
+                                                  final result = await Navigator.pushNamed(
+                                                    context,
+                                                    kemahasiswaanMPTMahasiswaPeriodeEditPageRoute,
+                                                    arguments: periodeMpt,
+                                                  );
+
+                                                  if (result != null && result is PeriodeMpt && context.mounted) {
+                                                    context.read<PeriodeMptBloc>().add(
+                                                      UpdatePeriodeMptEvent(periodeMpt: result),
+                                                    );
+                                                  }
+                                                },
+
                                                 child: Image.asset(
                                                   'assets/icons/edit.png',
                                                   width: 24,
@@ -169,7 +198,6 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
                                               InkWell(
                                                 onTap: () {
                                                   context.read<PeriodeMptBloc>().add(DeletePeriodeMptEvent(periodeMpt.idPeriodeMpt));
-                                                  mipokaCustomToast("Periode MPT telah dihapus.");
                                                 },
                                                 child: Image.asset(
                                                   'assets/icons/delete.png',
@@ -188,10 +216,6 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
                           ],
                         );
 
-                      } else if (state is PeriodeMptSuccessMessage) {
-                        context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
-
-                        return const SizedBox();
                       } else if (state is PeriodeMptError) {
                         return Text(state.message);
                       } else {

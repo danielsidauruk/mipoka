@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/format_date_indonesia.dart';
+import 'package:mipoka/mipoka/data/models/berita_model.dart';
 import 'package:mipoka/mipoka/domain/entities/berita.dart';
 import 'package:mipoka/mipoka/presentation/bloc/berita_bloc/berita_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
@@ -71,7 +72,7 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
 
                       if (result != null && result is Berita && context.mounted) {
                         context.read<BeritaBloc>().add(
-                            UpdateBeritaEvent(berita: result)
+                          CreateBeritaEvent(berita: result),
                         );
                       }
                     }
@@ -83,7 +84,7 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                     listenWhen: (prev, current) =>
                     prev.runtimeType != current.runtimeType,
                     listener: (context, state) {
-                      if (state is BeritaSuccessMessage) {
+                      if (state is BeritaSuccess) {
                         context.read<BeritaBloc>().add(ReadAllBeritaEvent(filter: _filter ?? ""));
 
                       } else if (state is BeritaError) {
@@ -204,17 +205,27 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                                             MainAxisAlignment.spaceEvenly,
                                             children: [
                                               InkWell(
-                                                onTap: () => Navigator.pushNamed(
-                                                  context,
-                                                  kemahasiswaanBerandaUpdateBeritaPageRoute,
-                                                  arguments: berita,
-                                                ).then((_) {
-                                                  context.read<BeritaBloc>().add(
-                                                      ReadAllBeritaEvent(filter: _filter ?? ""));
-                                                  if (_filter == berita.penulis) {
-                                                    _filter = "";
+                                                onTap: () async {
+                                                  final result = await Navigator.pushNamed(
+                                                    context,
+                                                    kemahasiswaanBerandaUpdateBeritaPageRoute,
+                                                    arguments: berita,
+                                                  );
+
+                                                  if (result != null && result is Berita && context.mounted) {
+                                                    context.read<BeritaBloc>().add(
+                                                      UpdateBeritaEvent(berita: result),
+                                                    );
                                                   }
-                                                }),
+                                                },
+
+                                                //     .then((_) {
+                                                //   context.read<BeritaBloc>().add(
+                                                //       ReadAllBeritaEvent(filter: _filter ?? ""));
+                                                //   if (_filter == berita.penulis) {
+                                                //     _filter = "";
+                                                //   }
+                                                // }),
                                                 child: Image.asset(
                                                   'assets/icons/edit.png',
                                                   width: 24,
@@ -265,10 +276,6 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                             ),
                           ],
                         );
-                      } else if (state is BeritaSuccessMessage) {
-                        context.read<BeritaBloc>().add(ReadAllBeritaEvent(filter: _filter ?? ""));
-
-                        return const SizedBox();
                       }
                       else if (state is BeritaError) {
                         return Text(state.message);

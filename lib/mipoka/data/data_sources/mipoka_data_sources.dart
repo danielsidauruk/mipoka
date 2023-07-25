@@ -496,6 +496,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<void> updateKegiatanPerPeriodeMpt(KegiatanPerPeriodeMptModel kegiatanPerPeriodeMptModel) async {
     try {
+      print("My Own Model : ${kegiatanPerPeriodeMptModel.toJson()}");
       final response = await DioUtil().dio.put(
         '$kegiatanPerPeriodePath/${kegiatanPerPeriodeMptModel.idKegiatanPerPeriodeMpt}',
         data: kegiatanPerPeriodeMptModel.toJson(),
@@ -743,10 +744,10 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   }
 
   @override
-  Future<void> deletePeriodeMpt(int idPeriode) async {
+  Future<void> deletePeriodeMpt(int idPeriodeMpt) async {
     try {
       final response = await DioUtil().dio.delete(
-        '$periodeMptPath/$idPeriode',
+        '$periodeMptPath/$idPeriodeMpt',
       );
       if (kDebugMode) {
         print(response.data);
@@ -1078,13 +1079,25 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<RiwayatMptModel> readRiwayatMpt(int idRiwayatMpt) async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/riwayat_kegiatan_mpt.json');
-    dynamic jsonDecode = json.decode(response);
+    // final String response =
+    // await rootBundle.loadString('assets/json_file/riwayat_kegiatan_mpt.json');
+    // dynamic jsonDecode = json.decode(response);
+    //
+    // RiwayatMptModel result = RiwayatMptModel.fromJson(jsonDecode);
+    //
+    // return result;
+    try {
+      final response = await DioUtil().dio.get("$riwayatMptPath/$idRiwayatMpt");
+      print(response.data);
+      final result = RiwayatMptModel.fromJson(response.data);
 
-    RiwayatMptModel result = RiwayatMptModel.fromJson(jsonDecode);
-
-    return result;
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
+    }
   }
 
   @override
@@ -1164,13 +1177,24 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<SessionModel> readSession(int idSession) async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/session.json');
-    dynamic jsonDecode = json.decode(response);
+    // final String response =
+    // await rootBundle.loadString('assets/json_file/session.json');
+    // dynamic jsonDecode = json.decode(response);
+    //
+    // SessionModel result = SessionModel.fromJson(jsonDecode);
+    //
+    // return result;
+    try {
+      final response = await DioUtil().dio.get("$sessionPath/$idSession");
+      final result = SessionModel.fromJson(response.data);
 
-    SessionModel result = SessionModel.fromJson(jsonDecode);
-
-    return result;
+      return result;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
+    }
   }
 
   @override
@@ -1224,9 +1248,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       final response = await DioUtil().dio.post(
         userPath,
         data: mipokaUserModel.toJson(),
-        options: Options(
-          receiveTimeout: 100000,
-        ),
       );
       if (kDebugMode) {
         print(response.data);
@@ -1323,21 +1344,18 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<void> updateMipokaUser(MipokaUserModel mipokaUserModel) async {
-    // try {
-    //   final response = await DioUtil().dio.put(
-    //     '$userPath/${mipokaUserModel.idUser}',
-    //     data: mipokaUserModel.toJson(),
-    //   );
-    //   if (kDebugMode) {
-    //     print(response.data);
-    //   }
-    // } on DioError catch (e) {
-    //   if (kDebugMode) {
-    //     print(e);
-    //   }
-    // }
-    if (kDebugMode) {
-      print(mipokaUserModel.toJson());
+    try {
+      final response = await DioUtil().dio.put(
+        '$userPath/${mipokaUserModel.idUser}',
+        data: mipokaUserModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 

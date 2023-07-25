@@ -10,7 +10,7 @@ abstract class BeritaEvent extends Equatable {
 class CreateBeritaEvent extends BeritaEvent {
   final Berita berita;
 
-  const CreateBeritaEvent(this.berita);
+  const CreateBeritaEvent({required this.berita});
 }
 
 class ReadAllBeritaEvent extends BeritaEvent {

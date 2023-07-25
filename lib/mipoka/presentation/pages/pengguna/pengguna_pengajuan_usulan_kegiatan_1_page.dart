@@ -44,7 +44,7 @@ class PenggunaPengajuanUsulanKegiatan1 extends StatefulWidget {
 class _PenggunaPengajuanUsulanKegiatan1State
     extends State<PenggunaPengajuanUsulanKegiatan1> {
 
-  late Uint8List _signatureData;
+  Uint8List? _signatureData;
   final GlobalKey<SfSignaturePadState> _signaturePadKey = GlobalKey();
   final StreamController<Uint8List> _signatureDataStream = StreamController<Uint8List>.broadcast();
 
@@ -161,7 +161,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
     }
 
     _signatureData = data;
-    _signatureDataStream.add(_signatureData);
+    _signatureDataStream.add(_signatureData!);
   }
 
   @override
@@ -308,7 +308,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                         _ormawa = usulanKegiatan.ormawa;
                         // usulanKegiatan.mipokaUser.ormawa[0];
 
-                        _bentukKegiatanController == "" ? listBentukKegiatan[0] : _bentukKegiatanController;
+                        _bentukKegiatanController ??= listBentukKegiatan[0];
                         if (usulanKegiatan.pembiayaan == "") {
                           _pembiayaanController = listPembiayaan[0];
                         }
@@ -370,11 +370,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                             MipokaCustomDropdown(
                               items: listBentukKegiatan,
-                              initialItem: _bentukKegiatanController ?? listBentukKegiatan[0],
+                              initialItem: _bentukKegiatanController,
                               onValueChanged: (value) {
-                                if (kDebugMode) {
-                                  print('Input "$value" to State Management BLoC');
-                                }
                                 _bentukKegiatanController = value;
                               },
                             ),
@@ -623,26 +620,41 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                                 CustomMipokaButton(
                                   onTap: () async {
-                                    int uniqueId = UniqueIdGenerator.generateUniqueId();
+                                    print("1. Ormawa : ${_ormawa != null}");
+                                    print("2. Pembaiayaan : ${_pembiayaanController != ""}");
+                                    print("3. Nama Kegiatan : ${_namaKegiatanController.text != ""}");
+                                    print("4. Bentuk Kegiatan : ${_bentukKegiatanController != null}");
+                                    print("5. Deskripsi Kegiatan : ${_deskripsiKegiatanController.text != ""}");
+                                    print("6. Tanggal Mulai : ${_tanggalMulaiController.text != ""}");
+                                    print("7. Tanggal Selesai : ${_tanggalSelesaiController.text != ""}");
+                                    print("8. Waktu Mulai : ${_waktuMulaiController.text != ""}");
+                                    print ("9. Waktu Selesai : ${_waktuSelesaiController.text != ""}");
+                                    print ("10. Tempat Kegiatan : ${_tempatKegiatanController.text != ""}");
+                                    print("11. Jumlah Partisipan : ${_jumlahParsitipanController.text != ""}");
+                                    print ("12. Target Kegiatan : ${_targetKegiatanController.text != ""}");
+                                    print ("13. Total pendanaan : ${_totalPendanaanController.text != ""}");
+                                    print ("14. Keterangan : ${_keteranganController.text != " "}");
+                                    print ("15. Ormawa Signature : ${_ormawaSignatureController != "" || _signatureData != null}");
 
-                                    mipokaCustomToast(savingDataMessage);
-
-                                    if (_ormawaSignatureController == "") {
-                                      _ormawaSignatureController = await uploadBytesToFirebase(_signatureData, "signature$uniqueId.png");
-                                    }
+                                    print (_waktuMulaiController.text);
 
                                     if(
                                     _ormawa != null && _pembiayaanController != ""
-                                    && _namaKegiatanController.text != "" && _bentukKegiatanSwitchController != null
-                                    && _bentukKegiatanController != "" && _deskripsiKegiatanController.text != ""
+                                    && _namaKegiatanController.text != ""
+                                    && _bentukKegiatanController != null && _deskripsiKegiatanController.text != ""
                                     && _tanggalMulaiController.text != "" && _tanggalSelesaiController.text != ""
                                     && _waktuMulaiController.text != "" && _waktuSelesaiController.text != ""
-                                    && _tempatKegiatanController.text != "" && _bentukKegiatanSwitchController != null
-                                    && _jumlahParsitipanController.text != "" && _totalPendanaanSwitchController != null
+                                    && _tempatKegiatanController.text != "" && _jumlahParsitipanController.text != ""
                                     && _targetKegiatanController.text != "" && _totalPendanaanController.text != ""
-                                    && _keteranganController.text != "" && _ormawaSignatureController != ""
-                                    )
+                                    && _keteranganController.text != "" && (_ormawaSignatureController != "" || _signatureData != null))
                                     {
+                                      int uniqueId = UniqueIdGenerator.generateUniqueId();
+
+                                      mipokaCustomToast(savingDataMessage);
+                                      if (_ormawaSignatureController == "") {
+                                        _ormawaSignatureController = await uploadBytesToFirebase(_signatureData!, "signature$uniqueId.png");
+                                      }
+
                                       if (context.mounted) {
                                         context.read<UsulanKegiatanBloc>().add(
                                           SaveUsulanKegiatanFirstPageEvent(

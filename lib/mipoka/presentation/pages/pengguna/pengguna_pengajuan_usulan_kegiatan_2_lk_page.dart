@@ -188,26 +188,6 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                                               ),
                                             ),
                                             DataCell(
-                                              onTap: () async {
-                                                final result = await Navigator.pushNamed(
-                                                  context,
-                                                  editDataPesertaLuarKotaPageRoute,
-                                                  arguments: PartisipanArgs(
-                                                    index: index,
-                                                    usulanKegiatan: usulanKegiatan,
-                                                  ),
-                                                );
-
-                                                if (result != null && result is UsulanKegiatan) {
-                                                  if (context.mounted) {
-                                                    context.read<UsulanKegiatanBloc>().add(
-                                                      ManagePartisipanEvent(
-                                                        usulanKegiatan: result,
-                                                      ),
-                                                    );
-                                                  }
-                                                }
-                                              },
                                               Align(
                                                 alignment: Alignment.center,
                                                 child: Text(
@@ -263,25 +243,63 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                                               ),
                                             ),
                                             DataCell(
-                                              onTap: () {
-                                                final partisipanList = usulanKegiatan.partisipan;
+                                              Row(
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () async {
+                                                      final result = await Navigator.pushNamed(
+                                                        context,
+                                                        editDataPesertaLuarKotaPageRoute,
+                                                        arguments: PartisipanArgs(
+                                                          index: index,
+                                                          usulanKegiatan: usulanKegiatan,
+                                                        ),
+                                                      );
 
-                                                partisipanList.removeAt(index);
-
-                                                context.read<UsulanKegiatanBloc>().add(
-                                                  ManagePartisipanEvent(
-                                                    usulanKegiatan: usulanKegiatan.copyWith(
-                                                      partisipan: partisipanList,
+                                                      if (result != null && result is UsulanKegiatan) {
+                                                        if (context.mounted) {
+                                                          context.read<UsulanKegiatanBloc>().add(
+                                                            ManagePartisipanEvent(
+                                                              usulanKegiatan: result,
+                                                            ),
+                                                          );
+                                                        }
+                                                      }
+                                                    },
+                                                    child: Align(
+                                                      alignment: Alignment.center,
+                                                      child: Image.asset(
+                                                        'assets/icons/edit.png',
+                                                        width: 24,
+                                                      ),
                                                     ),
                                                   ),
-                                                );
-                                              },
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: Image.asset(
-                                                  'assets/icons/delete.png',
-                                                  width: 24,
-                                                ),
+
+                                                  const SizedBox(width: 8.0),
+
+                                                  InkWell(
+                                                    onTap: () {
+                                                      final partisipanList = usulanKegiatan.partisipan;
+
+                                                      partisipanList.removeAt(index);
+
+                                                      context.read<UsulanKegiatanBloc>().add(
+                                                        ManagePartisipanEvent(
+                                                          usulanKegiatan: usulanKegiatan.copyWith(
+                                                            partisipan: partisipanList,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Align(
+                                                      alignment: Alignment.center,
+                                                      child: Image.asset(
+                                                        'assets/icons/delete.png',
+                                                        width: 24,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ],

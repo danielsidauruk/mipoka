@@ -67,7 +67,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
 
-              const CustomMobileTitle(text: 'Kemahasiswaan - MPT Mahasiswa - Tambah Kegiatan per Periode'),
+              const CustomMobileTitle(text: 'Kemahasiswaan - MPT Mahasiswa - Edit Kegiatan per Periode'),
 
               const CustomFieldSpacer(),
 
@@ -85,17 +85,16 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                         List<String> namaKegiatanDropDownList = namaKegiatanMptList.map(
                                 (namaKegiatan) => namaKegiatan.namaKegiatan).toList();
 
-                        int indexOfNamaKegiatanMpt = namaKegiatanMptList.indexOf(_namaKegiatanMpt!);
-                        String namaKegiatanController = indexOfNamaKegiatanMpt < 0
-                            ? namaKegiatanDropDownList[0]
-                            : namaKegiatanDropDownList[indexOfNamaKegiatanMpt];
+                        // int indexOfNamaKegiatanMpt = namaKegiatanMptList.indexOf(_namaKegiatanMpt!);
+                        // String namaKegiatanController = indexOfNamaKegiatanMpt < 0
+                        //     ? namaKegiatanDropDownList[0]
+                        //     : namaKegiatanDropDownList[indexOfNamaKegiatanMpt];
 
                         return MipokaCustomDropdown(
                           items: namaKegiatanDropDownList,
-                          initialItem: namaKegiatanController,
+                          initialItem: _namaKegiatanMpt?.namaKegiatan,
                           onValueChanged: (value) {
                             int index = namaKegiatanDropDownList.indexOf(value ?? "");
-                            namaKegiatanController = namaKegiatanDropDownList[index];
                             _namaKegiatanMpt = namaKegiatanMptList[index];
                           },
                         );
@@ -124,17 +123,15 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                               : periodeMpt.tahunPeriodeMpt,
                         ).toList();
 
-                        int? indexOfPeriodeMpt = periodeMptList.indexOf(_periodeMpt!);
-                        String initialPeriodeMpt = indexOfPeriodeMpt < 0
-                            ? periodeMptDropDownList[0]
-                            : periodeMptDropDownList[indexOfPeriodeMpt];
+                        String? initialItem = _periodeMpt?.periodeMengulangMpt == true
+                            ? "${_periodeMpt?.tahunPeriodeMpt} (ulang)"
+                            : _periodeMpt?.tahunPeriodeMpt;
 
                         return MipokaCustomDropdown(
                           items: periodeMptDropDownList,
-                          initialItem: initialPeriodeMpt,
+                          initialItem: initialItem,
                           onValueChanged: (value) {
                             int index = periodeMptDropDownList.indexOf(value!);
-                            initialPeriodeMpt = periodeMptDropDownList[index];
                             _periodeMpt = periodeMptList[index];
                           },
                         );
@@ -179,12 +176,25 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
 
                       CustomMipokaButton(
                         onTap: () {
-                          if (_namaKegiatanMpt?.idNamaKegiatanMpt != 0 && _periodeMpt?.idPeriodeMpt != 0
+                          if (_namaKegiatanMpt != null && _periodeMpt != null
                               && _tanggalMulaiController.text.isNotEmpty && _tanggalSelesaiController.text.isNotEmpty
                               && _poinKegiatanController.text.isNotEmpty) {
                             try {
                               final poinKegiatan = int.tryParse(_poinKegiatanController.text);
                               if (poinKegiatan != null) {
+
+                                // Navigator.pop(
+                                //   context,
+                                //     widget.kegiatanPerPeriodeMpt.copyWith(
+                                //       namaKegiatanMpt: _namaKegiatanMpt,
+                                //       periodeMpt: _periodeMpt,
+                                //       tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
+                                //       tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
+                                //       pointMptDiperoleh: poinKegiatan,
+                                //       updatedAt: currentDate,
+                                //       updatedBy: user?.email ?? "unknown",
+                                //     )
+                                // );
                                 context.read<KegiatanPerPeriodeMptBloc>().add(
                                   UpdateKegiatanPerPeriodeMptEvent(
                                     kegiatanPerPeriodeMpt: widget.kegiatanPerPeriodeMpt.copyWith(

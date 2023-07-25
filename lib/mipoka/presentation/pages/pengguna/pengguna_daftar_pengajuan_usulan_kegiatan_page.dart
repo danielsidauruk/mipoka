@@ -91,7 +91,7 @@ class _PenggunaDaftarPengajuanKegiatanState
 
                         if (result != null && result == true && context.mounted) {
                           context.read<UsulanKegiatanBloc>().add(
-                              ReadAllUsulanKegiatanEvent(filter: _filter!));
+                              const ReadAllUsulanKegiatanEvent());
                         }
 
                       } else if (state is UsulanKegiatanError) {

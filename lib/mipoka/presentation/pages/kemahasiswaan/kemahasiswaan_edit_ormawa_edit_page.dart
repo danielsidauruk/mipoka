@@ -56,12 +56,12 @@ class _KemahasiswaanEditOrmawaEditPageState
   String? _fotoBendaharaUrlController;
   List<String> _nimList = [];
 
-  final StreamController<String?> _logoUrlStream = StreamController<String?>();
-  final StreamController<String?> _fotoPembinaUrlStream = StreamController<String?>();
-  final StreamController<String?> _fotoKetuaUrlStream = StreamController<String?>();
-  final StreamController<String?> _fotoWakilKetuaUrlStream = StreamController<String?>();
-  final StreamController<String?> _fotoSekretarisUrlStream = StreamController<String?>();
-  final StreamController<String?> _fotoBendaharaUrlStream = StreamController<String?>();
+  final StreamController<String?> _logoUrlStream = StreamController<String?>.broadcast();
+  final StreamController<String?> _fotoPembinaUrlStream = StreamController<String?>.broadcast();
+  final StreamController<String?> _fotoKetuaUrlStream = StreamController<String?>.broadcast();
+  final StreamController<String?> _fotoWakilKetuaUrlStream = StreamController<String?>.broadcast();
+  final StreamController<String?> _fotoSekretarisUrlStream = StreamController<String?>.broadcast();
+  final StreamController<String?> _fotoBendaharaUrlStream = StreamController<String?>.broadcast();
 
   final StreamController<String?> _excelFileStream = StreamController<String?>();
   String? _excelFileController;
@@ -101,6 +101,8 @@ class _KemahasiswaanEditOrmawaEditPageState
         }
         rowIndex++;
       }
+
+
     }
   }
 

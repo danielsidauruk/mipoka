@@ -29,10 +29,10 @@ class PeriodeMptHasData extends PeriodeMptState {
   List<Object> get props => [periodeMpt];
 }
 
-class PeriodeMptSuccessMessage extends PeriodeMptState {
+class PeriodeMptSuccess extends PeriodeMptState {
   final String message;
 
-  const PeriodeMptSuccessMessage({this.message = "Data has changed"});
+  const PeriodeMptSuccess({this.message = "Data has changed"});
 
   @override
   List<Object> get props => [message];

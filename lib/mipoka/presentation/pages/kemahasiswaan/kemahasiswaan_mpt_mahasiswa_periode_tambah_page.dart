@@ -129,40 +129,26 @@ class _KemahasiswaanMPTMahasiswaPeriodeTambahPageState extends State<Kemahasiswa
                               mipokaCustomToast(savingDataMessage);
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
 
-                              context.read<PeriodeMptBloc>().add(
-                                CreatePeriodeMptEvent(
-                                  periodeMpt: PeriodeMpt(
-                                    idPeriodeMpt: uniqueId,
-                                    tahunPeriodeMpt: _tahunController.text,
-                                    periodeMengulangMpt: _isPeriodeMengulangMpt,
-                                    tanggalMulaiPeriodeMpt: _tanggalMulaiController.text,
-                                    tanggalBerakhirPeriodeMpt: _tanggalSelesaiController.text,
-                                    createdAt: currentDate,
-                                    createdBy: user?.email ?? "unknown",
-                                    updatedAt: currentDate,
-                                    updatedBy: user?.email ?? "unknown",
-                                  ),
+                              Navigator.pop(
+                                context,
+                                PeriodeMpt(
+                                  idPeriodeMpt: uniqueId,
+                                  tahunPeriodeMpt: _tahunController.text,
+                                  periodeMengulangMpt: _isPeriodeMengulangMpt,
+                                  tanggalMulaiPeriodeMpt: _tanggalMulaiController.text,
+                                  tanggalBerakhirPeriodeMpt: _tanggalSelesaiController.text,
+                                  createdAt: currentDate,
+                                  createdBy: user?.email ?? "unknown",
+                                  updatedAt: currentDate,
+                                  updatedBy: user?.email ?? "unknown",
                                 ),
                               );
+
                             } else {
                               mipokaCustomToast(emptyFieldMessage);
                             }
                           },
                           text: 'Simpan'
-                      ),
-
-                      BlocListener<PeriodeMptBloc, PeriodeMptState>(
-                        listenWhen: (prev, current) =>
-                        prev.runtimeType != current.runtimeType,
-                        listener: (context, state) {
-                          if (state is PeriodeMptSuccessMessage) {
-                            mipokaCustomToast("Periode berhasil ditambahkan.");
-                            Navigator.pop(context);
-                          } else if (state is PeriodeMptError) {
-                            mipokaCustomToast(state.message);
-                          }
-                        },
-                        child: const SizedBox(),
                       ),
                     ],
                   ),

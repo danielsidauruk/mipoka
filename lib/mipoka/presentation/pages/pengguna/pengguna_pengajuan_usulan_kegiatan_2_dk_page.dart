@@ -186,33 +186,11 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                               ),
                                             ),
                                             DataCell(
-                                              onTap: () async {
-                                                final result = await Navigator.pushNamed(
-                                                  context,
-                                                  editDataPesertaDalamKotaPageRoute,
-                                                  arguments: PartisipanArgs(
-                                                    index: index,
-                                                    usulanKegiatan: usulanKegiatan,
-                                                  ),
-                                                );
-
-                                                if (result != null && result is UsulanKegiatan) {
-                                                  if (context.mounted) {
-                                                    context.read<UsulanKegiatanBloc>().add(
-                                                      ManagePartisipanEvent(
-                                                        usulanKegiatan: result,
-                                                      ),
-                                                    );
-                                                  }
-                                                }
-                                              },
-
                                               Align(
                                                 alignment: Alignment.center,
                                                 child: Text(
                                                   partisipan.noInduk,
                                                   textAlign: TextAlign.center,
-                                                  style: const TextStyle(color: Colors.blue),
                                                 ),
                                               ),
                                             ),
@@ -244,25 +222,63 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                               ),
                                             ),
                                             DataCell(
-                                              onTap: () {
-                                                final partisipanList = usulanKegiatan.partisipan;
+                                              Row(
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () async {
+                                                      final result = await Navigator.pushNamed(
+                                                        context,
+                                                        editDataPesertaDalamKotaPageRoute,
+                                                        arguments: PartisipanArgs(
+                                                          index: index,
+                                                          usulanKegiatan: usulanKegiatan,
+                                                        ),
+                                                      );
 
-                                                partisipanList.removeAt(index);
-
-                                                context.read<UsulanKegiatanBloc>().add(
-                                                  ManagePartisipanEvent(
-                                                    usulanKegiatan: usulanKegiatan.copyWith(
-                                                      partisipan: partisipanList,
+                                                      if (result != null && result is UsulanKegiatan) {
+                                                        if (context.mounted) {
+                                                          context.read<UsulanKegiatanBloc>().add(
+                                                            ManagePartisipanEvent(
+                                                              usulanKegiatan: result,
+                                                            ),
+                                                          );
+                                                        }
+                                                      }
+                                                    },
+                                                    child: Align(
+                                                      alignment: Alignment.center,
+                                                      child: Image.asset(
+                                                        'assets/icons/edit.png',
+                                                        width: 24,
+                                                      ),
                                                     ),
                                                   ),
-                                                );
-                                              },
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: Image.asset(
-                                                  'assets/icons/delete.png',
-                                                  width: 24,
-                                                ),
+
+                                                  const SizedBox(width: 8.0),
+
+                                                  InkWell(
+                                                    onTap: () {
+                                                      final partisipanList = usulanKegiatan.partisipan;
+
+                                                      partisipanList.removeAt(index);
+
+                                                      context.read<UsulanKegiatanBloc>().add(
+                                                        ManagePartisipanEvent(
+                                                          usulanKegiatan: usulanKegiatan.copyWith(
+                                                            partisipan: partisipanList,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Align(
+                                                      alignment: Alignment.center,
+                                                      child: Image.asset(
+                                                        'assets/icons/delete.png',
+                                                        width: 24,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ],
@@ -386,27 +402,6 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                                   ),
 
                                                   DataCell(
-                                                    onTap: () async {
-                                                      final result = await Navigator.pushNamed(
-                                                        context,
-                                                        usulanKegiatanEditBiayaKegiatanPageRoute,
-                                                        arguments: BiayaKegiatanArgs(
-                                                          index: index,
-                                                          usulanKegiatan: usulanKegiatan,
-                                                        ),
-                                                      );
-
-                                                      if (result != null && result is UsulanKegiatan) {
-                                                        if (context.mounted) {
-                                                          context.read<UsulanKegiatanBloc>().add(
-                                                            ManageBiayaKegiatanEvent(
-                                                              usulanKegiatan: result,
-                                                            ),
-                                                          );
-                                                        }
-                                                      }
-                                                    },
-
                                                     Align(
                                                       alignment: Alignment.center,
                                                       child: Text(
@@ -453,25 +448,60 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                                     ),
                                                   ),
                                                   DataCell(
-                                                    onTap: () {
-                                                      final biayaKegiatanList = usulanKegiatan.biayaKegiatan;
+                                                    Row(
+                                                      children: [
+                                                        InkWell(
+                                                          onTap: () async {
+                                                            final result = await Navigator.pushNamed(
+                                                              context,
+                                                              usulanKegiatanEditBiayaKegiatanPageRoute,
+                                                              arguments: BiayaKegiatanArgs(
+                                                                index: index,
+                                                                usulanKegiatan: usulanKegiatan,
+                                                              ),
+                                                            );
 
-                                                      biayaKegiatanList.removeAt(index);
-
-                                                      context.read<UsulanKegiatanBloc>().add(
-                                                        ManageBiayaKegiatanEvent(
-                                                          usulanKegiatan: usulanKegiatan.copyWith(
-                                                            biayaKegiatan: biayaKegiatanList,
+                                                            if (result != null && result is UsulanKegiatan) {
+                                                              if (context.mounted) {
+                                                                context.read<UsulanKegiatanBloc>().add(
+                                                                  ManageBiayaKegiatanEvent(
+                                                                    usulanKegiatan: result,
+                                                                  ),
+                                                                );
+                                                              }
+                                                            }
+                                                          },
+                                                          child: Image.asset(
+                                                            'assets/icons/edit.png',
+                                                            width: 24,
                                                           ),
                                                         ),
-                                                      );
-                                                    },
-                                                    Align(
-                                                      alignment: Alignment.center,
-                                                      child: Image.asset(
-                                                        'assets/icons/delete.png',
-                                                        width: 24,
-                                                      ),
+
+                                                        const SizedBox(width: 8),
+
+                                                        InkWell(
+                                                          onTap: () {
+                                                            final biayaKegiatanList = usulanKegiatan.biayaKegiatan;
+
+                                                            biayaKegiatanList.removeAt(index);
+
+                                                            context.read<UsulanKegiatanBloc>().add(
+                                                              ManageBiayaKegiatanEvent(
+                                                                usulanKegiatan: usulanKegiatan.copyWith(
+                                                                  biayaKegiatan: biayaKegiatanList,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                          child: Align(
+                                                            alignment: Alignment.center,
+                                                            child: Image.asset(
+                                                              'assets/icons/delete.png',
+                                                              width: 24,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                 ],

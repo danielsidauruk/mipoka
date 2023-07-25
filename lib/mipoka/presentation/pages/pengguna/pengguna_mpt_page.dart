@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/riwayat_kegiatan_mpt_bloc/riwayat_kegiatan_mpt_bloc.dart';
@@ -10,8 +11,8 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
-// => Fixed ContentBox
 class PenggunaMPTPage extends StatefulWidget {
   const PenggunaMPTPage({super.key});
 
@@ -53,7 +54,18 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                 children: [
                   customBoxTitle('Kegiatan yang Sudah Diklaim'),
                   const CustomFieldSpacer(),
-                  BlocBuilder<RiwayatKegiatanMptBloc, RiwayatKegiatanMptState>(
+                  BlocConsumer<RiwayatKegiatanMptBloc, RiwayatKegiatanMptState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) async {
+                      if (state is RiwayatKegiatanMptSuccess) {
+
+                        context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
+
+                      } else if (state is RiwayatKegiatanMptError) {
+                        mipokaCustomToast(state.message);
+                      }
+                    },
                     builder: (context, state) {
                       if (state is RiwayatKegiatanMptLoading) {
                         return const Text('Loading ....');
@@ -291,14 +303,23 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                       ),
                                     ),
                                     DataCell(
-                                      onTap: () => Navigator.pushNamed(
-                                        context,
-                                        penggunaMPTUnggahBuktiPageRoute,
-                                        arguments: kegiatanPerPeriode,
-                                      ).then((_) {
-                                        context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
-                                        context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
-                                      }),
+                                      onTap: () async {
+                                        final result = await Navigator.pushNamed(
+                                          context,
+                                          penggunaMPTUnggahBuktiPageRoute,
+                                          arguments: kegiatanPerPeriode,
+                                        );
+
+                                        if (result != null && result is RiwayatKegiatanMpt && context.mounted) {
+                                          context.read<RiwayatKegiatanMptBloc>().add(
+                                            CreateRiwayatKegiatanMptEvent(
+                                              riwayatKegiatanMpt: result,
+                                            ),
+                                          );
+                                        }
+                                          // context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
+                                          // context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
+                                      },
                                       Align(
                                         alignment: Alignment.center,
                                         child: Image.asset(
