@@ -93,6 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                     String password = _passwordController.text;
 
                     if (email.isNotEmpty && password.isNotEmpty) {
+                      mipokaCustomToast("Autentikasi Akun ...");
                       try {
                         UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
                           email: email,
@@ -103,17 +104,17 @@ class _LoginPageState extends State<LoginPage> {
                         User? user = FirebaseAuth.instance.currentUser;
 
                         if (context.mounted) {
-                          // Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                          Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
+                          Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                          // Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
                           // Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute);
                         }
                       } catch (e) {
                         mipokaCustomToast(
-                          "Failed to sign in. Please check your email and password.",
+                          "Gagal masuk. Periksa email dan kata sandi Anda.",
                         );
                       }
                     } else {
-                      mipokaCustomToast("Email and Password cannot be empty.");
+                      mipokaCustomToast("Email dan Kata Sandi tidak boleh kosong.");
                     }
                   },
                 ),

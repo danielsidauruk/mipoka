@@ -9,6 +9,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/mhs_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mhs_per_periode_mpt_use_cases/mhs_per_periode_mpt_use_cases_bloc.dart';
@@ -196,7 +197,8 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                           }
                           return const SizedBox();
                         } else if (state is MipokaUserByNimByNimHasData) {
-                          int randomId = Random().nextInt(99999999);
+                          int uniqueId = UniqueIdGenerator.generateUniqueId();
+
                           context.read<MhsPerPeriodeMptBloc>().add(
                             CreateMhsPerPeriodeMptEvent(
                               mhsPerPeriodeMpt: MhsPerPeriodeMpt(

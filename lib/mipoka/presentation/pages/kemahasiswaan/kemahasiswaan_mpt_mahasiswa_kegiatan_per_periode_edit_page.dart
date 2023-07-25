@@ -5,7 +5,6 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
-import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegiatan_drop_down_bloc/nama_kegiatan_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
@@ -48,8 +47,8 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
     _namaKegiatanMpt = widget.kegiatanPerPeriodeMpt.namaKegiatanMpt;
     _periodeMpt = widget.kegiatanPerPeriodeMpt.periodeMpt;
 
-    context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
-    context.read<NamaKegiatanDropDownBloc>().add(ReadNamaKegiatanDropDownEvent());
+    context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
+    context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
     super.initState();
   }
 
@@ -183,21 +182,11 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                               final poinKegiatan = int.tryParse(_poinKegiatanController.text);
                               if (poinKegiatan != null) {
 
-                                // Navigator.pop(
-                                //   context,
-                                //     widget.kegiatanPerPeriodeMpt.copyWith(
-                                //       namaKegiatanMpt: _namaKegiatanMpt,
-                                //       periodeMpt: _periodeMpt,
-                                //       tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
-                                //       tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
-                                //       pointMptDiperoleh: poinKegiatan,
-                                //       updatedAt: currentDate,
-                                //       updatedBy: user?.email ?? "unknown",
-                                //     )
-                                // );
-                                context.read<KegiatanPerPeriodeMptBloc>().add(
-                                  UpdateKegiatanPerPeriodeMptEvent(
-                                    kegiatanPerPeriodeMpt: widget.kegiatanPerPeriodeMpt.copyWith(
+                                mipokaCustomToast(savingDataMessage);
+
+                                Navigator.pop(
+                                  context,
+                                    widget.kegiatanPerPeriodeMpt.copyWith(
                                       namaKegiatanMpt: _namaKegiatanMpt,
                                       periodeMpt: _periodeMpt,
                                       tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
@@ -205,9 +194,21 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                                       pointMptDiperoleh: poinKegiatan,
                                       updatedAt: currentDate,
                                       updatedBy: user?.email ?? "unknown",
-                                    ),
-                                  ),
+                                    )
                                 );
+                                // context.read<KegiatanPerPeriodeMptBloc>().add(
+                                //   UpdateKegiatanPerPeriodeMptEvent(
+                                //     kegiatanPerPeriodeMpt: widget.kegiatanPerPeriodeMpt.copyWith(
+                                //       namaKegiatanMpt: _namaKegiatanMpt,
+                                //       periodeMpt: _periodeMpt,
+                                //       tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
+                                //       tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
+                                //       pointMptDiperoleh: poinKegiatan,
+                                //       updatedAt: currentDate,
+                                //       updatedBy: user?.email ?? "unknown",
+                                //     ),
+                                //   ),
+                                // );
                               } else {
                                 mipokaCustomToast("Input poin kegiatan tidak valid.");
                               }
@@ -222,19 +223,19 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                         text: 'Simpan',
                       ),
 
-                      BlocListener<KegiatanPerPeriodeMptBloc, KegiatanPerPeriodeMptState>(
-                        listenWhen: (prev, current) =>
-                        prev.runtimeType != current.runtimeType,
-                        listener: (context, state) {
-                          if (state is KegiatanPerPeriodeMptSuccess) {
-                            mipokaCustomToast("${_namaKegiatanMpt?.namaKegiatan} telah di update");
-                            Navigator.pop(context);
-                          } else if (state is KegiatanPerPeriodeMptError) {
-                            mipokaCustomToast(state.message);
-                          }
-                        },
-                        child: const SizedBox(),
-                      ),
+                      // BlocListener<KegiatanPerPeriodeMptBloc, KegiatanPerPeriodeMptState>(
+                      //   listenWhen: (prev, current) =>
+                      //   prev.runtimeType != current.runtimeType,
+                      //   listener: (context, state) {
+                      //     if (state is KegiatanPerPeriodeMptSuccess) {
+                      //       mipokaCustomToast("${_namaKegiatanMpt?.namaKegiatan} telah di update");
+                      //       Navigator.pop(context);
+                      //     } else if (state is KegiatanPerPeriodeMptError) {
+                      //       mipokaCustomToast(state.message);
+                      //     }
+                      //   },
+                      //   child: const SizedBox(),
+                      // ),
                     ],
                   ),
                 ],

@@ -179,9 +179,9 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                       listener: (context, state) async {
 
                         if (state is KegiatanPerPeriodeMptSuccess) {
-                          print ("create / update ini ke trigger");
                           // context.read<KegiatanPerPeriodeMptBloc>().add(
                           //     ReadAllKegiatanPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idNamaKegiatanMpt"));
+                          context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
 
                         } else if (state is KegiatanPerPeriodeMptError) {
                           mipokaCustomToast(state.message);
@@ -268,7 +268,10 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                                           DataCell(
                                             Align(
                                               alignment: Alignment.center,
-                                              child: Text(kegiatanPerPeriodeMpt.periodeMpt.tahunPeriodeMpt),
+                                              child: Text(
+                                                "${kegiatanPerPeriodeMpt.periodeMpt.tahunPeriodeMpt} "
+                                                    "${kegiatanPerPeriodeMpt.periodeMpt.periodeMengulangMpt ? "(ulang)" : ""}",
+                                              ),
                                             ),
                                           ),
                                           DataCell(
@@ -314,25 +317,25 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
                                               children: [
                                                 InkWell(
                                                   onTap: () async {
-                                                    // final result = await Navigator.pushNamed(
-                                                    //   context,
-                                                    //   kemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageRoute,
-                                                    //   arguments: kegiatanPerPeriodeMpt,
-                                                    // );
-                                                    //
-                                                    // if (result is KegiatanPerPeriodeMpt && context.mounted) {
-                                                    //   context.read<KegiatanPerPeriodeMptBloc>().add(
-                                                    //     UpdateKegiatanPerPeriodeMptEvent(
-                                                    //       kegiatanPerPeriodeMpt: result,
-                                                    //     ),
-                                                    //   );
-                                                    // }
-                                                    Navigator.pushNamed(
+                                                    final result = await Navigator.pushNamed(
                                                       context,
                                                       kemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageRoute,
                                                       arguments: kegiatanPerPeriodeMpt,
-                                                    ).then((_) => context.read<KegiatanPerPeriodeMptBloc>().add(
-                                                        ReadAllKegiatanPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idNamaKegiatanMpt")));
+                                                    );
+
+                                                    if (result is KegiatanPerPeriodeMpt && context.mounted) {
+                                                      context.read<KegiatanPerPeriodeMptBloc>().add(
+                                                        UpdateKegiatanPerPeriodeMptEvent(
+                                                          kegiatanPerPeriodeMpt: result,
+                                                        ),
+                                                      );
+                                                    }
+                                                    // Navigator.pushNamed(
+                                                    //   context,
+                                                    //   kemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageRoute,
+                                                    //   arguments: kegiatanPerPeriodeMpt,
+                                                    // ).then((_) => context.read<KegiatanPerPeriodeMptBloc>().add(
+                                                    //     ReadAllKegiatanPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idNamaKegiatanMpt")));
                                                   },
                                                   child: Image.asset(
                                                     'assets/icons/edit.png',

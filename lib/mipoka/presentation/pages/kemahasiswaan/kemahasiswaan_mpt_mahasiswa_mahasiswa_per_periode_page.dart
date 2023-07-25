@@ -163,7 +163,19 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
 
                   const CustomFieldSpacer(),
 
-                  BlocBuilder<MhsPerPeriodeMptBloc, MhsPerPeriodeMptState>(
+                  BlocConsumer<MhsPerPeriodeMptBloc, MhsPerPeriodeMptState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) async {
+
+                      if (state is MhsPerPeriodeMptSuccess) {
+                        context.read<MhsPerPeriodeMptBloc>().add(const ReadAllMhsPerPeriodeMptEvent());
+
+                      } else if (state is MhsPerPeriodeMptError) {
+                        mipokaCustomToast(state.message);
+                      }
+                    },
+
                     builder: (context, state) {
                       if (state is MhsPerPeriodeMptEmpty) {
                         return const Text("Loading ....");
@@ -268,13 +280,8 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                                         ),
                                         DataCell(
                                           InkWell(
-                                            onTap: () => Future.microtask(() {
-                                              context.read<MhsPerPeriodeMptBloc>().add(
-                                                  DeleteMhsPerPeriodeMptEvent(idMhsPerPeriodeMpt: mhsPerPeriodeMpt.idMhsPerPeriodeMpt));
-                                              context.read<MhsPerPeriodeMptBloc>().add(
-                                                  ReadAllMhsPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_prodi/$_jumlahPoint/${_nimController.text}"));
-                                              mipokaCustomToast("Mahasiswa per periode telah dihapus");
-                                            }),
+                                            onTap: () => context.read<MhsPerPeriodeMptBloc>().add(
+                                                DeleteMhsPerPeriodeMptEvent(idMhsPerPeriodeMpt: mhsPerPeriodeMpt.idMhsPerPeriodeMpt)),
                                             child: Image.asset(
                                               'assets/icons/delete.png',
                                               width: 24,

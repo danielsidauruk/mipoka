@@ -6,7 +6,6 @@ import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
-import 'package:mipoka/mipoka/presentation/bloc/kegiatan_per_periode_mpt_bloc/kegiatan_per_periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -36,10 +35,8 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
   
   @override
   void initState() {
-    Future.microtask(() {
-      context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
-      context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
-    });
+    context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
+    context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
     super.initState();
   }
 
@@ -186,42 +183,43 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
                               && _poinKegiatanController.text.isNotEmpty) {
                             try {
                               final poinKegiatan = int.tryParse(_poinKegiatanController.text);
-                              int uniqueId = UniqueIdGenerator.generateUniqueId();
-
                               if (poinKegiatan != null) {
+                                mipokaCustomToast(savingDataMessage);
 
-                                // Navigator.pop(
-                                //   context,
-                                //   KegiatanPerPeriodeMpt(
-                                //     idKegiatanPerPeriodeMpt: uniqueId,
-                                //     namaKegiatanMpt: _namaKegiatanMpt!,
-                                //     periodeMpt: _periodeMpt!,
-                                //     tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
-                                //     tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
-                                //     pointMptDiperoleh: poinKegiatan,
-                                //     createdAt: currentDate,
-                                //     createdBy: user?.email ?? "unknown",
-                                //     updatedAt: currentDate,
-                                //     updatedBy: user?.email ?? "unknown",
-                                //   ),
-                                // );
+                                int uniqueId = UniqueIdGenerator.generateUniqueId();
 
-                                context.read<KegiatanPerPeriodeMptBloc>().add(
-                                  CreateKegiatanPerPeriodeMptEvent(
-                                    kegiatanPerPeriodeMpt: KegiatanPerPeriodeMpt(
-                                      idKegiatanPerPeriodeMpt: uniqueId,
-                                      namaKegiatanMpt: _namaKegiatanMpt!,
-                                      periodeMpt: _periodeMpt!,
-                                      tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
-                                      tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
-                                      pointMptDiperoleh: poinKegiatan,
-                                      createdAt: currentDate,
-                                      createdBy: user?.email ?? "unknown",
-                                      updatedAt: currentDate,
-                                      updatedBy: user?.email ?? "unknown",
-                                    ),
+                                Navigator.pop(
+                                  context,
+                                  KegiatanPerPeriodeMpt(
+                                    idKegiatanPerPeriodeMpt: uniqueId,
+                                    namaKegiatanMpt: _namaKegiatanMpt!,
+                                    periodeMpt: _periodeMpt!,
+                                    tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
+                                    tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
+                                    pointMptDiperoleh: poinKegiatan,
+                                    createdAt: currentDate,
+                                    createdBy: user?.email ?? "unknown",
+                                    updatedAt: currentDate,
+                                    updatedBy: user?.email ?? "unknown",
                                   ),
                                 );
+
+                                // context.read<KegiatanPerPeriodeMptBloc>().add(
+                                //   CreateKegiatanPerPeriodeMptEvent(
+                                //     kegiatanPerPeriodeMpt: KegiatanPerPeriodeMpt(
+                                //       idKegiatanPerPeriodeMpt: uniqueId,
+                                //       namaKegiatanMpt: _namaKegiatanMpt!,
+                                //       periodeMpt: _periodeMpt!,
+                                //       tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
+                                //       tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
+                                //       pointMptDiperoleh: poinKegiatan,
+                                //       createdAt: currentDate,
+                                //       createdBy: user?.email ?? "unknown",
+                                //       updatedAt: currentDate,
+                                //       updatedBy: user?.email ?? "unknown",
+                                //     ),
+                                //   ),
+                                // );
 
                               } else {
                                 mipokaCustomToast("Input poin kegiatan tidak valid.");
@@ -235,20 +233,6 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
 
                         },
                         text: 'Simpan',
-                      ),
-
-                      BlocListener<KegiatanPerPeriodeMptBloc, KegiatanPerPeriodeMptState>(
-                        listenWhen: (prev, current) =>
-                        prev.runtimeType != current.runtimeType,
-                        listener: (context, state) {
-                          if (state is KegiatanPerPeriodeMptSuccess) {
-                            mipokaCustomToast("${_namaKegiatanMpt?.namaKegiatan} telah ditambahkan");
-                            Navigator.pop(context);
-                          } else if (state is KegiatanPerPeriodeMptError) {
-                            mipokaCustomToast(state.message);
-                          }
-                        },
-                        child: const SizedBox(),
                       ),
                     ],
                   ),

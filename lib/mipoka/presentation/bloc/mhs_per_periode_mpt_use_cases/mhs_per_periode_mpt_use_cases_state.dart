@@ -38,8 +38,8 @@ class MhsPerPeriodeMptHasData extends MhsPerPeriodeMptState {
   List<Object> get props => [mhsPerPeriodeMpt];
 }
 
-class MhsPerPeriodeMptSuccessMessage extends MhsPerPeriodeMptState {
-  const MhsPerPeriodeMptSuccessMessage({this.message = "Data has changed"});
+class MhsPerPeriodeMptSuccess extends MhsPerPeriodeMptState {
+  const MhsPerPeriodeMptSuccess({this.message = "Data has changed"});
 
   final String message;
 
