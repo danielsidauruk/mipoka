@@ -29,7 +29,7 @@ class OrmawaModel extends Ormawa {
       idOrmawa: ormawa.idOrmawa,
       namaOrmawa: ormawa.namaOrmawa,
       namaSingkatanOrmawa: ormawa.namaSingkatanOrmawa,
-      logoOrmawa: ormawa.namaSingkatanOrmawa,
+      logoOrmawa: ormawa.logoOrmawa,
       listAnggota: ormawa.listAnggota,
       pembina: ormawa.pembina,
       ketua: ormawa.ketua,

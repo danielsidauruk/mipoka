@@ -18,7 +18,7 @@ class MhsPerPeriodeMptBloc extends Bloc<MhsPerPeriodeMptEvent, MhsPerPeriodeMptS
 
       result.fold(
             (failure) => emit(MhsPerPeriodeMptError(message: failure.message)),
-            (_) => emit(const MhsPerPeriodeMptSuccess()),
+            (_) => emit(MhsPerPeriodeMptSuccess()),
       );
     });
 
@@ -51,7 +51,7 @@ class MhsPerPeriodeMptBloc extends Bloc<MhsPerPeriodeMptEvent, MhsPerPeriodeMptS
 
       result.fold(
             (failure) => emit(MhsPerPeriodeMptError(message: failure.message)),
-            (_) => emit(const MhsPerPeriodeMptSuccess()),
+            (_) => emit(MhsPerPeriodeMptSuccess()),
       );
     });
 
@@ -62,7 +62,7 @@ class MhsPerPeriodeMptBloc extends Bloc<MhsPerPeriodeMptEvent, MhsPerPeriodeMptS
 
       result.fold(
             (failure) => emit(MhsPerPeriodeMptError(message: failure.message)),
-            (_) => emit(const MhsPerPeriodeMptSuccess()),
+            (_) => emit(MhsPerPeriodeMptSuccess()),
       );
     });
   }

@@ -169,6 +169,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                     listener: (context, state) async {
 
                       if (state is MhsPerPeriodeMptSuccess) {
+
                         context.read<MhsPerPeriodeMptBloc>().add(const ReadAllMhsPerPeriodeMptEvent());
 
                       } else if (state is MhsPerPeriodeMptError) {
@@ -177,7 +178,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                     },
 
                     builder: (context, state) {
-                      if (state is MhsPerPeriodeMptEmpty) {
+                      if (state is MhsPerPeriodeMptLoading) {
                         return const Text("Loading ....");
                       } else if (state is AllMhsPerPeriodeMptHasData) {
                         final mhsPerPeriodeMptList = state.mhsPerPeriodeMptList;
@@ -282,6 +283,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                                           InkWell(
                                             onTap: () => context.read<MhsPerPeriodeMptBloc>().add(
                                                 DeleteMhsPerPeriodeMptEvent(idMhsPerPeriodeMpt: mhsPerPeriodeMpt.idMhsPerPeriodeMpt)),
+
                                             child: Image.asset(
                                               'assets/icons/delete.png',
                                               width: 24,

@@ -408,29 +408,39 @@ class _KemahasiswaanEditOrmawaEditPageState
                             if (kIsWeb) {
                               if (logoOrmawaResult != null) {
                                 logoOrmawaBytes = logoOrmawaResult?.files.first.bytes;
-                              } else if (fotoPembinaResult != null) {
+                              }
+                              if (fotoPembinaResult != null) {
                                 fotoPembinaBytes = fotoPembinaResult?.files.first.bytes;
-                              } else if (fotoKetuaResult != null) {
+                              }
+                              if (fotoKetuaResult != null) {
                                 fotoKetuaBytes = fotoKetuaResult?.files.first.bytes;
-                              } else if (fotoWakilKetuaResult != null) {
+                              }
+                              if (fotoWakilKetuaResult != null) {
                                 fotoWakilKetuaBytes = fotoWakilKetuaResult?.files.first.bytes;
-                              } else if (fotoSekretarisResult != null) {
+                              }
+                              if (fotoSekretarisResult != null) {
                                 fotoSekretarisBytes = fotoSekretarisResult?.files.first.bytes;
-                              } else if (fotoBendaharaResult != null) {
+                              }
+                              if (fotoBendaharaResult != null) {
                                 fotoBendaharaBytes = fotoBendaharaResult?.files.first.bytes;
                               }
                             } else if (Platform.isAndroid) {
                               if (logoOrmawaResult != null) {
                                 logoOrmawaBytes = await File(logoOrmawaResult!.files.first.path!).readAsBytes();
-                              } else if (fotoPembinaResult != null) {
+                              }
+                              if (fotoPembinaResult != null) {
                                 fotoPembinaBytes = await File(fotoPembinaResult!.files.first.path!).readAsBytes();
-                              } else if (fotoKetuaResult != null) {
+                              }
+                              if (fotoKetuaResult != null) {
                                 fotoKetuaBytes = await File(fotoKetuaResult!.files.first.path!).readAsBytes();
-                              } else if (fotoWakilKetuaResult != null) {
+                              }
+                              if (fotoWakilKetuaResult != null) {
                                 fotoWakilKetuaBytes = await File(fotoWakilKetuaResult!.files.first.path!).readAsBytes();
-                              } else if (fotoSekretarisResult != null) {
+                              }
+                              if (fotoSekretarisResult != null) {
                                 fotoSekretarisBytes = await File(fotoSekretarisResult!.files.first.path!).readAsBytes();
-                              } else if (fotoBendaharaResult != null) {
+                              }
+                              if (fotoBendaharaResult != null) {
                                 fotoBendaharaBytes = await File(fotoBendaharaResult!.files.first.path!).readAsBytes();
                               }
                             }
@@ -441,23 +451,28 @@ class _KemahasiswaanEditOrmawaEditPageState
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
                               String? logoUrlController = await uploadBytesToFirebase(logoOrmawaBytes, "$uniqueId${logoOrmawaResult!.files.first.name}");
                               _logoUrlController = logoUrlController;
-                            } else if (fotoPembinaBytes != null) {
+                            }
+                            if (fotoPembinaBytes != null) {
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
                               String? fotoPembinaUrlController = await uploadBytesToFirebase(fotoPembinaBytes, "$uniqueId${fotoPembinaResult!.files.first.name}");
                               _fotoPembinaUrlController = fotoPembinaUrlController;
-                            } else if (fotoKetuaBytes != null) {
+                            }
+                            if (fotoKetuaBytes != null) {
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
                               String? fotoKetuaUrlController = await uploadBytesToFirebase(fotoKetuaBytes, "$uniqueId${fotoKetuaResult!.files.first.name}");
                               _fotoKetuaUrlController = fotoKetuaUrlController;
-                            } else if (fotoWakilKetuaBytes != null) {
+                            }
+                            if (fotoWakilKetuaBytes != null) {
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
                               String? fotoWakilKetuaUrlController = await uploadBytesToFirebase(fotoWakilKetuaBytes, "$uniqueId${fotoWakilKetuaResult!.files.first.name}");
                               _fotoWakilKetuaUrlController = fotoWakilKetuaUrlController;
-                            } else if (fotoSekretarisBytes != null) {
+                            }
+                            if (fotoSekretarisBytes != null) {
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
                               String? fotoSekretarisUrlController = await uploadBytesToFirebase(fotoSekretarisBytes, "$uniqueId${fotoSekretarisResult!.files.first.name}");
                               _fotoSekretarisUrlController = fotoSekretarisUrlController;
-                            } else if (fotoBendaharaBytes != null) {
+                            }
+                            if (fotoBendaharaBytes != null) {
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
                               String? fotoBendaharaUrlController = await uploadBytesToFirebase(fotoBendaharaBytes, "$uniqueId${fotoBendaharaResult!.files.first.name}");
                               _fotoBendaharaUrlController = fotoBendaharaUrlController;

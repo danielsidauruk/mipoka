@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:async';
-import 'dart:math';
 import 'package:excel/excel.dart' hide Border;
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/theme.dart';
@@ -202,7 +201,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                           context.read<MhsPerPeriodeMptBloc>().add(
                             CreateMhsPerPeriodeMptEvent(
                               mhsPerPeriodeMpt: MhsPerPeriodeMpt(
-                                idMhsPerPeriodeMpt: randomId,
+                                idMhsPerPeriodeMpt: uniqueId,
                                 mipokaUser: state.mipokaUser,
                                 periodeMpt: _periodeMpt!,
                                 createdAt: currentDate,
@@ -268,19 +267,19 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                               DataCell(
                                 Align(
                                   alignment: Alignment.center,
-                                  child: Text('NIM',),
+                                  child: Text('NIM'),
                                 ),
                               ),
                               DataCell(
                                 Align(
                                   alignment: Alignment.center,
-                                  child: Text('Integer',),
+                                  child: Text('Integer'),
                                 ),
                               ),
                               DataCell(
                                 Align(
                                   alignment: Alignment.center,
-                                  child: Text('False',),
+                                  child: Text('False'),
                                 ),
                               ),
                             ],
