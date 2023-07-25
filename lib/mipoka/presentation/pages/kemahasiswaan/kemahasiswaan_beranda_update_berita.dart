@@ -130,6 +130,8 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                           if (_judulBeritaController.text.isNotEmpty && _penulisController.text.isNotEmpty &&
                               _textBeritaController.text.isNotEmpty && (_fotoBeritaController != "" || _result !=null)) {
 
+                            mipokaCustomToast(savingDataMessage);
+
                             final result = _result;
                             if (result != null) {
                               PlatformFile file = result.files.first;
@@ -142,7 +144,6 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                               }
 
                               if (bytes != null) {
-                                mipokaCustomToast(savingDataMessage);
                                 _fotoBeritaController = await uploadBytesToFirebase(bytes, "${widget.berita.idBerita}${file.name}");
                               }
                             }

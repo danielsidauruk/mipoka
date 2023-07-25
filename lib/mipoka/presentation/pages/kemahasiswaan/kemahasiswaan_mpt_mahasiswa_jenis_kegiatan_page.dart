@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/riwayat_kegiatan_mpt_bloc/riwayat_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
@@ -54,16 +55,35 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                 children: [
                   CustomAddButton(
                     buttonText: 'Tambah',
-                    onPressed: () =>
-                        Navigator.pushNamed(
-                          context,
-                          kemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute,
-                        ).then((_) => context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent())),
+                    onPressed: () async {
+                      final result = await Navigator.pushNamed(
+                        context,
+                        kemahasiswaanMPTMahasiswaJenisKegiatanTambahPageRoute,
+                      );
+
+                      if (result != null && result is JenisKegiatanMpt && context.mounted){
+                        context.read<JenisKegiatanMptBloc>().add(
+                          CreateJenisKegiatanMptEvent(jenisKegiatanMpt: result),
+                        );
+                      }
+                    }
                   ),
 
                   const CustomFieldSpacer(),
 
-                  BlocBuilder<JenisKegiatanMptBloc, JenisKegiatanMptState>(
+                  BlocConsumer<JenisKegiatanMptBloc, JenisKegiatanMptState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) {
+
+                      if (state is JenisKegiatanMptSuccess) {
+                        context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+
+                      } else if (state is JenisKegiatanMptError) {
+                        mipokaCustomToast(state.message);
+                      }
+                    },
+
                     builder: (context, state) {
                       if (state is JenisKegiatanMptLoading) {
                         return const Text('Loading');
@@ -122,11 +142,18 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                                             MainAxisAlignment.spaceEvenly,
                                             children: [
                                               InkWell(
-                                                onTap: () => Navigator.pushNamed(
-                                                  context,
-                                                  kemahasiswaanMPTMahasiswaJenisKegiatanEditPageRoute,
-                                                  arguments: jenisKegiatanMpt,
-                                                ).then((_) => context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent())),
+                                                onTap: () async {
+                                                  final result = await Navigator.pushNamed(
+                                                    context,
+                                                    kemahasiswaanMPTMahasiswaJenisKegiatanEditPageRoute,
+                                                    arguments: jenisKegiatanMpt,
+                                                  );
+
+                                                  if (result != null && result is JenisKegiatanMpt && context.mounted) {
+                                                    context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+                                                  }
+                                                },
+
                                                 child: Image.asset(
                                                   'assets/icons/edit.png',
                                                   width: 24,
@@ -137,7 +164,6 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
 
                                               InkWell(
                                                 onTap: () {
-                                                  mipokaCustomToast("${jenisKegiatanMpt.namaJenisKegiatanMpt} telah dihapus.");
                                                   context.read<JenisKegiatanMptBloc>().add(
                                                       DeleteJenisKegiatanMptEvent(idJenisKegiatan: jenisKegiatanMpt.idJenisKegiatanMpt));
                                                 },
@@ -157,11 +183,7 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                             ),
                           ],
                         );
-                      } else if (state is JenisKegiatanMptSuccess) {
-                        context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
-                        return const SizedBox();
-                      }
-                      else if (state is JenisKegiatanMptError) {
+                      } else if (state is JenisKegiatanMptError) {
                         return Text(state.message);
                       } else {
                         return const Text('IDK');

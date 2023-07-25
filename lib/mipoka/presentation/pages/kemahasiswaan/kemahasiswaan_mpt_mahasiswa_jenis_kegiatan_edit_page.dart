@@ -73,34 +73,24 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanEditPageState extends State<Kemahas
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => (_namaJenisKegiatanController.text != "") ?
-                        context.read<JenisKegiatanMptBloc>().add(
-                          UpdateJenisKegiatanMptEvent(
-                            jenisKegiatanMpt: widget.jenisKegiatanMpt
-                                .copyWith(
-                              namaJenisKegiatanMpt: _namaJenisKegiatanController
-                                  .text,
-                              updatedAt: currentDate,
-                              updatedBy: user?.email ?? "",
-                            ),
-                          ),
-                        ) :
-                        mipokaCustomToast(emptyFieldMessage),
-                        text: 'Simpan',
-                      ),
+                        onTap: () async {
+                          if (_namaJenisKegiatanController.text != "") {
+                            mipokaCustomToast(savingDataMessage);
 
-                      BlocListener<JenisKegiatanMptBloc, JenisKegiatanMptState>(
-                        listenWhen: (prev, current) =>
-                        prev.runtimeType != current.runtimeType,
-                        listener: (context, state) {
-                          if (state is JenisKegiatanMptSuccess) {
-                            mipokaCustomToast("Jenis Kegiatan MPT berhasil diupdate.");
-                            Navigator.pop(context);
-                          } else if (state is JenisKegiatanMptError) {
-                            mipokaCustomToast(state.message);
+                            Navigator.pop(
+                              context,
+                              widget.jenisKegiatanMpt.copyWith(
+                                namaJenisKegiatanMpt: _namaJenisKegiatanController
+                                    .text,
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "",
+                              ),
+                            );
+                          } else {
+                            mipokaCustomToast(emptyFieldMessage);
                           }
                         },
-                        child: const SizedBox(),
+                        text: 'Simpan',
                       ),
                     ],
                   ),

@@ -98,14 +98,15 @@ class _LoginPageState extends State<LoginPage> {
                           email: email,
                           password: password,
                         );
+                        mipokaCustomToast("Berhasil Masuk!");
 
                         User? user = FirebaseAuth.instance.currentUser;
 
-                        Future.microtask(() {
+                        if (context.mounted) {
                           // Navigator.pushNamed(context, penggunaBerandaPageRoute);
                           Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
                           // Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute);
-                        });
+                        }
                       } catch (e) {
                         mipokaCustomToast(
                           "Failed to sign in. Please check your email and password.",

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/nama_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_drop_down_bloc/jenis_kegiatan_drop_down_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
@@ -59,11 +60,18 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                 children: [
                   CustomAddButton(
                     buttonText: 'Tambah',
-                    onPressed: () => Navigator.pushNamed(
-                      context,
-                      mptMahasiswaKegiatanPerJenisKegiatanTambahPageRoute,
-                    ).then((_) => context.read<NamaKegiatanMptBloc>().add(
-                        ReadAllNamaKegiatanMptEvent(id: _idNamaKegiatanMpt ?? 0))),
+                    onPressed: () async {
+                      final result = await Navigator.pushNamed(
+                        context,
+                        mptMahasiswaKegiatanPerJenisKegiatanTambahPageRoute,
+                      );
+
+                      if (result != null && result is NamaKegiatanMpt && context.mounted) {
+                        context.read<NamaKegiatanMptBloc>().add(
+                          CreateNamaKegiatanMptEvent(namaKegiatanMpt: result)
+                        );
+                      }
+                    }
                   ),
 
                   const CustomFieldSpacer(),
@@ -105,7 +113,19 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
 
                   const CustomFieldSpacer(),
 
-                  BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
+                  BlocConsumer<NamaKegiatanMptBloc, NamaKegiatanMptState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) {
+                      if (state is NamaKegiatanMptSuccess) {
+
+                        context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
+
+                      } else if (state is NamaKegiatanMptError) {
+                        mipokaCustomToast(state.message);
+                      }
+                    },
+
                     builder: (context, state) {
                       if (state is NamaKegiatanMptLoading) {
                         return const Text('Loading ...');
@@ -177,11 +197,19 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                                             MainAxisAlignment.spaceEvenly,
                                             children: [
                                               InkWell(
-                                                onTap: () => Navigator.pushNamed(
-                                                  context,
-                                                  kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageRoute,
-                                                  arguments: namaKegiatanMpt,
-                                                ).then((_) => context.read<NamaKegiatanMptBloc>().add(ReadAllNamaKegiatanMptEvent(id: _idNamaKegiatanMpt ?? 0))),
+                                                onTap: () async {
+                                                  final result = await Navigator.pushNamed(
+                                                    context,
+                                                    kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageRoute,
+                                                    arguments: namaKegiatanMpt,
+                                                  );
+
+                                                  if (result != null && result is NamaKegiatanMpt && context.mounted) {
+                                                    context.read<NamaKegiatanMptBloc>().add(
+                                                        UpdateNamaKegiatanMptEvent(namaKegiatanMpt: result)
+                                                    );
+                                                  }
+                                                },
                                                 child: Image.asset(
                                                   'assets/icons/edit.png',
                                                   width: 24,
@@ -192,7 +220,6 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
 
                                               InkWell(
                                                 onTap: () {
-                                                  mipokaCustomToast("${namaKegiatanMpt.namaKegiatan} telah dihapus.");
                                                   context.read<NamaKegiatanMptBloc>().add(
                                                       DeleteNamaKegiatanMptEvent(idNamaKegiatanMpt: namaKegiatanMpt.idNamaKegiatanMpt));
                                                 },
@@ -212,13 +239,7 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                             ),
                           ],
                         );
-                      } else if (state is NamaKegiatanMptSuccess) {
-                        context.read<NamaKegiatanMptBloc>().add(
-                            ReadAllNamaKegiatanMptEvent(id: _idNamaKegiatanMpt ?? 0));
-
-                        return const SizedBox();
-                      }
-                      else if (state is NamaKegiatanMptError) {
+                      } else if (state is NamaKegiatanMptError) {
                         return Text(state.message);
                       } else {
                         return const Text("KegiatanMptBloc hasn't triggered yet.");
