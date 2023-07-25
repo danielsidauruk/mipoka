@@ -94,7 +94,9 @@ class Ormawa extends Equatable{
   List<Object?> get props => [
     idOrmawa,
     namaOrmawa,
+    namaSingkatanOrmawa,
     logoOrmawa,
+    listAnggota,
     pembina,
     ketua,
     wakil,

@@ -38,8 +38,8 @@ class OrmawaHasData extends OrmawaState {
   List<Object> get props => [ormawa];
 }
 
-class OrmawaSuccessMessage extends OrmawaState {
-  const OrmawaSuccessMessage({this.message = "Data has changed"});
+class OrmawaSuccess extends OrmawaState {
+  const OrmawaSuccess({this.message = "Data has changed"});
 
   final String message;
 

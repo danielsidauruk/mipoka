@@ -183,10 +183,10 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => (_ormawa?.idOrmawa != 0 && _nimController.text.isNotEmpty
+                        onTap: () => (_ormawa != null && _nimController.text.isNotEmpty
                             && _namaKegiatanController.text.isNotEmpty && _tahun != null
                             && _tingkat != null && _prestasiYangDicapaiController.text.isNotEmpty
-                            && _idUser != "" && _mipokaUser?.idUser != "") ?
+                            && _idUser != null && _mipokaUser != null) ?
                         context.read<PrestasiBloc>().add(
                             CreatePrestasiEvent(prestasi: Prestasi(
                               idPrestasi: newId,

@@ -176,7 +176,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                       mipokaCustomToast(savingDataMessage);
                       if (result != null) {
                         for (var index = 1; index < nimList.length; index++) {
-                          await Future.delayed(const Duration(milliseconds: 100));
+                          await Future.delayed(const Duration(milliseconds: 10000));
                           if(context.mounted) {
                             context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
                           }

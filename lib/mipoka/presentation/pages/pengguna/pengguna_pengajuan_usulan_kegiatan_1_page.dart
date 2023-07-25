@@ -45,7 +45,11 @@ class _PenggunaPengajuanUsulanKegiatan1State
     extends State<PenggunaPengajuanUsulanKegiatan1> {
 
   Uint8List? _signatureData;
+
+  bool? isBuilt;
+
   final GlobalKey<SfSignaturePadState> _signaturePadKey = GlobalKey();
+
   final StreamController<Uint8List> _signatureDataStream = StreamController<Uint8List>.broadcast();
 
   void _showPopup() {
@@ -536,6 +540,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                               create: (context) => SignatureCubit(),
                               child: BlocBuilder<SignatureCubit, SignatureState>(
                                 builder: (context, state) {
+
                                   return StreamBuilder<Uint8List>(
                                     stream: _signatureDataStream.stream,
                                     initialData: Uint8List(0),
@@ -686,7 +691,11 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                             ),
                                           ),
                                         );
+
+                                        _handleClearButtonPressed();
                                       }
+
+
                                     } else {
                                       mipokaCustomToast(emptyFieldMessage);
                                     }

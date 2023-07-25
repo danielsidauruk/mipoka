@@ -191,10 +191,6 @@ class _KemahasiswaanEditOrmawaPageState
                         ),
                       ],
                     );
-                  } else if (state is OrmawaSuccessMessage) {
-                    context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
-
-                    return const SizedBox();
                   } else if (state is OrmawaError) {
                     return Text(state.message);
                   } else {

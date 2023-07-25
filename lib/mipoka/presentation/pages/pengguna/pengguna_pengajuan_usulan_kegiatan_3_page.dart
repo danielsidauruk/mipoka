@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
@@ -24,6 +25,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
+import 'package:http/http.dart' as http;
 
 class PenggunaPengajuanUsulanKegiatan3 extends StatefulWidget {
   const PenggunaPengajuanUsulanKegiatan3({
@@ -91,6 +93,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
   Future<String?> generateUsulanDocx(UsulanKegiatanModel usulanKegiatanModel) async {
     // const String localUrl = "http://localhost:3000/usulan-kegiatan";
     const String localUrl = "http://192.168.43.183:3000/usulan-kegiatan";
+
+    print("generateUsulan triggered");
     try {
       final response = await DioUtil().dio.post(
         localUrl,
@@ -107,6 +111,38 @@ class _PenggunaPengajuanUsulanKegiatan3State
     }
     return null;
   }
+
+  // Future<String?> generateUsulanDocx(UsulanKegiatanModel usulanKegiatanModel) async {
+  //   const String localUrl = "http://192.168.43.183:3000/usulan-kegiatan";
+  //
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse(localUrl),
+  //       headers: {"Content-Type": "application/json"},
+  //       body: jsonEncode(usulanKegiatanModel.toJson()),
+  //     );
+  //
+  //     if (response.statusCode == 200) {
+  //       // Request berhasil, lakukan sesuatu dengan response
+  //       if (kDebugMode) {
+  //         print(response.body);
+  //       }
+  //       return response.body;
+  //     } else {
+  //       // Jika request tidak berhasil, tampilkan pesan error
+  //       if (kDebugMode) {
+  //         print("HTTP Error ${response.statusCode}: ${response.reasonPhrase}");
+  //       }
+  //     }
+  //   } catch (e) {
+  //     // Tangani kesalahan ketika melakukan request
+  //     if (kDebugMode) {
+  //       print("Error: $e");
+  //     }
+  //   }
+  //
+  //   return null;
+  // }
 
   @override
   Widget build(BuildContext context) {

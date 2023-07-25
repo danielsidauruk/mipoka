@@ -605,7 +605,9 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   //* => Ormawa DataSources */
   @override
   Future<void> createOrmawa(OrmawaModel ormawaModel) async {
+
     try {
+      print(ormawaModel.toJson());
       final response = await DioUtil().dio.post(
         ormawaPath,
         data: ormawaModel.toJson(),
@@ -613,12 +615,13 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-      print(ormawaModel.toJson());
+
     } on DioError catch (e) {
       if (kDebugMode) {
         print(e);
       }
     }
+
   }
 
   @override

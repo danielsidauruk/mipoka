@@ -509,19 +509,19 @@ class _KemahasiswaanEditOrmawaEditPageState
                         text: 'Simpan',
                       ),
 
-                      BlocListener<OrmawaBloc, OrmawaState>(
-                        listenWhen: (prev, current) =>
-                        prev.runtimeType != current.runtimeType,
-                        listener: (context, state) {
-                          if (state is OrmawaSuccessMessage) {
-                            mipokaCustomToast("Ormawa berhasil diupdate.");
-                            Navigator.pop(context);
-                          } else if (state is OrmawaError) {
-                            mipokaCustomToast(state.message);
-                          }
-                        },
-                        child: const SizedBox(),
-                      ),
+                      // BlocListener<OrmawaBloc, OrmawaState>(
+                      //   listenWhen: (prev, current) =>
+                      //   prev.runtimeType != current.runtimeType,
+                      //   listener: (context, state) {
+                      //     if (state is OrmawaSuccess) {
+                      //       mipokaCustomToast("Ormawa berhasil diupdate.");
+                      //       Navigator.pop(context);
+                      //     } else if (state is OrmawaError) {
+                      //       mipokaCustomToast(state.message);
+                      //     }
+                      //   },
+                      //   child: const SizedBox(),
+                      // ),
                     ],
                   )
                 ],

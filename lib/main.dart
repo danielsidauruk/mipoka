@@ -167,6 +167,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<OrmawaDropDownBloc>()),
       ],
       child: MaterialApp(
+        initialRoute: loginPageRoute,
+        // routes: "/",
         debugShowCheckedModeBanner: false,
         title: 'mipoka',
         theme: ThemeData(
@@ -195,13 +197,13 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: user == null
-            ? const LoginPage()
-            // : const KemahasiswaanBerandaPage(),
-        // : const PemeriksaDaftarLaporanKegiatanPage(),
-        : const PenggunaBerandaPage(),
-        // : const KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage(),
-        // :const KemahasiswaanMPTMahasiswaPeriodePage(),
+        // home: user == null
+        //     ? const LoginPage()
+        //     // : const KemahasiswaanBerandaPage(),
+        // // : const PemeriksaDaftarLaporanKegiatanPage(),
+        // : const PenggunaBerandaPage(),
+        // // : const KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage(),
+        // // :const KemahasiswaanMPTMahasiswaPeriodePage(),
 
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {

@@ -320,7 +320,7 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-// TODO: => Ormawa Repositories
+// => Ormawa Repositories
   @override
   Future<Either<Failure, void>> createOrmawa(Ormawa ormawa) async {
     try {

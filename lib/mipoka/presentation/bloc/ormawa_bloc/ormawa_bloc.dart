@@ -10,6 +10,7 @@ class OrmawaBloc extends Bloc<OrmawaEvent, OrmawaState> {
   final OrmawaUseCase ormawaUseCase;
 
   OrmawaBloc({required this.ormawaUseCase}) : super(OrmawaEmpty()) {
+
     on<CreateOrmawaEvent>((event, emit) async {
       emit(OrmawaLoading());
 
@@ -17,7 +18,7 @@ class OrmawaBloc extends Bloc<OrmawaEvent, OrmawaState> {
 
       result.fold(
             (failure) => emit(OrmawaError(message: failure.message)),
-            (_) => emit(const OrmawaSuccessMessage()),
+            (_) => emit(const OrmawaSuccess()),
       );
     });
 
@@ -50,7 +51,7 @@ class OrmawaBloc extends Bloc<OrmawaEvent, OrmawaState> {
 
       result.fold(
             (failure) => emit(OrmawaError(message: failure.message)),
-            (_) => emit(const OrmawaSuccessMessage()),
+            (_) => emit(const OrmawaSuccess()),
       );
     });
 
@@ -61,7 +62,7 @@ class OrmawaBloc extends Bloc<OrmawaEvent, OrmawaState> {
 
       result.fold(
             (failure) => emit(OrmawaError(message: failure.message)),
-            (_) => emit(const OrmawaSuccessMessage()),
+            (_) => emit(const OrmawaSuccess()),
       );
     });
   }
