@@ -64,7 +64,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                       filter = value;
 
                       context.read<LaporanBloc>().add(
-                          ReadAllLaporanEvent(filter: filter ?? "semua"));
+                          const ReadAllLaporanEvent());
                     },
                   ),
 
@@ -180,12 +180,20 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                               ),
                                             ),
                                           ),
-                                          onTap: () => Navigator.pushNamed(
-                                            context,
-                                            pemeriksaPengajuanLaporanKegiatan1PageRoute,
-                                            arguments: laporanKegiatan.idLaporan,
-                                          ).then((_) => context.read<LaporanBloc>().add(
-                                              const ReadAllLaporanEvent())),
+                                          onTap: () async {
+                                            final result = await Navigator.pushNamed(
+                                              context,
+                                              pemeriksaPengajuanLaporanKegiatan1PageRoute,
+                                              arguments: laporanKegiatan.idLaporan,
+                                            );
+
+                                            if(result == true && context.mounted) {
+                                              context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
+                                            }
+                                          }
+
+                                              // .then((_) => context.read<LaporanBloc>().add(
+                                              // const ReadAllLaporanEvent())),
                                         ),
                                         DataCell(
                                           Align(
@@ -207,36 +215,32 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 InkWell(
-                                                  onTap: () => Future.microtask(() {
+                                                  onTap: () {
                                                     context.read<LaporanBloc>().add(
                                                       UpdateLaporanFirstPageEvent(
                                                         laporan: laporanKegiatan.copyWith(
-                                                          statusLaporan: "diterima",
+                                                          statusLaporan: disetujui,
                                                         ),
                                                       ),
                                                     );
-                                                    context.read<LaporanBloc>().add(
-                                                        ReadAllLaporanEvent(filter: filter ?? "semua"));
                                                     mipokaCustomToast("Laporan Kegiatan telah diterima");
-                                                  }),
+                                                  },
                                                   child: Image.asset(
                                                     'assets/icons/approve.png',
                                                     width: 24,
                                                   ),
                                                 ),
                                                 InkWell(
-                                                  onTap: () => Future.microtask(() {
+                                                  onTap: () {
                                                     context.read<LaporanBloc>().add(
                                                       UpdateLaporanFirstPageEvent(
                                                         laporan: laporanKegiatan.copyWith(
-                                                          statusLaporan: "ditolak",
+                                                          statusLaporan: ditolak,
                                                         ),
                                                       ),
                                                     );
-                                                    context.read<LaporanBloc>().add(
-                                                        ReadAllLaporanEvent(filter: filter ?? "semua"));
                                                     mipokaCustomToast("Laporan Kegiatan telah ditolak.");
-                                                  }),
+                                                  },
                                                   child: Image.asset(
                                                     'assets/icons/close.png',
                                                     width: 24,
@@ -268,7 +272,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                         if (kDebugMode) {
                           print("UsulanKegiatanBloc hasn't been triggered yet.");
                         }
-                        return const Center();
+                        return const SizedBox();
                       }
                     },
                   ),

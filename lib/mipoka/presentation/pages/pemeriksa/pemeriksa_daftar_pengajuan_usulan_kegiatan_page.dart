@@ -77,7 +77,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                     prev.runtimeType != current.runtimeType,
                     listener: (context, state) async {
 
-                      if (state is UsulanKegiatanSuccess) {
+                      if (state is UsulanKegiatanSuccess || state is UpdateUsulanKegiatanSuccess) {
                         context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
 
                       } else if (state is UsulanKegiatanError) {
@@ -182,18 +182,21 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                           Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              usulanKegiatan.mipokaUser?.namaLengkap ?? "",
+                                              usulanKegiatan.mipokaUser.namaLengkap ?? "",
                                             ),
                                           ),
                                         ),
                                         DataCell(
-                                          onTap: () {
-                                            Navigator.pushNamed(
+                                          onTap: () async {
+                                            final result = await Navigator.pushNamed(
                                               context,
                                               pemeriksaPengajuanUsulanKegiatan1PageRoute,
                                               arguments: usulanKegiatan.idUsulan,
-                                            ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                                    ReadAllUsulanKegiatanEvent(filter: filter ?? "semua")));
+                                            );
+
+                                            if (result == true && context.mounted) {
+                                              context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+                                            }
                                           },
                                           Align(
                                             alignment: Alignment.center,
@@ -235,16 +238,17 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                   ),
                                                 ),
                                                 InkWell(
-                                                  onTap: () => Future.microtask(() {
+                                                  onTap: () {
                                                     context.read<UsulanKegiatanBloc>().add(
                                                       UpdateUsulanKegiatanEvent(
                                                         usulanKegiatan: usulanKegiatan.copyWith(
                                                           validasiPembina: ditolak,
+                                                          statusUsulan: ditolak,
                                                         ),
                                                       ),
                                                     );
                                                     mipokaCustomToast("Usulan Kegiatan telah ditolak");
-                                                  }),
+                                                  },
                                                   child: Image.asset(
                                                     'assets/icons/close.png',
                                                     width: 24,

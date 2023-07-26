@@ -141,6 +141,7 @@ class SignatureDialogUtils {
           usulanKegiatan: usulanKegiatan.copyWith(
             tandaTanganPembina: tandaTanganPembina,
             validasiPembina: disetujui,
+            statusUsulan: disetujui,
           ),
         ),
       );
