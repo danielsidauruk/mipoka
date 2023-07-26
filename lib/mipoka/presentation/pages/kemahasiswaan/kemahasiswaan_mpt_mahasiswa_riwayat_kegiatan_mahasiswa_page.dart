@@ -97,11 +97,16 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                     children: [
                       CustomAddButton(
                         buttonText: 'Tambah',
-                        onPressed: () => Navigator.pushNamed(
-                          context,
-                          kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute,
-                        ).then((_) => context.read<RiwayatKegiatanMptBloc>().add(
-                            ReadAllRiwayatKegiatanMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idJenisKegiatan/$_idNamaKegiatan/$_status/${_nimController.text}/$_isCheckedJenisKegiatan"))),
+                        onPressed: () async {
+                          final result = await Navigator.pushNamed(
+                            context,
+                            kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute,
+                          );
+
+                          if (result == true && context.mounted) {
+                            context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
+                          }
+                        }
                       ),
 
                       const CustomFieldSpacer(),

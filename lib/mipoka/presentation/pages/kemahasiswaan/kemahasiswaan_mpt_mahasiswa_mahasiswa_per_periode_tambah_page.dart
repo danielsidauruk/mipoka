@@ -45,6 +45,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
   @override
   void initState() {
     context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+    context.read<MhsPerPeriodeMptBloc>().add(const ReadAllMhsPerPeriodeMptEvent());
     super.initState();
   }
 
@@ -170,19 +171,35 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
                   const CustomFieldSpacer(),
 
-                  CustomFilterButton(
-                    text: 'Proses',
-                    onPressed: () async {
-                      mipokaCustomToast(savingDataMessage);
-                      if (result != null) {
-                        for (var index = 1; index < nimList.length; index++) {
-                          await Future.delayed(const Duration(milliseconds: 10000));
-                          if(context.mounted) {
-                            context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
-                          }
-                        }
+                  BlocBuilder<MhsPerPeriodeMptBloc, MhsPerPeriodeMptState>(
+                    builder: (context, state) {
+                      if (state is MhsPerPeriodeMptLoading) {
+                        return const Text("Loading...");
+                      } else if (state is AllMhsPerPeriodeMptHasData) {
+                        final mhsPerPeriodeMptList = state.mhsPerPeriodeMptList;
+
+                        return CustomFilterButton(
+                          text: 'Proses',
+                          onPressed: () {
+                            mipokaCustomToast(savingDataMessage);
+                            if (result != null) {
+                              for (var index = 1; index < nimList.length; index++) {
+                                // await Future.delayed(const Duration(milliseconds: 10000));
+                                if(context.mounted && mhsPerPeriodeMptList.contains(nimList[index]) == false) {
+                                  context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
+                                }
+                                Future.delayed(const Duration(seconds: 10));
+                              }
+                            } else {
+                              mipokaCustomToast("Harap unggah file yang diperlukan.");
+                            }
+                          },
+                        );
+                      } else if (state is MhsPerPeriodeMptError) {
+                        mipokaCustomToast(state.message);
+                        return const SizedBox();
                       } else {
-                        mipokaCustomToast("Harap unggah file yang diperlukan.");
+                        return const SizedBox();
                       }
                     },
                   ),

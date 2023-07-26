@@ -32,7 +32,7 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
     _tahun = "semua";
     _tingkat = "semua";
 
-    context.read<PrestasiBloc>().add(const ReadAllPrestasiEvent());
+    context.read<PrestasiBloc>().add(ReadAllPrestasiEvent());
     context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
     super.initState();
   }

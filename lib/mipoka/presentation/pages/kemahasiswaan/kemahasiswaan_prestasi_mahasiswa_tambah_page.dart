@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/prestasi.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -34,7 +34,6 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
   Ormawa? _ormawa;
   MipokaUser? _mipokaUser;
   String? _tahun;
-  String? _idUser;
 
   void _triggerNim(String value) {
     context.read<MipokaUserByNimBloc>().add(
@@ -128,8 +127,6 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                   BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
                     builder: (context, state) {
                       if (state is MipokaUserByNimByNimHasData) {
-                        _idUser = state.mipokaUser.idUser;
-
                         _mipokaUser = state.mipokaUser;
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -183,42 +180,37 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () => (_ormawa != null && _nimController.text.isNotEmpty
-                            && _namaKegiatanController.text.isNotEmpty && _tahun != null
-                            && _tingkat != null && _prestasiYangDicapaiController.text.isNotEmpty
-                            && _idUser != null && _mipokaUser != null) ?
-                        context.read<PrestasiBloc>().add(
-                            CreatePrestasiEvent(prestasi: Prestasi(
-                              idPrestasi: newId,
-                              ormawa: _ormawa!,
-                              mipokaUser: _mipokaUser!,
-                              namaKegiatan: _namaKegiatanController.text,
-                              waktuPenyelenggaraan: _tahun ?? "",
-                              tingkat: _tingkat ?? "",
-                              prestasiDicapai: _prestasiYangDicapaiController.text,
-                              unggahSertifikat: "",
-                              createdAt: currentDate,
-                              createdBy: user?.email ?? "unknown",
-                              updatedAt: currentDate,
-                              updatedBy: user?.email ?? "unknown",
-                            ))
-                        ) :
-                        mipokaCustomToast(emptyFieldMessage),
                         text: 'Simpan',
-                      ),
+                        onTap: () {
+                          if (_ormawa != null && _nimController.text.isNotEmpty
+                              && _namaKegiatanController.text.isNotEmpty && _tahun != null
+                              && _tingkat != null && _mipokaUser != null
+                              && _prestasiYangDicapaiController.text.isNotEmpty)
+                          {
+                            mipokaCustomToast(savingDataMessage);
 
-                      BlocListener<PrestasiBloc, PrestasiState>(
-                        listenWhen: (prev, current) =>
-                        prev.runtimeType != current.runtimeType,
-                        listener: (context, state) {
-                          if (state is PrestasiSuccess) {
-                            mipokaCustomToast("Prestasi telah ditambahkan.");
-                            Navigator.pop(context);
-                          } else if (state is PrestasiError) {
-                            mipokaCustomToast(state.message);
+                            int uniqueId = UniqueIdGenerator.generateUniqueId();
+                            Navigator.pop(
+                              context,
+                              Prestasi(
+                                idPrestasi: uniqueId,
+                                ormawa: _ormawa!,
+                                mipokaUser: _mipokaUser!,
+                                namaKegiatan: _namaKegiatanController.text,
+                                waktuPenyelenggaraan: _tahun ?? "",
+                                tingkat: _tingkat ?? "",
+                                prestasiDicapai: _prestasiYangDicapaiController.text,
+                                unggahSertifikat: "",
+                                createdAt: currentDate,
+                                createdBy: user?.email ?? "unknown",
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "unknown",
+                              ),
+                            );
+                          } else {
+                            mipokaCustomToast(emptyFieldMessage);
                           }
                         },
-                        child: const SizedBox(),
                       ),
                     ],
                   ),

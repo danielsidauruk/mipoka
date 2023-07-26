@@ -78,11 +78,17 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                     children: [
                       CustomAddButton(
                         buttonText: 'Tambah',
-                        onPressed: () => Navigator.pushNamed(
-                          context,
-                          kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute,
-                        ).then((_) => context.read<MhsPerPeriodeMptBloc>().add(
-                            ReadAllMhsPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_prodi/$_jumlahPoint/${_nimController.text}"))),
+                        onPressed: () async {
+                          final result = await Navigator.pushNamed(
+                            context,
+                            kemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageRoute,
+                          );
+
+                          if (result == true && context.mounted) {
+                            context.read<MhsPerPeriodeMptBloc>().add(
+                                const ReadAllMhsPerPeriodeMptEvent());
+                          }
+                        }
                       ),
 
                       const CustomFieldSpacer(),
@@ -168,13 +174,15 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageState extends State<Kemah
                     prev.runtimeType != current.runtimeType,
                     listener: (context, state) async {
 
-                      // if (state is MhsPerPeriodeMptSuccess) {
-                      //
-                      //   // context.read<MhsPerPeriodeMptBloc>().add(const ReadAllMhsPerPeriodeMptEvent());
-                      //
-                      // } else if (state is MhsPerPeriodeMptError) {
-                      //   mipokaCustomToast(state.message);
-                      // }
+                      if (state is MhsPerPeriodeMptSuccess) {
+
+                        context.read<MhsPerPeriodeMptBloc>().add(const ReadAllMhsPerPeriodeMptEvent());
+
+                      } else if (state is DeleteMhsPerPeriodeMptSuccess) {
+                        context.read<MhsPerPeriodeMptBloc>().add(const ReadAllMhsPerPeriodeMptEvent());
+                      } else if (state is MhsPerPeriodeMptError) {
+                        mipokaCustomToast(state.message);
+                      }
                     },
 
                     builder: (context, state) {

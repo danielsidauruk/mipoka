@@ -7,11 +7,7 @@ abstract class PrestasiEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ReadAllPrestasiEvent extends PrestasiEvent {
-  final String filter;
-
-  const ReadAllPrestasiEvent({this.filter = "semua"});
-}
+class ReadAllPrestasiEvent extends PrestasiEvent {}
 
 class ReadPrestasiEvent extends PrestasiEvent {
   final int idPrestasi;

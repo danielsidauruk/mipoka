@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/domain/entities/prestasi.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
@@ -36,7 +37,7 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
     _tahun = years2[0];
     _tingkat = listTingkat2[0];
 
-    context.read<PrestasiBloc>().add(const ReadAllPrestasiEvent());
+    context.read<PrestasiBloc>().add(ReadAllPrestasiEvent());
     super.initState();
   }
 
@@ -68,11 +69,17 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
 
                   CustomAddButton(
                     buttonText: 'Tambah',
-                    onPressed: () => Navigator.pushNamed(
-                      context,
-                      kemahasiswaanPrestasiMahasiswaTambahPageRoute,
-                    ).then((_) => context.read<PrestasiBloc>().add(
-                        ReadAllPrestasiEvent(filter: "$_idOrmawaController/$_tahun/$_tingkat"))),
+                    onPressed: () async {
+                      final result = await Navigator.pushNamed(
+                        context,
+                        kemahasiswaanPrestasiMahasiswaTambahPageRoute,
+                      );
+                      
+                      if (result is Prestasi && context.mounted) {
+                        context.read<PrestasiBloc>().add(CreatePrestasiEvent(prestasi: result));
+                      }
+                    }
+
                   ),
 
                   const CustomFieldSpacer(),
@@ -129,13 +136,24 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
 
                   CustomFilterButton(
                     text: 'Filter',
-                    onPressed: () => context.read<PrestasiBloc>().add(
-                        ReadAllPrestasiEvent(filter: "$_idOrmawaController/$_tahun/$_tingkat")),
+                    onPressed: () => context.read<PrestasiBloc>().add(ReadAllPrestasiEvent()),
                   ),
 
                   const CustomFieldSpacer(),
 
-                  BlocBuilder<PrestasiBloc, PrestasiState>(
+                  BlocConsumer<PrestasiBloc, PrestasiState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) async {
+
+                      if (state is PrestasiSuccess) {
+                        context.read<PrestasiBloc>().add(ReadAllPrestasiEvent());
+
+                      } else if (state is PrestasiError) {
+                        mipokaCustomToast(state.message);
+                      }
+                    },
+
                     builder: (context, state) {
                       if (state is PrestasiLoading) {
                         return const Text('Loading');
@@ -269,12 +287,18 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                             children: [
                                               InkWell(
-                                                onTap: () => Navigator.pushNamed(
-                                                  context,
-                                                  kemahasiswaanPrestasiMahasiswaEditPageRoute,
-                                                  arguments: prestasi,
-                                                ).then((_) => context.read<PrestasiBloc>().add(
-                                                    ReadAllPrestasiEvent(filter: "$_idOrmawaController/$_tahun/$_tingkat"))),
+                                                onTap: () async {
+                                                  final result = await Navigator.pushNamed(
+                                                    context,
+                                                    kemahasiswaanPrestasiMahasiswaEditPageRoute,
+                                                    arguments: prestasi,
+                                                  );
+                                                  
+                                                  if (result is Prestasi && context.mounted) {
+                                                    context.read<PrestasiBloc>().add(UpdatePrestasiEvent(prestasi: result));
+                                                  }
+                                                  
+                                                },
                                                 child: Image.asset(
                                                   'assets/icons/edit.png',
                                                   width: 24,
@@ -287,7 +311,6 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                                                 onTap: () {
                                                   context.read<PrestasiBloc>().add(
                                                       DeletePrestasiEvent(idPrestasi: prestasi.idPrestasi));
-                                                  mipokaCustomToast("Prestasi telah dihapus");
                                                 },
                                                 child: Image.asset(
                                                   'assets/icons/delete.png',
@@ -306,13 +329,7 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                           ],
                         );
 
-                      } else if (state is PrestasiSuccess) {
-                        context.read<PrestasiBloc>().add(ReadAllPrestasiEvent(
-                            filter: "$_idOrmawaController/$_tahun/$_tingkat"));
-
-                        return const SizedBox();
-                      }
-                      else if (state is PrestasiError) {
+                      } else if (state is PrestasiError) {
                         return Text(state.message);
                       } else {
                         if (kDebugMode) {

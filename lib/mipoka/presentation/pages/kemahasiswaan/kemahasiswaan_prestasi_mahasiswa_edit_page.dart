@@ -50,6 +50,7 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
 
   @override
   void initState() {
+    _nimController.text = widget.prestasi.mipokaUser.nim;
     _ormawa = widget.prestasi.ormawa;
     _yearController = widget.prestasi.waktuPenyelenggaraan;
     _tingkatController = widget.prestasi.tingkat;
@@ -111,7 +112,7 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                       } else if (state is OrmawaError) {
                         return Text(state.message);
                       } else {
-                        return const Text("OrmawaBloc hasn't been triggered yet.");
+                        return const Text("-");
                       }
                     },
                   ),
@@ -141,7 +142,7 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                           ),
                         );
                       } else {
-                        return const Text("MipokaUserBlocByNimEvent hasn't been triggered yet");
+                        return const Text("-");
                       }
                     },
                   ),
@@ -182,41 +183,35 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                       ),
 
                       const SizedBox(width: 8.0),
-                      CustomMipokaButton(
-                        onTap: () => (_ormawa != null && _nimController.text.isNotEmpty
-                            && _namaKegiatanController.text.isNotEmpty && _yearController != null
-                            && _tingkatController != null && _prestasiYangDicapaiController.text.isNotEmpty
-                            && _mipokaUser?.idUser != "") ?
-                        context.read<PrestasiBloc>().add(
-                          UpdatePrestasiEvent(
-                            prestasi: widget.prestasi.copyWith(
-                              ormawa: _ormawa,
-                              mipokaUser: _mipokaUser,
-                              namaKegiatan: _namaKegiatanController.text,
-                              tingkat: _tingkatController,
-                              waktuPenyelenggaraan: _yearController,
-                              prestasiDicapai: _prestasiYangDicapaiController.text,
-                              updatedAt: currentDate,
-                              updatedBy: user?.email ?? "unknown",
-                            ),
-                          ),
-                        ) :
-                        mipokaCustomToast(emptyFieldMessage),
-                        text: 'Simpan',
-                      ),
 
-                      BlocListener<PrestasiBloc, PrestasiState>(
-                        listenWhen: (prev, current) =>
-                        prev.runtimeType != current.runtimeType,
-                        listener: (context, state) {
-                          if (state is PrestasiSuccess) {
-                            mipokaCustomToast("Prestasi telah diupdate.");
-                            Navigator.pop(context);
-                          } else if (state is PrestasiError) {
-                            mipokaCustomToast(state.message);
+                      CustomMipokaButton(
+                        onTap: () {
+                          if (_ormawa != null && _nimController.text.isNotEmpty
+                              && _namaKegiatanController.text.isNotEmpty && _yearController != null
+                              && _tingkatController != null && _prestasiYangDicapaiController.text.isNotEmpty
+                              && _mipokaUser != null)
+                          {
+                            mipokaCustomToast(savingDataMessage);
+
+                            Navigator.pop(
+                              context,
+                              widget.prestasi.copyWith(
+                                ormawa: _ormawa,
+                                mipokaUser: _mipokaUser,
+                                namaKegiatan: _namaKegiatanController.text,
+                                tingkat: _tingkatController,
+                                waktuPenyelenggaraan: _yearController,
+                                prestasiDicapai: _prestasiYangDicapaiController.text,
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "unknown",
+                              ),
+                            );
+
+                          } else {
+                            mipokaCustomToast(emptyFieldMessage);
                           }
                         },
-                        child: const SizedBox(),
+                        text: 'Simpan',
                       ),
                     ],
                   ),

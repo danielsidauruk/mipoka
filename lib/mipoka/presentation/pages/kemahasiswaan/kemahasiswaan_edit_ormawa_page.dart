@@ -52,10 +52,16 @@ class _KemahasiswaanEditOrmawaPageState
 
               CustomAddButton(
                 buttonText: 'Tambah',
-                onPressed: () => Navigator.pushNamed(
-                  context,
-                  kemahasiswaanEditOrmawaTambahPageRoute,
-                ),
+                onPressed: () async {
+                  final result = await Navigator.pushNamed(
+                    context,
+                    kemahasiswaanEditOrmawaTambahPageRoute,
+                  );
+
+                  if (result == true && context.mounted) {
+                    context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
+                  }
+                },
               ),
 
               const CustomFieldSpacer(),

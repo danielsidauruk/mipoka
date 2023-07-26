@@ -39,3 +39,5 @@ class MhsPerPeriodeMptHasData extends MhsPerPeriodeMptState {
 }
 
 class MhsPerPeriodeMptSuccess extends MhsPerPeriodeMptState {}
+
+class DeleteMhsPerPeriodeMptSuccess extends MhsPerPeriodeMptState {}

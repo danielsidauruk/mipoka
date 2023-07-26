@@ -496,9 +496,9 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, List<Prestasi>>> readAllPrestasi(String filter) async {
+  Future<Either<Failure, List<Prestasi>>> readAllPrestasi() async {
     try {
-      return Right(await mipokaDataSources.readAllPrestasi(filter));
+      return Right(await mipokaDataSources.readAllPrestasi());
     } on ServerException {
       return const Left(ServerFailure());
     }
