@@ -13,6 +13,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dart';
 
 class KemahasiswaanCekSaranaDanPrasaranaPage extends StatefulWidget {
@@ -28,7 +29,6 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
 
   @override
   void initState() {
-    filter = "semua";
     initializeDateFormatting('id_ID', null);
 
     context.read<SessionBloc>().add(const ReadAllSessionEvent());
@@ -71,7 +71,19 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
 
                   const CustomFieldSpacer(),
 
-                  BlocBuilder<SessionBloc, SessionState>(
+                  BlocConsumer<SessionBloc, SessionState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) async {
+
+                      if (state is SessionSuccess ) {
+                        context.read<SessionBloc>().add(const ReadAllSessionEvent());
+
+                      } else if (state is SessionError) {
+                        mipokaCustomToast(state.message);
+                      }
+                    },
+
                     builder: (context, state) {
                       if (state is SessionLoading) {
                         return const Text('Loading');
@@ -219,13 +231,17 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                             children: [
                                               InkWell(
-                                                onTap: () => context.read<SessionBloc>().add(
-                                                  UpdateSessionEvent(
-                                                    session: session.copyWith(
-                                                      status: "diterima",
+                                                onTap: () {
+                                                  context.read<SessionBloc>().add(
+                                                    UpdateSessionEvent(
+                                                      session: session.copyWith(
+                                                        status: disetujui,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ),
+                                                  );
+
+                                                  mipokaCustomToast("Sarana dan Prasarana disetujui.");
+                                                },
                                                 child: Image.asset(
                                                   'assets/icons/approve.png',
                                                   width: 24,
@@ -235,13 +251,17 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                               const SizedBox(width: 8.0,),
 
                                               InkWell(
-                                                onTap: () => context.read<SessionBloc>().add(
-                                                  UpdateSessionEvent(
-                                                    session: session.copyWith(
-                                                      status: "ditolak",
+                                                onTap: () {
+                                                  context.read<SessionBloc>().add(
+                                                    UpdateSessionEvent(
+                                                      session: session.copyWith(
+                                                        status: ditolak,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ),
+                                                  );
+
+                                                  mipokaCustomToast("Sarana dan Prasarana ditolak.");
+                                                },
                                                 child: Image.asset(
                                                   'assets/icons/close.png',
                                                   width: 24,

@@ -26,18 +26,12 @@ class KemahasiswaanCekUsulanKegiatanPage extends StatefulWidget {
 
 class _KemahasiswaanCekUsulanKegiatanPageState
     extends State<KemahasiswaanCekUsulanKegiatanPage> {
-  late Uint8List _signatureData;
-  final GlobalKey<SfSignaturePadState> _signaturePadKey = GlobalKey();
-  final StreamController<Uint8List> _signatureDataStream = StreamController<Uint8List>.broadcast();
 
-  late String filter;
 
   @override
   void initState() {
-    filter = "semua";
-
-    super.initState();
     context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+    super.initState();
   }
 
   @override
@@ -61,14 +55,26 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                   MipokaCustomDropdown(
                     items: listStatus,
                     onValueChanged: (value) {
-                      filter = value ?? "semua";
+                      // filter = value ?? "semua";
                       context.read<UsulanKegiatanBloc>().add(
-                          ReadAllUsulanKegiatanEvent(filter: filter));
+                          const ReadAllUsulanKegiatanEvent());
                     },
                   ),
                   const CustomFieldSpacer(),
 
-                  BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+                  BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) async {
+
+                      if (state is UsulanKegiatanSuccess) {
+                        context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+
+                      } else if (state is UsulanKegiatanError) {
+                        mipokaCustomToast(state.message);
+                      }
+                    },
+
                     builder: (context, state) {
                       if (state is UsulanKegiatanLoading) {
                         return const Text('Loading');
@@ -183,20 +189,14 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                                             MainAxisAlignment.spaceEvenly,
                                             children: [
                                               InkWell(
-                                                onTap: () => Future.microtask(() {
-                                                  context.read<UsulanKegiatanBloc>().add(
-                                                    UpdateUsulanKegiatanEvent(
-                                                      usulanKegiatan: usulanKegiatan.copyWith(
-                                                        statusUsulan: "diterima",
-                                                      ),
+                                                onTap: (){
+                                                  UpdateUsulanKegiatanEvent(
+                                                    usulanKegiatan: usulanKegiatan.copyWith(
+                                                      statusUsulan: disetujui,
                                                     ),
                                                   );
-
-                                                  context.read<UsulanKegiatanBloc>().add(
-                                                      ReadAllUsulanKegiatanEvent(filter: filter));
-
                                                   mipokaCustomToast("Usulan Kegiatan telah diterima.");
-                                                }),
+                                                },
                                                 child: Image.asset(
                                                   'assets/icons/approve.png',
                                                   width: 24,
@@ -206,20 +206,17 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                                                 width: 8.0,
                                               ),
                                               InkWell(
-                                                onTap: () => Future.microtask(() {
+                                                onTap: () {
                                                   context.read<UsulanKegiatanBloc>().add(
                                                     UpdateUsulanKegiatanEvent(
                                                       usulanKegiatan: usulanKegiatan.copyWith(
-                                                        statusUsulan: "ditolak",
+                                                        statusUsulan: ditolak,
                                                       ),
                                                     ),
                                                   );
 
-                                                  context.read<UsulanKegiatanBloc>().add(
-                                                      ReadAllUsulanKegiatanEvent(filter: filter));
-
                                                   mipokaCustomToast("Usulan Kegiatan telah ditolak.");
-                                                }),
+                                                },
                                                 child: Image.asset(
                                                   'assets/icons/close.png',
                                                   width: 24,

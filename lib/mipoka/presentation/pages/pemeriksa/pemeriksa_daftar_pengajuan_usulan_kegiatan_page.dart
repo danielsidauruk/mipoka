@@ -72,7 +72,19 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
 
                   const CustomFieldSpacer(),
 
-                  BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+                  BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) async {
+
+                      if (state is UsulanKegiatanSuccess) {
+                        context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+
+                      } else if (state is UsulanKegiatanError) {
+                        mipokaCustomToast(state.message);
+                      }
+                    },
+
                     builder: (context, state) {
                       if (state is UsulanKegiatanLoading) {
                         return const Text("Loading ...");
@@ -231,8 +243,6 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                         ),
                                                       ),
                                                     );
-                                                    context.read<UsulanKegiatanBloc>().add(
-                                                        ReadAllUsulanKegiatanEvent(filter: filter ?? "semua"));
                                                     mipokaCustomToast("Usulan Kegiatan telah ditolak");
                                                   }),
                                                   child: Image.asset(

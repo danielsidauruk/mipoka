@@ -54,7 +54,18 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
 
                   const CustomFieldSpacer(),
 
-                  BlocBuilder<LaporanBloc, LaporanState>(
+                  BlocConsumer<LaporanBloc, LaporanState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) async {
+
+                      if (state is UpdateLaporanAndSendSuccess ) {
+                        context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
+
+                      } else if (state is LaporanError) {
+                        mipokaCustomToast(state.message);
+                      }
+                    },
                     builder: (context, state) {
                       if (state is LaporanLoading) {
                         return const Text('Loading');
@@ -121,9 +132,6 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                   rows: List<DataRow>.generate(laporanList.length, (int index) {
                                     final laporan = laporanList[index];
 
-                                    // context.read<UsulanKegiatanBloc>().add(
-                                    //   ReadUsulanKegiatanEvent(idUsulanKegiatan: laporan.idUsulan));
-
                                     return DataRow(
                                       cells: [
                                         DataCell(
@@ -173,7 +181,12 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                             children: [
                                               InkWell(
-                                                onTap: () {},
+                                                onTap: () {
+                                                  UpdateLaporanAndSendEvent(
+                                                    laporan: laporan.copyWith(statusLaporan: disetujui),
+                                                  );
+                                                  mipokaCustomToast("Usulan Kegiatan telah diterima.");
+                                                },
                                                 child: Image.asset(
                                                   'assets/icons/approve.png',
                                                   width: 24,
@@ -183,7 +196,12 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                               const SizedBox(width: 8.0,),
 
                                               InkWell(
-                                                onTap: () {},
+                                                onTap: () {
+                                                  UpdateLaporanAndSendEvent(
+                                                    laporan: laporan.copyWith(statusLaporan: ditolak),
+                                                  );
+                                                  mipokaCustomToast("Usulan Kegiatan telah diterima.");
+                                                },
                                                 child: Image.asset(
                                                   'assets/icons/close.png',
                                                   width: 24,
