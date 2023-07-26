@@ -7,7 +7,6 @@ import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/prestasi.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_date_picker_field.dart';
@@ -61,6 +60,12 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
 
     _triggerNim(_mipokaUser!.nim);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    context.read<MipokaUserByNimBloc>().close();
+    super.dispose();
   }
 
   @override
@@ -142,7 +147,13 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                           ),
                         );
                       } else {
-                        return const Text("-");
+                        return const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            "-",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        );
                       }
                     },
                   ),

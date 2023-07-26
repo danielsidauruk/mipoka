@@ -126,7 +126,8 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                   buildTitle('Nama Mahasiswa'),
                   BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
                     builder: (context, state) {
-                      if (state is MipokaUserByNimByNimHasData) {
+                      if(_nimController.text.isNotEmpty
+                          && state is MipokaUserByNimByNimHasData) {
                         _mipokaUser = state.mipokaUser;
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -135,8 +136,15 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                             style: const TextStyle(fontSize: 16),
                           ),
                         );
+
                       } else {
-                        return const Text("-");
+                        return const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            "-",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        );
                       }
                     },
                   ),

@@ -111,7 +111,9 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                       } else if (state is OrmawaError) {
                         return Text(state.message);
                       } else {
-                        return const Text("OrmawaBloc hasn't been triggered yet.");
+                        print("OrmawaBloc hasn't been triggered yet.");
+                        return const SizedBox();
+
                       }
                     },
                   ),
