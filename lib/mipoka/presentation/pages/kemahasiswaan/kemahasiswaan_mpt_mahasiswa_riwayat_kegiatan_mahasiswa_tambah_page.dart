@@ -220,10 +220,11 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
                         print ("Loading ...");
                         return const SizedBox();
                       } else if (userState is MipokaUserByNimByNimHasData) {
+                        final mipokaUser = userState.mipokaUser;
+
                         return BlocBuilder<KegiatanPerPeriodeMptBloc, KegiatanPerPeriodeMptState>(
                           builder: (context, state) {
                             if (state is KegiatanPerPeriodeMptHasData) {
-                              final mipokaUser = userState.mipokaUser;
                               final kegiatanPerPeriodeMpt = state.kegiatanPerPeriodeMpt;
 
                               int randomId = Random().nextInt(1000000);
@@ -235,7 +236,7 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
                                       pointMptDiperoleh: poinList[index],
                                     ),
                                     mipokaUser: mipokaUser,
-                                    statusMpt: "",
+                                    statusMpt: disetujui,
                                     fileSertifikatMpt: "",
                                     hash: "",
                                     keteranganMhs: "",

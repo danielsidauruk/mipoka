@@ -27,7 +27,7 @@ class ReadOrmawaEvent extends OrmawaEvent {
 class UpdateOrmawaEvent extends OrmawaEvent {
   final Ormawa ormawa;
 
-  const UpdateOrmawaEvent(this.ormawa);
+  const UpdateOrmawaEvent({required this.ormawa});
 
   @override
   List<Object?> get props => [ormawa];

@@ -481,7 +481,7 @@ class _KemahasiswaanEditOrmawaEditPageState
 
                             context.read<OrmawaBloc>().add(
                               UpdateOrmawaEvent(
-                                widget.ormawa.copyWith(
+                                ormawa: widget.ormawa.copyWith(
                                   namaOrmawa: _namaOrmawaController.text,
                                   namaSingkatanOrmawa: _namaSingkatanController.text,
                                   logoOrmawa: _logoUrlController!,

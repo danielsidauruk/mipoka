@@ -8,6 +8,7 @@ import 'package:mipoka/core/theme.dart';
 import 'dart:io';
 import 'package:excel/excel.dart';
 import 'package:flutter/foundation.dart';
+import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
@@ -51,6 +52,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
   final TextEditingController _namaBendaharaController = TextEditingController();
   String? _fotoBendaharaUrlController;
   List<String> nimList = [];
+  List<String> newNimList = [];
 
   final StreamController<String?> _logoUrlStream = StreamController<String?>.broadcast();
   final StreamController<String?> _fotoPembinaUrlStream = StreamController<String?>.broadcast();
@@ -60,7 +62,6 @@ class _KemahasiswaanEditOrmawaTambahPageState
   final StreamController<String?> _fotoBendaharaUrlStream = StreamController<String?>.broadcast();
 
   final StreamController<String?> _excelFileStream = StreamController<String?>();
-  String? _excelFileController;
 
   FilePickerResult? excelResult;
   FilePickerResult? logoOrmawaResult;
@@ -71,14 +72,19 @@ class _KemahasiswaanEditOrmawaTambahPageState
   FilePickerResult? fotoBendaharaResult;
 
   int uniqueId = Random().nextInt(899999999) + 100000000;
-
   Ormawa? _ormawa;
 
+  @override
+  void initState() {
+    excelResult = null;
+    _excelFileStream.add("");
+    super.initState();
+  }
+
   void _processUploadedFile(PlatformFile file) async {
+    Uint8List? bytes;
 
     nimList = [];
-
-    Uint8List? bytes;
 
     if (kIsWeb) {
       bytes = file.bytes;
@@ -105,6 +111,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
     }
 
     print (nimList);
+    newNimList = nimList;
   }
 
 
@@ -288,7 +295,6 @@ class _KemahasiswaanEditOrmawaTambahPageState
 
                   buildTitle('Impor Anggota'),
                   StreamBuilder<String?>(
-                    initialData: _excelFileController,
                     stream: _excelFileStream.stream,
                     builder: (context, snapshot) {
                       String filePath = snapshot.data ?? "";
@@ -331,11 +337,13 @@ class _KemahasiswaanEditOrmawaTambahPageState
                       // _namaOrmawaController.text.isNotEmpty && _namaSingkatanController.text.isNotEmpty
                       //     && _namaPembinaController.text.isNotEmpty && _namaKetuaController.text.isNotEmpty
                       //     && _namaWakilKetuaController.text.isNotEmpty && _namaSekretarisController.text.isNotEmpty
-                      //     && _namaBendaharaController.text.isNotEmpty && nimList.isNotEmpty &&
+                      //     && _namaBendaharaController.text.isNotEmpty && nimList.isNotEmpty
+                      //     &&
                           excelResult != null
-                          // && logoOrmawaResult != null && fotoPembinaResult != null
-                          // && fotoKetuaResult != null && fotoWakilKetuaResult != null && fotoSekretarisResult != null
-                          // && fotoBendaharaResult != null
+                      //     && logoOrmawaResult != null && fotoPembinaResult != null
+                      //     && fotoKetuaResult != null && fotoWakilKetuaResult != null && fotoSekretarisResult != null
+                      //     &&
+                      // fotoBendaharaResult != null
                       )
                       {
                         Uint8List? logoOrmawaBytes;
@@ -389,17 +397,16 @@ class _KemahasiswaanEditOrmawaTambahPageState
                         }
 
                         _ormawa = Ormawa(
-                          idOrmawa: uniqueId,
-                          namaOrmawa: _namaOrmawaController.text,
-                          namaSingkatanOrmawa: "_namaSingkatanController.text",
+                          idOrmawa: uniqueId + 2,
+                          namaOrmawa: '_namaOrmawaController.text',
+                          namaSingkatanOrmawa: '_namaSingkatanController.text',
                           logoOrmawa: '_logoUrlController ?? ""',
-                          // listAnggota: [nimList],
                           listAnggota: nimList,
-                          pembina: "_namaPembinaController.text",
-                          ketua: "_namaKetuaController.text",
-                          wakil: "_namaWakilKetuaController.text",
-                          sekretaris: "_namaSekretarisController.text",
-                          bendahara: "_namaBendaharaController.text",
+                          pembina: '_namaPembinaController.text',
+                          ketua:' _namaKetuaController.text',
+                          wakil: '_namaWakilKetuaController.text',
+                          sekretaris: '_namaSekretarisController.text',
+                          bendahara: '_namaBendaharaController.text',
                           jumlahAnggota: nimList.length,
                           fotoPembina: '_fotoPembinaUrlController ?? ""',
                           fotoKetua: '_fotoKetuaUrlController ?? ""',
@@ -419,24 +426,23 @@ class _KemahasiswaanEditOrmawaTambahPageState
                             ),
                           );
                         }
-
                       } else {
                         mipokaCustomToast(emptyFieldMessage);
                       }
                     },
                   ),
 
-                  // const CustomFieldSpacer(),
-                  //
-                  // CustomFilterButton(
-                  //     text: 'Export Template',
-                  //     onPressed: () {
-                  //       downloadFileWithDio(
-                  //         url: nimTemplate,
-                  //         fileName: "anggota_ormawa_template.xlsx",
-                  //       );
-                  //     }
-                  // ),
+                  const CustomFieldSpacer(),
+
+                  CustomFilterButton(
+                      text: 'Export Template',
+                      onPressed: () {
+                        downloadFileWithDio(
+                          url: nimTemplate,
+                          fileName: "anggota_ormawa_template.xlsx",
+                        );
+                      }
+                  ),
                   
                   const CustomFieldSpacer(),
 
@@ -452,88 +458,19 @@ class _KemahasiswaanEditOrmawaTambahPageState
 
                       CustomMipokaButton(
                         onTap: () {
+                          if(nimList != newNimList) {
+                            List<String> combinedList = [..._ormawa!.listAnggota, ...newNimList];
+                            List<String> finalNimList = combinedList.toSet().toList();
 
-                          // if (context.mounted) {
-                          //   context.read<OrmawaBloc>().add(
-                          //     CreateOrmawaEvent(
-                          //         ormawa: Ormawa(
-                          //           // idOrmawa: uniqueId,
-                          //           idOrmawa: 65431,
-                          //           namaOrmawa: _namaOrmawaController.text,
-                          //           namaSingkatanOrmawa: '_namaSingkatanController.text',
-                          //           logoOrmawa: '_logoUrlController ?? ""',
-                          //           listAnggota: nimList,
-                          //           // listAnggota: [],
-                          //           pembina: '_namaPembinaController.text',
-                          //           ketua: '_namaKetuaController.text',
-                          //           wakil: '_namaWakilKetuaController.text',
-                          //           sekretaris: '_namaSekretarisController.text',
-                          //           bendahara: '_namaBendaharaController.text',
-                          //           jumlahAnggota: nimList.length,
-                          //           fotoPembina: '_fotoPembinaUrlController ?? ""',
-                          //           fotoKetua: '_fotoKetuaUrlController ?? ""',
-                          //           fotoWakil: '_fotoWakilKetuaUrlController ?? ""',
-                          //           fotoSekretaris: '_fotoSekretarisUrlController ?? ""',
-                          //           fotoBendahara: '_fotoBendaharaUrlController ?? ""',
-                          //           createdAt: 'currentDate',
-                          //           createdBy: 'user?.email ?? "unknown"',
-                          //           updatedBy: 'user?.email ?? "unknown"',
-                          //           updatedAt: 'currentDate',
-                          //         )
-                          //     ),
-                          //   );
-                          // }
-                          // if (_namaOrmawaController.text.isNotEmpty && _namaSingkatanController.text.isNotEmpty
-                          //     && _namaPembinaController.text.isNotEmpty && _namaKetuaController.text.isNotEmpty
-                          //     && _namaWakilKetuaController.text.isNotEmpty && _namaSekretarisController.text.isNotEmpty
-                          //     && _namaBendaharaController.text.isNotEmpty && nimList.isNotEmpty && excelResult != null
-                          //     && logoOrmawaResult != null && fotoPembinaResult != null && fotoKetuaResult != null
-                          //     && fotoWakilKetuaResult != null && fotoSekretarisResult != null && fotoBendaharaResult != null
-                          // )
-                          //
-                          // {
-                          // print(_ormawa);
-
-                            // for (int index = 0; index < nimList.length; index++) {
-                            //   await Future.delayed(const Duration(milliseconds: 1000));
-                            //   if (context.mounted) {
-                            //     context.read<MipokaUserByNimBloc>().add(
-                            //       ReadMipokaUserByNimEvent(nim: nimList[index]),
-                            //     );
-                            //   }
-                            // }
-
-                            // if (context.mounted) {
-                            //   context.read<OrmawaBloc>().add(
-                            //     CreateOrmawaEvent(
-                            //       ormawa: Ormawa(
-                            //         idOrmawa: uniqueId,
-                            //         namaOrmawa: _namaOrmawaController.text,
-                            //         namaSingkatanOrmawa: _namaSingkatanController.text,
-                            //         logoOrmawa: '_logoUrlController ?? ""',
-                            //         listAnggota: nimList,
-                            //         pembina: _namaPembinaController.text,
-                            //         ketua: _namaKetuaController.text,
-                            //         wakil: _namaWakilKetuaController.text,
-                            //         sekretaris: _namaSekretarisController.text,
-                            //         bendahara: _namaBendaharaController.text,
-                            //         jumlahAnggota: nimList.length,
-                            //         fotoPembina: '_fotoPembinaUrlController ?? ""',
-                            //         fotoKetua: '_fotoKetuaUrlController ?? ""',
-                            //         fotoWakil: '_fotoWakilKetuaUrlController ?? ""',
-                            //         fotoSekretaris: '_fotoSekretarisUrlController ?? ""',
-                            //         fotoBendahara: '_fotoBendaharaUrlController ?? ""',
-                            //         createdAt: currentDate,
-                            //         createdBy: user?.email ?? "unknown",
-                            //         updatedBy: user?.email ?? "unknown",
-                            //         updatedAt: currentDate,
-                            //       )
-                            //     ),
-                            //   );
-                            // }
-                          // } else {
-                          //   mipokaCustomToast(emptyFieldMessage);
-                          // }
+                            context.read<OrmawaBloc>().add(
+                              UpdateOrmawaEvent(
+                                ormawa: _ormawa!.copyWith(
+                                  listAnggota: finalNimList,
+                                  jumlahAnggota: finalNimList.length,
+                                ),
+                              ),
+                            );
+                          }
                         },
                         text: 'Simpan',
                       ),
@@ -542,64 +479,81 @@ class _KemahasiswaanEditOrmawaTambahPageState
                         listenWhen: (prev, current) =>
                         prev.runtimeType != current.runtimeType,
                         listener: (context, state) {
-                          print(excelResult != null);
+                          if (excelResult != null) {
+                            if (state is CreateOrmawaSuccess) {
 
-                          if (state is OrmawaSuccess) {
+                              print ("MipokaUserByNiM Listener Has Data.");
 
-                            print ("MipokaUserByNiM Listener Has Data.");
-
-                            if (excelResult != null) {
-                              for (var index = 0; index < nimList.length; index++) {
-                                if(context.mounted) {
-                                  context.read<MipokaUserByNimBloc>().add(
-                                    ReadMipokaUserByNimEvent(nim: nimList[index]),
-                                  );
-                                  Future.delayed(const Duration(seconds: 10));
+                              if (excelResult != null) {
+                                for (var index = 0; index < nimList.length; index++) {
+                                  if(context.mounted) {
+                                    context.read<MipokaUserByNimBloc>().add(
+                                      ReadMipokaUserByNimEvent(nim: nimList[index]),
+                                    );
+                                    Future.delayed(const Duration(seconds: 10));
+                                  }
                                 }
+
+                              } else {
+                                mipokaCustomToast("Harap unggah file yang diperlukan.");
                               }
 
-                            } else {
-                              mipokaCustomToast("Harap unggah file yang diperlukan.");
+                            } else if (state is OrmawaError) {
+                              mipokaCustomToast("Ormawa : ${state.message}");
                             }
-
-                          } else if (state is OrmawaError) {
-                            mipokaCustomToast("Ormawa : ${state.message}");
+                          } else {
+                            const SizedBox();
                           }
                         },
 
                         child: const SizedBox(),
                       ),
 
+
                       BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
                           builder: (context, state) {
-                            if (state is MipokaUserByNimLoading) {
-                              if (kDebugMode) {
-                                print ("Loading ...");
-                              }
-                              return const SizedBox();
-                            } else if (state is MipokaUserByNimByNimHasData) {
+                            if (excelResult != null ) {
+                              if (state is MipokaUserByNimLoading) {
+                                if (kDebugMode) {
+                                  print ("Loading ...");
+                                }
+                                return const SizedBox();
+                              } else if (state is MipokaUserByNimByNimHasData) {
 
-                              print ("MipokaUserByNIM Builder Has Data");
+                                final mipokaUser = state.mipokaUser;
 
-                              if(state.mipokaUser.ormawa.length <= 2) {
-                                print(state.mipokaUser);
+                                List<int> ormawaIdList = mipokaUser.ormawa
+                                    .map((ormawa) => ormawa.idOrmawa)
+                                    .toList();
 
-                                context.read<MipokaUserBloc>().add(
-                                  UpdateMipokaUserEvent(
-                                    mipokaUser: state.mipokaUser.copyWith(
-                                      ormawa: [
-                                        ...state.mipokaUser.ormawa,
-                                        _ormawa!,
-                                      ],
+                                print("NIM by MipokaUserByNimBloc : ${mipokaUser.nim}");
+
+                                if(mipokaUser.ormawa.length <= 2 && ormawaIdList.contains(_ormawa?.idOrmawa) == false) {
+                                  print("MIPOKA user before PUT : $mipokaUser");
+
+                                  context.read<MipokaUserBloc>().add(
+                                    UpdateMipokaUserEvent(
+                                      mipokaUser: mipokaUser.copyWith(
+                                        ormawa: [
+                                          ...mipokaUser.ormawa,
+                                          _ormawa!,
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              }
+                                  );
+                                } else {
+                                  newNimList.removeWhere((element) => element == mipokaUser.nim);
+                                }
 
-                              return const SizedBox();
-                            } else if (state is MipokaUserByNimError){
-                              mipokaCustomToast("MipokaUserByNim ${state.message}");
-                              return const SizedBox();
+                                print("NimList after selection : $newNimList");
+
+                                return const SizedBox();
+                              } else if (state is MipokaUserByNimError){
+                                mipokaCustomToast("MipokaUserByNim ${state.message}");
+                                return const SizedBox();
+                              } else {
+                                return const SizedBox();
+                              }
                             } else {
                               return const SizedBox();
                             }
@@ -607,77 +561,52 @@ class _KemahasiswaanEditOrmawaTambahPageState
                       ),
 
 
-
-                      // BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
-                      //     builder: (context, state) {
-                      //       if (excelResult != null ){
-                      //         if (state is MipokaUserByNimByNimHasData) {
-                      //           print ("MipokaUserByNIM Has Data");
-                      //
-                      //           if(state.mipokaUser.ormawa.length <= 2) {
-                      //
-                      //             context.read<MipokaUserBloc>().add(
-                      //               UpdateMipokaUserEvent(
-                      //                 mipokaUser: state.mipokaUser.copyWith(
-                      //                   ormawa: [
-                      //                     ...state.mipokaUser.ormawa,
-                      //                     _ormawa!,
-                      //                   ],
-                      //                 ),
-                      //               ),
-                      //             );
-                      //           }
-                      //
-                      //           return const SizedBox();
-                      //
-                      //         } else if (state is MipokaUserByNimError) {
-                      //           mipokaCustomToast(state.message);
-                      //
-                      //           return const SizedBox();
-                      //         } else {
-                      //           print ("MipokaUserByNIMBloc hasn't triggered yet.");
-                      //           return const SizedBox();
-                      //         }
-                      //       } else {
-                      //         return const SizedBox();
-                      //       }
-                      //     }
-                      // ),
-
-
-                      // BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
-                      //   builder: (context, state) {
+                      // BlocListener<MipokaUserByNimBloc, MipokaUserByNimState>(
+                      //   listenWhen: (prev, current) =>
+                      //   prev.runtimeType != current.runtimeType,
+                      //   listener: (context, state) {
                       //     if (excelResult != null) {
                       //       if (state is MipokaUserByNimLoading) {
-                      //         print ("Loading ...");
-                      //         return const SizedBox();
+                      //         if (kDebugMode) {
+                      //           print ("Loading ...");
+                      //         }
                       //       } else if (state is MipokaUserByNimByNimHasData) {
                       //         final mipokaUser = state.mipokaUser;
+                      //         print("Nim : ${mipokaUser.nim}");
                       //
-                      //         if(mipokaUser.ormawa.length <= 2) {
-                      //           context.read<MipokaUserBloc>().add(
-                      //             UpdateMipokaUserEvent(
-                      //               mipokaUser: mipokaUser.copyWith(
-                      //                 ormawa: [...mipokaUser.ormawa, ormawa!],
-                      //               ),
+                      //         context.read<MipokaUserBloc>().add(
+                      //           UpdateMipokaUserEvent(
+                      //             mipokaUser: mipokaUser.copyWith(
+                      //               ormawa: [
+                      //                 ...state.mipokaUser.ormawa,
+                      //                 _ormawa!,
+                      //               ],
                       //             ),
-                      //           );
-                      //         }
-                      //
-                      //         return const SizedBox();
-                      //
-                      //       } else if (state is MipokaUserByNimError) {
-                      //         return Text(state.message);
-                      //       } else {
-                      //         if (kDebugMode) {
-                      //           print("MhsPerPeriode hasn't been triggered yet.");
-                      //         }
-                      //         return const SizedBox();
+                      //           ),
+                      //         );
+                      //         // if(mipokaUser.ormawa.length <= 2
+                      //         //     && mipokaUser.ormawa.contains(_ormawa) == false) {
+                      //         //
+                      //         //   context.read<MipokaUserBloc>().add(
+                      //         //     UpdateMipokaUserEvent(
+                      //         //       mipokaUser: mipokaUser.copyWith(
+                      //         //         ormawa: [
+                      //         //           ...state.mipokaUser.ormawa,
+                      //         //           _ormawa!,
+                      //         //         ],
+                      //         //       ),
+                      //         //     ),
+                      //         //   );
+                      //         // } else {
+                      //         //   // nimList.removeWhere((element) => element == mipokaUser.nim);
+                      //         //   // print(nimList);
+                      //         // }
+                      //       } else if (state is MipokaUserByNimError){
+                      //         mipokaCustomToast("MipokaUserByNim ${state.message}");
                       //       }
-                      //     } else {
-                      //       return const SizedBox();
                       //     }
                       //   },
+                      //   child: const SizedBox(),
                       // ),
                     ],
                   ),

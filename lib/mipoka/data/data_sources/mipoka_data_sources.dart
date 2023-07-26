@@ -607,7 +607,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   Future<void> createOrmawa(OrmawaModel ormawaModel) async {
 
     try {
-      print(ormawaModel.toJson());
       final response = await DioUtil().dio.post(
         ormawaPath,
         data: ormawaModel.toJson(),

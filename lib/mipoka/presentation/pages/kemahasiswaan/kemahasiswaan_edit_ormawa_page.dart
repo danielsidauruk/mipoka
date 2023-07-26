@@ -47,157 +47,177 @@ class _KemahasiswaanEditOrmawaPageState
             children: [
               const CustomMobileTitle(
                   text: 'Kemahasiswaan - Edit Ormawa'),
+
               const CustomFieldSpacer(),
 
-              BlocBuilder<OrmawaBloc, OrmawaState>(
-                builder: (context, state) {
-                  if (state is OrmawaLoading) {
-                    return const Text("Loading ....");
-                  } else if (state is AllOrmawaHasData) {
-                    final ormawaList = state.ormawaList;
+              CustomAddButton(
+                buttonText: 'Tambah',
+                onPressed: () => Navigator.pushNamed(
+                  context,
+                  kemahasiswaanEditOrmawaTambahPageRoute,
+                ),
+              ),
 
-                    return CustomContentBox(
-                      children: [
-                        CustomAddButton(
-                          buttonText: 'Tambah',
-                          onPressed: () => Navigator.pushNamed(
-                            context,
-                            kemahasiswaanEditOrmawaTambahPageRoute,
-                          ).then((_) => context.read<OrmawaBloc>().add(ReadAllOrmawaEvent())),
-                        ),
-                        const CustomFieldSpacer(),
+              const CustomFieldSpacer(),
 
-                        MipokaCountText(total: ormawaList.length),
+              CustomContentBox(
+                children: [
+                  BlocConsumer<OrmawaBloc, OrmawaState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) {
+                      if (state is DeleteOrmawaSuccess) {
 
-                        const CustomFieldSpacer(),
+                        context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
 
-                        SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: DataTable(
-                              columnSpacing: 40,
-                              border: TableBorder.all(color: Colors.white),
-                              columns: const [
-                                DataColumn(
-                                  label: Text(
-                                    'Nama Ormawa',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    'Pembina',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    'Ketua Ormawa',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    'Jumlah Anggota',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    'Status',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ],
-                              rows: List<DataRow>.generate(ormawaList.length, (int index) {
-                                final ormawa = ormawaList[index];
+                      } else if (state is OrmawaError) {
+                        mipokaCustomToast("Ormawa : ${state.message}");
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is OrmawaLoading) {
+                        return const Text("Loading ....");
+                      } else if (state is AllOrmawaHasData) {
+                        final ormawaList = state.ormawaList;
 
-                                return DataRow(
-                                  cells: [
-                                    DataCell(
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          ormawa.namaOrmawa,
-                                        ),
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            MipokaCountText(total: ormawaList.length),
+
+                            const CustomFieldSpacer(),
+
+                            SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: DataTable(
+                                  columnSpacing: 40,
+                                  border: TableBorder.all(color: Colors.white),
+                                  columns: const [
+                                    DataColumn(
+                                      label: Text(
+                                        'Nama Ormawa',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    DataCell(
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          ormawa.pembina,
-                                        ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Pembina',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    DataCell(
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          ormawa.pembina,
-                                        ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Ketua Ormawa',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    DataCell(
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "${ormawa.listAnggota.length}",
-                                        ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Jumlah Anggota',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    DataCell(
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          InkWell(
-                                            onTap: () => Navigator.pushNamed(
-                                              context,
-                                              kemahasiswaanEditOrmawaEditPageRoute,
-                                              arguments: ormawa,
-                                            ).then((_) => context.read<OrmawaBloc>().add(ReadAllOrmawaEvent())),
-                                            child: Image.asset(
-                                              'assets/icons/edit.png',
-                                              width: 24,
-                                            ),
-                                          ),
-
-                                          const SizedBox(width: 8.0,),
-
-                                          InkWell(
-                                            onTap: () {
-                                              context.read<OrmawaBloc>().add(DeleteOrmawaEvent(idOrmawa: ormawa.idOrmawa));
-                                              mipokaCustomToast("${ormawa.namaOrmawa} telah dihapus.");
-                                            },
-                                            child: Image.asset(
-                                              'assets/icons/delete.png',
-                                              width: 24,
-                                            ),
-                                          ),
-                                        ],
+                                    DataColumn(
+                                      label: Text(
+                                        'Status',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
                                   ],
-                                );
-                              }),
+                                  rows: List<DataRow>.generate(ormawaList.length, (int index) {
+                                    final ormawa = ormawaList[index];
+
+                                    return DataRow(
+                                      cells: [
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              ormawa.namaOrmawa,
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              ormawa.pembina,
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              ormawa.pembina,
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              "${ormawa.listAnggota.length}",
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              InkWell(
+                                                onTap: () => Navigator.pushNamed(
+                                                  context,
+                                                  kemahasiswaanEditOrmawaEditPageRoute,
+                                                  arguments: ormawa,
+                                                ).then((_) => context.read<OrmawaBloc>().add(ReadAllOrmawaEvent())),
+                                                child: Image.asset(
+                                                  'assets/icons/edit.png',
+                                                  width: 24,
+                                                ),
+                                              ),
+
+                                              const SizedBox(width: 8.0,),
+
+                                              InkWell(
+                                                onTap: () {
+                                                  context.read<OrmawaBloc>().add(DeleteOrmawaEvent(idOrmawa: ormawa.idOrmawa));
+                                                  mipokaCustomToast("${ormawa.namaOrmawa} telah dihapus.");
+                                                },
+                                                child: Image.asset(
+                                                  'assets/icons/delete.png',
+                                                  width: 24,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ],
-                    );
-                  } else if (state is OrmawaError) {
-                    return Text(state.message);
-                  } else {
-                    return const Text("OrmawaBloc hasn't been triggered yet.");
-                  }
-                },
+                          ],
+                        );
+                      } else if (state is OrmawaError) {
+                        return Text(state.message);
+                      } else {
+                        print("OrmawaBloc hasn't been triggered yet.");
+                        return const SizedBox();
+                      }
+                    },
+                  ),
+                ],
               ),
+
             ],
           ),
         ),
