@@ -369,7 +369,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
                           // fotoBendaharaBytes = await File(fotoBendaharaResult!.files.first.path!).readAsBytes();
                         }
 
-                        mipokaCustomToast(savingDataMessage);
+                        // mipokaCustomToast(savingDataMessage);
 
                         if (logoOrmawaBytes != null) {
                           int uniqueId = UniqueIdGenerator.generateUniqueId();
@@ -397,7 +397,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
                         }
 
                         _ormawa = Ormawa(
-                          idOrmawa: uniqueId + 2,
+                          idOrmawa: uniqueId,
                           namaOrmawa: '_namaOrmawaController.text',
                           namaSingkatanOrmawa: '_namaSingkatanController.text',
                           logoOrmawa: '_logoUrlController ?? ""',
@@ -458,19 +458,21 @@ class _KemahasiswaanEditOrmawaTambahPageState
 
                       CustomMipokaButton(
                         onTap: () {
-                          if(nimList != newNimList) {
-                            List<String> combinedList = [..._ormawa!.listAnggota, ...newNimList];
-                            List<String> finalNimList = combinedList.toSet().toList();
-
-                            context.read<OrmawaBloc>().add(
-                              UpdateOrmawaEvent(
-                                ormawa: _ormawa!.copyWith(
-                                  listAnggota: finalNimList,
-                                  jumlahAnggota: finalNimList.length,
-                                ),
-                              ),
-                            );
-                          }
+                          // if(nimList != newNimList) {
+                          //   List<String> combinedList = [..._ormawa!.listAnggota, ...newNimList];
+                          //   List<String> finalNimList = combinedList.toSet().toList();
+                          //
+                          //   context.read<OrmawaBloc>().add(
+                          //     UpdateOrmawaEvent(
+                          //       ormawa: _ormawa!.copyWith(
+                          //         listAnggota: finalNimList,
+                          //         jumlahAnggota: finalNimList.length,
+                          //       ),
+                          //     ),
+                          //   );
+                          //
+                          //   print("$finalNimList : ${finalNimList.length}");
+                          // }
                         },
                         text: 'Simpan',
                       ),
@@ -482,13 +484,21 @@ class _KemahasiswaanEditOrmawaTambahPageState
                           if (excelResult != null) {
                             if (state is CreateOrmawaSuccess) {
 
-                              print ("MipokaUserByNiM Listener Has Data.");
+                              // print ("MipokaUserByNiM Listener Has Data.");
 
                               if (excelResult != null) {
                                 for (var index = 0; index < nimList.length; index++) {
-                                  if(context.mounted) {
+
+                                  if (index == nimList.length) {
+                                    mipokaCustomToast("Anggota Ormawa Berhasil di proses.");
+                                  } else {
+                                    print("Memproses ${nimList[index]}");
+                                  }
+
+                                  if (context.mounted) {
                                     context.read<MipokaUserByNimBloc>().add(
-                                      ReadMipokaUserByNimEvent(nim: nimList[index]),
+                                      ReadMipokaUserByNimEvent(
+                                          nim: nimList[index]),
                                     );
                                     Future.delayed(const Duration(seconds: 10));
                                   }
@@ -498,6 +508,8 @@ class _KemahasiswaanEditOrmawaTambahPageState
                                 mipokaCustomToast("Harap unggah file yang diperlukan.");
                               }
 
+                            } else if (state is UpdateOrmawaSuccess) {
+                              mipokaCustomToast("Ormawa Telah ditambah.");
                             } else if (state is OrmawaError) {
                               mipokaCustomToast("Ormawa : ${state.message}");
                             }
@@ -522,31 +534,39 @@ class _KemahasiswaanEditOrmawaTambahPageState
 
                                 final mipokaUser = state.mipokaUser;
 
-                                List<int> ormawaIdList = mipokaUser.ormawa
-                                    .map((ormawa) => ormawa.idOrmawa)
-                                    .toList();
-
-                                print("NIM by MipokaUserByNimBloc : ${mipokaUser.nim}");
-
-                                if(mipokaUser.ormawa.length <= 2 && ormawaIdList.contains(_ormawa?.idOrmawa) == false) {
-                                  print("MIPOKA user before PUT : $mipokaUser");
-
-                                  context.read<MipokaUserBloc>().add(
-                                    UpdateMipokaUserEvent(
-                                      mipokaUser: mipokaUser.copyWith(
-                                        ormawa: [
-                                          ...mipokaUser.ormawa,
-                                          _ormawa!,
-                                        ],
-                                      ),
+                                context.read<MipokaUserBloc>().add(
+                                  UpdateMipokaUserEvent(
+                                    mipokaUser: mipokaUser.copyWith(
+                                      ormawa: [
+                                        ...mipokaUser.ormawa,
+                                        _ormawa!,
+                                      ],
                                     ),
-                                  );
-                                } else {
-                                  newNimList.removeWhere((element) => element == mipokaUser.nim);
-                                }
+                                  ),
+                                );
 
-                                print("NimList after selection : $newNimList");
+                                // List<int> ormawaIdList = mipokaUser.ormawa
+                                //     .map((ormawa) => ormawa.idOrmawa)
+                                //     .toList();
+                                //
+                                // print("NIM by MipokaUserByNimBloc : ${mipokaUser.nim}");
 
+                                // if(mipokaUser.ormawa.length <= 2 && ormawaIdList.contains(_ormawa?.idOrmawa) == false) {
+                                //   print("MIPOKA user before PUT : $mipokaUser");
+                                //
+                                //   context.read<MipokaUserBloc>().add(
+                                //     UpdateMipokaUserEvent(
+                                //       mipokaUser: mipokaUser.copyWith(
+                                //         ormawa: [
+                                //           ...mipokaUser.ormawa,
+                                //           _ormawa!,
+                                //         ],
+                                //       ),
+                                //     ),
+                                //   );
+                                // } else {
+                                //   newNimList.removeWhere((element) => element == mipokaUser.nim);
+                                // }
                                 return const SizedBox();
                               } else if (state is MipokaUserByNimError){
                                 mipokaCustomToast("MipokaUserByNim ${state.message}");
