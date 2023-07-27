@@ -137,3 +137,41 @@ class CustomTextField3 extends StatelessWidget {
   }
 }
 
+class NewLineTextField extends StatelessWidget {
+  const NewLineTextField({
+    super.key,
+    required this.controller,
+    this.textInputType = TextInputType.multiline,
+    this.textFieldWidth = double.infinity,
+    // this.textInputType = TextInputType.multiline,
+  });
+
+  final TextEditingController controller;
+  final TextInputType? textInputType;
+  final double textFieldWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return Container(
+      alignment: Alignment.center,
+      width: size.width < 501 ? double.infinity : textFieldWidth,
+      padding: const EdgeInsets.all(8.0),
+      constraints: const BoxConstraints(minHeight: 35),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5.0),
+        border: Border.all(color: Colors.white),
+      ),
+      child: TextField(
+        textInputAction: TextInputAction.newline,
+        keyboardType: textInputType,
+        controller: controller,
+        maxLines: null,
+        style: const TextStyle(),
+        decoration: null,
+      ),
+    );
+  }
+}
+

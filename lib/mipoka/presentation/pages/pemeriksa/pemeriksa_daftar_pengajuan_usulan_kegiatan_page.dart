@@ -231,7 +231,9 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 InkWell(
-                                                  onTap: () => SignatureDialogUtils.showPopup(context, usulanKegiatan),
+                                                  onTap: () {
+                                                    // SignatureDialogUtils.showPopup(context, usulanKegiatan);
+                                                  },
                                                   child: Image.asset(
                                                     'assets/icons/approve.png',
                                                     width: 24,

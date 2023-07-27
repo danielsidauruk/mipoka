@@ -45,12 +45,9 @@ class _PenggunaPengajuanUsulanKegiatan1State
     extends State<PenggunaPengajuanUsulanKegiatan1> {
 
   Uint8List? _signatureData;
-
-  bool? isBuilt;
-
-  final GlobalKey<SfSignaturePadState> _signaturePadKey = GlobalKey();
-
   final StreamController<Uint8List> _signatureDataStream = StreamController<Uint8List>.broadcast();
+
+  final GlobalKey<SfSignaturePadState> _signaturePadKey = GlobalKey<SfSignaturePadState>();
 
   void _showPopup() {
     showDialog(
@@ -386,7 +383,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
                             if (widget.usulanArgs.isRevisiUsulan == true
                                 && usulanKegiatan.revisiUsulan?.revisiDeskripsiKegiatan != "")
                               buildRevisiText(usulanKegiatan.revisiUsulan?.revisiDeskripsiKegiatan ?? ""),
-                            CustomTextField(
+
+                            NewLineTextField(
                                 controller: _deskripsiKegiatanController),
 
                             const CustomFieldSpacer(),
