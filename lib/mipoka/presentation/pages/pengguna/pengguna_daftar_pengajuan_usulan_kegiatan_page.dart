@@ -89,7 +89,7 @@ class _PenggunaDaftarPengajuanKegiatanState
                           arguments: UsulanArgs(idUsulan: uniqueId),
                         );
 
-                        if (result != null && result == true && context.mounted) {
+                        if (result == true && context.mounted) {
                           context.read<UsulanKegiatanBloc>().add(
                               const ReadAllUsulanKegiatanEvent());
                         }

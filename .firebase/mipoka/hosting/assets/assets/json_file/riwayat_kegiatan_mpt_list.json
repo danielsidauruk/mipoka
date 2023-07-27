@@ -1,0 +1,192 @@
+[
+  {
+    "id_riwayat_kegiatan_mpt": 1111,
+    "kegiatan_per_periode_mpt": {
+      "id_kegiatan_per_periode_mpt": 342421,
+      "periode_mpt": {
+        "id_periode_mpt": 11111,
+        "tahun_periode_mpt": "2023",
+        "periode_mengulang_mpt": true,
+        "tanggal_mulai_periode_mpt": "01-01-2023",
+        "tanggal_berakhir_periode_mpt": "01-01-2023",
+        "created_at": "15-01-2023",
+        "created_by": "John Doe",
+        "updated_at": "15-01-2023",
+        "updated_by": "Jane Smith"
+      },
+      "nama_kegiatan_mpt": {
+        "id_nama_kegiatan_mpt": 1111,
+        "nama_kegiatan": "bercocok tanam",
+        "jenis_kegiatan_mpt": {
+          "id_jenis_kegiatan_mpt": 11111,
+          "nama_jenis_kegiatan_mpt": "Pelayanan Masyarakat",
+          "created_at": "26-1-2023",
+          "created_by": "Jane Smith",
+          "updated_at": "26-1-2023",
+          "updated_by": "John Doe"
+        },
+        "created_at": "26-1-2023",
+        "created_by": "John Doe",
+        "updated_at": "26-1-2023",
+        "updated_by": "Jane Smith"
+      },
+      "tanggal_mulai_kegiatan_per_periode_mpt": "2023-06-26",
+      "tanggal_selesai_kegiatan_per_periode_mpt": "2023-06-27",
+      "point_mpt_diperoleh": 5,
+      "created_at": "2023-06-26",
+      "created_by": "John Doe",
+      "updated_at": "2023-06-26",
+      "updated_by": "Jane Smith"
+    },
+    "user": {
+      "id_user": "24313sfa1",
+      "ormawa": [
+        {
+          "id_ormawa": 1111,
+          "nama_ormawa": "Mikroskil Esport",
+          "nama_singkatan_ormawa": "ME",
+          "logo_ormawa": "link_photo",
+          "list_anggota": [
+            "2222",
+            "3333",
+            "4444"
+          ],
+          "pembina": "Pembina Ormawa",
+          "ketua": "Ketua Ormawa",
+          "wakil": "Wakil Ketua Ormawa",
+          "sekretaris": "Sekretaris Ormawa",
+          "bendahara": "Bendahara Ormawa",
+          "jumlah_anggota": 50,
+          "foto_pembina": "link_foto_pembina",
+          "foto_ketua": "link_foto_ketua",
+          "foto_wakil": "link_foto_wakil",
+          "foto_sekretaris": "link_foto_sekretaris",
+          "foto_bendahara": "link_foto_bendahara",
+          "created_at": "26-6-2023",
+          "created_by": "John Doe",
+          "updated_at": "26-6-2023",
+          "updated_by": "Jane Smith"
+        }
+      ],
+      "email": "john.doe@example.com",
+      "nama_lengkap": "John Doe",
+      "nim": "123456789",
+      "no_hp": "08123456789",
+      "image": "https://example.com/profile_image.jpg",
+      "point_mpt": 100,
+      "semester": 5,
+      "kelas": "A",
+      "periode_mpt": "2023-2024",
+      "status_mpt": "Aktif",
+      "prodi": "Teknik Informatika",
+      "created_at": "20-1-2023",
+      "updated_at": "20-1-2023",
+      "created_by": "Admin001",
+      "updated_by": "Admin002"
+    },
+    "status_mpt": "Selesai",
+    "file_sertifikat_mpt": "sertifikat_mpt.pdf",
+    "hash": "eef85b6a47c314d7b50c3a518f9d3e08",
+    "keterangan_mhs": "Peserta aktif",
+    "keterangan_sa": "Terverifikasi",
+    "created_at": "20-1-2023",
+    "created_by": "John Doe",
+    "updated_at": "20-1-2023",
+    "updated_by": "Jane Smith"
+  },
+  {
+    "id_riwayat_kegiatan_mpt": 2222,
+    "kegiatan_per_periode_mpt": {
+      "id_kegiatan_per_periode_mpt": 342421,
+      "periode_mpt": {
+        "id_periode_mpt": 11111,
+        "tahun_periode_mpt": "2023",
+        "periode_mengulang_mpt": true,
+        "tanggal_mulai_periode_mpt": "01-01-2023",
+        "tanggal_berakhir_periode_mpt": "01-01-2023",
+        "created_at": "15-01-2023",
+        "created_by": "John Doe",
+        "updated_at": "15-01-2023",
+        "updated_by": "Jane Smith"
+      },
+      "nama_kegiatan_mpt": {
+        "id_nama_kegiatan_mpt": 1111,
+        "nama_kegiatan": "bercocok tanam",
+        "jenis_kegiatan_mpt": {
+          "id_jenis_kegiatan_mpt": 11111,
+          "nama_jenis_kegiatan_mpt": "Pelayanan Masyarakat",
+          "created_at": "26-1-2023",
+          "created_by": "Jane Smith",
+          "updated_at": "26-1-2023",
+          "updated_by": "John Doe"
+        },
+        "created_at": "26-1-2023",
+        "created_by": "John Doe",
+        "updated_at": "26-1-2023",
+        "updated_by": "Jane Smith"
+      },
+      "tanggal_mulai_kegiatan_per_periode_mpt": "2023-06-26",
+      "tanggal_selesai_kegiatan_per_periode_mpt": "2023-06-27",
+      "point_mpt_diperoleh": 5,
+      "created_at": "2023-06-26",
+      "created_by": "John Doe",
+      "updated_at": "2023-06-26",
+      "updated_by": "Jane Smith"
+    },
+    "user": {
+      "id_user": "24313sfa1",
+      "ormawa": [
+        {
+          "id_ormawa": 1111,
+          "nama_ormawa": "Mikroskil Esport",
+          "nama_singkatan_ormawa": "ME",
+          "logo_ormawa": "link_photo",
+          "list_anggota": [
+            "2222",
+            "3333",
+            "4444"
+          ],
+          "pembina": "Pembina Ormawa",
+          "ketua": "Ketua Ormawa",
+          "wakil": "Wakil Ketua Ormawa",
+          "sekretaris": "Sekretaris Ormawa",
+          "bendahara": "Bendahara Ormawa",
+          "jumlah_anggota": 50,
+          "foto_pembina": "link_foto_pembina",
+          "foto_ketua": "link_foto_ketua",
+          "foto_wakil": "link_foto_wakil",
+          "foto_sekretaris": "link_foto_sekretaris",
+          "foto_bendahara": "link_foto_bendahara",
+          "created_at": "26-6-2023",
+          "created_by": "John Doe",
+          "updated_at": "26-6-2023",
+          "updated_by": "Jane Smith"
+        }
+      ],
+      "email": "john.doe@example.com",
+      "nama_lengkap": "John Doe",
+      "nim": "123456789",
+      "no_hp": "08123456789",
+      "image": "https://example.com/profile_image.jpg",
+      "point_mpt": 100,
+      "semester": 5,
+      "kelas": "A",
+      "periode_mpt": "2023-2024",
+      "status_mpt": "Aktif",
+      "prodi": "Teknik Informatika",
+      "created_at": "20-1-2023",
+      "updated_at": "20-1-2023",
+      "created_by": "Admin001",
+      "updated_by": "Admin002"
+    },
+    "status_mpt": "Selesai",
+    "file_sertifikat_mpt": "sertifikat_mpt.pdf",
+    "hash": "eef85b6a47c314d7b50c3a518f9d3e08",
+    "keterangan_mhs": "Peserta aktif",
+    "keterangan_sa": "Terverifikasi",
+    "created_at": "20-1-2023",
+    "created_by": "John Doe",
+    "updated_at": "20-1-2023",
+    "updated_by": "Jane Smith"
+  }    
+]
