@@ -258,7 +258,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                         }
 
                       } else if (state is UsulanKegiatanDeleted) {
-                        mipokaCustomToast("Usulan Kegiatan telah dihapus.");
+
                         Navigator.pop(context, true);
                       }
                       else if (state is UsulanKegiatanError) {
@@ -321,14 +321,14 @@ class _PenggunaPengajuanUsulanKegiatan1State
                           children: [
                             buildTitle('Nama Ormawa'),
                             MipokaCustomDropdown(
-                                items: ormawaList,
-                                initialItem: _ormawa?.namaOrmawa,
-                                onValueChanged: (value) {
-                                  int index = ormawaList.indexOf(value!);
-                                  // int idOrmawa = idOrmawaList[index];
+                              items: ormawaList,
+                              initialItem: _ormawa?.namaOrmawa,
+                              onValueChanged: (value) {
+                                int index = ormawaList.indexOf(value!);
+                                // int idOrmawa = idOrmawaList[index];
 
-                                  _ormawa = usulanKegiatan.mipokaUser.ormawa[index];
-                                }
+                                _ormawa = usulanKegiatan.mipokaUser.ormawa[index];
+                              },
                             ),
 
                             const CustomFieldSpacer(),

@@ -6,6 +6,7 @@ const lupaPasswordPageRoute = '/lupaPasswordPageRoute';
 const passwordBaruPageRoute = '/passwordBaruPageRoute';
 const notifikasiPageRoute = '/notifikasiPageRoute';
 const registrationPageRoute = '/registrationPageRoute';
+const mipokaAdminDashboardRoute = '/mipokaAdminDashboardRoute';
 
 // mobile routes - pengguna
 const penggunaBerandaPageRoute = '/penggunaBerandaPageRoute';

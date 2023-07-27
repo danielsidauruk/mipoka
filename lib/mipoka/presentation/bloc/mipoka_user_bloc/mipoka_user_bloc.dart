@@ -40,7 +40,7 @@ class MipokaUserBloc extends Bloc<MipokaUserEvent, MipokaUserState> {
 
       result.fold(
             (failure) => emit(MipokaUserError(message: failure.message)),
-            (_) => emit(const MipokaUserSuccessMessage()),
+            (_) => emit(const MipokaUserSuccess()),
       );
     });
 
@@ -51,7 +51,7 @@ class MipokaUserBloc extends Bloc<MipokaUserEvent, MipokaUserState> {
 
       result.fold(
             (failure) => emit(MipokaUserError(message: failure.message)),
-            (_) => emit(const MipokaUserSuccessMessage()),
+            (_) => emit(const MipokaUserSuccess()),
       );
     });
 
@@ -62,7 +62,7 @@ class MipokaUserBloc extends Bloc<MipokaUserEvent, MipokaUserState> {
 
       result.fold(
             (failure) => emit(MipokaUserError(message: failure.message)),
-            (_) => emit(const MipokaUserSuccessMessage()),
+            (_) => emit(const MipokaUserSuccess()),
       );
     });
   }

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/utils.dart';
 import 'package:mipoka/dependency_injection.dart' as di;
@@ -76,6 +77,7 @@ import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_riwayat_kegiatan_mahasiswa_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_prestasi_mahasiswa_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/lupa_password_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/mipoka_admin_dashboard.dart';
 import 'package:mipoka/mipoka/presentation/pages/notifikasi_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/password_baru_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_daftar_pengajuan_laporan_kegiatan_page.dart';
@@ -134,8 +136,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
-
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => di.locator<AdminBloc>()),
@@ -199,11 +199,31 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: user == null
-            ? const LoginPage()
-            // : const KemahasiswaanBerandaPage(),
+        home:
+        user != null ?
+        // BlocBuilder<MipokaUserBloc, MipokaUserState>(
+        //   builder: (context, state) {
+        //     if (state is MipokaUserHasData) {
+        //       final mipokaUser = state.mipokaUser;
+        //
+        //       if (mipokaUser.role == kemahasiswaan) {
+        //         return const KemahasiswaanBerandaPage();
+        //       } else if (mipokaUser.role == pembina) {
+        //         return const PemeriksaDaftarPengajuanKegiatanPage();
+        //       } else if (mipokaUser.role == mipokaAdmin) {
+        //         return const MipokaAdminDashboard();
+        //       } else {
+        //         return const PenggunaBerandaPage();
+        //       }
+        //     } else {
+        //       return const LoginPage();
+        //     }
+        //   },
+        // ) :
+        const KemahasiswaanBerandaPage() :
+        const LoginPage(),
         // : const PemeriksaDaftarLaporanKegiatanPage(),
-        : const PenggunaBerandaPage(),
+        // : const PenggunaBerandaPage(),
         // : const KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage(),
         // :const KemahasiswaanMPTMahasiswaPeriodePage(),
 
@@ -219,7 +239,9 @@ class MyApp extends StatelessWidget {
             case gantiPasswordPageRoute:
               return MaterialPageRoute(
                   builder: (_) => const GantiPasswordPage());
-
+            case mipokaAdminDashboardRoute:
+              return MaterialPageRoute(
+                  builder: (_) => const MipokaAdminDashboard());
 
             // pengguna  route
             case penggunaBerandaPageRoute:

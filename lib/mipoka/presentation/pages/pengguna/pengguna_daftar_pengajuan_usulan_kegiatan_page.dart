@@ -93,11 +93,12 @@ class _PenggunaDaftarPengajuanKegiatanState
                           context.read<UsulanKegiatanBloc>().add(
                               const ReadAllUsulanKegiatanEvent());
                         }
-
-                      } else if (state is UsulanKegiatanError) {
+                      }
+                      else if (state is UsulanKegiatanError) {
                         mipokaCustomToast(state.message);
                       }
                     },
+
                     builder: (context, state) {
                       if (state is UsulanKegiatanLoading) {
                         return const Text('Loading');
@@ -211,7 +212,7 @@ class _PenggunaDaftarPengajuanKegiatanState
                                                     isRevisiUsulan: true,
                                                   ),
                                                 ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                                  ReadAllUsulanKegiatanEvent(filter: _filter!)));
+                                                  const ReadAllUsulanKegiatanEvent()));
                                               },
                                               child: Text(
                                                 usulanKegiatan.namaKegiatan,

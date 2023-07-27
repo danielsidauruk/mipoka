@@ -232,7 +232,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                               children: [
                                                 InkWell(
                                                   onTap: () {
-                                                    // SignatureDialogUtils.showPopup(context, usulanKegiatan);
+                                                    SignatureDialogUtils.showPopup(context, usulanKegiatan);
                                                   },
                                                   child: Image.asset(
                                                     'assets/icons/approve.png',

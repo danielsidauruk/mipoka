@@ -69,11 +69,15 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                       arguments: uniqueId,
                     );
 
-                    if (result != null && result == true && context.mounted) {
-                      context.read<SessionBloc>().add(const ReadAllSessionEvent());
+                    if (result is Session && context.mounted) {
+                      context.read<SessionBloc>().add(
+                        UpdateSessionEvent(session: result));
                     }
-
-                  } else if (state is SessionError) {
+                  } else if (state is SentSessionSuccess) {
+                    context.read<SessionBloc>().add(
+                      const ReadAllSessionEvent());
+                  }
+                  else if (state is SessionError) {
                     mipokaCustomToast(state.message);
                   }
                 },
@@ -282,7 +286,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                             if (mipokaUserState is MipokaUserLoading) {
                               return const Text('Loading ...');
                             } else if (mipokaUserState is MipokaUserHasData) {
-                              MipokaUser mipokaUser = mipokaUserState.mipokaUser;
+                              final mipokaUser = mipokaUserState.mipokaUser;
                               return Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [

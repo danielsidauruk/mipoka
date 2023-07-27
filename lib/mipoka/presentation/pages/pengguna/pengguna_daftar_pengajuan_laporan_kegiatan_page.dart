@@ -75,11 +75,16 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                           arguments: LaporanArgs(idLaporan: uniqueId),
                         );
 
-                        if (result != null && result == true && context.mounted) {
-                          context.read<UsulanKegiatanBloc>().add(
-                              ReadAllUsulanKegiatanEvent(filter: _filter!));
+                        if (result == true && context.mounted) {
+                          context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
                         }
+                        // else if (result is int && context.mounted) {
+                        //   context.read<LaporanBloc>().add(
+                        //       DeleteLaporanEvent(idLaporan: result));
+                        // }
 
+                      } else if (state is DeleteLaporanSuccess) {
+                        context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
                       } else if (state is LaporanError) {
                         mipokaCustomToast(state.message);
                       }

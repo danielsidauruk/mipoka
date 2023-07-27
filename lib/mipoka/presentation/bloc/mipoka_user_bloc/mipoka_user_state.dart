@@ -38,10 +38,10 @@ class MipokaUserError extends MipokaUserState {
   List<Object> get props => [message];
 }
 
-class MipokaUserSuccessMessage extends MipokaUserState {
+class MipokaUserSuccess extends MipokaUserState {
   final String message;
 
-  const MipokaUserSuccessMessage({this.message = "Data has changed"});
+  const MipokaUserSuccess({this.message = "Data has changed"});
 
   @override
   List<Object> get props => [message];

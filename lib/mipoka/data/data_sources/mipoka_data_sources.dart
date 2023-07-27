@@ -1354,6 +1354,20 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
         print(e);
       }
     }
+
+    // try {
+    //   final response = await DioUtil().dio.put(
+    //     '$sessionPath/${sessionModel.idSession}',
+    //     data: sessionModel.toJson(),
+    //   );
+    //   if (kDebugMode) {
+    //     print(response.data);
+    //   }
+    // } on DioError catch (e) {
+    //   if (kDebugMode) {
+    //     print(e);
+    //   }
+    // }
   }
 
 

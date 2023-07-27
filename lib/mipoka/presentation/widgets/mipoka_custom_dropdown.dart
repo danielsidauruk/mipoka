@@ -90,11 +90,12 @@ class _MipokaCustomDropdownState extends State<MipokaCustomDropdown> {
   void initState() {
     String? initialItem;
     super.initState();
-    if(widget.initialItem == "") {
+    if(widget.initialItem == "" || widget.initialItem == null) {
       initialItem = widget.items.first;
     } else {
       initialItem = widget.initialItem;
     }
+    widget.items == [] ? ["-"] : widget.items;
     dropdownBloc = DropdownBloc(initialItem ?? widget.items.first);
   }
 

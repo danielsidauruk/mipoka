@@ -420,7 +420,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
 
                         CustomMipokaButton(
                           onTap: () {
-                            // SignatureDialogUtils.showPopup(context, usulanKegiatan, isPop: false);
+                            SignatureDialogUtils.showPopup(context, usulanKegiatan, isPop: false);
                           },
                           text: 'Terima',
                         ),

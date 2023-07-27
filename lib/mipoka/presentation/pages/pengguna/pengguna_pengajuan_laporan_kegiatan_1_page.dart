@@ -81,7 +81,7 @@ class _PenggunaPengajuanLaporanKegiatan1State
                           arguments: widget.laporanArgs,
                         );
 
-                        if (result != null && result == true && context.mounted) {
+                        if (result == true && context.mounted) {
                           context.read<LaporanBloc>().add(
                               ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
                         }
@@ -98,6 +98,7 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
                         final laporan = laporanState.laporan;
                         _pencapaianController.text = laporan.pencapaian;
+                        _usulanKegiatan = laporan.usulanKegiatan;
 
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,19 +113,23 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
                                   final usulanKegiatanList = state.usulanKegiatanList;
 
-                                  List<String> namaUsulanKegiatan = usulanKegiatanList.map(
-                                          (usulanKegiatan) => usulanKegiatan.namaKegiatan).toList();
+                                  List<String> namaUsulanKegiatan = usulanKegiatanList
+                                      .map((usulanKegiatan) => usulanKegiatan.namaKegiatan)
+                                      .toList();
 
-                                  _usulanKegiatan ??= usulanKegiatanList.first;
-
-                                  return MipokaCustomDropdown(
-                                    items: namaUsulanKegiatan,
-                                    initialItem: _usulanKegiatan?.namaKegiatan,
-                                    onValueChanged: (value) {
-                                      int index = namaUsulanKegiatan.indexOf(value ?? _usulanKegiatan!.namaKegiatan);
-                                      _usulanKegiatan = usulanKegiatanList[index];
-                                    },
-                                  );
+                                  if (usulanKegiatanList.isNotEmpty) {
+                                    _usulanKegiatan ??= usulanKegiatanList[0];
+                                    return MipokaCustomDropdown(
+                                      items: namaUsulanKegiatan,
+                                      initialItem: _usulanKegiatan?.namaKegiatan,
+                                      onValueChanged: (value) {
+                                        int index = namaUsulanKegiatan.indexOf(value ?? _usulanKegiatan!.namaKegiatan);
+                                        _usulanKegiatan = usulanKegiatanList[index];
+                                      },
+                                    );
+                                  } else {
+                                    return const Text("Tidak ada Usulan Kegiatan.");
+                                  }
 
                                 } else if (state is UsulanKegiatanError) {
                                   print("Error ${state.message}");
@@ -149,14 +154,16 @@ class _PenggunaPengajuanLaporanKegiatan1State
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                widget.laporanArgs.isRevisiLaporan == true ?
+                                widget.laporanArgs.isRevisiLaporan == false ?
                                 CustomMipokaButton(
-                                  onTap: () => Navigator.pop(context, true),
+                                  onTap: () {
+                                    context.read<LaporanBloc>().add(
+                                        DeleteLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
+                                  },
                                   text: 'Batal',
                                 ) :
                                 CustomMipokaButton(
-                                  onTap: () => context.read<LaporanBloc>().add(
-                                      DeleteLaporanEvent(idLaporan: widget.laporanArgs.idLaporan)),
+                                  onTap: () => Navigator.pop(context, true),
                                   text: 'Batal',
                                 ),
 

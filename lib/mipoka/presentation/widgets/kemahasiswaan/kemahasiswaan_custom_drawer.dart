@@ -37,8 +37,8 @@ class _MobileCustomKemahasiswaanDrawerState
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'Tashia Taslim (Kemahasiswaan)',
-                style: TextStyle(
+                user?.email ?? "",
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),

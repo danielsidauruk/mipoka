@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/login_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_login_text_field.dart';
@@ -18,7 +21,13 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   User? user = FirebaseAuth.instance.currentUser;
-  
+
+  @override
+  void dispose() {
+    context.read<MipokaUserBloc>().close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     bool darkMode = false;
@@ -94,6 +103,7 @@ class _LoginPageState extends State<LoginPage> {
 
                     if (email.isNotEmpty && password.isNotEmpty) {
                       mipokaCustomToast("Autentikasi Akun ...");
+
                       try {
                         UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
                           email: email,
@@ -101,12 +111,15 @@ class _LoginPageState extends State<LoginPage> {
                         );
                         mipokaCustomToast("Berhasil Masuk!");
 
-                        User? user = FirebaseAuth.instance.currentUser;
+                        // User? user = FirebaseAuth.instance.currentUser;
 
                         if (context.mounted) {
-                          Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                          // Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
-                          // Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute);
+                          if (email == "mipoka.admin@gmail.com") {
+                            Navigator.pushNamed(context, mipokaAdminDashboardRoute);
+                          } else {
+                            context.read<MipokaUserBloc>().add(
+                                ReadMipokaUserEvent(idMipokaUser: userCredential.user!.uid));
+                          }
                         }
                       } catch (e) {
                         mipokaCustomToast(
@@ -117,6 +130,44 @@ class _LoginPageState extends State<LoginPage> {
                       mipokaCustomToast("Email dan Kata Sandi tidak boleh kosong.");
                     }
                   },
+                ),
+
+                BlocListener<MipokaUserBloc, MipokaUserState>(
+                  listenWhen: (prev, current) =>
+                  prev.runtimeType != current.runtimeType,
+                  listener: (context, state) {
+                    if (state is MipokaUserHasData) {
+                      final mipokaUser = state.mipokaUser;
+
+                      if (mipokaUser.role == kemahasiswaan) {
+                        Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
+                      } else if (mipokaUser.role == pembina) {
+                        Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute);
+                      } else {
+                        Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                      }
+                    } else if (state is MipokaUserError) {
+                      mipokaCustomToast(state.message);
+                    }
+                  },
+                  child: const SizedBox(),
+                  // builder: (context, state) {
+                  //   if (state is MipokaUserHasData) {
+                  //     final mipokaUser = state.mipokaUser;
+                  //
+                  //     if (mipokaUser.role == kemahasiswaan) {
+                  //       return const KemahasiswaanBerandaPage();
+                  //     } else if (mipokaUser.role == pembina) {
+                  //       return const PemeriksaDaftarPengajuanKegiatanPage();
+                  //     } else if (mipokaUser.role == mipokaAdmin) {
+                  //       return const MipokaAdminDashboard();
+                  //     } else {
+                  //       return const PenggunaBerandaPage();
+                  //     }
+                  //   } else {
+                  //     return const LoginPage();
+                  //   }
+                  // },
                 ),
 
                 const CustomFieldSpacer(height: 8.0),

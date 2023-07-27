@@ -1,8 +1,8 @@
 import 'dart:math';
 import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
 
 const listStatus = ['Semua', 'Menunggu', 'Berlansung', 'Ditolak'];
 const listNamaOrmawa = ['Ormawa A', 'Ormawa B', 'Ormawa C', 'Ormawa D', 'Ormawa E'];
@@ -10,7 +10,15 @@ const listNamaOrmawa = ['Ormawa A', 'Ormawa B', 'Ormawa C', 'Ormawa D', 'Ormawa 
 const listNamaOrmawa2 = ['Semua', 'Ormawa A', 'Ormawa B', 'Ormawa C', 'Ormawa D', 'Ormawa E'];
 
 
+const roleList = [kemahasiswaan, pembina, mahasiswa, mipokaAdmin];
+
+const String kemahasiswaan = "Kemahasiswaan";
+const String pembina = "Pembina";
+const String mahasiswa = "Mahasiswa";
+const String mipokaAdmin = "Admin";
+
 const listGedung = ['A', 'B', 'C', 'D'];
+const listRuangan = ['A', 'B', 'C', 'D'];
 const listPembiayaan = ['Mandiri', 'Didanai'];
 const listBentukKegiatan = ['Bakti Sosial', 'Festival', 'Kebaktian', 'Kompetisi', 'Latihan',
   'Loka Karya', 'Pelantikan', 'Perkumpulan', 'Pertunjukan', 'Rapat', 'Seminar', 'Turnamen'];

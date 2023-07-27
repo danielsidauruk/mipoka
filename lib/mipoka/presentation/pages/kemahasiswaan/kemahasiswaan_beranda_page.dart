@@ -91,6 +91,7 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                         mipokaCustomToast(state.message);
                       }
                     },
+
                     builder: (context, state) {
                       if (state is BeritaLoading) {
                         return const Text('Loading');

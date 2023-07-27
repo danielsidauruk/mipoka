@@ -44,17 +44,6 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
       );
     });
 
-    // on<UpdateSessionEvent>((event, emit) async {
-    //   emit(SessionLoading());
-    //
-    //   final result = await sessionUseCase.updateSession(event.session);
-    //
-    //   result.fold(
-    //         (failure) => emit(SessionError(message: failure.message)),
-    //         (_) => emit(const SessionSuccess()),
-    //   );
-    // });
-
     on<DeleteSessionEvent>((event, emit) async {
       emit(SessionLoading());
 

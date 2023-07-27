@@ -144,6 +144,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
 
                         if (context.mounted) {
+                          mipokaCustomToast(savingDataMessage);
+
                           context.read<MipokaUserBloc>().add(
                             CreateMipokaUserEvent(
                               mipokaUser: MipokaUser(
@@ -159,6 +161,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 kelas: _kelasController.text,
                                 periodeMpt: "",
                                 statusMpt: "",
+                                role: mahasiswa,
                                 prodi: _prodiController.text,
                                 createdAt: currentDate,
                                 updatedAt: currentDate,
@@ -167,8 +170,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               ),
                             ),
                           );
-                          mipokaCustomToast('Your account has been registered.');
-                          Navigator.pushNamed(context, penggunaBerandaPageRoute);
                         }
                       } catch (e) {
                         mipokaCustomToast(e.toString());
@@ -177,6 +178,22 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       mipokaCustomToast("all fields cannot be empty");
                     }
                   },
+                ),
+
+                BlocListener<MipokaUserBloc, MipokaUserState>(
+                  listenWhen: (prev, current) =>
+                  prev.runtimeType != current.runtimeType,
+                  listener: (context, state) async {
+                    if (state is MipokaUserSuccess) {
+
+                      mipokaCustomToast('Akun anda telah terdaftar');
+                      Navigator.pushNamed(context, penggunaBerandaPageRoute);
+
+                    } else if (state is MipokaUserError) {
+                      mipokaCustomToast(state.message);
+                    }
+                  },
+                  child: const SizedBox(),
                 ),
 
                 Row(

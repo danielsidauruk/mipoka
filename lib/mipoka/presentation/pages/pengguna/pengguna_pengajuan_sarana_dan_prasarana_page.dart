@@ -118,12 +118,14 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                         List<String> namaOrmawaList = ormawaList.map(
                                 (ormawa) => ormawa.namaOrmawa).toList();
 
-                        _ormawa ??= ormawaList.first;
                         _ormawa = session.ormawa;
+                        _ormawa ??= ormawaList.first;
                         _tanggalMulaiController.text = session.tanggalMulai;
                         _tanggalSelesaiController.text = session.tanggalSelesai;
                         _gedungController.text = session.gedung;
+                        _gedungController.text = _gedungController.text == "" ? listGedung.first : _gedungController.text;
                         _ruangController.text = session.ruangan;
+                        _ruangController.text = _ruangController.text == "" ? listRuangan.first : _ruangController.text;
                         _waktuMulaiController.text = session.waktuMulaiPenggunaan;
                         _waktuSelesaiController.text = session.waktuSelesaiPenggunaan;
 
@@ -290,6 +292,7 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                                         _waktuMulaiController.text.isNotEmpty &&
                                         _waktuSelesaiController.text.isNotEmpty) {
                                       try {
+
                                         final proyektorLcd = int.tryParse(_proyektorLcdController.text);
                                         final laptop = int.tryParse(_laptopController.text);
                                         final mikrofon = int.tryParse(_mikrofonController.text);
@@ -300,30 +303,31 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                                         final spidol = int.tryParse(_spidolController.text);
 
                                         mipokaCustomToast(savingDataMessage);
-                                        context.read<SessionBloc>().add(
-                                          UpdateSessionEvent(
-                                            session: session.copyWith(
-                                              ormawa: _ormawa,
-                                              tanggalMulai: _tanggalMulaiController.text,
-                                              tanggalSelesai: _tanggalSelesaiController.text,
-                                              gedung: _gedungController.text,
-                                              ruangan: _ruangController.text,
-                                              waktuMulaiPenggunaan: _waktuMulaiController.text,
-                                              waktuSelesaiPenggunaan: _waktuSelesaiController.text,
-                                              proyektor: proyektorLcd,
-                                              laptop: laptop,
-                                              mikrofon: mikrofon,
-                                              speaker: speaker,
-                                              meja: meja,
-                                              kursi: kursi,
-                                              papanTulis: papanTulis,
-                                              spidol: spidol,
-                                              lainLain: _lainController.text,
-                                              updatedBy: user?.email ?? "unknown",
-                                              updatedAt: currentDate,
-                                            ),
+
+                                        Navigator.pop(
+                                          context,
+                                          session.copyWith(
+                                            ormawa: _ormawa,
+                                            tanggalMulai: _tanggalMulaiController.text,
+                                            tanggalSelesai: _tanggalSelesaiController.text,
+                                            gedung: _gedungController.text,
+                                            ruangan: _ruangController.text,
+                                            waktuMulaiPenggunaan: _waktuMulaiController.text,
+                                            waktuSelesaiPenggunaan: _waktuSelesaiController.text,
+                                            proyektor: proyektorLcd,
+                                            laptop: laptop,
+                                            mikrofon: mikrofon,
+                                            speaker: speaker,
+                                            meja: meja,
+                                            kursi: kursi,
+                                            papanTulis: papanTulis,
+                                            spidol: spidol,
+                                            lainLain: _lainController.text,
+                                            updatedBy: user?.email ?? "unknown",
+                                            updatedAt: currentDate,
                                           ),
                                         );
+
                                       } catch (e) {
                                         mipokaCustomToast(dataTypeErrorMessage);
                                       }

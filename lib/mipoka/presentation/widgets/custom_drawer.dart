@@ -285,5 +285,6 @@ Future<void> logoutUser() async {
   try {
     await FirebaseAuth.instance.signOut();
   } catch (e) {
+    mipokaCustomToast(e.toString());
   }
 }

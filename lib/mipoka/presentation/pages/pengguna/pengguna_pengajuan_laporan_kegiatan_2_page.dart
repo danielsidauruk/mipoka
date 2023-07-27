@@ -371,7 +371,7 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   CustomMipokaButton(
-                                    onTap: () => Navigator.pop(context, true),
+                                    onTap: () => Navigator.pop(context),
                                     text: 'Sebelumnya',
                                   ),
                                   const SizedBox(width: 8.0),
