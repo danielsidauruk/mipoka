@@ -91,7 +91,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                 listenWhen: (prev, current) =>
                 prev.runtimeType != current.runtimeType,
                 listener: (context, state) async {
-                  if (state is SaveAndSendLastPageEvent) {
+                  if (state is SaveAndSendLastPageSuccess) {
 
                     Navigator.pushNamedAndRemoveUntil(
                       context,

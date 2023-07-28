@@ -106,7 +106,22 @@ class _PenggunaDaftarPengajuanKegiatanState
                         final usulanKegiatanList = state.usulanKegiatanList;
                         return Column(
                           children: [
-                            MipokaCountText(total: usulanKegiatanList.length),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+                                  },
+                                  child: const Icon(
+                                    Icons.refresh,
+                                  ),
+                                ),
+
+                                MipokaCountText(total: usulanKegiatanList.length),
+                              ],
+                            ),
 
                             const CustomFieldSpacer(),
 

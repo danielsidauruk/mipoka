@@ -83,7 +83,21 @@ class _KemahasiswaanCekUsulanKegiatanPageState
 
                         return Column(
                           children: [
-                            MipokaCountText(total: usulanKegiatanList.length),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+                                  },
+                                  child: const Icon(
+                                    Icons.refresh,
+                                  ),
+                                ),
+                                MipokaCountText(total: usulanKegiatanList.length),
+                              ],
+                            ),
 
                             const CustomFieldSpacer(),
 
@@ -121,7 +135,7 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                                     ),
                                     DataColumn(
                                       label: Text(
-                                        'Validasi Pengguna',
+                                        'Validasi Pembina',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,

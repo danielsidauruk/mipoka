@@ -22,11 +22,11 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   User? user = FirebaseAuth.instance.currentUser;
 
-  @override
-  void dispose() {
-    context.read<MipokaUserBloc>().close();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   context.read<MipokaUserBloc>().close();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -116,15 +116,19 @@ class _LoginPageState extends State<LoginPage> {
                         if (context.mounted) {
                           if (email == "mipoka.admin@gmail.com") {
                             Navigator.pushNamed(context, mipokaAdminDashboardRoute);
+                          } else  if (email == "tommychristian24@gmail.com") {
+                            Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
+                          } else if (email == "hafizsritonga08@gmail.com") {
+                            Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute);
                           } else {
+
                             // context.read<MipokaUserBloc>().add(
                             //     ReadMipokaUserEvent(idMipokaUser: userCredential.user!.uid));
                             // if (mipokaUser.role == kemahasiswaan) {
-                              Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
+
                             // } else if (mipokaUser.role == pembina) {
-                            //   Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute);
                             // } else {
-                            //   Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                              Navigator.pushNamed(context, penggunaBerandaPageRoute);
                             // }
                           }
                         }

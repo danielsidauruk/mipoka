@@ -187,6 +187,18 @@ class _PenggunaPengajuanUsulanKegiatan3State
                           crossAxisAlignment: CrossAxisAlignment.start,
 
                           children: [
+                            InkWell(
+                              onTap: () {
+                                context.read<UsulanKegiatanBloc>().add(
+                                    ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+                              },
+                              child: const Icon(
+                                Icons.refresh,
+                              ),
+                            ),
+
+                            const CustomFieldSpacer(),
+
                             buildTitle('Latar Belakang'),
                             buildDescription('Berisi latar belakang kegiatan diusulkan'),
                             if (widget.usulanArgs.isRevisiUsulan == true
@@ -252,6 +264,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                             if (widget.usulanArgs.isRevisiUsulan == true
                                 && state.usulanKegiatan.revisiUsulan?.revisiRencanaAnggaranKegiatan != "")
                               buildRevisiText(state.usulanKegiatan.revisiUsulan?.revisiRencanaAnggaranKegiatan ?? ""),
+
                             CustomTextField(
                                 controller: _rencanaAnggaranKegiatanController),
 
@@ -567,9 +580,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                       int totalBiaya = usulanKegiatan.biayaKegiatan.fold(0, (sum, biayaKegiatan) => sum + biayaKegiatan.total);
 
                                       final usulanKegiatanObject = usulanKegiatan.copyWith(
-                                        ormawa: usulanKegiatan.ormawa?.copyWith(
-                                          logoOrmawa: "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/Pasted%20Graphic%20copy.png?alt=media&token=b42b587a-c2ca-4caf-966d-2fde8056a000",
-                                        ),
                                         latarBelakang: _latarBelakangController.text,
                                         tujuanKegiatan: _tujuanKegiatanController.text,
                                         manfaatKegiatan: _manfaatKegiatanController.text,
@@ -594,29 +604,39 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                         ),
                                       );
 
+                                      print("File Usulan Kegaitan : $fileUsulanKegiatan");
+                                      print(
+                                        UsulanKegiatanModel.fromEntity(
+                                          usulanKegiatanObject,
+                                        ),
+                                      );
+
                                       if (fileUsulanKegiatan != null) {
                                         if (context.mounted) {
                                           context.read<UsulanKegiatanBloc>().add(
                                             SaveAndSendLastPageEvent(
-                                              usulanKegiatan: usulanKegiatan.copyWith(
-                                                latarBelakang: _latarBelakangController.text,
-                                                tujuanKegiatan: _tujuanKegiatanController.text,
-                                                manfaatKegiatan: _manfaatKegiatanController.text,
-                                                bentukKegiatan: _bentukPelaksanaanKegiatanController.text,
-                                                targetKegiatan: _targetPencapaianKegiatanController.text,
-                                                waktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
-                                                rencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
-                                                perlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
-                                                penutup: _penutupController.text,
-                                                fotoPostinganKegiatan: _postinganKegiatanController,
-                                                fotoSuratUndanganKegiatan: _suratUndanganKegiatanController,
-                                                fotoLinimasaKegiatan: _linimasaKegiatanController,
-                                                fotoTempatKegiatan: _fotoTempatKegiatanController,
-                                                totalBiaya: totalBiaya,
+                                              usulanKegiatan: usulanKegiatanObject.copyWith(
                                                 fileUsulanKegiatan: fileUsulanKegiatan,
-                                                updatedAt: currentDate,
-                                                updatedBy: user?.email,
                                               ),
+                                              // usulanKegiatan.copyWith(
+                                              //   latarBelakang: _latarBelakangController.text,
+                                              //   tujuanKegiatan: _tujuanKegiatanController.text,
+                                              //   manfaatKegiatan: _manfaatKegiatanController.text,
+                                              //   bentukKegiatan: _bentukPelaksanaanKegiatanController.text,
+                                              //   targetKegiatan: _targetPencapaianKegiatanController.text,
+                                              //   waktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
+                                              //   rencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
+                                              //   perlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
+                                              //   penutup: _penutupController.text,
+                                              //   fotoPostinganKegiatan: _postinganKegiatanController,
+                                              //   fotoSuratUndanganKegiatan: _suratUndanganKegiatanController,
+                                              //   fotoLinimasaKegiatan: _linimasaKegiatanController,
+                                              //   fotoTempatKegiatan: _fotoTempatKegiatanController,
+                                              //   totalBiaya: totalBiaya,
+                                              //   fileUsulanKegiatan: fileUsulanKegiatan,
+                                              //   updatedAt: currentDate,
+                                              //   updatedBy: user?.email,
+                                              // ),
                                             ),
                                           );
 

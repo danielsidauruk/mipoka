@@ -167,8 +167,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<OrmawaDropDownBloc>()),
       ],
       child: MaterialApp(
-        navigatorKey: null,
-        scaffoldMessengerKey: null,
         // initialRoute: loginPageRoute,
         // routes: "/",
         debugShowCheckedModeBanner: false,
