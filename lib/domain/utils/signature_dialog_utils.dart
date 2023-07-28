@@ -6,9 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_3_page.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 import '../../../../domain/utils/mobile_image_converter.dart'
@@ -118,6 +120,7 @@ class SignatureDialogUtils {
 
     Uint8List? data;
     String? tandaTanganPembina;
+    String? docxUrl;
     int uniqueId = UniqueIdGenerator.generateUniqueId();
 
     if (kIsWeb) {
@@ -134,6 +137,14 @@ class SignatureDialogUtils {
 
     mipokaCustomToast("Menyimpan data ...");
     tandaTanganPembina = await uploadBytesToFirebase(data!, "signature$uniqueId.png");
+    docxUrl = await generateUsulanDocx(
+      UsulanKegiatanModel.fromEntity(
+        usulanKegiatan.copyWith(
+          tandaTanganPembina: tandaTanganPembina,
+          validasiPembina: disetujui,
+        ),
+      ),
+    );
 
     if(context.mounted) {
       context.read<UsulanKegiatanBloc>().add(
@@ -141,7 +152,7 @@ class SignatureDialogUtils {
           usulanKegiatan: usulanKegiatan.copyWith(
             tandaTanganPembina: tandaTanganPembina,
             validasiPembina: disetujui,
-            statusUsulan: disetujui,
+            fileUsulanKegiatan: docxUrl,
           ),
         ),
       );

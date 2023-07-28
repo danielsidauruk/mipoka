@@ -172,12 +172,12 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                                         ),
                                         DataCell(
                                           Center(
-                                            child: usulanKegiatan.validasiPembina == "true"
-                                                ? Image.asset(
+                                            child: usulanKegiatan.validasiPembina == disetujui ?
+                                            Image.asset(
                                               'assets/icons/approve.png',
                                               width: 24,
-                                            )
-                                                : Image.asset(
+                                            ) :
+                                            Image.asset(
                                               'assets/icons/close.png',
                                               width: 24,
                                             ),

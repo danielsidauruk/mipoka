@@ -90,28 +90,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
     super.dispose();
   }
 
-  Future<String?> generateUsulanDocx(UsulanKegiatanModel usulanKegiatanModel) async {
-    // const String localUrl = "http://localhost:3000/usulan-kegiatan";
-    const String localUrl = "http://192.168.43.183:3000/usulan-kegiatan";
-
-    print("generateUsulan triggered");
-    try {
-      final response = await DioUtil().dio.post(
-        localUrl,
-        data: usulanKegiatanModel.toJson(),
-      );
-      if (kDebugMode) {
-        print(response.data);
-      }
-      return response.data.toString();
-    } on DioError catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-    }
-    return null;
-  }
-
   // Future<String?> generateUsulanDocx(UsulanKegiatanModel usulanKegiatanModel) async {
   //   const String localUrl = "http://192.168.43.183:3000/usulan-kegiatan";
   //
@@ -672,4 +650,26 @@ class _PenggunaPengajuanUsulanKegiatan3State
       ),
     );
   }
+}
+
+Future<String?> generateUsulanDocx(UsulanKegiatanModel usulanKegiatanModel) async {
+  // const String localUrl = "http://localhost:3000/usulan-kegiatan";
+  const String localUrl = "http://192.168.43.183:3000/usulan-kegiatan";
+
+  print("generateUsulan triggered");
+  try {
+    final response = await DioUtil().dio.post(
+      localUrl,
+      data: usulanKegiatanModel.toJson(),
+    );
+    if (kDebugMode) {
+      print(response.data);
+    }
+    return response.data.toString();
+  } on DioError catch (e) {
+    if (kDebugMode) {
+      print(e);
+    }
+  }
+  return null;
 }
