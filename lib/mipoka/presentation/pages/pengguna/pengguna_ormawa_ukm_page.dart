@@ -115,20 +115,26 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                             const CustomFieldSpacer(),
 
                             Center(
-                              child: Container(
+                              child: Image.network(
+                                ormawa.logoOrmawa,
                                 width: 200,
-                                height: 200,
-                                color: Colors.grey,
+                                fit: BoxFit.contain,
                               ),
                             ),
 
                             const CustomFieldSpacer(),
 
-                            customBoxTitle("${ormawa.namaOrmawa} (${ormawa.namaSingkatanOrmawa})"),
-                            Text('Berdiri         : "ormawa.tanggalBerdiri"'),
-                            Text('Pendiri         : ${ormawa.ketua}'),
-                            Text('Jumlah Anggota  : ${ormawa.listAnggota.length}',
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "${ormawa.namaOrmawa} (${ormawa.namaSingkatanOrmawa})",
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ],
                             ),
 
                             const CustomFieldSpacer(),

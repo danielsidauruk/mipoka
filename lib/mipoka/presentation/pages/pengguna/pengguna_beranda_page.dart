@@ -59,7 +59,6 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
                               ),
                               child: Container(
                                 constraints: const BoxConstraints(
-                                  minHeight: 80,
                                   maxHeight: 120,
                                 ),
                                 margin: const EdgeInsets.all(4.0),
@@ -69,18 +68,6 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
                                 ),
                                 child: Row(
                                   children: [
-                                    Container(
-                                      constraints: const BoxConstraints(maxWidth: 100),
-                                      margin: const EdgeInsets.all(4.0),
-                                      child: AspectRatio(
-                                        aspectRatio: 1.0,
-                                        child: Image.network(
-                                          berita.gambar,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 4.0),
                                     Expanded(
                                       child: Container(
                                         padding: const EdgeInsets.all(4.0),
@@ -92,8 +79,19 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
                                             Text(
                                               berita.createdAt,
                                               style: const TextStyle(
-                                                color: Colors.grey,
+                                                color: Colors.blueGrey,
                                                 fontSize: 12,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+
+                                            const SizedBox(height: 4.0),
+
+                                            Expanded(
+                                              child: Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                berita.teks,
+                                                style: const TextStyle(color: Colors.grey),
                                               ),
                                             ),
                                           ],

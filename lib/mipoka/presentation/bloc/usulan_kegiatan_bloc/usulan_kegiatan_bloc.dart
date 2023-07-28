@@ -144,5 +144,53 @@ class UsulanKegiatanBloc
             (_) => emit(SaveAndGoBackLastPageSuccess()),
       );
     });
+
+    on<AddReviseToUsulanEvent>((event, emit) async {
+      emit(UsulanKegiatanLoading());
+
+      final result = await usulanKegiatanUseCase
+          .updateUsulanKegiatan(event.usulanKegiatan);
+
+      result.fold(
+            (failure) => emit(UsulanKegiatanError(message: failure.message)),
+            (_) => emit(AddReviseToUsulanSuccess()),
+      );
+    });
+
+    on<SaveReviseFirstPageEvent>((event, emit) async {
+      emit(UsulanKegiatanLoading());
+
+      final result = await usulanKegiatanUseCase
+          .updateUsulanKegiatan(event.usulanKegiatan);
+
+      result.fold(
+            (failure) => emit(UsulanKegiatanError(message: failure.message)),
+            (_) => emit(SaveReviseFirstPageSuccess()),
+      );
+    });
+
+    on<SaveReviseSecondPageEvent>((event, emit) async {
+      emit(UsulanKegiatanLoading());
+
+      final result = await usulanKegiatanUseCase
+          .updateUsulanKegiatan(event.usulanKegiatan);
+
+      result.fold(
+            (failure) => emit(UsulanKegiatanError(message: failure.message)),
+            (_) => emit(SaveReviseSecondPageSuccess()),
+      );
+    });
+
+    on<SaveReviseLastPageEvent>((event, emit) async {
+      emit(UsulanKegiatanLoading());
+
+      final result = await usulanKegiatanUseCase
+          .updateUsulanKegiatan(event.usulanKegiatan);
+
+      result.fold(
+            (failure) => emit(UsulanKegiatanError(message: failure.message)),
+            (_) => emit(SaveReviseLastPageSuccess()),
+      );
+    });
   }
 }

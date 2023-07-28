@@ -149,6 +149,13 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                                   columns: const [
                                     DataColumn(
                                       label: Text(
+                                        'Id Kegiatan',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
                                         'Jenis Kegiatan',
                                         style: TextStyle(fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
@@ -175,6 +182,15 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
 
                                     return DataRow(
                                       cells: [
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              // 1690021017016894
+                                              "${namaKegiatanMpt.idNamaKegiatanMpt}",
+                                            ),
+                                          ),
+                                        ),
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,

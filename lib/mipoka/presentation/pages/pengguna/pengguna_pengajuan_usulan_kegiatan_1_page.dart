@@ -658,6 +658,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                         _ormawaSignatureController = await uploadBytesToFirebase(_signatureData!, "signature$uniqueId.png");
                                       }
 
+                                      _handleClearButtonPressed();
+
                                       if (context.mounted) {
                                         context.read<UsulanKegiatanBloc>().add(
                                           SaveUsulanKegiatanFirstPageEvent(
@@ -689,8 +691,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                             ),
                                           ),
                                         );
-
-                                        _handleClearButtonPressed();
                                       }
 
 

@@ -96,3 +96,39 @@ class SaveAndGoBackLastPageEvent extends UsulanKegiatanEvent {
   @override
   List<Object> get props => [usulanKegiatan];
 }
+
+class AddReviseToUsulanEvent extends UsulanKegiatanEvent {
+  final UsulanKegiatan usulanKegiatan;
+
+  const AddReviseToUsulanEvent({required this.usulanKegiatan});
+
+  @override
+  List<Object> get props => [usulanKegiatan];
+}
+
+class SaveReviseFirstPageEvent extends UsulanKegiatanEvent {
+  final UsulanKegiatan usulanKegiatan;
+
+  const SaveReviseFirstPageEvent({required this.usulanKegiatan});
+
+  @override
+  List<Object> get props => [usulanKegiatan];
+}
+
+class SaveReviseSecondPageEvent extends UsulanKegiatanEvent {
+  final UsulanKegiatan usulanKegiatan;
+
+  const SaveReviseSecondPageEvent({required this.usulanKegiatan});
+
+  @override
+  List<Object> get props => [usulanKegiatan];
+}
+
+class SaveReviseLastPageEvent extends UsulanKegiatanEvent {
+  final UsulanKegiatan usulanKegiatan;
+
+  const SaveReviseLastPageEvent({required this.usulanKegiatan});
+
+  @override
+  List<Object> get props => [usulanKegiatan];
+}

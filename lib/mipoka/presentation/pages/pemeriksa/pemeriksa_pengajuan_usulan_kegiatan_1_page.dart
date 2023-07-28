@@ -95,18 +95,14 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
                 listenWhen: (prev, current) =>
                 prev.runtimeType != current.runtimeType,
                 listener: (context, state) async {
-                  if (state is SaveUsulanKegiatanFirstPageSuccess) {
+                  if (state is SaveReviseFirstPageSuccess) {
 
-                    final result = await Navigator.pushNamed(
+                    Navigator.pushNamed(
                       context,
                       pemeriksaPengajuanUsulanKegiatan2LKPageRoute,
                       arguments: widget.idUsulan,
-                    );
-
-                    if (result == true && context.mounted) {
-                      context.read<UsulanKegiatanBloc>().add(
-                          ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan));
-                    }
+                    ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan)));
 
                   } else if (state is UsulanKegiatanError) {
                     mipokaCustomToast(state.message);
@@ -240,7 +236,7 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
                             CustomMipokaButton(
                               onTap: () {
                                 context.read<UsulanKegiatanBloc>().add(
-                                  SaveUsulanKegiatanFirstPageEvent(
+                                  SaveReviseFirstPageEvent(
                                     usulanKegiatan: usulanKegiatan.copyWith(
                                       revisiUsulan: usulanKegiatan.revisiUsulan?.copyWith(
                                         revisiPembiayaan: _revisiPembiayaanController.text,

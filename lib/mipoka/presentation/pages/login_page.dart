@@ -115,11 +115,23 @@ class _LoginPageState extends State<LoginPage> {
 
                         if (context.mounted) {
                           if (email == "mipoka.admin@gmail.com") {
-                            Navigator.pushNamed(context, mipokaAdminDashboardRoute);
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              mipokaAdminDashboardRoute,
+                                  (route) => false,
+                            );
                           } else  if (email == "tommychristian24@gmail.com") {
-                            Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              kemahasiswaanBerandaPageRoute,
+                                  (route) => false,
+                            );
                           } else if (email == "hafizsritonga08@gmail.com") {
-                            Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute);
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              pemeriksaDaftarUsulanKegiatanPageRoute,
+                                  (route) => false,
+                            );
                           } else {
 
                             // context.read<MipokaUserBloc>().add(
@@ -128,7 +140,11 @@ class _LoginPageState extends State<LoginPage> {
 
                             // } else if (mipokaUser.role == pembina) {
                             // } else {
-                              Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                penggunaBerandaPageRoute,
+                                    (route) => false,
+                              );
                             // }
                           }
                         }

@@ -63,3 +63,11 @@ class ManageTertibAcaraSuccess extends UsulanKegiatanState {}
 class SaveAndSendLastPageSuccess extends UsulanKegiatanState {}
 
 class SaveAndGoBackLastPageSuccess extends UsulanKegiatanState {}
+
+class AddReviseToUsulanSuccess extends UsulanKegiatanState {}
+
+class SaveReviseFirstPageSuccess extends UsulanKegiatanState {}
+
+class SaveReviseSecondPageSuccess extends UsulanKegiatanState {}
+
+class SaveReviseLastPageSuccess extends UsulanKegiatanState {}

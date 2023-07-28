@@ -145,9 +145,13 @@ class _MobileCustomPenggunaDrawerWidgetState
                               ),
                               IconButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, loginPageRoute);
-                                  mipokaCustomToast("You have been logged out");
                                   logoutUser();
+                                  Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    loginPageRoute,
+                                        (route) => false,
+                                  );
+                                  mipokaCustomToast("You have been logged out");
                                 },
                                 icon: const Icon(Icons.exit_to_app),
                               ),

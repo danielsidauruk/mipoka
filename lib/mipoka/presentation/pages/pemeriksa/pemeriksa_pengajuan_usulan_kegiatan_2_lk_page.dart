@@ -64,13 +64,14 @@ class _PemeriksaPengajuanUsulanKegiatan2LKPageState
                 listenWhen: (prev, current) =>
                 prev.runtimeType != current.runtimeType,
                 listener: (context, state) async {
-                  if (state is ManagePartisipanSuccess) {
+                  if (state is SaveReviseSecondPageSuccess) {
 
                     Navigator.pushNamed(
                       context,
                       pemeriksaPengajuanUsulanKegiatan3PageRoute,
                       arguments: widget.idUsulan,
-                    );
+                    ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan)));
 
                   } else if (state is UsulanKegiatanError) {
                     mipokaCustomToast(state.message);
@@ -346,7 +347,7 @@ class _PemeriksaPengajuanUsulanKegiatan2LKPageState
                             CustomMipokaButton(
                               onTap: () {
                                 context.read<UsulanKegiatanBloc>().add(
-                                  ManagePartisipanEvent(
+                                  SaveReviseSecondPageEvent(
                                     usulanKegiatan: usulanKegiatan.copyWith(
                                       revisiUsulan: usulanKegiatan.revisiUsulan?.copyWith(
                                         revisiPartisipan: _revisiPartisipanController.text,
@@ -356,11 +357,11 @@ class _PemeriksaPengajuanUsulanKegiatan2LKPageState
                                   ),
                                 );
 
-                                Navigator.pushNamed(
-                                  context,
-                                  pemeriksaPengajuanUsulanKegiatan3PageRoute,
-                                  arguments: widget.idUsulan,
-                                );
+                                // Navigator.pushNamed(
+                                //   context,
+                                //   pemeriksaPengajuanUsulanKegiatan3PageRoute,
+                                //   arguments: widget.idUsulan,
+                                // );
                               },
                               text: 'Berikutnya',
                             ),
@@ -371,7 +372,7 @@ class _PemeriksaPengajuanUsulanKegiatan2LKPageState
                   } else if (state is UsulanKegiatanError) {
                     return Text(state.message);
                   } else {
-                    return const Text("UsulanKegiatanBloc hasn't been triggered yet.");
+                    return const Text("UsulanKegiatanBloc Page 2 (LK) hasn't been triggered yet.");
                   }
                 },
               ),

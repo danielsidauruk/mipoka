@@ -43,28 +43,12 @@ class MipokaCustomLoadImage extends StatelessWidget {
             ) :
             Column(
               children: [
-                Row(
-                  children: [
-                    const Text(
-                      "Tutup",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        deleteFileFromFirebase(imageUrl);
-                        if (onDelete != null) {
-                          onDelete!();
-                        }
-                      },
-                      child: Image.asset(
-                        "assets/icons/delete.png",
-                        width: 24,
-                      ),
-                    ),
-                  ],
+                Text(
+                  "Tutup",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
                 ),
                 const CustomFieldSpacer(),
                 Image.network(imageUrl),

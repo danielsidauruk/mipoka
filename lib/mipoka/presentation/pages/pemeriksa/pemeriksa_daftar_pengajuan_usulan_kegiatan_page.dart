@@ -7,6 +7,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/signature_dialog_utils.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/revisi_usulan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
@@ -31,12 +32,19 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
 
   @override
   void initState() {
-    Future.microtask(() {
-      context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
-      context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: user?.uid ?? ""));
-    });
+    context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+    context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: user?.uid ?? ""));
     super.initState();
   }
+
+  @override
+  void dispose() {
+    context.read<UsulanKegiatanBloc>().close();
+    context.read<MipokaUserBloc>().close();
+    super.dispose();
+  }
+
+  int? selectedId;
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +86,14 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                     prev.runtimeType != current.runtimeType,
                     listener: (context, state) async {
 
-                      if (state is UsulanKegiatanSuccess || state is UpdateUsulanKegiatanSuccess) {
-                        context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+                      if (state is AddReviseToUsulanSuccess) {
+
+                        Navigator.pushNamed(
+                          context,
+                          pemeriksaPengajuanUsulanKegiatan1PageRoute,
+                          arguments: selectedId
+                        ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                            const ReadAllUsulanKegiatanEvent()));
 
                       } else if (state is UsulanKegiatanError) {
                         mipokaCustomToast(state.message);
@@ -207,69 +221,62 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                             builder: (context, state) {
                                               if (state is MipokaUserHasData) {
                                                 final mipokaUser = state.mipokaUser;
+                                                print(mipokaUser);
 
                                                 return InkWell(
                                                   onTap: () async {
+                                                    selectedId = usulanKegiatan.idUsulan;
+                                                    int uniqueId = UniqueIdGenerator.generateUniqueId();
 
-                                                    final result = await Navigator.pushNamed(
-                                                      context,
-                                                      pemeriksaPengajuanUsulanKegiatan1PageRoute,
-                                                      arguments: usulanKegiatan.idUsulan,
+                                                    context.read<UsulanKegiatanBloc>().add(
+                                                      AddReviseToUsulanEvent(
+                                                        usulanKegiatan: usulanKegiatan.copyWith(
+                                                          revisiUsulan: RevisiUsulan(
+                                                            idRevisiUsulan: uniqueId,
+                                                            mipokaUser: mipokaUser,
+                                                            revisiPembiayaan: "",
+                                                            revisiNamaKegiatan: "",
+                                                            revisiBentukKegiatan: "",
+                                                            revisiKategoriBentukKegiatan: "",
+                                                            revisiTempatKegiatan: "",
+                                                            revisiDeskripsiKegiatan: "",
+                                                            revisiTanggalMulaiKegiatan: "",
+                                                            revisiTanggalSelesaiKegiatan: "",
+                                                            revisiWaktuMulaiKegiatan: "",
+                                                            revisiWaktuSelesaiKegiatan: "",
+                                                            revisiTanggalKeberangkatan: "",
+                                                            revisiTanggalKepulangan: "",
+                                                            revisiJumlahPartisipan: "",
+                                                            revisiKategoriJumlahPartisipan: "",
+                                                            revisiTargetKegiatan: "",
+                                                            revisiTotalPendanaan: "",
+                                                            revisiKategoriTotalPendanaan: "",
+                                                            revisiKeterangan: "",
+                                                            revisiTandaTanganOrmawa: "",
+                                                            revisiPartisipan: "",
+                                                            revisiRincianBiayaKegiatan: "",
+                                                            revisiLatarBelakang: "",
+                                                            revisiTujuanKegiatan: "",
+                                                            revisiManfaatKegiatan: "",
+                                                            revisiBentukPelaksanaanKegiatan: "",
+                                                            revisiTargetPencapaianKegiatan: "",
+                                                            revisiWaktuDanTempatPelaksanaan: "",
+                                                            revisiRencanaAnggaranKegiatan: "",
+                                                            revisiIdTertibAcara: "",
+                                                            revisiPerlengkapanDanPeralatan: "",
+                                                            revisiPenutup: "",
+                                                            revisiFotoPostinganKegiatan: "",
+                                                            revisiFotoSuratUndanganKegiatan: "",
+                                                            revisiFotoLinimasaKegiatan: "",
+                                                            revisiFotoTempatKegiatan: "",
+                                                            createdAt: currentDate,
+                                                            createdBy: user?.email ?? "",
+                                                            updatedAt: currentDate,
+                                                            updatedBy: user?.email ?? "",
+                                                          ),
+                                                        ),
+                                                      ),
                                                     );
-
-                                                    if (result == true && context.mounted) {
-                                                      context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
-                                                    }
-
-                                                    // context.read<UsulanKegiatanBloc>().add(
-                                                    //   UpdateUsulanKegiatanEvent(
-                                                    //     usulanKegiatan: usulanKegiatan.copyWith(
-                                                    //       revisiUsulan: RevisiUsulan(
-                                                    //         idRevisiUsulan: usulanKegiatan.idUsulan,
-                                                    //         mipokaUser: mipokaUser,
-                                                    //         revisiPembiayaan: "",
-                                                    //         revisiNamaKegiatan: "",
-                                                    //         revisiBentukKegiatan: "",
-                                                    //         revisiKategoriBentukKegiatan: "",
-                                                    //         revisiTempatKegiatan: "",
-                                                    //         revisiDeskripsiKegiatan: "",
-                                                    //         revisiTanggalMulaiKegiatan: "",
-                                                    //         revisiTanggalSelesaiKegiatan: "",
-                                                    //         revisiWaktuMulaiKegiatan: "",
-                                                    //         revisiWaktuSelesaiKegiatan: "",
-                                                    //         revisiTanggalKeberangkatan: "",
-                                                    //         revisiTanggalKepulangan: "",
-                                                    //         revisiJumlahPartisipan: "",
-                                                    //         revisiKategoriJumlahPartisipan: "",
-                                                    //         revisiTargetKegiatan: "",
-                                                    //         revisiTotalPendanaan: "",
-                                                    //         revisiKategoriTotalPendanaan: "",
-                                                    //         revisiKeterangan: "",
-                                                    //         revisiTandaTanganOrmawa: "",
-                                                    //         revisiPartisipan: "",
-                                                    //         revisiRincianBiayaKegiatan: "",
-                                                    //         revisiLatarBelakang: "",
-                                                    //         revisiTujuanKegiatan: "",
-                                                    //         revisiManfaatKegiatan: "",
-                                                    //         revisiBentukPelaksanaanKegiatan: "",
-                                                    //         revisiTargetPencapaianKegiatan: "",
-                                                    //         revisiWaktuDanTempatPelaksanaan: "",
-                                                    //         revisiRencanaAnggaranKegiatan: "",
-                                                    //         revisiIdTertibAcara: "",
-                                                    //         revisiPerlengkapanDanPeralatan: "",
-                                                    //         revisiPenutup: "",
-                                                    //         revisiFotoPostinganKegiatan: "",
-                                                    //         revisiFotoSuratUndanganKegiatan: "",
-                                                    //         revisiFotoLinimasaKegiatan: "",
-                                                    //         revisiFotoTempatKegiatan: "",
-                                                    //         createdAt: currentDate,
-                                                    //         createdBy: user?.email ?? "",
-                                                    //         updatedAt: currentDate,
-                                                    //         updatedBy: user?.email ?? "",
-                                                    //       ),
-                                                    //     ),
-                                                    //   ),
-                                                    // );
                                                   },
                                                   child: Align(
                                                     alignment: Alignment.center,

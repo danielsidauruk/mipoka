@@ -37,6 +37,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
   PeriodeMpt? _periodeMpt;
   List nimList = [];
+  String nim = "";
 
   final StreamController<String?> _excelFileStream = StreamController<String?>();
   String? _excelFileController;
@@ -79,6 +80,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
         }
       }
     }
+    print (nimList);
   }
 
   @override
@@ -187,6 +189,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                                 // await Future.delayed(const Duration(milliseconds: 10000));
                                 if(context.mounted && mhsPerPeriodeMptList.contains(nimList[index]) == false) {
                                   context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
+                                  nim = nimList[index];
                                 }
                                 Future.delayed(const Duration(seconds: 10));
                               }
@@ -196,7 +199,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                           },
                         );
                       } else if (state is MhsPerPeriodeMptError) {
-                        mipokaCustomToast(state.message);
+                        mipokaCustomToast("$nim tidak terdaftar");
                         return const SizedBox();
                       } else {
                         return const SizedBox();

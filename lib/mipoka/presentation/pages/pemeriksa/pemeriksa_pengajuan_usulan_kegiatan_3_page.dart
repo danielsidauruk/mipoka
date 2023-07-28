@@ -36,8 +36,9 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
 
   @override
   void initState() {
-    context.read<RevisiUsulanBloc>().add(
-        ReadRevisiUsulanEvent(idRevisiUsulan: widget.idUsulan));
+
+    context.read<UsulanKegiatanBloc>().add(
+      ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan));
     super.initState();
   }
 
@@ -91,7 +92,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                 listenWhen: (prev, current) =>
                 prev.runtimeType != current.runtimeType,
                 listener: (context, state) async {
-                  if (state is SaveAndSendLastPageSuccess) {
+                  if (state is SaveReviseLastPageSuccess) {
 
                     Navigator.pushNamedAndRemoveUntil(
                       context,
@@ -336,6 +337,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                           title: "Surat Undangan Kegiatan",
                           controller: _suratUndanganController,
                         ),
+
                         MipokaCustomLoadImage(
                           stream: _suratUndanganStream,
                           imageUrl: usulanKegiatan.fotoSuratUndanganKegiatan,
@@ -390,7 +392,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                                 //     ),
                                 //   ),
                                 // );
-                                Navigator.pop(context, true);
+                                Navigator.pop(context);
                               },
                               text: "Kembali",
                             ),
@@ -400,7 +402,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                             CustomMipokaButton(
                               onTap: () {
                                 context.read<UsulanKegiatanBloc>().add(
-                                  SaveAndSendLastPageEvent(
+                                  SaveReviseLastPageEvent(
                                     usulanKegiatan: usulanKegiatan.copyWith(
                                       revisiUsulan: usulanKegiatan.revisiUsulan?.copyWith(
                                         revisiLatarBelakang: _latarBelakangController.text,
@@ -442,7 +444,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                   } else if (state is UsulanKegiatanError) {
                     return Text(state.message);
                   } else {
-                    return const Text("UsulanKegiatanBloc hasn't been triggered yet.");
+                    return const Text("UsulanKegiatanBloc Page 3 hasn't been triggered yet.");
                   }
                 },
               ),

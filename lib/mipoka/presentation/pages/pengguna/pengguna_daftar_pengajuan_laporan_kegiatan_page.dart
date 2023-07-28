@@ -66,22 +66,14 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                   BlocConsumer<LaporanBloc, LaporanState>(
                     listenWhen: (prev, current) =>
                     prev.runtimeType != current.runtimeType,
-                    listener: (context, state) async {
+                    listener: (context, state) {
 
                       if (state is CreateLaporanSuccess) {
-                        final result = await Navigator.pushNamed(
+                        Navigator.pushNamed(
                           context,
                           penggunaPengajuanLaporanKegiatanPage1Route,
                           arguments: LaporanArgs(idLaporan: uniqueId),
-                        );
-
-                        if (result == true && context.mounted) {
-                          context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
-                        }
-                        // else if (result is int && context.mounted) {
-                        //   context.read<LaporanBloc>().add(
-                        //       DeleteLaporanEvent(idLaporan: result));
-                        // }
+                        ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent()));
 
                       } else if (state is DeleteLaporanSuccess) {
                         context.read<LaporanBloc>().add(const ReadAllLaporanEvent());

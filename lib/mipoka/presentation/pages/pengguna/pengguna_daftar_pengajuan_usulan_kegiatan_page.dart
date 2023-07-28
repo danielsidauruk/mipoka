@@ -83,16 +83,12 @@ class _PenggunaDaftarPengajuanKegiatanState
                     listener: (context, state) async {
 
                       if (state is UsulanKegiatanSuccess) {
-                        final result = await Navigator.pushNamed(
+                        Navigator.pushNamed(
                           context,
                           penggunaPengajuanUsulanKegiatanPage1Route,
                           arguments: UsulanArgs(idUsulan: uniqueId),
-                        );
-
-                        if (result == true && context.mounted) {
-                          context.read<UsulanKegiatanBloc>().add(
-                              const ReadAllUsulanKegiatanEvent());
-                        }
+                        ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                            const ReadAllUsulanKegiatanEvent()));
                       }
                       else if (state is UsulanKegiatanError) {
                         mipokaCustomToast(state.message);
@@ -293,7 +289,8 @@ class _PenggunaDaftarPengajuanKegiatanState
                       } else if (mipokaUserState is MipokaUserHasData) {
                         final mipokaUser = mipokaUserState.mipokaUser;
 
-                        return CustomMipokaButton(
+                        return mipokaUser.ormawa.isNotEmpty ?
+                        CustomMipokaButton(
                           onTap: () {
                             context.read<UsulanKegiatanBloc>().add(
                               CreateUsulanKegiatanEvent(
@@ -352,7 +349,8 @@ class _PenggunaDaftarPengajuanKegiatanState
                             );
                           },
                           text: 'Ajukan Kegiatan',
-                        );
+                        ) :
+                        const SizedBox();
 
                       } else if (mipokaUserState is MipokaUserError) {
                         return Text(mipokaUserState.message);

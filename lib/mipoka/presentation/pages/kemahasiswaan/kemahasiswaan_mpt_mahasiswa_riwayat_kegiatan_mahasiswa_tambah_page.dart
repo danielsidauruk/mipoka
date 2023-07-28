@@ -202,7 +202,7 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
                         for (int index = 0; index < nimList.length; index++) {
                           await Future.delayed(const Duration(milliseconds: 1000));
                           if (context.mounted) {
-                            BlocProvider.of<MipokaUserByNimBloc>(context, listen: false).add(ReadMipokaUserByNimEvent(nim: nimList[index]));
+                            context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
                             // context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
                             context.read<KegiatanPerPeriodeMptBloc>().add(ReadKegiatanPerPeriodeMptEvent(
                                 idKegiatanPerPeriodeMpt: idKegiatanPerPeriodeMptList[index]));
@@ -239,7 +239,7 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
                                     statusMpt: disetujui,
                                     fileSertifikatMpt: "",
                                     hash: "",
-                                    keteranganMhs: "",
+                                    keteranganMhs: disetujui,
                                     keteranganSa: keteranganList[index],
                                     createdAt: currentDate,
                                     createdBy: user?.email ?? "unknown",
