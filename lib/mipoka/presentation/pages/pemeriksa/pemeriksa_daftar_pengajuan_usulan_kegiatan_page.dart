@@ -7,6 +7,7 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/signature_dialog_utils.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
+import 'package:mipoka/mipoka/domain/entities/revisi_usulan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -65,8 +66,8 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                     onValueChanged: (value) {
                       filter = value;
 
-                      context.read<UsulanKegiatanBloc>().add(
-                          ReadAllUsulanKegiatanEvent(filter: value ?? "semua"));
+                      // context.read<UsulanKegiatanBloc>().add(
+                      //     ReadAllUsulanKegiatanEvent(filter: value ?? "semua"));
                     },
                   ),
 
@@ -187,26 +188,93 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                           ),
                                         ),
                                         DataCell(
-                                          onTap: () async {
-                                            final result = await Navigator.pushNamed(
-                                              context,
-                                              pemeriksaPengajuanUsulanKegiatan1PageRoute,
-                                              arguments: usulanKegiatan.idUsulan,
-                                            );
+                                          BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                            builder: (context, state) {
+                                              if (state is MipokaUserHasData) {
+                                                final mipokaUser = state.mipokaUser;
 
-                                            if (result == true && context.mounted) {
-                                              context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
-                                            }
-                                          },
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              usulanKegiatan.namaKegiatan,
-                                              style: const TextStyle(
-                                                color: Colors.blue,
-                                                decoration: TextDecoration.underline,
-                                              ),
-                                            ),
+                                                return InkWell(
+                                                  onTap: () async {
+
+                                                    // final result = await Navigator.pushNamed(
+                                                    //   context,
+                                                    //   pemeriksaPengajuanUsulanKegiatan1PageRoute,
+                                                    //   arguments: usulanKegiatan.idUsulan,
+                                                    // );
+                                                    //
+                                                    // if (result == true && context.mounted) {
+                                                    //   context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+                                                    // }
+
+                                                    context.read<UsulanKegiatanBloc>().add(
+                                                      UpdateUsulanKegiatanEvent(
+                                                        usulanKegiatan: usulanKegiatan.copyWith(
+                                                          revisiUsulan: RevisiUsulan(
+                                                            idRevisiUsulan: usulanKegiatan.idUsulan,
+                                                            mipokaUser: mipokaUser,
+                                                            revisiPembiayaan: "",
+                                                            revisiNamaKegiatan: "",
+                                                            revisiBentukKegiatan: "",
+                                                            revisiKategoriBentukKegiatan: "",
+                                                            revisiTempatKegiatan: "",
+                                                            revisiDeskripsiKegiatan: "",
+                                                            revisiTanggalMulaiKegiatan: "",
+                                                            revisiTanggalSelesaiKegiatan: "",
+                                                            revisiWaktuMulaiKegiatan: "",
+                                                            revisiWaktuSelesaiKegiatan: "",
+                                                            revisiTanggalKeberangkatan: "",
+                                                            revisiTanggalKepulangan: "",
+                                                            revisiJumlahPartisipan: "",
+                                                            revisiKategoriJumlahPartisipan: "",
+                                                            revisiTargetKegiatan: "",
+                                                            revisiTotalPendanaan: "",
+                                                            revisiKategoriTotalPendanaan: "",
+                                                            revisiKeterangan: "",
+                                                            revisiTandaTanganOrmawa: "",
+                                                            revisiPartisipan: "",
+                                                            revisiRincianBiayaKegiatan: "",
+                                                            revisiLatarBelakang: "",
+                                                            revisiTujuanKegiatan: "",
+                                                            revisiManfaatKegiatan: "",
+                                                            revisiBentukPelaksanaanKegiatan: "",
+                                                            revisiTargetPencapaianKegiatan: "",
+                                                            revisiWaktuDanTempatPelaksanaan: "",
+                                                            revisiRencanaAnggaranKegiatan: "",
+                                                            revisiIdTertibAcara: "",
+                                                            revisiPerlengkapanDanPeralatan: "",
+                                                            revisiPenutup: "",
+                                                            revisiFotoPostinganKegiatan: "",
+                                                            revisiFotoSuratUndanganKegiatan: "",
+                                                            revisiFotoLinimasaKegiatan: "",
+                                                            revisiFotoTempatKegiatan: "",
+                                                            createdAt: currentDate,
+                                                            createdBy: user?.email ?? "",
+                                                            updatedAt: currentDate,
+                                                            updatedBy: user?.email ?? "",
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                  child: Align(
+                                                    alignment: Alignment.center,
+                                                    child: Text(
+                                                      usulanKegiatan.namaKegiatan,
+                                                      // style: const TextStyle(
+                                                      //   color: Colors.blue,
+                                                      //   decoration: TextDecoration.underline,
+                                                      // ),
+                                                    ),
+                                                  ),
+                                                );
+                                              } else if (state is MipokaUserError) {
+                                                mipokaCustomToast(state.message);
+
+                                                return const SizedBox();
+                                              } else {
+                                                return const Text("-");
+                                              }
+                                            },
                                           ),
                                         ),
                                         DataCell(
@@ -227,7 +295,8 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Row(
+                                            child: usulanKegiatan.statusUsulan == tertunda ?
+                                            Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 InkWell(
@@ -257,6 +326,19 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                   ),
                                                 ),
                                               ],
+                                            ) :
+                                            usulanKegiatan.statusUsulan == disetujui ?
+                                            Center(
+                                              child: Image.asset(
+                                                'assets/icons/approve.png',
+                                                width: 24,
+                                              ),
+                                            ) :
+                                            Center(
+                                              child: Image.asset(
+                                                'assets/icons/close.png',
+                                                width: 24,
+                                              ),
                                             ),
                                           ),
                                         ),

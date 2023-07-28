@@ -9,6 +9,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 
 class PemeriksaPengajuanUsulanKegiatan1Page extends StatefulWidget {
@@ -90,7 +91,28 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
 
               const CustomFieldSpacer(),
 
-              BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+              BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
+                listenWhen: (prev, current) =>
+                prev.runtimeType != current.runtimeType,
+                listener: (context, state) async {
+                  if (state is SaveUsulanKegiatanFirstPageSuccess) {
+
+                    final result = await Navigator.pushNamed(
+                      context,
+                      pemeriksaPengajuanUsulanKegiatan2LKPageRoute,
+                      arguments: widget.idUsulan,
+                    );
+
+                    if (result == true && context.mounted) {
+                      context.read<UsulanKegiatanBloc>().add(
+                          ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan));
+                    }
+
+                  } else if (state is UsulanKegiatanError) {
+                    mipokaCustomToast(state.message);
+                  }
+                },
+
                 builder: (context, state) {
                   if (state is UsulanKegiatanLoading) {
                     return const Text("Loading ....");
@@ -206,8 +228,8 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
                           children: [
                             CustomMipokaButton(
                               onTap: () {
-                                context.read<UsulanKegiatanBloc>().add(
-                                    ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan));
+                                // context.read<UsulanKegiatanBloc>().add(
+                                //     ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan));
                                 Navigator.pop(context);
                               },
                               text: 'Batal',
@@ -218,7 +240,7 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
                             CustomMipokaButton(
                               onTap: () {
                                 context.read<UsulanKegiatanBloc>().add(
-                                  UpdateUsulanKegiatanEvent(
+                                  SaveUsulanKegiatanFirstPageEvent(
                                     usulanKegiatan: usulanKegiatan.copyWith(
                                       revisiUsulan: usulanKegiatan.revisiUsulan?.copyWith(
                                         revisiPembiayaan: _revisiPembiayaanController.text,
@@ -246,20 +268,6 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
                                     ),
                                   ),
                                 );
-
-                                usulanKegiatan.tanggalKeberangkatan != "" ?
-                                Navigator.pushNamed(
-                                  context,
-                                  pemeriksaPengajuanUsulanKegiatan2LKPageRoute,
-                                  arguments: widget.idUsulan,
-                                ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                    ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan))) :
-                                Navigator.pushNamed(
-                                  context,
-                                  pemeriksaPengajuanUsulanKegiatan2DKPageRoute,
-                                  arguments: widget.idUsulan,
-                                ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                    ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan)));
                               },
                               text: 'Berikutnya',
                             ),

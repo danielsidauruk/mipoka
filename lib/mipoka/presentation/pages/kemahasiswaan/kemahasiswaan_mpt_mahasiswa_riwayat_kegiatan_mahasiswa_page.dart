@@ -263,7 +263,20 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
 
                   const CustomFieldSpacer(),
 
-                  BlocBuilder<RiwayatKegiatanMptBloc, RiwayatKegiatanMptState>(
+                  BlocConsumer<RiwayatKegiatanMptBloc, RiwayatKegiatanMptState>(
+                      // RiwayatKegiatanMptSuccess
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) async {
+
+                      if (state is RiwayatKegiatanMptSuccess) {
+                        context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
+
+                      } else if (state is RiwayatKegiatanMptError) {
+                        mipokaCustomToast(state.message);
+                      }
+                    },
+
                     builder: (context, state) {
                       if (state is RiwayatKegiatanMptLoading) {
                         return const Text("Loading ....");
@@ -401,8 +414,14 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Image.asset(
+                                            child: riwayatKegiatanMpt.statusMpt == disetujui?
+                                            Image.asset(
                                               'assets/icons/approve.png',
+                                              width: 24,
+                                            )
+                                                :
+                                            Image.asset(
+                                              'assets/icons/close.png',
                                               width: 24,
                                             ),
                                           ),

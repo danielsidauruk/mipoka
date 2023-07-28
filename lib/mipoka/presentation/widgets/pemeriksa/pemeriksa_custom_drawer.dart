@@ -1,12 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
-
-import '../custom_drawer.dart';
-import '../mipoka_custom_toast.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class MobileCustomPemeriksaDrawer extends StatefulWidget {
   const MobileCustomPemeriksaDrawer({super.key});
@@ -19,7 +18,6 @@ class MobileCustomPemeriksaDrawer extends StatefulWidget {
 class _MobileCustomPemeriksaDrawerState
     extends State<MobileCustomPemeriksaDrawer> {
   final TextEditingController _queryController = TextEditingController();
-  User? user = FirebaseAuth.instance.currentUser;
 
   void _showAlertDialog(BuildContext context) {
     showDialog(
@@ -37,8 +35,8 @@ class _MobileCustomPemeriksaDrawerState
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'Sio Jurnalis Pipin (Pembina)',
-                style: TextStyle(
+                user?.email ?? "-",
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
@@ -48,7 +46,7 @@ class _MobileCustomPemeriksaDrawerState
               InkWell(
                 onTap: () =>
                     Navigator.pushNamed(context, gantiPasswordPageRoute),
-                child: Text(
+                child: const Text(
                   'Ganti Password',
                   style: TextStyle(color: Colors.lightBlue),
                 ),

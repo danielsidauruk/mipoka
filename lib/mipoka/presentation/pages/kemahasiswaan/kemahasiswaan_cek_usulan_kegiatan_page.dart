@@ -67,7 +67,7 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                     prev.runtimeType != current.runtimeType,
                     listener: (context, state) async {
 
-                      if (state is UsulanKegiatanSuccess) {
+                      if (state is UpdateUsulanKegiatanSuccess) {
                         context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
 
                       } else if (state is UsulanKegiatanError) {
@@ -184,6 +184,7 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                                           ),
                                         ),
                                         DataCell(
+                                          usulanKegiatan.statusUsulan == tertunda ?
                                           Row(
                                             mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
@@ -223,6 +224,15 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                                                 ),
                                               ),
                                             ],
+                                          ) :
+                                          usulanKegiatan.statusUsulan == disetujui ?
+                                          Image.asset(
+                                            'assets/icons/approve.png',
+                                            width: 24,
+                                          ) :
+                                          Image.asset(
+                                            'assets/icons/close.png',
+                                            width: 24,
                                           ),
                                         ),
                                       ],

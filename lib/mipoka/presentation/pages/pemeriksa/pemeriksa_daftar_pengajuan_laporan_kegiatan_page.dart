@@ -70,7 +70,20 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
 
                   const CustomFieldSpacer(),
 
-                  BlocBuilder<LaporanBloc, LaporanState>(
+                  BlocConsumer<LaporanBloc, LaporanState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) async {
+
+                      if (state is UpdateLaporanFirstPageSuccess) {
+
+                        context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
+
+                      } else if (state is UpdateLaporanFirstPageSuccess) {
+                        mipokaCustomToast(state.message);
+                      }
+                    },
+
                     builder: (context, state) {
                       if (state is LaporanLoading) {
                         return const Text("Loading ...");
@@ -166,7 +179,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                             Align(
                                               alignment: Alignment.center,
                                               child: Text(
-                                                laporanKegiatan.usulanKegiatan?.mipokaUser?.namaLengkap ?? "",
+                                                laporanKegiatan.usulanKegiatan?.mipokaUser.namaLengkap ?? "",
                                               ),
                                             )
                                         ),
@@ -211,7 +224,8 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Row(
+                                            child: laporanKegiatan.statusLaporan == tertunda ?
+                                            Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 InkWell(
@@ -247,6 +261,15 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                                   ),
                                                 ),
                                               ],
+                                            ) :
+                                            laporanKegiatan.statusLaporan == disetujui ?
+                                            Image.asset(
+                                              'assets/icons/approve.png',
+                                              width: 24,
+                                            ) :
+                                            Image.asset(
+                                              'assets/icons/close.png',
+                                              width: 24,
                                             ),
                                           ),
                                         ),

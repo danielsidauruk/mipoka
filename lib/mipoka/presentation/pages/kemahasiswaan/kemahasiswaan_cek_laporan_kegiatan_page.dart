@@ -28,6 +28,12 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
   }
 
   @override
+  void dispose() {
+    context.read<LaporanBloc>().close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     return Scaffold(
@@ -59,7 +65,7 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                     prev.runtimeType != current.runtimeType,
                     listener: (context, state) async {
 
-                      if (state is UpdateLaporanAndSendSuccess ) {
+                      if (state is UpdateLaporanAndSendSuccess) {
                         context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
 
                       } else if (state is LaporanError) {
@@ -176,14 +182,52 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                             ),
                                           ),
                                         ),
+                                        // DataCell(
+                                        //   Row(
+                                        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        //     children: [
+                                        //       InkWell(
+                                        //         onTap: () {
+                                        //           UpdateLaporanAndSendEvent(
+                                        //             laporan: laporan.copyWith(statusLaporan: disetujui),
+                                        //           );
+                                        //           mipokaCustomToast("Usulan Kegiatan telah diterima.");
+                                        //         },
+                                        //         child: Image.asset(
+                                        //           'assets/icons/approve.png',
+                                        //           width: 24,
+                                        //         ),
+                                        //       ),
+                                        //
+                                        //       const SizedBox(width: 8.0,),
+                                        //
+                                        //       InkWell(
+                                        //         onTap: () {
+                                        //           UpdateLaporanAndSendEvent(
+                                        //             laporan: laporan.copyWith(statusLaporan: ditolak),
+                                        //           );
+                                        //           mipokaCustomToast("Usulan Kegiatan telah diterima.");
+                                        //         },
+                                        //         child: Image.asset(
+                                        //           'assets/icons/close.png',
+                                        //           width: 24,
+                                        //         ),
+                                        //       ),
+                                        //     ],
+                                        //   ),
+                                        // ),
                                         DataCell(
+                                          laporan.statusLaporan == tertunda ?
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
                                             children: [
                                               InkWell(
-                                                onTap: () {
+                                                onTap: (){
                                                   UpdateLaporanAndSendEvent(
-                                                    laporan: laporan.copyWith(statusLaporan: disetujui),
+                                                    laporan: laporan.copyWith(
+                                                      statusLaporan: disetujui,
+                                                    ),
                                                   );
                                                   mipokaCustomToast("Usulan Kegiatan telah diterima.");
                                                 },
@@ -192,15 +236,18 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                                   width: 24,
                                                 ),
                                               ),
-
-                                              const SizedBox(width: 8.0,),
-
+                                              const SizedBox(
+                                                width: 8.0,
+                                              ),
                                               InkWell(
                                                 onTap: () {
                                                   UpdateLaporanAndSendEvent(
-                                                    laporan: laporan.copyWith(statusLaporan: ditolak),
+                                                    laporan: laporan.copyWith(
+                                                      statusLaporan: ditolak,
+                                                    ),
                                                   );
-                                                  mipokaCustomToast("Usulan Kegiatan telah diterima.");
+
+                                                  mipokaCustomToast("Usulan Kegiatan telah ditolak.");
                                                 },
                                                 child: Image.asset(
                                                   'assets/icons/close.png',
@@ -208,6 +255,15 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                                 ),
                                               ),
                                             ],
+                                          ) :
+                                          laporan.statusLaporan == disetujui ?
+                                          Image.asset(
+                                            'assets/icons/approve.png',
+                                            width: 24,
+                                          ) :
+                                          Image.asset(
+                                            'assets/icons/close.png',
+                                            width: 24,
                                           ),
                                         ),
                                       ],

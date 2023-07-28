@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 LoginButton(
                   // title: 'Log in - Pengguna',
-                  title: 'Log in - Kemahasiswaan',
+                  title: 'Log in',
                   onTap:() async {
                     // Navigator.pushNamed(context, penggunaBerandaPageRoute);
                     String email = _emailController.text;
@@ -117,8 +117,15 @@ class _LoginPageState extends State<LoginPage> {
                           if (email == "mipoka.admin@gmail.com") {
                             Navigator.pushNamed(context, mipokaAdminDashboardRoute);
                           } else {
-                            context.read<MipokaUserBloc>().add(
-                                ReadMipokaUserEvent(idMipokaUser: userCredential.user!.uid));
+                            // context.read<MipokaUserBloc>().add(
+                            //     ReadMipokaUserEvent(idMipokaUser: userCredential.user!.uid));
+                            // if (mipokaUser.role == kemahasiswaan) {
+                              Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
+                            // } else if (mipokaUser.role == pembina) {
+                            //   Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute);
+                            // } else {
+                            //   Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                            // }
                           }
                         }
                       } catch (e) {
@@ -132,25 +139,25 @@ class _LoginPageState extends State<LoginPage> {
                   },
                 ),
 
-                BlocListener<MipokaUserBloc, MipokaUserState>(
-                  listenWhen: (prev, current) =>
-                  prev.runtimeType != current.runtimeType,
-                  listener: (context, state) {
-                    if (state is MipokaUserHasData) {
-                      final mipokaUser = state.mipokaUser;
-
-                      if (mipokaUser.role == kemahasiswaan) {
-                        Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
-                      } else if (mipokaUser.role == pembina) {
-                        Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute);
-                      } else {
-                        Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                      }
-                    } else if (state is MipokaUserError) {
-                      mipokaCustomToast(state.message);
-                    }
-                  },
-                  child: const SizedBox(),
+                // BlocListener<MipokaUserBloc, MipokaUserState>(
+                //   listenWhen: (prev, current) =>
+                //   prev.runtimeType != current.runtimeType,
+                //   listener: (context, state) {
+                //     if (state is MipokaUserHasData) {
+                //       final mipokaUser = state.mipokaUser;
+                //
+                //       if (mipokaUser.role == kemahasiswaan) {
+                //         Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
+                //       } else if (mipokaUser.role == pembina) {
+                //         Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute);
+                //       } else {
+                //         Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                //       }
+                //     } else if (state is MipokaUserError) {
+                //       mipokaCustomToast(state.message);
+                //     }
+                //   },
+                //   child: const SizedBox(),
                   // builder: (context, state) {
                   //   if (state is MipokaUserHasData) {
                   //     final mipokaUser = state.mipokaUser;
@@ -168,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                   //     return const LoginPage();
                   //   }
                   // },
-                ),
+                // ),
 
                 const CustomFieldSpacer(height: 8.0),
 

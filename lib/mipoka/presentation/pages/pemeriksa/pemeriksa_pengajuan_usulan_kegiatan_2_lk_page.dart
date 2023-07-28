@@ -8,6 +8,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 
 class PemeriksaPengajuanUsulanKegiatan2LKPage extends StatefulWidget {
@@ -58,7 +59,24 @@ class _PemeriksaPengajuanUsulanKegiatan2LKPageState
                 text: 'Pemeriksa - Kegiatan - Usulan Kegiatan'),
             const CustomFieldSpacer(),
             Expanded(
-              child: BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+
+              child: BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
+                listenWhen: (prev, current) =>
+                prev.runtimeType != current.runtimeType,
+                listener: (context, state) async {
+                  if (state is ManagePartisipanSuccess) {
+
+                    Navigator.pushNamed(
+                      context,
+                      pemeriksaPengajuanUsulanKegiatan3PageRoute,
+                      arguments: widget.idUsulan,
+                    );
+
+                  } else if (state is UsulanKegiatanError) {
+                    mipokaCustomToast(state.message);
+                  }
+                },
+
                 builder: (context, state) {
                   if (state is UsulanKegiatanLoading) {
                     return const Text("Loading ...");
@@ -308,8 +326,27 @@ class _PemeriksaPengajuanUsulanKegiatan2LKPageState
                           children: [
                             CustomMipokaButton(
                               onTap: () {
+                                // context.read<UsulanKegiatanBloc>().add(
+                                //   ManagePartisipanEvent(
+                                //     usulanKegiatan: usulanKegiatan.copyWith(
+                                //       revisiUsulan: usulanKegiatan.revisiUsulan?.copyWith(
+                                //         revisiPartisipan: _revisiPartisipanController.text,
+                                //         revisiRincianBiayaKegiatan: _revisiRincianBiayaKegiatanController.text,
+                                //       ),
+                                //     ),
+                                //   ),
+                                // );
+                                Navigator.pop(context, true);
+                              },
+                              text: 'Sebelumnya',
+                            ),
+
+                            const SizedBox(width: 8.0),
+
+                            CustomMipokaButton(
+                              onTap: () {
                                 context.read<UsulanKegiatanBloc>().add(
-                                  UpdateUsulanKegiatanEvent(
+                                  ManagePartisipanEvent(
                                     usulanKegiatan: usulanKegiatan.copyWith(
                                       revisiUsulan: usulanKegiatan.revisiUsulan?.copyWith(
                                         revisiPartisipan: _revisiPartisipanController.text,
@@ -318,18 +355,13 @@ class _PemeriksaPengajuanUsulanKegiatan2LKPageState
                                     ),
                                   ),
                                 );
-                                Navigator.pop(context);
+
+                                Navigator.pushNamed(
+                                  context,
+                                  pemeriksaPengajuanUsulanKegiatan3PageRoute,
+                                  arguments: widget.idUsulan,
+                                );
                               },
-                              text: 'Sebelumnya',
-                            ),
-                            const SizedBox(width: 8.0),
-                            CustomMipokaButton(
-                              onTap: () => Navigator.pushNamed(
-                                context,
-                                pemeriksaPengajuanUsulanKegiatan3PageRoute,
-                                arguments: widget.idUsulan,
-                              ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                  ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan))),
                               text: 'Berikutnya',
                             ),
                           ],

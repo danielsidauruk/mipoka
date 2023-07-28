@@ -48,7 +48,6 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
     _linimasaKegiatanStream.close();
     _fotoTempatKegiatanStream.close();
 
-    context.read<RevisiUsulanBloc>().close();
     context.read<UsulanKegiatanBloc>().close();
     super.dispose();
   }
@@ -88,7 +87,23 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                   text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
               const CustomFieldSpacer(),
 
-              BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+              BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
+                listenWhen: (prev, current) =>
+                prev.runtimeType != current.runtimeType,
+                listener: (context, state) async {
+                  if (state is SaveAndSendLastPageEvent) {
+
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      pemeriksaDaftarUsulanKegiatanPageRoute,
+                          (route) => false,
+                    );
+
+                  } else if (state is UsulanKegiatanError) {
+                    mipokaCustomToast(state.message);
+                  }
+                },
+
                 builder: (context, state) {
                   if (state is UsulanKegiatanLoading) {
                     return const Text("Loading ....");
@@ -355,27 +370,27 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                           children: [
                             CustomMipokaButton(
                               onTap: () {
-                                context.read<UsulanKegiatanBloc>().add(
-                                  UpdateUsulanKegiatanEvent(
-                                    usulanKegiatan: usulanKegiatan.copyWith(
-                                      revisiUsulan: usulanKegiatan.revisiUsulan?.copyWith(
-                                        revisiLatarBelakang: _latarBelakangController.text,
-                                        revisiTujuanKegiatan: _tujuanKegiatanController.text,
-                                        revisiManfaatKegiatan: _manfaatKegiatanController.text,
-                                        revisiBentukPelaksanaanKegiatan: _bentukPelaksanaanKegiatanController.text,
-                                        revisiTargetPencapaianKegiatan: _targetPencapaianKegiatanController.text,
-                                        revisiWaktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
-                                        revisiRencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
-                                        revisiPerlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
-                                        revisiPenutup: _penutupController.text,
-                                        revisiIdTertibAcara: _tertibAcaraController.text,
-                                        updatedBy: user?.email ?? "unknown",
-                                        updatedAt: currentDate,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                                Navigator.pop(context);
+                                // context.read<UsulanKegiatanBloc>().add(
+                                //   SaveAndGoBackLastPageEvent(
+                                //     usulanKegiatan: usulanKegiatan.copyWith(
+                                //       revisiUsulan: usulanKegiatan.revisiUsulan?.copyWith(
+                                //         revisiLatarBelakang: _latarBelakangController.text,
+                                //         revisiTujuanKegiatan: _tujuanKegiatanController.text,
+                                //         revisiManfaatKegiatan: _manfaatKegiatanController.text,
+                                //         revisiBentukPelaksanaanKegiatan: _bentukPelaksanaanKegiatanController.text,
+                                //         revisiTargetPencapaianKegiatan: _targetPencapaianKegiatanController.text,
+                                //         revisiWaktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
+                                //         revisiRencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
+                                //         revisiPerlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
+                                //         revisiPenutup: _penutupController.text,
+                                //         revisiIdTertibAcara: _tertibAcaraController.text,
+                                //         updatedBy: user?.email ?? "unknown",
+                                //         updatedAt: currentDate,
+                                //       ),
+                                //     ),
+                                //   ),
+                                // );
+                                Navigator.pop(context, true);
                               },
                               text: "Kembali",
                             ),
@@ -385,7 +400,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                             CustomMipokaButton(
                               onTap: () {
                                 context.read<UsulanKegiatanBloc>().add(
-                                  UpdateUsulanKegiatanEvent(
+                                  SaveAndSendLastPageEvent(
                                     usulanKegiatan: usulanKegiatan.copyWith(
                                       revisiUsulan: usulanKegiatan.revisiUsulan?.copyWith(
                                         revisiLatarBelakang: _latarBelakangController.text,
@@ -402,14 +417,12 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                                         updatedAt: currentDate,
                                       ),
                                       statusUsulan: ditolak,
+                                      validasiPembina: ditolak,
                                     ),
                                   ),
                                 );
 
                                 mipokaCustomToast("Revisi telah ditamnbahkan.");
-
-                                Navigator.pushNamed(
-                                    context, pemeriksaDaftarUsulanKegiatanPageRoute);
                               },
                               text: 'Kirim Revisi',
                             ),
