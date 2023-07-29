@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:excel/excel.dart' hide Border;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:flutter/foundation.dart';
@@ -38,6 +39,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
   PeriodeMpt? _periodeMpt;
   List nimList = [];
   String nim = "";
+  User? user = FirebaseAuth.instance.currentUser;
 
   final StreamController<String?> _excelFileStream = StreamController<String?>();
   String? _excelFileController;

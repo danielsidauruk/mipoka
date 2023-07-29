@@ -36,6 +36,8 @@ class _LaporanKegiatanEditBiayaKegiatanPageState extends State<LaporanKegiatanEd
   final TextEditingController _realisasiAnggaranController = TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
 
+  User? user = FirebaseAuth.instance.currentUser;
+
   @override
   void initState() {
     _namaBiayaKegiatanController.text = widget.rincianBiayaLaporan.namaBiaya;

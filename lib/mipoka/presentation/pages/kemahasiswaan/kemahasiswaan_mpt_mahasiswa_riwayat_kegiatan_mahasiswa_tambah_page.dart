@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'package:excel/excel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,6 +48,8 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
   List idKegiatanPerPeriodeMptList = [];
   List poinList = [];
   List keteranganList = [];
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -29,6 +30,7 @@ class PemeriksaDaftarPengajuanKegiatanPage extends StatefulWidget {
 
 class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPengajuanKegiatanPage> {
   String? filter;
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -94,6 +96,10 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                           arguments: selectedId
                         ).then((_) => context.read<UsulanKegiatanBloc>().add(
                             const ReadAllUsulanKegiatanEvent()));
+
+                      } else if (state is UpdateUsulanKegiatanSuccess) {
+
+                        context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
 
                       } else if (state is UsulanKegiatanError) {
                         mipokaCustomToast(state.message);
@@ -232,7 +238,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                       AddReviseToUsulanEvent(
                                                         usulanKegiatan: usulanKegiatan.copyWith(
                                                           revisiUsulan: RevisiUsulan(
-                                                            idRevisiUsulan: uniqueId,
+                                                            idRevisiUsulan: 123,
                                                             mipokaUser: mipokaUser,
                                                             revisiPembiayaan: "",
                                                             revisiNamaKegiatan: "",

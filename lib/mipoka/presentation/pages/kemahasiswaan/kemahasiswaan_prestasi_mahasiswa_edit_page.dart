@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -35,6 +36,8 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
   final TextEditingController _namaKegiatanController = TextEditingController();
   final TextEditingController _prestasiYangDicapaiController = TextEditingController();
   final TextEditingController _waktuPenyelenggaraanController = TextEditingController();
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   Ormawa? _ormawa;
   String? _yearController;

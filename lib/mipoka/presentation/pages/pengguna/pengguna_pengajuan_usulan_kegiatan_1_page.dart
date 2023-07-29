@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,6 +49,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
   final StreamController<Uint8List> _signatureDataStream = StreamController<Uint8List>.broadcast();
 
   final GlobalKey<SfSignaturePadState> _signaturePadKey = GlobalKey<SfSignaturePadState>();
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   void _showPopup() {
     showDialog(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
@@ -32,6 +33,8 @@ class _KemahasiswaanMPTMahasiswaPeriodeEditPageState extends State<Kemahasiswaan
   final TextEditingController _tanggalSelesaiController = TextEditingController();
   final StreamController<bool> _isPeriodeMengulangMptStream = StreamController<bool>();
   bool _isPeriodeMengulangMpt = false;
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {

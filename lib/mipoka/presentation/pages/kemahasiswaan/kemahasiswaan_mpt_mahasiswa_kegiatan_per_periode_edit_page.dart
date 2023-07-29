@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
@@ -38,6 +40,8 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
   final TextEditingController _tanggalSelesaiController = TextEditingController();
   NamaKegiatanMpt? _namaKegiatanMpt;
   PeriodeMpt? _periodeMpt;
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -183,6 +187,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                               if (poinKegiatan != null) {
 
                                 mipokaCustomToast(savingDataMessage);
+                                String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                                 Navigator.pop(
                                   context,

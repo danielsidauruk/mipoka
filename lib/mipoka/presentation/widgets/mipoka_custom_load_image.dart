@@ -43,14 +43,16 @@ class MipokaCustomLoadImage extends StatelessWidget {
             ) :
             Column(
               children: [
-                Text(
+                const Text(
                   "Tutup",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                   ),
                 ),
+
                 const CustomFieldSpacer(),
+
                 Image.network(imageUrl),
               ],
             ),

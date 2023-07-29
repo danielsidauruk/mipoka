@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,6 +31,8 @@ class PenggunaDaftarLaporanKegiatan extends StatefulWidget {
 class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKegiatan> {
 
   String? _filter;
+  User? user = FirebaseAuth.instance.currentUser;
+
   @override
   void initState() {
     context.read<LaporanBloc>().add(const ReadAllLaporanEvent());

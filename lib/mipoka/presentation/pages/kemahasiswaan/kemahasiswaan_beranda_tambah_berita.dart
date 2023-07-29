@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:flutter/foundation.dart';
@@ -31,6 +32,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
   final TextEditingController _textBeritaController = TextEditingController();
 
   final StreamController<String?> _filePickerStream = StreamController<String?>.broadcast();
+  User? user = FirebaseAuth.instance.currentUser;
   String? _filePickerController;
   FilePickerResult? result;
 

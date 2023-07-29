@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
@@ -64,6 +66,7 @@ class _KemahasiswaanEditOrmawaEditPageState
   final StreamController<String?> _fotoBendaharaUrlStream = StreamController<String?>.broadcast();
 
   final StreamController<String?> _excelFileStream = StreamController<String?>();
+  User? user = FirebaseAuth.instance.currentUser;
   String? _excelFileController;
 
   FilePickerResult? result;
@@ -478,6 +481,8 @@ class _KemahasiswaanEditOrmawaEditPageState
                               _fotoBendaharaUrlController = fotoBendaharaUrlController;
                             }
                             print("Logo Url : $_logoUrlController");
+
+                            String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                             context.read<OrmawaBloc>().add(
                               UpdateOrmawaEvent(

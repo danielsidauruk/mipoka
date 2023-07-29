@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -37,6 +38,8 @@ class _TambahDataPesertaLuarKotaPageState extends State<TambahDataPesertaLuarKot
   final TextEditingController _peranPartisipanController = TextEditingController();
   final TextEditingController _dasarPengirimanController = TextEditingController();
   final TextEditingController _tglLahirController = TextEditingController();
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void dispose() {

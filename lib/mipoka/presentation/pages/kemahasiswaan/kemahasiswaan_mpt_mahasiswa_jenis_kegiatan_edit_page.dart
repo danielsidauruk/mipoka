@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -28,6 +29,7 @@ class KemahasiswaanMPTMahasiswaJenisKegiatanEditPage extends StatefulWidget {
 class _KemahasiswaanMPTMahasiswaJenisKegiatanEditPageState extends State<KemahasiswaanMPTMahasiswaJenisKegiatanEditPage> {
 
   final TextEditingController _namaJenisKegiatanController = TextEditingController();
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {

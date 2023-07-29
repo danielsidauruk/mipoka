@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
@@ -34,6 +36,8 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageState extends St
 
   final TextEditingController _namaJenisKegiatanController = TextEditingController();
   JenisKegiatanMpt? _jenisKegiatanMpt;
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -112,6 +116,8 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageState extends St
                         onTap: () async {
                           if (_namaJenisKegiatanController.text.isNotEmpty && _jenisKegiatanMpt != null) {
                             mipokaCustomToast(savingDataMessage);
+
+                            String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                             Navigator.pop(
                               context,

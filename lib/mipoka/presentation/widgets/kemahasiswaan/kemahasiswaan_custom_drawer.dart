@@ -283,7 +283,7 @@ class _MobileCustomKemahasiswaanDrawerState
                     ),
                     ListTile(
                       title: const Text(
-                        'Verivikasi Sarana & Prasarana',
+                        'Verifikasi Sarana & Prasarana',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,

@@ -63,6 +63,6 @@ const listProdi = ['Teknik Informatika', 'Manajemen', 'Akuntansi', 'Sistem Infor
 const listJumlahPoint = ['Semua', '<= 100', '> 100 <= 200', '> 200',];
 
 int newId = DateTime.now().microsecondsSinceEpoch;
-User? user = FirebaseAuth.instance.currentUser;
+// User? user = FirebaseAuth.instance.currentUser;
 String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 int randomId = Random().nextInt(9999999);

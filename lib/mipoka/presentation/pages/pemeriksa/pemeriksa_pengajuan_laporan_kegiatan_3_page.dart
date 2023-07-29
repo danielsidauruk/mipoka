@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -46,11 +47,12 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
   final TextEditingController _revisiFotofakturpembayaranController =
       TextEditingController();
 
-
   final StreamController<bool> _fotoDokumentasiStream = StreamController<bool>.broadcast();
   final StreamController<bool> _fotoPostinganStream = StreamController<bool>.broadcast();
   final StreamController<bool> _fotoTabulasiHasilStream = StreamController<bool>.broadcast();
   final StreamController<bool> _fotoFakturPembayaranStream = StreamController<bool>.broadcast();
+
+  User? user = FirebaseAuth.instance.currentUser;
   
   @override
   void initState() {

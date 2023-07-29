@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
@@ -30,6 +31,8 @@ class _TambahDataPesertaDalamKotaState extends State<TambahDataPesertaDalamKota>
   final TextEditingController _namaPartisipanController = TextEditingController();
   final TextEditingController _peranPartisipanController = TextEditingController();
   final TextEditingController _dasarPengirimanController = TextEditingController();
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:crypto/crypto.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
 import 'package:universal_io/io.dart';
@@ -41,6 +42,8 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
   final TextEditingController _fileSertifikatMptController = TextEditingController();
   final TextEditingController _shaController = TextEditingController();
   final StreamController<String?> _fileSertifikatMptStream = StreamController<String?>.broadcast();
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {

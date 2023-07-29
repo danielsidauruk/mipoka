@@ -22,11 +22,11 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   User? user = FirebaseAuth.instance.currentUser;
 
-  // @override
-  // void dispose() {
-  //   context.read<MipokaUserBloc>().close();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    context.read<MipokaUserBloc>().close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,44 +109,35 @@ class _LoginPageState extends State<LoginPage> {
                           email: email,
                           password: password,
                         );
-                        mipokaCustomToast("Berhasil Masuk!");
-
-                        // User? user = FirebaseAuth.instance.currentUser;
 
                         if (context.mounted) {
-                          if (email == "mipoka.admin@gmail.com") {
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              mipokaAdminDashboardRoute,
-                                  (route) => false,
-                            );
-                          } else  if (email == "tommychristian24@gmail.com") {
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              kemahasiswaanBerandaPageRoute,
-                                  (route) => false,
-                            );
-                          } else if (email == "hafizsritonga08@gmail.com") {
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              pemeriksaDaftarUsulanKegiatanPageRoute,
-                                  (route) => false,
-                            );
-                          } else {
-
-                            // context.read<MipokaUserBloc>().add(
-                            //     ReadMipokaUserEvent(idMipokaUser: userCredential.user!.uid));
-                            // if (mipokaUser.role == kemahasiswaan) {
-
-                            // } else if (mipokaUser.role == pembina) {
-                            // } else {
-                              Navigator.pushNamedAndRemoveUntil(
-                                context,
-                                penggunaBerandaPageRoute,
-                                    (route) => false,
-                              );
-                            // }
-                          }
+                          context.read<MipokaUserBloc>().add(
+                              ReadMipokaUserEvent(idMipokaUser: userCredential.user!.uid));
+                          // if (email == "mipoka.admin@gmail.com") {
+                          //   Navigator.pushNamedAndRemoveUntil(
+                          //     context,
+                          //     mipokaAdminDashboardRoute,
+                          //         (route) => false,
+                          //   );
+                          // } else  if (email == "tommychristian24@gmail.com") {
+                          //   Navigator.pushNamedAndRemoveUntil(
+                          //     context,
+                          //     kemahasiswaanBerandaPageRoute,
+                          //         (route) => false,
+                          //   );
+                          // } else if (email == "hafizsritonga08@gmail.com") {
+                          //   Navigator.pushNamedAndRemoveUntil(
+                          //     context,
+                          //     pemeriksaDaftarUsulanKegiatanPageRoute,
+                          //         (route) => false,
+                          //   );
+                          // } else {
+                          //     Navigator.pushNamedAndRemoveUntil(
+                          //       context,
+                          //       penggunaBerandaPageRoute,
+                          //           (route) => false,
+                          //     );
+                          // }
                         }
                       } catch (e) {
                         mipokaCustomToast(
@@ -159,25 +150,45 @@ class _LoginPageState extends State<LoginPage> {
                   },
                 ),
 
-                // BlocListener<MipokaUserBloc, MipokaUserState>(
-                //   listenWhen: (prev, current) =>
-                //   prev.runtimeType != current.runtimeType,
-                //   listener: (context, state) {
-                //     if (state is MipokaUserHasData) {
-                //       final mipokaUser = state.mipokaUser;
-                //
-                //       if (mipokaUser.role == kemahasiswaan) {
-                //         Navigator.pushNamed(context, kemahasiswaanBerandaPageRoute);
-                //       } else if (mipokaUser.role == pembina) {
-                //         Navigator.pushNamed(context, pemeriksaDaftarUsulanKegiatanPageRoute);
-                //       } else {
-                //         Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                //       }
-                //     } else if (state is MipokaUserError) {
-                //       mipokaCustomToast(state.message);
-                //     }
-                //   },
-                //   child: const SizedBox(),
+                BlocListener<MipokaUserBloc, MipokaUserState>(
+                  listenWhen: (prev, current) =>
+                  prev.runtimeType != current.runtimeType,
+                  listener: (context, state) {
+
+                    mipokaCustomToast("Berhasil Masuk!");
+
+                    if (state is MipokaUserHasData) {
+                      final mipokaUser = state.mipokaUser;
+
+                      if (mipokaUser.role == mipokaAdmin) {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            mipokaAdminDashboardRoute,
+                                (route) => false);
+                      } else if (mipokaUser.role == kemahasiswaan) {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          kemahasiswaanBerandaPageRoute,
+                              (route) => false,
+                        );
+                      } else if (mipokaUser.role == pembina) {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          pemeriksaDaftarUsulanKegiatanPageRoute,
+                              (route) => false,
+                        );
+                      } else {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          penggunaBerandaPageRoute,
+                              (route) => false,
+                        );
+                      }
+                    } else if (state is MipokaUserError) {
+                      mipokaCustomToast(state.message);
+                    }
+                  },
+                  child: const SizedBox(),
                   // builder: (context, state) {
                   //   if (state is MipokaUserHasData) {
                   //     final mipokaUser = state.mipokaUser;
@@ -195,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                   //     return const LoginPage();
                   //   }
                   // },
-                // ),
+                ),
 
                 const CustomFieldSpacer(height: 8.0),
 

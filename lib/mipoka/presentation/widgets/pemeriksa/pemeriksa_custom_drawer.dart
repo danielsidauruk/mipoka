@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
@@ -18,6 +19,8 @@ class MobileCustomPemeriksaDrawer extends StatefulWidget {
 class _MobileCustomPemeriksaDrawerState
     extends State<MobileCustomPemeriksaDrawer> {
   final TextEditingController _queryController = TextEditingController();
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   void _showAlertDialog(BuildContext context) {
     showDialog(

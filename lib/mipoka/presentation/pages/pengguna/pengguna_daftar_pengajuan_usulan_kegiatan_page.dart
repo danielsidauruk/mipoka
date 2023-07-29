@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -34,11 +35,13 @@ class PenggunaDaftarPengajuanKegiatan extends StatefulWidget {
 class _PenggunaDaftarPengajuanKegiatanState
     extends State<PenggunaDaftarPengajuanKegiatan> {
   String? _filter;
+  User? currentUser = FirebaseAuth.instance.currentUser;
+  int uniqueId = UniqueIdGenerator.generateUniqueId();
 
   @override
   void initState() {
     context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
-    context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: user!.uid));
+    context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: currentUser!.uid));
     super.initState();
   }
 
@@ -48,8 +51,6 @@ class _PenggunaDaftarPengajuanKegiatanState
     context.read<MipokaUserBloc>().close();
     super.dispose();
   }
-
-  int uniqueId = UniqueIdGenerator.generateUniqueId();
 
   @override
   Widget build(BuildContext context) {
@@ -342,8 +343,8 @@ class _PenggunaDaftarPengajuanKegiatanState
                                   roles: "",
                                   createdAt: currentDate,
                                   updatedAt: currentDate,
-                                  createdBy: user?.email ?? "unknown",
-                                  updatedBy: user?.email ?? "unknown",
+                                  createdBy: currentUser?.email ?? "unknown",
+                                  updatedBy: currentUser?.email ?? "unknown",
                                 ),
                               ),
                             );

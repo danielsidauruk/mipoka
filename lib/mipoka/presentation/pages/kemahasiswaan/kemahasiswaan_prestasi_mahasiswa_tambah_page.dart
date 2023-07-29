@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -34,6 +35,8 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
   Ormawa? _ormawa;
   MipokaUser? _mipokaUser;
   String? _tahun;
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   void _triggerNim(String value) {
     context.read<MipokaUserByNimBloc>().add(

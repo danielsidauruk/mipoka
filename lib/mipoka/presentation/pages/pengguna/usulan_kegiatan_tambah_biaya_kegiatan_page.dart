@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
@@ -30,6 +31,8 @@ class _UsulanKegiatanTambahBiayaKegiatanPageState extends State<UsulanKegiatanTa
   final TextEditingController _kuantitiController = TextEditingController();
   final TextEditingController _hargaSatuanController = TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {

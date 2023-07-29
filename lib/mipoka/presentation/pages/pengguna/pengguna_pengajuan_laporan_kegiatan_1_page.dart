@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +34,8 @@ class PenggunaPengajuanLaporanKegiatan1 extends StatefulWidget {
 
 class _PenggunaPengajuanLaporanKegiatan1State
     extends State<PenggunaPengajuanLaporanKegiatan1> {
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {

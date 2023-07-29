@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/routes.dart';
@@ -72,6 +73,8 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
   final StreamController<bool> _suratUndanganStream = StreamController<bool>.broadcast();
   final StreamController<bool> _linimasaKegiatanStream = StreamController<bool>.broadcast();
   final StreamController<bool> _fotoTempatKegiatanStream = StreamController<bool>.broadcast();
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {

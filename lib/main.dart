@@ -136,6 +136,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => di.locator<AdminBloc>()),

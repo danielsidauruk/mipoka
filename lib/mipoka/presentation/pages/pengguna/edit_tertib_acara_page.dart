@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
@@ -31,6 +32,7 @@ class _EditTertibAcaraPageState extends State<EditTertibAcaraPage> {
   final TextEditingController _waktuSelesaiController = TextEditingController();
   final TextEditingController _aktivitasController = TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,6 +73,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
   Uint8List? suratUndanganKegiatanBytes;
   Uint8List? linimasaKegiatanBytes;
   Uint8List? fotoTempatKegiatanBytes;
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
