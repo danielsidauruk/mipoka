@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
@@ -141,7 +142,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         );
 
                         int semester = int.parse(_semesterController.text);
-
+                        String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                         if (context.mounted) {
                           mipokaCustomToast(savingDataMessage);

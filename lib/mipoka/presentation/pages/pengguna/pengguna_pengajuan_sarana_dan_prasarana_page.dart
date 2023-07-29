@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
@@ -304,6 +305,8 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                                         final kursi = int.tryParse(_kursiController.text);
                                         final papanTulis = int.tryParse(_papanTulisController.text);
                                         final spidol = int.tryParse(_spidolController.text);
+
+                                        String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                                         mipokaCustomToast(savingDataMessage);
 

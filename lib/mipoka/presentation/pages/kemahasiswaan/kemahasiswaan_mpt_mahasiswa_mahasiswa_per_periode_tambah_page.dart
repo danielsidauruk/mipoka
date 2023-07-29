@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:excel/excel.dart' hide Border;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -219,6 +220,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                           return const SizedBox();
                         } else if (state is MipokaUserByNimByNimHasData) {
                           int uniqueId = UniqueIdGenerator.generateUniqueId();
+                          String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                           context.read<MhsPerPeriodeMptBloc>().add(
                             CreateMhsPerPeriodeMptEvent(

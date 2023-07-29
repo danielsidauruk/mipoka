@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/revisi_laporan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
@@ -41,6 +43,7 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
   int? idRevisiLaporan;
 
   User? user = FirebaseAuth.instance.currentUser;
+  int newId = UniqueIdGenerator.generateUniqueId();
 
   @override
   void initState() {
@@ -82,7 +85,7 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                   } else if (state is LaporanHasData) {
                     final laporan = state.laporan;
 
-                    idRevisiLaporan = laporan.idLaporan + newId ;
+                    idRevisiLaporan = newId ;
                     return CustomContentBox(
                       children: [
                         buildTitle('Nama Ormawa'),
@@ -125,6 +128,8 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                                 } else if (state is MipokaUserHasData) {
                                   return CustomMipokaButton(
                                     onTap: () {
+                                      String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
                                       context.read<LaporanBloc>().add(
                                         UpdateLaporanFirstPageEvent(
                                           laporan: laporan.copyWith(

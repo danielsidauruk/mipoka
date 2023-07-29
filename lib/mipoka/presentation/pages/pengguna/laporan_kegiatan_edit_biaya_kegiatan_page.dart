@@ -141,6 +141,8 @@ class _LaporanKegiatanEditBiayaKegiatanPageState extends State<LaporanKegiatanEd
                             }
                           }
 
+                          String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
                           context.read<RincianBiayaKegiatanBloc>().add(
                             UpdateRincianBiayaKegiatanEvent(
                               rincianBiayaKegiatan: widget.rincianBiayaLaporan.copyWith(

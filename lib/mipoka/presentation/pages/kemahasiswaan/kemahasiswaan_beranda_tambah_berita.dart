@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -135,6 +136,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                               if(context.mounted) {
 
                                 int uniqueId = UniqueIdGenerator.generateUniqueId();
+                                String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                                 Navigator.pop(
                                   context,

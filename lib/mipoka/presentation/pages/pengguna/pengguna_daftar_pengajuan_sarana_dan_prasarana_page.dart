@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
@@ -294,38 +295,42 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   InkWell(
-                                    onTap: () => context.read<SessionBloc>().add(
-                                      CreateSessionEvent(
-                                        session: Session(
-                                          idSession: uniqueId,
-                                          mipokaUser: mipokaUser,
-                                          ormawa: mipokaUser.ormawa[0],
-                                          tanggalMulai: "",
-                                          tanggalSelesai: "",
-                                          ruangan: "",
-                                          gedung: "",
-                                          waktuMulaiPenggunaan: "",
-                                          waktuSelesaiPenggunaan: "",
-                                          kegiatan: "",
-                                          proyektor: 0,
-                                          laptop: 0,
-                                          mikrofon: 0,
-                                          speaker: 0,
-                                          meja: 0,
-                                          kursi: 0,
-                                          papanTulis: 0,
-                                          spidol: 0,
-                                          lainLain: "",
-                                          status: "",
-                                          keterangan: "",
-                                          fileSession: "",
-                                          updatedAt: currentDate,
-                                          createdAt: currentDate,
-                                          updatedBy: mipokaUser.email,
-                                          createdBy: mipokaUser.email,
+                                    onTap: () {
+                                      String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
+                                      context.read<SessionBloc>().add(
+                                        CreateSessionEvent(
+                                          session: Session(
+                                            idSession: uniqueId,
+                                            mipokaUser: mipokaUser,
+                                            ormawa: mipokaUser.ormawa[0],
+                                            tanggalMulai: "",
+                                            tanggalSelesai: "",
+                                            ruangan: "",
+                                            gedung: "",
+                                            waktuMulaiPenggunaan: "",
+                                            waktuSelesaiPenggunaan: "",
+                                            kegiatan: "",
+                                            proyektor: 0,
+                                            laptop: 0,
+                                            mikrofon: 0,
+                                            speaker: 0,
+                                            meja: 0,
+                                            kursi: 0,
+                                            papanTulis: 0,
+                                            spidol: 0,
+                                            lainLain: "",
+                                            status: "",
+                                            keterangan: "",
+                                            fileSession: "",
+                                            updatedAt: currentDate,
+                                            createdAt: currentDate,
+                                            updatedBy: mipokaUser.email,
+                                            createdBy: mipokaUser.email,
+                                          ),
                                         ),
-                                      ),
-                                    ),
+                                      );
+                                    },
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 8.0, horizontal: 24),

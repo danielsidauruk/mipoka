@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
@@ -66,7 +67,7 @@ class _TambahDataPesertaLuarKotaPageState extends State<TambahDataPesertaLuarKot
               CustomContentBox(
                 children: [
 
-                  customBoxTitle('Data Peserta'),
+                  customBoxTitle('Data Partisipan'),
 
                   const CustomFieldSpacer(),
 
@@ -127,6 +128,7 @@ class _TambahDataPesertaLuarKotaPageState extends State<TambahDataPesertaLuarKot
                               && _dasarPengirimanController.text.isNotEmpty)
                           {
                             int uniqueId = UniqueIdGenerator.generateUniqueId();
+                            String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                             Navigator.pop(
                               context,

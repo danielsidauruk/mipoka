@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
@@ -167,6 +168,8 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                           children: [
                             CustomMipokaButton(
                               onTap: () {
+                                String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
                                 context.read<LaporanBloc>().add(
                                   UpdateLaporanFirstPageEvent(
                                     laporan: laporan.copyWith(
@@ -193,6 +196,8 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
 
                             CustomMipokaButton(
                               onTap: () {
+                                String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
                                 context.read<LaporanBloc>().add(
                                   UpdateLaporanFirstPageEvent(
                                     laporan: laporan.copyWith(

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
@@ -206,6 +207,7 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                               && _mipokaUser != null)
                           {
                             mipokaCustomToast(savingDataMessage);
+                            String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                             Navigator.pop(
                               context,

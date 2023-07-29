@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
@@ -110,6 +111,7 @@ class _EditTertibAcaraPageState extends State<EditTertibAcaraPage> {
                           {
                             final usulanKegiatan = widget.tertibAcaraArgs.usulanKegiatan;
                             final tertibAcara = usulanKegiatan.tertibAcara[widget.tertibAcaraArgs.index];
+                            String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                             final newTertibAcara = tertibAcara.copyWith(
                               waktuMulai: _waktuMulaiController.text,

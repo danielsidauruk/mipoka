@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 
 const listStatus = ['Semua', 'Menunggu', 'Berlansung', 'Ditolak'];
 const listNamaOrmawa = ['Ormawa A', 'Ormawa B', 'Ormawa C', 'Ormawa D', 'Ormawa E'];
@@ -62,7 +63,8 @@ final List<String> years = List.generate(10, (index) =>
 const listProdi = ['Teknik Informatika', 'Manajemen', 'Akuntansi', 'Sistem Informatika'];
 const listJumlahPoint = ['Semua', '<= 100', '> 100 <= 200', '> 200',];
 
-int newId = DateTime.now().microsecondsSinceEpoch;
+// int newId = DateTime.now().microsecondsSinceEpoch;
+// int newId = UniqueIdGenerator.generateUniqueId();
 // User? user = FirebaseAuth.instance.currentUser;
-String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-int randomId = Random().nextInt(9999999);
+// String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+// int randomId = Random().nextInt(9999999);

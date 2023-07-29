@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/core/constanst.dart';
@@ -404,6 +405,8 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
 
                             CustomMipokaButton(
                               onTap: () {
+                                String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
                                 context.read<UsulanKegiatanBloc>().add(
                                   SaveReviseLastPageEvent(
                                     usulanKegiatan: usulanKegiatan.copyWith(

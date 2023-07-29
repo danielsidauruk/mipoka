@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
@@ -78,6 +79,8 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanEditPageState extends State<Kemahas
                         onTap: () async {
                           if (_namaJenisKegiatanController.text != "") {
                             mipokaCustomToast(savingDataMessage);
+
+                            String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                             Navigator.pop(
                               context,

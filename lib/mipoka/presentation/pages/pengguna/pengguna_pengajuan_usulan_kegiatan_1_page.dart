@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'dart:ui' as ui;
@@ -662,6 +663,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                       }
 
                                       _handleClearButtonPressed();
+                                      String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                                       if (context.mounted) {
                                         context.read<UsulanKegiatanBloc>().add(

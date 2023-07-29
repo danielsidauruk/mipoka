@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
@@ -271,6 +272,8 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                             const CustomFieldSpacer(),
                             CustomMipokaButton(
                               onTap: () {
+                                String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
                                 context.read<LaporanBloc>().add(
                                   CreateLaporanEvent(
                                     laporan: Laporan(

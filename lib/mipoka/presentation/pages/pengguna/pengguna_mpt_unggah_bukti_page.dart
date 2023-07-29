@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
 import 'package:universal_io/io.dart';
@@ -247,6 +248,7 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
 
                                               if (context.mounted) {
                                                 int uniqueId = UniqueIdGenerator.generateUniqueId();
+                                                String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                                                 Navigator.pop(
                                                   context,

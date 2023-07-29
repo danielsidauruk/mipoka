@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
@@ -485,6 +486,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                       _fotoTempatKegiatanController = await uploadBytesToFirebase(fotoTempatKegiatanBytes!, "$uniqueId${_fotoTempatKegiatanResult!.files.first.name}");
                                     }
 
+                                    String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
                                     if (context.mounted) {
                                       context.read<UsulanKegiatanBloc>().add(
                                         SaveAndGoBackLastPageEvent(
@@ -581,6 +584,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                       print("Foto Tempat Kegiatan : $_fotoTempatKegiatanController");
 
                                       int totalBiaya = usulanKegiatan.biayaKegiatan.fold(0, (sum, biayaKegiatan) => sum + biayaKegiatan.total);
+                                      String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                                       final usulanKegiatanObject = usulanKegiatan.copyWith(
                                         latarBelakang: _latarBelakangController.text,

@@ -8,6 +8,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -305,6 +306,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                       }
 
                                       if (bytes != null) {
+                                        int newId = UniqueIdGenerator.generateUniqueId();
                                         _postinganKegiatanController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
                                       }
                                     }
@@ -321,6 +323,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                       }
 
                                       if (bytes != null) {
+                                        int newId = UniqueIdGenerator.generateUniqueId();
                                         _dokumentasiKegiatanController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
                                       }
                                     }
@@ -337,6 +340,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                       }
 
                                       if (bytes != null) {
+                                        int newId = UniqueIdGenerator.generateUniqueId();
                                         _tabulasiHasilKegiatanController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
                                       }
                                     }
@@ -353,6 +357,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                       }
 
                                       if (bytes != null) {
+                                        int newId = UniqueIdGenerator.generateUniqueId();
                                         _fakturPembayaranController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
                                       }
                                     }
@@ -401,6 +406,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                         }
 
                                         if (bytes != null) {
+                                          int newId = UniqueIdGenerator.generateUniqueId();
                                           _postinganKegiatanController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
                                         }
                                       }
@@ -417,6 +423,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                         }
 
                                         if (bytes != null) {
+                                          int newId = UniqueIdGenerator.generateUniqueId();
                                           _dokumentasiKegiatanController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
                                         }
                                       }
@@ -433,6 +440,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                         }
 
                                         if (bytes != null) {
+                                          int newId = UniqueIdGenerator.generateUniqueId();
                                           _tabulasiHasilKegiatanController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
                                         }
                                       }
@@ -449,6 +457,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                         }
 
                                         if (bytes != null) {
+                                          int newId = UniqueIdGenerator.generateUniqueId();
                                           _fakturPembayaranController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
                                         }
                                       }

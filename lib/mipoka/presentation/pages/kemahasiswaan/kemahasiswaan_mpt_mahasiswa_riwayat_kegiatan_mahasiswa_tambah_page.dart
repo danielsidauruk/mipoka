@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:file_picker/file_picker.dart';
@@ -231,6 +232,8 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
                               final kegiatanPerPeriodeMpt = state.kegiatanPerPeriodeMpt;
 
                               int randomId = Random().nextInt(1000000);
+                              String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
                               context.read<RiwayatKegiatanMptBloc>().add(
                                 CreateRiwayatKegiatanMptEvent(
                                   riwayatKegiatanMpt: RiwayatKegiatanMpt(

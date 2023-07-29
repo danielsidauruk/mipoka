@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'dart:io';
@@ -572,6 +573,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
                                   "$uniqueId${fotoBendaharaResult!.files.first
                                       .name}");
                             }
+                            String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                             _ormawa = Ormawa(
                               idOrmawa: uniqueId,
