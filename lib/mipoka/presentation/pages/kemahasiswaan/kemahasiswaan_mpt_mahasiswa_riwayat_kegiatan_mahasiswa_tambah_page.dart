@@ -207,7 +207,6 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
                           await Future.delayed(const Duration(milliseconds: 1000));
                           if (context.mounted) {
                             context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
-                            // context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
                             context.read<KegiatanPerPeriodeMptBloc>().add(ReadKegiatanPerPeriodeMptEvent(
                                 idKegiatanPerPeriodeMpt: idKegiatanPerPeriodeMptList[index]));
                           }

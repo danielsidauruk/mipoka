@@ -156,6 +156,7 @@ class RevisiUsulanModel extends RevisiUsulan {
     "revisi_kategori_jumlah_partisipan": revisiKategoriJumlahPartisipan,
     "revisi_target_kegiatan": revisiTargetKegiatan,
     "revisi_total_pendanaan": revisiTotalPendanaan,
+    "revisi_tempat_kegiatan": revisiTempatKegiatan,
     "revisi_kategori_total_pendanaan": revisiKategoriTotalPendanaan,
     "revisi_keterangan": revisiKeterangan,
     "revisi_tanda_tangan_ormawa": revisiTandaTanganOrmawa,

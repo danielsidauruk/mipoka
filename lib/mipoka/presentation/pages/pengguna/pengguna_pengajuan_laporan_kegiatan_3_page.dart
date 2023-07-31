@@ -162,7 +162,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
 
                             const CustomFieldSpacer(),
 
-                            buildTitle('Lampiran'),
+                            buildTitle('Lampiran (Optional)'),
 
                             buildTitle('Postingan Kegiatan'),
                             buildDescription(

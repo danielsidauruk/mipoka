@@ -33,6 +33,7 @@ class CustomTextField extends StatelessWidget {
         maxLines: null,
         style: const TextStyle(),
         decoration: null,
+        maxLength: 1000,
       ),
     );
   }
@@ -137,8 +138,8 @@ class CustomTextField3 extends StatelessWidget {
   }
 }
 
-class NewLineTextField extends StatelessWidget {
-  const NewLineTextField({
+class MultiLineTextField extends StatelessWidget {
+  const MultiLineTextField({
     super.key,
     required this.controller,
     this.textInputType = TextInputType.multiline,
@@ -170,6 +171,7 @@ class NewLineTextField extends StatelessWidget {
         maxLines: null,
         style: const TextStyle(),
         decoration: null,
+        maxLength: 1000,
       ),
     );
   }

@@ -279,9 +279,9 @@ class _PenggunaPengajuanUsulanKegiatan1State
                         _ormawa = usulanKegiatan.ormawa;
                         _pembiayaanController = usulanKegiatan.pembiayaan;
                         _namaKegiatanController.text = usulanKegiatan.namaKegiatan;
-                        usulanKegiatan.kategoriBentukKegiatan == "Luring"
-                            ? _bentukKegiatanSwitchController = false
-                            : _bentukKegiatanSwitchController = true;
+                        usulanKegiatan.kategoriBentukKegiatan == "Daring"
+                            ? _bentukKegiatanSwitchController = true
+                            : _bentukKegiatanSwitchController = false;
                         _bentukKegiatanController = usulanKegiatan.bentukKegiatan;
                         _deskripsiKegiatanController.text = usulanKegiatan.deskripsiKegiatan;
                         _tanggalMulaiController.text = usulanKegiatan.tanggalMulaiKegiatan;
@@ -292,12 +292,12 @@ class _PenggunaPengajuanUsulanKegiatan1State
                         _tanggalKeberangkatanController.text = usulanKegiatan.tanggalKeberangkatan;
                         _tanggalKepulanganController.text = usulanKegiatan.tanggalKepulangan;
                         usulanKegiatan.jumlahPartisipan == "Orang"
-                            ? _bentukKegiatanSwitchController = false
-                            : _bentukKegiatanSwitchController = true;
-                        _jumlahParsitipanController.text = usulanKegiatan.jumlahPartisipan.toString();
+                            ? _bentukKegiatanSwitchController = true
+                            : _bentukKegiatanSwitchController = false;
+                        _jumlahParsitipanController.text = usulanKegiatan.jumlahPartisipan;
                         usulanKegiatan.totalPendanaan == "Uang"
-                            ? _totalPendanaanSwitchController = false
-                            : _totalPendanaanSwitchController = true;
+                            ? _totalPendanaanSwitchController = true
+                            : _totalPendanaanSwitchController = false;
                         _targetKegiatanController.text = usulanKegiatan.targetKegiatan;
                         _totalPendanaanController.text = usulanKegiatan.totalPendanaan;
                         _keteranganController.text = usulanKegiatan.keterangan;
@@ -313,7 +313,9 @@ class _PenggunaPengajuanUsulanKegiatan1State
                         _ormawa = usulanKegiatan.ormawa;
                         // usulanKegiatan.mipokaUser.ormawa[0];
 
-                        _bentukKegiatanController ??= listBentukKegiatan[0];
+                        if (_bentukKegiatanController == null || _bentukKegiatanController == "") {
+                          _bentukKegiatanController = listBentukKegiatan[0];
+                        }
                         if (usulanKegiatan.pembiayaan == "") {
                           _pembiayaanController = listPembiayaan[0];
                         }
@@ -388,7 +390,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                 && usulanKegiatan.revisiUsulan?.revisiDeskripsiKegiatan != "")
                               buildRevisiText(usulanKegiatan.revisiUsulan?.revisiDeskripsiKegiatan ?? ""),
 
-                            NewLineTextField(
+                            MultiLineTextField(
                                 controller: _deskripsiKegiatanController),
 
                             const CustomFieldSpacer(),
@@ -645,16 +647,39 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                                     print (_waktuMulaiController.text);
 
-                                    if(
-                                    _ormawa != null && _pembiayaanController != ""
-                                    && _namaKegiatanController.text != ""
-                                    && _bentukKegiatanController != null && _deskripsiKegiatanController.text != ""
-                                    && _tanggalMulaiController.text != "" && _tanggalSelesaiController.text != ""
-                                    && _waktuMulaiController.text != "" && _waktuSelesaiController.text != ""
-                                    && _tempatKegiatanController.text != "" && _jumlahParsitipanController.text != ""
-                                    && _targetKegiatanController.text != "" && _totalPendanaanController.text != ""
-                                    && _keteranganController.text != "" && (_ormawaSignatureController != "" || _signatureData != null))
-                                    {
+                                    if (_ormawa == null) {
+                                      mipokaCustomToast(emptyFieldPrompt("Ormawa"));
+                                    } else if (_pembiayaanController == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Pembiayaan"));
+                                    } else if (_namaKegiatanController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Nama Kegiatan"));
+                                    } else if (_bentukKegiatanController == null) {
+                                      mipokaCustomToast(emptyFieldPrompt("Bentuk Kegiatan"));
+                                    } else if (_deskripsiKegiatanController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Deskripsi Kegiatan"));
+                                    } else if (_tanggalMulaiController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Tanggal Mulai Kegiatan"));
+                                    } else if (_tanggalSelesaiController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Tanggal Selesai Kegiatan"));
+                                    } else if (_waktuMulaiController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Waktu Mulai Kegiatan"));
+                                    } else if (_waktuSelesaiController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Waktu Selesai Kegiatan"));
+                                    } else if (_tempatKegiatanController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Tempat Kegiatan"));
+                                    } else if (_jumlahParsitipanController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Jumlah Partisipan"));
+                                    } else if (_targetKegiatanController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Target Kegiatan"));
+                                    } else if (_totalPendanaanController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Total Pendanaan"));
+                                    } else if (_keteranganController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Keterangan"));
+                                    } else if (_ormawaSignatureController == "" && _signatureData == null) {
+                                      mipokaCustomToast(emptyFieldPrompt("Tanda Tangan Ormawa"));
+                                    } else if (int.tryParse(_jumlahParsitipanController.text) == null) {
+                                      mipokaCustomToast(dataTypeFalsePrompt("Jumlah Partisipan"));
+                                    } else {
                                       int uniqueId = UniqueIdGenerator.generateUniqueId();
 
                                       mipokaCustomToast(savingDataMessage);
@@ -662,7 +687,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                         _ormawaSignatureController = await uploadBytesToFirebase(_signatureData!, "signature$uniqueId.png");
                                       }
 
-                                      _handleClearButtonPressed();
                                       String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                                       if (context.mounted) {
@@ -681,13 +705,13 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                               waktuSelesaiKegiatan: _waktuSelesaiController.text,
                                               tempatKegiatan: _tempatKegiatanController.text,
                                               tanggalKeberangkatan: _tempatKegiatanSwitchController == true
-                                                  ? _tanggalKeberangkatanController.text : "",
+                                                  ? _tanggalKeberangkatanController.text : "-",
                                               tanggalKepulangan: _tempatKegiatanSwitchController == true
-                                                  ?  _tanggalKepulanganController.text : "",
+                                                  ?  _tanggalKepulanganController.text : "-",
                                               kategoriJumlahPartisipan: _jumlahParsitipanSwitchController == true ? "Orang" : "Dll",
                                               jumlahPartisipan: _jumlahParsitipanController.text,
                                               targetKegiatan: _targetKegiatanController.text,
-                                              kategoriTotalPendanaan: _totalPendanaanSwitchController == true ? "Dll" : "Orang",
+                                              kategoriTotalPendanaan: _totalPendanaanSwitchController == true ? "Dll" : "Uang",
                                               totalPendanaan: _totalPendanaanController.text,
                                               keterangan: _keteranganController.text,
                                               tandaTanganOrmawa: _ormawaSignatureController,
@@ -697,11 +721,10 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                           ),
                                         );
                                       }
-
-
-                                    } else {
-                                      mipokaCustomToast(emptyFieldMessage);
                                     }
+                                    // else {
+                                    //   mipokaCustomToast(emptyFieldMessage);
+                                    // }
                                   },
                                   text: 'Berikutnya',
                                 ),

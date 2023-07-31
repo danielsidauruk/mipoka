@@ -209,7 +209,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                 && state.usulanKegiatan.revisiUsulan?.revisiLatarBelakang != "")
                               buildRevisiText(state.usulanKegiatan.revisiUsulan?.revisiLatarBelakang ?? ""),
 
-                            CustomTextField(controller: _latarBelakangController),
+                            MultiLineTextField(controller: _latarBelakangController),
 
                             const CustomFieldSpacer(),
 
@@ -218,7 +218,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                             if (widget.usulanArgs.isRevisiUsulan == true
                                 && state.usulanKegiatan.revisiUsulan?.revisiTujuanKegiatan != "")
                               buildRevisiText(state.usulanKegiatan.revisiUsulan?.revisiTujuanKegiatan ?? ""),
-                            CustomTextField(controller: _tujuanKegiatanController),
+                            MultiLineTextField(controller: _tujuanKegiatanController),
 
                             const CustomFieldSpacer(),
 
@@ -227,7 +227,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                             if (widget.usulanArgs.isRevisiUsulan == true
                                 && state.usulanKegiatan.revisiUsulan?.revisiManfaatKegiatan != "")
                               buildRevisiText(state.usulanKegiatan.revisiUsulan?.revisiManfaatKegiatan ?? ""),
-                            CustomTextField(controller: _manfaatKegiatanController),
+                            MultiLineTextField(controller: _manfaatKegiatanController),
 
                             const CustomFieldSpacer(),
 
@@ -237,7 +237,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                             if (widget.usulanArgs.isRevisiUsulan == true
                                 && state.usulanKegiatan.revisiUsulan?.revisiBentukPelaksanaanKegiatan != "")
                               buildRevisiText(state.usulanKegiatan.revisiUsulan?.revisiBentukPelaksanaanKegiatan ?? ""),
-                            CustomTextField(
+                            MultiLineTextField(
                                 controller: _bentukPelaksanaanKegiatanController),
 
                             const CustomFieldSpacer(),
@@ -248,7 +248,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
                             if (widget.usulanArgs.isRevisiUsulan == true
                                 && state.usulanKegiatan.revisiUsulan?.revisiTargetPencapaianKegiatan != "")
                               buildRevisiText(state.usulanKegiatan.revisiUsulan?.revisiTargetPencapaianKegiatan ?? ""),
-                            CustomTextField(
+
+                            MultiLineTextField(
                                 controller: _targetPencapaianKegiatanController),
 
                             const CustomFieldSpacer(),
@@ -258,7 +259,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
                             if (widget.usulanArgs.isRevisiUsulan == true
                                 && state.usulanKegiatan.revisiUsulan?.revisiWaktuDanTempatPelaksanaan != "")
                               buildRevisiText(state.usulanKegiatan.revisiUsulan?.revisiWaktuDanTempatPelaksanaan ?? ""),
-                            CustomTextField(
+
+                            MultiLineTextField(
                                 controller: _waktuDanTempatPelaksanaanKegiatanController),
 
                             const CustomFieldSpacer(),
@@ -269,7 +271,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                 && state.usulanKegiatan.revisiUsulan?.revisiRencanaAnggaranKegiatan != "")
                               buildRevisiText(state.usulanKegiatan.revisiUsulan?.revisiRencanaAnggaranKegiatan ?? ""),
 
-                            CustomTextField(
+                            MultiLineTextField(
                                 controller: _rencanaAnggaranKegiatanController),
 
                             const CustomFieldSpacer(),
@@ -279,7 +281,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
                             if (widget.usulanArgs.isRevisiUsulan == true
                                 && state.usulanKegiatan.revisiUsulan?.revisiManfaatKegiatan != "")
                               buildRevisiText(state.usulanKegiatan.revisiUsulan?.revisiManfaatKegiatan ?? ""),
-                            CustomTextField(
+
+                            MultiLineTextField(
                                 controller: _perlengkapanDanPeralatanController),
 
                             const CustomFieldSpacer(),
@@ -288,11 +291,11 @@ class _PenggunaPengajuanUsulanKegiatan3State
                             if (widget.usulanArgs.isRevisiUsulan == true
                                 && state.usulanKegiatan.revisiUsulan?.revisiPenutup != "")
                               buildRevisiText(state.usulanKegiatan.revisiUsulan?.revisiPenutup ?? ""),
-                            CustomTextField(controller: _penutupController),
+                            MultiLineTextField(controller: _penutupController),
 
                             const CustomFieldSpacer(),
 
-                            buildTitle('Lampiran - Lampiran'),
+                            buildTitle('Lampiran (Optional)'),
 
                             const CustomFieldSpacer(),
 
@@ -520,21 +523,29 @@ class _PenggunaPengajuanUsulanKegiatan3State
 
                                 CustomMipokaButton(
                                   onTap: () async {
-                                    if (_latarBelakangController.text != "" && _tujuanKegiatanController.text != ""
-                                        && _manfaatKegiatanController.text != "" && _bentukPelaksanaanKegiatanController.text != ""
-                                        && _targetPencapaianKegiatanController.text != "" && _waktuDanTempatPelaksanaanKegiatanController.text != ""
-                                        && _rencanaAnggaranKegiatanController.text != "" && _perlengkapanDanPeralatanController.text != ""
-                                        && _penutupController.text != ""
-                                        && ((_postinganKegiatanController != "" || _postinganKegiatanResult != null)
-                                            && (_suratUndanganKegiatanController != "" || _suratUndanganKegiatanResult != null)
-                                            && (_linimasaKegiatanController != "" || _linimasaKegiatanResult != null)
-                                            && (_fotoTempatKegiatanController != "" || _fotoTempatKegiatanResult != null))
-                                    ) {
+                                    if (_latarBelakangController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Latar Belakang Kegiatan"));
+                                    } else if (_tujuanKegiatanController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Tujuan Kegiatan"));
+                                    } else if (_manfaatKegiatanController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Manfaat Kegiatan"));
+                                    } else if (_bentukPelaksanaanKegiatanController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Bentuk Pelaksanaan Kegiatan"));
+                                    } else if (_targetPencapaianKegiatanController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Target Pencapaian Kegiatan"));
+                                    } else if (_waktuDanTempatPelaksanaanKegiatanController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Waktu & Tempat Pelaksanaan Kegiatan"));
+                                    } else if (_rencanaAnggaranKegiatanController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Rencana Anggaran Kegiatan"));
+                                    } else if (_perlengkapanDanPeralatanController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Perlengkapan & Peralatan"));
+                                    } else if (_penutupController.text == "") {
+                                      mipokaCustomToast(emptyFieldPrompt("Penutup"));
+                                    } else {
 
                                       mipokaCustomToast(savingDataMessage);
 
-                                      if (kIsWeb) {
-                                        if (_postinganKegiatanResult != null) {
+                                      if (kIsWeb) {if (_postinganKegiatanResult != null) {
                                           postinganKegiatanBytes = _postinganKegiatanResult?.files.first.bytes;
                                         }
                                         if (_suratUndanganKegiatanResult != null) {
@@ -652,8 +663,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                           mipokaCustomToast("File gagal di Generate.");
                                         }
                                       }
-                                    } else {
-                                      mipokaCustomToast(emptyFieldMessage);
                                     }
                                   },
                                   text: widget.usulanArgs.isRevisiUsulan == true ? 'Kirim Revisi' : 'Kirim',

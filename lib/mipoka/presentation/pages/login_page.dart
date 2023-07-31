@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:bloc/bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/login_button.dart';
@@ -113,6 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                         if (context.mounted) {
                           context.read<MipokaUserBloc>().add(
                               ReadMipokaUserEvent(idMipokaUser: userCredential.user!.uid));
+
                           // if (email == "mipoka.admin@gmail.com") {
                           //   Navigator.pushNamedAndRemoveUntil(
                           //     context,
@@ -154,10 +156,8 @@ class _LoginPageState extends State<LoginPage> {
                   listenWhen: (prev, current) =>
                   prev.runtimeType != current.runtimeType,
                   listener: (context, state) {
-
-                    mipokaCustomToast("Berhasil Masuk!");
-
                     if (state is MipokaUserHasData) {
+                      mipokaCustomToast("Berhasil Masuk!");
                       final mipokaUser = state.mipokaUser;
 
                       if (mipokaUser.role == mipokaAdmin) {
@@ -181,8 +181,8 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.pushNamedAndRemoveUntil(
                           context,
                           penggunaBerandaPageRoute,
-                              (route) => false,
-                        );
+                              (route) => false);
+                        // Navigator.pushNamed(context, penggunaBerandaPageRoute);
                       }
                     } else if (state is MipokaUserError) {
                       mipokaCustomToast(state.message);

@@ -46,6 +46,10 @@ const statusUsulan = ["Semua", disetujui, ditolak, tertunda];
 Color revisionColor = const Color(0xFFE57373);
 
 const String emptyFieldMessage = "Mohon lengkapi semua field.";
+
+String emptyFieldPrompt(String field) => "Mohon isi field $field.";
+String dataTypeFalsePrompt(String field) => "Mohon masukkan angka pada field $field.";
+
 const String dataTypeErrorMessage = "Harap lengkapi data dengan tipe yang sesuai.";
 const String savingDataMessage = "Sedang menyimpan data ...";
 

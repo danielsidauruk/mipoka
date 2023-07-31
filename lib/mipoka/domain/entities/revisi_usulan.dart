@@ -202,6 +202,7 @@ class RevisiUsulan extends Equatable{
     revisiLatarBelakang,
     revisiTujuanKegiatan,
     revisiManfaatKegiatan,
+    revisiTempatKegiatan,
     revisiBentukPelaksanaanKegiatan,
     revisiTargetPencapaianKegiatan,
     revisiWaktuDanTempatPelaksanaan,

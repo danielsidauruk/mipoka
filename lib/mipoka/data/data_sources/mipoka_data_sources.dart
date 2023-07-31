@@ -182,6 +182,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   static const String usulanPath = "/usulan";
   static const String mhsPerPeriodePath = "/mhs_per_periode_mpt";
   static const String namaKegiatanMptPath = "/nama_kegiatan_mpt";
+  static const String revisiUsulanPath = "/revisi_usulan";
 
   @override
   Future<void> createBerita(BeritaModel beritaModel) async {
@@ -958,15 +959,36 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   /* => RevisiUsulan DataSources */
   @override
   Future<void> createRevisiUsulan(RevisiUsulanModel revisiUsulanModel) async {
-    if (kDebugMode) {
-      print(revisiUsulanModel.toJson());
+
+    try {
+      final response = await DioUtil().dio.post(
+        revisiUsulanPath,
+        data: revisiUsulanModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
+
   }
 
   @override
   Future<void> deleteRevisiUsulan(int idRevisiUsulan) async {
-    if (kDebugMode) {
-      print("RevisiUsulan with id $idRevisiUsulan has been deleted.");
+    try {
+      final response = await DioUtil().dio.delete(
+        '$revisiUsulanPath/$idRevisiUsulan',
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -983,8 +1005,18 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<void> updateRevisiUsulan(RevisiUsulanModel revisiUsulanModel) async {
-    if (kDebugMode) {
-      print(revisiUsulanModel.toJson());
+    try {
+      final response = await DioUtil().dio.put(
+        '$revisiUsulanPath/${revisiUsulanModel.idRevisiUsulan}',
+        data: revisiUsulanModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -1460,13 +1492,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       }
       rethrow;
     }
-    // final String response =
-    // await rootBundle.loadString('assets/json_file/usulan_kegiatan.json');
-    // dynamic jsonDecode = json.decode(response);
-    //
-    // UsulanKegiatanModel result = UsulanKegiatanModel.fromJson(jsonDecode);
-    //
-    // return result;
   }
 
   @override

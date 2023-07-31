@@ -199,8 +199,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home:
-        user != null ?
+        home: const LoginPage(),
         // BlocBuilder<MipokaUserBloc, MipokaUserState>(
         //   builder: (context, state) {
         //     if (state is MipokaUserHasData) {
@@ -220,8 +219,8 @@ class MyApp extends StatelessWidget {
         //     }
         //   },
         // ) :
-        const KemahasiswaanBerandaPage() :
-        const LoginPage(),
+        // const KemahasiswaanBerandaPage() :
+
         // : const PemeriksaDaftarLaporanKegiatanPage(),
         // : const PenggunaBerandaPage(),
         // : const KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage(),
