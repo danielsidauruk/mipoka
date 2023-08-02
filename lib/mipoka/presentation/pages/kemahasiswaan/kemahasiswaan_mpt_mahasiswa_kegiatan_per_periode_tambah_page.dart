@@ -56,7 +56,13 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
+          context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+        },
+      ),
 
       drawer: const MobileCustomKemahasiswaanDrawer(),
 

@@ -116,7 +116,12 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+        },
+      ),
 
       drawer: const MobileCustomKemahasiswaanDrawer(),
 

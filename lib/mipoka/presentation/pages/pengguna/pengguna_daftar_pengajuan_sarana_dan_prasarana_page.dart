@@ -50,8 +50,16 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<SessionBloc>().add(const ReadAllSessionEvent());
+          context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: user?.uid ?? ""));
+        },
+      ),
+
       drawer: const MobileCustomPenggunaDrawerWidget(),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

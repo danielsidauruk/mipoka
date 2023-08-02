@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/jenis_kegiatan_mpt.dart';
@@ -40,8 +41,15 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+        },
+      ),
+
       drawer: const MobileCustomKemahasiswaanDrawer(),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

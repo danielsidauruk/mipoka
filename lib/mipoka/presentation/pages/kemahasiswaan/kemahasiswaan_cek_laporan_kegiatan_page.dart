@@ -35,10 +35,16 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
+        },
+      ),
+
       drawer: const MobileCustomKemahasiswaanDrawer(),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -286,7 +292,7 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
             ],
           ),
         ),
-      )
+      ),
     );
   }
 }

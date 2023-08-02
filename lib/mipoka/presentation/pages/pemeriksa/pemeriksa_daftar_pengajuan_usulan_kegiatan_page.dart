@@ -35,6 +35,8 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
   User? user = FirebaseAuth.instance.currentUser;
   RevisiUsulan? revisiUsulan;
 
+  int? idUsulan;
+
   @override
   void initState() {
     context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
@@ -46,7 +48,6 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
   void dispose() {
     context.read<UsulanKegiatanBloc>().close();
     context.read<MipokaUserBloc>().close();
-    context.read<RevisiUsulanBloc>().close();
     super.dispose();
   }
 
@@ -54,8 +55,16 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+          context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: user?.uid ?? ""));
+        },
+      ),
+
       drawer: const MobileCustomPemeriksaDrawer(),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -95,7 +104,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                         Navigator.pushNamed(
                           context,
                           pemeriksaPengajuanUsulanKegiatan1PageRoute,
-                          arguments: uniqueId,
+                          arguments: idUsulan,
                         ).then((_) => context.read<UsulanKegiatanBloc>().add(
                             const ReadAllUsulanKegiatanEvent()));
 
@@ -231,11 +240,14 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                 final mipokaUser = state.mipokaUser;
 
                                                 return Column(
+                                                  mainAxisSize: MainAxisSize.min,
                                                   children: [
 
                                                     InkWell(
                                                       onTap: () async {
                                                         String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
+                                                        idUsulan = usulanKegiatan.idUsulan;
 
                                                         revisiUsulan = RevisiUsulan(
                                                           idRevisiUsulan: uniqueId,
@@ -281,10 +293,12 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                           updatedBy: user?.email ?? "",
                                                         );
 
-                                                        print(revisiUsulan);
-
-                                                        context.read<RevisiUsulanBloc>().add(
-                                                          CreateRevisiUsulanEvent(revisiUsulan: revisiUsulan!),
+                                                        context.read<UsulanKegiatanBloc>().add(
+                                                          AddReviseToUsulanEvent(
+                                                            usulanKegiatan: usulanKegiatan.copyWith(
+                                                              revisiUsulan: revisiUsulan,
+                                                            ),
+                                                          ),
                                                         );
 
                                                       },

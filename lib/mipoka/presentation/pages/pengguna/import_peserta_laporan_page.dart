@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:excel/excel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:file_picker/file_picker.dart';
@@ -12,6 +14,7 @@ import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/peserta_kegiatan_laporan_bloc/peserta_kegiatan_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
@@ -36,9 +39,21 @@ class ImportPesertaLaporanPage extends StatefulWidget {
 
 class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
 
+  @override
+  void dispose() {
+    context.read<MipokaUserByNimBloc>().close();
+    context.read<LaporanBloc>().close();
+    index = 0;
+    super.dispose();
+  }
+
   final StreamController<String?> _excelFileStream = StreamController<String?>.broadcast();
   String? _excelFileController;
   FilePickerResult? result;
+
+  var index = 0;
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   List nimList = [];
   List peranList = [];
@@ -70,6 +85,8 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
             peranList.add(peran.toString());
           }
         }
+        print("NimList  : $nimList");
+        print("Peran    : $peranList");
 
         // for (var i = 1; i < nimList.length; i++) {
         //   int uniqueId = UniqueIdGenerator.generateUniqueId();
@@ -174,17 +191,150 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () {
+                        onTap: () async {
                           final result = this.result;
-                          PlatformFile? file = result?.files.first;
                           if (result != null) {
-                            _processUploadedFile(file!);
+                            print("nimList : ${nimList.length}");
+                            for (var index = 0; index < nimList.length; index++) {
+                              this.index = index;
+                              print("Current Index  : ${this.index}");
+
+                              context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
+
+                              Future.delayed(const Duration(seconds: 10));
+                              print("Index After    : ${this.index}");
+                            }
+
                           } else {
                             mipokaCustomToast("Harap unggah file yang diperlukan.");
                           }
                         },
                         text: 'Proses',
                       ),
+
+                      BlocListener<MipokaUserByNimBloc, MipokaUserByNimState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
+                          if(state is MipokaUserByNimByNimHasData) {
+                            final mipokaUser = state.mipokaUser;
+                            int uniqueId = UniqueIdGenerator.generateUniqueId();
+                            String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
+                            context.read<LaporanBloc>().add(
+                              UpdateLaporanSecondPageEvent(
+                                laporan: widget.laporan.copyWith(
+                                  pesertaKegiatanLaporan: [
+                                    ...widget.laporan.pesertaKegiatanLaporan,
+                                    PesertaKegiatanLaporan(
+                                      idPesertaKegiatanLaporan: 30 + index,
+                                      nim: nimList[index],
+                                      namaLengkap: mipokaUser.namaLengkap,
+                                      peran: peranList[index],
+                                      createdAt: currentDate,
+                                      createdBy: user?.email ?? "unknown",
+                                      updatedAt: currentDate,
+                                      updatedBy: user?.email ?? "unknown",
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                          // else {
+                          //   int uniqueId = UniqueIdGenerator.generateUniqueId();
+                          //   String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                          //
+                          //   context.read<LaporanBloc>().add(
+                          //     UpdateLaporanSecondPageEvent(
+                          //       laporan: widget.laporan.copyWith(
+                          //         pesertaKegiatanLaporan: [
+                          //           ...widget.laporan.pesertaKegiatanLaporan,
+                          //           PesertaKegiatanLaporan(
+                          //             idPesertaKegiatanLaporan: uniqueId,
+                          //             nim: nimList[index],
+                          //             namaLengkap: "unregistered user",
+                          //             peran: peranList[index],
+                          //             createdAt: currentDate,
+                          //             createdBy: user?.email ?? "unknown",
+                          //             updatedAt: currentDate,
+                          //             updatedBy: user?.email ?? "unknown",
+                          //           )
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   );
+                          //   index ++;
+                          // }
+                        },
+                        child: const SizedBox(),
+                      ),
+
+                      // BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
+                      //   builder: (context, state) {
+                      //     if (result != null) {
+                      //       if(state is MipokaUserByNimByNimHasData) {
+                      //         final mipokaUser = state.mipokaUser;
+                      //         int uniqueId = UniqueIdGenerator.generateUniqueId();
+                      //         String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                      //
+                      //         context.read<LaporanBloc>().add(
+                      //           UpdateLaporanSecondPageEvent(
+                      //             laporan: widget.laporan.copyWith(
+                      //               pesertaKegiatanLaporan: [
+                      //                 ...widget.laporan.pesertaKegiatanLaporan,
+                      //                 PesertaKegiatanLaporan(
+                      //                   idPesertaKegiatanLaporan: uniqueId,
+                      //                   nim: nimList[index],
+                      //                   namaLengkap: mipokaUser.namaLengkap,
+                      //                   peran: peranList[index],
+                      //                   createdAt: currentDate,
+                      //                   createdBy: user?.email ?? "unknown",
+                      //                   updatedAt: currentDate,
+                      //                   updatedBy: user?.email ?? "unknown",
+                      //                 )
+                      //               ],
+                      //             ),
+                      //           ),
+                      //         );
+                      //
+                      //         index ++;
+                      //
+                      //         return const SizedBox();
+                      //       } else {
+                      //         int uniqueId = UniqueIdGenerator.generateUniqueId();
+                      //         String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                      //
+                      //         context.read<LaporanBloc>().add(
+                      //           UpdateLaporanSecondPageEvent(
+                      //             laporan: widget.laporan.copyWith(
+                      //               pesertaKegiatanLaporan: [
+                      //                 ...widget.laporan.pesertaKegiatanLaporan,
+                      //                 PesertaKegiatanLaporan(
+                      //                   idPesertaKegiatanLaporan: uniqueId,
+                      //                   nim: nimList[index],
+                      //                   namaLengkap: "unregistered user",
+                      //                   peran: peranList[index],
+                      //                   createdAt: currentDate,
+                      //                   createdBy: user?.email ?? "unknown",
+                      //                   updatedAt: currentDate,
+                      //                   updatedBy: user?.email ?? "unknown",
+                      //                 )
+                      //               ],
+                      //             ),
+                      //           ),
+                      //         );
+                      //
+                      //         index ++;
+                      //
+                      //         return const SizedBox();
+                      //       }
+                      //
+                      //     } else {
+                      //       return const SizedBox();
+                      //     }
+                      //   },
+                      // ),
                     ],
                   ),
                 ],

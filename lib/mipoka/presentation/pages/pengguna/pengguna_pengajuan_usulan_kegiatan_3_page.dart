@@ -130,8 +130,16 @@ class _PenggunaPengajuanUsulanKegiatan3State
   Widget build(BuildContext context) {
     print('Page 3 Reloaded');
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<UsulanKegiatanBloc>().add(
+              ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+        },
+      ),
+
       drawer: const MobileCustomPenggunaDrawerWidget(),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -616,53 +624,52 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                         updatedBy: user?.email,
                                       );
 
-                                      String? fileUsulanKegiatan = await generateUsulanDocx(
-                                        UsulanKegiatanModel.fromEntity(
-                                          usulanKegiatanObject,
-                                        ),
-                                      );
+                                      // String? fileUsulanKegiatan = await generateUsulanDocx(
+                                      //   UsulanKegiatanModel.fromEntity(
+                                      //     usulanKegiatanObject,
+                                      //   ),
+                                      // );
+                                      //
+                                      // print(
+                                      //   UsulanKegiatanModel.fromEntity(
+                                      //     usulanKegiatanObject,
+                                      //   ),
+                                      // );
 
-                                      print("File Usulan Kegaitan : $fileUsulanKegiatan");
-                                      print(
-                                        UsulanKegiatanModel.fromEntity(
-                                          usulanKegiatanObject,
-                                        ),
-                                      );
+                                      if (context.mounted) {
+                                        context.read<UsulanKegiatanBloc>().add(
+                                          SaveAndSendLastPageEvent(
+                                            usulanKegiatan: usulanKegiatanObject,
+                                            // usulanKegiatan.copyWith(
+                                            //   latarBelakang: _latarBelakangController.text,
+                                            //   tujuanKegiatan: _tujuanKegiatanController.text,
+                                            //   manfaatKegiatan: _manfaatKegiatanController.text,
+                                            //   bentukKegiatan: _bentukPelaksanaanKegiatanController.text,
+                                            //   targetKegiatan: _targetPencapaianKegiatanController.text,
+                                            //   waktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
+                                            //   rencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
+                                            //   perlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
+                                            //   penutup: _penutupController.text,
+                                            //   fotoPostinganKegiatan: _postinganKegiatanController,
+                                            //   fotoSuratUndanganKegiatan: _suratUndanganKegiatanController,
+                                            //   fotoLinimasaKegiatan: _linimasaKegiatanController,
+                                            //   fotoTempatKegiatan: _fotoTempatKegiatanController,
+                                            //   totalBiaya: totalBiaya,
+                                            //   fileUsulanKegiatan: fileUsulanKegiatan,
+                                            //   updatedAt: currentDate,
+                                            //   updatedBy: user?.email,
+                                            // ),
+                                          ),
+                                        );
 
-                                      if (fileUsulanKegiatan != null) {
-                                        if (context.mounted) {
-                                          context.read<UsulanKegiatanBloc>().add(
-                                            SaveAndSendLastPageEvent(
-                                              usulanKegiatan: usulanKegiatanObject.copyWith(
-                                                fileUsulanKegiatan: fileUsulanKegiatan,
-                                              ),
-                                              // usulanKegiatan.copyWith(
-                                              //   latarBelakang: _latarBelakangController.text,
-                                              //   tujuanKegiatan: _tujuanKegiatanController.text,
-                                              //   manfaatKegiatan: _manfaatKegiatanController.text,
-                                              //   bentukKegiatan: _bentukPelaksanaanKegiatanController.text,
-                                              //   targetKegiatan: _targetPencapaianKegiatanController.text,
-                                              //   waktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
-                                              //   rencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
-                                              //   perlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
-                                              //   penutup: _penutupController.text,
-                                              //   fotoPostinganKegiatan: _postinganKegiatanController,
-                                              //   fotoSuratUndanganKegiatan: _suratUndanganKegiatanController,
-                                              //   fotoLinimasaKegiatan: _linimasaKegiatanController,
-                                              //   fotoTempatKegiatan: _fotoTempatKegiatanController,
-                                              //   totalBiaya: totalBiaya,
-                                              //   fileUsulanKegiatan: fileUsulanKegiatan,
-                                              //   updatedAt: currentDate,
-                                              //   updatedBy: user?.email,
-                                              // ),
-                                            ),
-                                          );
-
-                                          mipokaCustomToast("Usulan Kegiatan telah dikirim");
-                                        } else {
-                                          mipokaCustomToast("File gagal di Generate.");
-                                        }
+                                        mipokaCustomToast("Usulan Kegiatan telah dikirim");
                                       }
+
+                                      // if (fileUsulanKegiatan != null) {
+                                      //    else {
+                                      //     mipokaCustomToast("File gagal di Generate.");
+                                      //   }
+                                      // }
                                     }
                                   },
                                   text: widget.usulanArgs.isRevisiUsulan == true ? 'Kirim Revisi' : 'Kirim',

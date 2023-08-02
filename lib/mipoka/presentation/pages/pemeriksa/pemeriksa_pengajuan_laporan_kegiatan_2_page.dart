@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -8,6 +9,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 
 class PemeriksaPengajuanLaporanKegiatan2Page extends StatefulWidget {
@@ -47,8 +49,16 @@ class _PemeriksaPengajuanLaporanKegiatan2PageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<LaporanBloc>().add(
+              ReadLaporanEvent(idLaporan: widget.idLaporan));
+        },
+      ),
+
       drawer: const MobileCustomPemeriksaDrawer(),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

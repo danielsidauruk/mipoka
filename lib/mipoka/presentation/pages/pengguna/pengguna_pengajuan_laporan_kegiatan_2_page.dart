@@ -1,13 +1,14 @@
 import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -52,8 +53,16 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<LaporanBloc>().add(
+              ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
+        },
+      ),
+
       drawer: const MobileCustomPenggunaDrawerWidget(),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -78,6 +87,15 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                         context.read<LaporanBloc>().add(
                             ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
 
+                      } else if (state is DeleteDataPesertaSuccess) {
+                        Navigator.pushNamed(
+                          context,
+                          penggunaPengajuanLaporanKegiatan3PageRoute,
+                          arguments: widget.laporanArgs,
+                        ).then((_) =>
+                            context.read<LaporanBloc>().add(
+                                ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan)),
+                        );
                       } else if (state is LaporanError) {
                         mipokaCustomToast(state.message);
                       }
@@ -179,6 +197,12 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                                 ],
                                                 rows: List<DataRow>.generate(laporan.pesertaKegiatanLaporan.length, (int index) {
                                                   final pesertaKegiatanLaporan = laporan.pesertaKegiatanLaporan[index];
+                                                  //
+                                                  // if(pesertaKegiatanLaporan.namaLengkap == "") {
+                                                  //   context.read<MipokaUserByNimBloc>().add(
+                                                  //       ReadMipokaUserByNimEvent(nim: pesertaKegiatanLaporan.nim));
+                                                  // }
+                                                  
                                                   return DataRow(
                                                     cells: [
                                                       DataCell(
@@ -197,6 +221,7 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                                           ),
                                                         ),
                                                       ),
+
                                                       DataCell(
                                                         Align(
                                                           alignment: Alignment.center,
@@ -205,6 +230,7 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                                           ),
                                                         ),
                                                       ),
+
                                                       DataCell(
                                                         Align(
                                                           alignment: Alignment.center,
@@ -415,15 +441,27 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                   const SizedBox(width: 8.0),
                                   CustomMipokaButton(
                                     onTap: () async {
-                                      final result = await Navigator.pushNamed(
-                                        context,
-                                        penggunaPengajuanLaporanKegiatan3PageRoute,
-                                        arguments: widget.laporanArgs,
-                                      );
 
-                                      if(result != null && result == true && context.mounted) {
+                                      if (_isShowTable) {
+                                        final result = await Navigator.pushNamed(
+                                          context,
+                                          penggunaPengajuanLaporanKegiatan3PageRoute,
+                                          arguments: widget.laporanArgs,
+                                        );
+
+                                        if(result != null && result == true && context.mounted) {
+                                          context.read<LaporanBloc>().add(
+                                              ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan)
+                                          );
+                                        }
+
+                                      } else {
                                         context.read<LaporanBloc>().add(
-                                            ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan)
+                                          DeleteDataPesertaEvent(
+                                            laporan: laporan.copyWith(
+                                              pesertaKegiatanLaporan: [],
+                                            ),
+                                          ),
                                         );
                                       }
                                     },

@@ -10,6 +10,7 @@ import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class PenggunaOrmawaUKMPage extends StatefulWidget {
   const PenggunaOrmawaUKMPage({super.key});
@@ -38,7 +39,12 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<OrmawaDropDownBloc>().add(ReadOrmawaDropDownEvent());
+        },
+      ),
 
       drawer: const MobileCustomPenggunaDrawerWidget(),
 

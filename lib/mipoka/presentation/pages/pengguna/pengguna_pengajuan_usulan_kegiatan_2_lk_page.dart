@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
@@ -44,8 +45,16 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<UsulanKegiatanBloc>().add(
+              ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+        },
+      ),
+
       drawer: const MobileCustomPenggunaDrawerWidget(),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -433,14 +442,12 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                                                         ),
                                                       );
 
-                                                      if (result != null && result is UsulanKegiatan) {
-                                                        if (context.mounted) {
-                                                          context.read<UsulanKegiatanBloc>().add(
-                                                            ManageBiayaKegiatanEvent(
-                                                              usulanKegiatan: result,
-                                                            ),
-                                                          );
-                                                        }
+                                                      if (result != null && result is UsulanKegiatan && context.mounted) {
+                                                        context.read<UsulanKegiatanBloc>().add(
+                                                          ManageBiayaKegiatanEvent(
+                                                            usulanKegiatan: result,
+                                                          ),
+                                                        );
                                                       }
                                                     },
 

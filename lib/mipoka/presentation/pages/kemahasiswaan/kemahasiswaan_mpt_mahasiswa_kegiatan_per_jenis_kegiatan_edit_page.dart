@@ -49,7 +49,12 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanEditPageState extends St
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+        },
+      ),
 
       drawer: const MobileCustomKemahasiswaanDrawer(),
 

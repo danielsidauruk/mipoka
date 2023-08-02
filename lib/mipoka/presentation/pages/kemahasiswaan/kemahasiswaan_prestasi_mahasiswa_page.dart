@@ -51,7 +51,12 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<PrestasiBloc>().add(ReadAllPrestasiEvent());
+        },
+      ),
       drawer: const MobileCustomKemahasiswaanDrawer(),
       body: SingleChildScrollView(
         child: Padding(

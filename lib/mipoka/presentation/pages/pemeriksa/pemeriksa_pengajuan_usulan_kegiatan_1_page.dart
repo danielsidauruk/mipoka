@@ -82,8 +82,16 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<UsulanKegiatanBloc>().add(
+              ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan));
+        },
+      ),
+
       drawer: const MobileCustomPemeriksaDrawer(),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

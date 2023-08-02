@@ -49,6 +49,24 @@ class UpdateLaporanSecondPageEvent extends LaporanEvent {
   List<Object?> get props => [laporan];
 }
 
+class DeleteDataPesertaEvent extends LaporanEvent {
+  final Laporan laporan;
+
+  const DeleteDataPesertaEvent({required this.laporan});
+
+  @override
+  List<Object?> get props => [laporan];
+}
+
+/*class UpdateDataPesertaEvent extends LaporanEvent {
+  final Laporan laporan;
+
+  const UpdateDataPesertaEvent({required this.laporan});
+
+  @override
+  List<Object?> get props => [laporan];
+}*/
+
 class UpdateLaporanLastPageEvent extends LaporanEvent {
   final Laporan laporan;
 

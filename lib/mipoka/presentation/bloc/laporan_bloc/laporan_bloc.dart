@@ -66,6 +66,28 @@ class LaporanBloc extends Bloc<LaporanEvent, LaporanState> {
       );
     });
 
+    on<DeleteDataPesertaEvent>((event, emit) async {
+      emit(LaporanLoading());
+
+      final result = await laporanUseCase.updateLaporan(event.laporan);
+
+      result.fold(
+            (failure) => emit(LaporanError(message: failure.message)),
+            (_) => emit(DeleteDataPesertaSuccess()),
+      );
+    });
+
+  /*  on<UpdateDataPesertaEvent>((event, emit) async {
+      emit(LaporanLoading());
+
+      final result = await laporanUseCase.updateLaporan(event.laporan);
+
+      result.fold(
+            (failure) => emit(LaporanError(message: failure.message)),
+            (_) => emit(UpdateDataPesertaSuccess()),
+      );
+    });*/
+
     on<UpdateLaporanLastPageEvent>((event, emit) async {
       emit(LaporanLoading());
 

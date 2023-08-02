@@ -80,8 +80,15 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
     }
 
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<SessionBloc>().add(ReadSessionEvent(idSession: widget.idSession));
+        },
+      ),
+
       drawer: const MobileCustomPenggunaDrawerWidget(),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -359,7 +366,7 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
             ],
           ),
         ),
-      )
+      ),
     );
   }
 }

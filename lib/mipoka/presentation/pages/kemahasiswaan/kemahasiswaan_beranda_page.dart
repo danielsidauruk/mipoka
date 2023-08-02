@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/format_date_indonesia.dart';
@@ -47,8 +48,15 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<BeritaBloc>().add(const ReadAllBeritaEvent());
+        },
+      ),
+
       drawer: const MobileCustomKemahasiswaanDrawer(),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

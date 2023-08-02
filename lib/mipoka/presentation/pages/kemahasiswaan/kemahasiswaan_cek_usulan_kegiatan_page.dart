@@ -35,11 +35,24 @@ class _KemahasiswaanCekUsulanKegiatanPageState
   }
 
   @override
+  void dispose() {
+    context.read<UsulanKegiatanBloc>().close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
-      drawer: const MobileCustomKemahasiswaanDrawer(),
-      body: Padding(
+        appBar: MipokaMobileAppBar(
+          onRefresh: () {
+            mipokaCustomToast(refreshMessage);
+            context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+          },
+        ),
+
+        drawer: const MobileCustomKemahasiswaanDrawer(),
+
+        body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(

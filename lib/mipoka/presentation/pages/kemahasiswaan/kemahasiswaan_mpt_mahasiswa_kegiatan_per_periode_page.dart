@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/domain/entities/kegiatan_per_periode_mpt.dart';
@@ -55,7 +56,14 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
     print(size.width);
 
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<KegiatanPerPeriodeMptBloc>().close();
+          context.read<PeriodeMptDropDownBloc>().close();
+          context.read<NamaKegiatanDropDownBloc>().close();
+        },
+      ),
 
       drawer: const MobileCustomKemahasiswaanDrawer(),
 

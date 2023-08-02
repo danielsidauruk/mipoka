@@ -60,8 +60,16 @@ class _PenggunaPengajuanLaporanKegiatan1State
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<LaporanBloc>().add(
+              ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
+        },
+      ),
+
       drawer: const MobileCustomPenggunaDrawerWidget(),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -79,16 +87,12 @@ class _PenggunaPengajuanLaporanKegiatan1State
                     prev.runtimeType != current.runtimeType,
                     listener: (context, state) async {
                       if (state is UpdateLaporanFirstPageSuccess) {
-                        final result = await Navigator.pushNamed(
+                        await Navigator.pushNamed(
                           context,
                           penggunaPengajuanLaporanKegiatan2PageRoute,
                           arguments: widget.laporanArgs,
-                        );
-
-                        if (result == true && context.mounted) {
-                          context.read<LaporanBloc>().add(
-                              ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
-                        }
+                        ).then((_) => context.read<LaporanBloc>().add(
+                            ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan)));
 
                       } else if (state is DeleteLaporanSuccess) {
                         Navigator.pop(context, true);

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class MipokaMobileAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MipokaMobileAppBar({super.key});
+  final VoidCallback? onRefresh;
+
+  const MipokaMobileAppBar({
+    this.onRefresh,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +29,18 @@ class MipokaMobileAppBar extends StatelessWidget implements PreferredSizeWidget 
           color: Colors.white,
         ),
       ),
+      actions: [
+        if (onRefresh != null)
+          InkWell(
+            onTap: onRefresh,
+            child: Container(
+              margin: const EdgeInsets.all(8.0),
+              child: const Icon(
+                Icons.refresh,
+              ),
+            ),
+          ),
+      ],
     );
   }
 

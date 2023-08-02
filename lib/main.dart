@@ -136,7 +136,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
+    // final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
     return MultiBlocProvider(
       providers: [
@@ -171,6 +171,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         // initialRoute: loginPageRoute,
         // routes: "/",
+
+        // navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
         title: 'mipoka',
         theme: ThemeData(
@@ -199,33 +201,14 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const LoginPage(),
-        // BlocBuilder<MipokaUserBloc, MipokaUserState>(
-        //   builder: (context, state) {
-        //     if (state is MipokaUserHasData) {
-        //       final mipokaUser = state.mipokaUser;
-        //
-        //       if (mipokaUser.role == kemahasiswaan) {
-        //         return const KemahasiswaanBerandaPage();
-        //       } else if (mipokaUser.role == pembina) {
-        //         return const PemeriksaDaftarPengajuanKegiatanPage();
-        //       } else if (mipokaUser.role == mipokaAdmin) {
-        //         return const MipokaAdminDashboard();
-        //       } else {
-        //         return const PenggunaBerandaPage();
-        //       }
-        //     } else {
-        //       return const LoginPage();
-        //     }
-        //   },
-        // ) :
-        // const KemahasiswaanBerandaPage() :
+        home:
+        const LoginPage(),
+        // const PemeriksaDaftarPengajuanKegiatanPage(),
 
         // : const PemeriksaDaftarLaporanKegiatanPage(),
         // : const PenggunaBerandaPage(),
         // : const KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage(),
         // :const KemahasiswaanMPTMahasiswaPeriodePage(),
-
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {

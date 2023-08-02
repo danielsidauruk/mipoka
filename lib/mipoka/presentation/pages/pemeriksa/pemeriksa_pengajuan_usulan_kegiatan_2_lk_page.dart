@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -48,8 +49,16 @@ class _PemeriksaPengajuanUsulanKegiatan2LKPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<UsulanKegiatanBloc>().add(
+              ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan));
+        },
+      ),
+
       drawer: const MobileCustomPemeriksaDrawer(),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

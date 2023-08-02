@@ -11,6 +11,7 @@ import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dart';
 
 class PenggunaPrestasiPage extends StatefulWidget {
@@ -48,7 +49,13 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<PrestasiBloc>().add(ReadAllPrestasiEvent());
+          context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
+        },
+      ),
 
       drawer: const MobileCustomPenggunaDrawerWidget(),
 

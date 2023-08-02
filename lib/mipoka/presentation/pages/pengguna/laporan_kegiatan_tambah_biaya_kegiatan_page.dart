@@ -131,7 +131,6 @@ class _LaporanKegiatanTambahBiayaKegiatanPageState extends State<LaporanKegiatan
                               final hargaSatuan = int.tryParse(_hargaSatuanController.text);
 
                               int? selisih;
-                              int uniqueId = UniqueIdGenerator.generateUniqueId();
 
                               if (usulanAnggaran != null && realisasiAnggaran != null
                                   && kuantitas != null && hargaSatuan != null) {
@@ -141,14 +140,30 @@ class _LaporanKegiatanTambahBiayaKegiatanPageState extends State<LaporanKegiatan
                                     : realisasiAnggaran - usulanAnggaran;
 
                                 String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                                int uniqueId = UniqueIdGenerator.generateUniqueId();
 
-                                Navigator.pop(
-                                  context,
-                                  widget.laporan.copyWith(
+                                print (RincianBiayaKegiatan(
+                                  // idRincianBiayaKegiatan: uniqueId,
+                                  idRincianBiayaKegiatan: 23321,
+                                  namaBiaya: _namaBiayaKegiatanController.text,
+                                  keterangan: _keteranganController.text,
+                                  kuantitas: kuantitas,
+                                  hargaSatuan: hargaSatuan,
+                                  usulanAnggaran: usulanAnggaran,
+                                  realisasiAnggaran: realisasiAnggaran,
+                                  selisih: selisih,
+                                  createdAt: currentDate,
+                                  createdBy: user?.email ?? "unknown",
+                                  updatedAt: currentDate,
+                                  updatedBy: user?.email ?? "unknown",
+                                ),
+                                );
+                                final newLaporan = widget.laporan.copyWith(
                                     rincianBiayaKegiatan: [
                                       ...widget.laporan.rincianBiayaKegiatan,
                                       RincianBiayaKegiatan(
-                                        idRincianBiayaKegiatan: uniqueId,
+                                        // idRincianBiayaKegiatan: uniqueId,
+                                        idRincianBiayaKegiatan: 2332132,
                                         namaBiaya: _namaBiayaKegiatanController.text,
                                         keterangan: _keteranganController.text,
                                         kuantitas: kuantitas,
@@ -162,8 +177,9 @@ class _LaporanKegiatanTambahBiayaKegiatanPageState extends State<LaporanKegiatan
                                         updatedBy: user?.email ?? "unknown",
                                       ),
                                     ]
-                                  ),
                                 );
+
+                                Navigator.pop(context, newLaporan);
                               }
                             } catch (e) {
                               mipokaCustomToast(dataTypeErrorMessage);

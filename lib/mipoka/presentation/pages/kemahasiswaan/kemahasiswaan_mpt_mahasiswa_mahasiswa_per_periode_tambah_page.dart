@@ -91,7 +91,13 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
     print ("Result : $result");
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+          context.read<MhsPerPeriodeMptBloc>().add(const ReadAllMhsPerPeriodeMptEvent());
+        },
+      ),
 
       drawer: const MobileCustomKemahasiswaanDrawer(),
 

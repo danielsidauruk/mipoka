@@ -219,8 +219,16 @@ class _PenggunaPengajuanUsulanKegiatan1State
     }
 
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<UsulanKegiatanBloc>().add(
+              ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+        },
+      ),
+
       drawer: const MobileCustomPenggunaDrawerWidget(),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -289,6 +297,13 @@ class _PenggunaPengajuanUsulanKegiatan1State
                         _waktuMulaiController.text = usulanKegiatan.waktuMulaiKegiatan;
                         _waktuSelesaiController.text = usulanKegiatan.waktuSelesaiKegiatan;
                         _tempatKegiatanController.text = usulanKegiatan.tempatKegiatan;
+
+                        (_tanggalKeberangkatanController.text == "-" || _tanggalKeberangkatanController.text == "")
+                            || (_tanggalKepulanganController.text == "-" || _tanggalKepulanganController.text == "") ?
+                        _tempatKegiatanSwitchController = false :
+                        _tempatKegiatanSwitchController = true;
+
+
                         _tanggalKeberangkatanController.text = usulanKegiatan.tanggalKeberangkatan;
                         _tanggalKepulanganController.text = usulanKegiatan.tanggalKepulangan;
                         usulanKegiatan.jumlahPartisipan == "Orang"
@@ -303,9 +318,9 @@ class _PenggunaPengajuanUsulanKegiatan1State
                         _keteranganController.text = usulanKegiatan.keterangan;
                         _ormawaSignatureController = usulanKegiatan.tandaTanganOrmawa;
 
-                        _tanggalKeberangkatanController.text.isNotEmpty ?
-                        _tempatKegiatanSwitchController = true :
-                        _tempatKegiatanSwitchController = false;
+                        // _tanggalKeberangkatanController.text.isNotEmpty ?
+                        // _tempatKegiatanSwitchController = true :
+                        // _tempatKegiatanSwitchController = false;
 
                         List<String> ormawaList = usulanKegiatan.mipokaUser.ormawa
                             .map((ormawa) => ormawa.namaOrmawa).toList();
@@ -679,12 +694,23 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                       mipokaCustomToast(emptyFieldPrompt("Tanda Tangan Ormawa"));
                                     } else if (int.tryParse(_jumlahParsitipanController.text) == null) {
                                       mipokaCustomToast(dataTypeFalsePrompt("Jumlah Partisipan"));
+                                    } else if (_tempatKegiatanSwitchController == true
+                                        && (_tanggalKeberangkatanController.text == "-" || _tanggalKeberangkatanController.text == "")) {
+                                      mipokaCustomToast(emptyFieldPrompt("Tanggal Keberangakatan"));
+                                    } else if (_tempatKegiatanSwitchController == true
+                                        && (_tanggalKepulanganController.text == "-" || _tanggalKepulanganController.text == "")) {
+                                      mipokaCustomToast(emptyFieldPrompt("Tanggal Kepulangan"));
                                     } else {
                                       int uniqueId = UniqueIdGenerator.generateUniqueId();
 
                                       mipokaCustomToast(savingDataMessage);
                                       if (_ormawaSignatureController == "") {
                                         _ormawaSignatureController = await uploadBytesToFirebase(_signatureData!, "signature$uniqueId.png");
+                                      }
+
+                                      if(_tempatKegiatanSwitchController == false) {
+                                        _tanggalKeberangkatanController.text = "-";
+                                        _tanggalKepulanganController.text = "-";
                                       }
 
                                       String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());

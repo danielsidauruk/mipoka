@@ -73,7 +73,15 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
+          context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+          context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+          context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
+        },
+      ),
 
       drawer: const MobileCustomKemahasiswaanDrawer(),
 

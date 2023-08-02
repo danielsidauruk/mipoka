@@ -56,9 +56,16 @@ class _PenggunaDaftarPengajuanKegiatanState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+        },
+      ),
+
       drawer: const MobileCustomPenggunaDrawerWidget(),
-      body: SingleChildScrollView(
+
+        body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -69,15 +76,15 @@ class _PenggunaDaftarPengajuanKegiatanState
               const CustomFieldSpacer(),
               CustomContentBox(
                 children: [
-                  customBoxTitle('Status'),
-                  const CustomFieldSpacer(height: 4.0),
-                  MipokaCustomDropdown(
-                    items: listStatus,
-                    onValueChanged: (value) {
-                      _filter = value;
-                    },
-                  ),
-                  const CustomFieldSpacer(),
+                  // customBoxTitle('Status'),
+                  // const CustomFieldSpacer(height: 4.0),
+                  // MipokaCustomDropdown(
+                  //   items: listStatus,
+                  //   onValueChanged: (value) {
+                  //     _filter = value;
+                  //   },
+                  // ),
+                  // const CustomFieldSpacer(),
 
                   BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
                     listenWhen: (prev, current) =>
@@ -103,23 +110,9 @@ class _PenggunaDaftarPengajuanKegiatanState
                       } else if (state is AllUsulanKegiatanHasData) {
                         final usulanKegiatanList = state.usulanKegiatanList;
                         return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
-                                  },
-                                  child: const Icon(
-                                    Icons.refresh,
-                                  ),
-                                ),
-
-                                MipokaCountText(total: usulanKegiatanList.length),
-                              ],
-                            ),
+                            MipokaCountText(total: usulanKegiatanList.length),
 
                             const CustomFieldSpacer(),
 

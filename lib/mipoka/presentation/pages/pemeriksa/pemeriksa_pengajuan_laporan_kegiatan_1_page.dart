@@ -19,6 +19,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/pemeriksa/pemeriksa_custom_drawer.dart';
 
 class PemeriksaPengajuanLaporanKegiatan1Page extends StatefulWidget {
@@ -40,7 +41,7 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
   TextEditingController();
   final TextEditingController _revisiPencapaianController =
   TextEditingController();
-  int? idRevisiLaporan;
+  // int? idRevisiLaporan;
 
   User? user = FirebaseAuth.instance.currentUser;
   int newId = UniqueIdGenerator.generateUniqueId();
@@ -67,8 +68,18 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
   Widget build(BuildContext context) {
     print("Page revisi laporan reloaded");
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<LaporanBloc>().add(
+              ReadLaporanEvent(idLaporan: widget.idLaporan));
+          context.read<MipokaUserBloc>().add(
+              ReadMipokaUserEvent(idMipokaUser: user!.uid));
+        },
+      ),
+
       drawer: const MobileCustomPemeriksaDrawer(),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -85,7 +96,7 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                   } else if (state is LaporanHasData) {
                     final laporan = state.laporan;
 
-                    idRevisiLaporan = newId ;
+                    // idRevisiLaporan = newId ;
                     return CustomContentBox(
                       children: [
                         buildTitle('Nama Ormawa'),
@@ -113,7 +124,7 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                           children: [
                             CustomMipokaButton(
                               onTap: () => Future.microtask(() {
-                                context.read<RevisiLaporanBloc>().add(DeleteRevisiLaporanEvent(idRevisiLaporan!));
+                                // context.read<RevisiLaporanBloc>().add(DeleteRevisiLaporanEvent(idRevisiLaporan!));
                                 Navigator.pop(context);
                               }),
                               text: "Batal",

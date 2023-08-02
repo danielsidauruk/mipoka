@@ -42,8 +42,15 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
+        },
+      ),
+
       drawer: const MobileCustomPemeriksaDrawer(),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(

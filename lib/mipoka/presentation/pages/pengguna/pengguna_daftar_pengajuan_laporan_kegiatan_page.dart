@@ -51,8 +51,15 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
+        },
+      ),
+
       drawer: const MobileCustomPenggunaDrawerWidget(),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(

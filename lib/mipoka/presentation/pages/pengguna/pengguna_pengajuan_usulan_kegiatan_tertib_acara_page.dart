@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
@@ -44,8 +45,16 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<UsulanKegiatanBloc>().add(
+              ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+        },
+      ),
+
       drawer: const MobileCustomPenggunaDrawerWidget(),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -215,62 +224,27 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                                         ),
                                       ),
                                       DataCell(
-                                        Row(
-                                          children: [
-                                            InkWell(
-                                              onTap: () async {
-                                                final result = await Navigator.pushNamed(
-                                                  context,
-                                                  editTertibAcaraPageRoute,
-                                                  arguments: TertibAcaraArgs(
-                                                    index: index,
-                                                    usulanKegiatan: usulanKegiatan,
-                                                  ),
-                                                );
+                                        InkWell(
+                                          onTap: () {
+                                            final tertibAcaraList = usulanKegiatan.tertibAcara;
+                                            tertibAcaraList.removeAt(index);
+                                            // mipokaCustomToast("Tertib Acara telah dihapus");
 
-                                                if (result != null && result is UsulanKegiatan) {
-                                                  if (context.mounted) {
-                                                    context.read<UsulanKegiatanBloc>().add(
-                                                      ManageBiayaKegiatanEvent(
-                                                        usulanKegiatan: result,
-                                                      ),
-                                                    );
-                                                  }
-                                                }
-                                              },
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child: Image.asset(
-                                                  'assets/icons/delete.png',
-                                                  width: 24,
+                                            context.read<UsulanKegiatanBloc>().add(
+                                              ManageTertibAcaraEvent(
+                                                usulanKegiatan: usulanKegiatan.copyWith(
+                                                  tertibAcara: tertibAcaraList,
                                                 ),
                                               ),
+                                            );
+                                          },
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/delete.png',
+                                              width: 24,
                                             ),
-                                            InkWell(
-                                              onTap: () {
-                                                final tertibAcaraList = usulanKegiatan.tertibAcara;
-
-                                                tertibAcaraList.removeAt(index);
-
-                                                mipokaCustomToast("Tertib Acara telah dihapus");
-
-                                                context.read<UsulanKegiatanBloc>().add(
-                                                  ManageTertibAcaraEvent(
-                                                    usulanKegiatan: usulanKegiatan.copyWith(
-                                                      tertibAcara: tertibAcaraList,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child: Image.asset(
-                                                  'assets/icons/delete.png',
-                                                  width: 24,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                                          ),
                                         ),
                                       ),
                                     ],
