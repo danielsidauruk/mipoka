@@ -185,62 +185,46 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
                   const CustomFieldSpacer(),
 
-                  CustomFilterButton(
-                    text: 'Proses',
-                    onPressed: () {
-                      mipokaCustomToast(savingDataMessage);
-                      if (result != null) {
-                        for (var index = 0; index < nimList.length; index++) {
+                  BlocBuilder<MhsPerPeriodeMptBloc, MhsPerPeriodeMptState>(
+                    builder: (context, state) {
+                      if (state is MhsPerPeriodeMptLoading) {
+                        return const Text("Loading...");
+                      } else if (state is AllMhsPerPeriodeMptHasData) {
+                        final mhsPerPeriodeMptList = state.mhsPerPeriodeMptList;
 
-                          if(context.mounted) {
-                            context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
+                        final nimPerPeriodeMpt = mhsPerPeriodeMptList
+                            .map((mhs) => mhs.mipokaUser.nim)
+                            .toList();
 
-                            this.index = index;
-                          }
-                          print("This ${this.index}");
-                          print("Total NIM ${nimList.length}");
-                          Future.delayed(const Duration(seconds: 10));
-                        }
+                        return CustomFilterButton(
+                          text: 'Proses',
+                          onPressed: () {
+                            mipokaCustomToast(savingDataMessage);
+                            if (result != null) {
+                              for (var index = 0; index < nimList.length; index++) {
+
+                                if(context.mounted && nimPerPeriodeMpt.contains(nimList[index]) == false) {
+                                  context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
+
+                                  this.index = index;
+                                }
+                                print("This ${this.index}");
+                                print("Total NIM ${nimList.length}");
+                                Future.delayed(const Duration(seconds: 10));
+                              }
+                            } else {
+                              mipokaCustomToast("Harap unggah file yang diperlukan.");
+                            }
+                          },
+                        );
+                      } else if (state is MhsPerPeriodeMptError) {
+                        mipokaCustomToast("$nim tidak terdaftar");
+                        return const SizedBox();
                       } else {
-                        mipokaCustomToast("Harap unggah file yang diperlukan.");
+                        return const SizedBox();
                       }
                     },
                   ),
-
-                  // BlocBuilder<MhsPerPeriodeMptBloc, MhsPerPeriodeMptState>(
-                  //   builder: (context, state) {
-                  //     if (state is MhsPerPeriodeMptLoading) {
-                  //       return const Text("Loading...");
-                  //     } else if (state is AllMhsPerPeriodeMptHasData) {
-                  //       final mhsPerPeriodeMptList = state.mhsPerPeriodeMptList;
-                  //
-                  //       return CustomFilterButton(
-                  //         text: 'Proses',
-                  //         onPressed: () {
-                  //           mipokaCustomToast(savingDataMessage);
-                  //           if (result != null) {
-                  //             for (var index = 1; index < nimList.length; index++) {
-                  //
-                  //               if(context.mounted) {
-                  //                 context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
-                  //
-                  //                 this.index = index;
-                  //               }
-                  //               Future.delayed(const Duration(seconds: 10));
-                  //             }
-                  //           } else {
-                  //             mipokaCustomToast("Harap unggah file yang diperlukan.");
-                  //           }
-                  //         },
-                  //       );
-                  //     } else if (state is MhsPerPeriodeMptError) {
-                  //       mipokaCustomToast("$nim tidak terdaftar");
-                  //       return const SizedBox();
-                  //     } else {
-                  //       return const SizedBox();
-                  //     }
-                  //   },
-                  // ),
 
                   BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
                     builder: (context, state) {
@@ -268,7 +252,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                             ),
                           );
 
-                          if (index == nimList.length) {
+                          if (index == nimList.length - 1) {
                             mipokaCustomToast("Mahasiswa Per Periode telah ditambahkan.");
                           }
                           return const SizedBox();
