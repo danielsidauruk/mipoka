@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
-import 'package:mipoka/mipoka/presentation/bloc/rincian_biaya_kegiatan_bloc/rincian_biaya_kegiatan_bloc.dart';
+import 'package:mipoka/domain/utils/multiple_args.dart';
+import 'package:mipoka/mipoka/data/models/rincian_biaya_kegiatan_model.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -16,11 +14,11 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
 class LaporanKegiatanEditBiayaKegiatanPage extends StatefulWidget {
   const LaporanKegiatanEditBiayaKegiatanPage({
-    required this.rincianBiayaLaporan,
+    required this.rincianBiayaKegiatanArgs,
     super.key,
   });
   
-  final RincianBiayaKegiatan rincianBiayaLaporan;
+  final RincianBiayaKegiatanArgs rincianBiayaKegiatanArgs;
 
   @override
   State<LaporanKegiatanEditBiayaKegiatanPage> createState() => _LaporanKegiatanEditBiayaKegiatanPageState();
@@ -40,12 +38,13 @@ class _LaporanKegiatanEditBiayaKegiatanPageState extends State<LaporanKegiatanEd
 
   @override
   void initState() {
-    _namaBiayaKegiatanController.text = widget.rincianBiayaLaporan.namaBiaya;
-    _kuantitasController.text = widget.rincianBiayaLaporan.kuantitas.toString();
-    _hargaSatuanController.text = widget.rincianBiayaLaporan.hargaSatuan.toString();
-    _usulanAnggaranController.text = widget.rincianBiayaLaporan.usulanAnggaran.toString();
-    _realisasiAnggaranController.text = widget.rincianBiayaLaporan.realisasiAnggaran.toString();
-    _keteranganController.text = widget.rincianBiayaLaporan.keterangan;
+    final rincianBiayaKegiatan = widget.rincianBiayaKegiatanArgs.laporan.rincianBiayaKegiatan[widget.rincianBiayaKegiatanArgs.index];
+    _namaBiayaKegiatanController.text = rincianBiayaKegiatan.namaBiaya;
+    _kuantitasController.text = rincianBiayaKegiatan.kuantitas.toString();
+    _hargaSatuanController.text = rincianBiayaKegiatan.hargaSatuan.toString();
+    _usulanAnggaranController.text = rincianBiayaKegiatan.usulanAnggaran.toString();
+    _realisasiAnggaranController.text = rincianBiayaKegiatan.realisasiAnggaran.toString();
+    _keteranganController.text = rincianBiayaKegiatan.keterangan;
     super.initState();
   }
   @override
@@ -143,22 +142,31 @@ class _LaporanKegiatanEditBiayaKegiatanPageState extends State<LaporanKegiatanEd
 
                           String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
-                          context.read<RincianBiayaKegiatanBloc>().add(
-                            UpdateRincianBiayaKegiatanEvent(
-                              rincianBiayaKegiatan: widget.rincianBiayaLaporan.copyWith(
-                                namaBiaya: _namaBiayaKegiatanController.text,
-                                keterangan: _keteranganController.text,
-                                kuantitas: int.parse(_kuantitasController.text),
-                                hargaSatuan: int.parse(_hargaSatuanController.text),
-                                usulanAnggaran: int.parse(_usulanAnggaranController.text),
-                                realisasiAnggaran: int.parse(_realisasiAnggaranController.text),
-                                selisih: selisih ?? 0,
-                                updatedAt: currentDate,
-                                updatedBy: user?.email ?? "unknown",
-                              ),
+                          final laporan = widget.rincianBiayaKegiatanArgs.laporan;
+                          final rincianBiayaKegiatan = laporan.rincianBiayaKegiatan[widget.rincianBiayaKegiatanArgs.index];
+
+                          final newRincianBiaya = rincianBiayaKegiatan.copyWith(
+                            namaBiaya: _namaBiayaKegiatanController.text,
+                            keterangan: _keteranganController.text,
+                            kuantitas: int.parse(_kuantitasController.text),
+                            hargaSatuan: int.parse(_hargaSatuanController.text),
+                            usulanAnggaran: int.parse(_usulanAnggaranController.text),
+                            realisasiAnggaran: int.parse(_realisasiAnggaranController.text),
+                            selisih: selisih ?? 0,
+                            updatedAt: currentDate,
+                            updatedBy: user?.email ?? "unknown",
+                          );
+
+                          laporan.rincianBiayaKegiatan[widget.rincianBiayaKegiatanArgs.index] =
+                              RincianBiayaKegiatanModel.fromEntity(newRincianBiaya);
+
+                          Navigator.pop(
+                            context,
+                            laporan.copyWith(
+                              rincianBiayaKegiatan: laporan.rincianBiayaKegiatan,
                             ),
                           );
-                          Navigator.pop(context);
+
                         },
                         text: 'Tambahkan Peserta',
                       ),

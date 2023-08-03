@@ -313,10 +313,6 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                   );
 
                                   if (result != null && result is Laporan) {
-                                    print("Peserta : ${result.pesertaKegiatanLaporan}");
-
-                                    print("Rincian Biaya ${result.rincianBiayaKegiatan}");
-                                    print("Rincian Biaya ${result.rincianBiayaKegiatan.length}");
                                     if(context.mounted) {
                                       context.read<LaporanBloc>().add(
                                           UpdateRincianBiayaEvent(laporan: result));
@@ -411,7 +407,10 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                                 final result = await Navigator.pushNamed(
                                                   context,
                                                   laporanKegiatanEditBiayaKegiatanPageRoute,
-                                                  arguments: rincianBiayaKegiatan,
+                                                  arguments: RincianBiayaKegiatanArgs(
+                                                    index: index,
+                                                    laporan: laporan,
+                                                  ),
                                                 );
 
                                                 if(result != null && result is Laporan && context.mounted) {

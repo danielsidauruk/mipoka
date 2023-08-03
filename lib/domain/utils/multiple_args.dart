@@ -1,3 +1,4 @@
+import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 
 class PartisipanArgs {
@@ -27,6 +28,16 @@ class TertibAcaraArgs {
   TertibAcaraArgs({
     required this.index,
     required this.usulanKegiatan,
+  });
+}
+
+class RincianBiayaKegiatanArgs {
+  final int index;
+  final Laporan laporan;
+
+  RincianBiayaKegiatanArgs({
+    required this.index,
+    required this.laporan,
   });
 }
 

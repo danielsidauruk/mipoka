@@ -296,9 +296,7 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                       usulanKegiatan: null,
                                       pencapaian: "",
                                       pesertaKegiatanLaporan: const [],
-                                      rincianBiayaKegiatan: [
-                                        RincianBiayaKegiatan(idRincianBiayaKegiatan: 23432432, namaBiaya: "namaBiaya", keterangan: "keterangan", laporan: "laporan", kuantitas: 23, hargaSatuan: 23, usulanAnggaran: 23, realisasiAnggaran: 34, selisih: 34, createdAt: "createdAt", createdBy: "createdBy", updatedAt: "updatedAt", updatedBy: "updatedBy"),
-                                      ],
+                                      rincianBiayaKegiatan: const [],
                                       totalUsulan: 0,
                                       totalRealisasi: 0,
                                       totalSelisih: 0,

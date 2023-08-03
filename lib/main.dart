@@ -336,10 +336,10 @@ class MyApp extends StatelessWidget {
                   builder: (_) =>
                       LaporanKegiatanTambahBiayaKegiatanPage(laporan: laporan));
             case laporanKegiatanEditBiayaKegiatanPageRoute:
-              final rincianBiayaKegiatan = settings.arguments as RincianBiayaKegiatan;
+              final rincianBiayaKegiatanArgs = settings.arguments as RincianBiayaKegiatanArgs;
               return MaterialPageRoute(
                   builder: (_) =>
-                      LaporanKegiatanEditBiayaKegiatanPage(rincianBiayaLaporan: rincianBiayaKegiatan));
+                      LaporanKegiatanEditBiayaKegiatanPage(rincianBiayaKegiatanArgs: rincianBiayaKegiatanArgs));
             case importPesertaLaporanPageRoute:
               final laporan = settings.arguments as Laporan;
               return MaterialPageRoute(
