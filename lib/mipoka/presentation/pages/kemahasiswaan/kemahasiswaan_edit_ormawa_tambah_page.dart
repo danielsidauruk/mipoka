@@ -77,6 +77,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
 
   int uniqueId = Random().nextInt(899999999) + 100000000;
   Ormawa? _ormawa;
+  int? index;
 
   @override
   void initState() {
@@ -631,6 +632,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
                                   // } else {
                                   //   print("Memproses ${nimList[index]}");
                                   // }
+                                  this.index = index;
 
                                   if (context.mounted) {
                                     context.read<MipokaUserByNimBloc>().add(
