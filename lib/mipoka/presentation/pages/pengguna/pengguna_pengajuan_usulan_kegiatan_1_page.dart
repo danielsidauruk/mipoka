@@ -251,23 +251,26 @@ class _PenggunaPengajuanUsulanKegiatan1State
                         final Object? result;
 
                         if (_tempatKegiatanSwitchController == false) {
-                          result = await Navigator.pushNamed(
+                          // result = await Navigator.pushNamed(
+                          Navigator.pushNamed(
                             context,
                             penggunaPengajuanUsulanKegiatan2DKPageRoute,
                             arguments: widget.usulanArgs,
-                          );
+                          ).then((_) => context.read<UsulanKegiatanBloc>()
+                              .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
                         } else {
-                          result = await Navigator.pushNamed(
+                          Navigator.pushNamed(
                             context,
                             penggunaPengajuanUsulanKegiatan2LKPageRoute,
                             arguments: widget.usulanArgs,
-                          );
+                          ).then((_) => context.read<UsulanKegiatanBloc>()
+                              .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
                         }
 
-                        if (result != null && result == true && context.mounted) {
-                          context.read<UsulanKegiatanBloc>()
-                              .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
-                        }
+                        // if (result != null && result == true && context.mounted) {
+                        //   context.read<UsulanKegiatanBloc>()
+                        //       .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+                        // }
 
                       } else if (state is UsulanKegiatanDeleted) {
 

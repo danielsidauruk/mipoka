@@ -528,7 +528,7 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
                                 children: [
 
                                   CustomMipokaButton(
-                                    onTap: () => Navigator.pop(context, true),
+                                    onTap: () => Navigator.pop(context),
                                     text: 'Sebelumnya',
                                   ),
 

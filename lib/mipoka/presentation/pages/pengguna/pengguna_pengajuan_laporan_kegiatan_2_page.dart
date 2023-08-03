@@ -87,7 +87,13 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                         context.read<LaporanBloc>().add(
                             ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
 
-                      } else if (state is DeleteDataPesertaSuccess) {
+                      } else if (state is UpdateRincianBiayaSuccess) {
+
+                        context.read<LaporanBloc>().add(
+                            ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
+
+                      }
+                      else if (state is DeleteDataPesertaSuccess) {
                         Navigator.pushNamed(
                           context,
                           penggunaPengajuanLaporanKegiatan3PageRoute,
@@ -96,7 +102,8 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                             context.read<LaporanBloc>().add(
                                 ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan)),
                         );
-                      } else if (state is LaporanError) {
+                      }
+                      else if (state is LaporanError) {
                         mipokaCustomToast(state.message);
                       }
                     },
@@ -270,9 +277,15 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                     arguments: laporan,
                                   );
 
-                                  if (result != null && result is Laporan && context.mounted) {
-                                    context.read<LaporanBloc>().add(
-                                        UpdateLaporanSecondPageEvent(laporan: result));
+                                  if (result != null && result is Laporan) {
+                                    print("Peserta : ${result.pesertaKegiatanLaporan}");
+
+                                    print("Rincian Biaya ${result.rincianBiayaKegiatan}");
+                                    print("Rincian Biaya ${result.rincianBiayaKegiatan.length}");
+                                    if(context.mounted) {
+                                      context.read<LaporanBloc>().add(
+                                          UpdateRincianBiayaEvent(laporan: result));
+                                    }
                                   }
                                 },
                               ),

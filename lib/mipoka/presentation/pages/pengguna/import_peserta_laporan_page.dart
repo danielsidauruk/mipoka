@@ -200,7 +200,6 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                               print("Current Index  : ${this.index}");
 
                               context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
-
                               Future.delayed(const Duration(seconds: 10));
                               print("Index After    : ${this.index}");
                             }
@@ -212,10 +211,8 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                         text: 'Proses',
                       ),
 
-                      BlocListener<MipokaUserByNimBloc, MipokaUserByNimState>(
-                        listenWhen: (prev, current) =>
-                        prev.runtimeType != current.runtimeType,
-                        listener: (context, state) {
+                      BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
+                        builder: (context, state) {
                           if(state is MipokaUserByNimByNimHasData) {
                             final mipokaUser = state.mipokaUser;
                             int uniqueId = UniqueIdGenerator.generateUniqueId();
@@ -227,10 +224,11 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                                   pesertaKegiatanLaporan: [
                                     ...widget.laporan.pesertaKegiatanLaporan,
                                     PesertaKegiatanLaporan(
-                                      idPesertaKegiatanLaporan: 30 + index,
+                                      idPesertaKegiatanLaporan: uniqueId,
                                       nim: nimList[index],
                                       namaLengkap: mipokaUser.namaLengkap,
                                       peran: peranList[index],
+                                      laporan: '',
                                       createdAt: currentDate,
                                       createdBy: user?.email ?? "unknown",
                                       updatedAt: currentDate,
@@ -241,6 +239,8 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                               ),
                             );
                           }
+
+                          return const SizedBox();
                           // else {
                           //   int uniqueId = UniqueIdGenerator.generateUniqueId();
                           //   String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
@@ -267,7 +267,6 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                           //   index ++;
                           // }
                         },
-                        child: const SizedBox(),
                       ),
 
                       // BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(

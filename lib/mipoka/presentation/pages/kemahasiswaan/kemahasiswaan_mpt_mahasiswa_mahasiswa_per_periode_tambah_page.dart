@@ -42,6 +42,8 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
   String nim = "";
   User? user = FirebaseAuth.instance.currentUser;
 
+  int? index;
+
   final StreamController<String?> _excelFileStream = StreamController<String?>();
   String? _excelFileController;
   FilePickerResult? result;
@@ -75,7 +77,8 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
       Excel excel = Excel.decodeBytes(bytes);
       Sheet? sheet = excel.tables[excel.tables.keys.first];
 
-      for (var row in sheet!.rows) {
+      for (int i = 1; i < sheet!.rows.length; i++) {
+        var row = sheet.rows[i];
         var nim = row[0]?.value;
 
         if (nim != null) {
@@ -83,7 +86,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
         }
       }
     }
-    print (nimList);
+    print ("NimList : $nimList");
   }
 
   @override
@@ -182,39 +185,62 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
                   const CustomFieldSpacer(),
 
-                  BlocBuilder<MhsPerPeriodeMptBloc, MhsPerPeriodeMptState>(
-                    builder: (context, state) {
-                      if (state is MhsPerPeriodeMptLoading) {
-                        return const Text("Loading...");
-                      } else if (state is AllMhsPerPeriodeMptHasData) {
-                        final mhsPerPeriodeMptList = state.mhsPerPeriodeMptList;
+                  CustomFilterButton(
+                    text: 'Proses',
+                    onPressed: () {
+                      mipokaCustomToast(savingDataMessage);
+                      if (result != null) {
+                        for (var index = 0; index < nimList.length; index++) {
 
-                        return CustomFilterButton(
-                          text: 'Proses',
-                          onPressed: () {
-                            mipokaCustomToast(savingDataMessage);
-                            if (result != null) {
-                              for (var index = 1; index < nimList.length; index++) {
-                                // await Future.delayed(const Duration(milliseconds: 10000));
-                                if(context.mounted && mhsPerPeriodeMptList.contains(nimList[index]) == false) {
-                                  context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
-                                  nim = nimList[index];
-                                }
-                                Future.delayed(const Duration(seconds: 10));
-                              }
-                            } else {
-                              mipokaCustomToast("Harap unggah file yang diperlukan.");
-                            }
-                          },
-                        );
-                      } else if (state is MhsPerPeriodeMptError) {
-                        mipokaCustomToast("$nim tidak terdaftar");
-                        return const SizedBox();
+                          if(context.mounted) {
+                            context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
+
+                            this.index = index;
+                          }
+                          print("This ${this.index}");
+                          print("Total NIM ${nimList.length}");
+                          Future.delayed(const Duration(seconds: 10));
+                        }
                       } else {
-                        return const SizedBox();
+                        mipokaCustomToast("Harap unggah file yang diperlukan.");
                       }
                     },
                   ),
+
+                  // BlocBuilder<MhsPerPeriodeMptBloc, MhsPerPeriodeMptState>(
+                  //   builder: (context, state) {
+                  //     if (state is MhsPerPeriodeMptLoading) {
+                  //       return const Text("Loading...");
+                  //     } else if (state is AllMhsPerPeriodeMptHasData) {
+                  //       final mhsPerPeriodeMptList = state.mhsPerPeriodeMptList;
+                  //
+                  //       return CustomFilterButton(
+                  //         text: 'Proses',
+                  //         onPressed: () {
+                  //           mipokaCustomToast(savingDataMessage);
+                  //           if (result != null) {
+                  //             for (var index = 1; index < nimList.length; index++) {
+                  //
+                  //               if(context.mounted) {
+                  //                 context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
+                  //
+                  //                 this.index = index;
+                  //               }
+                  //               Future.delayed(const Duration(seconds: 10));
+                  //             }
+                  //           } else {
+                  //             mipokaCustomToast("Harap unggah file yang diperlukan.");
+                  //           }
+                  //         },
+                  //       );
+                  //     } else if (state is MhsPerPeriodeMptError) {
+                  //       mipokaCustomToast("$nim tidak terdaftar");
+                  //       return const SizedBox();
+                  //     } else {
+                  //       return const SizedBox();
+                  //     }
+                  //   },
+                  // ),
 
                   BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
                     builder: (context, state) {
@@ -241,6 +267,10 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                               ),
                             ),
                           );
+
+                          if (index == nimList.length) {
+                            mipokaCustomToast("Mahasiswa Per Periode telah ditambahkan.");
+                          }
                           return const SizedBox();
                         } else if (state is MipokaUserByNimError) {
                           return Text(state.message);

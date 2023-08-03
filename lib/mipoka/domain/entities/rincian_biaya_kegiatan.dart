@@ -4,6 +4,7 @@ class RincianBiayaKegiatan extends Equatable {
   final int idRincianBiayaKegiatan;
   final String namaBiaya;
   final String keterangan;
+  final String laporan;
   final int kuantitas;
   final int hargaSatuan;
   final int usulanAnggaran;
@@ -18,6 +19,7 @@ class RincianBiayaKegiatan extends Equatable {
     required this.idRincianBiayaKegiatan,
     required this.namaBiaya,
     required this.keterangan,
+    required this.laporan,
     required this.kuantitas,
     required this.hargaSatuan,
     required this.usulanAnggaran,
@@ -33,6 +35,7 @@ class RincianBiayaKegiatan extends Equatable {
     int? idRincianBiayaKegiatan,
     String? namaBiaya,
     String? keterangan,
+    String? laporan,
     int? kuantitas,
     int? hargaSatuan,
     int? usulanAnggaran,
@@ -47,6 +50,7 @@ class RincianBiayaKegiatan extends Equatable {
         idRincianBiayaKegiatan: idRincianBiayaKegiatan ?? this.idRincianBiayaKegiatan,
         namaBiaya: namaBiaya ?? this.namaBiaya,
         keterangan: keterangan ?? this.keterangan,
+        laporan: laporan ?? this.laporan,
         kuantitas: kuantitas ?? this.kuantitas,
         hargaSatuan: hargaSatuan ?? this.hargaSatuan,
         usulanAnggaran: usulanAnggaran ?? this.usulanAnggaran,
@@ -63,6 +67,7 @@ class RincianBiayaKegiatan extends Equatable {
     idRincianBiayaKegiatan,
     namaBiaya,
     keterangan,
+    laporan,
     kuantitas,
     hargaSatuan,
     usulanAnggaran,

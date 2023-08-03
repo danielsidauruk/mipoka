@@ -76,7 +76,6 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                   listener: (context, state) {
                     if (state is ManageTertibAcaraSuccess) {
 
-                      mipokaCustomToast('Data telah berubah.');
                       context.read<UsulanKegiatanBloc>().add(
                           ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
 
@@ -110,7 +109,7 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                               if (result != null && result is UsulanKegiatan) {
                                 if (context.mounted) {
                                   context.read<UsulanKegiatanBloc>().add(
-                                    ManageBiayaKegiatanEvent(
+                                    ManageTertibAcaraEvent(
                                       usulanKegiatan: result,
                                     ),
                                   );

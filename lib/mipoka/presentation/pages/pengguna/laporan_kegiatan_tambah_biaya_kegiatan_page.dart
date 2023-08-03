@@ -5,8 +5,10 @@ import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/mipoka/data/models/rincian_biaya_kegiatan_model.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
+import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/rincian_biaya_kegiatan_bloc/rincian_biaya_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -142,44 +144,75 @@ class _LaporanKegiatanTambahBiayaKegiatanPageState extends State<LaporanKegiatan
                                 String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
                                 int uniqueId = UniqueIdGenerator.generateUniqueId();
 
-                                print (RincianBiayaKegiatan(
-                                  // idRincianBiayaKegiatan: uniqueId,
-                                  idRincianBiayaKegiatan: 23321,
-                                  namaBiaya: _namaBiayaKegiatanController.text,
-                                  keterangan: _keteranganController.text,
-                                  kuantitas: kuantitas,
-                                  hargaSatuan: hargaSatuan,
-                                  usulanAnggaran: usulanAnggaran,
-                                  realisasiAnggaran: realisasiAnggaran,
-                                  selisih: selisih,
-                                  createdAt: currentDate,
-                                  createdBy: user?.email ?? "unknown",
-                                  updatedAt: currentDate,
-                                  updatedBy: user?.email ?? "unknown",
-                                ),
-                                );
-                                final newLaporan = widget.laporan.copyWith(
-                                    rincianBiayaKegiatan: [
-                                      ...widget.laporan.rincianBiayaKegiatan,
-                                      RincianBiayaKegiatan(
-                                        // idRincianBiayaKegiatan: uniqueId,
-                                        idRincianBiayaKegiatan: 2332132,
-                                        namaBiaya: _namaBiayaKegiatanController.text,
-                                        keterangan: _keteranganController.text,
-                                        kuantitas: kuantitas,
-                                        hargaSatuan: hargaSatuan,
-                                        usulanAnggaran: usulanAnggaran,
-                                        realisasiAnggaran: realisasiAnggaran,
-                                        selisih: selisih,
-                                        createdAt: currentDate,
-                                        createdBy: user?.email ?? "unknown",
-                                        updatedAt: currentDate,
-                                        updatedBy: user?.email ?? "unknown",
-                                      ),
-                                    ]
+                                print (
+                                  RincianBiayaKegiatanModel.fromEntity(RincianBiayaKegiatan(
+                                    idRincianBiayaKegiatan: uniqueId,
+                                    // idRincianBiayaKegiatan: 23321,
+                                    namaBiaya: _namaBiayaKegiatanController.text,
+                                    keterangan: _keteranganController.text,
+                                    kuantitas: kuantitas,
+                                    hargaSatuan: hargaSatuan,
+                                    usulanAnggaran: usulanAnggaran,
+                                    realisasiAnggaran: realisasiAnggaran,
+                                    selisih: selisih,
+                                    laporan: "",
+                                    createdAt: currentDate,
+                                    createdBy: user?.email ?? "unknown",
+                                    updatedAt: currentDate,
+                                    updatedBy: user?.email ?? "unknown",
+                                  )),
                                 );
 
-                                Navigator.pop(context, newLaporan);
+                                context.read<LaporanBloc>().add(
+                                  UpdateRincianBiayaEvent(
+                                    laporan: widget.laporan.copyWith(
+                                      rincianBiayaKegiatan: [
+                                        ...widget.laporan.rincianBiayaKegiatan,
+                                        RincianBiayaKegiatan(
+                                          idRincianBiayaKegiatan: uniqueId,
+                                          // idRincianBiayaKegiatan: 2332132,
+                                          namaBiaya: _namaBiayaKegiatanController.text,
+                                          keterangan: _keteranganController.text,
+                                          laporan: "-",
+                                          kuantitas: kuantitas,
+                                          hargaSatuan: hargaSatuan,
+                                          usulanAnggaran: usulanAnggaran,
+                                          realisasiAnggaran: realisasiAnggaran,
+                                          selisih: selisih,
+                                          createdAt: currentDate,
+                                          createdBy: user?.email ?? "unknown",
+                                          updatedAt: currentDate,
+                                          updatedBy: user?.email ?? "unknown",
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+
+                                // Navigator.pop(
+                                //   context,
+                                //   widget.laporan.copyWith(
+                                //     rincianBiayaKegiatan: [
+                                //       ...widget.laporan.rincianBiayaKegiatan,
+                                //       RincianBiayaKegiatan(
+                                //         idRincianBiayaKegiatan: uniqueId,
+                                //         // idRincianBiayaKegiatan: 2332132,
+                                //         namaBiaya: _namaBiayaKegiatanController.text,
+                                //         keterangan: _keteranganController.text,
+                                //         laporan: "-",
+                                //         kuantitas: kuantitas,
+                                //         hargaSatuan: hargaSatuan,
+                                //         usulanAnggaran: usulanAnggaran,
+                                //         realisasiAnggaran: realisasiAnggaran,
+                                //         selisih: selisih,
+                                //         createdAt: currentDate,
+                                //         createdBy: user?.email ?? "unknown",
+                                //         updatedAt: currentDate,
+                                //         updatedBy: user?.email ?? "unknown",
+                                //       ),
+                                //     ],
+                                //   ),
+                                // );
                               }
                             } catch (e) {
                               mipokaCustomToast(dataTypeErrorMessage);
@@ -189,6 +222,17 @@ class _LaporanKegiatanTambahBiayaKegiatanPageState extends State<LaporanKegiatan
                           }
                         },
                         text: 'Tambahkan Peserta',
+                      ),
+
+                      BlocListener<LaporanBloc, LaporanState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
+                          if (state is UpdateRincianBiayaSuccess) {
+                            Navigator.pop(context);
+                          }
+                        },
+                        child: const SizedBox(),
                       ),
                     ],
                   ),

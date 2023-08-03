@@ -68,7 +68,23 @@ class _PemeriksaPengajuanUsulanKegiatan2DKPageState
                 text: 'Pemeriksa - Kegiatan - Usulan Kegiatan'),
             const CustomFieldSpacer(),
             Expanded(
-              child: BlocBuilder<UsulanKegiatanBloc, UsulanKegiatanState>(
+              child: BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
+                listenWhen: (prev, current) =>
+                prev.runtimeType != current.runtimeType,
+                listener: (context, state) async {
+                  if (state is SaveReviseSecondPageSuccess) {
+
+                    Navigator.pushNamed(
+                      context,
+                      pemeriksaPengajuanUsulanKegiatan3PageRoute,
+                      arguments: widget.idUsulan,
+                    ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                        ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan)));
+
+                  } else if (state is UsulanKegiatanError) {
+                    mipokaCustomToast(state.message);
+                  }
+                },
                 builder: (context, state) {
                   if (state is UsulanKegiatanLoading) {
                     return const Text("Loading ...");
@@ -296,8 +312,25 @@ class _PemeriksaPengajuanUsulanKegiatan2DKPageState
                           children: [
                             CustomMipokaButton(
                               onTap: () {
+                                // context.read<UsulanKegiatanBloc>().add(
+                                //   UpdateUsulanKegiatanEvent(
+                                //     usulanKegiatan: usulanKegiatan.copyWith(
+                                //       revisiUsulan: usulanKegiatan.revisiUsulan?.copyWith(
+                                //         revisiPartisipan: _revisiPesertaKegiatanDalamKotaController.text,
+                                //         revisiRincianBiayaKegiatan: _revisiRincianBiayaKegiatanController.text,
+                                //       ),
+                                //     ),
+                                //   ),
+                                // );
+                                // Navigator.pop(context);
+                              },
+                              text: 'Sebelumnya',
+                            ),
+                            const SizedBox(width: 8.0),
+                            CustomMipokaButton(
+                              onTap: () {
                                 context.read<UsulanKegiatanBloc>().add(
-                                  UpdateUsulanKegiatanEvent(
+                                  SaveReviseSecondPageEvent(
                                     usulanKegiatan: usulanKegiatan.copyWith(
                                       revisiUsulan: usulanKegiatan.revisiUsulan?.copyWith(
                                         revisiPartisipan: _revisiPesertaKegiatanDalamKotaController.text,
@@ -306,18 +339,13 @@ class _PemeriksaPengajuanUsulanKegiatan2DKPageState
                                     ),
                                   ),
                                 );
-                                Navigator.pop(context);
                               },
-                              text: 'Sebelumnya',
-                            ),
-                            const SizedBox(width: 8.0),
-                            CustomMipokaButton(
-                              onTap: () => Navigator.pushNamed(
-                                context,
-                                pemeriksaPengajuanUsulanKegiatan3PageRoute,
-                                arguments: widget.idUsulan,
-                              ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                  ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan))),
+                              //     Navigator.pushNamed(
+                              //   context,
+                              //   pemeriksaPengajuanUsulanKegiatan3PageRoute,
+                              //   arguments: widget.idUsulan,
+                              // ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                              //     ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan))),
                               text: 'Berikutnya',
                             ),
                           ],

@@ -199,17 +199,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                           crossAxisAlignment: CrossAxisAlignment.start,
 
                           children: [
-                            InkWell(
-                              onTap: () {
-                                context.read<UsulanKegiatanBloc>().add(
-                                    ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
-                              },
-                              child: const Icon(
-                                Icons.refresh,
-                              ),
-                            ),
-
-                            const CustomFieldSpacer(),
 
                             buildTitle('Latar Belakang'),
                             buildDescription('Berisi latar belakang kegiatan diusulkan'),

@@ -21,6 +21,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dart';
 
 class PenggunaDaftarLaporanKegiatan extends StatefulWidget {
   const PenggunaDaftarLaporanKegiatan({super.key});
@@ -33,6 +34,7 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
 
   String? _filter;
   User? user = FirebaseAuth.instance.currentUser;
+  int uniqueId = UniqueIdGenerator.generateUniqueId();
 
   @override
   void initState() {
@@ -45,8 +47,6 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
     context.read<LaporanBloc>().close();
     super.dispose();
   }
-
-  int uniqueId = UniqueIdGenerator.generateUniqueId();
 
   @override
   Widget build(BuildContext context) {
@@ -77,18 +77,21 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                   BlocConsumer<LaporanBloc, LaporanState>(
                     listenWhen: (prev, current) =>
                     prev.runtimeType != current.runtimeType,
-                    listener: (context, state) {
+                    listener: (context, state) async {
 
                       if (state is CreateLaporanSuccess) {
+                        print("these createLaporanSuccess Emmited.");
                         Navigator.pushNamed(
                           context,
                           penggunaPengajuanLaporanKegiatanPage1Route,
                           arguments: LaporanArgs(idLaporan: uniqueId),
                         ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent()));
 
-                      } else if (state is DeleteLaporanSuccess) {
-                        context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
-                      } else if (state is LaporanError) {
+                      }
+                      // else if (state is DeleteLaporanSuccess) {
+                      //   context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
+                      // }
+                      else if (state is LaporanError) {
                         mipokaCustomToast(state.message);
                       }
                     },
@@ -100,19 +103,22 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            customBoxTitle('Status'),
+                            // customBoxTitle('Status'),
+                            //
+                            // const CustomFieldSpacer(height: 4.0),
+                            //
+                            // MipokaCustomDropdown(
+                            //   items: listStatus,
+                            //   onValueChanged: (value) {
+                            //     _filter = value;
+                            //     context.read<LaporanBloc>().add(
+                            //         ReadAllLaporanEvent(filter: _filter ?? "Semua"));
+                            //   },
+                            // ),
+                            MipokaCountText(total: laporanState.laporanList.length),
 
-                            const CustomFieldSpacer(height: 4.0),
-
-                            MipokaCustomDropdown(
-                              items: listStatus,
-                              onValueChanged: (value) {
-                                _filter = value;
-                                context.read<LaporanBloc>().add(
-                                    ReadAllLaporanEvent(filter: _filter ?? "Semua"));
-                              },
-                            ),
                             const CustomFieldSpacer(),
+
                             SingleChildScrollView(
                               scrollDirection: Axis.vertical,
                               child: SingleChildScrollView(
@@ -288,8 +294,8 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                       revisiLaporan: null,
                                       usulanKegiatan: null,
                                       pencapaian: "",
-                                      pesertaKegiatanLaporan: const [],
-                                      rincianBiayaKegiatan: const [],
+                                      pesertaKegiatanLaporan: [],
+                                      rincianBiayaKegiatan: [],
                                       totalUsulan: 0,
                                       totalRealisasi: 0,
                                       totalSelisih: 0,
@@ -319,7 +325,7 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                         return Text(laporanState.message);
                       } else {
                         if (kDebugMode) {
-                          print("LaporanBloc hasn't been triggered yet.");
+                          print("LaporanBloc Page 1 hasn't been triggered yet.");
                         }
                         return const Center();
                       }

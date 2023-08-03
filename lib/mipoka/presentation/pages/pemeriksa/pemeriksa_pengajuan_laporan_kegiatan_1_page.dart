@@ -89,7 +89,22 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
               const CustomMobileTitle(
                   text: 'Pemeriksa - Kegiatan - Laporan Kegiatan'),
               const CustomFieldSpacer(),
-              BlocBuilder<LaporanBloc, LaporanState>(
+              BlocConsumer<LaporanBloc, LaporanState>(
+                listenWhen: (prev, current) =>
+                prev.runtimeType != current.runtimeType,
+                listener: (context, state) {
+                  if (state is UpdateLaporanFirstPageSuccess) {
+
+                    Navigator.pushNamed(
+                      context,
+                      pemeriksaPengajuanLaporanKegiatan2PageRoute,
+                      arguments: widget.idLaporan,
+                    ).then((_) => context.read<LaporanBloc>().add(
+                        ReadLaporanEvent(idLaporan: widget.idLaporan)));
+
+                  }
+                },
+
                 builder: (context, state) {
                   if (state is LaporanLoading) {
                     return const Text("Loading ...");
@@ -153,11 +168,6 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                                             ),
                                           ),
                                         ),
-                                      );
-                                      Navigator.pushNamed(
-                                        context,
-                                        pemeriksaPengajuanLaporanKegiatan2PageRoute,
-                                        arguments: widget.idLaporan,
                                       );
                                     },
                                     text: 'Berikutnya',

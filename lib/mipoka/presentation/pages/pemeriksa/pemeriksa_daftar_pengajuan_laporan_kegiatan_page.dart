@@ -86,7 +86,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
 
                         context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
 
-                      } else if (state is UpdateLaporanFirstPageSuccess) {
+                      } else if (state is LaporanError) {
                         mipokaCustomToast(state.message);
                       }
                     },

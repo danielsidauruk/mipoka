@@ -5,6 +5,7 @@ class PesertaKegiatanLaporan extends Equatable {
   final String nim;
   final String namaLengkap;
   final String peran;
+  final String laporan;
   final String createdAt;
   final String createdBy;
   final String updatedAt;
@@ -15,6 +16,7 @@ class PesertaKegiatanLaporan extends Equatable {
     required this.nim,
     required this.namaLengkap,
     required this.peran,
+    required this.laporan,
     required this.createdAt,
     required this.createdBy,
     required this.updatedAt,
@@ -26,6 +28,7 @@ class PesertaKegiatanLaporan extends Equatable {
     String? nim,
     String? namaLengkap,
     String? peran,
+    String? laporan,
     String? createdAt,
     String? createdBy,
     String? updatedAt,
@@ -36,6 +39,7 @@ class PesertaKegiatanLaporan extends Equatable {
         nim: nim ?? this.nim,
         namaLengkap: namaLengkap ?? this.namaLengkap,
         peran: peran ?? this.peran,
+        laporan: laporan ?? this.laporan,
         createdAt: createdAt ?? this.createdAt,
         createdBy: createdBy ?? this.createdBy,
         updatedAt: updatedAt ?? this.updatedAt,
@@ -48,6 +52,7 @@ class PesertaKegiatanLaporan extends Equatable {
     nim,
     namaLengkap,
     peran,
+    laporan,
     createdAt,
     createdBy,
     updatedAt,

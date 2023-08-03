@@ -68,7 +68,18 @@ class _PemeriksaPengajuanLaporanKegiatan2PageState
                 text: 'Pemeriksa - Kegiatan - Usulan Kegiatan'),
             const CustomFieldSpacer(),
             Expanded(
-              child: BlocBuilder<LaporanBloc, LaporanState>(
+              child: BlocConsumer<LaporanBloc, LaporanState>(
+                listenWhen: (prev, current) =>
+                prev.runtimeType != current.runtimeType,
+                listener: (context, state) {
+                  if (state is UpdateReviseSecondPageSuccess) {
+                    Navigator.pushNamed(
+                      context,
+                      pemeriksaPengajuanLaporanKegiatan3PageRoute,
+                      arguments: widget.idLaporan,
+                    );
+                  }
+                },
                 builder: (context, state) {
                   if (state is LaporanLoading) {
                     return const Text("Loading ...");
@@ -307,11 +318,18 @@ class _PemeriksaPengajuanLaporanKegiatan2PageState
                             ),
                             const SizedBox(width: 8.0),
                             CustomMipokaButton(
-                              onTap: () => Navigator.pushNamed(
-                                context,
-                                pemeriksaPengajuanLaporanKegiatan3PageRoute,
-                                arguments: widget.idLaporan,
-                              ),
+                              onTap: () {
+                                context.read<LaporanBloc>().add(
+                                  UpdateReviseSecondPageEvent(
+                                    laporan: laporan.copyWith(
+                                      revisiLaporan: laporan.revisiLaporan?.copyWith(
+                                        revisiPesertaKegiatanLaporan: _dataPesertaKegiatanController.text,
+                                        revisiBiayaKegiatan: _realisasiBiayaKegiatanController.text,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                               text: 'Berikutnya',
                             ),
                           ],

@@ -270,6 +270,7 @@ class _PenggunaDaftarPengajuanKegiatanState
                       } else if (state is UsulanKegiatanError) {
                         return Text(state.message);
                       } else {
+                        print("Usulan Kegiatan bloc hasn't been triggered yet.");
                         return const Center();
                       }
                     },
