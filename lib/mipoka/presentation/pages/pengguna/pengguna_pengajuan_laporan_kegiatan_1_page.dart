@@ -7,6 +7,8 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
@@ -182,11 +184,39 @@ class _PenggunaPengajuanLaporanKegiatan1State
                                     if (_pencapaianController.text.isNotEmpty && _usulanKegiatan != null) {
                                       String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
+                                      final biayaKegiatan = _usulanKegiatan?.biayaKegiatan;
+                                      List<RincianBiayaKegiatan> rincianBiayaKegiatan = [];
+
+                                      if (biayaKegiatan != []) {
+                                        biayaKegiatan?.forEach((selectedBiaya) {
+                                          int uniqueId = UniqueIdGenerator.generateUniqueId();
+
+                                          RincianBiayaKegiatan rincian = RincianBiayaKegiatan(
+                                            idRincianBiayaKegiatan: uniqueId,
+                                            namaBiaya: selectedBiaya.namaBiayaKegiatan,
+                                            keterangan: selectedBiaya.keterangan,
+                                            laporan: "",
+                                            kuantitas: selectedBiaya.kuantiti,
+                                            hargaSatuan: selectedBiaya.hargaSatuan,
+                                            usulanAnggaran: selectedBiaya.total,
+                                            realisasiAnggaran: 0,
+                                            selisih: 0,
+                                            createdAt: currentDate,
+                                            createdBy: user?.email ?? "unknown",
+                                            updatedAt: currentDate,
+                                            updatedBy: user?.email ?? "unknown",
+                                          );
+
+                                          rincianBiayaKegiatan.add(rincian);
+                                        });
+                                      }
+
                                       context.read<LaporanBloc>().add(
                                         UpdateLaporanFirstPageEvent(
                                           laporan: laporan.copyWith(
                                             usulanKegiatan: _usulanKegiatan,
                                             pencapaian: _pencapaianController.text,
+                                            rincianBiayaKegiatan: rincianBiayaKegiatan,
                                             updatedAt: currentDate,
                                             updatedBy: user?.email ?? "unknown",
                                           ),
