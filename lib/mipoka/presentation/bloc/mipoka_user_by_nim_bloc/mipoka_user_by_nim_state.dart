@@ -11,10 +11,10 @@ class MipokaUserByNimEmpty extends MipokaUserByNimState {}
 
 class MipokaUserByNimLoading extends MipokaUserByNimState {}
 
-class MipokaUserByNimByNimHasData extends MipokaUserByNimState {
+class MipokaUserByNimHasData extends MipokaUserByNimState {
   final MipokaUser mipokaUser;
 
-  const MipokaUserByNimByNimHasData({required this.mipokaUser});
+  const MipokaUserByNimHasData({required this.mipokaUser});
 
   @override
   List<Object> get props => [mipokaUser];

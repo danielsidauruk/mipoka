@@ -668,7 +668,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
                                   print ("Loading ...");
                                 }
                                 return const SizedBox();
-                              } else if (state is MipokaUserByNimByNimHasData) {
+                              } else if (state is MipokaUserByNimHasData) {
 
                                 final mipokaUser = state.mipokaUser;
 

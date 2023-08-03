@@ -144,23 +144,31 @@ class _LaporanKegiatanTambahBiayaKegiatanPageState extends State<LaporanKegiatan
                                 String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
                                 int uniqueId = UniqueIdGenerator.generateUniqueId();
 
-                                print (
-                                  RincianBiayaKegiatanModel.fromEntity(RincianBiayaKegiatan(
-                                    idRincianBiayaKegiatan: uniqueId,
-                                    // idRincianBiayaKegiatan: 23321,
-                                    namaBiaya: _namaBiayaKegiatanController.text,
-                                    keterangan: _keteranganController.text,
-                                    kuantitas: kuantitas,
-                                    hargaSatuan: hargaSatuan,
-                                    usulanAnggaran: usulanAnggaran,
-                                    realisasiAnggaran: realisasiAnggaran,
-                                    selisih: selisih,
-                                    laporan: "",
-                                    createdAt: currentDate,
-                                    createdBy: user?.email ?? "unknown",
-                                    updatedAt: currentDate,
-                                    updatedBy: user?.email ?? "unknown",
-                                  )),
+                                final result = widget.laporan.copyWith(
+                                  rincianBiayaKegiatan: [
+                                    ...widget.laporan.rincianBiayaKegiatan,
+                                    RincianBiayaKegiatan(
+                                      // idRincianBiayaKegiatan: uniqueId,
+                                      idRincianBiayaKegiatan: 2332132,
+                                      namaBiaya: "_namaBiayaKegiatanController.text",
+                                      keterangan: "_keteranganController.text",
+                                      laporan: "-",
+                                      // kuantitas: kuantitas,
+                                      kuantitas: 3,
+                                      // hargaSatuan: hargaSatuan,
+                                      hargaSatuan: 4,
+                                      // usulanAnggaran: usulanAnggaran,
+                                      usulanAnggaran: 4,
+                                      // realisasiAnggaran: realisasiAnggaran,
+                                      realisasiAnggaran: 4,
+                                      // selisih: selisih,
+                                      selisih: 4,
+                                      createdAt: currentDate,
+                                      createdBy: user?.email ?? "unknown",
+                                      updatedAt: currentDate,
+                                      updatedBy: user?.email ?? "unknown",
+                                    ),
+                                  ],
                                 );
 
                                 context.read<LaporanBloc>().add(
@@ -169,16 +177,21 @@ class _LaporanKegiatanTambahBiayaKegiatanPageState extends State<LaporanKegiatan
                                       rincianBiayaKegiatan: [
                                         ...widget.laporan.rincianBiayaKegiatan,
                                         RincianBiayaKegiatan(
-                                          idRincianBiayaKegiatan: uniqueId,
-                                          // idRincianBiayaKegiatan: 2332132,
-                                          namaBiaya: _namaBiayaKegiatanController.text,
-                                          keterangan: _keteranganController.text,
+                                          // idRincianBiayaKegiatan: uniqueId,
+                                          idRincianBiayaKegiatan: 2332132,
+                                          namaBiaya: "_namaBiayaKegiatanController.text",
+                                          keterangan: "_keteranganController.text",
                                           laporan: "-",
                                           kuantitas: kuantitas,
+                                          // kuantitas: 3,
                                           hargaSatuan: hargaSatuan,
+                                          // hargaSatuan: 4,
                                           usulanAnggaran: usulanAnggaran,
+                                          // usulanAnggaran: 4,
                                           realisasiAnggaran: realisasiAnggaran,
+                                          // realisasiAnggaran: 4,
                                           selisih: selisih,
+                                          // selisih: 4,
                                           createdAt: currentDate,
                                           createdBy: user?.email ?? "unknown",
                                           updatedAt: currentDate,
@@ -187,6 +200,34 @@ class _LaporanKegiatanTambahBiayaKegiatanPageState extends State<LaporanKegiatan
                                       ],
                                     ),
                                   ),
+                                );
+
+                                print("Laporan : ${widget.laporan.copyWith(
+                                  rincianBiayaKegiatan: [
+                                    ...widget.laporan.rincianBiayaKegiatan,
+                                    RincianBiayaKegiatan(
+                                      // idRincianBiayaKegiatan: uniqueId,
+                                      idRincianBiayaKegiatan: 2332132,
+                                      namaBiaya: "_namaBiayaKegiatanController.text",
+                                      keterangan: "_keteranganController.text",
+                                      laporan: "-",
+                                      kuantitas: kuantitas,
+                                      // kuantitas: 3,
+                                      hargaSatuan: hargaSatuan,
+                                      // hargaSatuan: 4,
+                                      usulanAnggaran: usulanAnggaran,
+                                      // usulanAnggaran: 4,
+                                      realisasiAnggaran: realisasiAnggaran,
+                                      // realisasiAnggaran: 4,
+                                      selisih: selisih,
+                                      // selisih: 4,
+                                      createdAt: currentDate,
+                                      createdBy: user?.email ?? "unknown",
+                                      updatedAt: currentDate,
+                                      updatedBy: user?.email ?? "unknown",
+                                    ),
+                                  ],
+                                )}"
                                 );
 
                                 // Navigator.pop(

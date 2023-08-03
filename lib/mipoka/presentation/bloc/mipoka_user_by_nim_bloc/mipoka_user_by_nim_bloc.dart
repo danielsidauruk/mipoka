@@ -18,7 +18,7 @@ class MipokaUserByNimBloc extends Bloc<MipokaUserByNimEvent, MipokaUserByNimStat
 
       result.fold(
             (failure) => emit(MipokaUserByNimError(message: failure.message)),
-            (mipokaUser) => emit(MipokaUserByNimByNimHasData(mipokaUser: mipokaUser)),
+            (mipokaUser) => emit(MipokaUserByNimHasData(mipokaUser: mipokaUser)),
       );
     });
   }

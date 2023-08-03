@@ -200,10 +200,11 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                           text: 'Proses',
                           onPressed: () {
                             mipokaCustomToast(savingDataMessage);
+
                             if (result != null) {
                               for (var index = 0; index < nimList.length; index++) {
 
-                                if(context.mounted && nimPerPeriodeMpt.contains(nimList[index]) == false) {
+                                if(nimPerPeriodeMpt.contains(nimList[index]) == false) {
                                   context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
 
                                   this.index = index;
@@ -237,7 +238,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                             print ("Loading ...");
                           }
                           return const SizedBox();
-                        } else if (state is MipokaUserByNimByNimHasData) {
+                        } else if (state is MipokaUserByNimHasData) {
                           int uniqueId = UniqueIdGenerator.generateUniqueId();
                           String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 

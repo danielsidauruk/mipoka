@@ -59,6 +59,8 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
   List peranList = [];
 
   void _processUploadedFile(PlatformFile file) async {
+    nimList = [];
+    peranList = [];
     Uint8List? bytes;
 
     if (kIsWeb) {
@@ -68,52 +70,51 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
     }
 
     if (bytes != null) {
-      try {
-        Excel excel = Excel.decodeBytes(bytes);
-        Sheet? sheet = excel.tables[excel.tables.keys.first];
+      Excel excel = Excel.decodeBytes(bytes);
+      Sheet? sheet = excel.tables[excel.tables.keys.first];
 
-        nimList = [];
-        peranList = [];
+      for (var i = 1; i < sheet!.rows.length; i++) {
+        var row = sheet.rows[i];
+        var nim = row[0]?.value;
+        var peran = row[1]?.value;
 
-        for (var i = 1; i < sheet!.rows.length; i++) {
-          var row = sheet.rows[i];
-          var nim = row[0]?.value;
-          var peran = row[1]?.value;
-
-          if (nim != null && peran != null) {
-            nimList.add(nim.toString());
-            peranList.add(peran.toString());
-          }
+        if (nim != null && peran != null) {
+          nimList.add(nim.toString());
+          peranList.add(peran.toString());
         }
-        print("NimList  : $nimList");
-        print("Peran    : $peranList");
-
-        // for (var i = 1; i < nimList.length; i++) {
-        //   int uniqueId = UniqueIdGenerator.generateUniqueId();
-        //
-        //   context.read<LaporanBloc>().add(
-        //     UpdateLaporanSecondPageEvent(
-        //       laporan: widget.laporan.copyWith(
-        //         pesertaKegiatanLaporan: [
-        //           ...widget.laporan.pesertaKegiatanLaporan,
-        //           PesertaKegiatanLaporan(
-        //               idPesertaKegiatanLaporan: , nim: nim, namaLengkap: namaLengkap, peran: peran, createdAt: createdAt, createdBy: createdBy, updatedAt: updatedAt, updatedBy: updatedBy,
-        //           )
-        //         ]
-        //       ),
-        //     ),
-        //   );
-        // }
-        // Future.microtask(() {
-        //   mipokaCustomToast("Data telah di update.");
-        //   Navigator.pop(context);
-        // });
-      } catch (e) {
-        mipokaCustomToast("Format/file yang dimasukkan salah.");
       }
+      print("NimList  : $nimList");
+      print("Peran    : $peranList");
+
+      // try {
+      //
+      //
+      // } catch (e) {
+      //   mipokaCustomToast("Format/file yang dimasukkan salah.");
+      // }
     }
   }
 
+// for (var i = 1; i < nimList.length; i++) {
+  //   int uniqueId = UniqueIdGenerator.generateUniqueId();
+  //
+  //   context.read<LaporanBloc>().add(
+  //     UpdateLaporanSecondPageEvent(
+  //       laporan: widget.laporan.copyWith(
+  //         pesertaKegiatanLaporan: [
+  //           ...widget.laporan.pesertaKegiatanLaporan,
+  //           PesertaKegiatanLaporan(
+  //               idPesertaKegiatanLaporan: , nim: nim, namaLengkap: namaLengkap, peran: peran, createdAt: createdAt, createdBy: createdBy, updatedAt: updatedAt, updatedBy: updatedBy,
+  //           )
+  //         ]
+  //       ),
+  //     ),
+  //   );
+  // }
+  // Future.microtask(() {
+  //   mipokaCustomToast("Data telah di update.");
+  //   Navigator.pop(context);
+  // });
 
   @override
   Widget build(BuildContext context) {
@@ -191,35 +192,35 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () async {
-                          final result = this.result;
+                        text: 'Proses',
+                        onTap: () {
+                          mipokaCustomToast(savingDataMessage);
+
                           if (result != null) {
-                            print("nimList : ${nimList.length}");
                             for (var index = 0; index < nimList.length; index++) {
                               this.index = index;
-                              print("Current Index  : ${this.index}");
-
                               context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
+
+                              print("this.index : ${this.index}");
+                              print("total NIM  : ${nimList.length}");
                               Future.delayed(const Duration(seconds: 10));
-                              print("Index After    : ${this.index}");
                             }
 
                           } else {
                             mipokaCustomToast("Harap unggah file yang diperlukan.");
                           }
                         },
-                        text: 'Proses',
                       ),
 
                       BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
                         builder: (context, state) {
-                          if(state is MipokaUserByNimByNimHasData) {
+                          if(state is MipokaUserByNimHasData) {
                             final mipokaUser = state.mipokaUser;
                             int uniqueId = UniqueIdGenerator.generateUniqueId();
                             String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                             context.read<LaporanBloc>().add(
-                              UpdateLaporanSecondPageEvent(
+                              UpdateReviseSecondPageEvent(
                                 laporan: widget.laporan.copyWith(
                                   pesertaKegiatanLaporan: [
                                     ...widget.laporan.pesertaKegiatanLaporan,
@@ -238,102 +239,23 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                                 ),
                               ),
                             );
-                          }
 
-                          return const SizedBox();
-                          // else {
-                          //   int uniqueId = UniqueIdGenerator.generateUniqueId();
-                          //   String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-                          //
-                          //   context.read<LaporanBloc>().add(
-                          //     UpdateLaporanSecondPageEvent(
-                          //       laporan: widget.laporan.copyWith(
-                          //         pesertaKegiatanLaporan: [
-                          //           ...widget.laporan.pesertaKegiatanLaporan,
-                          //           PesertaKegiatanLaporan(
-                          //             idPesertaKegiatanLaporan: uniqueId,
-                          //             nim: nimList[index],
-                          //             namaLengkap: "unregistered user",
-                          //             peran: peranList[index],
-                          //             createdAt: currentDate,
-                          //             createdBy: user?.email ?? "unknown",
-                          //             updatedAt: currentDate,
-                          //             updatedBy: user?.email ?? "unknown",
-                          //           )
-                          //         ],
-                          //       ),
-                          //     ),
-                          //   );
-                          //   index ++;
-                          // }
+                            if (index == nimList.length - 1) {
+                              mipokaCustomToast("Peserta Telah ditambahkan.");
+                            }
+                            return const SizedBox();
+
+                          } else if (state is MipokaUserByNimError) {
+                            mipokaCustomToast(state.message);
+                            return const SizedBox();
+                          } else {
+                            if (kDebugMode) {
+                              print("MhsPerPeriode hasn't been triggered yet.");
+                            }
+                            return const SizedBox();
+                          }
                         },
                       ),
-
-                      // BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
-                      //   builder: (context, state) {
-                      //     if (result != null) {
-                      //       if(state is MipokaUserByNimByNimHasData) {
-                      //         final mipokaUser = state.mipokaUser;
-                      //         int uniqueId = UniqueIdGenerator.generateUniqueId();
-                      //         String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-                      //
-                      //         context.read<LaporanBloc>().add(
-                      //           UpdateLaporanSecondPageEvent(
-                      //             laporan: widget.laporan.copyWith(
-                      //               pesertaKegiatanLaporan: [
-                      //                 ...widget.laporan.pesertaKegiatanLaporan,
-                      //                 PesertaKegiatanLaporan(
-                      //                   idPesertaKegiatanLaporan: uniqueId,
-                      //                   nim: nimList[index],
-                      //                   namaLengkap: mipokaUser.namaLengkap,
-                      //                   peran: peranList[index],
-                      //                   createdAt: currentDate,
-                      //                   createdBy: user?.email ?? "unknown",
-                      //                   updatedAt: currentDate,
-                      //                   updatedBy: user?.email ?? "unknown",
-                      //                 )
-                      //               ],
-                      //             ),
-                      //           ),
-                      //         );
-                      //
-                      //         index ++;
-                      //
-                      //         return const SizedBox();
-                      //       } else {
-                      //         int uniqueId = UniqueIdGenerator.generateUniqueId();
-                      //         String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-                      //
-                      //         context.read<LaporanBloc>().add(
-                      //           UpdateLaporanSecondPageEvent(
-                      //             laporan: widget.laporan.copyWith(
-                      //               pesertaKegiatanLaporan: [
-                      //                 ...widget.laporan.pesertaKegiatanLaporan,
-                      //                 PesertaKegiatanLaporan(
-                      //                   idPesertaKegiatanLaporan: uniqueId,
-                      //                   nim: nimList[index],
-                      //                   namaLengkap: "unregistered user",
-                      //                   peran: peranList[index],
-                      //                   createdAt: currentDate,
-                      //                   createdBy: user?.email ?? "unknown",
-                      //                   updatedAt: currentDate,
-                      //                   updatedBy: user?.email ?? "unknown",
-                      //                 )
-                      //               ],
-                      //             ),
-                      //           ),
-                      //         );
-                      //
-                      //         index ++;
-                      //
-                      //         return const SizedBox();
-                      //       }
-                      //
-                      //     } else {
-                      //       return const SizedBox();
-                      //     }
-                      //   },
-                      // ),
                     ],
                   ),
                 ],
@@ -345,9 +267,3 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
     );
   }
 }
-
-// Future<void> _downloadFile({}) async {
-//   DownloadService downloadService =
-//   kIsWeb ? WebDownloadService() : MobileDownloadService();
-//   await downloadService.download(url: url);
-// }

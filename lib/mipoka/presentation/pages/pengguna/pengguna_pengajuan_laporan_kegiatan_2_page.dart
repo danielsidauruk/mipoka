@@ -122,15 +122,50 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
 
-                              MipokaCustomSwitchButton(
-                                title: 'Data Peserta Kegiatan',
-                                option1: '',
-                                option2: '',
-                                value: _isShowTable,
-                                onChanged: (value) {
-                                  _isShowTable = value;
-                                  _dataPesertaStream.add(value);
-                                },
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: SizedBox(
+                                      width: 50,
+                                      child: MipokaCustomSwitchButton(
+                                        title: 'Data Peserta Kegiatan',
+                                        option1: '',
+                                        option2: '',
+                                        value: _isShowTable,
+                                        onChanged: (value) {
+                                          _isShowTable = value;
+                                          _dataPesertaStream.add(value);
+                                        },
+                                      ),
+                                    ),
+                                  ),
+
+                                  StreamBuilder<bool?>(
+                                    initialData: _isShowTable,
+                                    stream: _dataPesertaStream.stream,
+                                    builder: (context, snapshot) {
+                                      return _isShowTable == true ?
+                                      InkWell(
+                                        onTap: () => context.read<LaporanBloc>().add(
+                                          UpdateLaporanSecondPageEvent(
+                                            laporan: laporan.copyWith(
+                                              pesertaKegiatanLaporan: [],
+                                            ),
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: Image.asset(
+                                            'assets/icons/delete.png',
+                                            width: 24,
+                                          ),
+                                        ),
+                                      ) :
+                                      const Center();
+                                    },
+                                  ),
+                                ],
                               ),
 
                               StreamBuilder<bool?>(

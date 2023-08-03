@@ -11,6 +11,7 @@ import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
+import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -294,8 +295,10 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                       revisiLaporan: null,
                                       usulanKegiatan: null,
                                       pencapaian: "",
-                                      pesertaKegiatanLaporan: [],
-                                      rincianBiayaKegiatan: [],
+                                      pesertaKegiatanLaporan: const [],
+                                      rincianBiayaKegiatan: [
+                                        RincianBiayaKegiatan(idRincianBiayaKegiatan: 23432432, namaBiaya: "namaBiaya", keterangan: "keterangan", laporan: "laporan", kuantitas: 23, hargaSatuan: 23, usulanAnggaran: 23, realisasiAnggaran: 34, selisih: 34, createdAt: "createdAt", createdBy: "createdBy", updatedAt: "updatedAt", updatedBy: "updatedBy"),
+                                      ],
                                       totalUsulan: 0,
                                       totalRealisasi: 0,
                                       totalSelisih: 0,

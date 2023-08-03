@@ -111,7 +111,7 @@ class LaporanModel extends Laporan {
     "usulan": usulanKegiatanModel?.toJson(),
     "pencapaian": pencapaian,
     "peserta_kegiatan_laporan": List<dynamic>.from(pesertaKegiatanLaporanModel.map((x) => x.toJson())),
-    "biaya_kegiatan": List<dynamic>.from(rincianBiayaKegiatanModel.map((x) => x.toJson())),
+    "rincian_biaya_kegiatan": List<dynamic>.from(rincianBiayaKegiatanModel.map((x) => x.toJson())),
     "total_usulan": totalUsulan,
     "total_realisasi": totalRealisasi,
     "total_selisih": totalSelisih,

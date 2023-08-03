@@ -131,7 +131,7 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                   BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
                     builder: (context, state) {
                       if(_nimController.text.isNotEmpty
-                          && state is MipokaUserByNimByNimHasData) {
+                          && state is MipokaUserByNimHasData) {
                         _mipokaUser = state.mipokaUser;
                         return Padding(
                           padding: const EdgeInsets.all(8.0),

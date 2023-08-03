@@ -140,7 +140,7 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                   buildTitle('Nama Mahasiswa'),
                   BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
                     builder: (context, state) {
-                      if (state is MipokaUserByNimByNimHasData) {
+                      if (state is MipokaUserByNimHasData) {
                         _mipokaUser = state.mipokaUser;
 
                         return Padding(

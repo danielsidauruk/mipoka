@@ -1510,9 +1510,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
         print(e);
       }
     }
-    // if (kDebugMode) {
-    //   print(usulanKegiatanModel.toJson());
-    // }
   }
 
   // * => MhsPerPeriodeMpt DataSources

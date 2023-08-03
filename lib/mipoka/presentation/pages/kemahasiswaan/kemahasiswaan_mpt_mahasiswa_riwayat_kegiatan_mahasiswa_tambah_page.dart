@@ -227,7 +227,7 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
                       if (userState is MipokaUserByNimLoading) {
                         print ("Loading ...");
                         return const SizedBox();
-                      } else if (userState is MipokaUserByNimByNimHasData) {
+                      } else if (userState is MipokaUserByNimHasData) {
                         final mipokaUser = userState.mipokaUser;
 
                         return BlocBuilder<KegiatanPerPeriodeMptBloc, KegiatanPerPeriodeMptState>(
