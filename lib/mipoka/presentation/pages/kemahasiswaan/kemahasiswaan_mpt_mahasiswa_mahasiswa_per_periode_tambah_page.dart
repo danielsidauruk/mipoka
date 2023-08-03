@@ -207,7 +207,10 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                                   context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
 
                                   this.index = index;
+                                } else if (nimPerPeriodeMpt.contains(nimList[index])) {
+                                  mipokaCustomToast("${nimList[index]} sudah terdaftar sebelumnya.");
                                 }
+
                                 print("This ${this.index}");
                                 print("Total NIM ${nimList.length}");
                                 Future.delayed(const Duration(seconds: 10));
