@@ -51,6 +51,8 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
   String? _excelFileController;
   FilePickerResult? result;
 
+  final List<PesertaKegiatanLaporan> pesertaKegiatanLaporan = [];
+
   var index = 0;
 
   User? user = FirebaseAuth.instance.currentUser;
@@ -179,6 +181,13 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
 
                   const CustomFieldSpacer(),
 
+                  InkWell(
+                    onTap: () {
+                      print("Peserta Kegiatan Laporan : $pesertaKegiatanLaporan");
+                    },
+                    child: Text("Show rincian Biaya Kegiatan."),
+                  ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -193,17 +202,17 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
 
                       CustomMipokaButton(
                         text: 'Proses',
-                        onTap: () {
-                          mipokaCustomToast(savingDataMessage);
+                        onTap: () async {
+                          mipokaCustomToast("Memproses Data");
 
                           if (result != null) {
                             for (var index = 0; index < nimList.length; index++) {
                               this.index = index;
                               context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
+                              await Future.delayed(const Duration(seconds: 2));
 
                               print("this.index : ${this.index}");
                               print("total NIM  : ${nimList.length}");
-                              Future.delayed(const Duration(seconds: 10));
                             }
 
                           } else {
@@ -212,49 +221,70 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                         },
                       ),
 
-                      BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
-                        builder: (context, state) {
+                      BlocListener<MipokaUserByNimBloc, MipokaUserByNimState>(
+                        listenWhen: (prev, current) =>
+                        prev.runtimeType != current.runtimeType,
+                        listener: (context, state) {
                           if(state is MipokaUserByNimHasData) {
                             final mipokaUser = state.mipokaUser;
                             int uniqueId = UniqueIdGenerator.generateUniqueId();
                             String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
-                            context.read<LaporanBloc>().add(
-                              UpdateReviseSecondPageEvent(
-                                laporan: widget.laporan.copyWith(
-                                  pesertaKegiatanLaporan: [
-                                    ...widget.laporan.pesertaKegiatanLaporan,
-                                    PesertaKegiatanLaporan(
-                                      idPesertaKegiatanLaporan: uniqueId,
-                                      nim: nimList[index],
-                                      namaLengkap: mipokaUser.namaLengkap,
-                                      peran: peranList[index],
-                                      laporan: '',
-                                      createdAt: currentDate,
-                                      createdBy: user?.email ?? "unknown",
-                                      updatedAt: currentDate,
-                                      updatedBy: user?.email ?? "unknown",
-                                    ),
-                                  ],
-                                ),
+                            pesertaKegiatanLaporan.add(
+                              PesertaKegiatanLaporan(
+                                idPesertaKegiatanLaporan: uniqueId,
+                                nim: mipokaUser.nim,
+                                namaLengkap: mipokaUser.namaLengkap,
+                                peran: peranList[index],
+                                laporan: '',
+                                createdAt: currentDate,
+                                createdBy: user?.email ?? "unknown",
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "unknown",
                               ),
                             );
 
-                            if (index == nimList.length - 1) {
-                              mipokaCustomToast("Peserta Telah ditambahkan.");
-                            }
-                            return const SizedBox();
 
-                          } else if (state is MipokaUserByNimError) {
-                            mipokaCustomToast(state.message);
-                            return const SizedBox();
-                          } else {
-                            if (kDebugMode) {
-                              print("MhsPerPeriode hasn't been triggered yet.");
+
+                            if (index == nimList.length - 1) {
+                              mipokaCustomToast(savingDataMessage);
+
+                              context.read<LaporanBloc>().add(
+                                UpdateReviseSecondPageEvent(
+                                  laporan: widget.laporan.copyWith(
+                                    pesertaKegiatanLaporan: [
+                                      ...widget.laporan.pesertaKegiatanLaporan,
+                                      ...pesertaKegiatanLaporan,
+                                    ],
+                                  ),
+                                ),
+                              );
                             }
-                            return const SizedBox();
-                          }
+                            //
+                            //   // context.read<LaporanBloc>().add(
+                            //   //   UpdateReviseSecondPageEvent(
+                            //   //     laporan: widget.laporan.copyWith(
+                            //   //       pesertaKegiatanLaporan: [
+                            //   //         ...widget.laporan.pesertaKegiatanLaporan,
+                            //   //         PesertaKegiatanLaporan(
+                            //   //           idPesertaKegiatanLaporan: uniqueId,
+                            //   //           nim: mipokaUser.nim,
+                            //   //           namaLengkap: mipokaUser.namaLengkap,
+                            //   //           peran: "peranList[index]",
+                            //   //           laporan: '',
+                            //   //           createdAt: currentDate,
+                            //   //           createdBy: user?.email ?? "unknown",
+                            //   //           updatedAt: currentDate,
+                            //   //           updatedBy: user?.email ?? "unknown",
+                            //   //         ),
+                            //   //       ],
+                            //   //     ),
+                            //   //   ),
+                            //   // );
+                            }
+
                         },
+                        child: const SizedBox(),
                       ),
                     ],
                   ),
