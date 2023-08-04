@@ -13,9 +13,7 @@ import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
-import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
-import 'package:mipoka/mipoka/presentation/bloc/peserta_kegiatan_laporan_bloc/peserta_kegiatan_laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -42,7 +40,6 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
   @override
   void dispose() {
     context.read<MipokaUserByNimBloc>().close();
-    context.read<LaporanBloc>().close();
     index = 0;
     super.dispose();
   }
@@ -88,35 +85,8 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
       print("NimList  : $nimList");
       print("Peran    : $peranList");
 
-      // try {
-      //
-      //
-      // } catch (e) {
-      //   mipokaCustomToast("Format/file yang dimasukkan salah.");
-      // }
     }
   }
-
-// for (var i = 1; i < nimList.length; i++) {
-  //   int uniqueId = UniqueIdGenerator.generateUniqueId();
-  //
-  //   context.read<LaporanBloc>().add(
-  //     UpdateLaporanSecondPageEvent(
-  //       laporan: widget.laporan.copyWith(
-  //         pesertaKegiatanLaporan: [
-  //           ...widget.laporan.pesertaKegiatanLaporan,
-  //           PesertaKegiatanLaporan(
-  //               idPesertaKegiatanLaporan: , nim: nim, namaLengkap: namaLengkap, peran: peran, createdAt: createdAt, createdBy: createdBy, updatedAt: updatedAt, updatedBy: updatedBy,
-  //           )
-  //         ]
-  //       ),
-  //     ),
-  //   );
-  // }
-  // Future.microtask(() {
-  //   mipokaCustomToast("Data telah di update.");
-  //   Navigator.pop(context);
-  // });
 
   @override
   Widget build(BuildContext context) {
@@ -181,13 +151,6 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
 
                   const CustomFieldSpacer(),
 
-                  InkWell(
-                    onTap: () {
-                      print("Peserta Kegiatan Laporan : $pesertaKegiatanLaporan");
-                    },
-                    child: Text("Show rincian Biaya Kegiatan."),
-                  ),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -210,11 +173,7 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                               this.index = index;
                               context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
                               await Future.delayed(const Duration(seconds: 2));
-
-                              print("this.index : ${this.index}");
-                              print("total NIM  : ${nimList.length}");
                             }
-
                           } else {
                             mipokaCustomToast("Harap unggah file yang diperlukan.");
                           }
@@ -244,45 +203,20 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                               ),
                             );
 
-
-
                             if (index == nimList.length - 1) {
                               mipokaCustomToast(savingDataMessage);
 
-                              context.read<LaporanBloc>().add(
-                                UpdateReviseSecondPageEvent(
-                                  laporan: widget.laporan.copyWith(
-                                    pesertaKegiatanLaporan: [
-                                      ...widget.laporan.pesertaKegiatanLaporan,
-                                      ...pesertaKegiatanLaporan,
-                                    ],
-                                  ),
+                              Navigator.pop(
+                                context,
+                                widget.laporan.copyWith(
+                                  pesertaKegiatanLaporan: [
+                                    ...widget.laporan.pesertaKegiatanLaporan,
+                                    ...pesertaKegiatanLaporan,
+                                  ],
                                 ),
                               );
                             }
-                            //
-                            //   // context.read<LaporanBloc>().add(
-                            //   //   UpdateReviseSecondPageEvent(
-                            //   //     laporan: widget.laporan.copyWith(
-                            //   //       pesertaKegiatanLaporan: [
-                            //   //         ...widget.laporan.pesertaKegiatanLaporan,
-                            //   //         PesertaKegiatanLaporan(
-                            //   //           idPesertaKegiatanLaporan: uniqueId,
-                            //   //           nim: mipokaUser.nim,
-                            //   //           namaLengkap: mipokaUser.namaLengkap,
-                            //   //           peran: "peranList[index]",
-                            //   //           laporan: '',
-                            //   //           createdAt: currentDate,
-                            //   //           createdBy: user?.email ?? "unknown",
-                            //   //           updatedAt: currentDate,
-                            //   //           updatedBy: user?.email ?? "unknown",
-                            //   //         ),
-                            //   //       ],
-                            //   //     ),
-                            //   //   ),
-                            //   // );
-                            }
-
+                          }
                         },
                         child: const SizedBox(),
                       ),
