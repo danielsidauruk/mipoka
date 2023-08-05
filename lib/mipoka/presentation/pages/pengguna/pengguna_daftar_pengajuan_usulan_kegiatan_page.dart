@@ -10,6 +10,7 @@ import 'package:mipoka/domain/utils/format_date_indonesia.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/domain/utils/url_utils.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
@@ -224,6 +225,22 @@ class _PenggunaDaftarPengajuanKegiatanState
                                                 usulanKegiatan.namaKegiatan,
                                                 style: const TextStyle(color: Colors.red),
                                               ),
+                                            ) : usulanKegiatan.fileUsulanKegiatan == "" ?
+                                            InkWell(
+                                              onTap: () {
+                                                Navigator.pushNamed(
+                                                  context,
+                                                  penggunaPengajuanUsulanKegiatanPage1Route,
+                                                  arguments: UsulanArgs(
+                                                    idUsulan: usulanKegiatan.idUsulan,
+                                                  ),
+                                                ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                                    const ReadAllUsulanKegiatanEvent()));
+                                              },
+                                              child: Text(
+                                                "${usulanKegiatan.namaKegiatan} (lanjut mengedit)",
+                                                style: const TextStyle(color: Colors.orange),
+                                              ),
                                             ) :
                                             Text(
                                               usulanKegiatan.namaKegiatan,
@@ -240,24 +257,59 @@ class _PenggunaDaftarPengajuanKegiatanState
                                           ),
                                           onTap: () => downloadFileWithDio(
                                             url: usulanKegiatan.fileUsulanKegiatan,
-                                            fileName: "usulan_kegiatan_${toSnakeCase(usulanKegiatan.namaKegiatan)}.docx",
+                                            fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan),
                                           ),
                                         ),
                                         DataCell(
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              usulanKegiatan.validasiPembina,
-                                            ),
-                                          ),
+                                            usulanKegiatan.validasiPembina == tertunda ?
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Image.asset(
+                                                'assets/icons/time.png',
+                                                width: 24,
+                                              ),
+                                            ) :
+                                            usulanKegiatan.validasiPembina == ditolak ?
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Image.asset(
+                                                'assets/icons/close.png',
+                                                width: 24,
+                                              ),
+                                            ) :
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Image.asset(
+                                                'assets/icons/approve.png',
+                                                width: 24,
+                                              ),
+                                            )
                                         ),
+
                                         DataCell(
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              usulanKegiatan.statusUsulan,
-                                            ),
-                                          ),
+                                            usulanKegiatan.statusUsulan == tertunda ?
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Image.asset(
+                                                'assets/icons/time.png',
+                                                width: 24,
+                                              ),
+                                            ) :
+                                            usulanKegiatan.statusUsulan == ditolak ?
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Image.asset(
+                                                'assets/icons/close.png',
+                                                width: 24,
+                                              ),
+                                            ) :
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Image.asset(
+                                                'assets/icons/approve.png',
+                                                width: 24,
+                                              ),
+                                            )
                                         ),
                                       ],
                                     );
@@ -353,7 +405,8 @@ class _PenggunaDaftarPengajuanKegiatanState
                       } else if (mipokaUserState is MipokaUserError) {
                         return Text(mipokaUserState.message);
                       } else {
-                        return const Text("MipokaUserBloc hasn't been triggered.");
+                        print("MipokaUserBloc hasn't been triggered.");
+                        return const Center();
                       }
                     },
                   ),

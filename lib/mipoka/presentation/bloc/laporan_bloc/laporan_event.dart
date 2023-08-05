@@ -95,19 +95,28 @@ class UpdateLaporanAndSendEvent extends LaporanEvent {
   List<Object?> get props => [laporan];
 }
 
-class UpdateReviseSecondPageEvent extends LaporanEvent {
+class UpdateLaporanReviseFirstPageEvent extends LaporanEvent {
   final Laporan laporan;
 
-  const UpdateReviseSecondPageEvent({required this.laporan});
+  const UpdateLaporanReviseFirstPageEvent({required this.laporan});
 
   @override
   List<Object?> get props => [laporan];
 }
 
-class UpdateReviseLastPageEvent extends LaporanEvent {
+class UpdateLaporanReviseSecondPageEvent extends LaporanEvent {
   final Laporan laporan;
 
-  const UpdateReviseLastPageEvent({required this.laporan});
+  const UpdateLaporanReviseSecondPageEvent({required this.laporan});
+
+  @override
+  List<Object?> get props => [laporan];
+}
+
+class UpdateLaporanReviseLastPageEvent extends LaporanEvent {
+  final Laporan laporan;
+
+  const UpdateLaporanReviseLastPageEvent({required this.laporan});
 
   @override
   List<Object?> get props => [laporan];

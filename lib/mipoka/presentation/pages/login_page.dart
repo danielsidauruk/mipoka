@@ -160,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                   },
                 ),
 
-                BlocListener<MipokaUserBloc, MipokaUserState>(
+                  BlocListener<MipokaUserBloc, MipokaUserState>(
                   listenWhen: (prev, current) =>
                   prev.runtimeType != current.runtimeType,
                   listener: (context, state) {
@@ -187,9 +187,9 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       } else {
                         Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          penggunaBerandaPageRoute,
-                              (route) => false);
+                            context,
+                            penggunaBerandaPageRoute,
+                                (route) => false);
                         // Navigator.pushNamed(context, penggunaBerandaPageRoute);
                       }
                     } else if (state is MipokaUserError) {

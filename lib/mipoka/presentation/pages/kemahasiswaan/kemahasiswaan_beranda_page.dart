@@ -106,26 +106,26 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                       } else if (state is AllBeritaHasData) {
                         final beritaList = state.allBerita;
 
-                        List<String> penulisList = beritaList.map((berita) => berita.penulis).toSet().toList();
-                        penulisList.insert(0, "Semua");
+                        // List<String> penulisList = beritaList.map((berita) => berita.penulis).toSet().toList();
+                        // penulisList.insert(0, "Semua");
 
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            buildTitle('Penulis'),
-
-                            MipokaCustomDropdown(
-                              initialItem: _filter,
-                              items: penulisList,
-                              onValueChanged: (value) {
-                                _filter = value;
-                                context.read<BeritaBloc>().add(
-                                    ReadAllBeritaEvent(filter: _filter ?? "")
-                                );
-                              },
-                            ),
-
-                            const CustomFieldSpacer(),
+                            // buildTitle('Penulis'),
+                            //
+                            // MipokaCustomDropdown(
+                            //   initialItem: _filter,
+                            //   items: penulisList,
+                            //   onValueChanged: (value) {
+                            //     _filter = value;
+                            //     context.read<BeritaBloc>().add(
+                            //         ReadAllBeritaEvent(filter: _filter ?? "")
+                            //     );
+                            //   },
+                            // ),
+                            //
+                            // const CustomFieldSpacer(),
 
                             MipokaCountText(total: beritaList.length),
 

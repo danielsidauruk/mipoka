@@ -78,30 +78,30 @@ class _MobileCustomPenggunaDrawerWidgetState
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              CustomTextField(controller: _queryController),
-              const CustomFieldSpacer(),
-              const Divider(
-                color: Colors.grey,
-                thickness: 1,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Switch(
-                    value: darkMode,
-                    onChanged: (value) {},
-                  ),
-                  const Text(
-                    'Dark Mode',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              const Divider(
-                color: Colors.grey,
-                thickness: 1,
-              ),
-              const CustomFieldSpacer(),
+              // CustomTextField(controller: _queryController),
+              // const CustomFieldSpacer(),
+              // const Divider(
+              //   color: Colors.grey,
+              //   thickness: 1,
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: [
+              //     Switch(
+              //       value: darkMode,
+              //       onChanged: (value) {},
+              //     ),
+              //     const Text(
+              //       'Dark Mode',
+              //       style: TextStyle(fontWeight: FontWeight.bold),
+              //     ),
+              //   ],
+              // ),
+              // const Divider(
+              //   color: Colors.grey,
+              //   thickness: 1,
+              // ),
+              // const CustomFieldSpacer(),
               Expanded(
                 child: ListView(
                   children: [

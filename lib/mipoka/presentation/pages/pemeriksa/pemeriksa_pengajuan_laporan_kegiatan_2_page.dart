@@ -72,12 +72,13 @@ class _PemeriksaPengajuanLaporanKegiatan2PageState
                 listenWhen: (prev, current) =>
                 prev.runtimeType != current.runtimeType,
                 listener: (context, state) {
-                  if (state is UpdateReviseSecondPageSuccess) {
+                  if (state is UpdateLaporanReviseSecondPageSuccess) {
                     Navigator.pushNamed(
                       context,
                       pemeriksaPengajuanLaporanKegiatan3PageRoute,
                       arguments: widget.idLaporan,
-                    );
+                    ).then((_) => context.read<LaporanBloc>().add(
+                        ReadLaporanEvent(idLaporan: widget.idLaporan)));
                   }
                 },
                 builder: (context, state) {
@@ -320,7 +321,7 @@ class _PemeriksaPengajuanLaporanKegiatan2PageState
                             CustomMipokaButton(
                               onTap: () {
                                 context.read<LaporanBloc>().add(
-                                  UpdateReviseSecondPageEvent(
+                                  UpdateLaporanReviseSecondPageEvent(
                                     laporan: laporan.copyWith(
                                       revisiLaporan: laporan.revisiLaporan?.copyWith(
                                         revisiPesertaKegiatanLaporan: _dataPesertaKegiatanController.text,
@@ -339,7 +340,8 @@ class _PemeriksaPengajuanLaporanKegiatan2PageState
                   } else if (state is LaporanError) {
                     return Text(state.message);
                   } else {
-                    return const Text("LaporanBloc hasn't triggered yet.");
+                    print("LaporanBloc hasn't triggered yet.");
+                    return const Center();
                   }
                 },
               )

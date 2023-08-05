@@ -397,11 +397,11 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                   onTap: () async {
                                     if (
                                     _latarBelakangController.text.isNotEmpty && _hasilKegiatanController.text.isNotEmpty
-                                        && _penutupController.text.isNotEmpty &&
-                                        (_postinganKegiatanController != "" || _postinganKegiatanResult != null &&
-                                            _dokumentasiKegiatanController != "" || _dokumentasiKegiatanResult != null &&
-                                            _tabulasiHasilKegiatanController != "" || _tabulasiHasilKegiatanResult != null &&
-                                            _fakturPembayaranController != "" || _fakturPembayaranResult != null))
+                                        && _penutupController.text.isNotEmpty )
+                                        // (_postinganKegiatanController != "" || _postinganKegiatanResult != null &&
+                                        //     _dokumentasiKegiatanController != "" || _dokumentasiKegiatanResult != null &&
+                                        //     _tabulasiHasilKegiatanController != "" || _tabulasiHasilKegiatanResult != null &&
+                                        //     _fakturPembayaranController != "" || _fakturPembayaranResult != null))
                                     {
 
                                       final postinganKegiatanResult = _postinganKegiatanResult;

@@ -205,11 +205,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                               context,
                                               pemeriksaPengajuanLaporanKegiatan1PageRoute,
                                               arguments: laporanKegiatan.idLaporan,
-                                            );
-
-                                            if(result == true && context.mounted) {
-                                              context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
-                                            }
+                                            ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent()));
                                           }
 
                                               // .then((_) => context.read<LaporanBloc>().add(

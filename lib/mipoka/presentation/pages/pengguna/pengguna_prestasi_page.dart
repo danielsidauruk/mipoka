@@ -7,6 +7,7 @@ import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_blo
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/prestasi_bloc/prestasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -66,87 +67,91 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
 
+              const CustomMobileTitle(text: 'Prestasi'),
+
+              const CustomFieldSpacer(),
+
               CustomContentBox(
                 children: [
 
-                  buildTitle('Nama Ormawa'),
-                  BlocBuilder<OrmawaBloc, OrmawaState>(
-                    builder: (context, state) {
-                      if (state is OrmawaLoading) {
-                        return const Text("Loading ....");
-                      } else if (state is AllOrmawaHasData) {
-
-                        List<String> ormawaList = state.ormawaList.map(
-                                (ormawa) => ormawa.namaOrmawa).toList();
-                        ormawaList.insert(0, "Semua");
-
-                        List<int> idOrmawaList = state.ormawaList.map(
-                                (ormawa) => ormawa.idOrmawa).toList();
-                        idOrmawaList.insert(0, 0);
-
-                        return MipokaCustomDropdown(
-                            items: ormawaList,
-                            onValueChanged: (value) {
-                              int index = ormawaList.indexOf(value!);
-                              int idOrmawa = idOrmawaList[index];
-
-                              _idOrmawa = idOrmawa;
-                            }
-                        );
-                      } else if (state is OrmawaError) {
-                        return Text(state.message);
-                      } else {
-                        return const Text("OrmawaBloc hasn't been triggered yet.");
-                      }
-                    },
-                  ),
-
-                  const CustomFieldSpacer(),
-
-                  buildTitle('Tahun'),
-                  MipokaCustomDropdown(
-                    items: years2,
-                    onValueChanged: (value) {
-                      _tahun = value ?? _tahun;
-                    },
-                  ),
-
-                  const CustomFieldSpacer(),
-
-                  buildTitle('Tingkat'),
-                  MipokaCustomDropdown(
-                    items: listTingkat2,
-                    onValueChanged: (value) {
-                      _tingkat = value ?? _tingkat;
-                    },
-                  ),
-
-                  const CustomFieldSpacer(),
-
-                  InkWell(
-                    onTap: () {
-                      if (kDebugMode) {
-                        print("$_idOrmawa/$_tahun/$_tingkat");
-                      }
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      constraints: const BoxConstraints(minHeight: 35.0),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      child: const Text(
-                        'Saring',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
+                  // buildTitle('Nama Ormawa'),
+                  // BlocBuilder<OrmawaBloc, OrmawaState>(
+                  //   builder: (context, state) {
+                  //     if (state is OrmawaLoading) {
+                  //       return const Text("Loading ....");
+                  //     } else if (state is AllOrmawaHasData) {
+                  //
+                  //       List<String> ormawaList = state.ormawaList.map(
+                  //               (ormawa) => ormawa.namaOrmawa).toList();
+                  //       ormawaList.insert(0, "Semua");
+                  //
+                  //       List<int> idOrmawaList = state.ormawaList.map(
+                  //               (ormawa) => ormawa.idOrmawa).toList();
+                  //       idOrmawaList.insert(0, 0);
+                  //
+                  //       return MipokaCustomDropdown(
+                  //           items: ormawaList,
+                  //           onValueChanged: (value) {
+                  //             int index = ormawaList.indexOf(value!);
+                  //             int idOrmawa = idOrmawaList[index];
+                  //
+                  //             _idOrmawa = idOrmawa;
+                  //           }
+                  //       );
+                  //     } else if (state is OrmawaError) {
+                  //       return Text(state.message);
+                  //     } else {
+                  //       return const Text("OrmawaBloc hasn't been triggered yet.");
+                  //     }
+                  //   },
+                  // ),
+                  //
+                  // const CustomFieldSpacer(),
+                  //
+                  // buildTitle('Tahun'),
+                  // MipokaCustomDropdown(
+                  //   items: years2,
+                  //   onValueChanged: (value) {
+                  //     _tahun = value ?? _tahun;
+                  //   },
+                  // ),
+                  //
+                  // const CustomFieldSpacer(),
+                  //
+                  // buildTitle('Tingkat'),
+                  // MipokaCustomDropdown(
+                  //   items: listTingkat2,
+                  //   onValueChanged: (value) {
+                  //     _tingkat = value ?? _tingkat;
+                  //   },
+                  // ),
+                  //
+                  // const CustomFieldSpacer(),
+                  //
+                  // InkWell(
+                  //   onTap: () {
+                  //     if (kDebugMode) {
+                  //       print("$_idOrmawa/$_tahun/$_tingkat");
+                  //     }
+                  //   },
+                  //   child: Container(
+                  //     padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  //     constraints: const BoxConstraints(minHeight: 35.0),
+                  //     alignment: Alignment.center,
+                  //     decoration: BoxDecoration(
+                  //       color: Colors.white,
+                  //       borderRadius: BorderRadius.circular(5.0),
+                  //     ),
+                  //     child: const Text(
+                  //       'Saring',
+                  //       style: TextStyle(
+                  //         color: Colors.black,
+                  //         fontWeight: FontWeight.bold,
+                  //       ),
+                  //       textAlign: TextAlign.center,
+                  //     ),
+                  //   ),
+                  // ),
 
                   const CustomFieldSpacer(),
 

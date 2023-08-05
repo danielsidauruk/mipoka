@@ -96,7 +96,16 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
               const CustomMobileTitle(
                   text: 'Pemeriksa - Kegiatan - Laporan Kegiatan'),
               const CustomFieldSpacer(),
-              BlocBuilder<LaporanBloc, LaporanState>(
+              BlocConsumer<LaporanBloc, LaporanState>(
+                listener: (context, state) {
+                  if (state is UpdateLaporanReviseLastPageSuccess) {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      pemeriksaDaftarLaporanKegiatanPageRoute,
+                          (route) => false,
+                    );
+                  }
+                },
                 builder: (context, state) {
                   if (state is LaporanLoading) {
                     return const Text("Loading ...");
@@ -206,8 +215,10 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                               onTap: () {
                                 String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
+                                mipokaCustomToast("Revisi Telah dikirim.");
+
                                 context.read<LaporanBloc>().add(
-                                  UpdateReviseLastPageEvent(
+                                  UpdateLaporanReviseLastPageEvent(
                                     laporan: laporan.copyWith(
                                       revisiLaporan: laporan.revisiLaporan?.copyWith(
                                         revisiLatarBelakang: _revisiLatarBelakangController.text,
@@ -223,11 +234,6 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                                     ),
                                   ),
                                 );
-                                Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  pemeriksaDaftarLaporanKegiatanPageRoute,
-                                      (route) => false,
-                                );
                               },
                               text: 'Tolak',
                             ),
@@ -236,20 +242,15 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
 
                             CustomMipokaButton(
                               onTap: () {
-                                Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  pemeriksaDaftarLaporanKegiatanPageRoute,
-                                      (route) => false,
-                                );
+                                mipokaCustomToast("Laporan diterima.");
 
                                 context.read<LaporanBloc>().add(
-                                  UpdateLaporanFirstPageEvent(
+                                  UpdateLaporanReviseLastPageEvent(
                                     laporan: laporan.copyWith(
                                       validasiPembina: disetujui,
                                     ),
                                   ),
                                 );
-                                mipokaCustomToast("Laporan diterima.");
                               },
                               text: 'Terima',
                             ),

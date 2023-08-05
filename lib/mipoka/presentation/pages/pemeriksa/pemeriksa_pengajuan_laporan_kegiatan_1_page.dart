@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -93,7 +94,7 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                 listenWhen: (prev, current) =>
                 prev.runtimeType != current.runtimeType,
                 listener: (context, state) {
-                  if (state is UpdateLaporanFirstPageSuccess) {
+                  if (state is UpdateLaporanReviseFirstPageSuccess) {
 
                     Navigator.pushNamed(
                       context,
@@ -114,10 +115,6 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                     // idRevisiLaporan = newId ;
                     return CustomContentBox(
                       children: [
-                        buildTitle('Nama Ormawa'),
-                        customDisplayField(laporan.usulanKegiatan?.ormawa?.namaOrmawa ?? ""),
-
-                        const CustomFieldSpacer(),
 
                         CustomCommentWidget(
                           title: "Nama Kegiatan",
@@ -138,10 +135,7 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             CustomMipokaButton(
-                              onTap: () => Future.microtask(() {
-                                // context.read<RevisiLaporanBloc>().add(DeleteRevisiLaporanEvent(idRevisiLaporan!));
-                                Navigator.pop(context);
-                              }),
+                              onTap: () => Navigator.pop(context),
                               text: "Batal",
                             ),
 
@@ -157,7 +151,7 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                                       String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                                       context.read<LaporanBloc>().add(
-                                        UpdateLaporanFirstPageEvent(
+                                        UpdateLaporanReviseFirstPageEvent(
                                           laporan: laporan.copyWith(
                                             revisiLaporan: laporan.revisiLaporan?.copyWith(
                                               idRevisiLaporan: newId,
@@ -175,7 +169,8 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                                 } else if (state is MipokaUserError) {
                                   return Text(state.message);
                                 } else {
-                                  return const Text("MipokaUser hasn't been triggered yet.");
+                                  print ("MipokaUser hasn't been triggered yet.");
+                                  return const Center();
                                 }
                               },
                             ),
@@ -186,7 +181,10 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                   } else if (state is LaporanError) {
                     return Text(state.message);
                   } else {
-                    return const Text("LaporanBloc hasn't triggered yet.");
+                    if (kDebugMode) {
+                      print("LaporanBloc hasn't triggered yet.");
+                    }
+                    return const Center();
                   }
                 },
               ),

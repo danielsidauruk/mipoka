@@ -1,9 +1,5 @@
-import 'dart:math';
 import 'dart:ui';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 
 const listStatus = ['Semua', 'Menunggu', 'Berlansung', 'Ditolak'];
 const listNamaOrmawa = ['Ormawa A', 'Ormawa B', 'Ormawa C', 'Ormawa D', 'Ormawa E'];
