@@ -5,6 +5,8 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/domain/utils/format_date_indonesia.dart';
+import 'package:mipoka/domain/utils/url_utils.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -64,16 +66,15 @@ class _KemahasiswaanCekUsulanKegiatanPageState
               const CustomFieldSpacer(),
               CustomContentBox(
                 children: [
-                  buildTitle('Status'),
-                  MipokaCustomDropdown(
-                    items: listStatus,
-                    onValueChanged: (value) {
-                      // filter = value ?? "semua";
-                      context.read<UsulanKegiatanBloc>().add(
-                          const ReadAllUsulanKegiatanEvent());
-                    },
-                  ),
-                  const CustomFieldSpacer(),
+                  // buildTitle('Status'),
+                  // MipokaCustomDropdown(
+                  //   items: listStatus,
+                  //   onValueChanged: (value) {
+                  //     context.read<UsulanKegiatanBloc>().add(
+                  //         const ReadAllUsulanKegiatanEvent());
+                  //   },
+                  // ),
+                  // const CustomFieldSpacer(),
 
                   BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
                     listenWhen: (prev, current) =>
@@ -132,6 +133,13 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                                     ),
                                     DataColumn(
                                       label: Text(
+                                        'Tanggal',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
                                         'Nama Kegiatan',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
@@ -179,6 +187,12 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
+                                            child: Text(formatDateIndonesia(usulanKegiatan.createdAt)),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
                                             child: Text(
                                               usulanKegiatan.namaKegiatan,
                                             ),
@@ -189,7 +203,7 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                                             child: InkWell(
                                               onTap: () => downloadFileWithDio(
                                                   url: usulanKegiatan.fileUsulanKegiatan,
-                                                  fileName: "file"),
+                                                  fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan)),
                                               child: Image.asset(
                                                 'assets/icons/pdf.png',
                                                 width: 24,
@@ -197,30 +211,46 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                                             ),
                                           ),
                                         ),
+
                                         DataCell(
                                           Center(
-                                            child: usulanKegiatan.validasiPembina == disetujui ?
-                                            Image.asset(
-                                              'assets/icons/approve.png',
-                                              width: 24,
-                                            ) :
-                                            Image.asset(
-                                              'assets/icons/close.png',
-                                              width: 24,
-                                            ),
+                                              child: usulanKegiatan.validasiPembina == disetujui ?
+                                              Image.asset(
+                                                'assets/icons/approve.png',
+                                                width: 24,
+                                              ) :
+                                              usulanKegiatan.validasiPembina == ditolak ?
+                                              Image.asset(
+                                                'assets/icons/close.png',
+                                                width: 24,
+                                              ) :
+                                              Image.asset(
+                                                'assets/icons/time.png',
+                                                width: 24,
+                                              )
                                           ),
                                         ),
+
                                         DataCell(
+                                          usulanKegiatan.validasiPembina == tertunda ?
+                                          Center(
+                                            child: Image.asset(
+                                              'assets/icons/time.png',
+                                              width: 24,
+                                            ),
+                                          ) :
                                           usulanKegiatan.statusUsulan == tertunda ?
                                           Row(
                                             mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                             children: [
                                               InkWell(
-                                                onTap: (){
-                                                  UpdateUsulanKegiatanEvent(
-                                                    usulanKegiatan: usulanKegiatan.copyWith(
-                                                      statusUsulan: disetujui,
+                                                onTap: () {
+                                                  context.read<UsulanKegiatanBloc>().add(
+                                                    UpdateUsulanKegiatanEvent(
+                                                      usulanKegiatan: usulanKegiatan.copyWith(
+                                                        statusUsulan: disetujui,
+                                                      ),
                                                     ),
                                                   );
                                                   mipokaCustomToast("Usulan Kegiatan telah diterima.");
@@ -252,14 +282,16 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                                               ),
                                             ],
                                           ) :
-                                          usulanKegiatan.statusUsulan == disetujui ?
-                                          Image.asset(
-                                            'assets/icons/approve.png',
-                                            width: 24,
-                                          ) :
-                                          Image.asset(
-                                            'assets/icons/close.png',
-                                            width: 24,
+                                          Center(
+                                            child: usulanKegiatan.statusUsulan == disetujui ?
+                                            Image.asset(
+                                              'assets/icons/approve.png',
+                                              width: 24,
+                                            ) :
+                                            Image.asset(
+                                              'assets/icons/close.png',
+                                              width: 24,
+                                            ),
                                           ),
                                         ),
                                       ],

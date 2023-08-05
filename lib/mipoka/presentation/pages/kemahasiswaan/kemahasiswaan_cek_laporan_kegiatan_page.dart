@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/domain/utils/format_date_indonesia.dart';
+import 'package:mipoka/domain/utils/url_utils.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -56,22 +59,22 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
               const CustomFieldSpacer(),
               CustomContentBox(
                 children: [
-                  buildTitle('Status'),
-
-                  MipokaCustomDropdown(
-                    items: listStatus,
-                    onValueChanged: (value) => context.read<LaporanBloc>()
-                        .add(ReadAllLaporanEvent(filter: value ?? "semua")),
-                  ),
-
-                  const CustomFieldSpacer(),
+                  // buildTitle('Status'),
+                  //
+                  // MipokaCustomDropdown(
+                  //   items: listStatus,
+                  //   onValueChanged: (value) => context.read<LaporanBloc>()
+                  //       .add(ReadAllLaporanEvent(filter: value ?? "semua")),
+                  // ),
+                  //
+                  // const CustomFieldSpacer(),
 
                   BlocConsumer<LaporanBloc, LaporanState>(
                     listenWhen: (prev, current) =>
                     prev.runtimeType != current.runtimeType,
                     listener: (context, state) async {
 
-                      if (state is UpdateLaporanAndSendSuccess) {
+                      if (state is UpdateLaporanFirstPageSuccess) {
                         context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
 
                       } else if (state is LaporanError) {
@@ -155,7 +158,7 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Text(laporan.createdAt),
+                                            child: Text(formatDateIndonesia(laporan.createdAt)),
                                           ),
                                         ),
                                         DataCell(
@@ -165,74 +168,58 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                             )
                                         ),
                                         DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/pdf.png',
+                                              width: 24,
+                                            ),
+                                          ),
+                                          onTap: () => downloadFileWithDio(
+                                            url: laporan.fileLaporanKegiatan,
+                                            fileName: getFileNameFromUrl(laporan.fileLaporanKegiatan),
+                                          ),
+                                        ),
+
+                                        DataCell(
                                           Center(
-                                            child: InkWell(
-                                              onTap: () => mipokaCustomToast(laporan.fileLaporanKegiatan),
-                                              child: Image.asset(
-                                                'assets/icons/pdf.png',
+                                              child: laporan.validasiPembina == disetujui ?
+                                              Image.asset(
+                                                'assets/icons/approve.png',
                                                 width: 24,
-                                              ),
-                                            ),
+                                              ) :
+                                              laporan.validasiPembina == ditolak ?
+                                              Image.asset(
+                                                'assets/icons/close.png',
+                                                width: 24,
+                                              ) :
+                                              Image.asset(
+                                                'assets/icons/time.png',
+                                                width: 24,
+                                              )
                                           ),
                                         ),
+
                                         DataCell(
+                                          laporan.validasiPembina == tertunda ?
                                           Center(
-                                            child: laporan.statusLaporan == disetujui ?
-                                            Image.asset(
-                                              'assets/icons/approve.png',
-                                              width: 24,
-                                            ) :
-                                            Image.asset(
-                                              'assets/icons/close.png',
+                                            child: Image.asset(
+                                              'assets/icons/time.png',
                                               width: 24,
                                             ),
-                                          ),
-                                        ),
-                                        // DataCell(
-                                        //   Row(
-                                        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        //     children: [
-                                        //       InkWell(
-                                        //         onTap: () {
-                                        //           UpdateLaporanAndSendEvent(
-                                        //             laporan: laporan.copyWith(statusLaporan: disetujui),
-                                        //           );
-                                        //           mipokaCustomToast("Usulan Kegiatan telah diterima.");
-                                        //         },
-                                        //         child: Image.asset(
-                                        //           'assets/icons/approve.png',
-                                        //           width: 24,
-                                        //         ),
-                                        //       ),
-                                        //
-                                        //       const SizedBox(width: 8.0,),
-                                        //
-                                        //       InkWell(
-                                        //         onTap: () {
-                                        //           UpdateLaporanAndSendEvent(
-                                        //             laporan: laporan.copyWith(statusLaporan: ditolak),
-                                        //           );
-                                        //           mipokaCustomToast("Usulan Kegiatan telah diterima.");
-                                        //         },
-                                        //         child: Image.asset(
-                                        //           'assets/icons/close.png',
-                                        //           width: 24,
-                                        //         ),
-                                        //       ),
-                                        //     ],
-                                        //   ),
-                                        // ),
-                                        DataCell(
+                                          ) :
                                           laporan.statusLaporan == tertunda ?
                                           Row(
                                             mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                             children: [
                                               InkWell(
-                                                onTap: (){
-                                                  UpdateLaporanAndSendEvent(
-                                                    laporan: laporan.copyWith(
-                                                      statusLaporan: disetujui,
+                                                onTap: () {
+                                                  context.read<LaporanBloc>().add(
+                                                    UpdateLaporanFirstPageEvent(
+                                                      laporan: laporan.copyWith(
+                                                        statusLaporan: disetujui,
+                                                      ),
                                                     ),
                                                   );
                                                   mipokaCustomToast("Usulan Kegiatan telah diterima.");
@@ -247,9 +234,11 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                               ),
                                               InkWell(
                                                 onTap: () {
-                                                  UpdateLaporanAndSendEvent(
-                                                    laporan: laporan.copyWith(
-                                                      statusLaporan: ditolak,
+                                                  context.read<LaporanBloc>().add(
+                                                    UpdateLaporanFirstPageEvent(
+                                                      laporan: laporan.copyWith(
+                                                        statusLaporan: ditolak,
+                                                      ),
                                                     ),
                                                   );
 
@@ -262,14 +251,16 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                               ),
                                             ],
                                           ) :
-                                          laporan.statusLaporan == disetujui ?
-                                          Image.asset(
-                                            'assets/icons/approve.png',
-                                            width: 24,
-                                          ) :
-                                          Image.asset(
-                                            'assets/icons/close.png',
-                                            width: 24,
+                                          Center(
+                                            child: laporan.statusLaporan == disetujui ?
+                                            Image.asset(
+                                              'assets/icons/approve.png',
+                                              width: 24,
+                                            ) :
+                                            Image.asset(
+                                              'assets/icons/close.png',
+                                              width: 24,
+                                            ),
                                           ),
                                         ),
                                       ],
