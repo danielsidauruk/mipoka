@@ -7,6 +7,7 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/domain/utils/url_utils.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/session.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
@@ -100,20 +101,20 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                   } else if (state is AllSessionHasData) {
                     return CustomContentBox(
                       children: [
-                        customBoxTitle('Status'),
-
-                        const CustomFieldSpacer(height: 4.0),
-
-                        MipokaCustomDropdown(
-                          items: listStatus,
-                          onValueChanged: (value) {
-                            context.read<SessionBloc>().add(
-                              ReadAllSessionEvent(filter: value!)
-                            );
-                          },
-                        ),
-
-                        const CustomFieldSpacer(),
+                        // customBoxTitle('Status'),
+                        //
+                        // const CustomFieldSpacer(height: 4.0),
+                        //
+                        // MipokaCustomDropdown(
+                        //   items: listStatus,
+                        //   onValueChanged: (value) {
+                        //     context.read<SessionBloc>().add(
+                        //       ReadAllSessionEvent(filter: value!)
+                        //     );
+                        //   },
+                        // ),
+                        //
+                        // const CustomFieldSpacer(),
 
                         SingleChildScrollView(
                           scrollDirection: Axis.vertical,
@@ -266,7 +267,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                     DataCell(
                                       onTap: () => downloadFileWithDio(
                                         url: session.fileSession,
-                                        fileName: "session_${session.idSession}",
+                                        fileName: getFileNameFromUrl(session.fileSession),
                                       ),
                                       Align(
                                         alignment: Alignment.center,
@@ -276,11 +277,30 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                         ),
                                       ),
                                     ),
+
                                     DataCell(
+                                      session.status == disetujui ?
                                       Align(
                                         alignment: Alignment.center,
-                                        child: Text(
-                                          session.status,
+                                        child: Image.asset(
+                                          'assets/icons/approve.png',
+                                          width: 24,
+                                        ),
+                                      )
+                                          :
+                                      session.status == ditolak ?
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Image.asset(
+                                          'assets/icons/close.png',
+                                          width: 24,
+                                        ),
+                                      ) :
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Image.asset(
+                                          'assets/icons/time.png',
+                                          width: 24,
                                         ),
                                       ),
                                     ),
@@ -328,7 +348,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                             papanTulis: 0,
                                             spidol: 0,
                                             lainLain: "",
-                                            status: "",
+                                            status: tertunda,
                                             keterangan: "",
                                             fileSession: "",
                                             updatedAt: currentDate,

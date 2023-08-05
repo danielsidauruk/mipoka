@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
+import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -66,9 +67,13 @@ class _KemahasiswaanEditOrmawaPageState
                     kemahasiswaanEditOrmawaTambahPageRoute,
                   );
 
-                  if (result == true && context.mounted) {
-                    context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
+                  if (result is Ormawa && context.mounted) {
+                    context.read<OrmawaBloc>().add(
+                      UpdateOrmawaEvent(ormawa: result)
+                    );
+                    mipokaCustomToast("Ormawa telah ditambah.");
                   }
+                  // then((_) => context.read<OrmawaBloc>().add(ReadAllOrmawaEvent()));
                 },
               ),
 
@@ -81,6 +86,10 @@ class _KemahasiswaanEditOrmawaPageState
                     prev.runtimeType != current.runtimeType,
                     listener: (context, state) {
                       if (state is DeleteOrmawaSuccess) {
+
+                        context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
+
+                      } else if (state is UpdateOrmawaSuccess) {
 
                         context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
 
@@ -187,11 +196,20 @@ class _KemahasiswaanEditOrmawaPageState
                                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                             children: [
                                               InkWell(
-                                                onTap: () => Navigator.pushNamed(
-                                                  context,
-                                                  kemahasiswaanEditOrmawaEditPageRoute,
-                                                  arguments: ormawa,
-                                                ).then((_) => context.read<OrmawaBloc>().add(ReadAllOrmawaEvent())),
+                                                onTap: () async {
+                                                  final result = await Navigator.pushNamed(
+                                                    context,
+                                                    kemahasiswaanEditOrmawaEditPageRoute,
+                                                    arguments: ormawa,
+                                                  );
+
+                                                  if (result is Ormawa && context.mounted) {
+                                                    context.read<OrmawaBloc>().add(
+                                                        UpdateOrmawaEvent(ormawa: result));
+                                                    mipokaCustomToast("Ormawa telah diupdate.");
+                                                  }
+                                                },
+                                                    // .then((_) => context.read<OrmawaBloc>().add(ReadAllOrmawaEvent())),
                                                 child: Image.asset(
                                                   'assets/icons/edit.png',
                                                   width: 24,

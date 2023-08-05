@@ -54,7 +54,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
   final TextEditingController _namaBendaharaController = TextEditingController();
   String? _fotoBendaharaUrlController;
   List<String> nimList = [];
-  List<String> newNimList = [];
+  // List<String> newNimList = [];
 
   final StreamController<String?> _logoUrlStream = StreamController<String?>.broadcast();
   final StreamController<String?> _fotoPembinaUrlStream = StreamController<String?>.broadcast();
@@ -78,6 +78,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
   int uniqueId = Random().nextInt(899999999) + 100000000;
   Ormawa? _ormawa;
   int? index;
+  int? nimListLength;
 
   @override
   void initState() {
@@ -115,8 +116,10 @@ class _KemahasiswaanEditOrmawaTambahPageState
       }
     }
 
+    nimListLength = nimList.length;
+
     print (nimList);
-    newNimList = nimList;
+    // newNimList = nimList;
   }
 
 
@@ -486,39 +489,39 @@ class _KemahasiswaanEditOrmawaTambahPageState
                             Uint8List? fotoSekretarisBytes;
                             Uint8List? fotoBendaharaBytes;
 
-                            if (kIsWeb) {
-                              logoOrmawaBytes =
-                                  logoOrmawaResult?.files.first.bytes;
-                              fotoPembinaBytes =
-                                  fotoPembinaResult?.files.first.bytes;
-                              fotoKetuaBytes =
-                                  fotoKetuaResult?.files.first.bytes;
-                              fotoWakilKetuaBytes =
-                                  fotoWakilKetuaResult?.files.first.bytes;
-                              fotoSekretarisBytes =
-                                  fotoSekretarisResult?.files.first.bytes;
-                              fotoBendaharaBytes =
-                                  fotoBendaharaResult?.files.first.bytes;
-                            } else if (Platform.isAndroid) {
-                              logoOrmawaBytes = await File(
-                                  logoOrmawaResult!.files.first.path!)
-                                  .readAsBytes();
-                              fotoPembinaBytes = await File(
-                                  fotoPembinaResult!.files.first.path!)
-                                  .readAsBytes();
-                              fotoKetuaBytes = await File(
-                                  fotoKetuaResult!.files.first.path!)
-                                  .readAsBytes();
-                              fotoWakilKetuaBytes = await File(
-                                  fotoWakilKetuaResult!.files.first.path!)
-                                  .readAsBytes();
-                              fotoSekretarisBytes = await File(
-                                  fotoSekretarisResult!.files.first.path!)
-                                  .readAsBytes();
-                              fotoBendaharaBytes = await File(
-                                  fotoBendaharaResult!.files.first.path!)
-                                  .readAsBytes();
-                            }
+                            // if (kIsWeb) {
+                            //   logoOrmawaBytes =
+                            //       logoOrmawaResult?.files.first.bytes;
+                            //   fotoPembinaBytes =
+                            //       fotoPembinaResult?.files.first.bytes;
+                            //   fotoKetuaBytes =
+                            //       fotoKetuaResult?.files.first.bytes;
+                            //   fotoWakilKetuaBytes =
+                            //       fotoWakilKetuaResult?.files.first.bytes;
+                            //   fotoSekretarisBytes =
+                            //       fotoSekretarisResult?.files.first.bytes;
+                            //   fotoBendaharaBytes =
+                            //       fotoBendaharaResult?.files.first.bytes;
+                            // } else if (Platform.isAndroid) {
+                            //   logoOrmawaBytes = await File(
+                            //       logoOrmawaResult!.files.first.path!)
+                            //       .readAsBytes();
+                            //   fotoPembinaBytes = await File(
+                            //       fotoPembinaResult!.files.first.path!)
+                            //       .readAsBytes();
+                            //   fotoKetuaBytes = await File(
+                            //       fotoKetuaResult!.files.first.path!)
+                            //       .readAsBytes();
+                            //   fotoWakilKetuaBytes = await File(
+                            //       fotoWakilKetuaResult!.files.first.path!)
+                            //       .readAsBytes();
+                            //   fotoSekretarisBytes = await File(
+                            //       fotoSekretarisResult!.files.first.path!)
+                            //       .readAsBytes();
+                            //   fotoBendaharaBytes = await File(
+                            //       fotoBendaharaResult!.files.first.path!)
+                            //       .readAsBytes();
+                            // }
 
                             // mipokaCustomToast(savingDataMessage);
 
@@ -581,13 +584,13 @@ class _KemahasiswaanEditOrmawaTambahPageState
                               namaOrmawa: '_namaOrmawaController.text',
                               namaSingkatanOrmawa: '_namaSingkatanController.text',
                               logoOrmawa: '_logoUrlController ?? ""',
-                              listAnggota: nimList,
+                              listAnggota: [],
                               pembina: '_namaPembinaController.text',
                               ketua: ' _namaKetuaController.text',
                               wakil: '_namaWakilKetuaController.text',
                               sekretaris: '_namaSekretarisController.text',
                               bendahara: '_namaBendaharaController.text',
-                              jumlahAnggota: nimList.length,
+                              jumlahAnggota: 0,
                               fotoPembina: '_fotoPembinaUrlController ?? ""',
                               fotoKetua: '_fotoKetuaUrlController ?? ""',
                               fotoWakil: '_fotoWakilKetuaUrlController ?? ""',
@@ -605,9 +608,7 @@ class _KemahasiswaanEditOrmawaTambahPageState
                                   ormawa: _ormawa!,
                                 ),
                               );
-
                             }
-
                           } else {
                             mipokaCustomToast(emptyFieldMessage);
                           }
@@ -618,37 +619,40 @@ class _KemahasiswaanEditOrmawaTambahPageState
                       BlocListener<OrmawaBloc, OrmawaState>(
                         listenWhen: (prev, current) =>
                         prev.runtimeType != current.runtimeType,
-                        listener: (context, state) {
+                        listener: (context, state) async {
                           if (excelResult != null) {
                             if (state is CreateOrmawaSuccess) {
-
-                              // print ("MipokaUserByNiM Listener Has Data.");
 
                               if (excelResult != null) {
                                 for (var index = 0; index < nimList.length; index++) {
 
-                                  // if (index == nimList.length - 1) {
-                                  //   mipokaCustomToast("Anggota Ormawa Berhasil di proses.");
-                                  // } else {
-                                  //   print("Memproses ${nimList[index]}");
-                                  // }
                                   this.index = index;
 
                                   if (context.mounted) {
                                     context.read<MipokaUserByNimBloc>().add(
-                                      ReadMipokaUserByNimEvent(
-                                          nim: nimList[index]),
+                                      ReadMipokaUserByNimEvent(nim: nimList[index])
                                     );
-                                    Future.delayed(const Duration(seconds: 10));
+                                    await Future.delayed(const Duration(seconds: 2));
+
+                                    if (index == nimListLength! - 1) {
+                                      if (context.mounted) {
+                                        Navigator.pop(
+                                          context,
+                                          _ormawa!.copyWith(
+                                            listAnggota: nimList,
+                                            jumlahAnggota: nimList.length,
+                                          ),
+                                        );
+                                      }
+                                    }
                                   }
                                 }
-
+                              } else if (state is UpdateOrmawaSuccess){
+                                Navigator.pop(context);
                               } else {
                                 mipokaCustomToast("Harap unggah file yang diperlukan.");
                               }
 
-                            } else if (state is UpdateOrmawaSuccess) {
-                              mipokaCustomToast("Ormawa Telah ditambah.");
                             } else if (state is OrmawaError) {
                               mipokaCustomToast("Ormawa : ${state.message}");
                             }
@@ -672,39 +676,22 @@ class _KemahasiswaanEditOrmawaTambahPageState
 
                                 final mipokaUser = state.mipokaUser;
 
-                                context.read<MipokaUserBloc>().add(
-                                  UpdateMipokaUserEvent(
-                                    mipokaUser: mipokaUser.copyWith(
-                                      ormawa: [
-                                        ...mipokaUser.ormawa,
-                                        _ormawa!,
-                                      ],
+                                print("Mipoka User from ${mipokaUser.nim}: ${mipokaUser.ormawa.length - 1}");
+                                if(mipokaUser.ormawa.length - 1 > 2) {
+                                  nimList.remove(mipokaUser.nim);
+                                  mipokaCustomToast("${mipokaUser.nim} telah memiliki 2 ormawa.");
+                                } else {
+                                  context.read<MipokaUserBloc>().add(
+                                    UpdateMipokaUserEvent(
+                                      mipokaUser: mipokaUser.copyWith(
+                                        ormawa: [
+                                          ...mipokaUser.ormawa,
+                                          _ormawa!,
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                );
-
-                                // List<int> ormawaIdList = mipokaUser.ormawa
-                                //     .map((ormawa) => ormawa.idOrmawa)
-                                //     .toList();
-                                //
-                                // print("NIM by MipokaUserByNimBloc : ${mipokaUser.nim}");
-
-                                // if(mipokaUser.ormawa.length <= 2 && ormawaIdList.contains(_ormawa?.idOrmawa) == false) {
-                                //   print("MIPOKA user before PUT : $mipokaUser");
-                                //
-                                //   context.read<MipokaUserBloc>().add(
-                                //     UpdateMipokaUserEvent(
-                                //       mipokaUser: mipokaUser.copyWith(
-                                //         ormawa: [
-                                //           ...mipokaUser.ormawa,
-                                //           _ormawa!,
-                                //         ],
-                                //       ),
-                                //     ),
-                                //   );
-                                // } else {
-                                //   newNimList.removeWhere((element) => element == mipokaUser.nim);
-                                // }
+                                  );
+                                }
                                 return const SizedBox();
                               } else if (state is MipokaUserByNimError){
                                 mipokaCustomToast("MipokaUserByNim ${state.message}");
@@ -717,7 +704,6 @@ class _KemahasiswaanEditOrmawaTambahPageState
                             }
                           }
                       ),
-
 
                       // BlocListener<MipokaUserByNimBloc, MipokaUserByNimState>(
                       //   listenWhen: (prev, current) =>

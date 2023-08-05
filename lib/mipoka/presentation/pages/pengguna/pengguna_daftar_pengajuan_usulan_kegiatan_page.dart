@@ -248,6 +248,10 @@ class _PenggunaDaftarPengajuanKegiatanState
                                           ),
                                         ),
                                         DataCell(
+                                          onTap: () => downloadFileWithDio(
+                                            url: usulanKegiatan.fileUsulanKegiatan,
+                                            fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan),
+                                          ),
                                           Align(
                                             alignment: Alignment.center,
                                             child: Image.asset(
@@ -255,61 +259,60 @@ class _PenggunaDaftarPengajuanKegiatanState
                                               width: 24,
                                             ),
                                           ),
-                                          onTap: () => downloadFileWithDio(
-                                            url: usulanKegiatan.fileUsulanKegiatan,
-                                            fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan),
-                                          ),
-                                        ),
-                                        DataCell(
-                                            usulanKegiatan.validasiPembina == tertunda ?
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Image.asset(
-                                                'assets/icons/time.png',
-                                                width: 24,
-                                              ),
-                                            ) :
-                                            usulanKegiatan.validasiPembina == ditolak ?
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Image.asset(
-                                                'assets/icons/close.png',
-                                                width: 24,
-                                              ),
-                                            ) :
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Image.asset(
-                                                'assets/icons/approve.png',
-                                                width: 24,
-                                              ),
-                                            )
                                         ),
 
                                         DataCell(
-                                            usulanKegiatan.statusUsulan == tertunda ?
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Image.asset(
-                                                'assets/icons/time.png',
-                                                width: 24,
-                                              ),
-                                            ) :
-                                            usulanKegiatan.statusUsulan == ditolak ?
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Image.asset(
-                                                'assets/icons/close.png',
-                                                width: 24,
-                                              ),
-                                            ) :
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Image.asset(
-                                                'assets/icons/approve.png',
-                                                width: 24,
-                                              ),
-                                            )
+                                          usulanKegiatan.validasiPembina == disetujui ?
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/approve.png',
+                                              width: 24,
+                                            ),
+                                          )
+                                              :
+                                          usulanKegiatan.validasiPembina == ditolak ?
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/close.png',
+                                              width: 24,
+                                            ),
+                                          ) :
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/time.png',
+                                              width: 24,
+                                            ),
+                                          ),
+                                        ),
+
+                                        DataCell(
+                                          usulanKegiatan.statusUsulan == disetujui ?
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/approve.png',
+                                              width: 24,
+                                            ),
+                                          )
+                                              :
+                                          usulanKegiatan.statusUsulan == ditolak ?
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/close.png',
+                                              width: 24,
+                                            ),
+                                          ) :
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/time.png',
+                                              width: 24,
+                                            ),
+                                          ),
                                         ),
                                       ],
                                     );

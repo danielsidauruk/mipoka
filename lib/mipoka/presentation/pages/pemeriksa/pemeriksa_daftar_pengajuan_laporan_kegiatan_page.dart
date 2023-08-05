@@ -6,6 +6,7 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
+import 'package:mipoka/domain/utils/url_utils.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
@@ -64,18 +65,18 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
 
               CustomContentBox(
                 children: [
-                  buildTitle('Status'),
-                  MipokaCustomDropdown(
-                    items: listStatus,
-                    onValueChanged: (value) {
-                      filter = value;
-
-                      context.read<LaporanBloc>().add(
-                          const ReadAllLaporanEvent());
-                    },
-                  ),
-
-                  const CustomFieldSpacer(),
+                  // buildTitle('Status'),
+                  // MipokaCustomDropdown(
+                  //   items: listStatus,
+                  //   onValueChanged: (value) {
+                  //     filter = value;
+                  //
+                  //     context.read<LaporanBloc>().add(
+                  //         const ReadAllLaporanEvent());
+                  //   },
+                  // ),
+                  //
+                  // const CustomFieldSpacer(),
 
                   BlocConsumer<LaporanBloc, LaporanState>(
                     listenWhen: (prev, current) =>
@@ -162,7 +163,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                     ),
                                   ],
                                   rows: List<DataRow>.generate(laporanList.length, (int index) {
-                                    final laporanKegiatan = laporanList[index];
+                                    final laporan = laporanList[index];
 
                                     return DataRow(
                                       cells: [
@@ -178,7 +179,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                           Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              laporanKegiatan.updatedAt,
+                                              laporan.updatedAt,
                                             ),
                                           ),
                                         ),
@@ -186,7 +187,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                             Align(
                                               alignment: Alignment.center,
                                               child: Text(
-                                                laporanKegiatan.usulanKegiatan?.mipokaUser.namaLengkap ?? "",
+                                                laporan.usulanKegiatan?.mipokaUser.namaLengkap ?? "",
                                               ),
                                             )
                                         ),
@@ -194,22 +195,19 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                           Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              laporanKegiatan.usulanKegiatan?.namaKegiatan ?? "",
+                                              laporan.usulanKegiatan?.namaKegiatan ?? "",
                                               style: const TextStyle(
                                                 color: Colors.blue,
                                               ),
                                             ),
                                           ),
                                           onTap: () async {
-                                            final result = await Navigator.pushNamed(
+                                            Navigator.pushNamed(
                                               context,
                                               pemeriksaPengajuanLaporanKegiatan1PageRoute,
-                                              arguments: laporanKegiatan.idLaporan,
+                                              arguments: laporan.idLaporan,
                                             ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent()));
                                           }
-
-                                              // .then((_) => context.read<LaporanBloc>().add(
-                                              // const ReadAllLaporanEvent())),
                                         ),
                                         DataCell(
                                           Align(
@@ -220,14 +218,14 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                             ),
                                           ),
                                           onTap: () => downloadFileWithDio(
-                                            url: laporanKegiatan.fileLaporanKegiatan,
-                                            fileName: "usulan_kegiatan_${toSnakeCase(laporanKegiatan.fileLaporanKegiatan)}.docx",
+                                            url: laporan.fileLaporanKegiatan,
+                                            fileName: getFileNameFromUrl(laporan.fileLaporanKegiatan),
                                           ),
                                         ),
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: laporanKegiatan.statusLaporan == tertunda ?
+                                            child: laporan.statusLaporan == tertunda ?
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
@@ -235,7 +233,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                                   onTap: () {
                                                     context.read<LaporanBloc>().add(
                                                       UpdateLaporanFirstPageEvent(
-                                                        laporan: laporanKegiatan.copyWith(
+                                                        laporan: laporan.copyWith(
                                                           statusLaporan: disetujui,
                                                         ),
                                                       ),
@@ -251,7 +249,8 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                                   onTap: () {
                                                     context.read<LaporanBloc>().add(
                                                       UpdateLaporanFirstPageEvent(
-                                                        laporan: laporanKegiatan.copyWith(
+                                                        laporan: laporan.copyWith(
+                                                          validasiPembina: ditolak,
                                                           statusLaporan: ditolak,
                                                         ),
                                                       ),
@@ -265,7 +264,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                                 ),
                                               ],
                                             ) :
-                                            laporanKegiatan.statusLaporan == disetujui ?
+                                            laporan.statusLaporan == disetujui ?
                                             Image.asset(
                                               'assets/icons/approve.png',
                                               width: 24,
@@ -276,11 +275,30 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                             ),
                                           ),
                                         ),
+
                                         DataCell(
+                                          laporan.statusLaporan == disetujui ?
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Text(
-                                              laporanKegiatan.statusLaporan,
+                                            child: Image.asset(
+                                              'assets/icons/approve.png',
+                                              width: 24,
+                                            ),
+                                          ):
+                                          laporan.statusLaporan == ditolak ?
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/close.png',
+                                              width: 24,
+                                            ),
+                                          ) :
+
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/time.png',
+                                              width: 24,
                                             ),
                                           ),
                                         ),

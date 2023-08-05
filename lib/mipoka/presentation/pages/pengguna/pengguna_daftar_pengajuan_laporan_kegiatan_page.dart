@@ -10,6 +10,7 @@ import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/domain/utils/url_utils.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
@@ -81,7 +82,6 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                     listener: (context, state) async {
 
                       if (state is CreateLaporanSuccess) {
-                        print("these createLaporanSuccess Emmited.");
                         Navigator.pushNamed(
                           context,
                           penggunaPengajuanLaporanKegiatanPage1Route,
@@ -181,9 +181,6 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                   rows: List<DataRow>.generate(laporanState.laporanList.length, (int index) {
                                     final laporan = laporanState.laporanList[index];
 
-                                    // BlocProvider.of<UsulanKegiatanBloc>(context, listen: false)
-                                    //     .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: laporan.usulanKegiatan));
-
                                     return DataRow(
                                       cells: [
                                         DataCell(
@@ -208,43 +205,52 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                             ),
                                           ),
                                         ),
-                                        laporan.statusLaporan != ditolak ?
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Text(
-                                              laporan.usulanKegiatan?.namaKegiatan ?? "",
-                                            ),
-                                          ),
-                                        ) :
-                                        DataCell(
-                                          onTap: () async {
-                                            final result = await Navigator.pushNamed(
-                                              context,
-                                              penggunaPengajuanLaporanKegiatanPage1Route,
-                                              arguments: LaporanArgs(
-                                                idLaporan: laporan.idLaporan,
-                                                isRevisiLaporan: true,
+                                            child: laporan.statusLaporan == ditolak ?
+                                            InkWell(
+                                              onTap: () {
+                                                Navigator.pushNamed(
+                                                  context,
+                                                  penggunaPengajuanLaporanKegiatanPage1Route,
+                                                  arguments: LaporanArgs(
+                                                    idLaporan: laporan.idLaporan,
+                                                    isRevisiLaporan: true,
+                                                  ),
+                                                ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent()));
+                                              },
+                                              child: Text(
+                                                laporan.usulanKegiatan?.namaKegiatan ?? "",
+                                                style: const TextStyle(color: Colors.red),
                                               ),
-                                            );
-
-                                            if (result != null && result == true && context.mounted) {
-                                              context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
-                                            }
-                                          },
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
+                                            ) :
+                                            laporan.fileLaporanKegiatan == "" ?
+                                            InkWell(
+                                              onTap: () {
+                                                Navigator.pushNamed(
+                                                  context,
+                                                  penggunaPengajuanLaporanKegiatanPage1Route,
+                                                  arguments: LaporanArgs(
+                                                    idLaporan: laporan.idLaporan,
+                                                  ),
+                                                ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent()));
+                                              },
+                                              child: Text(
+                                                "${laporan.usulanKegiatan?.namaKegiatan ?? ""} (lanjut mengedit)",
+                                                style: const TextStyle(color: Colors.orange),
+                                              ),
+                                            ) :
+                                            Text(
                                               laporan.usulanKegiatan?.namaKegiatan ?? "",
-                                              style: TextStyle(color: Colors.yellow[200]),
                                             ),
-                                          ),
+                                          )
                                         ),
 
                                         DataCell(
                                           onTap: () => downloadFileWithDio(
                                             url: laporan.fileLaporanKegiatan,
-                                            fileName: "laporan_kegiatan_${toSnakeCase(laporan.idLaporan.toString())}.docx",
+                                            fileName: getFileNameFromUrl(laporan.fileLaporanKegiatan),
                                           ),
                                           Align(
                                             alignment: Alignment.center,
@@ -254,25 +260,57 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                             ),
                                           ),
                                         ),
+
                                         DataCell(
+                                          laporan.validasiPembina == disetujui ?
                                           Align(
                                             alignment: Alignment.center,
-                                            child: laporan.validasiPembina == "true" ?
-                                            Image.asset(
+                                            child: Image.asset(
                                               'assets/icons/approve.png',
                                               width: 24,
-                                            ) :
-                                            Image.asset(
+                                            ),
+                                          )
+                                              :
+                                          laporan.validasiPembina == ditolak ?
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
                                               'assets/icons/close.png',
+                                              width: 24,
+                                            ),
+                                          ) :
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/time.png',
                                               width: 24,
                                             ),
                                           ),
                                         ),
+
                                         DataCell(
+                                          laporan.statusLaporan == disetujui ?
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Text(
-                                              laporan.statusLaporan,
+                                            child: Image.asset(
+                                              'assets/icons/approve.png',
+                                              width: 24,
+                                            ),
+                                          ):
+                                          laporan.statusLaporan == ditolak ?
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/close.png',
+                                              width: 24,
+                                            ),
+                                          ) :
+
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/time.png',
+                                              width: 24,
                                             ),
                                           ),
                                         ),
@@ -308,8 +346,8 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                       fotoTabulasiHasil: "",
                                       fotoFakturPembayaran: "",
                                       fileLaporanKegiatan: "",
-                                      validasiPembina: "false",
-                                      statusLaporan: "",
+                                      validasiPembina: tertunda,
+                                      statusLaporan: tertunda,
                                       createdAt: currentDate,
                                       createdBy: user?.email ?? "unknown",
                                       updatedAt: currentDate,

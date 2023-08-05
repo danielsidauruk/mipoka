@@ -9,6 +9,7 @@ import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/signature_dialog_utils.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/domain/utils/url_utils.dart';
 import 'package:mipoka/mipoka/domain/entities/revisi_usulan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/revisi_usulan_bloc/revisi_usulan_bloc.dart';
@@ -78,21 +79,21 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
 
               CustomContentBox(
                 children: [
-                  customBoxTitle('Status'),
-
-                  const CustomFieldSpacer(height: 4.0),
-
-                  MipokaCustomDropdown(
-                    items: listStatus,
-                    onValueChanged: (value) {
-                      filter = value;
-
-                      // context.read<UsulanKegiatanBloc>().add(
-                      //     ReadAllUsulanKegiatanEvent(filter: value ?? "semua"));
-                    },
-                  ),
-
-                  const CustomFieldSpacer(),
+                  // customBoxTitle('Status'),
+                  //
+                  // const CustomFieldSpacer(height: 4.0),
+                  //
+                  // MipokaCustomDropdown(
+                  //   items: listStatus,
+                  //   onValueChanged: (value) {
+                  //     filter = value;
+                  //
+                  //     // context.read<UsulanKegiatanBloc>().add(
+                  //     //     ReadAllUsulanKegiatanEvent(filter: value ?? "semua"));
+                  //   },
+                  // ),
+                  //
+                  // const CustomFieldSpacer(),
 
                   BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
                     listenWhen: (prev, current) =>
@@ -205,8 +206,6 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                   rows: List<DataRow>.generate(usulanKegiatanList.length, (int index) {
                                     final usulanKegiatan = usulanKegiatanList[index];
 
-                                    // context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: usulanKegiatan.idUser));
-
                                     return DataRow(
                                       cells: [
                                         DataCell(
@@ -306,10 +305,10 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                         alignment: Alignment.center,
                                                         child: Text(
                                                           usulanKegiatan.namaKegiatan,
-                                                          // style: const TextStyle(
-                                                          //   color: Colors.blue,
-                                                          //   decoration: TextDecoration.underline,
-                                                          // ),
+                                                          style: const TextStyle(
+                                                            color: Colors.blue,
+                                                            decoration: TextDecoration.underline,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
@@ -353,14 +352,14 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                           onTap: () {
                                             downloadFileWithDio(
                                               url: usulanKegiatan.fileUsulanKegiatan,
-                                              fileName: "usulan_kegiatan_${toSnakeCase(usulanKegiatan.namaKegiatan)}.docx",
+                                              fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan),
                                             );
                                           },
                                         ),
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: usulanKegiatan.statusUsulan == tertunda ?
+                                            child: usulanKegiatan.validasiPembina == tertunda ?
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
@@ -392,7 +391,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                 ),
                                               ],
                                             ) :
-                                            usulanKegiatan.statusUsulan == disetujui ?
+                                            usulanKegiatan.validasiPembina == disetujui ?
                                             Center(
                                               child: Image.asset(
                                                 'assets/icons/approve.png',
@@ -407,10 +406,31 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                             ),
                                           ),
                                         ),
+
                                         DataCell(
+                                          usulanKegiatan.statusUsulan == disetujui ?
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Text(usulanKegiatan.statusUsulan),
+                                            child: Image.asset(
+                                              'assets/icons/approve.png',
+                                              width: 24,
+                                            ),
+                                          ):
+                                          usulanKegiatan.statusUsulan == ditolak ?
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/close.png',
+                                              width: 24,
+                                            ),
+                                          ) :
+
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/time.png',
+                                              width: 24,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -419,13 +439,13 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                 ),
                               ),
                             ),
-
                           ],
                         );
                       } else if (state is UsulanKegiatanError) {
                         return Text(state.message);
                       } else {
-                        return const Text ("AllUsulanKegiatanBloc hasn't been triggered yet");
+                        print ("AllUsulanKegiatanBloc hasn't been triggered yet");
+                        return const SizedBox();
                       }
                     },
                   ),

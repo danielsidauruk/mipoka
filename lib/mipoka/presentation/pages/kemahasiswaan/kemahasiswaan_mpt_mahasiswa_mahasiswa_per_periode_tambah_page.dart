@@ -11,6 +11,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/domain/utils/url_utils.dart';
 import 'package:mipoka/mipoka/domain/entities/mhs_per_periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mhs_per_periode_mpt_use_cases/mhs_per_periode_mpt_use_cases_bloc.dart';
@@ -178,7 +179,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                     onPressed: () {
                       downloadFileWithDio(
                         url: mhsPerPeriodeTemplate,
-                        fileName: "mhs_per_periode_template.xlsx",
+                        fileName: getFileNameFromUrl(mhsPerPeriodeTemplate),
                       );
                     }
                   ),
@@ -198,7 +199,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
                         return CustomFilterButton(
                           text: 'Proses',
-                          onPressed: () {
+                          onPressed: () async {
                             mipokaCustomToast(savingDataMessage);
 
                             if (result != null) {
@@ -206,15 +207,12 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
 
                                 if(nimPerPeriodeMpt.contains(nimList[index]) == false) {
                                   context.read<MipokaUserByNimBloc>().add(ReadMipokaUserByNimEvent(nim: nimList[index]));
-
+                                  await Future.delayed(const Duration(seconds: 2));
                                   this.index = index;
                                 } else if (nimPerPeriodeMpt.contains(nimList[index])) {
+                                  nimList.removeAt(index);
                                   mipokaCustomToast("${nimList[index]} sudah terdaftar sebelumnya.");
                                 }
-
-                                print("This ${this.index}");
-                                print("Total NIM ${nimList.length}");
-                                Future.delayed(const Duration(seconds: 10));
                               }
                             } else {
                               mipokaCustomToast("Harap unggah file yang diperlukan.");
@@ -230,14 +228,15 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                     },
                   ),
 
-                  BlocBuilder<MipokaUserByNimBloc, MipokaUserByNimState>(
-                    builder: (context, state) {
+                  BlocListener<MipokaUserByNimBloc, MipokaUserByNimState>(
+                    listenWhen: (prev, current) =>
+                    prev.runtimeType != current.runtimeType,
+                    listener: (context, state) {
                       if (result != null) {
                         if (state is MipokaUserByNimLoading) {
                           if (kDebugMode) {
                             print ("Loading ...");
                           }
-                          return const SizedBox();
                         } else if (state is MipokaUserByNimHasData) {
                           int uniqueId = UniqueIdGenerator.generateUniqueId();
                           String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
@@ -255,23 +254,20 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                               ),
                             ),
                           );
+                          print(nimList.length);
 
                           if (index == nimList.length - 1) {
                             mipokaCustomToast("Mahasiswa Per Periode telah ditambahkan.");
                           }
-                          return const SizedBox();
                         } else if (state is MipokaUserByNimError) {
-                          return Text(state.message);
                         } else {
                           if (kDebugMode) {
                             print("MhsPerPeriode hasn't been triggered yet.");
                           }
-                          return const SizedBox();
                         }
-                      } else {
-                        return const SizedBox();
                       }
                     },
+                    child: const SizedBox(),
                   ),
 
                   const CustomFieldSpacer(),

@@ -48,7 +48,7 @@ class SignatureDialogUtils {
                   Icons.clear,
                   size: 24.0,
                 ),
-              )
+              ),
             ],
           ),
           titlePadding: const EdgeInsets.all(16.0),
@@ -59,7 +59,7 @@ class SignatureDialogUtils {
                   : 306,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
+                children: [
                   Container(
                     width: MediaQuery.of(context).size.width < 300
                         ? MediaQuery.of(context).size.width
@@ -120,7 +120,7 @@ class SignatureDialogUtils {
 
     Uint8List? data;
     String? tandaTanganPembina;
-    String? docxUrl;
+    // String? docxUrl;
     int uniqueId = UniqueIdGenerator.generateUniqueId();
 
     if (kIsWeb) {
@@ -137,14 +137,14 @@ class SignatureDialogUtils {
 
     mipokaCustomToast("Menyimpan data ...");
     tandaTanganPembina = await uploadBytesToFirebase(data!, "signature$uniqueId.png");
-    docxUrl = await generateUsulanDocx(
-      UsulanKegiatanModel.fromEntity(
-        usulanKegiatan.copyWith(
-          tandaTanganPembina: tandaTanganPembina,
-          validasiPembina: disetujui,
-        ),
-      ),
-    );
+    // docxUrl = await generateUsulanDocx(
+    //   UsulanKegiatanModel.fromEntity(
+    //     usulanKegiatan.copyWith(
+    //       tandaTanganPembina: tandaTanganPembina,
+    //       validasiPembina: disetujui,
+    //     ),
+    //   ),
+    // );
 
     if(context.mounted) {
       context.read<UsulanKegiatanBloc>().add(
@@ -152,13 +152,15 @@ class SignatureDialogUtils {
           usulanKegiatan: usulanKegiatan.copyWith(
             tandaTanganPembina: tandaTanganPembina,
             validasiPembina: disetujui,
-            fileUsulanKegiatan: docxUrl,
+            // fileUsulanKegiatan: docxUrl,
           ),
         ),
       );
 
+      // Future.delayed(const Duration(seconds: 2));
+
       if (isPop) {
-        context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+        // context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
         Navigator.pop(context);
       } else {
         Navigator.pushNamedAndRemoveUntil(
