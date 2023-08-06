@@ -6,7 +6,11 @@ import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
+import 'package:mipoka/mipoka/domain/entities/session.dart';
+import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -24,11 +28,9 @@ import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class PenggunaPengajuanSaranaDanPrasarana extends StatefulWidget {
   const PenggunaPengajuanSaranaDanPrasarana({
-    required this.idSession,
     super.key
   });
 
-  final int idSession;
   @override
   State<PenggunaPengajuanSaranaDanPrasarana> createState() =>
       _PenggunaPengajuanSaranaDanPrasaranaState();
@@ -41,14 +43,15 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
 
   @override
   void initState() {
-    context.read<SessionBloc>().add(ReadSessionEvent(idSession: widget.idSession));
+    // context.read<SessionBloc>().add(ReadSessionEvent(idSession: widget.idSession));
     context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
+    context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: user?.uid ?? ""));
     super.initState();
   }
 
   @override
   void dispose() {
-    context.read<SessionBloc>().close();
+    context.read<MipokaUserBloc>().close();
     context.read<OrmawaBloc>().close();
     super.dispose();
   }
@@ -70,7 +73,9 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
   final TextEditingController _spidolController = TextEditingController();
   final TextEditingController _lainController = TextEditingController();
 
+  List<Ormawa> _ormawaList = [];
   Ormawa? _ormawa;
+  // ormawa ??= _ormawaList.first;
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +87,8 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
     return Scaffold(
       appBar: MipokaMobileAppBar(
         onRefresh: () {
-          mipokaCustomToast(refreshMessage);
-          context.read<SessionBloc>().add(ReadSessionEvent(idSession: widget.idSession));
+          context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
+          context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: user?.uid ?? ""));
         },
       ),
 
@@ -100,55 +105,13 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
               const CustomFieldSpacer(),
               CustomContentBox(
                 children: [
-                  BlocConsumer<SessionBloc, SessionState>(
-                    listenWhen: (prev, current) =>
-                    prev.runtimeType != current.runtimeType,
-                    listener: (context, state) async {
-                      if (state is SentSessionSuccess) {
-                        mipokaCustomToast('Pengajuan Sarana dan Prasarana telah dikirim.');
-
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          penggunaDaftarPengajuanSaranaDanPrasaranaPageRoute,
-                              (route) => false,
-                        );
-                      } else if (state is DeleteSessionSuccess) {
-                        Navigator.pop(context, true);
-                      } else if (state is SessionError) {
-                        mipokaCustomToast(state.message);
-                      }
-                    },
-
+                  BlocBuilder<MipokaUserBloc, MipokaUserState>(
                     builder: (context, state) {
-                      if (state is SessionLoading) {
-                        return const Text('Loading');
-                      } else if (state is SessionHasData) {
-                        final session = state.session;
+                      if (state is MipokaUserHasData) {
 
-                        final ormawaList = session.mipokaUser.ormawa;
-                        List<String> namaOrmawaList = ormawaList.map(
-                                (ormawa) => ormawa.namaOrmawa).toList();
-
-                        _ormawa = session.ormawa;
-                        _ormawa ??= ormawaList.first;
-                        _tanggalMulaiController.text = session.tanggalMulai;
-                        _tanggalSelesaiController.text = session.tanggalSelesai;
-                        _gedungController.text = session.gedung;
-                        _gedungController.text = _gedungController.text == "" ? listGedung.first : _gedungController.text;
-                        _ruangController.text = session.ruangan;
-                        _ruangController.text = _ruangController.text == "" ? listRuangan.first : _ruangController.text;
-                        _waktuMulaiController.text = session.waktuMulaiPenggunaan;
-                        _waktuSelesaiController.text = session.waktuSelesaiPenggunaan;
-
-                        _proyektorLcdController.text = session.proyektor.toString();
-                        _laptopController.text = session.laptop.toString();
-                        _mikrofonController.text = session.mikrofon.toString();
-                        _speakerController.text = session.speaker.toString();
-                        _mejaController.text = session.meja.toString();
-                        _kursiController.text = session.kursi.toString();
-                        _papanTulisController.text = session.papanTulis.toString();
-                        _spidolController.text = session.spidol.toString();
-                        _lainController.text = session.lainLain;
+                        final mipokaUser = state.mipokaUser;
+                        _ormawaList = mipokaUser.ormawa;
+                        List<String> namaOrmawaList = _ormawaList.map((ormawa) => ormawa.namaOrmawa).toList();
 
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -185,12 +148,11 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                             // ),
 
                             MipokaCustomDropdown(
-                                items: namaOrmawaList,
-                                initialItem: _ormawa?.namaOrmawa ?? "",
-                                onValueChanged: (value) {
-                                  int index = namaOrmawaList.indexOf(value!);
-                                  _ormawa = ormawaList[index];
-                                }
+                              items: namaOrmawaList,
+                              onValueChanged: (value) {
+                                int index = namaOrmawaList.indexOf(value!);
+                                _ormawa = _ormawaList[index];
+                              },
                             ),
 
                             const CustomFieldSpacer(),
@@ -289,11 +251,71 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 CustomMipokaButton(
-                                  onTap: () => context.read<SessionBloc>().add(
-                                      DeleteSessionEvent(idSession: widget.idSession)),
+                                  onTap: () => Navigator.pop(context),
                                   text: 'Batal',
                                 ),
+
                                 const SizedBox(width: 8.0),
+
+                                // BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                                //   builder: (context, mipokaUserState) {
+                                //     if (mipokaUserState is MipokaUserLoading) {
+                                //       return const Text('Loading ...');
+                                //     } else if (mipokaUserState is MipokaUserHasData) {
+                                //       final mipokaUser = mipokaUserState.mipokaUser;
+                                //       return Row(
+                                //         mainAxisAlignment: MainAxisAlignment.end,
+                                //         children: [
+                                //           InkWell(
+                                //             onTap: () async {
+                                //
+                                //               final result = await Navigator.pushNamed(
+                                //                 context,
+                                //                 penggunaPengajuanSaranaDanPrasaranaPageRoute,
+                                //                 arguments: uniqueId,
+                                //               );
+                                //
+                                //               if (result is Session && context.mounted) {
+                                //                 context.read<SessionBloc>().add(
+                                //                     CreateSessionEvent(session: result));
+                                //               }
+                                //
+                                //             },
+                                //             child: Container(
+                                //               padding: const EdgeInsets.symmetric(
+                                //                   vertical: 8.0, horizontal: 24),
+                                //               constraints: BoxConstraints(
+                                //                 minHeight: 35.0,
+                                //                 maxWidth: MediaQuery.of(context).size.width * 0.6,
+                                //               ),
+                                //               alignment: Alignment.center,
+                                //               decoration: BoxDecoration(
+                                //                 color: Colors.white,
+                                //                 borderRadius: BorderRadius.circular(5.0),
+                                //               ),
+                                //               child: const Text(
+                                //                 'Ajukan Peminjaman Sarana dan Prasarana',
+                                //                 style: TextStyle(
+                                //                   color: Colors.black,
+                                //                   fontWeight: FontWeight.bold,
+                                //                 ),
+                                //                 textAlign: TextAlign.center,
+                                //                 softWrap: true,
+                                //               ),
+                                //             ),
+                                //           ),
+                                //         ],
+                                //       );
+                                //     }
+                                //     else if (mipokaUserState is MipokaUserError) {
+                                //       return Text(mipokaUserState.message);
+                                //     } else {
+                                //       print("MipokaUserBloc hasn't been triggered.");
+                                //       return const SizedBox();
+                                //     }
+                                //   },
+                                // ),
+
                                 CustomMipokaButton(
                                   onTap: () {
                                     if (_tanggalMulaiController.text.isNotEmpty &&
@@ -314,28 +336,37 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                                         final spidol = int.tryParse(_spidolController.text);
 
                                         String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                                        int uniqueId = UniqueIdGenerator.generateUniqueId();
 
                                         mipokaCustomToast(savingDataMessage);
 
                                         Navigator.pop(
                                           context,
-                                          session.copyWith(
+                                          Session(
+                                            idSession: uniqueId,
                                             ormawa: _ormawa,
+                                            mipokaUser: mipokaUser,
                                             tanggalMulai: _tanggalMulaiController.text,
                                             tanggalSelesai: _tanggalSelesaiController.text,
                                             gedung: _gedungController.text,
                                             ruangan: _ruangController.text,
                                             waktuMulaiPenggunaan: _waktuMulaiController.text,
                                             waktuSelesaiPenggunaan: _waktuSelesaiController.text,
-                                            proyektor: proyektorLcd,
-                                            laptop: laptop,
-                                            mikrofon: mikrofon,
-                                            speaker: speaker,
-                                            meja: meja,
-                                            kursi: kursi,
-                                            papanTulis: papanTulis,
-                                            spidol: spidol,
+                                            proyektor: proyektorLcd ?? 0,
+                                            laptop: laptop ?? 0,
+                                            mikrofon: mikrofon ?? 0,
+                                            speaker: speaker ?? 0,
+                                            meja: meja ?? 0,
+                                            kursi: kursi ?? 0,
+                                            papanTulis: papanTulis ?? 0,
+                                            spidol: spidol ?? 0,
+                                            kegiatan: '',
+                                            status: '',
+                                            keterangan: "_keterangan",
+                                            fileSession: '',
                                             lainLain: _lainController.text,
+                                            createdAt: currentDate,
+                                            createdBy: user?.email ?? "unknown",
                                             updatedBy: user?.email ?? "unknown",
                                             updatedAt: currentDate,
                                           ),
@@ -354,10 +385,8 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                             ),
                           ],
                         );
-                      } else if (state is SessionError) {
-                        return Text(state.message);
                       } else {
-                        return const Text('IDK');
+                        return const SizedBox();
                       }
                     },
                   ),

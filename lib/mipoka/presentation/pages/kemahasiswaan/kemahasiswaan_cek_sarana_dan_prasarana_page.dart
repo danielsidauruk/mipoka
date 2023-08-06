@@ -46,8 +46,15 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MipokaMobileAppBar(),
+      appBar: MipokaMobileAppBar(
+        onRefresh: () {
+          mipokaCustomToast(refreshMessage);
+          context.read<SessionBloc>().add(const ReadAllSessionEvent());
+        },
+      ),
+
       drawer: const MobileCustomKemahasiswaanDrawer(),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -59,17 +66,17 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
               const CustomFieldSpacer(),
               CustomContentBox(
                 children: [
-                  buildTitle('Status'),
-
-                  MipokaCustomDropdown(
-                    items: listStatus,
-                    onValueChanged: (value) {
-                      filter = value ?? filter;
-                      context.read<SessionBloc>().add(ReadAllSessionEvent(filter: filter));
-                    },
-                  ),
-
-                  const CustomFieldSpacer(),
+                  // buildTitle('Status'),
+                  //
+                  // MipokaCustomDropdown(
+                  //   items: listStatus,
+                  //   onValueChanged: (value) {
+                  //     filter = value ?? filter;
+                  //     context.read<SessionBloc>().add(ReadAllSessionEvent(filter: filter));
+                  //   },
+                  // ),
+                  //
+                  // const CustomFieldSpacer(),
 
                   BlocConsumer<SessionBloc, SessionState>(
                     listenWhen: (prev, current) =>
