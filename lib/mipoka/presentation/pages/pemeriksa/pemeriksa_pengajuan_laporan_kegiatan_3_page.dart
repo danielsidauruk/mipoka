@@ -231,6 +231,7 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                                         updatedAt: currentDate,
                                         updatedBy: user?.email ?? "unknown",
                                       ),
+                                      penutup: "",
                                     ),
                                   ),
                                 );

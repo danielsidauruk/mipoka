@@ -225,7 +225,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: laporan.statusLaporan == tertunda ?
+                                            child: laporan.validasiPembina == tertunda ?
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
@@ -234,7 +234,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                                     context.read<LaporanBloc>().add(
                                                       UpdateLaporanFirstPageEvent(
                                                         laporan: laporan.copyWith(
-                                                          statusLaporan: disetujui,
+                                                          validasiPembina: disetujui,
                                                         ),
                                                       ),
                                                     );
@@ -264,7 +264,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                                 ),
                                               ],
                                             ) :
-                                            laporan.statusLaporan == disetujui ?
+                                            laporan.validasiPembina == disetujui ?
                                             Image.asset(
                                               'assets/icons/approve.png',
                                               width: 24,

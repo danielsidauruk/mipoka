@@ -432,6 +432,7 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                                         updatedBy: user?.email ?? "unknown",
                                         updatedAt: currentDate,
                                       ),
+                                      penutup: "",
                                       statusUsulan: ditolak,
                                       validasiPembina: ditolak,
                                     ),

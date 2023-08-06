@@ -194,7 +194,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -210,7 +210,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -232,7 +232,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       }
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -262,7 +262,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -343,7 +343,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -359,7 +359,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -383,7 +383,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       }
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -414,7 +414,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -433,7 +433,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -449,7 +449,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -471,7 +471,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       }
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -505,7 +505,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -524,7 +524,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -540,7 +540,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -562,7 +562,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       }
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -577,7 +577,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       final result = LaporanModel.fromJson(response.data);
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -595,7 +595,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -616,7 +616,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
         print(response.data);
       }
 
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -633,7 +633,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -651,7 +651,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
           .toList();
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -675,7 +675,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       final result = OrmawaModel.fromJson(response.data);
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -694,7 +694,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
         print(response.data);
       }
       print(ormawaModel.toJson());
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -739,7 +739,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -755,7 +755,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -773,7 +773,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
           .toList();
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -803,7 +803,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -849,7 +849,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -865,7 +865,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -883,7 +883,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
           .toList();
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -912,7 +912,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -968,7 +968,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -985,7 +985,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1013,7 +1013,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1060,7 +1060,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1076,7 +1076,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1098,7 +1098,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       }
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1121,7 +1121,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       final result = RiwayatMptModel.fromJson(response.data);
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1139,7 +1139,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1158,7 +1158,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1174,7 +1174,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1196,7 +1196,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       }
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1218,7 +1218,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       final result = SessionModel.fromJson(response.data);
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1236,7 +1236,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1281,7 +1281,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1297,7 +1297,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1315,7 +1315,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
           .toList();
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1330,7 +1330,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       final result = MipokaUserModel.fromJson(response.data);
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1352,7 +1352,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       final result = MipokaUserModel.fromJson(response.data);
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1381,7 +1381,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1395,7 +1395,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
     //   if (kDebugMode) {
     //     print(response.data);
     //   }
-    // } on DioError catch (e) {
+    // } on DioException catch (e) {
     //   if (kDebugMode) {
     //     print(e);
     //   }
@@ -1416,7 +1416,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1432,7 +1432,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1457,7 +1457,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       }
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1486,7 +1486,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       final result = UsulanKegiatanModel.fromJson(response.data);
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1505,7 +1505,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1523,7 +1523,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1539,7 +1539,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1561,7 +1561,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       }
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1590,7 +1590,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1609,7 +1609,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1625,7 +1625,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1643,7 +1643,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
           .toList();
 
       return result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1672,7 +1672,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       if (kDebugMode) {
         print(response.data);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -1698,7 +1698,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   @override
   Future<List<NotifikasiModel>> readAllNotifikasi(String filter) async {
     final String response =
-        await rootBundle.loadString('assets/json_file/notifikasi_list.json');
+    await rootBundle.loadString('assets/json_file/notifikasi_list.json');
     List<dynamic> resultList = json.decode(response);
 
     List<NotifikasiModel> result =
