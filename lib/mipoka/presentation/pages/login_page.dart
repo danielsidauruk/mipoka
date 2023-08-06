@@ -102,62 +102,65 @@ class _LoginPageState extends State<LoginPage> {
 
                 const CustomFieldSpacer(height: 8.0),
 
-                LoginButton(
-                  // title: 'Log in - Pengguna',
-                  title: 'Log in',
-                  onTap:() async {
-                    // Navigator.pushNamed(context, penggunaBerandaPageRoute);
-                    String email = _emailController.text;
-                    String password = _passwordController.text;
+                SizedBox(
+                  width: 450,
+                  child: LoginButton(
+                    // title: 'Log in - Pengguna',
+                    title: 'Log in',
+                    onTap:() async {
+                      // Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                      String email = _emailController.text;
+                      String password = _passwordController.text;
 
-                    if (email.isNotEmpty && password.isNotEmpty) {
-                      mipokaCustomToast("Autentikasi Akun ...");
+                      if (email.isNotEmpty && password.isNotEmpty) {
+                        mipokaCustomToast("Autentikasi Akun ...");
 
-                      try {
-                        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                          email: email,
-                          password: password,
-                        );
+                        try {
+                          UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                            email: email,
+                            password: password,
+                          );
 
-                        if (context.mounted) {
-                          context.read<MipokaUserBloc>().add(
-                              ReadMipokaUserEvent(idMipokaUser: userCredential.user!.uid));
+                          if (context.mounted) {
+                            context.read<MipokaUserBloc>().add(
+                                ReadMipokaUserEvent(idMipokaUser: userCredential.user!.uid));
 
-                          // if (email == "mipoka.admin@gmail.com") {
-                          //   Navigator.pushNamedAndRemoveUntil(
-                          //     context,
-                          //     mipokaAdminDashboardRoute,
-                          //         (route) => false,
-                          //   );
-                          // } else  if (email == "tommychristian24@gmail.com") {
-                          //   Navigator.pushNamedAndRemoveUntil(
-                          //     context,
-                          //     kemahasiswaanBerandaPageRoute,
-                          //         (route) => false,
-                          //   );
-                          // } else if (email == "hafizsritonga08@gmail.com") {
-                          //   Navigator.pushNamedAndRemoveUntil(
-                          //     context,
-                          //     pemeriksaDaftarUsulanKegiatanPageRoute,
-                          //         (route) => false,
-                          //   );
-                          // } else {
-                          //     Navigator.pushNamedAndRemoveUntil(
-                          //       context,
-                          //       penggunaBerandaPageRoute,
-                          //           (route) => false,
-                          //     );
-                          // }
+                            // if (email == "mipoka.admin@gmail.com") {
+                            //   Navigator.pushNamedAndRemoveUntil(
+                            //     context,
+                            //     mipokaAdminDashboardRoute,
+                            //         (route) => false,
+                            //   );
+                            // } else  if (email == "tommychristian24@gmail.com") {
+                            //   Navigator.pushNamedAndRemoveUntil(
+                            //     context,
+                            //     kemahasiswaanBerandaPageRoute,
+                            //         (route) => false,
+                            //   );
+                            // } else if (email == "hafizsritonga08@gmail.com") {
+                            //   Navigator.pushNamedAndRemoveUntil(
+                            //     context,
+                            //     pemeriksaDaftarUsulanKegiatanPageRoute,
+                            //         (route) => false,
+                            //   );
+                            // } else {
+                            //     Navigator.pushNamedAndRemoveUntil(
+                            //       context,
+                            //       penggunaBerandaPageRoute,
+                            //           (route) => false,
+                            //     );
+                            // }
+                          }
+                        } catch (e) {
+                          mipokaCustomToast(
+                            "Gagal masuk. Periksa email dan kata sandi Anda.",
+                          );
                         }
-                      } catch (e) {
-                        mipokaCustomToast(
-                          "Gagal masuk. Periksa email dan kata sandi Anda.",
-                        );
+                      } else {
+                        mipokaCustomToast("Email dan Kata Sandi tidak boleh kosong.");
                       }
-                    } else {
-                      mipokaCustomToast("Email dan Kata Sandi tidak boleh kosong.");
-                    }
-                  },
+                    },
+                  ),
                 ),
 
                   BlocListener<MipokaUserBloc, MipokaUserState>(
