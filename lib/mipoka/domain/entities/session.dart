@@ -8,7 +8,7 @@ class Session extends Equatable{
   final Ormawa? ormawa;
   final String tanggalMulai;
   final String tanggalSelesai;
-  final String ruangan;
+  final String ruang;
   final String gedung;
   final String waktuMulaiPenggunaan;
   final String waktuSelesaiPenggunaan;
@@ -24,7 +24,7 @@ class Session extends Equatable{
   final String lainLain;
   final String status;
   final String fileSession;
-  final String keterangan;
+  final String tandaTanganSA;
   final String updatedAt;
   final String createdAt;
   final String updatedBy;
@@ -36,7 +36,7 @@ class Session extends Equatable{
     this.ormawa,
     required this.tanggalMulai,
     required this.tanggalSelesai,
-    required this.ruangan,
+    required this.ruang,
     required this.gedung,
     required this.waktuMulaiPenggunaan,
     required this.waktuSelesaiPenggunaan,
@@ -52,7 +52,7 @@ class Session extends Equatable{
     required this.lainLain,
     required this.status,
     required this.fileSession,
-    required this.keterangan,
+    required this.tandaTanganSA,
     required this.updatedAt,
     required this.createdAt,
     required this.updatedBy,
@@ -65,7 +65,7 @@ class Session extends Equatable{
     Ormawa? ormawa,
     String? tanggalMulai,
     String? tanggalSelesai,
-    String? ruangan,
+    String? ruang,
     String? gedung,
     String? waktuMulaiPenggunaan,
     String? waktuSelesaiPenggunaan,
@@ -81,7 +81,7 @@ class Session extends Equatable{
     String? lainLain,
     String? status,
     String? fileSession,
-    String? keterangan,
+    String? tandaTanganSA,
     String? updatedAt,
     String? createdAt,
     String? updatedBy,
@@ -93,7 +93,7 @@ class Session extends Equatable{
         ormawa:ormawa ?? this.ormawa,
         tanggalMulai: tanggalMulai ?? this.tanggalMulai,
         tanggalSelesai: tanggalSelesai ?? this.tanggalSelesai,
-        ruangan: ruangan ?? this.ruangan,
+        ruang: ruang ?? this.ruang,
         gedung: gedung ?? this.gedung,
         waktuMulaiPenggunaan: waktuMulaiPenggunaan ?? this.waktuMulaiPenggunaan,
         waktuSelesaiPenggunaan: waktuSelesaiPenggunaan ?? this.waktuSelesaiPenggunaan,
@@ -109,7 +109,7 @@ class Session extends Equatable{
         lainLain: lainLain ?? this.lainLain,
         status: status ?? this.status,
         fileSession: fileSession ?? this.fileSession,
-        keterangan: keterangan ?? this.keterangan,
+        tandaTanganSA: tandaTanganSA ?? this.tandaTanganSA,
         updatedAt: updatedAt ?? this.updatedAt,
         createdAt: createdAt ?? this.createdAt,
         updatedBy: updatedBy ?? this.updatedBy,
@@ -123,7 +123,7 @@ class Session extends Equatable{
     ormawa,
     tanggalMulai,
     tanggalSelesai,
-    ruangan,
+    ruang,
     gedung,
     waktuMulaiPenggunaan,
     waktuSelesaiPenggunaan,
@@ -139,7 +139,7 @@ class Session extends Equatable{
     lainLain,
     status,
     fileSession,
-    keterangan,
+    tandaTanganSA,
     updatedAt,
     createdAt,
     updatedBy,

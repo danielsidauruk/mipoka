@@ -4,6 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/domain/utils/format_date_indonesia.dart';
+import 'package:mipoka/domain/utils/signature_dialog_session_utils.dart';
+import 'package:mipoka/domain/utils/url_utils.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
@@ -190,7 +194,7 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Text(session.tanggalMulai),
+                                            child: Text(formatDateIndonesia(session.tanggalMulai)),
                                           ),
                                         ),
                                         DataCell(
@@ -215,7 +219,7 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Text("${session.gedung}/${session.ruangan}"),
+                                            child: Text("${session.gedung}/${session.ruang}"),
                                           ),
                                         ),
                                         DataCell(
@@ -224,30 +228,29 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                             child: Text(session.lainLain),
                                           ),
                                         ),
+
                                         DataCell(
-                                          Center(
+                                          onTap: () => downloadFileWithDio(
+                                            url: session.fileSession,
+                                            fileName: getFileNameFromUrl(session.fileSession),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.center,
                                             child: Image.asset(
-                                              'assets/icons/pdf.png',
+                                              'assets/icons/word.png',
                                               width: 24,
                                             ),
                                           ),
-                                          onTap: () => print("session.file_session"),
                                         ),
+
                                         DataCell(
+                                          session.status == tertunda ?
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                             children: [
                                               InkWell(
                                                 onTap: () {
-                                                  context.read<SessionBloc>().add(
-                                                    UpdateSessionEvent(
-                                                      session: session.copyWith(
-                                                        status: disetujui,
-                                                      ),
-                                                    ),
-                                                  );
-
-                                                  mipokaCustomToast("Sarana dan Prasarana disetujui.");
+                                                  SignatureDialogUtils.showPopup(context, session);
                                                 },
                                                 child: Image.asset(
                                                   'assets/icons/approve.png',
@@ -275,6 +278,19 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                                 ),
                                               ),
                                             ],
+                                          ) :
+                                          session.status == disetujui ?
+                                          Center(
+                                            child: Image.asset(
+                                              'assets/icons/approve.png',
+                                              width: 24,
+                                            ),
+                                          ) :
+                                          Center(
+                                            child: Image.asset(
+                                              'assets/icons/close.png',
+                                              width: 24,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -288,7 +304,8 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                       } else if (state is SessionError) {
                         return Text(state.message);
                       } else {
-                        return const Text('IDK');
+                        print ("sessionBLoC hasn't been triggered yet.");
+                        return const SizedBox();
                       }
                     },
                   ),

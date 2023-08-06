@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/domain/utils/url_utils.dart';
+import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
@@ -51,9 +54,9 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
 
     Future.microtask(() {
       context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
-      context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
-      context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
-      context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
+      // context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+      // context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+      // context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
     });
     super.initState();
   }
@@ -61,9 +64,9 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
   @override
   void dispose() {
     context.read<RiwayatKegiatanMptBloc>().close();
-    context.read<PeriodeMptBloc>().close();
-    context.read<JenisKegiatanMptBloc>().close();
-    context.read<NamaKegiatanMptBloc>().close();
+    // context.read<PeriodeMptBloc>().close();
+    // context.read<JenisKegiatanMptBloc>().close();
+    // context.read<NamaKegiatanMptBloc>().close();
     _jenisKegiatanStream.close();
     super.dispose();
   }
@@ -77,9 +80,9 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
         onRefresh: () {
           mipokaCustomToast(refreshMessage);
           context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
-          context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
-          context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
-          context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
+          // context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
+          // context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+          // context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
         },
       ),
 
@@ -406,10 +409,11 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                                           Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              "${riwayatKegiatanMpt.mipokaUser.pointMpt}",
+                                              "${riwayatKegiatanMpt.kegiatanPerPeriodeMpt.pointMptDiperoleh}",
                                             ),
                                           ),
                                         ),
+
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
@@ -418,7 +422,12 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                                               width: 24,
                                             ),
                                           ),
+                                            onTap: () => downloadFileWithDio(
+                                              url: riwayatKegiatanMpt.fileSertifikatMpt,
+                                              fileName: getFileNameFromUrl(riwayatKegiatanMpt.fileSertifikatMpt),
+                                            ),
                                         ),
+
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
@@ -426,25 +435,40 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                                             Image.asset(
                                               'assets/icons/approve.png',
                                               width: 24,
-                                            )
-                                                :
+                                            ) :
+                                            riwayatKegiatanMpt.statusMpt == ditolak ?
                                             Image.asset(
                                               'assets/icons/close.png',
+                                              width: 24,
+                                            ) :
+                                            Image.asset(
+                                              'assets/icons/time.png',
                                               width: 24,
                                             ),
                                           ),
                                         ),
+
                                         DataCell(
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                             children: [
                                               InkWell(
-                                                onTap: () => Navigator.pushNamed(
-                                                  context,
-                                                  mptMahasiswaRiwayatKegiatanMahasiswaEditPageRoute,
-                                                  arguments: riwayatKegiatanMpt,
-                                                ).then((_) => context.read<RiwayatKegiatanMptBloc>().add(
-                                                    ReadAllRiwayatKegiatanMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idJenisKegiatan/$_idNamaKegiatan/$_status/${_nimController.text}/$_isCheckedJenisKegiatan"))),
+                                                onTap: () async {
+                                                  final result = await Navigator.pushNamed(
+                                                    context,
+                                                    mptMahasiswaRiwayatKegiatanMahasiswaEditPageRoute,
+                                                    arguments: riwayatKegiatanMpt,
+                                                  );
+
+                                                  if (result is RiwayatKegiatanMpt && context.mounted) {
+                                                    context.read<RiwayatKegiatanMptBloc>().add(
+                                                      UpdateRiwayatKegiatanMptEvent(
+                                                        riwayatKegiatanMpt: result,
+                                                      ),
+                                                    );
+                                                    mipokaCustomToast("Riwayat Kegiatan Mpt telah di update.");
+                                                  }
+                                                },
                                                 child: Image.asset(
                                                   'assets/icons/edit.png',
                                                   width: 24,
@@ -458,7 +482,7 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                                                   context.read<RiwayatKegiatanMptBloc>().add(
                                                       UpdateRiwayatKegiatanMptEvent(
                                                           riwayatKegiatanMpt: riwayatKegiatanMpt.copyWith(statusMpt: disetujui)));
-                                                  mipokaCustomToast("Riwayat kegiatan MPT telah di approve");
+                                                  mipokaCustomToast("Riwayat kegiatan MPT telah $disetujui");
                                                 },
                                                 child: Image.asset(
                                                   'assets/icons/approve.png',
@@ -490,12 +514,13 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                             ),
                           ],
                         );
-                      } else if (state is RiwayatKegiatanMptSuccess) {
-                        context.read<RiwayatKegiatanMptBloc>().add(
-                            ReadAllRiwayatKegiatanMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idJenisKegiatan/$_idNamaKegiatan/$_status/${_nimController.text}/$_isCheckedJenisKegiatan"));
-
-                        return const SizedBox();
                       }
+                      // else if (state is RiwayatKegiatanMptSuccess) {
+                      //   context.read<RiwayatKegiatanMptBloc>().add(
+                      //       ReadAllRiwayatKegiatanMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idJenisKegiatan/$_idNamaKegiatan/$_status/${_nimController.text}/$_isCheckedJenisKegiatan"));
+                      //
+                      //   return const SizedBox();
+                      // }
                       else if (state is RiwayatKegiatanMptError) {
                         return Text(state.message);
                       } else {

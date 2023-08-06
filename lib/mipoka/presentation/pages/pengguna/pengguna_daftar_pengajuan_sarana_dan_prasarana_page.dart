@@ -6,6 +6,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/domain/utils/format_date_indonesia.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/domain/utils/url_utils.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
@@ -19,6 +20,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class PenggunaDaftarPengajuanSaranaDanPrasarana extends StatefulWidget {
   const PenggunaDaftarPengajuanSaranaDanPrasarana({super.key});
@@ -33,9 +35,10 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
 
   @override
   void initState() {
+    initializeDateFormatting('id_ID', null);
+
     context.read<SessionBloc>().add(const ReadAllSessionEvent());
-    context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: user?.uid ?? "")
-    );
+    context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: user?.uid ?? ""));
     super.initState();
   }
 
@@ -217,19 +220,18 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Text(
-                                                session.tanggalMulai
-                                            ),
+                                            child: Text("${DateFormat('EEEE', 'id_ID').format(DateFormat("dd-MM-yyyy")
+                                                .parse(session.tanggalMulai))} / ${formatDateIndonesia(session.tanggalMulai)}"),
                                           ),
                                         ),
+
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Text(
-                                              session.gedung,
-                                            ),
+                                            child: Text("${session.gedung} / ${session.ruang}"),
                                           ),
                                         ),
+
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,

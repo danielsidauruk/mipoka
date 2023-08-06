@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +64,8 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
   final TextEditingController _ruangController = TextEditingController();
   final TextEditingController _waktuMulaiController = TextEditingController();
   final TextEditingController _waktuSelesaiController = TextEditingController();
+  final TextEditingController _kegiatanController = TextEditingController();
+  final TextEditingController _keteranganController = TextEditingController();
 
   final TextEditingController _proyektorLcdController = TextEditingController();
   final TextEditingController _laptopController = TextEditingController();
@@ -72,6 +76,8 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
   final TextEditingController _papanTulisController = TextEditingController();
   final TextEditingController _spidolController = TextEditingController();
   final TextEditingController _lainController = TextEditingController();
+
+  final StreamController<String?> _gedungStream = StreamController<String?>.broadcast();
 
   List<Ormawa> _ormawaList = [];
   Ormawa? _ormawa;
@@ -108,10 +114,15 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                   BlocBuilder<MipokaUserBloc, MipokaUserState>(
                     builder: (context, state) {
                       if (state is MipokaUserHasData) {
-
                         final mipokaUser = state.mipokaUser;
+
                         _ormawaList = mipokaUser.ormawa;
                         List<String> namaOrmawaList = _ormawaList.map((ormawa) => ormawa.namaOrmawa).toList();
+
+                        _ruangController.text = ruanganListA.first;
+                        _gedungController.text = gedungList.first;
+
+                        _ormawa ??= _ormawaList.first;
 
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -167,10 +178,12 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                             const CustomFieldSpacer(),
 
                             buildTitle('Gedung'),
+
                             MipokaCustomDropdown(
-                              items: listGedung,
+                              items: gedungList,
                               onValueChanged: (value) {
                                 _gedungController.text = value ?? "";
+                                _gedungStream.add(value);
                               },
                             ),
 
@@ -178,10 +191,53 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
 
                             buildTitle('Ruang'),
 
-                            MipokaCustomDropdown(
-                              items: listGedung,
-                              onValueChanged: (value) {
-                                _ruangController.text = value ?? "";
+                            StreamBuilder<String?>(
+                              initialData: gedungList.first,
+                              stream: _gedungStream.stream,
+                              builder: (context, snapshot) {
+                                final gedung = snapshot.data;
+
+                                // return
+                                  // gedung == "A" ?
+                                // MipokaCustomDropdown(
+                                //   items: ruanganListA,
+                                //   onValueChanged: (value) {
+                                //   },
+                                // ) :
+                                // gedung == "B" ?
+                                // MipokaCustomDropdown(
+                                //   items: ruanganListB,
+                                //   onValueChanged: (value) {
+                                //   },
+                                // ) :
+                                // MipokaCustomDropdown(
+                                //   items: ruanganListC,
+                                //   onValueChanged: (value) {
+                                //   },
+                                // );
+
+                                if (gedung == gedungList[0]) {
+                                  return MipokaCustomDropdown(
+                                    items: ruanganListA,
+                                    onValueChanged: (value) {
+                                      // _ruangController.text = value ?? "";
+                                    },
+                                  );
+                                } else if (gedung == gedungList[1]) {
+                                  return MipokaCustomDropdown(
+                                    items: ruanganListB,
+                                    onValueChanged: (value) {
+                                      // _ruangController.text = value ?? "";
+                                    },
+                                  );
+                                } else {
+                                  return MipokaCustomDropdown(
+                                    items: ruanganListC,
+                                    onValueChanged: (value) {
+                                      // _ruangController.text = value ?? "";
+                                    },
+                                  );
+                                }
                               },
                             ),
 
@@ -194,6 +250,11 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
 
                             buildTitle('Waktu Selesai Kegiatan'),
                             CustomTimePickerField(controller: _waktuSelesaiController),
+
+                            const CustomFieldSpacer(),
+
+                            buildTitle('Kegiatan'),
+                            CustomTextField(controller: _kegiatanController),
 
                             const CustomFieldSpacer(),
 
@@ -257,126 +318,91 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
 
                                 const SizedBox(width: 8.0),
 
-                                // BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                //   builder: (context, mipokaUserState) {
-                                //     if (mipokaUserState is MipokaUserLoading) {
-                                //       return const Text('Loading ...');
-                                //     } else if (mipokaUserState is MipokaUserHasData) {
-                                //       final mipokaUser = mipokaUserState.mipokaUser;
-                                //       return Row(
-                                //         mainAxisAlignment: MainAxisAlignment.end,
-                                //         children: [
-                                //           InkWell(
-                                //             onTap: () async {
-                                //
-                                //               final result = await Navigator.pushNamed(
-                                //                 context,
-                                //                 penggunaPengajuanSaranaDanPrasaranaPageRoute,
-                                //                 arguments: uniqueId,
-                                //               );
-                                //
-                                //               if (result is Session && context.mounted) {
-                                //                 context.read<SessionBloc>().add(
-                                //                     CreateSessionEvent(session: result));
-                                //               }
-                                //
-                                //             },
-                                //             child: Container(
-                                //               padding: const EdgeInsets.symmetric(
-                                //                   vertical: 8.0, horizontal: 24),
-                                //               constraints: BoxConstraints(
-                                //                 minHeight: 35.0,
-                                //                 maxWidth: MediaQuery.of(context).size.width * 0.6,
-                                //               ),
-                                //               alignment: Alignment.center,
-                                //               decoration: BoxDecoration(
-                                //                 color: Colors.white,
-                                //                 borderRadius: BorderRadius.circular(5.0),
-                                //               ),
-                                //               child: const Text(
-                                //                 'Ajukan Peminjaman Sarana dan Prasarana',
-                                //                 style: TextStyle(
-                                //                   color: Colors.black,
-                                //                   fontWeight: FontWeight.bold,
-                                //                 ),
-                                //                 textAlign: TextAlign.center,
-                                //                 softWrap: true,
-                                //               ),
-                                //             ),
-                                //           ),
-                                //         ],
-                                //       );
-                                //     }
-                                //     else if (mipokaUserState is MipokaUserError) {
-                                //       return Text(mipokaUserState.message);
-                                //     } else {
-                                //       print("MipokaUserBloc hasn't been triggered.");
-                                //       return const SizedBox();
-                                //     }
-                                //   },
-                                // ),
-
                                 CustomMipokaButton(
                                   onTap: () {
-                                    if (_tanggalMulaiController.text.isNotEmpty &&
-                                        _tanggalSelesaiController.text.isNotEmpty &&
-                                        _gedungController.text.isNotEmpty &&
-                                        _ruangController.text.isNotEmpty &&
-                                        _waktuMulaiController.text.isNotEmpty &&
-                                        _waktuSelesaiController.text.isNotEmpty) {
-                                      try {
+                                    final proyektorLcd = int.tryParse(_proyektorLcdController.text);
+                                    final laptop = int.tryParse(_laptopController.text);
+                                    final mikrofon = int.tryParse(_mikrofonController.text);
+                                    final speaker = int.tryParse(_speakerController.text);
+                                    final meja = int.tryParse(_mejaController.text);
+                                    final kursi = int.tryParse(_kursiController.text);
+                                    final papanTulis = int.tryParse(_papanTulisController.text);
+                                    final spidol = int.tryParse(_spidolController.text);
 
-                                        final proyektorLcd = int.tryParse(_proyektorLcdController.text);
-                                        final laptop = int.tryParse(_laptopController.text);
-                                        final mikrofon = int.tryParse(_mikrofonController.text);
-                                        final speaker = int.tryParse(_speakerController.text);
-                                        final meja = int.tryParse(_mejaController.text);
-                                        final kursi = int.tryParse(_kursiController.text);
-                                        final papanTulis = int.tryParse(_papanTulisController.text);
-                                        final spidol = int.tryParse(_spidolController.text);
+                                    if (_ormawa == null) {
+                                      mipokaCustomToast(emptyFieldPrompt("Ormawa"));
+                                    } else if (_tanggalMulaiController.text.isEmpty) {
+                                      mipokaCustomToast(emptyFieldPrompt("Tanggal Mulai"));
+                                    } else if (_tanggalSelesaiController.text.isEmpty) {
+                                      mipokaCustomToast(emptyFieldPrompt("Tanggal Selesai"));
+                                    } else if (_gedungController.text.isEmpty) {
+                                      mipokaCustomToast(emptyFieldPrompt("Gedung"));
+                                    } else if (_ruangController.text.isEmpty) {
+                                      mipokaCustomToast(emptyFieldPrompt("Ruangan"));
+                                    } else if (_waktuMulaiController.text.isEmpty) {
+                                      mipokaCustomToast(emptyFieldPrompt("Waktu Mulai"));
+                                    } else if (_waktuSelesaiController.text.isEmpty) {
+                                      mipokaCustomToast(emptyFieldPrompt("Waktu Selesai"));
+                                    } else if (_kegiatanController.text.isEmpty) {
+                                      mipokaCustomToast(emptyFieldPrompt("Kegiatan"));
+                                    } else if (_proyektorLcdController.text.isNotEmpty && proyektorLcd == null) {
+                                      mipokaCustomToast(dataTypeFalsePrompt("Proyektor"));
+                                    } else if (_laptopController.text.isNotEmpty && laptop == null) {
+                                      mipokaCustomToast(dataTypeFalsePrompt("Laptop"));
+                                    } else if (_mikrofonController.text.isNotEmpty && mikrofon == null) {
+                                      mipokaCustomToast(dataTypeFalsePrompt("Mikrofon"));
+                                    } else if (_speakerController.text.isNotEmpty && speaker == null) {
+                                      mipokaCustomToast(dataTypeFalsePrompt("Speaker"));
+                                    } else if (_mejaController.text.isNotEmpty && meja == null) {
+                                      mipokaCustomToast(dataTypeFalsePrompt("Meja"));
+                                    } else if (_kursiController.text.isNotEmpty && kursi == null) {
+                                      mipokaCustomToast(dataTypeFalsePrompt("Kursi"));
+                                    } else if (_papanTulisController.text.isNotEmpty && papanTulis == null) {
+                                      mipokaCustomToast(dataTypeFalsePrompt("Papan Tulis"));
+                                    } else if (_spidolController.text.isNotEmpty && spidol == null) {
+                                      mipokaCustomToast(dataTypeFalsePrompt("Spidol"));
+                                    }
+                                    else {
+                                      mipokaCustomToast("Pengajuan Peminjaman Sarana & Prasarana Telah Dikirim.");
 
-                                        String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-                                        int uniqueId = UniqueIdGenerator.generateUniqueId();
+                                      String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                                      int uniqueId = UniqueIdGenerator.generateUniqueId();
 
-                                        mipokaCustomToast(savingDataMessage);
-
-                                        Navigator.pop(
-                                          context,
-                                          Session(
-                                            idSession: uniqueId,
-                                            ormawa: _ormawa,
-                                            mipokaUser: mipokaUser,
-                                            tanggalMulai: _tanggalMulaiController.text,
-                                            tanggalSelesai: _tanggalSelesaiController.text,
-                                            gedung: _gedungController.text,
-                                            ruangan: _ruangController.text,
-                                            waktuMulaiPenggunaan: _waktuMulaiController.text,
-                                            waktuSelesaiPenggunaan: _waktuSelesaiController.text,
-                                            proyektor: proyektorLcd ?? 0,
-                                            laptop: laptop ?? 0,
-                                            mikrofon: mikrofon ?? 0,
-                                            speaker: speaker ?? 0,
-                                            meja: meja ?? 0,
-                                            kursi: kursi ?? 0,
-                                            papanTulis: papanTulis ?? 0,
-                                            spidol: spidol ?? 0,
-                                            kegiatan: '',
-                                            status: '',
-                                            keterangan: "_keterangan",
-                                            fileSession: '',
-                                            lainLain: _lainController.text,
-                                            createdAt: currentDate,
-                                            createdBy: user?.email ?? "unknown",
-                                            updatedBy: user?.email ?? "unknown",
-                                            updatedAt: currentDate,
-                                          ),
-                                        );
-
-                                      } catch (e) {
-                                        mipokaCustomToast(dataTypeErrorMessage);
+                                      if(_lainController.text == "") {
+                                        _lainController.text = "-";
                                       }
-                                    } else {
-                                      mipokaCustomToast(emptyFieldMessage);
+
+                                      Navigator.pop(
+                                        context,
+                                        Session(
+                                          idSession: uniqueId,
+                                          ormawa: _ormawa,
+                                          mipokaUser: mipokaUser,
+                                          tanggalMulai: _tanggalMulaiController.text,
+                                          tanggalSelesai: _tanggalSelesaiController.text,
+                                          gedung: _gedungController.text,
+                                          ruang: _ruangController.text,
+                                          waktuMulaiPenggunaan: _waktuMulaiController.text,
+                                          waktuSelesaiPenggunaan: _waktuSelesaiController.text,
+                                          kegiatan: _kegiatanController.text,
+                                          proyektor: proyektorLcd ?? 0,
+                                          laptop: laptop ?? 0,
+                                          mikrofon: mikrofon ?? 0,
+                                          speaker: speaker ?? 0,
+                                          meja: meja ?? 0,
+                                          kursi: kursi ?? 0,
+                                          papanTulis: papanTulis ?? 0,
+                                          spidol: spidol ?? 0,
+                                          status: tertunda,
+                                          tandaTanganSA: "",
+                                          fileSession: "",
+                                          lainLain: _lainController.text,
+                                          createdAt: currentDate,
+                                          createdBy: user?.email ?? "unknown",
+                                          updatedAt: currentDate,
+                                          updatedBy: user?.email ?? "unknown",
+                                        ),
+                                      );
                                     }
                                   },
                                   text: 'Kirim',

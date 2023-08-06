@@ -219,43 +219,30 @@ class _MahasiswaRiwayatKegiatanMahasiswaEditPageState extends State<MahasiswaRiw
 
                       CustomMipokaButton(
                         onTap: () {
-                          if (_keteranganKemahasiswaan.text.isNotEmpty && _poinController.text.isNotEmpty) {
-                            try {
-                              int? point = int.tryParse(_poinController.text);
-                              point != null ?
-                              context.read<RiwayatKegiatanMptBloc>().add(
-                                UpdateRiwayatKegiatanMptEvent(
-                                  riwayatKegiatanMpt: widget.riwayatKegiatanMpt.copyWith(
-                                    keteranganSa: _keteranganKemahasiswaan.text,
-                                    kegiatanPerPeriodeMpt: widget.riwayatKegiatanMpt.kegiatanPerPeriodeMpt.copyWith(
-                                      pointMptDiperoleh: point,
-                                    ),
-                                    statusMpt: _statusVerifikasi,
-                                  ),
-                                ),
-                              ) : mipokaCustomToast(dataTypeErrorMessage);
-                            } catch (e) {
-                              mipokaCustomToast(dataTypeErrorMessage);
-                            }
+                          int? point = int.tryParse(_poinController.text);
+
+                          if (_keteranganKemahasiswaan.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Keterangan Kemahasiswaan"));
+                          } else if (_poinController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Point"));
+                          } else if (point == null) {
+                            mipokaCustomToast(dataTypeFalsePrompt("Point"));
                           } else {
-                            mipokaCustomToast(emptyFieldMessage);
+
+                            Navigator.pop(
+                              context,
+                              widget.riwayatKegiatanMpt.copyWith(
+                                keteranganSa: _keteranganKemahasiswaan.text,
+                                kegiatanPerPeriodeMpt: widget.riwayatKegiatanMpt.kegiatanPerPeriodeMpt.copyWith(
+                                  pointMptDiperoleh: point,
+                                ),
+                                statusMpt: _statusVerifikasi,
+                              ),
+                            );
+
                           }
                         },
                         text: 'Simpan',
-                      ),
-
-                      BlocListener<RiwayatKegiatanMptBloc, RiwayatKegiatanMptState>(
-                        listenWhen: (prev, current) =>
-                        prev.runtimeType != current.runtimeType,
-                        listener: (context, state) {
-                          if (state is RiwayatKegiatanMptSuccess) {
-                            mipokaCustomToast("Riwayat Kegiatan Mpt telah di update.");
-                            Navigator.pop(context);
-                          } else if (state is RiwayatKegiatanMptError) {
-                            mipokaCustomToast(state.message);
-                          }
-                        },
-                        child: const SizedBox(),
                       ),
                     ],
                   ),

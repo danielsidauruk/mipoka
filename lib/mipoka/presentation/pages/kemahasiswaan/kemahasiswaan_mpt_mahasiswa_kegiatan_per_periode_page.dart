@@ -35,8 +35,8 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
   void initState() {
     Future.microtask(() {
       context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
-      context.read<NamaKegiatanDropDownBloc>().add(ReadNamaKegiatanDropDownEvent());
-      context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
+      // context.read<NamaKegiatanDropDownBloc>().add(ReadNamaKegiatanDropDownEvent());
+      // context.read<PeriodeMptDropDownBloc>().add(ReadPeriodeMptDropDownEvent());
     });
     super.initState();
   }
@@ -44,8 +44,8 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
   @override
   void dispose() {
     context.read<KegiatanPerPeriodeMptBloc>().close();
-    context.read<PeriodeMptDropDownBloc>().close();
-    context.read<NamaKegiatanDropDownBloc>().close();
+    // context.read<PeriodeMptDropDownBloc>().close();
+    // context.read<NamaKegiatanDropDownBloc>().close();
     super.dispose();
   }
 
@@ -60,8 +60,8 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
         onRefresh: () {
           mipokaCustomToast(refreshMessage);
           context.read<KegiatanPerPeriodeMptBloc>().close();
-          context.read<PeriodeMptDropDownBloc>().close();
-          context.read<NamaKegiatanDropDownBloc>().close();
+          // context.read<PeriodeMptDropDownBloc>().close();
+          // context.read<NamaKegiatanDropDownBloc>().close();
         },
       ),
 
@@ -101,85 +101,85 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
 
                     const CustomFieldSpacer(),
 
-                    buildTitle('Periode Kegiatan'),
-                    BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
-                      builder: (context, state) {
-                        if (state is PeriodeMptDropDownLoading) {
-                          return const Text("Loading ....");
-                        } else if (state is PeriodeMptDropDownHasData) {
-
-                          final periodeMptList = state.periodeMptList;
-
-                          List<String> periodeMptDropDownList = periodeMptList.map(
-                                  (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
-                              "${periodeMptList.tahunPeriodeMpt} (ulang)" :
-                              periodeMptList.tahunPeriodeMpt).toList();
-                          periodeMptDropDownList.insert(0, "Semua");
-
-                          List<int> idTahunPeriodeList = periodeMptList.map(
-                                  (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
-                          idTahunPeriodeList.insert(0, 0);
-
-                          _idPeriodeKegiatanMpt ??= idTahunPeriodeList[0];
-
-                          return MipokaCustomDropdown(
-                              items: periodeMptDropDownList,
-                              onValueChanged: (value) {
-                                int index = periodeMptDropDownList.indexOf(value!);
-                                _idPeriodeKegiatanMpt = idTahunPeriodeList[index];
-                              }
-                          );
-                        } else if (state is PeriodeMptDropDownError) {
-                          return Text(state.message);
-                        } else {
-                          return const Text("PeriodeMptBloc hasn't been triggered yet.");
-                        }
-                      },
-                    ),
-
-                    const CustomFieldSpacer(),
-
-                    buildTitle('Nama Kegiatan'),
-                    BlocBuilder<NamaKegiatanDropDownBloc, NamaKegiatanDropDownState>(
-                      builder: (context, state) {
-                        if (state is NamaKegiatanDropDownLoading) {
-                          return const Text("Loading ...");
-                        } else if (state is NamaKegiatanDropDownHasData) {
-                          List<String> namaKegiatanList = state.namaKegiatanList.map(
-                                  (namaKegiatanList) => namaKegiatanList.namaKegiatan).toList();
-                          namaKegiatanList.insert(0, "Semua");
-
-                          List<int> idKegiatanList = state.namaKegiatanList.map(
-                                  (namaKegiatanMptList) => namaKegiatanMptList.idNamaKegiatanMpt).toList();
-                          idKegiatanList.insert(0, 0);
-
-                          _idNamaKegiatanMpt ??= idKegiatanList[0];
-
-                          return MipokaCustomDropdown(
-                            items: namaKegiatanList,
-                            onValueChanged: (value) {
-                              int index = namaKegiatanList.indexOf(value ?? "");
-                              _idNamaKegiatanMpt = idKegiatanList[index];
-
-                            },
-                          );
-                        } else if (state is NamaKegiatanDropDownError) {
-                          return Text(state.message);
-                        } else {
-                          return const Text("NamaKegiatanBloc hasn't been triggered yet.");
-                        }
-                      },
-                    ),
-
-                    const CustomFieldSpacer(),
-
-                    CustomFilterButton(
-                      text: 'Filter',
-                      onPressed: () => context.read<KegiatanPerPeriodeMptBloc>().add(
-                          ReadAllKegiatanPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idNamaKegiatanMpt")),
-                    ),
-
-                    const CustomFieldSpacer(),
+                    // buildTitle('Periode Kegiatan'),
+                    // BlocBuilder<PeriodeMptDropDownBloc, PeriodeMptDropDownState>(
+                    //   builder: (context, state) {
+                    //     if (state is PeriodeMptDropDownLoading) {
+                    //       return const Text("Loading ....");
+                    //     } else if (state is PeriodeMptDropDownHasData) {
+                    //
+                    //       final periodeMptList = state.periodeMptList;
+                    //
+                    //       List<String> periodeMptDropDownList = periodeMptList.map(
+                    //               (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
+                    //           "${periodeMptList.tahunPeriodeMpt} (ulang)" :
+                    //           periodeMptList.tahunPeriodeMpt).toList();
+                    //       periodeMptDropDownList.insert(0, "Semua");
+                    //
+                    //       List<int> idTahunPeriodeList = periodeMptList.map(
+                    //               (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
+                    //       idTahunPeriodeList.insert(0, 0);
+                    //
+                    //       _idPeriodeKegiatanMpt ??= idTahunPeriodeList[0];
+                    //
+                    //       return MipokaCustomDropdown(
+                    //           items: periodeMptDropDownList,
+                    //           onValueChanged: (value) {
+                    //             int index = periodeMptDropDownList.indexOf(value!);
+                    //             _idPeriodeKegiatanMpt = idTahunPeriodeList[index];
+                    //           }
+                    //       );
+                    //     } else if (state is PeriodeMptDropDownError) {
+                    //       return Text(state.message);
+                    //     } else {
+                    //       return const Text("PeriodeMptBloc hasn't been triggered yet.");
+                    //     }
+                    //   },
+                    // ),
+                    //
+                    // const CustomFieldSpacer(),
+                    //
+                    // buildTitle('Nama Kegiatan'),
+                    // BlocBuilder<NamaKegiatanDropDownBloc, NamaKegiatanDropDownState>(
+                    //   builder: (context, state) {
+                    //     if (state is NamaKegiatanDropDownLoading) {
+                    //       return const Text("Loading ...");
+                    //     } else if (state is NamaKegiatanDropDownHasData) {
+                    //       List<String> namaKegiatanList = state.namaKegiatanList.map(
+                    //               (namaKegiatanList) => namaKegiatanList.namaKegiatan).toList();
+                    //       namaKegiatanList.insert(0, "Semua");
+                    //
+                    //       List<int> idKegiatanList = state.namaKegiatanList.map(
+                    //               (namaKegiatanMptList) => namaKegiatanMptList.idNamaKegiatanMpt).toList();
+                    //       idKegiatanList.insert(0, 0);
+                    //
+                    //       _idNamaKegiatanMpt ??= idKegiatanList[0];
+                    //
+                    //       return MipokaCustomDropdown(
+                    //         items: namaKegiatanList,
+                    //         onValueChanged: (value) {
+                    //           int index = namaKegiatanList.indexOf(value ?? "");
+                    //           _idNamaKegiatanMpt = idKegiatanList[index];
+                    //
+                    //         },
+                    //       );
+                    //     } else if (state is NamaKegiatanDropDownError) {
+                    //       return Text(state.message);
+                    //     } else {
+                    //       return const Text("NamaKegiatanBloc hasn't been triggered yet.");
+                    //     }
+                    //   },
+                    // ),
+                    //
+                    // const CustomFieldSpacer(),
+                    //
+                    // CustomFilterButton(
+                    //   text: 'Filter',
+                    //   onPressed: () => context.read<KegiatanPerPeriodeMptBloc>().add(
+                    //       ReadAllKegiatanPerPeriodeMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idNamaKegiatanMpt")),
+                    // ),
+                    //
+                    // const CustomFieldSpacer(),
 
                     BlocConsumer<KegiatanPerPeriodeMptBloc, KegiatanPerPeriodeMptState>(
                       listenWhen: (prev, current) =>

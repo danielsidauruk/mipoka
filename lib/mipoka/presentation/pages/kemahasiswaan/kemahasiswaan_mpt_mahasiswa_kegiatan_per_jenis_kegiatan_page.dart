@@ -29,14 +29,14 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
   @override
   void initState() {
     context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
-    context.read<JenisKegiatanDropDownBloc>().add(ReadJenisKegiatanDropDownEvent());
+    // context.read<JenisKegiatanDropDownBloc>().add(ReadJenisKegiatanDropDownEvent());
     super.initState();
   }
 
   @override
   void dispose() {
     context.read<NamaKegiatanMptBloc>().close();
-    context.read<JenisKegiatanDropDownBloc>().close();
+    // context.read<JenisKegiatanDropDownBloc>().close();
     super.dispose();
   }
 
@@ -47,7 +47,7 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
         onRefresh: () {
           mipokaCustomToast(refreshMessage);
           context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
-          context.read<JenisKegiatanDropDownBloc>().add(ReadJenisKegiatanDropDownEvent());
+          // context.read<JenisKegiatanDropDownBloc>().add(ReadJenisKegiatanDropDownEvent());
         },
       ),
 
@@ -83,42 +83,42 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
                     }
                   ),
 
-                  const CustomFieldSpacer(),
-
-                  buildTitle('Jenis Kegiatan'),
-                  BlocBuilder<JenisKegiatanDropDownBloc, JenisKegiatanDropDownState>(
-                    builder: (context, state) {
-                      if (state is JenisKegiatanDropDownLoading) {
-                        return const Text("Loading ...");
-                      } else if (state is JenisKegiatanDropDownHasData) {
-
-                        List<String> jenisKegiatanList = state.jenisKegiatanMptList.map(
-                                (jenisKegiatanList) => jenisKegiatanList.namaJenisKegiatanMpt).toList();
-                        jenisKegiatanList.insert(0, "Semua");
-
-                        List<int> idNamaKegiatanList = state.jenisKegiatanMptList.map(
-                                (jenisKegiatanMptList) => jenisKegiatanMptList.idJenisKegiatanMpt).toList();
-                        idNamaKegiatanList.insert(0, 0);
-
-                        _idNamaKegiatanMpt ??= idNamaKegiatanList[0];
-
-                        return MipokaCustomDropdown(
-                          items: jenisKegiatanList,
-                          onValueChanged: (value) {
-                            int index = jenisKegiatanList.indexOf(value ?? "");
-                            _idNamaKegiatanMpt = idNamaKegiatanList[index];
-
-                            context.read<NamaKegiatanMptBloc>().add(
-                                ReadAllNamaKegiatanMptEvent(id: _idNamaKegiatanMpt ?? 0));
-                          },
-                        );
-                      } else if (state is JenisKegiatanDropDownError) {
-                        return Text(state.message);
-                      } else {
-                        return const Text("NamaKegiatanBloc hasn't been triggered yet.");
-                      }
-                    },
-                  ),
+                  // const CustomFieldSpacer(),
+                  //
+                  // buildTitle('Jenis Kegiatan'),
+                  // BlocBuilder<JenisKegiatanDropDownBloc, JenisKegiatanDropDownState>(
+                  //   builder: (context, state) {
+                  //     if (state is JenisKegiatanDropDownLoading) {
+                  //       return const Text("Loading ...");
+                  //     } else if (state is JenisKegiatanDropDownHasData) {
+                  //
+                  //       List<String> jenisKegiatanList = state.jenisKegiatanMptList.map(
+                  //               (jenisKegiatanList) => jenisKegiatanList.namaJenisKegiatanMpt).toList();
+                  //       jenisKegiatanList.insert(0, "Semua");
+                  //
+                  //       List<int> idNamaKegiatanList = state.jenisKegiatanMptList.map(
+                  //               (jenisKegiatanMptList) => jenisKegiatanMptList.idJenisKegiatanMpt).toList();
+                  //       idNamaKegiatanList.insert(0, 0);
+                  //
+                  //       _idNamaKegiatanMpt ??= idNamaKegiatanList[0];
+                  //
+                  //       return MipokaCustomDropdown(
+                  //         items: jenisKegiatanList,
+                  //         onValueChanged: (value) {
+                  //           int index = jenisKegiatanList.indexOf(value ?? "");
+                  //           _idNamaKegiatanMpt = idNamaKegiatanList[index];
+                  //
+                  //           context.read<NamaKegiatanMptBloc>().add(
+                  //               ReadAllNamaKegiatanMptEvent(id: _idNamaKegiatanMpt ?? 0));
+                  //         },
+                  //       );
+                  //     } else if (state is JenisKegiatanDropDownError) {
+                  //       return Text(state.message);
+                  //     } else {
+                  //       return const Text("NamaKegiatanBloc hasn't been triggered yet.");
+                  //     }
+                  //   },
+                  // ),
 
                   const CustomFieldSpacer(),
 

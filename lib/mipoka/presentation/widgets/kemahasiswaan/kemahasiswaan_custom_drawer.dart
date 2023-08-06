@@ -80,30 +80,6 @@ class _MobileCustomKemahasiswaanDrawerState
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              CustomTextField(controller: _queryController),
-              const CustomFieldSpacer(),
-              const Divider(
-                color: Colors.grey,
-                thickness: 1,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Switch(
-                    value: darkMode,
-                    onChanged: (value) {},
-                  ),
-                  const Text(
-                    'Dark Mode',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              const Divider(
-                color: Colors.grey,
-                thickness: 1,
-              ),
-              const CustomFieldSpacer(),
               Expanded(
                 child: ListView(
                   children: [
@@ -138,25 +114,27 @@ class _MobileCustomKemahasiswaanDrawerState
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                InkWell(
-                                  onTap: () {},
-                                  child: Image.asset('assets/icons/sms.png', width: 30,),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.message),
                                 ),
-
-                                InkWell(
-                                  onTap: () => Navigator.pushNamed(context, notifikasiPageRoute),
-                                  child: Image.asset('assets/icons/notification.png', width: 30,),
+                                IconButton(
+                                  onPressed: () => Navigator.pushNamed(
+                                      context, notifikasiPageRoute),
+                                  icon: const Icon(Icons.notifications),
                                 ),
-
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, loginPageRoute);
-                                    mipokaCustomToast("You have been logged out");
+                                IconButton(
+                                  onPressed: () {
                                     logoutUser();
+                                    Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      loginPageRoute,
+                                          (route) => false,
+                                    );
+                                    mipokaCustomToast("You have been logged out");
                                   },
-                                  child: Image.asset('assets/icons/exit.png', width: 30,),
+                                  icon: const Icon(Icons.exit_to_app),
                                 ),
-
                               ],
                             ),
                           ),

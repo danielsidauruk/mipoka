@@ -62,7 +62,7 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
 
       result.fold(
             (failure) => emit(SessionError(message: failure.message)),
-            (_) => emit(SentSessionSuccess()),
+            (_) => emit(const SessionSuccess()),
       );
     });
   }

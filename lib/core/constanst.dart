@@ -14,28 +14,34 @@ const String pembina = "Pembina";
 const String mahasiswa = "Mahasiswa";
 const String mipokaAdmin = "Admin";
 
-const listGedung = ['A', 'B', 'C', 'D'];
-const listRuangan = ['A', 'B', 'C', 'D'];
+const disetujui = "Disetujui";
+const ditolak = "Ditolak";
+const tertunda = "Tertunda";
+
+const gedungList = ["A", "B", "C"];
+const ruanganListA = ["P1.L2", "P2.L2", "P3.L2", "P1.L3", "P2.L3", "P3.L3", "P1.L4", "P2.L4", "P3.L4", "P4.L4", "Diklat.L5", "Kantin.L6"];
+const ruanganListB = ["T1.L2", "T2.L2", "T3.L2", "T4.L2", "T5.L2", "T6.L2", "T1.L3", "T2.L3", "T3.L3", "T4.L3", "T5.L3", "T6.L3", "T1.L4",
+  "T2.L4", "T3.L4", "T4.L4", "T5.L4", "T6.L4", "T1.L5", "T2.L5", "T3.L5", "T4.L5", "T5.L5", "T6.L5", "Rapat.L5", "Kantin.L6"];
+const ruanganListC = ["T2.L2", "T3.L2", "T4.L2", "T5.L2", "T1.L3", "T2.L3", "T3.L3", "T4.L3", "T5.L3", "T6.L3", "T7.L3", "T8.L3", "T1.L4",
+  "T2.L4", "T3.L4", "T4.L4", "T5.L4", "T6.L4", "T7.L4", "T8.L4", "Hall.L5", "UKM.L5"];
+
+
 const listPembiayaan = ['Mandiri', 'Didanai'];
 const listBentukKegiatan = ['Bakti Sosial', 'Festival', 'Kebaktian', 'Kompetisi', 'Latihan',
   'Loka Karya', 'Pelantikan', 'Perkumpulan', 'Pertunjukan', 'Rapat', 'Seminar', 'Turnamen'];
 
-const listNamaKegiatan = [
-  'Chou Starlight Tournament',
-  'Vexana Starlight Tournament - MEL Mar 2023 Vexana Starlight Tournament - MEL Mar 2023 Vexana Starlight Tournament - MEL Mar 2023',
-  'Yuzhong Starlight Tournament - MEL Mar 2023',
-  'Lancelot Starlight Tournament - MEL Mar 2023',
-];
+// const listNamaKegiatan = [
+//   'Chou Starlight Tournament',
+//   'Vexana Starlight Tournament - MEL Mar 2023 Vexana Starlight Tournament - MEL Mar 2023 Vexana Starlight Tournament - MEL Mar 2023',
+//   'Yuzhong Starlight Tournament - MEL Mar 2023',
+//   'Lancelot Starlight Tournament - MEL Mar 2023',
+// ];
 
 const nimTemplate = "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/peserta_kegiatan_template.xlsx?alt=media&token=7d0b701b-e387-494b-99e6-31e5a8743efe";
 const mhsPerPeriodeTemplate = "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/mhs_per_periode_template.xlsx?alt=media&token=8430b6e0-4500-41a1-84d6-a88b8c868d31";
 const riwayatKegiatanTemplate = "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/riwayat_kegiatan_template.xlsx?alt=media&token=1628cb15-f8b1-4d68-9390-5a50ef98e72f";
 
 const String apiUrl = 'https://oafish-eggnog-production.up.railway.app';
-
-const disetujui = "Disetujui";
-const ditolak = "Ditolak";
-const tertunda = "Tertunda";
 
 const statusUsulan = ["Semua", disetujui, ditolak, tertunda];
 
