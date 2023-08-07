@@ -135,8 +135,8 @@ class _MobileCustomPenggunaDrawerWidgetState
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.message),
+                                onPressed: () => Navigator.pushNamed(context, gantiPasswordPageRoute),
+                                icon: const Icon(Icons.password),
                               ),
                               IconButton(
                                 onPressed: () => Navigator.pushNamed(

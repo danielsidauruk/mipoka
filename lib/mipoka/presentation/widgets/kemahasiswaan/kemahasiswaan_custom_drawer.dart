@@ -115,8 +115,8 @@ class _MobileCustomKemahasiswaanDrawerState
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.message),
+                                  onPressed: () => Navigator.pushNamed(context, gantiPasswordPageRoute),
+                                  icon: const Icon(Icons.password),
                                 ),
                                 IconButton(
                                   onPressed: () => Navigator.pushNamed(
@@ -150,7 +150,7 @@ class _MobileCustomKemahasiswaanDrawerState
                         ),
                       ),
                       onTap: () => Navigator.pushNamed(
-                          context, kemahasiswaanBerandaPageRoute),
+                          context, penggunaBerandaPageRoute),
                     ),
                     ExpansionTile(
                       title: const Text(
@@ -163,121 +163,145 @@ class _MobileCustomKemahasiswaanDrawerState
                       children: [
                         ListTile(
                           title: const Text(
-                            'Periode',
+                            'Edit Beranda',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () => Navigator.pushNamed(context,
-                              kemahasiswaanMPTMahasiswaPeriodePageRoute),
+                          onTap: () => Navigator.pushNamed(
+                              context, kemahasiswaanBerandaPageRoute),
+                        ),
+
+                        ExpansionTile(
+                          title: const Text("MPT Mahasiswa",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          children: [
+                            ListTile(
+                              title: const Text(
+                                'Periode',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              onTap: () => Navigator.pushNamed(context,
+                                  kemahasiswaanMPTMahasiswaPeriodePageRoute),
+                            ),
+                            ListTile(
+                              title: const Text(
+                                'Jenis Kegiatan',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              onTap: () => Navigator.pushNamed(context,
+                                  kemahasiswaanMPTMahasiswaJenisKegiatanPageRoute),
+                            ),
+                            ListTile(
+                              title: const Text(
+                                'Kegiatan per Jenis Kegiatan',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              onTap: () => Navigator.pushNamed(context,
+                                  kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageRoute),
+                            ),
+                            ListTile(
+                              title: const Text(
+                                'Kegiatan per Periode',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              onTap: () => Navigator.pushNamed(context,
+                                  kemahasiswaanMPTMahasiswaKegiatanPerPeriodePageRoute),
+                            ),
+                            ListTile(
+                              title: const Text(
+                                'Mahasiswa per Periode',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              onTap: () => Navigator.pushNamed(context,
+                                  kemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageRoute),
+                            ),
+                            ListTile(
+                              title: const Text(
+                                'Riwayat Kegiatan Mahasiswa',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              onTap: () => Navigator.pushNamed(context,
+                                  kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageRoute),
+                            ),
+                          ],
+                        ),
+
+                        ListTile(
+                          title: const Text(
+                            'Edit Ormawa',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          onTap: () => Navigator.pushNamed(context, kemahasiswaanEditOrmawaPageRoute),
                         ),
                         ListTile(
                           title: const Text(
-                            'Jenis Kegiatan',
+                            'Prestasi Mahasiswa',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () => Navigator.pushNamed(context,
-                              kemahasiswaanMPTMahasiswaJenisKegiatanPageRoute),
+                          onTap: () => Navigator.pushNamed(context, kemahasiswaanPrestasiMahasiswaPageRoute),
                         ),
                         ListTile(
                           title: const Text(
-                            'Kegiatan per Jenis Kegiatan',
+                            'Cek Usulan Kegiatan',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () => Navigator.pushNamed(context,
-                              kemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanPageRoute),
+                          onTap: () => Navigator.pushNamed(context, kemahasiswaanCekUsulanKegiatanPageRoute),
                         ),
                         ListTile(
                           title: const Text(
-                            'Kegiatan per Periode',
+                            'Verifikasi Sarana & Prasarana',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () => Navigator.pushNamed(context,
-                              kemahasiswaanMPTMahasiswaKegiatanPerPeriodePageRoute),
+                          onTap: () => Navigator.pushNamed(context, kemahasiswaanCekSaranaDanPrasaranaPageRoute),
                         ),
                         ListTile(
                           title: const Text(
-                            'Mahasiswa per Periode',
+                            'Cek Laporan Kegiatan',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onTap: () => Navigator.pushNamed(context,
-                              kemahasiswaanMPTMahasiswaMahasiswaPerPeriodePageRoute),
+                          onTap: () => Navigator.pushNamed(context, kemahasiswaanCekLaporanKegiatanPageRoute),
                         ),
-                        ListTile(
-                          title: const Text(
-                            'Riwayat Kegiatan Mahasiswa',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          onTap: () => Navigator.pushNamed(context,
-                              kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageRoute),
-                        ),
+
                       ],
-                    ),
-                    ListTile(
-                      title: const Text(
-                        'Edit Ormawa',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onTap: () => Navigator.pushNamed(context, kemahasiswaanEditOrmawaPageRoute),
-                    ),
-                    ListTile(
-                      title: const Text(
-                        'Prestasi Mahasiswa',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onTap: () => Navigator.pushNamed(context, kemahasiswaanPrestasiMahasiswaPageRoute),
-                    ),
-                    ListTile(
-                      title: const Text(
-                        'Cek Usulan Kegiatan',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onTap: () => Navigator.pushNamed(context, kemahasiswaanCekUsulanKegiatanPageRoute),
-                    ),
-                    ListTile(
-                      title: const Text(
-                        'Verifikasi Sarana & Prasarana',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onTap: () => Navigator.pushNamed(context, kemahasiswaanCekSaranaDanPrasaranaPageRoute),
-                    ),
-                    ListTile(
-                      title: const Text(
-                        'Cek Laporan Kegiatan',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onTap: () => Navigator.pushNamed(context, kemahasiswaanCekLaporanKegiatanPageRoute),
                     ),
                   ],
                 ),

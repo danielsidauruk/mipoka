@@ -6,6 +6,17 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "headers": [
+      {
+        "source": "/images/**",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "https://firebasestorage.googleapis.com"
+          }
+        ]
+      }
+    ],
     "frameworksBackend": {
       "region": "asia-east1"
     }

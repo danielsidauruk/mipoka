@@ -363,6 +363,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                     context.read<UsulanKegiatanBloc>().add(
                                                       UpdateUsulanKegiatanEvent(
                                                         usulanKegiatan: usulanKegiatan.copyWith(
+                                                          revisiUsulan: revisiUsulan,
                                                           validasiPembina: ditolak,
                                                           statusUsulan: ditolak,
                                                         ),

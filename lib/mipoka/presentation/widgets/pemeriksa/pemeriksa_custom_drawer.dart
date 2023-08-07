@@ -113,8 +113,8 @@ class _MobileCustomPemeriksaDrawerState
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.message),
+                                onPressed: () => Navigator.pushNamed(context, gantiPasswordPageRoute),
+                                icon: const Icon(Icons.password),
                               ),
                               IconButton(
                                 onPressed: () => Navigator.pushNamed(
@@ -148,7 +148,7 @@ class _MobileCustomPemeriksaDrawerState
                           title: const Text(
                             'Verifikasi Usulan Kegiatan',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -159,7 +159,7 @@ class _MobileCustomPemeriksaDrawerState
                           title: const Text(
                             'Verifikasi Laporan Kegiatan',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
