@@ -94,7 +94,8 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
                   const CustomFieldSpacer(),
 
                   buildTitle('Text Berita'),
-                  CustomTextField(controller: _textBeritaController),
+
+                  MultiLineTextField(controller: _textBeritaController),
 
                   const CustomFieldSpacer(),
 
@@ -193,24 +194,3 @@ Future<String?> uploadBytesToFirebase(Uint8List bytes, String fileName) async {
     rethrow;
   }
 }
-
-// Future.delayed(Duration(seconds: 2), () {
-//   context.read<BeritaBloc>().add(
-//     CreateBeritaEvent(
-//       Berita(
-//         idBerita: newId,
-//         judul: _judulBeritaController.text,
-//         penulis: _penulisController.text,
-//         gambar: gambarUrl ?? "",
-//         teks: _textBeritaController.text,
-//         tglTerbit: currentDate,
-//         createdAt: currentDate,
-//         createdBy: user?.email ?? "unknown",
-//         updatedAt: currentDate,
-//         updatedBy: user?.email ?? "unknown",
-//       ),
-//     ),
-//   );
-//
-//   mipokaCustomToast("Berita berhasil ditambahkan.");
-// });

@@ -285,7 +285,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                 Align(
                                                   alignment: Alignment.center,
                                                   child: Image.asset(
-                                                    'assets/icons/word.png',
+                                                    'assets/icons/document.png',
                                                     width: 24,
                                                   ),
                                                 ),

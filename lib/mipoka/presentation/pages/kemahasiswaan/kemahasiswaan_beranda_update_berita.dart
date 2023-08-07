@@ -115,7 +115,7 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                   const CustomFieldSpacer(),
 
                   buildTitle('Text Berita'),
-                  CustomTextField(controller: _textBeritaController),
+                  MultiLineTextField(controller: _textBeritaController),
 
                   const CustomFieldSpacer(),
 

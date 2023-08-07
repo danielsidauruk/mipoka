@@ -53,10 +53,13 @@ class _BeritaDetailPageState extends State<BeritaDetailPage> {
                   const CustomFieldSpacer(),
 
                   Container(
+                    alignment: Alignment.center,
                     margin: const EdgeInsets.all(4.0),
+                    constraints: const BoxConstraints(
+                      maxHeight: 500,
+                    ),
                     child: Image.network(
                       widget.berita.gambar,
-                      height: 200,
                     ),
                   ),
 

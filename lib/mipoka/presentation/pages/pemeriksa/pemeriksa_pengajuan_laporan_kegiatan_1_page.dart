@@ -116,19 +116,22 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                     return CustomContentBox(
                       children: [
 
-                        CustomCommentWidget(
-                          title: "Nama Kegiatan",
-                          mainText: laporan.usulanKegiatan?.namaKegiatan ?? "",
-                          controller: _commentNamaKegiatanController,
-                        ),
-
-                        const CustomFieldSpacer(),
+                        // CustomCommentWidget(
+                        //   title: "Nama Kegiatan",
+                        //   mainText: laporan.usulanKegiatan?.namaKegiatan ?? "",
+                        //   controller: _commentNamaKegiatanController,
+                        // ),
+                        //
+                        // const CustomFieldSpacer(),
 
                         CustomCommentWidget(
                           title: 'Pencapaian',
                           mainText: laporan.pencapaian,
                           controller: _revisiPencapaianController,
                         ),
+
+
+
                         const CustomFieldSpacer(),
 
                         Row(

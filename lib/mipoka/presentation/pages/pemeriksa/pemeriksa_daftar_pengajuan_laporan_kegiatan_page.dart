@@ -213,14 +213,15 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                           Align(
                                             alignment: Alignment.center,
                                             child: Image.asset(
-                                              'assets/icons/word.png',
+                                              'assets/icons/document.png',
                                               width: 24,
                                             ),
                                           ),
-                                          onTap: () => downloadFileWithDio(
-                                            url: laporan.fileLaporanKegiatan,
-                                            fileName: getFileNameFromUrl(laporan.fileLaporanKegiatan),
-                                          ),
+                                          onTap: () => Navigator.pushNamed(
+                                            context,
+                                            pemeriksaPengajuanLaporanKegiatan1PageRoute,
+                                            arguments: laporan.idLaporan,
+                                          ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent())),
                                         ),
                                         DataCell(
                                           Align(

@@ -248,14 +248,18 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                         ),
 
                                         DataCell(
-                                          onTap: () => downloadFileWithDio(
-                                            url: laporan.fileLaporanKegiatan,
-                                            fileName: getFileNameFromUrl(laporan.fileLaporanKegiatan),
-                                          ),
+                                          onTap: () => Navigator.pushNamed(
+                                            context,
+                                            penggunaPengajuanLaporanKegiatanPage1Route,
+                                            arguments: LaporanArgs(
+                                              idLaporan: laporan.idLaporan,
+                                            ),
+                                          ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent())),
+
                                           Align(
                                             alignment: Alignment.center,
                                             child: Image.asset(
-                                              'assets/icons/word.png',
+                                              'assets/icons/document.png',
                                               width: 24,
                                             ),
                                           ),

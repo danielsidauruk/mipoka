@@ -248,14 +248,20 @@ class _PenggunaDaftarPengajuanKegiatanState
                                           ),
                                         ),
                                         DataCell(
-                                          onTap: () => downloadFileWithDio(
-                                            url: usulanKegiatan.fileUsulanKegiatan,
-                                            fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan),
-                                          ),
+                                          onTap: () {
+                                            Navigator.pushNamed(
+                                              context,
+                                              penggunaPengajuanUsulanKegiatanPage1Route,
+                                              arguments: UsulanArgs(
+                                                idUsulan: usulanKegiatan.idUsulan,
+                                              ),
+                                            ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                                const ReadAllUsulanKegiatanEvent()));
+                                          },
                                           Align(
                                             alignment: Alignment.center,
                                             child: Image.asset(
-                                              'assets/icons/word.png',
+                                              'assets/icons/document.png',
                                               width: 24,
                                             ),
                                           ),
