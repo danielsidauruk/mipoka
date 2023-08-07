@@ -464,23 +464,13 @@ class _KemahasiswaanEditOrmawaTambahPageState
                           // }
 
                           if (
-                          // _namaOrmawaController.text.isNotEmpty &&
-                          //     _namaSingkatanController.text.isNotEmpty
-                          //     && _namaPembinaController.text.isNotEmpty &&
-                          //     _namaKetuaController.text.isNotEmpty
-                          //     && _namaWakilKetuaController.text.isNotEmpty &&
-                          //     _namaSekretarisController.text.isNotEmpty
-                          //     && _namaBendaharaController.text.isNotEmpty &&
-                          //     nimList.isNotEmpty
-                          //     &&
-                          excelResult != null
-                          // &&
-                              // logoOrmawaResult != null &&
-                              // fotoPembinaResult != null
-                              // && fotoKetuaResult != null &&
-                              // fotoWakilKetuaResult != null &&
-                              // fotoSekretarisResult != null
-                              // && fotoBendaharaResult != null
+                          _namaOrmawaController.text.isNotEmpty && _namaSingkatanController.text.isNotEmpty
+                              && _namaPembinaController.text.isNotEmpty && _namaKetuaController.text.isNotEmpty
+                              && _namaWakilKetuaController.text.isNotEmpty && _namaSekretarisController.text.isNotEmpty
+                              && _namaBendaharaController.text.isNotEmpty && nimList.isNotEmpty
+                              && excelResult != null && logoOrmawaResult != null && fotoPembinaResult != null
+                              && fotoKetuaResult != null && fotoWakilKetuaResult != null &&
+                              fotoSekretarisResult != null && fotoBendaharaResult != null
                           ) {
                             Uint8List? logoOrmawaBytes;
                             Uint8List? fotoPembinaBytes;
@@ -489,41 +479,41 @@ class _KemahasiswaanEditOrmawaTambahPageState
                             Uint8List? fotoSekretarisBytes;
                             Uint8List? fotoBendaharaBytes;
 
-                            // if (kIsWeb) {
-                            //   logoOrmawaBytes =
-                            //       logoOrmawaResult?.files.first.bytes;
-                            //   fotoPembinaBytes =
-                            //       fotoPembinaResult?.files.first.bytes;
-                            //   fotoKetuaBytes =
-                            //       fotoKetuaResult?.files.first.bytes;
-                            //   fotoWakilKetuaBytes =
-                            //       fotoWakilKetuaResult?.files.first.bytes;
-                            //   fotoSekretarisBytes =
-                            //       fotoSekretarisResult?.files.first.bytes;
-                            //   fotoBendaharaBytes =
-                            //       fotoBendaharaResult?.files.first.bytes;
-                            // } else if (Platform.isAndroid) {
-                            //   logoOrmawaBytes = await File(
-                            //       logoOrmawaResult!.files.first.path!)
-                            //       .readAsBytes();
-                            //   fotoPembinaBytes = await File(
-                            //       fotoPembinaResult!.files.first.path!)
-                            //       .readAsBytes();
-                            //   fotoKetuaBytes = await File(
-                            //       fotoKetuaResult!.files.first.path!)
-                            //       .readAsBytes();
-                            //   fotoWakilKetuaBytes = await File(
-                            //       fotoWakilKetuaResult!.files.first.path!)
-                            //       .readAsBytes();
-                            //   fotoSekretarisBytes = await File(
-                            //       fotoSekretarisResult!.files.first.path!)
-                            //       .readAsBytes();
-                            //   fotoBendaharaBytes = await File(
-                            //       fotoBendaharaResult!.files.first.path!)
-                            //       .readAsBytes();
-                            // }
+                            if (kIsWeb) {
+                              logoOrmawaBytes =
+                                  logoOrmawaResult?.files.first.bytes;
+                              fotoPembinaBytes =
+                                  fotoPembinaResult?.files.first.bytes;
+                              fotoKetuaBytes =
+                                  fotoKetuaResult?.files.first.bytes;
+                              fotoWakilKetuaBytes =
+                                  fotoWakilKetuaResult?.files.first.bytes;
+                              fotoSekretarisBytes =
+                                  fotoSekretarisResult?.files.first.bytes;
+                              fotoBendaharaBytes =
+                                  fotoBendaharaResult?.files.first.bytes;
+                            } else if (Platform.isAndroid) {
+                              logoOrmawaBytes = await File(
+                                  logoOrmawaResult!.files.first.path!)
+                                  .readAsBytes();
+                              fotoPembinaBytes = await File(
+                                  fotoPembinaResult!.files.first.path!)
+                                  .readAsBytes();
+                              fotoKetuaBytes = await File(
+                                  fotoKetuaResult!.files.first.path!)
+                                  .readAsBytes();
+                              fotoWakilKetuaBytes = await File(
+                                  fotoWakilKetuaResult!.files.first.path!)
+                                  .readAsBytes();
+                              fotoSekretarisBytes = await File(
+                                  fotoSekretarisResult!.files.first.path!)
+                                  .readAsBytes();
+                              fotoBendaharaBytes = await File(
+                                  fotoBendaharaResult!.files.first.path!)
+                                  .readAsBytes();
+                            }
 
-                            // mipokaCustomToast(savingDataMessage);
+                            mipokaCustomToast(savingDataMessage);
 
                             if (logoOrmawaBytes != null) {
                               int uniqueId = UniqueIdGenerator

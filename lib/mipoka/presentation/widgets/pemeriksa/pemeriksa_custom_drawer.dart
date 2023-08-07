@@ -138,6 +138,17 @@ class _MobileCustomPemeriksaDrawerState
                         ],
                       ),
                     ),
+                    ListTile(
+                      title: const Text(
+                        'Beranda',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      onTap: () => Navigator.pushNamed(
+                          context, pemeriksaBerandaPageRoute),
+                    ),
                     ExpansionTile(
                       title: const Text(
                         'Pemeriksa',

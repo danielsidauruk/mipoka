@@ -52,7 +52,8 @@ class _KemahasiswaanEditOrmawaPageState
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            // mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CustomMobileTitle(
                   text: 'Kemahasiswaan - Edit Ormawa'),

@@ -22,7 +22,7 @@ class _MipokaExcelUploaderState extends State<MipokaExcelUploader> {
     return InkWell(
       onTap: widget.onTap,
       child: Container(
-        width: size.width <= 500 ? double.infinity : 300,
+        width: size.width <= 500 ? double.infinity : 500,
         alignment: Alignment.center,
         padding: const EdgeInsets.all(8.0),
         constraints: const BoxConstraints(minHeight: 35.0),

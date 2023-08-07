@@ -67,6 +67,8 @@ const penggunaOrmawaUKMPageRoute = '/penggunaOrmawaUKMPageRoute';
 const penggunaPrestasiPageRoute = '/penggunaPrestasiPageRoute';
 
 // mobile routes - pemeriksa
+const pemeriksaBerandaPageRoute =
+    '/pemeriksaBerandaPageRoute';
 const pemeriksaDaftarUsulanKegiatanPageRoute =
     '/pemeriksaDaftarUsulanKegiatanPageRoute';
 const pemeriksaPengajuanUsulanKegiatan1PageRoute =

@@ -157,8 +157,9 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                                                     arguments: jenisKegiatanMpt,
                                                   );
 
-                                                  if (result != null && result is JenisKegiatanMpt && context.mounted) {
-                                                    context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
+                                                  if (result is JenisKegiatanMpt && context.mounted) {
+                                                    context.read<JenisKegiatanMptBloc>().add(
+                                                        UpdateJenisKegiatanMptEvent(jenisKegiatanMpt: result));
                                                   }
                                                 },
 

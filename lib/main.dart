@@ -81,6 +81,7 @@ import 'package:mipoka/mipoka/presentation/pages/lupa_password_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mipoka_admin_dashboard.dart';
 import 'package:mipoka/mipoka/presentation/pages/notifikasi_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/password_baru_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_beranda_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_daftar_pengajuan_laporan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_daftar_pengajuan_usulan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_laporan_kegiatan_1_page.dart';
@@ -379,6 +380,8 @@ class MyApp extends StatelessWidget {
                   builder: (_) => const PenggunaPrestasiPage());
 
             // mobile - pemeriksa
+            case pemeriksaBerandaPageRoute:
+              return MaterialPageRoute(builder: (_) => const PemeriksaBerandaPage());
             case pemeriksaDaftarUsulanKegiatanPageRoute:
               return MaterialPageRoute(
                   builder: (_) => const PemeriksaDaftarPengajuanKegiatanPage());

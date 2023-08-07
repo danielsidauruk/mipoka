@@ -106,9 +106,10 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const CustomMobileTitle(
-                  text: 'Pengajuan - Sarana dan Prasarana'),
+              const CustomMobileTitle(text: 'Pengajuan - Sarana dan Prasarana'),
+
               const CustomFieldSpacer(),
+
               CustomContentBox(
                 children: [
                   BlocBuilder<MipokaUserBloc, MipokaUserState>(
@@ -116,309 +117,286 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                       if (state is MipokaUserHasData) {
                         final mipokaUser = state.mipokaUser;
 
-                        _ormawaList = mipokaUser.ormawa;
-                        List<String> namaOrmawaList = _ormawaList.map((ormawa) => ormawa.namaOrmawa).toList();
+                        if (mipokaUser.ormawa.isNotEmpty){
+                          _ormawaList = mipokaUser.ormawa;
+                          List<String> namaOrmawaList = _ormawaList.map((ormawa) => ormawa.namaOrmawa).toList();
 
-                        _ruangController.text = ruanganListA.first;
-                        _gedungController.text = gedungList.first;
+                          _ruangController.text = ruanganListA.first;
+                          _gedungController.text = gedungList.first;
 
-                        _ormawa ??= _ormawaList.first;
+                          _ormawa ??= _ormawaList.first;
 
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            buildTitle('Nama Ormawa'),
-                            // BlocBuilder<OrmawaBloc, OrmawaState>(
-                            //   builder: (context, state) {
-                            //     if (state is OrmawaLoading) {
-                            //       return const Text("Loading ....");
-                            //     } else if (state is AllOrmawaHasData) {
-                            //
-                            //       final ormawaList = session.mipokaUser.ormawa;
-                            //
-                            //       List<String> namaOrmawaList = state.ormawaList.map(
-                            //               (ormawa) => ormawa.namaOrmawa).toList();
-                            //
-                            //       _ormawa ??= ormawaList.first;
-                            //
-                            //       return MipokaCustomDropdown(
-                            //           items: namaOrmawaList,
-                            //           initialItem: _ormawa?.namaOrmawa ?? "",
-                            //           onValueChanged: (value) {
-                            //             int index = namaOrmawaList.indexOf(value!);
-                            //             _ormawa = state.ormawaList[index];
-                            //           }
-                            //       );
-                            //     } else if (state is OrmawaError) {
-                            //       return Text(state.message);
-                            //     } else {
-                            //       return const Text("OrmawaBloc hasn't been triggered yet.");
-                            //     }
-                            //   },
-                            // ),
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              buildTitle('Nama Ormawa'),
 
-                            MipokaCustomDropdown(
-                              items: namaOrmawaList,
-                              onValueChanged: (value) {
-                                int index = namaOrmawaList.indexOf(value!);
-                                _ormawa = _ormawaList[index];
-                              },
-                            ),
 
-                            const CustomFieldSpacer(),
-                            buildTitle('Tanggal Mulai Kegiatan'),
-                            CustomDatePickerField(controller: _tanggalMulaiController),
+                              MipokaCustomDropdown(
+                                items: namaOrmawaList,
+                                onValueChanged: (value) {
+                                  int index = namaOrmawaList.indexOf(value!);
+                                  _ormawa = _ormawaList[index];
+                                },
+                              ),
 
-                            const CustomFieldSpacer(),
+                              const CustomFieldSpacer(),
+                              buildTitle('Tanggal Mulai Kegiatan'),
+                              CustomDatePickerField(controller: _tanggalMulaiController),
 
-                            buildTitle('Tanggal Selesai Kegiatan'),
-                            CustomDatePickerField(controller: _tanggalSelesaiController),
+                              const CustomFieldSpacer(),
 
-                            const CustomFieldSpacer(),
+                              buildTitle('Tanggal Selesai Kegiatan'),
+                              CustomDatePickerField(controller: _tanggalSelesaiController),
 
-                            buildTitle('Gedung'),
+                              const CustomFieldSpacer(),
 
-                            MipokaCustomDropdown(
-                              // items: gedungList,
-                              items: const ["A"],
-                              onValueChanged: (value) {
-                                _gedungController.text = value ?? "";
-                                // _gedungStream.add(value);
-                              },
-                            ),
+                              buildTitle('Gedung'),
 
-                            const CustomFieldSpacer(),
+                              MipokaCustomDropdown(
+                                // items: gedungList,
+                                items: const ["A"],
+                                onValueChanged: (value) {
+                                  _gedungController.text = value ?? "";
+                                  // _gedungStream.add(value);
+                                },
+                              ),
 
-                            buildTitle('Ruang'),
+                              const CustomFieldSpacer(),
 
-                            StreamBuilder<String?>(
-                              initialData: gedungList.first,
-                              stream: _gedungStream.stream,
-                              builder: (context, snapshot) {
-                                final gedung = snapshot.data;
+                              buildTitle('Ruang'),
 
-                                return MipokaCustomDropdown(
-                                  items: ruanganListA,
-                                  onValueChanged: (value) {
-                                    _ruangController.text = value ?? "";
-                                  },
-                                );
+                              StreamBuilder<String?>(
+                                initialData: gedungList.first,
+                                stream: _gedungStream.stream,
+                                builder: (context, snapshot) {
+                                  final gedung = snapshot.data;
 
-                                // return
+                                  return MipokaCustomDropdown(
+                                    items: ruanganListA,
+                                    onValueChanged: (value) {
+                                      _ruangController.text = value ?? "";
+                                    },
+                                  );
+
+                                  // return
                                   // gedung == "A" ?
-                                // MipokaCustomDropdown(
-                                //   items: ruanganListA,
-                                //   onValueChanged: (value) {
-                                //   },
-                                // ) :
-                                // gedung == "B" ?
-                                // MipokaCustomDropdown(
-                                //   items: ruanganListB,
-                                //   onValueChanged: (value) {
-                                //   },
-                                // ) :
-                                // MipokaCustomDropdown(
-                                //   items: ruanganListC,
-                                //   onValueChanged: (value) {
-                                //   },
-                                // );
+                                  // MipokaCustomDropdown(
+                                  //   items: ruanganListA,
+                                  //   onValueChanged: (value) {
+                                  //   },
+                                  // ) :
+                                  // gedung == "B" ?
+                                  // MipokaCustomDropdown(
+                                  //   items: ruanganListB,
+                                  //   onValueChanged: (value) {
+                                  //   },
+                                  // ) :
+                                  // MipokaCustomDropdown(
+                                  //   items: ruanganListC,
+                                  //   onValueChanged: (value) {
+                                  //   },
+                                  // );
 
-                                // if (gedung == gedungList[0]) {
-                                //   return MipokaCustomDropdown(
-                                //     items: ruanganListA,
-                                //     onValueChanged: (value) {
-                                //       // _ruangController.text = value ?? "";
-                                //     },
-                                //   );
-                                // } else if (gedung == gedungList[1]) {
-                                //   return MipokaCustomDropdown(
-                                //     items: ruanganListB,
-                                //     onValueChanged: (value) {
-                                //       // _ruangController.text = value ?? "";
-                                //     },
-                                //   );
-                                // } else {
-                                //   return MipokaCustomDropdown(
-                                //     items: ruanganListC,
-                                //     onValueChanged: (value) {
-                                //       // _ruangController.text = value ?? "";
-                                //     },
-                                //   );
-                                // }
-                              },
-                            ),
+                                  // if (gedung == gedungList[0]) {
+                                  //   return MipokaCustomDropdown(
+                                  //     items: ruanganListA,
+                                  //     onValueChanged: (value) {
+                                  //       // _ruangController.text = value ?? "";
+                                  //     },
+                                  //   );
+                                  // } else if (gedung == gedungList[1]) {
+                                  //   return MipokaCustomDropdown(
+                                  //     items: ruanganListB,
+                                  //     onValueChanged: (value) {
+                                  //       // _ruangController.text = value ?? "";
+                                  //     },
+                                  //   );
+                                  // } else {
+                                  //   return MipokaCustomDropdown(
+                                  //     items: ruanganListC,
+                                  //     onValueChanged: (value) {
+                                  //       // _ruangController.text = value ?? "";
+                                  //     },
+                                  //   );
+                                  // }
+                                },
+                              ),
 
-                            const CustomFieldSpacer(),
+                              const CustomFieldSpacer(),
 
-                            buildTitle('Waktu Mulai Kegiatan'),
-                            CustomTimePickerField(controller: _waktuMulaiController),
+                              buildTitle('Waktu Mulai Kegiatan'),
+                              CustomTimePickerField(controller: _waktuMulaiController),
 
-                            const CustomFieldSpacer(),
+                              const CustomFieldSpacer(),
 
-                            buildTitle('Waktu Selesai Kegiatan'),
-                            CustomTimePickerField(controller: _waktuSelesaiController),
+                              buildTitle('Waktu Selesai Kegiatan'),
+                              CustomTimePickerField(controller: _waktuSelesaiController),
 
-                            const CustomFieldSpacer(),
+                              const CustomFieldSpacer(),
 
-                            buildTitle('Kegiatan'),
-                            CustomTextField(controller: _kegiatanController),
+                              buildTitle('Kegiatan'),
+                              CustomTextField(controller: _kegiatanController),
 
-                            const CustomFieldSpacer(),
+                              const CustomFieldSpacer(),
 
-                            buildTitle('Perlengkapan yang dibutuhkan'),
+                              buildTitle('Perlengkapan yang dibutuhkan'),
 
-                            const SizedBox(height: 4.0),
+                              const SizedBox(height: 4.0),
 
-                            CustomCheckBox(
-                              title: 'Proyektor/LCD',
-                              controller: _proyektorLcdController,
-                            ),
-                            const SizedBox(height: 4.0),
-                            CustomCheckBox(
-                              title: 'Laptop',
-                              controller: _laptopController,
-                            ),
-                            const SizedBox(height: 4.0),
-                            CustomCheckBox(
-                              title: 'Mikrofon',
-                              controller: _mikrofonController,
-                            ),
-                            const SizedBox(height: 4.0),
-                            CustomCheckBox(
-                              title: 'Speaker',
-                              controller: _speakerController,
-                            ),
-                            const SizedBox(height: 4.0),
-                            CustomCheckBox(
-                              title: 'Meja',
-                              controller: _mejaController,
-                            ),
-                            const SizedBox(height: 4.0),
-                            CustomCheckBox(
-                              title: 'Kursi',
-                              controller: _kursiController,
-                            ),
-                            const SizedBox(height: 4.0),
-                            CustomCheckBox(
-                              title: 'Papan Tulis',
-                              controller: _papanTulisController,
-                            ),
-                            const SizedBox(height: 4.0),
-                            CustomCheckBox(
-                              title: 'Spidol',
-                              controller: _spidolController,
-                            ),
-                            const CustomFieldSpacer(),
-                            buildTitle('Lain - lain'),
+                              CustomCheckBox(
+                                title: 'Proyektor/LCD',
+                                controller: _proyektorLcdController,
+                              ),
+                              const SizedBox(height: 4.0),
+                              CustomCheckBox(
+                                title: 'Laptop',
+                                controller: _laptopController,
+                              ),
+                              const SizedBox(height: 4.0),
+                              CustomCheckBox(
+                                title: 'Mikrofon',
+                                controller: _mikrofonController,
+                              ),
+                              const SizedBox(height: 4.0),
+                              CustomCheckBox(
+                                title: 'Speaker',
+                                controller: _speakerController,
+                              ),
+                              const SizedBox(height: 4.0),
+                              CustomCheckBox(
+                                title: 'Meja',
+                                controller: _mejaController,
+                              ),
+                              const SizedBox(height: 4.0),
+                              CustomCheckBox(
+                                title: 'Kursi',
+                                controller: _kursiController,
+                              ),
+                              const SizedBox(height: 4.0),
+                              CustomCheckBox(
+                                title: 'Papan Tulis',
+                                controller: _papanTulisController,
+                              ),
+                              const SizedBox(height: 4.0),
+                              CustomCheckBox(
+                                title: 'Spidol',
+                                controller: _spidolController,
+                              ),
+                              const CustomFieldSpacer(),
+                              buildTitle('Lain - lain'),
 
-                            CustomTextField(controller: _lainController),
+                              CustomTextField(controller: _lainController),
 
-                            const CustomFieldSpacer(),
+                              const CustomFieldSpacer(),
 
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                CustomMipokaButton(
-                                  onTap: () => Navigator.pop(context),
-                                  text: 'Batal',
-                                ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  CustomMipokaButton(
+                                    onTap: () => Navigator.pop(context),
+                                    text: 'Batal',
+                                  ),
 
-                                const SizedBox(width: 8.0),
+                                  const SizedBox(width: 8.0),
 
-                                CustomMipokaButton(
-                                  onTap: () {
-                                    final proyektorLcd = int.tryParse(_proyektorLcdController.text);
-                                    final laptop = int.tryParse(_laptopController.text);
-                                    final mikrofon = int.tryParse(_mikrofonController.text);
-                                    final speaker = int.tryParse(_speakerController.text);
-                                    final meja = int.tryParse(_mejaController.text);
-                                    final kursi = int.tryParse(_kursiController.text);
-                                    final papanTulis = int.tryParse(_papanTulisController.text);
-                                    final spidol = int.tryParse(_spidolController.text);
+                                  CustomMipokaButton(
+                                    onTap: () {
+                                      final proyektorLcd = int.tryParse(_proyektorLcdController.text);
+                                      final laptop = int.tryParse(_laptopController.text);
+                                      final mikrofon = int.tryParse(_mikrofonController.text);
+                                      final speaker = int.tryParse(_speakerController.text);
+                                      final meja = int.tryParse(_mejaController.text);
+                                      final kursi = int.tryParse(_kursiController.text);
+                                      final papanTulis = int.tryParse(_papanTulisController.text);
+                                      final spidol = int.tryParse(_spidolController.text);
 
-                                    if (_ormawa == null) {
-                                      mipokaCustomToast(emptyFieldPrompt("Ormawa"));
-                                    } else if (_tanggalMulaiController.text.isEmpty) {
-                                      mipokaCustomToast(emptyFieldPrompt("Tanggal Mulai"));
-                                    } else if (_tanggalSelesaiController.text.isEmpty) {
-                                      mipokaCustomToast(emptyFieldPrompt("Tanggal Selesai"));
-                                    } else if (_gedungController.text.isEmpty) {
-                                      mipokaCustomToast(emptyFieldPrompt("Gedung"));
-                                    } else if (_ruangController.text.isEmpty) {
-                                      mipokaCustomToast(emptyFieldPrompt("Ruangan"));
-                                    } else if (_waktuMulaiController.text.isEmpty) {
-                                      mipokaCustomToast(emptyFieldPrompt("Waktu Mulai"));
-                                    } else if (_waktuSelesaiController.text.isEmpty) {
-                                      mipokaCustomToast(emptyFieldPrompt("Waktu Selesai"));
-                                    } else if (_kegiatanController.text.isEmpty) {
-                                      mipokaCustomToast(emptyFieldPrompt("Kegiatan"));
-                                    } else if (_proyektorLcdController.text.isNotEmpty && proyektorLcd == null) {
-                                      mipokaCustomToast(dataTypeFalsePrompt("Proyektor"));
-                                    } else if (_laptopController.text.isNotEmpty && laptop == null) {
-                                      mipokaCustomToast(dataTypeFalsePrompt("Laptop"));
-                                    } else if (_mikrofonController.text.isNotEmpty && mikrofon == null) {
-                                      mipokaCustomToast(dataTypeFalsePrompt("Mikrofon"));
-                                    } else if (_speakerController.text.isNotEmpty && speaker == null) {
-                                      mipokaCustomToast(dataTypeFalsePrompt("Speaker"));
-                                    } else if (_mejaController.text.isNotEmpty && meja == null) {
-                                      mipokaCustomToast(dataTypeFalsePrompt("Meja"));
-                                    } else if (_kursiController.text.isNotEmpty && kursi == null) {
-                                      mipokaCustomToast(dataTypeFalsePrompt("Kursi"));
-                                    } else if (_papanTulisController.text.isNotEmpty && papanTulis == null) {
-                                      mipokaCustomToast(dataTypeFalsePrompt("Papan Tulis"));
-                                    } else if (_spidolController.text.isNotEmpty && spidol == null) {
-                                      mipokaCustomToast(dataTypeFalsePrompt("Spidol"));
-                                    }
-                                    else {
-                                      mipokaCustomToast("Pengajuan Peminjaman Sarana & Prasarana Telah Dikirim.");
-
-                                      String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-                                      int uniqueId = UniqueIdGenerator.generateUniqueId();
-
-                                      if(_lainController.text == "") {
-                                        _lainController.text = "-";
+                                      if (_ormawa == null) {
+                                        mipokaCustomToast(emptyFieldPrompt("Ormawa"));
+                                      } else if (_tanggalMulaiController.text.isEmpty) {
+                                        mipokaCustomToast(emptyFieldPrompt("Tanggal Mulai"));
+                                      } else if (_tanggalSelesaiController.text.isEmpty) {
+                                        mipokaCustomToast(emptyFieldPrompt("Tanggal Selesai"));
+                                      } else if (_gedungController.text.isEmpty) {
+                                        mipokaCustomToast(emptyFieldPrompt("Gedung"));
+                                      } else if (_ruangController.text.isEmpty) {
+                                        mipokaCustomToast(emptyFieldPrompt("Ruangan"));
+                                      } else if (_waktuMulaiController.text.isEmpty) {
+                                        mipokaCustomToast(emptyFieldPrompt("Waktu Mulai"));
+                                      } else if (_waktuSelesaiController.text.isEmpty) {
+                                        mipokaCustomToast(emptyFieldPrompt("Waktu Selesai"));
+                                      } else if (_kegiatanController.text.isEmpty) {
+                                        mipokaCustomToast(emptyFieldPrompt("Kegiatan"));
+                                      } else if (_proyektorLcdController.text.isNotEmpty && proyektorLcd == null) {
+                                        mipokaCustomToast(dataTypeFalsePrompt("Proyektor"));
+                                      } else if (_laptopController.text.isNotEmpty && laptop == null) {
+                                        mipokaCustomToast(dataTypeFalsePrompt("Laptop"));
+                                      } else if (_mikrofonController.text.isNotEmpty && mikrofon == null) {
+                                        mipokaCustomToast(dataTypeFalsePrompt("Mikrofon"));
+                                      } else if (_speakerController.text.isNotEmpty && speaker == null) {
+                                        mipokaCustomToast(dataTypeFalsePrompt("Speaker"));
+                                      } else if (_mejaController.text.isNotEmpty && meja == null) {
+                                        mipokaCustomToast(dataTypeFalsePrompt("Meja"));
+                                      } else if (_kursiController.text.isNotEmpty && kursi == null) {
+                                        mipokaCustomToast(dataTypeFalsePrompt("Kursi"));
+                                      } else if (_papanTulisController.text.isNotEmpty && papanTulis == null) {
+                                        mipokaCustomToast(dataTypeFalsePrompt("Papan Tulis"));
+                                      } else if (_spidolController.text.isNotEmpty && spidol == null) {
+                                        mipokaCustomToast(dataTypeFalsePrompt("Spidol"));
                                       }
+                                      else {
+                                        mipokaCustomToast("Pengajuan Peminjaman Sarana & Prasarana Telah Dikirim.");
 
-                                      Navigator.pop(
-                                        context,
-                                        Session(
-                                          idSession: uniqueId,
-                                          ormawa: _ormawa,
-                                          mipokaUser: mipokaUser,
-                                          tanggalMulai: _tanggalMulaiController.text,
-                                          tanggalSelesai: _tanggalSelesaiController.text,
-                                          gedung: _gedungController.text,
-                                          ruang: _ruangController.text,
-                                          waktuMulaiPenggunaan: _waktuMulaiController.text,
-                                          waktuSelesaiPenggunaan: _waktuSelesaiController.text,
-                                          kegiatan: _kegiatanController.text,
-                                          proyektor: proyektorLcd ?? 0,
-                                          laptop: laptop ?? 0,
-                                          mikrofon: mikrofon ?? 0,
-                                          speaker: speaker ?? 0,
-                                          meja: meja ?? 0,
-                                          kursi: kursi ?? 0,
-                                          papanTulis: papanTulis ?? 0,
-                                          spidol: spidol ?? 0,
-                                          status: tertunda,
-                                          tandaTanganSA: "",
-                                          fileSession: "",
-                                          lainLain: _lainController.text,
-                                          createdAt: currentDate,
-                                          createdBy: user?.email ?? "unknown",
-                                          updatedAt: currentDate,
-                                          updatedBy: user?.email ?? "unknown",
-                                        ),
-                                      );
-                                    }
-                                  },
-                                  text: 'Kirim',
-                                ),
-                              ],
-                            ),
-                          ],
-                        );
+                                        String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                                        int uniqueId = UniqueIdGenerator.generateUniqueId();
+
+                                        if(_lainController.text == "") {
+                                          _lainController.text = "-";
+                                        }
+
+                                        Navigator.pop(
+                                          context,
+                                          Session(
+                                            idSession: uniqueId,
+                                            ormawa: _ormawa,
+                                            mipokaUser: mipokaUser,
+                                            tanggalMulai: _tanggalMulaiController.text,
+                                            tanggalSelesai: _tanggalSelesaiController.text,
+                                            gedung: _gedungController.text,
+                                            ruang: _ruangController.text,
+                                            waktuMulaiPenggunaan: _waktuMulaiController.text,
+                                            waktuSelesaiPenggunaan: _waktuSelesaiController.text,
+                                            kegiatan: _kegiatanController.text,
+                                            proyektor: proyektorLcd ?? 0,
+                                            laptop: laptop ?? 0,
+                                            mikrofon: mikrofon ?? 0,
+                                            speaker: speaker ?? 0,
+                                            meja: meja ?? 0,
+                                            kursi: kursi ?? 0,
+                                            papanTulis: papanTulis ?? 0,
+                                            spidol: spidol ?? 0,
+                                            status: tertunda,
+                                            tandaTanganSA: "",
+                                            fileSession: "",
+                                            lainLain: _lainController.text,
+                                            createdAt: currentDate,
+                                            createdBy: user?.email ?? "unknown",
+                                            updatedAt: currentDate,
+                                            updatedBy: user?.email ?? "unknown",
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    text: 'Kirim',
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        } else {
+                          return const Text("User tidak terdaftar di ORMAWA manapun.");
+                        }
                       } else {
                         return const SizedBox();
                       }
