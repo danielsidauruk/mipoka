@@ -214,6 +214,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
   @override
   Widget build(BuildContext context) {
+    // final size = MediaQuery.of(context).size;
     if (kDebugMode) {
       print('Page 1 reloaded');
     }
@@ -313,11 +314,16 @@ class _PenggunaPengajuanUsulanKegiatan1State
                             ? _bentukKegiatanSwitchController = true
                             : _bentukKegiatanSwitchController = false;
                         _jumlahParsitipanController.text = usulanKegiatan.jumlahPartisipan;
-                        usulanKegiatan.totalPendanaan == "Uang"
+                        _targetKegiatanController.text = usulanKegiatan.targetKegiatan;
+
+                        _totalPendanaanController.text = usulanKegiatan.totalPendanaan;
+                        usulanKegiatan.kategoriTotalPendanaan == "Dll"
                             ? _totalPendanaanSwitchController = true
                             : _totalPendanaanSwitchController = false;
-                        _targetKegiatanController.text = usulanKegiatan.targetKegiatan;
-                        _totalPendanaanController.text = usulanKegiatan.totalPendanaan;
+
+                        print (usulanKegiatan.totalPendanaan);
+                        // kategoriTotalPendanaan: _totalPendanaanSwitchController == false ? "Uang" : "Dll",
+
                         _keteranganController.text = usulanKegiatan.keterangan;
                         _ormawaSignatureController = usulanKegiatan.tandaTanganOrmawa;
 
@@ -377,7 +383,10 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                 && usulanKegiatan.revisiUsulan?.revisiNamaKegiatan != "")
                               buildRevisiText(usulanKegiatan.revisiUsulan?.revisiNamaKegiatan ?? ""),
 
-                            CustomTextField(controller: _namaKegiatanController),
+                            CustomTextField(
+                              controller: _namaKegiatanController,
+                              textFieldWidth: 900,
+                            ),
 
                             MipokaCustomSwitchButton(
                               title: 'Bentuk Kegiatan',
@@ -464,7 +473,10 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                 && usulanKegiatan.revisiUsulan?.revisiTempatKegiatan != "")
                               buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTempatKegiatan ?? ""),
 
-                            CustomTextField(controller: _tempatKegiatanController),
+                            CustomTextField(
+                              controller: _tempatKegiatanController,
+                              textFieldWidth: 800,
+                            ),
 
                             const CustomFieldSpacer(),
 
@@ -519,14 +531,20 @@ class _PenggunaPengajuanUsulanKegiatan1State
                               buildRevisiText(usulanKegiatan.revisiUsulan?.revisiJumlahPartisipan ?? ""),
 
                             CustomTextField(
-                                controller: _jumlahParsitipanController),
+                              controller: _jumlahParsitipanController,
+                              textFieldWidth: 800,
+                            ),
                             const CustomFieldSpacer(),
 
                             buildTitle('Target Kegiatan'),
                             if (widget.usulanArgs.isRevisiUsulan == true
                                 && usulanKegiatan.revisiUsulan?.revisiTargetKegiatan!= "")
                               buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTargetKegiatan ?? ""),
-                            CustomTextField(controller: _targetKegiatanController),
+
+                            CustomTextField(
+                              controller: _targetKegiatanController,
+
+                            ),
 
                             MipokaCustomSwitchButton(
                               title: 'Total Pendanaan',
@@ -572,7 +590,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                       return InkWell(
                                         onTap: () => context.read<SignatureCubit>().toggleSignature(),
                                         child: Container(
-                                          width: 400,
+                                          width: 500,
+                                          // width: size.width < 501 ? double.infinity : 500,
                                           alignment: Alignment.center,
                                           padding: const EdgeInsets.all(8.0),
                                           decoration: BoxDecoration(
@@ -663,7 +682,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                     print ("14. Keterangan : ${_keteranganController.text != " "}");
                                     print ("15. Ormawa Signature : ${_ormawaSignatureController != "" || _signatureData != null}");
 
-                                    print (_waktuMulaiController.text);
+                                    // print (_waktuMulaiController.text);
+
 
                                     if (_ormawa == null) {
                                       mipokaCustomToast(emptyFieldPrompt("Ormawa"));
@@ -691,6 +711,9 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                       mipokaCustomToast(emptyFieldPrompt("Target Kegiatan"));
                                     } else if (_totalPendanaanController.text == "") {
                                       mipokaCustomToast(emptyFieldPrompt("Total Pendanaan"));
+                                    } else if (_totalPendanaanSwitchController == false
+                                        && int.tryParse(_totalPendanaanController.text) == null) {
+                                      mipokaCustomToast(dataTypeFalsePrompt("Total Pendanaan"));
                                     } else if (_keteranganController.text == "") {
                                       mipokaCustomToast(emptyFieldPrompt("Keterangan"));
                                     } else if (_ormawaSignatureController == "" && _signatureData == null) {
@@ -718,6 +741,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                                       String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
+                                      print(_totalPendanaanSwitchController);
+
                                       if (context.mounted) {
                                         context.read<UsulanKegiatanBloc>().add(
                                           SaveUsulanKegiatanFirstPageEvent(
@@ -740,7 +765,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                               kategoriJumlahPartisipan: _jumlahParsitipanSwitchController == true ? "Orang" : "Dll",
                                               jumlahPartisipan: _jumlahParsitipanController.text,
                                               targetKegiatan: _targetKegiatanController.text,
-                                              kategoriTotalPendanaan: _totalPendanaanSwitchController == true ? "Dll" : "Uang",
+                                              kategoriTotalPendanaan: _totalPendanaanSwitchController == false ? "Uang" : "Dll",
                                               totalPendanaan: _totalPendanaanController.text,
                                               keterangan: _keteranganController.text,
                                               tandaTanganOrmawa: _ormawaSignatureController,

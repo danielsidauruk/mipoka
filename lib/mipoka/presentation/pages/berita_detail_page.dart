@@ -6,26 +6,26 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 
-class PenggunaBerandaDetailPage extends StatefulWidget {
+class BeritaDetailPage extends StatefulWidget {
   final Berita berita;
 
-  const PenggunaBerandaDetailPage({
+  const BeritaDetailPage({
     super.key,
     required this.berita,
   });
 
   @override
-  State<PenggunaBerandaDetailPage> createState() => _PenggunaBerandaDetailPageState();
+  State<BeritaDetailPage> createState() => _BeritaDetailPageState();
 }
 
-class _PenggunaBerandaDetailPageState extends State<PenggunaBerandaDetailPage> {
+class _BeritaDetailPageState extends State<BeritaDetailPage> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
 
-      drawer: const MobileCustomPenggunaDrawerWidget(),
+      // drawer: const MobileCustomPenggunaDrawerWidget(),
 
       body: SingleChildScrollView(
         child: Padding(

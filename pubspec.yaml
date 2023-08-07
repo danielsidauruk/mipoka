@@ -60,6 +60,7 @@ flutter:
       fonts:
         - asset: assets/font/helvetica.ttf
   assets:
+    - assets/icons/document.png
     - assets/icons/excel.png
     - assets/icons/pdf.png
     - assets/icons/word.png

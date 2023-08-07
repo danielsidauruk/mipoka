@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -131,7 +132,7 @@ class _MobileCustomKemahasiswaanDrawerState
                                       loginPageRoute,
                                           (route) => false,
                                     );
-                                    mipokaCustomToast("You have been logged out");
+                                    mipokaCustomToast(logoutMessage);
                                   },
                                   icon: const Icon(Icons.exit_to_app),
                                 ),
@@ -150,7 +151,7 @@ class _MobileCustomKemahasiswaanDrawerState
                         ),
                       ),
                       onTap: () => Navigator.pushNamed(
-                          context, penggunaBerandaPageRoute),
+                          context, kemahasiswaanBeritaPageRoute),
                     ),
                     ExpansionTile(
                       title: const Text(

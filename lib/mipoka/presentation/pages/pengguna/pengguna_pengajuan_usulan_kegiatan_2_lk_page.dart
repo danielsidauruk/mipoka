@@ -202,7 +202,6 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                                                 child: Text(
                                                   partisipan.noInduk,
                                                   textAlign: TextAlign.center,
-                                                  style: const TextStyle(color: Colors.blue),
                                                 ),
                                               ),
                                             ),
@@ -541,15 +540,31 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
 
                                   CustomMipokaButton(
                                     onTap: () async {
-                                      final result = await Navigator.pushNamed(
-                                        context,
-                                        penggunaPengajuanUsulanKegiatanTertibAcaraRoute,
-                                        arguments: widget.usulanArgs,
-                                      );
+                                      final nim = usulanKegiatan.partisipan
+                                          .where((partisipan) => partisipan.nik.isNotEmpty)
+                                          .map((partisipan) => partisipan.nik)
+                                          .toList();
 
-                                      if (result != null && result == true && context.mounted) {
-                                        context.read<UsulanKegiatanBloc>()
-                                            .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+                                      print("No Induk   : ${nim.length}");
+                                      print(nim);
+                                      print("Partisipan : ${usulanKegiatan.partisipan.length}");
+
+                                      if (usulanKegiatan.partisipan.isEmpty) {
+                                        mipokaCustomToast("Data Partisipan Kegiatan tidak boleh kosong.");
+                                      } else if(nim.length != usulanKegiatan.partisipan.length) {
+                                        mipokaCustomToast("Harap lengkapi semua Data Partisipan");
+                                      } else {
+
+                                        final result = await Navigator.pushNamed(
+                                          context,
+                                          penggunaPengajuanUsulanKegiatanTertibAcaraRoute,
+                                          arguments: widget.usulanArgs,
+                                        );
+
+                                        if (result != null && result == true && context.mounted) {
+                                          context.read<UsulanKegiatanBloc>()
+                                              .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+                                        }
                                       }
                                     },
                                     text: 'Berikutnya',
@@ -563,7 +578,8 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                       } else if (state is UsulanKegiatanError) {
                         return Text(state.message);
                       } else {
-                        return const Text("UsulanKegiatan hasn't been triggered");
+                        print("UsulanKegiatan hasn't been triggered");
+                        return const SizedBox();
                       }
                     },
                   ),

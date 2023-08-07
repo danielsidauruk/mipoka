@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -114,23 +115,23 @@ class _MobileCustomPenggunaDrawerWidgetState
                       child: Column(
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
 
                               Expanded(
-                                child: InkWell(
-                                  onTap: () => _showAlertDialog(context),
-                                  // onTap: () => Navigator.pushNamed(context, mobileAkunPageRoute),
-                                  child: Text(
-                                    '${user?.email}',
-                                    style:
-                                        const TextStyle(fontWeight: FontWeight.bold),
-                                  ),
+                                child: Text(
+                                  '${user?.email}',
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
                                 ),
                               ),
+
                             ],
                           ),
                           const CustomFieldSpacer(),
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -151,7 +152,7 @@ class _MobileCustomPenggunaDrawerWidgetState
                                     loginPageRoute,
                                         (route) => false,
                                   );
-                                  mipokaCustomToast("You have been logged out");
+                                  mipokaCustomToast(logoutMessage);
                                 },
                                 icon: const Icon(Icons.exit_to_app),
                               ),
@@ -161,10 +162,6 @@ class _MobileCustomPenggunaDrawerWidgetState
                       ),
                     ),
                     ListTile(
-                      // leading: Image.asset(
-                      //   'assets/icons/home.png',
-                      //   width: 30,
-                      // ),
                       title: const Text(
                         'Beranda',
                         style: TextStyle(
@@ -188,7 +185,7 @@ class _MobileCustomPenggunaDrawerWidgetState
                           title: const Text(
                             'Kegiatan',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -197,7 +194,7 @@ class _MobileCustomPenggunaDrawerWidgetState
                               title: const Text(
                                 'Usulan Kegiatan',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -208,7 +205,7 @@ class _MobileCustomPenggunaDrawerWidgetState
                               title: const Text(
                                 'Laporan Kegiatan',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -221,7 +218,7 @@ class _MobileCustomPenggunaDrawerWidgetState
                           title: const Text(
                             'Sarana & Prasarana',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -254,7 +251,7 @@ class _MobileCustomPenggunaDrawerWidgetState
                           title: const Text(
                             'UKM',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

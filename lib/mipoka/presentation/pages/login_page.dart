@@ -83,21 +83,20 @@ class _LoginPageState extends State<LoginPage> {
                   obscuredText: true,
                 ),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pushNamed(context, lupaPasswordPageRoute),
-                      child: Text(
-                        'Forget Password?',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall
-                            ?.copyWith(color: Colors.grey),
-                      ),
+                Container(
+                  alignment: Alignment.centerRight,
+                  width: 450,
+                  child: TextButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context, lupaPasswordPageRoute),
+                    child: Text(
+                      'Forget Password?',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall
+                          ?.copyWith(color: Colors.grey),
                     ),
-                  ],
+                  ),
                 ),
 
                 const CustomFieldSpacer(height: 8.0),
@@ -235,28 +234,28 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
 
-                const SizedBox(height: 80),
-
-                Container(
-                  width: 250,
-                  decoration:
-                  BoxDecoration(border: Border.all(color: Colors.white)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Switch(
-                        value: darkMode,
-                        onChanged: (value) {
-                          setState(() => darkMode = value);
-                        },
-                      ),
-                      const Text(
-                        'Dark Mode',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
+                // const SizedBox(height: 80),
+                //
+                // Container(
+                //   width: 250,
+                //   decoration:
+                //   BoxDecoration(border: Border.all(color: Colors.white)),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //     children: [
+                //       Switch(
+                //         value: darkMode,
+                //         onChanged: (value) {
+                //           setState(() => darkMode = value);
+                //         },
+                //       ),
+                //       const Text(
+                //         'Dark Mode',
+                //         style: TextStyle(fontWeight: FontWeight.bold),
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),

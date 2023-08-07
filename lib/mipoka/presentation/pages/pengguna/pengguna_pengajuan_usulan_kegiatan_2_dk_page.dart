@@ -536,15 +536,19 @@ class _PenggunaPengajuanUsulanKegiatan2DKState extends State<PenggunaPengajuanUs
 
                                   CustomMipokaButton(
                                     onTap: () async {
-                                      final result = await Navigator.pushNamed(
-                                        context,
-                                        penggunaPengajuanUsulanKegiatanTertibAcaraRoute,
-                                        arguments: widget.usulanArgs,
-                                      );
+                                      if (usulanKegiatan.partisipan.isEmpty) {
+                                        mipokaCustomToast("Data Partisipan Kegiatan tidak boleh kosong.");
+                                      } else {
+                                        final result = await Navigator.pushNamed(
+                                          context,
+                                          penggunaPengajuanUsulanKegiatanTertibAcaraRoute,
+                                          arguments: widget.usulanArgs,
+                                        );
 
-                                      if (result != null && result == true && context.mounted) {
-                                        context.read<UsulanKegiatanBloc>()
-                                            .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+                                        if (result != null && result == true && context.mounted) {
+                                          context.read<UsulanKegiatanBloc>()
+                                              .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
+                                        }
                                       }
                                     },
                                     text: 'Berikutnya',

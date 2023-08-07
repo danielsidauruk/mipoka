@@ -5,11 +5,14 @@ import 'package:intl/intl.dart';
 class CustomTimePickerField extends StatelessWidget {
   final TextEditingController controller;
 
-  const CustomTimePickerField({Key? key, required this.controller}) : super(key: key);
+  const CustomTimePickerField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Container(
+      width: size.width < 501 ? double.infinity : 500,
       alignment: Alignment.center,
       padding: const EdgeInsets.all(8.0),
       constraints: const BoxConstraints(minHeight: 35.0),

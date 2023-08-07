@@ -189,7 +189,7 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                                         DataCell(
                                           onTap: () => Navigator.pushNamed(
                                             context,
-                                            penggunaBerandaDetailPageRoute,
+                                            beritaDetailPageRoute,
                                             arguments: berita,
                                           ),
                                           Align(

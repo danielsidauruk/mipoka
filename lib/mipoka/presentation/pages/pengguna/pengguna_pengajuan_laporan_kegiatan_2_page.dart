@@ -124,21 +124,18 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
 
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Expanded(
-                                    child: SizedBox(
-                                      width: 50,
-                                      child: MipokaCustomSwitchButton(
-                                        title: 'Data Peserta Kegiatan',
-                                        option1: '',
-                                        option2: '',
-                                        value: _isShowTable,
-                                        onChanged: (value) {
-                                          _isShowTable = value;
-                                          _dataPesertaStream.add(value);
-                                        },
-                                      ),
+                                  SizedBox(
+                                    width: 250,
+                                    child: MipokaCustomSwitchButton(
+                                      title: 'Data Peserta Kegiatan',
+                                      option1: '',
+                                      option2: '',
+                                      value: _isShowTable,
+                                      onChanged: (value) {
+                                        _isShowTable = value;
+                                        _dataPesertaStream.add(value);
+                                      },
                                     ),
                                   ),
 
@@ -489,27 +486,35 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                   CustomMipokaButton(
                                     onTap: () async {
 
-                                      if (_isShowTable) {
-                                        final result = await Navigator.pushNamed(
-                                          context,
-                                          penggunaPengajuanLaporanKegiatan3PageRoute,
-                                          arguments: widget.laporanArgs,
-                                        );
+                                      final realisasi = laporan.rincianBiayaKegiatan
+                                          .map((rincianBiayaKegiatan) => rincianBiayaKegiatan.realisasiAnggaran)
+                                          .toList();
 
-                                        if(result != null && result == true && context.mounted) {
+                                      if (realisasi.contains(0)) {
+                                        mipokaCustomToast("Mohon Lengkapi Realisasi Anggaran.");
+                                      } else {
+                                        if (_isShowTable) {
+                                          final result = await Navigator.pushNamed(
+                                            context,
+                                            penggunaPengajuanLaporanKegiatan3PageRoute,
+                                            arguments: widget.laporanArgs,
+                                          );
+
+                                          if(result != null && result == true && context.mounted) {
+                                            context.read<LaporanBloc>().add(
+                                                ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan)
+                                            );
+                                          }
+
+                                        } else {
                                           context.read<LaporanBloc>().add(
-                                              ReadLaporanEvent(idLaporan: widget.laporanArgs.idLaporan)
+                                            DeleteDataPesertaEvent(
+                                              laporan: laporan.copyWith(
+                                                pesertaKegiatanLaporan: [],
+                                              ),
+                                            ),
                                           );
                                         }
-
-                                      } else {
-                                        context.read<LaporanBloc>().add(
-                                          DeleteDataPesertaEvent(
-                                            laporan: laporan.copyWith(
-                                              pesertaKegiatanLaporan: [],
-                                            ),
-                                          ),
-                                        );
                                       }
                                     },
                                     text: 'Berikutnya',

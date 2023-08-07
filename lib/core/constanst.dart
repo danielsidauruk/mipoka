@@ -49,6 +49,7 @@ Color revisionColor = const Color(0xFFE57373);
 
 const String emptyFieldMessage = "Mohon lengkapi semua field.";
 const String refreshMessage = 'Memperbarui Halaman';
+const String logoutMessage = "Anda telah keluar";
 
 String emptyFieldPrompt(String field) => "Mohon isi field $field.";
 String dataTypeFalsePrompt(String field) => "Mohon masukkan angka pada field $field.";

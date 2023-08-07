@@ -27,38 +27,46 @@ class MipokaCustomSwitchButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return BlocProvider(
       create: (context) => SwitchCubit(value ?? false),
       child: BlocBuilder<SwitchCubit, bool>(
         builder: (context, state) {
           return SizedBox(
             child: Row(
+              // crossAxisAlignment: size.width > 500 ? CrossAxisAlignment.start : CrossAxisAlignment.start,
+              // mainAxisAlignment: size.width > 500 ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Expanded(
-                  flex: 4,
-                  child: buildTitle(title),
-                ),
+                // Expanded(
+                //   // flex: 4,
+                //   child:
+                  buildTitle(title),
+                // ),
 
                 const SizedBox(width: 4.0),
 
-                Expanded(
-                  flex: 1,
-                  child: Switch(
+                // Expanded(
+                //   // flex: 1,
+                //   child:
+                  Switch(
                     value: state,
                     onChanged: (newValue) {
                       context.read<SwitchCubit>().toggleSwitch(newValue);
                       onChanged(newValue);
                     },
                   ),
-                ),
+                // ),
 
                 const SizedBox(width: 4.0),
 
-                if(option1 != "" && option2 != "")
-                  Expanded(
-                    flex: 2,
-                    child: state == false ? Center(child: buildTitle(option1)) : Center(child: buildTitle(option2)),
-                  ),
+                // if(option1 != "" && option2 != "")
+                //   Expanded(
+                //     flex: 2,
+                //     child:
+                    state == false ? Center(child: buildTitle(option1)) : Center(child: buildTitle(option2)),
+                  // ),
               ],
             ),
           );

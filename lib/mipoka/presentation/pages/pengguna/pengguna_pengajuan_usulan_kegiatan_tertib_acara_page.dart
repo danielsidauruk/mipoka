@@ -271,7 +271,7 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                                     arguments: widget.usulanArgs,
                                   );
 
-                                  if (result != null && result == true && context.mounted) {
+                                  if (result == true && context.mounted) {
                                     context.read<UsulanKegiatanBloc>()
                                         .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
                                   }

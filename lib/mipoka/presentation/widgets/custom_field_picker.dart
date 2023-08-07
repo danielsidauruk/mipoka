@@ -28,7 +28,7 @@ class _CustomFilePickerButtonState extends State<CustomFilePickerButton> {
         width:  double.infinity,
         alignment: Alignment.center,
         padding: const EdgeInsets.all(8.0),
-        constraints: const BoxConstraints(minHeight: 30.0, maxWidth: 600),
+        constraints: const BoxConstraints(minHeight: 30.0, maxWidth: 500),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           border: Border.all(color: Colors.white),

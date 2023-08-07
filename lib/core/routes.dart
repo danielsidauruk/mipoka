@@ -1,4 +1,5 @@
-// mobile
+// routes
+
 const loginPageRoute = '/loginPageRoute';
 const gantiPasswordPageRoute = '/gantiPasswordPageRoute';
 const gantiPasswordPage2Route = '/gantiPassword2PageRoute';
@@ -7,11 +8,10 @@ const passwordBaruPageRoute = '/passwordBaruPageRoute';
 const notifikasiPageRoute = '/notifikasiPageRoute';
 const registrationPageRoute = '/registrationPageRoute';
 const mipokaAdminDashboardRoute = '/mipokaAdminDashboardRoute';
+const beritaDetailPageRoute = '/beritaDetailPageRoute';
 
 // mobile routes - pengguna
 const penggunaBerandaPageRoute = '/penggunaBerandaPageRoute';
-const penggunaBerandaDetailPageRoute = '/penggunaBerandaDetailPageRoute';
-
 const penggunaDaftarPengajuanKegiatanPageRoute =
     '/penggunaDaftarPengajuanKegiatanPageRoute';
 const penggunaPengajuanUsulanKegiatanPage1Route =
@@ -91,6 +91,7 @@ const pemeriksaPengajuanLaporanKegiatan3PageRoute =
 
 // mobile routes - kemahasiswaan
 const kemahasiswaanBerandaPageRoute = '/kemahasiswaanBerandaPageRoute';
+const kemahasiswaanBeritaPageRoute = '/kemahasiswaanBeritaPageRoute';
 const kemahasiswaanBerandaTambahBeritaPageRoute =
     '/kemahasiswaanBerandaTambahBeritaPageRoute';
 const kemahasiswaanBerandaUpdateBeritaPageRoute =

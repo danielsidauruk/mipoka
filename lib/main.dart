@@ -47,6 +47,7 @@ import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/tertib_acara/tertib_acara_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/ganti_password_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_berita_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_edit_ormawa_edit_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_jenis_kegiatan_edit_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_jenis_kegiatan_edit_page.dart';
@@ -93,7 +94,7 @@ import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_data_peserta_dala
 import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_data_peserta_luar_kota_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_tertib_acara_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/laporan_kegiatan_edit_biaya_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_berita_detail_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/berita_detail_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_daftar_pengajuan_laporan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_daftar_pengajuan_sarana_dan_prasarana_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_mpt_page.dart';
@@ -137,6 +138,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+    final user = FirebaseAuth.instance.currentUser;
 
     return MultiBlocProvider(
       providers: [
@@ -201,11 +203,14 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const LoginPage(),
+        home:
+        // user == null ?
+        const LoginPage(),
+        // const PenggunaDaftarPengajuanKegiatan(),
+
         // const PemeriksaDaftarPengajuanKegiatanPage(),
 
         // : const PemeriksaDaftarLaporanKegiatanPage(),
-        // : const PenggunaBerandaPage(),
         // : const KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage(),
         // :const KemahasiswaanMPTMahasiswaPeriodePage(),
         navigatorObservers: [routeObserver],
@@ -223,16 +228,17 @@ class MyApp extends StatelessWidget {
             case mipokaAdminDashboardRoute:
               return MaterialPageRoute(
                   builder: (_) => const MipokaAdminDashboard());
+            case beritaDetailPageRoute:
+              final berita = settings.arguments as Berita;
+              return MaterialPageRoute(
+                builder: (_) => BeritaDetailPage(berita: berita),
+                settings: settings,
+              );
 
             // pengguna  route
             case penggunaBerandaPageRoute:
               return MaterialPageRoute(
                   builder: (_) => const PenggunaBerandaPage());
-            case penggunaBerandaDetailPageRoute:
-              final berita = settings.arguments as Berita;
-              return MaterialPageRoute(
-                  builder: (_) => PenggunaBerandaDetailPage(berita: berita),
-                  settings: settings);
             case lupaPasswordPageRoute:
               return MaterialPageRoute(
                   builder: (_) => const LupaPasswordPage());
@@ -425,11 +431,12 @@ class MyApp extends StatelessWidget {
                   builder: (_) => const KemahasiswaanBerandaBeritaPage());
             case kemahasiswaanBerandaUpdateBeritaPageRoute:
               final berita = settings.arguments as Berita;
-
               return MaterialPageRoute(
                   builder: (_) =>
                       KemahasiswaanBerandaUpdateBeritaPage(berita: berita),
                   settings: settings);
+            case kemahasiswaanBeritaPageRoute:
+              return MaterialPageRoute(builder: (_) => const KemahasiswaanBeritaPage());
             case kemahasiswaanMPTMahasiswaPeriodePageRoute:
               return MaterialPageRoute(
                   builder: (_) => const KemahasiswaanMPTMahasiswaPeriodePage());

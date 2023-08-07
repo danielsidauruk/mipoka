@@ -5,7 +5,8 @@ class CustomTextField extends StatelessWidget {
     super.key,
     required this.controller,
     this.textInputType = TextInputType.text,
-    this.textFieldWidth = double.infinity,
+    // this.textFieldWidth = double.infinity,
+    this.textFieldWidth = 800,
     // this.textInputType = TextInputType.multiline,
   });
 
@@ -19,7 +20,7 @@ class CustomTextField extends StatelessWidget {
 
     return Container(
       alignment: Alignment.center,
-      width: size.width < 501 ? double.infinity : textFieldWidth,
+      width: size.width <= 500 ? double.infinity : textFieldWidth,
       padding: const EdgeInsets.all(8.0),
       constraints: const BoxConstraints(minHeight: 35),
       decoration: BoxDecoration(
@@ -33,12 +34,11 @@ class CustomTextField extends StatelessWidget {
         maxLines: null,
         style: const TextStyle(),
         decoration: null,
-        maxLength: 1000,
+        maxLength: 6000,
       ),
     );
   }
 }
-
 
 class CustomTextField2 extends StatelessWidget {
   const CustomTextField2({
@@ -143,7 +143,7 @@ class MultiLineTextField extends StatelessWidget {
     super.key,
     required this.controller,
     this.textInputType = TextInputType.multiline,
-    this.textFieldWidth = double.infinity,
+    this.textFieldWidth = 800,
     // this.textInputType = TextInputType.multiline,
   });
 
@@ -157,7 +157,7 @@ class MultiLineTextField extends StatelessWidget {
 
     return Container(
       alignment: Alignment.center,
-      width: size.width < 501 ? double.infinity : textFieldWidth,
+      width: size.width <= 500 ? double.infinity : textFieldWidth,
       padding: const EdgeInsets.all(8.0),
       constraints: const BoxConstraints(minHeight: 35),
       decoration: BoxDecoration(
@@ -171,7 +171,7 @@ class MultiLineTextField extends StatelessWidget {
         maxLines: null,
         style: const TextStyle(),
         decoration: null,
-        maxLength: 1000,
+        maxLength: 6000,
       ),
     );
   }

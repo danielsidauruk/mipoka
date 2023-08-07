@@ -164,14 +164,14 @@ class _PenggunaPengajuanLaporanKegiatan1State
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                widget.laporanArgs.isRevisiLaporan == false ?
-                                CustomMipokaButton(
-                                  onTap: () {
-                                    context.read<LaporanBloc>().add(
-                                        DeleteLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
-                                  },
-                                  text: 'Batal',
-                                ) :
+                                // widget.laporanArgs.isRevisiLaporan == false ?
+                                // CustomMipokaButton(
+                                //   onTap: () {
+                                //     context.read<LaporanBloc>().add(
+                                //         DeleteLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
+                                //   },
+                                //   text: 'Batal',
+                                // ) :
                                 CustomMipokaButton(
                                   onTap: () => Navigator.pop(context, true),
                                   text: 'Batal',
@@ -187,7 +187,7 @@ class _PenggunaPengajuanLaporanKegiatan1State
                                       final biayaKegiatan = _usulanKegiatan?.biayaKegiatan;
                                       List<RincianBiayaKegiatan> rincianBiayaKegiatan = [];
 
-                                      if (biayaKegiatan != []) {
+                                      if (biayaKegiatan != [] && laporan.rincianBiayaKegiatan == []) {
                                         biayaKegiatan?.forEach((selectedBiaya) {
                                           int uniqueId = UniqueIdGenerator.generateUniqueId();
 

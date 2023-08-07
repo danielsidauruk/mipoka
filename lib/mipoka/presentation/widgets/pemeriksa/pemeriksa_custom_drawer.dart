@@ -123,10 +123,13 @@ class _MobileCustomPemeriksaDrawerState
                               ),
                               IconButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, loginPageRoute);
-                                  mipokaCustomToast("You have been logged out");
                                   logoutUser();
+                                  Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    loginPageRoute,
+                                        (route) => false,
+                                  );
+                                  mipokaCustomToast(logoutMessage);
                                 },
                                 icon: const Icon(Icons.exit_to_app),
                               ),

@@ -6,6 +6,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/domain/utils/format_date_indonesia.dart';
 import 'package:mipoka/domain/utils/signature_dialog_utils.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
@@ -124,309 +125,286 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                       } else if (state is AllUsulanKegiatanHasData) {
                         final usulanKegiatanList = state.usulanKegiatanList;
 
-                        return Column(
-                          children: [
+                        return BlocBuilder<MipokaUserBloc, MipokaUserState>(
+                          builder: (context, state) {
+                            if (state is MipokaUserHasData) {
+                              final mipokaUser = state.mipokaUser;
 
-                            MipokaCountText(total: usulanKegiatanList.length),
+                              String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
-                            const CustomFieldSpacer(),
+                              revisiUsulan = RevisiUsulan(
+                                idRevisiUsulan: uniqueId,
+                                mipokaUser: mipokaUser,
+                                revisiPembiayaan: "",
+                                revisiNamaKegiatan: "",
+                                revisiBentukKegiatan: "",
+                                revisiKategoriBentukKegiatan: "",
+                                revisiTempatKegiatan: "",
+                                revisiDeskripsiKegiatan: "",
+                                revisiTanggalMulaiKegiatan: "",
+                                revisiTanggalSelesaiKegiatan: "",
+                                revisiWaktuMulaiKegiatan: "",
+                                revisiWaktuSelesaiKegiatan: "",
+                                revisiTanggalKeberangkatan: "",
+                                revisiTanggalKepulangan: "",
+                                revisiJumlahPartisipan: "",
+                                revisiKategoriJumlahPartisipan: "",
+                                revisiTargetKegiatan: "",
+                                revisiTotalPendanaan: "",
+                                revisiKategoriTotalPendanaan: "",
+                                revisiKeterangan: "",
+                                revisiTandaTanganOrmawa: "",
+                                revisiPartisipan: "",
+                                revisiRincianBiayaKegiatan: "",
+                                revisiLatarBelakang: "",
+                                revisiTujuanKegiatan: "",
+                                revisiManfaatKegiatan: "",
+                                revisiBentukPelaksanaanKegiatan: "",
+                                revisiTargetPencapaianKegiatan: "",
+                                revisiWaktuDanTempatPelaksanaan: "",
+                                revisiRencanaAnggaranKegiatan: "",
+                                revisiIdTertibAcara: "",
+                                revisiPerlengkapanDanPeralatan: "",
+                                revisiPenutup: "",
+                                revisiFotoPostinganKegiatan: "",
+                                revisiFotoSuratUndanganKegiatan: "",
+                                revisiFotoLinimasaKegiatan: "",
+                                revisiFotoTempatKegiatan: "",
+                                createdAt: currentDate,
+                                createdBy: user?.email ?? "",
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "",
+                              );
 
-                            SingleChildScrollView(
-                              scrollDirection: Axis.vertical,
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: DataTable(
-                                  columnSpacing: 40,
-                                  border: TableBorder.all(color: Colors.white),
-                                  columns: const [
-                                    DataColumn(
-                                      label: Text(
-                                        'No.',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        'Tanggal Mengirim\nUsulan Kegiatan',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        'Nama Pengusul',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        'Nama Kegiatan',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        'File Usulan Kegiatan',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        'Validasi Pembina',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        'Status',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ],
-                                  rows: List<DataRow>.generate(usulanKegiatanList.length, (int index) {
-                                    final usulanKegiatan = usulanKegiatanList[index];
+                              print(revisiUsulan);
 
-                                    return DataRow(
-                                      cells: [
-                                        DataCell(
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              '${index + 1}',
+                              return Column(
+                                children: [
+
+                                  MipokaCountText(total: usulanKegiatanList.length),
+
+                                  const CustomFieldSpacer(),
+
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: DataTable(
+                                        columnSpacing: 40,
+                                        border: TableBorder.all(color: Colors.white),
+                                        columns: const [
+                                          DataColumn(
+                                            label: Text(
+                                              'No.',
+                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
                                             ),
                                           ),
-                                        ),
-                                        DataCell(
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              usulanKegiatan.createdAt,
+                                          DataColumn(
+                                            label: Text(
+                                              'Tanggal Mengirim\nUsulan Kegiatan',
+                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
                                             ),
                                           ),
-                                        ),
-                                        DataCell(
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              usulanKegiatan.mipokaUser.namaLengkap ?? "",
+                                          DataColumn(
+                                            label: Text(
+                                              'Nama Pengusul',
+                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
                                             ),
                                           ),
-                                        ),
-                                        DataCell(
-                                          BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                                            builder: (context, state) {
-                                              if (state is MipokaUserHasData) {
-                                                final mipokaUser = state.mipokaUser;
+                                          DataColumn(
+                                            label: Text(
+                                              'Nama Kegiatan',
+                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          DataColumn(
+                                            label: Text(
+                                              'File Usulan Kegiatan',
+                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          DataColumn(
+                                            label: Text(
+                                              'Validasi Pembina',
+                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          DataColumn(
+                                            label: Text(
+                                              'Status',
+                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ],
+                                        rows: List<DataRow>.generate(usulanKegiatanList.length, (int index) {
+                                          final usulanKegiatan = usulanKegiatanList[index];
 
-                                                return Column(
-                                                  mainAxisSize: MainAxisSize.min,
-                                                  children: [
+                                          return DataRow(
+                                            cells: [
+                                              DataCell(
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    '${index + 1}',
+                                                  ),
+                                                ),
+                                              ),
+                                              DataCell(
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    formatDateIndonesia(usulanKegiatan.createdAt),
+                                                  ),
+                                                ),
+                                              ),
+                                              DataCell(
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    usulanKegiatan.mipokaUser.namaLengkap ?? "",
+                                                  ),
+                                                ),
+                                              ),
+                                              DataCell(
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    usulanKegiatan.namaKegiatan,
+                                                  ),
+                                                ),
+                                              ),
 
-                                                    InkWell(
-                                                      onTap: () async {
-                                                        String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                                              DataCell(
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Image.asset(
+                                                    'assets/icons/word.png',
+                                                    width: 24,
+                                                  ),
+                                                ),
+                                                onTap: () {
+                                                  idUsulan = usulanKegiatan.idUsulan;
 
-                                                        idUsulan = usulanKegiatan.idUsulan;
-
-                                                        revisiUsulan = RevisiUsulan(
-                                                          idRevisiUsulan: uniqueId,
-                                                          mipokaUser: mipokaUser,
-                                                          revisiPembiayaan: "",
-                                                          revisiNamaKegiatan: "",
-                                                          revisiBentukKegiatan: "",
-                                                          revisiKategoriBentukKegiatan: "",
-                                                          revisiTempatKegiatan: "",
-                                                          revisiDeskripsiKegiatan: "",
-                                                          revisiTanggalMulaiKegiatan: "",
-                                                          revisiTanggalSelesaiKegiatan: "",
-                                                          revisiWaktuMulaiKegiatan: "",
-                                                          revisiWaktuSelesaiKegiatan: "",
-                                                          revisiTanggalKeberangkatan: "",
-                                                          revisiTanggalKepulangan: "",
-                                                          revisiJumlahPartisipan: "",
-                                                          revisiKategoriJumlahPartisipan: "",
-                                                          revisiTargetKegiatan: "",
-                                                          revisiTotalPendanaan: "",
-                                                          revisiKategoriTotalPendanaan: "",
-                                                          revisiKeterangan: "",
-                                                          revisiTandaTanganOrmawa: "",
-                                                          revisiPartisipan: "",
-                                                          revisiRincianBiayaKegiatan: "",
-                                                          revisiLatarBelakang: "",
-                                                          revisiTujuanKegiatan: "",
-                                                          revisiManfaatKegiatan: "",
-                                                          revisiBentukPelaksanaanKegiatan: "",
-                                                          revisiTargetPencapaianKegiatan: "",
-                                                          revisiWaktuDanTempatPelaksanaan: "",
-                                                          revisiRencanaAnggaranKegiatan: "",
-                                                          revisiIdTertibAcara: "",
-                                                          revisiPerlengkapanDanPeralatan: "",
-                                                          revisiPenutup: "",
-                                                          revisiFotoPostinganKegiatan: "",
-                                                          revisiFotoSuratUndanganKegiatan: "",
-                                                          revisiFotoLinimasaKegiatan: "",
-                                                          revisiFotoTempatKegiatan: "",
-                                                          createdAt: currentDate,
-                                                          createdBy: user?.email ?? "",
-                                                          updatedAt: currentDate,
-                                                          updatedBy: user?.email ?? "",
-                                                        );
-
-                                                        context.read<UsulanKegiatanBloc>().add(
-                                                          AddReviseToUsulanEvent(
-                                                            usulanKegiatan: usulanKegiatan.copyWith(
-                                                              revisiUsulan: revisiUsulan,
-                                                            ),
-                                                          ),
-                                                        );
-
-                                                      },
-                                                      child: Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text(
-                                                          usulanKegiatan.namaKegiatan,
-                                                          style: const TextStyle(
-                                                            color: Colors.blue,
-                                                            decoration: TextDecoration.underline,
-                                                          ),
-                                                        ),
+                                                  context.read<UsulanKegiatanBloc>().add(
+                                                    AddReviseToUsulanEvent(
+                                                      usulanKegiatan: usulanKegiatan.copyWith(
+                                                        revisiUsulan: revisiUsulan,
                                                       ),
                                                     ),
+                                                  );
+                                                  // downloadFileWithDio(
+                                                  //   url: usulanKegiatan.fileUsulanKegiatan,
+                                                  //   fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan),
+                                                  // );
+                                                },
+                                              ),
+                                              DataCell(
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: usulanKegiatan.validasiPembina == tertunda ?
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: () {
+                                                          SignatureDialogUtils.showPopup(
+                                                            context,
+                                                            usulanKegiatan.copyWith(
+                                                                revisiUsulan: revisiUsulan
+                                                            ),
+                                                          );
+                                                        },
+                                                        child: Image.asset(
+                                                          'assets/icons/approve.png',
+                                                          width: 24,
+                                                        ),
+                                                      ),
+                                                      InkWell(
+                                                        onTap: () {
+                                                          context.read<UsulanKegiatanBloc>().add(
+                                                            UpdateUsulanKegiatanEvent(
+                                                              usulanKegiatan: usulanKegiatan.copyWith(
+                                                                // revisiUsulan: revisiUsulan,
+                                                                validasiPembina: ditolak,
+                                                                statusUsulan: ditolak,
+                                                              ),
+                                                            ),
+                                                          );
+                                                          mipokaCustomToast("Usulan Kegiatan telah ditolak");
+                                                        },
+                                                        child: Image.asset(
+                                                          'assets/icons/close.png',
+                                                          width: 24,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ) :
+                                                  usulanKegiatan.validasiPembina == disetujui ?
+                                                  Center(
+                                                    child: Image.asset(
+                                                      'assets/icons/approve.png',
+                                                      width: 24,
+                                                    ),
+                                                  ) :
+                                                  Center(
+                                                    child: Image.asset(
+                                                      'assets/icons/close.png',
+                                                      width: 24,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
 
-                                                    // BlocListener<RevisiUsulanBloc, RevisiUsulanState>(
-                                                    //   listenWhen: (prev, current) =>
-                                                    //   prev.runtimeType != current.runtimeType,
-                                                    //   listener: (context, state) {
-                                                    //     if (state is RevisiUsulanSuccess) {
-                                                    //       context.read<UsulanKegiatanBloc>().add(
-                                                    //         AddReviseToUsulanEvent(
-                                                    //           usulanKegiatan: usulanKegiatan.copyWith(
-                                                    //             revisiUsulan: revisiUsulan,
-                                                    //           ),
-                                                    //         ),
-                                                    //       );
-                                                    //     }
-                                                    //   },
-                                                    //   child: const Center(),
-                                                    // ),
-                                                  ],
-                                                );
-                                              } else if (state is MipokaUserError) {
-                                                mipokaCustomToast(state.message);
-
-                                                return const SizedBox();
-                                              } else {
-                                                return const Text("-");
-                                              }
-                                            },
-                                          ),
-                                        ),
-                                        DataCell(
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Image.asset(
-                                              'assets/icons/word.png',
-                                              width: 24,
-                                            ),
-                                          ),
-                                          onTap: () {
-                                            downloadFileWithDio(
-                                              url: usulanKegiatan.fileUsulanKegiatan,
-                                              fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan),
-                                            );
-                                          },
-                                        ),
-                                        DataCell(
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: usulanKegiatan.validasiPembina == tertunda ?
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                InkWell(
-                                                  onTap: () {
-                                                    SignatureDialogUtils.showPopup(context, usulanKegiatan);
-                                                  },
+                                              DataCell(
+                                                usulanKegiatan.statusUsulan == disetujui ?
+                                                Align(
+                                                  alignment: Alignment.center,
                                                   child: Image.asset(
                                                     'assets/icons/approve.png',
                                                     width: 24,
                                                   ),
-                                                ),
-                                                InkWell(
-                                                  onTap: () {
-                                                    context.read<UsulanKegiatanBloc>().add(
-                                                      UpdateUsulanKegiatanEvent(
-                                                        usulanKegiatan: usulanKegiatan.copyWith(
-                                                          revisiUsulan: revisiUsulan,
-                                                          validasiPembina: ditolak,
-                                                          statusUsulan: ditolak,
-                                                        ),
-                                                      ),
-                                                    );
-                                                    mipokaCustomToast("Usulan Kegiatan telah ditolak");
-                                                  },
+                                                ):
+                                                usulanKegiatan.statusUsulan == ditolak ?
+                                                Align(
+                                                  alignment: Alignment.center,
                                                   child: Image.asset(
                                                     'assets/icons/close.png',
                                                     width: 24,
                                                   ),
+                                                ) :
+
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Image.asset(
+                                                    'assets/icons/time.png',
+                                                    width: 24,
+                                                  ),
                                                 ),
-                                              ],
-                                            ) :
-                                            usulanKegiatan.validasiPembina == disetujui ?
-                                            Center(
-                                              child: Image.asset(
-                                                'assets/icons/approve.png',
-                                                width: 24,
                                               ),
-                                            ) :
-                                            Center(
-                                              child: Image.asset(
-                                                'assets/icons/close.png',
-                                                width: 24,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                            ],
+                                          );
+                                        }),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            } else if (state is MipokaUserError) {
+                              mipokaCustomToast(state.message);
 
-                                        DataCell(
-                                          usulanKegiatan.statusUsulan == disetujui ?
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Image.asset(
-                                              'assets/icons/approve.png',
-                                              width: 24,
-                                            ),
-                                          ):
-                                          usulanKegiatan.statusUsulan == ditolak ?
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Image.asset(
-                                              'assets/icons/close.png',
-                                              width: 24,
-                                            ),
-                                          ) :
-
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Image.asset(
-                                              'assets/icons/time.png',
-                                              width: 24,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  }),
-                                ),
-                              ),
-                            ),
-                          ],
+                              return const SizedBox();
+                            } else {
+                              print("MipokaUser hasn't been triggered yet.");
+                              return const SizedBox();
+                            }
+                          },
                         );
                       } else if (state is UsulanKegiatanError) {
                         return Text(state.message);

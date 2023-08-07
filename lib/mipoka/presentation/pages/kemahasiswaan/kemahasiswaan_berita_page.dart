@@ -10,16 +10,17 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
-class PenggunaBerandaPage extends StatefulWidget {
-  const PenggunaBerandaPage({super.key});
+class KemahasiswaanBeritaPage extends StatefulWidget {
+  const KemahasiswaanBeritaPage({super.key});
 
   @override
-  State<PenggunaBerandaPage> createState() => _PenggunaBerandaPageState();
+  State<KemahasiswaanBeritaPage> createState() => _KemahasiswaanBeritaPageState();
 }
 
-class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
+class _KemahasiswaanBeritaPageState extends State<KemahasiswaanBeritaPage> {
   @override
   void initState() {
     BlocProvider.of<BeritaBloc>(context, listen: false)
@@ -37,7 +38,7 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
               .add(const ReadAllBeritaEvent());
         },
       ),
-      drawer: const MobileCustomPenggunaDrawerWidget(),
+      drawer: const MobileCustomKemahasiswaanDrawer(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -108,8 +109,8 @@ class _PenggunaBerandaPageState extends State<PenggunaBerandaPage> {
                                             Expanded(
                                               child: Text(
                                                 berita.teks,
-                                                maxLines: 3,
                                                 overflow: TextOverflow.ellipsis,
+                                                maxLines: 3,
                                                 style: const TextStyle(color: Colors.grey),
                                               ),
                                             ),
