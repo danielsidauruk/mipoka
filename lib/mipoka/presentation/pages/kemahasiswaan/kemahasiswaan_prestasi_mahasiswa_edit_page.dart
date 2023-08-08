@@ -201,11 +201,21 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
 
                       CustomMipokaButton(
                         onTap: () {
-                          if (_ormawa != null && _nimController.text.isNotEmpty
-                              && _namaKegiatanController.text.isNotEmpty && _yearController != null
-                              && _tingkatController != null && _prestasiYangDicapaiController.text.isNotEmpty
-                              && _mipokaUser != null)
-                          {
+                          if (_ormawa == null) {
+                            mipokaCustomToast(emptyFieldPrompt("Ormawa"));
+                          } else if (_nimController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("NIM"));
+                          } else if (_namaKegiatanController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Nama Kegiatan"));
+                          } else if (_yearController == null) {
+                            mipokaCustomToast(emptyFieldPrompt("Waktu Penyelenggaraan"));
+                          } else if (_tingkatController == null) {
+                            mipokaCustomToast(emptyFieldPrompt("Tingkat"));
+                          } else if (_prestasiYangDicapaiController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Prestasi Yang Dicapai"));
+                          } else if (_mipokaUser == null) {
+                            mipokaCustomToast(emptyFieldPrompt("Nama mahasiswa"));
+                          } else {
                             mipokaCustomToast(savingDataMessage);
                             String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
@@ -222,9 +232,6 @@ class _KemahasiswaanPrestasiMahasiswaEditPageState extends State<KemahasiswaanPr
                                 updatedBy: user?.email ?? "unknown",
                               ),
                             );
-
-                          } else {
-                            mipokaCustomToast(emptyFieldMessage);
                           }
                         },
                         text: 'Simpan',

@@ -185,68 +185,41 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
 
                       CustomMipokaButton(
                         onTap: () {
-                          if (_namaKegiatanMpt != null && _periodeMpt != null
-                              && _tanggalMulaiController.text.isNotEmpty && _tanggalSelesaiController.text.isNotEmpty
-                              && _poinKegiatanController.text.isNotEmpty) {
-                            try {
-                              final poinKegiatan = int.tryParse(_poinKegiatanController.text);
-                              if (poinKegiatan != null) {
+                          final poinKegiatan = int.tryParse(_poinKegiatanController.text);
 
-                                mipokaCustomToast(savingDataMessage);
-                                String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
-                                Navigator.pop(
-                                  context,
-                                    widget.kegiatanPerPeriodeMpt.copyWith(
-                                      namaKegiatanMpt: _namaKegiatanMpt,
-                                      periodeMpt: _periodeMpt,
-                                      tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
-                                      tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
-                                      pointMptDiperoleh: poinKegiatan,
-                                      updatedAt: currentDate,
-                                      updatedBy: user?.email ?? "unknown",
-                                    )
-                                );
-                                // context.read<KegiatanPerPeriodeMptBloc>().add(
-                                //   UpdateKegiatanPerPeriodeMptEvent(
-                                //     kegiatanPerPeriodeMpt: widget.kegiatanPerPeriodeMpt.copyWith(
-                                //       namaKegiatanMpt: _namaKegiatanMpt,
-                                //       periodeMpt: _periodeMpt,
-                                //       tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
-                                //       tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
-                                //       pointMptDiperoleh: poinKegiatan,
-                                //       updatedAt: currentDate,
-                                //       updatedBy: user?.email ?? "unknown",
-                                //     ),
-                                //   ),
-                                // );
-                              } else {
-                                mipokaCustomToast("Input poin kegiatan tidak valid.");
-                              }
-                            } catch (e) {
-                              mipokaCustomToast("Input poin kegiatan tidak valid.");
-                            }
+                          if (_namaKegiatanMpt == null) {
+                            mipokaCustomToast(emptyFieldPrompt("Nama Kegiatan MPT"));
+                          } else if (_periodeMpt == null) {
+                            mipokaCustomToast(emptyFieldPrompt("Periode MPT"));
+                          } else if (_tanggalMulaiController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Tanggal Mulai"));
+                          } else if (_tanggalSelesaiController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Tanggal Selesai"));
+                          } else if (_poinKegiatanController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Poin Kegiatan"));
+                          } else if (poinKegiatan == null) {
+                            mipokaCustomToast(dataTypeFalsePrompt("Poin Kegiatan"));
                           } else {
-                            mipokaCustomToast("Harap lengkapi semua field.");
-                          }
 
+                            mipokaCustomToast(savingDataMessage);
+                            String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
+                            Navigator.pop(
+                              context,
+                              widget.kegiatanPerPeriodeMpt.copyWith(
+                                namaKegiatanMpt: _namaKegiatanMpt,
+                                periodeMpt: _periodeMpt,
+                                tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
+                                tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
+                                pointMptDiperoleh: poinKegiatan,
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "unknown",
+                              ),
+                            );
+                          }
                         },
                         text: 'Simpan',
                       ),
-
-                      // BlocListener<KegiatanPerPeriodeMptBloc, KegiatanPerPeriodeMptState>(
-                      //   listenWhen: (prev, current) =>
-                      //   prev.runtimeType != current.runtimeType,
-                      //   listener: (context, state) {
-                      //     if (state is KegiatanPerPeriodeMptSuccess) {
-                      //       mipokaCustomToast("${_namaKegiatanMpt?.namaKegiatan} telah di update");
-                      //       Navigator.pop(context);
-                      //     } else if (state is KegiatanPerPeriodeMptError) {
-                      //       mipokaCustomToast(state.message);
-                      //     }
-                      //   },
-                      //   child: const SizedBox(),
-                      // ),
                     ],
                   ),
                 ],

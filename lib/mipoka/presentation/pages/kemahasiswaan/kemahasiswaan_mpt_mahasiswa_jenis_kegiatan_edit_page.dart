@@ -76,8 +76,11 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanEditPageState extends State<Kemahas
                       const SizedBox(width: 8.0),
 
                       CustomMipokaButton(
-                        onTap: () async {
-                          if (_namaJenisKegiatanController.text != "") {
+                        onTap: () {
+                          if (_namaJenisKegiatanController.text.isEmpty) {
+                            mipokaCustomToast(
+                                emptyFieldPrompt("Nama Jenis Kegiatan"));
+                          } else {
                             mipokaCustomToast(savingDataMessage);
 
                             String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
@@ -91,8 +94,6 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanEditPageState extends State<Kemahas
                                 updatedBy: user?.email ?? "",
                               ),
                             );
-                          } else {
-                            mipokaCustomToast(emptyFieldMessage);
                           }
                         },
                         text: 'Simpan',

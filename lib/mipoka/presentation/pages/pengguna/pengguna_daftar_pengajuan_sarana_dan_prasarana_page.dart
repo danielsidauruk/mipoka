@@ -21,6 +21,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_total_count.dart';
 
 class PenggunaDaftarPengajuanSaranaDanPrasarana extends StatefulWidget {
   const PenggunaDaftarPengajuanSaranaDanPrasarana({super.key});
@@ -93,6 +94,10 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            MipokaCountText(total: state.sessionList.length),
+
+                            const CustomFieldSpacer(height: 4.0),
+
                             SingleChildScrollView(
                               scrollDirection: Axis.vertical,
                               child: SingleChildScrollView(

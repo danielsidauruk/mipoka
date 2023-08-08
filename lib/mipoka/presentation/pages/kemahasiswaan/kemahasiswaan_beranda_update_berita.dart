@@ -131,25 +131,28 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
 
                       CustomMipokaButton(
                         onTap: () async {
-                          if (_judulBeritaController.text.isNotEmpty && _penulisController.text.isNotEmpty &&
-                              _textBeritaController.text.isNotEmpty && (_fotoBeritaController != "" || _result !=null)) {
-
+                          if (_judulBeritaController.text.isEmpty)  {
+                            mipokaCustomToast(emptyFieldPrompt("Judul Berita"));
+                          } else if (_penulisController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Penulis"));
+                          } else if (_textBeritaController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Text Berita"));
+                          } else if (_fotoBeritaController != "" && _result != null) {
+                            mipokaCustomToast(emptyFieldPrompt("Foto Berita"));
+                          } else {
                             mipokaCustomToast(savingDataMessage);
 
-                            final result = _result;
-                            if (result != null) {
-                              PlatformFile file = result.files.first;
-                              Uint8List? bytes;
+                            PlatformFile file = _result!.files.first;
+                            Uint8List? bytes;
 
-                              if (kIsWeb) {
-                                bytes = file.bytes;
-                              } else if (Platform.isAndroid) {
-                                bytes = await File(file.path!).readAsBytes();
-                              }
+                            if (kIsWeb) {
+                              bytes = file.bytes;
+                            } else if (Platform.isAndroid) {
+                              bytes = await File(file.path!).readAsBytes();
+                            }
 
-                              if (bytes != null) {
-                                _fotoBeritaController = await uploadBytesToFirebase(bytes, "${widget.berita.idBerita}${file.name}");
-                              }
+                            if (bytes != null) {
+                              _fotoBeritaController = await uploadBytesToFirebase(bytes, "${widget.berita.idBerita}${file.name}");
                             }
 
                             String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
@@ -167,8 +170,6 @@ class _KemahasiswaanBerandaUpdateBeritaPageState extends State<KemahasiswaanBera
                                 ),
                               );
                             }
-                          } else {
-                            mipokaCustomToast("Harap isi semua field.");
                           }
                         },
                         text: 'Simpan',

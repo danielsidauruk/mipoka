@@ -111,55 +111,54 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
 
                       CustomMipokaButton(
                         onTap: () async {
-                          if (_judulBeritaController.text.isNotEmpty &&
-                              _penulisController.text.isNotEmpty &&
-                              _textBeritaController.text.isNotEmpty) {
+                          if (_judulBeritaController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Judul Berita"));
+                          } else if (_penulisController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Penulis"));
+                          } else if (_textBeritaController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Text Berita"));
+                          } else if (result == null) {
+                            mipokaCustomToast(emptyFieldPrompt("Gambar"));
+                          } else {
 
                             mipokaCustomToast(savingDataMessage);
 
-                            final result = this.result;
-                            if (result != null) {
-                              PlatformFile file = result.files.first;
-                              Uint8List? bytes;
-                              String? imageUrl;
+                            PlatformFile file = result!.files.first;
+                            Uint8List? bytes;
+                            String? imageUrl;
 
-                              if (kIsWeb) {
-                                bytes = file.bytes;
-                              } else if (Platform.isAndroid) {
-                                bytes = await File(file.path!).readAsBytes();
-                              }
-
-                              if (bytes != null) {
-                                int uniqueId = UniqueIdGenerator.generateUniqueId();
-                                imageUrl = await uploadBytesToFirebase(bytes, "$uniqueId${file.name}");
-                              }
-
-                              if(context.mounted) {
-
-                                int uniqueId = UniqueIdGenerator.generateUniqueId();
-                                String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
-                                Navigator.pop(
-                                  context,
-                                  Berita(
-                                    idBerita: uniqueId,
-                                    judul: _judulBeritaController.text,
-                                    penulis: _penulisController.text,
-                                    gambar: imageUrl ?? "",
-                                    teks: _textBeritaController.text,
-                                    tglTerbit: currentDate,
-                                    createdAt: currentDate,
-                                    createdBy: user?.email ?? "unknown",
-                                    updatedAt: currentDate,
-                                    updatedBy: user?.email ?? "unknown",
-                                  ),
-                                );
-                              }
-                            } else {
-                              mipokaCustomToast("Harap unggah file yang diperlukan.");
+                            if (kIsWeb) {
+                              bytes = file.bytes;
+                            } else if (Platform.isAndroid) {
+                              bytes = await File(file.path!).readAsBytes();
                             }
-                          } else {
-                            mipokaCustomToast("Harap isi semua field.");
+
+                            if (bytes != null) {
+                              int uniqueId = UniqueIdGenerator.generateUniqueId();
+                              imageUrl = await uploadBytesToFirebase(bytes, "$uniqueId${file.name}");
+                            }
+
+                            if(context.mounted) {
+
+                              int uniqueId = UniqueIdGenerator.generateUniqueId();
+                              String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
+                              Navigator.pop(
+                                context,
+                                Berita(
+                                  idBerita: uniqueId,
+                                  judul: _judulBeritaController.text,
+                                  penulis: _penulisController.text,
+                                  gambar: imageUrl ?? "",
+                                  teks: _textBeritaController.text,
+                                  tglTerbit: currentDate,
+                                  createdAt: currentDate,
+                                  createdBy: user?.email ?? "unknown",
+                                  updatedAt: currentDate,
+                                  updatedBy: user?.email ?? "unknown",
+                                ),
+                              );
+                            }
                           }
                         },
                         text: 'Simpan',

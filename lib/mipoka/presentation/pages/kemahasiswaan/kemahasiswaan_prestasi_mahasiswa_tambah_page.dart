@@ -194,11 +194,21 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                       CustomMipokaButton(
                         text: 'Simpan',
                         onTap: () {
-                          if (_ormawa != null && _nimController.text.isNotEmpty
-                              && _namaKegiatanController.text.isNotEmpty && _tahun != null
-                              && _tingkat != null && _mipokaUser != null
-                              && _prestasiYangDicapaiController.text.isNotEmpty)
-                          {
+                          if (_ormawa == null) {
+                            mipokaCustomToast(emptyFieldPrompt("Ormawa"));
+                          } else if (_nimController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("NIM"));
+                          } else if (_namaKegiatanController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Nama Kegiatan"));
+                          } else if (_tahun == null) {
+                            mipokaCustomToast(emptyFieldPrompt("Waktu Penyelenggaraan"));
+                          } else if (_tingkat == null) {
+                            mipokaCustomToast(emptyFieldPrompt("Tingkat"));
+                          } else if (_prestasiYangDicapaiController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Prestasi Yang Dicapai"));
+                          } else if (_mipokaUser == null) {
+                            mipokaCustomToast(emptyFieldPrompt("Nama mahasiswa"));
+                          } else {
                             mipokaCustomToast(savingDataMessage);
 
                             int uniqueId = UniqueIdGenerator.generateUniqueId();
@@ -221,8 +231,6 @@ class _KemahasiswaanPrestasiMahasiswaTambahPageState extends State<Kemahasiswaan
                                 updatedBy: user?.email ?? "unknown",
                               ),
                             );
-                          } else {
-                            mipokaCustomToast(emptyFieldMessage);
                           }
                         },
                       ),

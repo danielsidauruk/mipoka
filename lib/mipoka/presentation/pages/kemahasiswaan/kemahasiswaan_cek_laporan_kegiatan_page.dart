@@ -88,6 +88,7 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                         final laporanList = state.laporanList;
 
                         return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             MipokaCountText(total: laporanList.length),
 

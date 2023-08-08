@@ -351,7 +351,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                           children: [
                             buildTitle('Nama Ormawa'),
 
-                            usulanKegiatan.mipokaUser.ormawa.isNotEmpty ||  usulanKegiatan.mipokaUser.ormawa != null ?
+                            usulanKegiatan.mipokaUser.ormawa.isNotEmpty ?
                             MipokaCustomDropdown(
                               items: ormawaList,
                               initialItem: _ormawa?.namaOrmawa,
@@ -388,7 +388,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                             CustomTextField(
                               controller: _namaKegiatanController,
-                              textFieldWidth: 900,
                             ),
 
                             MipokaCustomSwitchButton(

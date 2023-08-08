@@ -66,25 +66,28 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanTambahPageState extends State<Kemah
 
                       CustomMipokaButton(
                         onTap: () {
-                          if (_namaJenisKegiatanController.text != "") {
+                          if (_namaJenisKegiatanController.text.isEmpty) {
+                            mipokaCustomToast(
+                                emptyFieldPrompt("Nama Jenis Kegiatan"));
+                          } else {
                             mipokaCustomToast(savingDataMessage);
 
                             int uniqueId = UniqueIdGenerator.generateUniqueId();
-                            String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                            String currentDate = DateFormat('dd-MM-yyyy')
+                                .format(DateTime.now());
 
                             Navigator.pop(
                               context,
                               JenisKegiatanMpt(
                                 idJenisKegiatanMpt: uniqueId,
-                                namaJenisKegiatanMpt: _namaJenisKegiatanController.text,
+                                namaJenisKegiatanMpt: _namaJenisKegiatanController
+                                    .text,
                                 createdAt: currentDate,
                                 createdBy: user?.email ?? "",
                                 updatedAt: currentDate,
                                 updatedBy: user?.email ?? "",
                               ),
                             );
-                          } else {
-                            mipokaCustomToast(emptyFieldMessage);
                           }
                         },
                         text: 'Simpan',

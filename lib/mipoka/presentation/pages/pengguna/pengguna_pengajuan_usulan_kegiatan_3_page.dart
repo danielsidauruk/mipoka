@@ -437,81 +437,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 CustomMipokaButton(
-                                  onTap: () async {
-
-                                    // mipokaCustomToast(savingDataMessage);
-
-                                    // if (kIsWeb) {
-                                    //   if (_postinganKegiatanResult != null) {
-                                    //     postinganKegiatanBytes = _postinganKegiatanResult?.files.first.bytes;
-                                    //   }
-                                    //   if (_suratUndanganKegiatanResult != null) {
-                                    //     suratUndanganKegiatanBytes = _suratUndanganKegiatanResult?.files.first.bytes;
-                                    //   }
-                                    //   if (_linimasaKegiatanResult != null) {
-                                    //     linimasaKegiatanBytes = _linimasaKegiatanResult?.files.first.bytes;
-                                    //   }
-                                    //   if (_fotoTempatKegiatanResult != null) {
-                                    //     fotoTempatKegiatanBytes = _fotoTempatKegiatanResult?.files.first.bytes;
-                                    //   }
-                                    // } else if (Platform.isAndroid) {
-                                    //   if (_postinganKegiatanResult != null) {
-                                    //     postinganKegiatanBytes = await File(_postinganKegiatanResult!.files.first.path!).readAsBytes();
-                                    //   }
-                                    //   if (_suratUndanganKegiatanResult != null) {
-                                    //     suratUndanganKegiatanBytes = await File(_suratUndanganKegiatanResult!.files.first.path!).readAsBytes();
-                                    //   }
-                                    //   if (_linimasaKegiatanResult != null) {
-                                    //     linimasaKegiatanBytes = await File(_linimasaKegiatanResult!.files.first.path!).readAsBytes();
-                                    //   }
-                                    //   if (_fotoTempatKegiatanResult != null) {
-                                    //     fotoTempatKegiatanBytes = await File(_fotoTempatKegiatanResult!.files.first.path!).readAsBytes();
-                                    //   }
-                                    // }
-                                    //
-                                    // if (postinganKegiatanBytes != null) {
-                                    //   int uniqueId = UniqueIdGenerator.generateUniqueId();
-                                    //   _postinganKegiatanController = await uploadBytesToFirebase(postinganKegiatanBytes!, "$uniqueId${_postinganKegiatanResult!.files.first.name}");
-                                    // }
-                                    // if (suratUndanganKegiatanBytes != null) {
-                                    //   int uniqueId = UniqueIdGenerator.generateUniqueId();
-                                    //   _suratUndanganKegiatanController = await uploadBytesToFirebase(suratUndanganKegiatanBytes!, "$uniqueId${_suratUndanganKegiatanResult!.files.first.name}");
-                                    // }
-                                    // if (linimasaKegiatanBytes != null) {
-                                    //   int uniqueId = UniqueIdGenerator.generateUniqueId();
-                                    //   _linimasaKegiatanController = await uploadBytesToFirebase(linimasaKegiatanBytes!, "$uniqueId${_linimasaKegiatanResult!.files.first.name}");
-                                    // }
-                                    // if (fotoTempatKegiatanBytes != null) {
-                                    //   int uniqueId = UniqueIdGenerator.generateUniqueId();
-                                    //   _fotoTempatKegiatanController = await uploadBytesToFirebase(fotoTempatKegiatanBytes!, "$uniqueId${_fotoTempatKegiatanResult!.files.first.name}");
-                                    // }
-                                    //
-                                    // String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
-                                    // if (context.mounted) {
-                                    //   context.read<UsulanKegiatanBloc>().add(
-                                    //     SaveAndGoBackLastPageEvent(
-                                    //       usulanKegiatan: usulanKegiatan.copyWith(
-                                    //         latarBelakang: _latarBelakangController.text,
-                                    //         tujuanKegiatan: _tujuanKegiatanController.text,
-                                    //         manfaatKegiatan: _manfaatKegiatanController.text,
-                                    //         bentukPelaksanaanKegiatan: _bentukPelaksanaanKegiatanController.text,
-                                    //         targetPencapaianKegiatan: _targetPencapaianKegiatanController.text,
-                                    //         waktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
-                                    //         rencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
-                                    //         perlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
-                                    //         penutup: _penutupController.text,
-                                    //         fotoPostinganKegiatan: _postinganKegiatanController,
-                                    //         fotoSuratUndanganKegiatan: _suratUndanganKegiatanController,
-                                    //         fotoLinimasaKegiatan: _linimasaKegiatanController,
-                                    //         fotoTempatKegiatan: _fotoTempatKegiatanController,
-                                    //         updatedAt: currentDate,
-                                    //         updatedBy: user?.email,
-                                    //       ),
-                                    //     ),
-                                    //   );
-                                    //
-                                    // }
+                                  onTap: () {
                                     Navigator.pop(context, true);
                                   },
                                   text: 'Sebelumnya',
@@ -587,11 +513,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                         int uniqueId = UniqueIdGenerator.generateUniqueId();
                                         _fotoTempatKegiatanController = await uploadBytesToFirebase(fotoTempatKegiatanBytes!, "$uniqueId${_fotoTempatKegiatanResult!.files.first.name}");
                                       }
-
-                                      print("Postingan Kegiatan : $_postinganKegiatanController");
-                                      print("Surat Undangan : $_suratUndanganKegiatanController");
-                                      print("Linimasa Kegiatan  : $_linimasaKegiatanController");
-                                      print("Foto Tempat Kegiatan : $_fotoTempatKegiatanController");
 
                                       int totalBiaya = usulanKegiatan.biayaKegiatan.fold(0, (sum, biayaKegiatan) => sum + biayaKegiatan.total);
                                       String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());

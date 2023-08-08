@@ -96,6 +96,7 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                         final usulanKegiatanList = state.usulanKegiatanList;
 
                         return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             MipokaCountText(total: usulanKegiatanList.length),
 

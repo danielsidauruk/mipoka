@@ -127,9 +127,13 @@ class _KemahasiswaanMPTMahasiswaPeriodeTambahPageState extends State<Kemahasiswa
 
                       CustomMipokaButton(
                           onTap: () {
-                            if (_tahunController.text.isNotEmpty && _tanggalMulaiController.text.isNotEmpty &&
-                                _tanggalSelesaiController.text.isNotEmpty) {
-
+                            if(_tahunController.text.isEmpty) {
+                              mipokaCustomToast(emptyFieldPrompt("Tahun"));
+                            } else if (_tanggalMulaiController.text.isEmpty) {
+                              mipokaCustomToast(emptyFieldPrompt("Tanggal Mulai"));
+                            } else if (_tanggalSelesaiController.text.isEmpty) {
+                              mipokaCustomToast(emptyFieldPrompt("Tanggal Selesai"));
+                            } else {
                               mipokaCustomToast(savingDataMessage);
                               int uniqueId = UniqueIdGenerator.generateUniqueId();
                               String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
@@ -148,9 +152,6 @@ class _KemahasiswaanMPTMahasiswaPeriodeTambahPageState extends State<Kemahasiswa
                                   updatedBy: user?.email ?? "unknown",
                                 ),
                               );
-
-                            } else {
-                              mipokaCustomToast(emptyFieldMessage);
                             }
                           },
                           text: 'Simpan'

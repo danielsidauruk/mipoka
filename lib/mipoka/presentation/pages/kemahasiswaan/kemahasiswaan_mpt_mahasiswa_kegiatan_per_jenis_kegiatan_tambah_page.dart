@@ -119,7 +119,11 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageState extends 
 
                       CustomMipokaButton(
                         onTap: () {
-                          if (_namaJenisKegiatanController.text.isNotEmpty && _jenisKegiatanMpt != null) {
+                          if (_namaJenisKegiatanController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Nama Jenis Kegiatan"));
+                          } else if (_jenisKegiatanMpt == null) {
+                            mipokaCustomToast(emptyFieldPrompt("Jenis Kegiatan"));
+                          } else {
                             mipokaCustomToast(savingDataMessage);
 
                             int uniqueId = UniqueIdGenerator.generateUniqueId();
@@ -137,8 +141,6 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerJenisKegiatanTambahPageState extends 
                                 updatedBy: user?.email ?? "unknown",
                               ),
                             );
-                          } else {
-                            mipokaCustomToast(emptyFieldMessage);
                           }
                         },
                         text: 'Simpan',

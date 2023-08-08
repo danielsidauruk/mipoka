@@ -179,6 +179,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                               print(revisiUsulan);
 
                               return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
 
                                   MipokaCountText(total: usulanKegiatanList.length),

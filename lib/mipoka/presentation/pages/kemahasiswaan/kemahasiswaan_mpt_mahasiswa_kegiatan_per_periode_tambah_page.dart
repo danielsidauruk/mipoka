@@ -188,60 +188,42 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeTambahPageState extends State<
 
                       CustomMipokaButton(
                         onTap: () {
-                          if (_namaKegiatanMpt?.idNamaKegiatanMpt != 0 && _periodeMpt?.idPeriodeMpt != 0
-                              && _tanggalMulaiController.text.isNotEmpty && _tanggalSelesaiController.text.isNotEmpty
-                              && _poinKegiatanController.text.isNotEmpty) {
-                            try {
-                              final poinKegiatan = int.tryParse(_poinKegiatanController.text);
-                              if (poinKegiatan != null) {
-                                mipokaCustomToast(savingDataMessage);
+                          final poinKegiatan = int.tryParse(_poinKegiatanController.text);
 
-                                int uniqueId = UniqueIdGenerator.generateUniqueId();
-                                String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
-                                Navigator.pop(
-                                  context,
-                                  KegiatanPerPeriodeMpt(
-                                    idKegiatanPerPeriodeMpt: uniqueId,
-                                    namaKegiatanMpt: _namaKegiatanMpt!,
-                                    periodeMpt: _periodeMpt!,
-                                    tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
-                                    tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
-                                    pointMptDiperoleh: poinKegiatan,
-                                    createdAt: currentDate,
-                                    createdBy: user?.email ?? "unknown",
-                                    updatedAt: currentDate,
-                                    updatedBy: user?.email ?? "unknown",
-                                  ),
-                                );
-
-                                // context.read<KegiatanPerPeriodeMptBloc>().add(
-                                //   CreateKegiatanPerPeriodeMptEvent(
-                                //     kegiatanPerPeriodeMpt: KegiatanPerPeriodeMpt(
-                                //       idKegiatanPerPeriodeMpt: uniqueId,
-                                //       namaKegiatanMpt: _namaKegiatanMpt!,
-                                //       periodeMpt: _periodeMpt!,
-                                //       tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
-                                //       tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
-                                //       pointMptDiperoleh: poinKegiatan,
-                                //       createdAt: currentDate,
-                                //       createdBy: user?.email ?? "unknown",
-                                //       updatedAt: currentDate,
-                                //       updatedBy: user?.email ?? "unknown",
-                                //     ),
-                                //   ),
-                                // );
-
-                              } else {
-                                mipokaCustomToast("Input poin kegiatan tidak valid.");
-                              }
-                            } catch (e) {
-                              mipokaCustomToast("Input poin kegiatan tidak valid.");
-                            }
+                          if (_namaKegiatanMpt == null) {
+                            mipokaCustomToast(emptyFieldPrompt("Nama Kegiatan MPT"));
+                          } else if (_periodeMpt == null) {
+                            mipokaCustomToast(emptyFieldPrompt("Periode MPT"));
+                          } else if (_tanggalMulaiController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Tanggal Mulai"));
+                          } else if (_tanggalSelesaiController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Tanggal Selesai"));
+                          } else if (_poinKegiatanController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Poin Kegiatan"));
+                          } else if (poinKegiatan == null) {
+                            mipokaCustomToast(dataTypeFalsePrompt("Poin Kegiatan"));
                           } else {
-                            mipokaCustomToast("Harap lengkapi semua field.");
-                          }
+                            mipokaCustomToast(savingDataMessage);
 
+                            int uniqueId = UniqueIdGenerator.generateUniqueId();
+                            String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
+                            Navigator.pop(
+                              context,
+                              KegiatanPerPeriodeMpt(
+                                idKegiatanPerPeriodeMpt: uniqueId,
+                                namaKegiatanMpt: _namaKegiatanMpt!,
+                                periodeMpt: _periodeMpt!,
+                                tanggalMulaiKegiatanPerPeriodeMpt: _tanggalMulaiController.text,
+                                tanggalSelesaiKegiatanPerPeriodeMpt: _tanggalSelesaiController.text,
+                                pointMptDiperoleh: poinKegiatan,
+                                createdAt: currentDate,
+                                createdBy: user?.email ?? "unknown",
+                                updatedAt: currentDate,
+                                updatedBy: user?.email ?? "unknown",
+                              ),
+                            );
+                          }
                         },
                         text: 'Simpan',
                       ),

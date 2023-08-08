@@ -103,6 +103,7 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                         final sessionList = state.sessionList;
 
                         return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             MipokaCountText(total: sessionList.length),
 
