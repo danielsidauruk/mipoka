@@ -68,7 +68,7 @@ final List<String> years = List.generate(10, (index) =>
     (DateTime.now().year - index).toString(),
 );
 
-const listProdi = ['Teknik Informatika', 'Manajemen', 'Akuntansi', 'Sistem Informatika'];
+const listProdi = ['Teknik Informatika', 'Manajemen', 'Akuntansi', 'Sistem Informasi'];
 const listJumlahPoint = ['Semua', '<= 100', '> 100 <= 200', '> 200',];
 
 // int newId = DateTime.now().microsecondsSinceEpoch;

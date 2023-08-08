@@ -484,6 +484,8 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                               fotoDokumentasiKegiatan: _dokumentasiKegiatanController,
                                               fotoTabulasiHasil: _tabulasiHasilKegiatanController,
                                               fotoFakturPembayaran: _fakturPembayaranController,
+                                              validasiPembina: tertunda,
+                                              statusLaporan: tertunda,
                                             ),
                                           ),
                                         );

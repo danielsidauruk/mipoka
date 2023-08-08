@@ -350,6 +350,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             buildTitle('Nama Ormawa'),
+
+                            usulanKegiatan.mipokaUser.ormawa.isNotEmpty ||  usulanKegiatan.mipokaUser.ormawa != null ?
                             MipokaCustomDropdown(
                               items: ormawaList,
                               initialItem: _ormawa?.namaOrmawa,
@@ -359,7 +361,8 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                                 _ormawa = usulanKegiatan.mipokaUser.ormawa[index];
                               },
-                            ),
+                            ) :
+                            const Center(),
 
                             const CustomFieldSpacer(),
 

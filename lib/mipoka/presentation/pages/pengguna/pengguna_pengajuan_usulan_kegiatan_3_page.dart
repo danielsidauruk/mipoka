@@ -613,6 +613,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                               fotoSuratUndanganKegiatan: _suratUndanganKegiatanController,
                                               fotoLinimasaKegiatan: _linimasaKegiatanController,
                                               fotoTempatKegiatan: _fotoTempatKegiatanController,
+                                              validasiPembina: tertunda,
+                                              statusUsulan: tertunda,
                                               totalBiaya: totalBiaya,
                                               updatedAt: currentDate,
                                               updatedBy: user?.email,

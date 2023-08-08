@@ -39,7 +39,7 @@ class CustomDatePickerField extends StatelessWidget {
                 final date = await showDatePicker(
                   context: context,
                   initialDate: currentValue ?? DateTime.now(),
-                  firstDate: DateTime(1945),
+                  firstDate: DateTime(1900),
                   lastDate: DateTime(2100),
                 );
                 return date;

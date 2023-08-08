@@ -117,7 +117,7 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                       if (state is MipokaUserHasData) {
                         final mipokaUser = state.mipokaUser;
 
-                        if (mipokaUser.ormawa.isNotEmpty){
+                        if (mipokaUser.ormawa.isNotEmpty) {
                           _ormawaList = mipokaUser.ormawa;
                           List<String> namaOrmawaList = _ormawaList.map((ormawa) => ormawa.namaOrmawa).toList();
 

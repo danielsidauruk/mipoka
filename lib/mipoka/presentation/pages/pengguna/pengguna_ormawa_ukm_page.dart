@@ -123,7 +123,6 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                   ),
 
                   StreamBuilder<Ormawa?>(
-                    // initialData: _postinganKegiatanController,
                     stream: _ormawaStream.stream,
                     builder: (context, snapshot) {
                       Ormawa? selectedOrmawa = snapshot.data;
@@ -148,17 +147,14 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
 
                           const CustomFieldSpacer(),
 
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "${selectedOrmawa.namaOrmawa} (${selectedOrmawa.namaSingkatanOrmawa})",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                ),
+                          Center(
+                            child: Text(
+                              "${selectedOrmawa.namaOrmawa} (${selectedOrmawa.namaSingkatanOrmawa})",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
                               ),
-                            ],
+                            ),
                           ),
 
                           const CustomFieldSpacer(),
@@ -172,6 +168,13 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                           ),
                           Text(selectedOrmawa.pembina ?? ""),
 
+                          Image.network(
+                            selectedOrmawa.fotoPembina,
+                            width: 200.0,
+                            height: 200.0,
+                            fit: BoxFit.cover,
+                          ),
+
                           const CustomFieldSpacer(),
 
                           customBoxTitle('Pengurus Inti'),
@@ -183,6 +186,13 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                           ),
                           Text(selectedOrmawa.ketua ?? ""),
 
+                          Image.network(
+                            selectedOrmawa.fotoKetua,
+                            width: 200.0,
+                            height: 200.0,
+                            fit: BoxFit.cover,
+                          ),
+
                           const CustomFieldSpacer(height: 4.0),
 
                           buildTitle(
@@ -190,6 +200,13 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                             titlePadding: 0.0,
                           ),
                           Text(selectedOrmawa.wakil ?? ""),
+
+                          Image.network(
+                            selectedOrmawa.fotoWakil,
+                            width: 200.0,
+                            height: 200.0,
+                            fit: BoxFit.cover,
+                          ),
 
                           const CustomFieldSpacer(height: 4.0),
 
@@ -199,6 +216,13 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                           ),
                           Text(selectedOrmawa.sekretaris ?? ""),
 
+                          Image.network(
+                            selectedOrmawa.fotoSekretaris,
+                            width: 200.0,
+                            height: 200.0,
+                            fit: BoxFit.cover,
+                          ),
+
                           const CustomFieldSpacer(height: 4.0),
 
                           buildTitle(
@@ -206,6 +230,13 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                             titlePadding: 0.0,
                           ),
                           Text(selectedOrmawa.bendahara ?? ""),
+
+                          Image.network(
+                            selectedOrmawa.fotoBendahara,
+                            width: 200.0,
+                            height: 200.0,
+                            fit: BoxFit.cover,
+                          ),
                         ],
                       ) :
                       const Center();

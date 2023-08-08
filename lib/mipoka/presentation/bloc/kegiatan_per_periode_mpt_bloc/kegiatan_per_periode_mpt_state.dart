@@ -38,11 +38,4 @@ class KegiatanPerPeriodeMptHasData extends KegiatanPerPeriodeMptState {
   List<Object> get props => [kegiatanPerPeriodeMpt];
 }
 
-class KegiatanPerPeriodeMptSuccess extends KegiatanPerPeriodeMptState {
-  const KegiatanPerPeriodeMptSuccess({this.message = "Data has changed"});
-
-  final String message;
-
-  @override
-  List<Object> get props => [message];
-}
+class KegiatanPerPeriodeMptSuccess extends KegiatanPerPeriodeMptState {}

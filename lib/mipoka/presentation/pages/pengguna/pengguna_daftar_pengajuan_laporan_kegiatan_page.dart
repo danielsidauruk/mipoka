@@ -208,39 +208,40 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: laporan.statusLaporan == ditolak ?
-                                            InkWell(
-                                              onTap: () {
-                                                Navigator.pushNamed(
-                                                  context,
-                                                  penggunaPengajuanLaporanKegiatanPage1Route,
-                                                  arguments: LaporanArgs(
-                                                    idLaporan: laporan.idLaporan,
-                                                    isRevisiLaporan: true,
-                                                  ),
-                                                ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent()));
-                                              },
-                                              child: Text(
-                                                laporan.usulanKegiatan?.namaKegiatan ?? "",
-                                                style: const TextStyle(color: Colors.red),
-                                              ),
-                                            ) :
-                                            laporan.fileLaporanKegiatan == "" ?
-                                            InkWell(
-                                              onTap: () {
-                                                Navigator.pushNamed(
-                                                  context,
-                                                  penggunaPengajuanLaporanKegiatanPage1Route,
-                                                  arguments: LaporanArgs(
-                                                    idLaporan: laporan.idLaporan,
-                                                  ),
-                                                ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent()));
-                                              },
-                                              child: Text(
-                                                "${laporan.usulanKegiatan?.namaKegiatan ?? ""} (lanjut mengedit)",
-                                                style: const TextStyle(color: Colors.orange),
-                                              ),
-                                            ) :
+                                            child:
+                                            // laporan.statusLaporan == ditolak ?
+                                            // InkWell(
+                                            //   onTap: () {
+                                            //     Navigator.pushNamed(
+                                            //       context,
+                                            //       penggunaPengajuanLaporanKegiatanPage1Route,
+                                            //       arguments: LaporanArgs(
+                                            //         idLaporan: laporan.idLaporan,
+                                            //         isRevisiLaporan: true,
+                                            //       ),
+                                            //     ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent()));
+                                            //   },
+                                            //   child: Text(
+                                            //     laporan.usulanKegiatan?.namaKegiatan ?? "",
+                                            //     style: const TextStyle(color: Colors.red),
+                                            //   ),
+                                            // ) :
+                                            // laporan.fileLaporanKegiatan == "" ?
+                                            // InkWell(
+                                            //   onTap: () {
+                                            //     Navigator.pushNamed(
+                                            //       context,
+                                            //       penggunaPengajuanLaporanKegiatanPage1Route,
+                                            //       arguments: LaporanArgs(
+                                            //         idLaporan: laporan.idLaporan,
+                                            //       ),
+                                            //     ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent()));
+                                            //   },
+                                            //   child: Text(
+                                            //     "${laporan.usulanKegiatan?.namaKegiatan ?? ""} (lanjut mengedit)",
+                                            //     style: const TextStyle(color: Colors.orange),
+                                            //   ),
+                                            // ) :
                                             Text(
                                               laporan.usulanKegiatan?.namaKegiatan ?? "",
                                             ),

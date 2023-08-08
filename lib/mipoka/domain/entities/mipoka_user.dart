@@ -8,14 +8,14 @@ class MipokaUser extends Equatable{
   final String namaLengkap;
   final String nim;
   final String noHp;
-  final String? image;
+  final String image;
   final int pointMpt;
   final int semester;
   final String kelas;
-  final String? periodeMpt;
+  final String periodeMpt;
   final String statusMpt;
   final String prodi;
-  final String? role;
+  final String role;
   final String createdAt;
   final String updatedAt;
   final String createdBy;
@@ -35,7 +35,7 @@ class MipokaUser extends Equatable{
     required this.periodeMpt,
     required this.statusMpt,
     required this.prodi,
-    this.role,
+    required this.role,
     required this.createdAt,
     required this.updatedAt,
     required this.createdBy,

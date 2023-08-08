@@ -97,21 +97,7 @@ class _KemahasiswaanCekUsulanKegiatanPageState
 
                         return Column(
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
-                                  },
-                                  child: const Icon(
-                                    Icons.refresh,
-                                  ),
-                                ),
-                                MipokaCountText(total: usulanKegiatanList.length),
-                              ],
-                            ),
+                            MipokaCountText(total: usulanKegiatanList.length),
 
                             const CustomFieldSpacer(),
 

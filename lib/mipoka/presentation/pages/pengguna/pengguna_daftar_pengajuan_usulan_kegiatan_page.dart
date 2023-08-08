@@ -208,40 +208,42 @@ class _PenggunaDaftarPengajuanKegiatanState
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: usulanKegiatan.statusUsulan == ditolak ?
-                                            InkWell(
-                                              onTap: () {
-                                                Navigator.pushNamed(
-                                                  context,
-                                                  penggunaPengajuanUsulanKegiatanPage1Route,
-                                                  arguments: UsulanArgs(
-                                                    idUsulan: usulanKegiatan.idUsulan,
-                                                    isRevisiUsulan: true,
-                                                  ),
-                                                ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                                  const ReadAllUsulanKegiatanEvent()));
-                                              },
-                                              child: Text(
-                                                usulanKegiatan.namaKegiatan,
-                                                style: const TextStyle(color: Colors.red),
-                                              ),
-                                            ) : usulanKegiatan.fileUsulanKegiatan == "" ?
-                                            InkWell(
-                                              onTap: () {
-                                                Navigator.pushNamed(
-                                                  context,
-                                                  penggunaPengajuanUsulanKegiatanPage1Route,
-                                                  arguments: UsulanArgs(
-                                                    idUsulan: usulanKegiatan.idUsulan,
-                                                  ),
-                                                ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                                    const ReadAllUsulanKegiatanEvent()));
-                                              },
-                                              child: Text(
-                                                "${usulanKegiatan.namaKegiatan} (lanjut mengedit)",
-                                                style: const TextStyle(color: Colors.orange),
-                                              ),
-                                            ) :
+                                            child:
+                                            // usulanKegiatan.statusUsulan == ditolak ?
+                                            // InkWell(
+                                            //   onTap: () {
+                                            //     Navigator.pushNamed(
+                                            //       context,
+                                            //       penggunaPengajuanUsulanKegiatanPage1Route,
+                                            //       arguments: UsulanArgs(
+                                            //         idUsulan: usulanKegiatan.idUsulan,
+                                            //         isRevisiUsulan: true,
+                                            //       ),
+                                            //     ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                            //       const ReadAllUsulanKegiatanEvent()));
+                                            //   },
+                                            //   child: Text(
+                                            //     usulanKegiatan.namaKegiatan,
+                                            //     style: const TextStyle(color: Colors.red),
+                                            //   ),
+                                            // ) :
+                                            // usulanKegiatan.fileUsulanKegiatan == "" ?
+                                            // InkWell(
+                                            //   onTap: () {
+                                            //     Navigator.pushNamed(
+                                            //       context,
+                                            //       penggunaPengajuanUsulanKegiatanPage1Route,
+                                            //       arguments: UsulanArgs(
+                                            //         idUsulan: usulanKegiatan.idUsulan,
+                                            //       ),
+                                            //     ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                            //         const ReadAllUsulanKegiatanEvent()));
+                                            //   },
+                                            //   child: Text(
+                                            //     "${usulanKegiatan.namaKegiatan} (lanjut mengedit)",
+                                            //     style: const TextStyle(color: Colors.orange),
+                                            //   ),
+                                            // ) :
                                             Text(
                                               usulanKegiatan.namaKegiatan,
                                             ),
@@ -346,71 +348,72 @@ class _PenggunaDaftarPengajuanKegiatanState
                       } else if (mipokaUserState is MipokaUserHasData) {
                         final mipokaUser = mipokaUserState.mipokaUser;
 
-                        return mipokaUser.ormawa.isNotEmpty ?
-                        CustomMipokaButton(
-                          onTap: () {
-                            String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                        if (mipokaUser.ormawa.isNotEmpty) {
+                          return CustomMipokaButton(
+                            onTap: () {
+                              String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
-                            context.read<UsulanKegiatanBloc>().add(
-                              CreateUsulanKegiatanEvent(
-                                usulanKegiatan: UsulanKegiatan(
-                                  idUsulan: uniqueId,
-                                  revisiUsulan: null,
-                                  ormawa: mipokaUser.ormawa[0],
-                                  mipokaUser: mipokaUser,
-                                  pembiayaan: "",
-                                  namaKegiatan: "",
-                                  bentukKegiatan: "",
-                                  kategoriBentukKegiatan: "",
-                                  deskripsiKegiatan: "",
-                                  tanggalMulaiKegiatan: "",
-                                  tanggalSelesaiKegiatan: "",
-                                  waktuMulaiKegiatan: "",
-                                  waktuSelesaiKegiatan: "",
-                                  tempatKegiatan: "",
-                                  tanggalKeberangkatan: "",
-                                  tanggalKepulangan: "",
-                                  jumlahPartisipan: "",
-                                  kategoriJumlahPartisipan: "",
-                                  targetKegiatan: "",
-                                  totalPendanaan: "",
-                                  kategoriTotalPendanaan: "",
-                                  keterangan: "",
-                                  tandaTanganOrmawa: "",
-                                  partisipan: const [],
-                                  biayaKegiatan: const [],
-                                  totalBiaya: 0,
-                                  latarBelakang: "",
-                                  tujuanKegiatan: "",
-                                  manfaatKegiatan: "",
-                                  bentukPelaksanaanKegiatan: "",
-                                  targetPencapaianKegiatan: "",
-                                  waktuDanTempatPelaksanaan: "",
-                                  rencanaAnggaranKegiatan: "",
-                                  tertibAcara: const [],
-                                  perlengkapanDanPeralatan: "",
-                                  penutup: "",
-                                  fotoPostinganKegiatan: "",
-                                  fotoSuratUndanganKegiatan: "",
-                                  fotoLinimasaKegiatan: "",
-                                  fotoTempatKegiatan: "",
-                                  fileUsulanKegiatan: "",
-                                  validasiPembina: tertunda,
-                                  tandaTanganPembina: "",
-                                  statusUsulan: tertunda,
-                                  roles: "",
-                                  createdAt: currentDate,
-                                  updatedAt: currentDate,
-                                  createdBy: currentUser?.email ?? "unknown",
-                                  updatedBy: currentUser?.email ?? "unknown",
+                              context.read<UsulanKegiatanBloc>().add(
+                                CreateUsulanKegiatanEvent(
+                                  usulanKegiatan: UsulanKegiatan(
+                                    idUsulan: uniqueId,
+                                    revisiUsulan: null,
+                                    ormawa: mipokaUser.ormawa[0],
+                                    mipokaUser: mipokaUser,
+                                    pembiayaan: "",
+                                    namaKegiatan: "",
+                                    bentukKegiatan: "",
+                                    kategoriBentukKegiatan: "",
+                                    deskripsiKegiatan: "",
+                                    tanggalMulaiKegiatan: "",
+                                    tanggalSelesaiKegiatan: "",
+                                    waktuMulaiKegiatan: "",
+                                    waktuSelesaiKegiatan: "",
+                                    tempatKegiatan: "",
+                                    tanggalKeberangkatan: "",
+                                    tanggalKepulangan: "",
+                                    jumlahPartisipan: "",
+                                    kategoriJumlahPartisipan: "",
+                                    targetKegiatan: "",
+                                    totalPendanaan: "",
+                                    kategoriTotalPendanaan: "",
+                                    keterangan: "",
+                                    tandaTanganOrmawa: "",
+                                    partisipan: const [],
+                                    biayaKegiatan: const [],
+                                    totalBiaya: 0,
+                                    latarBelakang: "",
+                                    tujuanKegiatan: "",
+                                    manfaatKegiatan: "",
+                                    bentukPelaksanaanKegiatan: "",
+                                    targetPencapaianKegiatan: "",
+                                    waktuDanTempatPelaksanaan: "",
+                                    rencanaAnggaranKegiatan: "",
+                                    tertibAcara: const [],
+                                    perlengkapanDanPeralatan: "",
+                                    penutup: "",
+                                    fotoPostinganKegiatan: "",
+                                    fotoSuratUndanganKegiatan: "",
+                                    fotoLinimasaKegiatan: "",
+                                    fotoTempatKegiatan: "",
+                                    fileUsulanKegiatan: "",
+                                    validasiPembina: tertunda,
+                                    tandaTanganPembina: "",
+                                    statusUsulan: tertunda,
+                                    roles: "",
+                                    createdAt: currentDate,
+                                    updatedAt: currentDate,
+                                    createdBy: currentUser?.email ?? "unknown",
+                                    updatedBy: currentUser?.email ?? "unknown",
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                          text: 'Ajukan Kegiatan',
-                        ) :
-                        const SizedBox();
-
+                              );
+                            },
+                            text: 'Ajukan Kegiatan',
+                          );
+                        } else {
+                          return const SizedBox();
+                        }
                       } else if (mipokaUserState is MipokaUserError) {
                         return Text(mipokaUserState.message);
                       } else {

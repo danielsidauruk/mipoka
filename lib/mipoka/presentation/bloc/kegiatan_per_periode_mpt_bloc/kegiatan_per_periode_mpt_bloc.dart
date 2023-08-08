@@ -18,7 +18,7 @@ class KegiatanPerPeriodeMptBloc extends Bloc<KegiatanPerPeriodeMptEvent, Kegiata
 
       result.fold(
             (failure) => emit(KegiatanPerPeriodeMptError(message: failure.message)),
-            (_) => emit(const KegiatanPerPeriodeMptSuccess()),
+            (_) => emit(KegiatanPerPeriodeMptSuccess()),
       );
     });
 
@@ -51,7 +51,7 @@ class KegiatanPerPeriodeMptBloc extends Bloc<KegiatanPerPeriodeMptEvent, Kegiata
 
       result.fold(
             (failure) => emit(KegiatanPerPeriodeMptError(message: failure.message)),
-            (_) => emit(const KegiatanPerPeriodeMptSuccess()),
+            (_) => emit(KegiatanPerPeriodeMptSuccess()),
       );
     });
 
@@ -62,7 +62,7 @@ class KegiatanPerPeriodeMptBloc extends Bloc<KegiatanPerPeriodeMptEvent, Kegiata
 
       result.fold(
             (failure) => emit(KegiatanPerPeriodeMptError(message: failure.message)),
-            (_) => emit(const KegiatanPerPeriodeMptSuccess()),
+            (_) => emit(KegiatanPerPeriodeMptSuccess()),
       );
     });
   }

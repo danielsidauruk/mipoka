@@ -447,11 +447,21 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
 
                         const CustomFieldSpacer(),
 
+                        // CustomMipokaButton(
+                        //   onTap: () {
+                        //     SignatureDialogUtils.showPopup(context, usulanKegiatan, isPop: false);
+                        //   },
+                        //   text: 'Terima',
+                        // ),
                         CustomMipokaButton(
                           onTap: () {
-                            SignatureDialogUtils.showPopup(context, usulanKegiatan, isPop: false);
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              pemeriksaDaftarUsulanKegiatanPageRoute,
+                                  (route) => false,
+                            );
                           },
-                          text: 'Terima',
+                          text: "Selesai",
                         ),
                       ],
                     );

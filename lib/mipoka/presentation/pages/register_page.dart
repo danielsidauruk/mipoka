@@ -237,7 +237,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     namaLengkap: _namaLengkapController.text,
                                     nim: _nimController.text,
                                     noHp: _noHpController.text,
-                                    image: fotoProfilUrl,
+                                    image: fotoProfilUrl ?? "",
                                     pointMpt: 0,
                                     semester: semester,
                                     kelas: _kelasController.text,

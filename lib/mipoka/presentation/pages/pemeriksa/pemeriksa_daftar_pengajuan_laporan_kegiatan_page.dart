@@ -201,14 +201,15 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                               ),
                                             ),
                                           ),
-                                          onTap: () async {
-                                            Navigator.pushNamed(
-                                              context,
-                                              pemeriksaPengajuanLaporanKegiatan1PageRoute,
-                                              arguments: laporan.idLaporan,
-                                            ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent()));
-                                          }
+                                          // onTap: () async {
+                                          //   Navigator.pushNamed(
+                                          //     context,
+                                          //     pemeriksaPengajuanLaporanKegiatan1PageRoute,
+                                          //     arguments: laporan.idLaporan,
+                                          //   ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent()));
+                                          // }
                                         ),
+
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
@@ -223,6 +224,7 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                             arguments: laporan.idLaporan,
                                           ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent())),
                                         ),
+
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,

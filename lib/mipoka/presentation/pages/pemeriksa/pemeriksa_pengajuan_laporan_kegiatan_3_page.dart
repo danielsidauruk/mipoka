@@ -241,19 +241,30 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
 
                             const SizedBox(width: 4.0),
 
+                          //   CustomMipokaButton(
+                          //     onTap: () {
+                          //       mipokaCustomToast("Laporan diterima.");
+                          //
+                          //       context.read<LaporanBloc>().add(
+                          //         UpdateLaporanReviseLastPageEvent(
+                          //           laporan: laporan.copyWith(
+                          //             validasiPembina: disetujui,
+                          //           ),
+                          //         ),
+                          //       );
+                          //     },
+                          //     text: 'Terima',
+                          //   ),
+
                             CustomMipokaButton(
                               onTap: () {
-                                mipokaCustomToast("Laporan diterima.");
-
-                                context.read<LaporanBloc>().add(
-                                  UpdateLaporanReviseLastPageEvent(
-                                    laporan: laporan.copyWith(
-                                      validasiPembina: disetujui,
-                                    ),
-                                  ),
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  pemeriksaDaftarLaporanKegiatanPageRoute,
+                                      (route) => false,
                                 );
                               },
-                              text: 'Terima',
+                              text: "Selesai",
                             ),
                           ],
                         )
