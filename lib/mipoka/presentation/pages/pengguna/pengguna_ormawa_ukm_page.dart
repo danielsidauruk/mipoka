@@ -160,37 +160,62 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                           const CustomFieldSpacer(),
 
                           customBoxTitle('Pembina'),
-                          const CustomFieldSpacer(height: 4.0),
+
+                          const CustomFieldSpacer(height: 8.0),
 
                           buildTitle(
                             'Dosen',
-                            titlePadding: 0.0,
                           ),
-                          Text(selectedOrmawa.pembina ?? ""),
 
-                          Image.network(
-                            selectedOrmawa.fotoPembina,
-                            width: 200.0,
-                            height: 200.0,
-                            fit: BoxFit.cover,
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.white)
+                            ),
+                            padding: const EdgeInsets.all(4.0),
+                            child: Column(
+                              children: [
+                                Image.network(
+                                  selectedOrmawa.fotoPembina,
+                                  width: 200.0,
+                                  height: 200.0,
+                                  fit: BoxFit.cover,
+                                ),
+
+                                const CustomFieldSpacer(height: 4.0),
+
+                                Text(selectedOrmawa.pembina ?? ""),
+                              ],
+                            ),
                           ),
 
                           const CustomFieldSpacer(),
 
                           customBoxTitle('Pengurus Inti'),
-                          const CustomFieldSpacer(height: 4.0),
 
-                          buildTitle(
-                            'Ketua UKM',
-                            titlePadding: 0.0,
-                          ),
-                          Text(selectedOrmawa.ketua ?? ""),
+                          const CustomFieldSpacer(height: 8.0),
 
-                          Image.network(
-                            selectedOrmawa.fotoKetua,
-                            width: 200.0,
-                            height: 200.0,
-                            fit: BoxFit.cover,
+                          buildTitle('Ketua UKM',),
+
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white)
+                            ),
+                            padding: const EdgeInsets.all(4.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.network(
+                                  selectedOrmawa.fotoKetua,
+                                  width: 200.0,
+                                  height: 200.0,
+                                  fit: BoxFit.cover,
+                                ),
+
+                                const CustomFieldSpacer(height: 4.0),
+
+                                Text(selectedOrmawa.ketua),
+                              ],
+                            ),
                           ),
 
                           const CustomFieldSpacer(height: 4.0),
@@ -199,13 +224,27 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                             'Wakil Ketua UKM',
                             titlePadding: 0.0,
                           ),
-                          Text(selectedOrmawa.wakil ?? ""),
 
-                          Image.network(
-                            selectedOrmawa.fotoWakil,
-                            width: 200.0,
-                            height: 200.0,
-                            fit: BoxFit.cover,
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.white)
+                            ),
+                            padding: const EdgeInsets.all(4.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.network(
+                                  selectedOrmawa.fotoWakil,
+                                  width: 200.0,
+                                  height: 200.0,
+                                  fit: BoxFit.cover,
+                                ),
+
+                                const CustomFieldSpacer(height: 4.0),
+
+                                Text(selectedOrmawa.wakil ?? ""),
+                              ],
+                            ),
                           ),
 
                           const CustomFieldSpacer(height: 4.0),
@@ -214,13 +253,27 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                             'Sekretaris UKM',
                             titlePadding: 0.0,
                           ),
-                          Text(selectedOrmawa.sekretaris ?? ""),
 
-                          Image.network(
-                            selectedOrmawa.fotoSekretaris,
-                            width: 200.0,
-                            height: 200.0,
-                            fit: BoxFit.cover,
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.white)
+                            ),
+                            padding: const EdgeInsets.all(4.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.network(
+                                  selectedOrmawa.fotoSekretaris,
+                                  width: 200.0,
+                                  height: 200.0,
+                                  fit: BoxFit.cover,
+                                ),
+
+                                const CustomFieldSpacer(height: 4.0),
+
+                                Text(selectedOrmawa.sekretaris ?? ""),
+                              ],
+                            ),
                           ),
 
                           const CustomFieldSpacer(height: 4.0),
@@ -229,14 +282,29 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                             'Bendahara UKM',
                             titlePadding: 0.0,
                           ),
-                          Text(selectedOrmawa.bendahara ?? ""),
 
-                          Image.network(
-                            selectedOrmawa.fotoBendahara,
-                            width: 200.0,
-                            height: 200.0,
-                            fit: BoxFit.cover,
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.white)
+                            ),
+                            padding: const EdgeInsets.all(4.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.network(
+                                  selectedOrmawa.fotoBendahara,
+                                  width: 200.0,
+                                  height: 200.0,
+                                  fit: BoxFit.cover,
+                                ),
+
+                                const CustomFieldSpacer(height: 4.0,),
+
+                                Text(selectedOrmawa.bendahara ?? ""),
+                              ],
+                            ),
                           ),
+
                         ],
                       ) :
                       const Center();

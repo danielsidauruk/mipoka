@@ -437,24 +437,35 @@ class _KemahasiswaanEditOrmawaEditPageState
                               fotoBendaharaBytes =
                                   fotoBendaharaResult?.files.first.bytes;
                             } else if (Platform.isAndroid) {
-                              logoOrmawaBytes =
-                              await File(logoOrmawaResult!.files.first.path!)
-                                  .readAsBytes();
-                              fotoPembinaBytes =
-                              await File(fotoPembinaResult!.files.first.path!)
-                                  .readAsBytes();
-                              fotoKetuaBytes =
-                              await File(fotoKetuaResult!.files.first.path!)
-                                  .readAsBytes();
-                              fotoWakilKetuaBytes = await File(
-                                  fotoWakilKetuaResult!.files.first.path!)
-                                  .readAsBytes();
-                              fotoSekretarisBytes = await File(
-                                  fotoSekretarisResult!.files.first.path!)
-                                  .readAsBytes();
-                              fotoBendaharaBytes =
-                              await File(fotoBendaharaResult!.files.first.path!)
-                                  .readAsBytes();
+                              if (logoOrmawaResult != null) {
+                                logoOrmawaBytes =
+                                await File(logoOrmawaResult!.files.first.path!)
+                                    .readAsBytes();
+                              }
+
+                              if (fotoPembinaResult != null) {
+                                fotoPembinaBytes =
+                                await File(fotoPembinaResult!.files.first.path!)
+                                    .readAsBytes();
+                              }
+
+                              if (fotoWakilKetuaResult != null) {
+                                fotoWakilKetuaBytes = await File(
+                                    fotoWakilKetuaResult!.files.first.path!)
+                                    .readAsBytes();
+                              }
+
+                              if (fotoSekretarisResult != null) {
+                                fotoSekretarisBytes = await File(
+                                    fotoSekretarisResult!.files.first.path!)
+                                    .readAsBytes();
+                              }
+
+                              if (fotoBendaharaResult != null) {
+                                fotoBendaharaBytes =
+                                await File(fotoBendaharaResult!.files.first.path!)
+                                    .readAsBytes();
+                              }
                             }
 
                             mipokaCustomToast(savingDataMessage);
@@ -520,17 +531,11 @@ class _KemahasiswaanEditOrmawaEditPageState
 
                             String currentDate = DateFormat('dd-MM-yyyy')
                                 .format(DateTime.now());
-                            Set<String> combinedSet = {};
 
                             if (context.mounted) {
                               if (excelResult != null) {
-                                final listAnggota = widget.ormawa.listAnggota;
-                                combinedSet = {...listAnggota, ..._nimList};
-                                _nimList.removeWhere((element) =>
-                                    listAnggota.contains(element));
 
-                                for (var index = 0; index <
-                                    _nimList.length; index++) {
+                                for (var index = 0; index < _nimList.length; index++) {
                                   if (context.mounted) {
                                     context.read<MipokaUserByNimBloc>().add(
                                         ReadMipokaUserByNimEvent(
@@ -544,34 +549,21 @@ class _KemahasiswaanEditOrmawaEditPageState
                                         Navigator.pop(
                                           context,
                                           widget.ormawa.copyWith(
-                                            namaOrmawa: _namaOrmawaController
-                                                .text,
-                                            namaSingkatanOrmawa: _namaSingkatanController
-                                                .text,
+                                            namaOrmawa: _namaOrmawaController.text,
+                                            namaSingkatanOrmawa: _namaSingkatanController.text,
                                             logoOrmawa: _logoUrlController!,
-                                            listAnggota: combinedSet.toList(),
-                                            pembina: _namaPembinaController
-                                                .text,
+                                            listAnggota: _nimList,
+                                            pembina: _namaPembinaController.text,
                                             ketua: _namaKetuaController.text,
-                                            wakil: _namaWakilKetuaController
-                                                .text,
-                                            sekretaris: _namaSekretarisController
-                                                .text,
-                                            bendahara: _namaBendaharaController
-                                                .text,
-                                            jumlahAnggota: combinedSet
-                                                .toList()
-                                                .length,
-                                            fotoPembina: _fotoPembinaUrlController ??
-                                                "",
-                                            fotoKetua: _fotoKetuaUrlController ??
-                                                "",
-                                            fotoWakil: _fotoWakilKetuaUrlController ??
-                                                "",
-                                            fotoSekretaris: _fotoSekretarisUrlController ??
-                                                "",
-                                            fotoBendahara: _fotoBendaharaUrlController ??
-                                                "",
+                                            wakil: _namaWakilKetuaController.text,
+                                            sekretaris: _namaSekretarisController.text,
+                                            bendahara: _namaBendaharaController.text,
+                                            jumlahAnggota: _nimList.length,
+                                            fotoPembina: _fotoPembinaUrlController ?? "",
+                                            fotoKetua: _fotoKetuaUrlController ?? "",
+                                            fotoWakil: _fotoWakilKetuaUrlController ?? "",
+                                            fotoSekretaris: _fotoSekretarisUrlController ?? "",
+                                            fotoBendahara: _fotoBendaharaUrlController ?? "",
                                             updatedBy: currentDate,
                                             updatedAt: user?.email ?? "unknown",
                                           ),
@@ -625,22 +617,22 @@ class _KemahasiswaanEditOrmawaEditPageState
 
                                 final mipokaUser = state.mipokaUser;
 
-                                print("Mipoka User from ${mipokaUser.nim}: ${mipokaUser.ormawa.length - 1}");
-                                if(mipokaUser.ormawa.length - 1 > 2) {
-                                  _nimList.remove(mipokaUser.nim);
-                                  mipokaCustomToast("${mipokaUser.nim} telah memiliki 2 ormawa.");
-                                } else {
-                                  context.read<MipokaUserBloc>().add(
-                                    UpdateMipokaUserEvent(
-                                      mipokaUser: mipokaUser.copyWith(
-                                        ormawa: [
-                                          ...mipokaUser.ormawa,
-                                          widget.ormawa,
-                                        ],
-                                      ),
+                                context.read<MipokaUserBloc>().add(
+                                  UpdateMipokaUserEvent(
+                                    mipokaUser: mipokaUser.copyWith(
+                                      ormawa: [
+                                        ...mipokaUser.ormawa,
+                                        widget.ormawa,
+                                      ],
                                     ),
-                                  );
-                                }
+                                  ),
+                                );
+
+                                mipokaCustomToast(
+                                  "${mipokaUser.namaLengkap} (${mipokaUser.nim}) telah ditambahkan.",
+                                  time: 1,
+                                );
+
                                 return const SizedBox();
                               } else if (state is MipokaUserByNimError){
                                 mipokaCustomToast("MipokaUserByNim ${state.message}");

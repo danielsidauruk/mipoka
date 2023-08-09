@@ -681,25 +681,23 @@ class _KemahasiswaanEditOrmawaTambahPageState
                                 }
                                 return const SizedBox();
                               } else if (state is MipokaUserByNimHasData) {
-
                                 final mipokaUser = state.mipokaUser;
 
-                                print("Mipoka User from ${mipokaUser.nim}: ${mipokaUser.ormawa.length - 1}");
-                                if(mipokaUser.ormawa.length - 1 > 2) {
-                                  _nimList.remove(mipokaUser.nim);
-                                  mipokaCustomToast("${mipokaUser.nim} telah memiliki 2 ormawa.");
-                                } else {
-                                  context.read<MipokaUserBloc>().add(
-                                    UpdateMipokaUserEvent(
-                                      mipokaUser: mipokaUser.copyWith(
-                                        ormawa: [
-                                          ...mipokaUser.ormawa,
-                                          _ormawa!,
-                                        ],
-                                      ),
+                                context.read<MipokaUserBloc>().add(
+                                  UpdateMipokaUserEvent(
+                                    mipokaUser: mipokaUser.copyWith(
+                                      ormawa: [
+                                        ...mipokaUser.ormawa,
+                                        _ormawa!,
+                                      ],
                                     ),
-                                  );
-                                }
+                                  ),
+                                );
+
+                                mipokaCustomToast(
+                                  "${mipokaUser.namaLengkap} (${mipokaUser.nim}) telah ditambahkan.",
+                                  time: 1,
+                                );
                                 return const SizedBox();
                               } else if (state is MipokaUserByNimError){
                                 mipokaCustomToast("MipokaUserByNim ${state.message}");

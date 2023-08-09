@@ -180,7 +180,7 @@ class _KemahasiswaanEditOrmawaPageState
                                           Align(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              ormawa.pembina,
+                                              ormawa.ketua,
                                             ),
                                           ),
                                         ),
