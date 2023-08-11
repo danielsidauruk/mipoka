@@ -17,12 +17,7 @@ class CreateNotifikasiEvent extends NotifikasiEvent {
 }
 
 class ReadAllNotifikasiEvent extends NotifikasiEvent {
-  final String filter;
-
-  const ReadAllNotifikasiEvent({this.filter = "Semua"});
-
-  @override
-  List<Object?> get props => [filter];
+  const ReadAllNotifikasiEvent();
 }
 
 class ReadNotifikasiEvent extends NotifikasiEvent {

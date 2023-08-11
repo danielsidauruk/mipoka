@@ -122,7 +122,7 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
 
                         Navigator.pushNamed(
                           context,
-                          pemeriksaPengajuanUsulanKegiatan2LKPageRoute,
+                          pemeriksaPengajuanUsulanKegiatan2DKPageRoute,
                           arguments: widget.idUsulan,
                         ).then((_) => context.read<UsulanKegiatanBloc>().add(
                             ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.idUsulan)));
@@ -145,6 +145,8 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
                         } else {
                           isLuarKota = true;
                         }
+
+                        print(isLuarKota);
 
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

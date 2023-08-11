@@ -8,8 +8,8 @@ class NotifikasiUseCase {
 
   NotifikasiUseCase({required this.mipokaRepositories});
 
-  Future<Either<Failure, List<Notifikasi>>> readAllNotifikasi(String filter) {
-    return mipokaRepositories.readAllNotifikasi(filter);
+  Future<Either<Failure, List<Notifikasi>>> readAllNotifikasi() {
+    return mipokaRepositories.readAllNotifikasi();
   }
 
   Future<Either<Failure, Notifikasi>> readNotifikasi(int idNotifikasi) {

@@ -157,7 +157,7 @@ abstract class MipokaDataSources {
   Future<void> updateNamaKegiatanMpt(NamaKegiatanMptModel namaKegiatanMptModel);
   Future<void> deleteNamaKegiatanMpt(int idNamaKegiatanMpt);
 
-  Future<List<NotifikasiModel>> readAllNotifikasi(String filter);
+  Future<List<NotifikasiModel>> readAllNotifikasi();
   Future<NotifikasiModel> readNotifikasi(int idNotifikasi);
   Future<void> createNotifikasi(NotifikasiModel notifikasiModel);
   Future<void> updateNotifikasi(NotifikasiModel notifikasiModel);
@@ -183,6 +183,7 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   static const String mhsPerPeriodePath = "/mhs_per_periode_mpt";
   static const String namaKegiatanMptPath = "/nama_kegiatan_mpt";
   static const String revisiUsulanPath = "/revisi_usulan";
+  static const String notifikasiPath = "/notifikasi";
 
   @override
   Future<void> createBerita(BeritaModel beritaModel) async {
@@ -1482,7 +1483,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   Future<UsulanKegiatanModel> readUsulanKegiatan(int idUsulanKegiatan) async {
     try {
       final response = await DioUtil().dio.get("$usulanPath/$idUsulanKegiatan");
-      print(response.data);
       final result = UsulanKegiatanModel.fromJson(response.data);
 
       return result;
@@ -1683,50 +1683,102 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
   // * => Notifikasi DataSources
   @override
   Future<void> createNotifikasi(NotifikasiModel notifikasiModel) async {
-    if (kDebugMode) {
-      print(notifikasiModel.toJson());
+    try {
+      final response = await DioUtil().dio.post(
+        notifikasiPath,
+        data: notifikasiModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Future<void> deleteNotifikasi(int idNotifikasi) async {
-    if (kDebugMode) {
-      print("Notifikasi with id $idNotifikasi has been deleted.");
+    try {
+      final response = await DioUtil().dio.delete(
+        '$notifikasiPath/$idNotifikasi',
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
-  Future<List<NotifikasiModel>> readAllNotifikasi(String filter) async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/notifikasi_list.json');
-    List<dynamic> resultList = json.decode(response);
+  Future<List<NotifikasiModel>> readAllNotifikasi() async {
+    try {
+      final response = await DioUtil().dio.get(notifikasiPath);
+      List<dynamic> resultList = response.data;
 
-    List<NotifikasiModel> result =
-    resultList.map((resultMap) => NotifikasiModel.fromJson(resultMap))
-        .toList();
+      print(resultList);
 
-    if (kDebugMode) {
-      print(filter);
+      List<NotifikasiModel> result = resultList
+          .map((resultMap) => NotifikasiModel.fromJson(resultMap))
+          .toList();
+
+      return result;
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return [];
     }
 
-    return result;
+    // final String response =
+    // await rootBundle.loadString('assets/json_file/notifikasi_list.json');
+    // List<dynamic> resultList = json.decode(response);
+    //
+    // List<NotifikasiModel> result =
+    // resultList.map((resultMap) => NotifikasiModel.fromJson(resultMap))
+    //     .toList();
+    //
+    // if (kDebugMode) {
+    //   print(filter);
+    // }
+    //
+    // return result;
   }
 
   @override
   Future<NotifikasiModel> readNotifikasi(int idNotifikasi) async {
-    final String response =
-    await rootBundle.loadString('assets/json_file/notifikasi.json');
-    dynamic jsonDecode = json.decode(response);
+    try {
+      final response = await DioUtil().dio.get("$notifikasiPath/$idNotifikasi");
+      print(response.data);
+      final result = NotifikasiModel.fromJson(response.data);
 
-    NotifikasiModel result = NotifikasiModel.fromJson(jsonDecode);
-
-    return result;
+      return result;
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
+    }
   }
 
   @override
   Future<void> updateNotifikasi(NotifikasiModel notifikasiModel) async {
-    if (kDebugMode) {
-      print(notifikasiModel.toJson());
+    try {
+      final response = await DioUtil().dio.put(
+        '$namaKegiatanMptPath/${notifikasiModel.idNotifikasi}',
+        data: notifikasiModel.toJson(),
+      );
+      if (kDebugMode) {
+        print(response.data);
+      }
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 }

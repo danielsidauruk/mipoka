@@ -15,6 +15,9 @@ import 'package:mipoka/domain/utils/dio_util.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
+import 'package:mipoka/mipoka/domain/entities/notifikasi.dart';
+import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
+import 'package:mipoka/mipoka/presentation/bloc/notifikasi_bloc/notifikasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -76,6 +79,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
   Uint8List? fotoTempatKegiatanBytes;
 
   User? user = FirebaseAuth.instance.currentUser;
+
+  UsulanKegiatan? updatedUsulanKegiatan;
 
   @override
   void initState() {
@@ -162,7 +167,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         Navigator.pop(context, true);
 
                       } else if (state is SaveAndSendLastPageSuccess) {
-
                         Navigator.pushNamedAndRemoveUntil(
                           context,
                           penggunaDaftarPengajuanKegiatanPageRoute,
@@ -517,7 +521,45 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                       int totalBiaya = usulanKegiatan.biayaKegiatan.fold(0, (sum, biayaKegiatan) => sum + biayaKegiatan.total);
                                       String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
+                                      updatedUsulanKegiatan = usulanKegiatan.copyWith(
+                                        latarBelakang: _latarBelakangController.text,
+                                        tujuanKegiatan: _tujuanKegiatanController.text,
+                                        manfaatKegiatan: _manfaatKegiatanController.text,
+                                        bentukPelaksanaanKegiatan: _bentukPelaksanaanKegiatanController.text,
+                                        targetPencapaianKegiatan: _targetPencapaianKegiatanController.text,
+                                        waktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
+                                        rencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
+                                        perlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
+                                        penutup: _penutupController.text,
+                                        fotoPostinganKegiatan: _postinganKegiatanController,
+                                        fotoSuratUndanganKegiatan: _suratUndanganKegiatanController,
+                                        fotoLinimasaKegiatan: _linimasaKegiatanController,
+                                        fotoTempatKegiatan: _fotoTempatKegiatanController,
+                                        validasiPembina: tertunda,
+                                        statusUsulan: tertunda,
+                                        totalBiaya: totalBiaya,
+                                        updatedAt: currentDate,
+                                        updatedBy: user?.email,
+                                      );
+
                                       if (context.mounted) {
+                                        int uniqueId = UniqueIdGenerator.generateUniqueId();
+
+                                        context.read<NotifikasiBloc>().add(
+                                          CreateNotifikasiEvent(
+                                            notifikasi: Notifikasi(
+                                              idNotifikasi: uniqueId,
+                                              teksNotifikasi: "${usulanKegiatan.mipokaUser.namaLengkap} telah melakukan pengajuan Usulan Kegiatan",
+                                              tglNotifikasi: DateTime.now().toString(),
+                                              createdAt: currentDate,
+                                              createdBy: user?.email ?? "unknown",
+                                              updatedAt: currentDate,
+                                              updatedBy: user?.email ?? "unknown",
+                                            ),
+                                          ),
+                                        );
+
+                                        await Future.delayed(const Duration(seconds: 1));
                                         context.read<UsulanKegiatanBloc>().add(
                                           SaveAndSendLastPageEvent(
                                             usulanKegiatan: usulanKegiatan.copyWith(
@@ -560,6 +602,21 @@ class _PenggunaPengajuanUsulanKegiatan3State
                       }
                     },
                   ),
+
+                  // BlocListener<NotifikasiBloc, NotifikasiState>(
+                  //   listenWhen: (prev, current) =>
+                  //   prev.runtimeType != current.runtimeType,
+                  //   listener: (context, state) {
+                  //     if(state is NotifikasiSuccess) {
+                  //       context.read<UsulanKegiatanBloc>().add(
+                  //         SaveAndSendLastPageEvent(
+                  //           usulanKegiatan: updatedUsulanKegiatan!,
+                  //         ),
+                  //       );
+                  //     }
+                  //   },
+                  //   child: const SizedBox(),
+                  // ),
                 ],
               ),
             ],

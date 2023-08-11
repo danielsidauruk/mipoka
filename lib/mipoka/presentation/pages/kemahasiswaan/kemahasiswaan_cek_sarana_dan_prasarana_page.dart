@@ -235,13 +235,21 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                             url: session.fileSession,
                                             fileName: getFileNameFromUrl(session.fileSession),
                                           ),
+                                          session.fileSession.contains(".pdf") ?
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/pdf.png',
+                                              width: 24,
+                                            ),
+                                          ) :
                                           Align(
                                             alignment: Alignment.center,
                                             child: Image.asset(
                                               'assets/icons/word.png',
                                               width: 24,
                                             ),
-                                          ),
+                                          )
                                         ),
 
                                         DataCell(

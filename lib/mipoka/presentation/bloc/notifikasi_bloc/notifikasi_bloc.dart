@@ -18,14 +18,14 @@ class NotifikasiBloc extends Bloc<NotifikasiEvent, NotifikasiState> {
 
       result.fold(
             (failure) => emit(NotifikasiError(message: failure.message)),
-            (_) => emit(const NotifikasiSuccessMessage()),
+            (_) => emit(NotifikasiSuccess()),
       );
     });
 
     on<ReadAllNotifikasiEvent>((event, emit) async {
       emit(NotifikasiLoading());
 
-      final result = await notifikasiUseCase.readAllNotifikasi(event.filter);
+      final result = await notifikasiUseCase.readAllNotifikasi();
 
       result.fold(
             (failure) => emit(NotifikasiError(message: failure.message)),
@@ -51,7 +51,7 @@ class NotifikasiBloc extends Bloc<NotifikasiEvent, NotifikasiState> {
 
       result.fold(
             (failure) => emit(NotifikasiError(message: failure.message)),
-            (_) => emit(const NotifikasiSuccessMessage()),
+            (_) => emit(NotifikasiSuccess()),
       );
     });
 
@@ -62,7 +62,7 @@ class NotifikasiBloc extends Bloc<NotifikasiEvent, NotifikasiState> {
 
       result.fold(
             (failure) => emit(NotifikasiError(message: failure.message)),
-            (_) => emit(const NotifikasiSuccessMessage()),
+            (_) => emit(NotifikasiSuccess()),
       );
     });
   }

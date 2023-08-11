@@ -38,11 +38,4 @@ class NotifikasiHasData extends NotifikasiState {
   List<Object> get props => [notifikasi];
 }
 
-class NotifikasiSuccessMessage extends NotifikasiState {
-  const NotifikasiSuccessMessage({this.message = "Data has changed"});
-
-  final String message;
-
-  @override
-  List<Object> get props => [message];
-}
+class NotifikasiSuccess extends NotifikasiState {}

@@ -153,7 +153,7 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                   //   ),
                   // ),
 
-                  const CustomFieldSpacer(),
+                  // const CustomFieldSpacer(),
 
                   BlocBuilder<PrestasiBloc, PrestasiState>(
                     builder: (context, state) {
@@ -163,6 +163,7 @@ class _PenggunaPrestasiPageState extends State<PenggunaPrestasiPage> {
                         final prestasiList = state.prestasiList;
 
                         return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             MipokaCountText(total: prestasiList.length),
 

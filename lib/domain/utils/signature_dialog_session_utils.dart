@@ -35,7 +35,7 @@ class SignatureDialogUtils {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               const Text(
-                'Tanda Tangan Pembina',
+                'Tanda Tangan Kemahasiswaan',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -149,9 +149,9 @@ class SignatureDialogUtils {
       );
 
       // Future.delayed(const Duration(seconds: 2));
-      mipokaCustomToast("Sarana dan Prasarana disetujui.");
-
       Navigator.pop(context);
+
+      mipokaCustomToast("Sarana dan Prasarana disetujui.");
     }
   }
 }

@@ -975,9 +975,9 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
   @override
-  Future<Either<Failure, List<Notifikasi>>> readAllNotifikasi(String filter) async {
+  Future<Either<Failure, List<Notifikasi>>> readAllNotifikasi() async {
     try {
-      return Right(await mipokaDataSources.readAllNotifikasi(filter));
+      return Right(await mipokaDataSources.readAllNotifikasi());
     } on ServerException {
       return const Left(ServerFailure());
     }

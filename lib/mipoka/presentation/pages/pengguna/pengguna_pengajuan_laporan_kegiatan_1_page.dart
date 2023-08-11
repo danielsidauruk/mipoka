@@ -209,6 +209,26 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
                                           rincianBiayaKegiatan.add(rincian);
                                         });
+                                      } else {
+                                        int uniqueId = UniqueIdGenerator.generateUniqueId();
+
+                                        RincianBiayaKegiatan rincian = RincianBiayaKegiatan(
+                                          idRincianBiayaKegiatan: uniqueId,
+                                          namaBiaya: "-",
+                                          keterangan: "-",
+                                          laporan: "",
+                                          kuantitas: 0,
+                                          hargaSatuan: 0,
+                                          usulanAnggaran: 0,
+                                          realisasiAnggaran: 0,
+                                          selisih: 0,
+                                          createdAt: currentDate,
+                                          createdBy: user?.email ?? "unknown",
+                                          updatedAt: currentDate,
+                                          updatedBy: user?.email ?? "unknown",
+                                        );
+
+                                        rincianBiayaKegiatan.add(rincian);
                                       }
 
                                       context.read<LaporanBloc>().add(
