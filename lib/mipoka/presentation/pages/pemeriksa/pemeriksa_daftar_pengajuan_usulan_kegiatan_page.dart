@@ -11,8 +11,10 @@ import 'package:mipoka/domain/utils/signature_dialog_utils.dart';
 import 'package:mipoka/domain/utils/to_snake_case.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/domain/utils/url_utils.dart';
+import 'package:mipoka/mipoka/domain/entities/notifikasi.dart';
 import 'package:mipoka/mipoka/domain/entities/revisi_usulan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/notifikasi_bloc/notifikasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/revisi_usulan_bloc/revisi_usulan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -318,7 +320,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                           SignatureDialogUtils.showPopup(
                                                             context,
                                                             usulanKegiatan.copyWith(
-                                                                revisiUsulan: revisiUsulan
+                                                              revisiUsulan: revisiUsulan,
                                                             ),
                                                           );
                                                         },
@@ -328,16 +330,36 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                         ),
                                                       ),
                                                       InkWell(
-                                                        onTap: () {
-                                                          context.read<UsulanKegiatanBloc>().add(
-                                                            UpdateUsulanKegiatanEvent(
-                                                              usulanKegiatan: usulanKegiatan.copyWith(
-                                                                // revisiUsulan: revisiUsulan,
-                                                                validasiPembina: ditolak,
-                                                                statusUsulan: ditolak,
+                                                        onTap: () async {
+                                                          if(context.mounted) {
+                                                            context.read<NotifikasiBloc>().add(
+                                                              CreateNotifikasiEvent(
+                                                                notifikasi: Notifikasi(
+                                                                  idNotifikasi: uniqueId,
+                                                                  teksNotifikasi: "${state.mipokaUser.namaLengkap} telah menolak usulan kegiatan berjudul ${usulanKegiatan.namaKegiatan}",
+                                                                  tglNotifikasi: DateTime.now().toString(),
+                                                                  createdAt: currentDate,
+                                                                  createdBy: user?.email ?? "unknown",
+                                                                  updatedAt: currentDate,
+                                                                  updatedBy: user?.email ?? "unknown",
+                                                                ),
                                                               ),
-                                                            ),
-                                                          );
+                                                            );
+                                                          }
+
+                                                          await Future.delayed(const Duration(milliseconds: 500));
+
+                                                          if (context.mounted) {
+                                                            context.read<UsulanKegiatanBloc>().add(
+                                                              UpdateUsulanKegiatanEvent(
+                                                                usulanKegiatan: usulanKegiatan.copyWith(
+                                                                  // revisiUsulan: revisiUsulan,
+                                                                  validasiPembina: ditolak,
+                                                                  statusUsulan: ditolak,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
                                                           mipokaCustomToast("Usulan Kegiatan telah ditolak");
                                                         },
                                                         child: Image.asset(

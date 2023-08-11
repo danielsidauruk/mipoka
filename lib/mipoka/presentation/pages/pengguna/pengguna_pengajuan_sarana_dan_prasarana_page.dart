@@ -10,9 +10,11 @@ import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/domain/entities/mipoka_user.dart';
+import 'package:mipoka/mipoka/domain/entities/notifikasi.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/domain/entities/session.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/notifikasi_bloc/notifikasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
@@ -302,7 +304,7 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                                   const SizedBox(width: 8.0),
 
                                   CustomMipokaButton(
-                                    onTap: () {
+                                    onTap: () async {
                                       final proyektorLcd = int.tryParse(_proyektorLcdController.text);
                                       final laptop = int.tryParse(_laptopController.text);
                                       final mikrofon = int.tryParse(_mikrofonController.text);
@@ -355,37 +357,57 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                                           _lainController.text = "-";
                                         }
 
-                                        Navigator.pop(
-                                          context,
-                                          Session(
-                                            idSession: uniqueId,
-                                            ormawa: _ormawa,
-                                            mipokaUser: mipokaUser,
-                                            tanggalMulai: _tanggalMulaiController.text,
-                                            tanggalSelesai: _tanggalSelesaiController.text,
-                                            gedung: _gedungController.text,
-                                            ruang: _ruangController.text,
-                                            waktuMulaiPenggunaan: _waktuMulaiController.text,
-                                            waktuSelesaiPenggunaan: _waktuSelesaiController.text,
-                                            kegiatan: _kegiatanController.text,
-                                            proyektor: proyektorLcd ?? 0,
-                                            laptop: laptop ?? 0,
-                                            mikrofon: mikrofon ?? 0,
-                                            speaker: speaker ?? 0,
-                                            meja: meja ?? 0,
-                                            kursi: kursi ?? 0,
-                                            papanTulis: papanTulis ?? 0,
-                                            spidol: spidol ?? 0,
-                                            status: tertunda,
-                                            tandaTanganSA: "",
-                                            fileSession: "",
-                                            lainLain: _lainController.text,
-                                            createdAt: currentDate,
-                                            createdBy: user?.email ?? "unknown",
-                                            updatedAt: currentDate,
-                                            updatedBy: user?.email ?? "unknown",
-                                          ),
-                                        );
+                                        if(context.mounted) {
+                                          context.read<NotifikasiBloc>().add(
+                                            CreateNotifikasiEvent(
+                                              notifikasi: Notifikasi(
+                                                idNotifikasi: uniqueId,
+                                                teksNotifikasi: "${mipokaUser.namaLengkap} telah melakukan pengajuan Sarana & Prasarana Kegiatan",
+                                                tglNotifikasi: DateTime.now().toString(),
+                                                createdAt: currentDate,
+                                                createdBy: user?.email ?? "unknown",
+                                                updatedAt: currentDate,
+                                                updatedBy: user?.email ?? "unknown",
+                                              ),
+                                            ),
+                                          );
+                                        }
+
+                                        await Future.delayed(const Duration(seconds: 1));
+
+                                        if (context.mounted) {
+                                          Navigator.pop(
+                                            context,
+                                            Session(
+                                              idSession: uniqueId,
+                                              ormawa: _ormawa,
+                                              mipokaUser: mipokaUser,
+                                              tanggalMulai: _tanggalMulaiController.text,
+                                              tanggalSelesai: _tanggalSelesaiController.text,
+                                              gedung: _gedungController.text,
+                                              ruang: _ruangController.text,
+                                              waktuMulaiPenggunaan: _waktuMulaiController.text,
+                                              waktuSelesaiPenggunaan: _waktuSelesaiController.text,
+                                              kegiatan: _kegiatanController.text,
+                                              proyektor: proyektorLcd ?? 0,
+                                              laptop: laptop ?? 0,
+                                              mikrofon: mikrofon ?? 0,
+                                              speaker: speaker ?? 0,
+                                              meja: meja ?? 0,
+                                              kursi: kursi ?? 0,
+                                              papanTulis: papanTulis ?? 0,
+                                              spidol: spidol ?? 0,
+                                              status: tertunda,
+                                              tandaTanganSA: "",
+                                              fileSession: "",
+                                              lainLain: _lainController.text,
+                                              createdAt: currentDate,
+                                              createdBy: user?.email ?? "unknown",
+                                              updatedAt: currentDate,
+                                              updatedBy: user?.email ?? "unknown",
+                                            ),
+                                          );
+                                        }
                                       }
                                     },
                                     text: 'Kirim',

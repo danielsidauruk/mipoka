@@ -72,12 +72,16 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
                           shrinkWrap: true,
                           itemCount: notifikasiList.length,
                           itemBuilder: (context, index) {
-                            return CustomNotifikasiTile(
-                              text: notifikasiList[index].teksNotifikasi,
-                              time: formatNotificationDate(notifikasiList[index].tglNotifikasi),
+                            return Container(
+                              margin: const EdgeInsets.symmetric(vertical: 8.0),
+                              child: CustomNotifikasiTile(
+                                text: notifikasiList[index].teksNotifikasi,
+                                time: formatNotificationDate(notifikasiList[index].tglNotifikasi),
+                              ),
                             );
                           },
                         );
+
                       } else if (state is NotifikasiError) {
                         mipokaCustomToast(state.message);
                         return const SizedBox();

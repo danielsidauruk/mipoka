@@ -167,6 +167,8 @@ class _PenggunaPengajuanUsulanKegiatan3State
                         Navigator.pop(context, true);
 
                       } else if (state is SaveAndSendLastPageSuccess) {
+                        mipokaCustomToast("Usulan Kegiatan telah dikirim");
+
                         Navigator.pushNamedAndRemoveUntil(
                           context,
                           penggunaDaftarPengajuanKegiatanPageRoute,
@@ -560,32 +562,32 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                         );
 
                                         await Future.delayed(const Duration(seconds: 1));
-                                        context.read<UsulanKegiatanBloc>().add(
-                                          SaveAndSendLastPageEvent(
-                                            usulanKegiatan: usulanKegiatan.copyWith(
-                                              latarBelakang: _latarBelakangController.text,
-                                              tujuanKegiatan: _tujuanKegiatanController.text,
-                                              manfaatKegiatan: _manfaatKegiatanController.text,
-                                              bentukPelaksanaanKegiatan: _bentukPelaksanaanKegiatanController.text,
-                                              targetPencapaianKegiatan: _targetPencapaianKegiatanController.text,
-                                              waktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
-                                              rencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
-                                              perlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
-                                              penutup: _penutupController.text,
-                                              fotoPostinganKegiatan: _postinganKegiatanController,
-                                              fotoSuratUndanganKegiatan: _suratUndanganKegiatanController,
-                                              fotoLinimasaKegiatan: _linimasaKegiatanController,
-                                              fotoTempatKegiatan: _fotoTempatKegiatanController,
-                                              validasiPembina: tertunda,
-                                              statusUsulan: tertunda,
-                                              totalBiaya: totalBiaya,
-                                              updatedAt: currentDate,
-                                              updatedBy: user?.email,
+                                        if(context.mounted) {
+                                          context.read<UsulanKegiatanBloc>().add(
+                                            SaveAndSendLastPageEvent(
+                                              usulanKegiatan: usulanKegiatan.copyWith(
+                                                latarBelakang: _latarBelakangController.text,
+                                                tujuanKegiatan: _tujuanKegiatanController.text,
+                                                manfaatKegiatan: _manfaatKegiatanController.text,
+                                                bentukPelaksanaanKegiatan: _bentukPelaksanaanKegiatanController.text,
+                                                targetPencapaianKegiatan: _targetPencapaianKegiatanController.text,
+                                                waktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
+                                                rencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
+                                                perlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
+                                                penutup: _penutupController.text,
+                                                fotoPostinganKegiatan: _postinganKegiatanController,
+                                                fotoSuratUndanganKegiatan: _suratUndanganKegiatanController,
+                                                fotoLinimasaKegiatan: _linimasaKegiatanController,
+                                                fotoTempatKegiatan: _fotoTempatKegiatanController,
+                                                validasiPembina: tertunda,
+                                                statusUsulan: tertunda,
+                                                totalBiaya: totalBiaya,
+                                                updatedAt: currentDate,
+                                                updatedBy: user?.email,
+                                              ),
                                             ),
-                                          ),
-                                        );
-
-                                        mipokaCustomToast("Usulan Kegiatan telah dikirim");
+                                          );
+                                        }
                                       }
                                     }
                                   },

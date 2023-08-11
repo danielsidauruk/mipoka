@@ -4,6 +4,8 @@ import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/mipoka/domain/entities/notifikasi.dart';
+import 'package:mipoka/mipoka/presentation/bloc/notifikasi_bloc/notifikasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
 import 'package:universal_io/io.dart';
 import 'package:file_picker/file_picker.dart';
@@ -250,24 +252,42 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                                 int uniqueId = UniqueIdGenerator.generateUniqueId();
                                                 String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
-                                                Navigator.pop(
-                                                  context,
-                                                  RiwayatKegiatanMpt(
-                                                    kegiatanPerPeriodeMpt: widget.kegiatanPerPeriodeMpt,
-                                                    idRiwayatKegiatanMpt: uniqueId,
-                                                    mipokaUser: state.mipokaUser,
-                                                    statusMpt: tertunda,
-                                                    fileSertifikatMpt: _fileSertifikatMptController.text,
-                                                    hash: _shaController.text,
-                                                    keteranganMhs: _keteranganController.text,
-                                                    keteranganSa: tertunda,
-                                                    createdAt: currentDate,
-                                                    createdBy: user?.email ?? "unknown",
-                                                    updatedAt: currentDate,
-                                                    updatedBy: user?.email ?? "unknown",
-                                                  ),
-                                                );
+                                                if(context.mounted) {
+                                                  context.read<NotifikasiBloc>().add(
+                                                    CreateNotifikasiEvent(
+                                                      notifikasi: Notifikasi(
+                                                        idNotifikasi: uniqueId,
+                                                        teksNotifikasi: "${state.mipokaUser.namaLengkap} telah mengunggah bukti MPT",
+                                                        tglNotifikasi: DateTime.now().toString(),
+                                                        createdAt: currentDate,
+                                                        createdBy: user?.email ?? "unknown",
+                                                        updatedAt: currentDate,
+                                                        updatedBy: user?.email ?? "unknown",
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
 
+                                                await Future.delayed(const Duration(seconds: 1));
+                                                if(context.mounted) {
+                                                  Navigator.pop(
+                                                    context,
+                                                    RiwayatKegiatanMpt(
+                                                      kegiatanPerPeriodeMpt: widget.kegiatanPerPeriodeMpt,
+                                                      idRiwayatKegiatanMpt: uniqueId,
+                                                      mipokaUser: state.mipokaUser,
+                                                      statusMpt: tertunda,
+                                                      fileSertifikatMpt: _fileSertifikatMptController.text,
+                                                      hash: _shaController.text,
+                                                      keteranganMhs: _keteranganController.text,
+                                                      keteranganSa: tertunda,
+                                                      createdAt: currentDate,
+                                                      createdBy: user?.email ?? "unknown",
+                                                      updatedAt: currentDate,
+                                                      updatedBy: user?.email ?? "unknown",
+                                                    ),
+                                                  );
+                                                }
                                               }
                                             }
                                           } else {

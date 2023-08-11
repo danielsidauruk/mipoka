@@ -1,15 +1,19 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/mipoka/domain/entities/notifikasi.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/notifikasi_bloc/notifikasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
@@ -64,11 +68,12 @@ class _PenggunaPengajuanLaporanKegiatan3State
   FilePickerResult? _tabulasiHasilKegiatanResult;
   FilePickerResult? _fakturPembayaranResult;
 
-
   final StreamController<String?> _postinganKegiatanStream = StreamController<String?>.broadcast();
   final StreamController<String?> _dokumentasiKegiatanStream = StreamController<String?>.broadcast();
   final StreamController<String?> _tabulasiHasilKegiatanStream = StreamController<String?>.broadcast();
   final StreamController<String?> _fakturPembayaranStream = StreamController<String?>.broadcast();
+
+  User? user = FirebaseAuth.instance.currentUser;
 
 
   @override
@@ -471,6 +476,27 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                           _fakturPembayaranController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
                                         }
                                       }
+
+                                      int uniqueId = UniqueIdGenerator.generateUniqueId();
+                                      String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
+                                      if(context.mounted) {
+                                        context.read<NotifikasiBloc>().add(
+                                          CreateNotifikasiEvent(
+                                            notifikasi: Notifikasi(
+                                              idNotifikasi: uniqueId,
+                                              teksNotifikasi: "${laporan.usulanKegiatan?.mipokaUser.namaLengkap} telah melakukan pengajuan Laporan Kegiatan",
+                                              tglNotifikasi: DateTime.now().toString(),
+                                              createdAt: currentDate,
+                                              createdBy: user?.email ?? "unknown",
+                                              updatedAt: currentDate,
+                                              updatedBy: user?.email ?? "unknown",
+                                            ),
+                                          ),
+                                        );
+                                      }
+
+                                      await Future.delayed(const Duration(seconds: 1));
 
                                       if (context.mounted) {
                                         mipokaCustomToast(savingDataMessage);

@@ -1,12 +1,16 @@
 import 'dart:ui' as ui;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/mipoka/domain/entities/notifikasi.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
+import 'package:mipoka/mipoka/presentation/bloc/notifikasi_bloc/notifikasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
@@ -144,6 +148,26 @@ class SignatureDialogUtils {
     //   ),
     // );
 
+    if(context.mounted) {
+      String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+      User? user = FirebaseAuth.instance.currentUser;
+
+      context.read<NotifikasiBloc>().add(
+        CreateNotifikasiEvent(
+          notifikasi: Notifikasi(
+            idNotifikasi: uniqueId,
+            teksNotifikasi: "${usulanKegiatan.revisiUsulan?.mipokaUser.namaLengkap} (pembina) telah menerima usulan kegiatan berjudul ${usulanKegiatan.namaKegiatan}",
+            tglNotifikasi: DateTime.now().toString(),
+            createdAt: currentDate,
+            createdBy: user?.email ?? "unknown",
+            updatedAt: currentDate,
+            updatedBy: user?.email ?? "unknown",
+          ),
+        ),
+      );
+    }
+
+    await Future.delayed(const Duration(milliseconds: 500));
     if(context.mounted) {
       context.read<UsulanKegiatanBloc>().add(
         UpdateUsulanKegiatanEvent(
