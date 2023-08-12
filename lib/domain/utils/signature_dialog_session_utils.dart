@@ -1,14 +1,18 @@
 import 'dart:ui' as ui;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/mipoka/data/models/usulan_kegiatan_model.dart';
+import 'package:mipoka/mipoka/domain/entities/notifikasi.dart';
 import 'package:mipoka/mipoka/domain/entities/session.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
+import 'package:mipoka/mipoka/presentation/bloc/notifikasi_bloc/notifikasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_beranda_tambah_berita.dart';
@@ -138,6 +142,27 @@ class SignatureDialogUtils {
     mipokaCustomToast("Menyimpan data ...");
     tandaTangan = await uploadBytesToFirebase(data!, "signature$uniqueId.png");
 
+    String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (context.mounted) {
+      int uniqueId = UniqueIdGenerator.generateUniqueId();
+      context.read<NotifikasiBloc>().add(
+        CreateNotifikasiEvent(
+          notifikasi: Notifikasi(
+            idNotifikasi: uniqueId,
+            teksNotifikasi: "Kemahasiswaan telah menerima Pengajuan Peminjaman Sarana & Prasarana yang diajukan oleh ${session.mipokaUser.namaLengkap}",
+            tglNotifikasi: DateTime.now().toString(),
+            createdAt: currentDate,
+            createdBy: user?.email ?? "unknown",
+            updatedAt: currentDate,
+            updatedBy: user?.email ?? "unknown",
+          ),
+        ),
+      );
+    }
+
+    await Future.delayed(const Duration(milliseconds: 500));
     if(context.mounted) {
       context.read<SessionBloc>().add(
         UpdateSessionEvent(
@@ -148,7 +173,6 @@ class SignatureDialogUtils {
         ),
       );
 
-      // Future.delayed(const Duration(seconds: 2));
       Navigator.pop(context);
 
       mipokaCustomToast("Sarana dan Prasarana disetujui.");

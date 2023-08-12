@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -7,8 +8,11 @@ import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/format_date_indonesia.dart';
 import 'package:mipoka/domain/utils/signature_dialog_session_utils.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/domain/utils/url_utils.dart';
+import 'package:mipoka/mipoka/domain/entities/notifikasi.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/notifikasi_bloc/notifikasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/session/session_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -270,15 +274,37 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                               const SizedBox(width: 8.0,),
 
                                               InkWell(
-                                                onTap: () {
-                                                  context.read<SessionBloc>().add(
-                                                    UpdateSessionEvent(
-                                                      session: session.copyWith(
-                                                        status: ditolak,
-                                                      ),
-                                                    ),
-                                                  );
+                                                onTap: () async {
+                                                  String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                                                  User? user = FirebaseAuth.instance.currentUser;
 
+                                                  if (context.mounted) {
+                                                    int uniqueId = UniqueIdGenerator.generateUniqueId();
+                                                    context.read<NotifikasiBloc>().add(
+                                                      CreateNotifikasiEvent(
+                                                        notifikasi: Notifikasi(
+                                                          idNotifikasi: uniqueId,
+                                                          teksNotifikasi: "Kemahasiswaan telah menolak Pengajuan Peminjaman Sarana & Prasarana yang diajukan oleh ${session.mipokaUser.namaLengkap}",
+                                                          tglNotifikasi: DateTime.now().toString(),
+                                                          createdAt: currentDate,
+                                                          createdBy: user?.email ?? "unknown",
+                                                          updatedAt: currentDate,
+                                                          updatedBy: user?.email ?? "unknown",
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+
+                                                  await Future.delayed(const Duration(milliseconds: 500));
+                                                  if (context.mounted) {
+                                                    context.read<SessionBloc>().add(
+                                                      UpdateSessionEvent(
+                                                        session: session.copyWith(
+                                                          status: ditolak,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
                                                   mipokaCustomToast("Sarana dan Prasarana ditolak.");
                                                 },
                                                 child: Image.asset(

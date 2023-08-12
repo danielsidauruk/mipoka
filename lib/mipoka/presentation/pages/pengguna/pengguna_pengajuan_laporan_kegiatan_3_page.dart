@@ -485,7 +485,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                           CreateNotifikasiEvent(
                                             notifikasi: Notifikasi(
                                               idNotifikasi: uniqueId,
-                                              teksNotifikasi: "${laporan.usulanKegiatan?.mipokaUser.namaLengkap} telah melakukan pengajuan Laporan Kegiatan",
+                                              teksNotifikasi: "${laporan.usulanKegiatan?.mipokaUser.namaLengkap} telah melakukan pengajuan Laporan Kegiatan berjudul ${laporan.usulanKegiatan?.mipokaUser.namaLengkap}",
                                               tglNotifikasi: DateTime.now().toString(),
                                               createdAt: currentDate,
                                               createdBy: user?.email ?? "unknown",
@@ -496,7 +496,7 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                         );
                                       }
 
-                                      await Future.delayed(const Duration(seconds: 1));
+                                      await Future.delayed(const Duration(milliseconds: 500));
 
                                       if (context.mounted) {
                                         mipokaCustomToast(savingDataMessage);

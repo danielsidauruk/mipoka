@@ -1,11 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/format_date_indonesia.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/domain/utils/url_utils.dart';
+import 'package:mipoka/mipoka/domain/entities/notifikasi.dart';
 import 'package:mipoka/mipoka/presentation/bloc/laporan_bloc/laporan_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/notifikasi_bloc/notifikasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_dropdown.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
@@ -215,14 +220,35 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                             MainAxisAlignment.spaceEvenly,
                                             children: [
                                               InkWell(
-                                                onTap: () {
-                                                  context.read<LaporanBloc>().add(
-                                                    UpdateLaporanFirstPageEvent(
-                                                      laporan: laporan.copyWith(
-                                                        statusLaporan: disetujui,
+                                                onTap: () async {
+                                                  String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                                                  User? user = FirebaseAuth.instance.currentUser;
+                                                  int uniqueId = UniqueIdGenerator.generateUniqueId();
+
+                                                  context.read<NotifikasiBloc>().add(
+                                                    CreateNotifikasiEvent(
+                                                      notifikasi: Notifikasi(
+                                                        idNotifikasi: uniqueId,
+                                                        teksNotifikasi: "Kemahasiswaan telah menerima laporan kegiatan berjudul ${laporan.usulanKegiatan?.namaKegiatan}",
+                                                        tglNotifikasi: DateTime.now().toString(),
+                                                        createdAt: currentDate,
+                                                        createdBy: user?.email ?? "unknown",
+                                                        updatedAt: currentDate,
+                                                        updatedBy: user?.email ?? "unknown",
                                                       ),
                                                     ),
                                                   );
+
+                                                  await Future.delayed(const Duration(milliseconds: 500));
+                                                  if (context.mounted) {
+                                                    context.read<LaporanBloc>().add(
+                                                      UpdateLaporanFirstPageEvent(
+                                                        laporan: laporan.copyWith(
+                                                          statusLaporan: disetujui,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
                                                   mipokaCustomToast("Usulan Kegiatan telah diterima.");
                                                 },
                                                 child: Image.asset(
@@ -234,14 +260,36 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                                 width: 8.0,
                                               ),
                                               InkWell(
-                                                onTap: () {
-                                                  context.read<LaporanBloc>().add(
-                                                    UpdateLaporanFirstPageEvent(
-                                                      laporan: laporan.copyWith(
-                                                        statusLaporan: ditolak,
+                                                onTap: () async {
+                                                  String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                                                  User? user = FirebaseAuth.instance.currentUser;
+                                                  int uniqueId = UniqueIdGenerator.generateUniqueId();
+
+                                                  context.read<NotifikasiBloc>().add(
+                                                    CreateNotifikasiEvent(
+                                                      notifikasi: Notifikasi(
+                                                        idNotifikasi: uniqueId,
+                                                        teksNotifikasi: "Kemahasiswaan telah menolak laporan kegiatan berjudul ${laporan.usulanKegiatan?.namaKegiatan}",
+                                                        tglNotifikasi: DateTime.now().toString(),
+                                                        createdAt: currentDate,
+                                                        createdBy: user?.email ?? "unknown",
+                                                        updatedAt: currentDate,
+                                                        updatedBy: user?.email ?? "unknown",
                                                       ),
                                                     ),
                                                   );
+
+                                                  await Future.delayed(const Duration(milliseconds: 500));
+
+                                                  if(context.mounted) {
+                                                    context.read<LaporanBloc>().add(
+                                                      UpdateLaporanFirstPageEvent(
+                                                        laporan: laporan.copyWith(
+                                                          statusLaporan: ditolak,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
 
                                                   mipokaCustomToast("Usulan Kegiatan telah ditolak.");
                                                 },

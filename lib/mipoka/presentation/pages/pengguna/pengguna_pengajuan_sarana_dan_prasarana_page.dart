@@ -134,7 +134,6 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                             children: [
                               buildTitle('Nama Ormawa'),
 
-
                               MipokaCustomDropdown(
                                 items: namaOrmawaList,
                                 onValueChanged: (value) {
@@ -157,11 +156,11 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                               buildTitle('Gedung'),
 
                               MipokaCustomDropdown(
-                                // items: gedungList,
-                                items: const ["A"],
+                                items: gedungList,
+                                // items: const ["A"],
                                 onValueChanged: (value) {
                                   _gedungController.text = value ?? "";
-                                  // _gedungStream.add(value);
+                                  _gedungStream.add(value);
                                 },
                               ),
 
@@ -175,31 +174,39 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                                 builder: (context, snapshot) {
                                   final gedung = snapshot.data;
 
-                                  return MipokaCustomDropdown(
+                                  // return MipokaCustomDropdown(
+                                  //   items: ruanganListA,
+                                  //   onValueChanged: (value) {
+                                  //     _ruangController.text = value ?? "";
+                                  //   },
+                                  // );
+
+                                  print(gedung);
+
+                                  return
+                                  gedung == "A" ?
+                                  MipokaCustomDropdown(
+                                    initialItem: ruanganListA[0],
                                     items: ruanganListA,
                                     onValueChanged: (value) {
                                       _ruangController.text = value ?? "";
                                     },
+                                  ) :
+                                  gedung == "B" ?
+                                  MipokaCustomDropdown2(
+                                    initialItem: ruanganListB[0],
+                                    items: ruanganListB,
+                                    onValueChanged: (value) {
+                                      _ruangController.text = value ?? "";
+                                    },
+                                  ) :
+                                  MipokaCustomDropdown3(
+                                    initialItem: ruanganListC[0],
+                                    items: ruanganListC,
+                                    onValueChanged: (value) {
+                                      _ruangController.text = value ?? "";
+                                    },
                                   );
-
-                                  // return
-                                  // gedung == "A" ?
-                                  // MipokaCustomDropdown(
-                                  //   items: ruanganListA,
-                                  //   onValueChanged: (value) {
-                                  //   },
-                                  // ) :
-                                  // gedung == "B" ?
-                                  // MipokaCustomDropdown(
-                                  //   items: ruanganListB,
-                                  //   onValueChanged: (value) {
-                                  //   },
-                                  // ) :
-                                  // MipokaCustomDropdown(
-                                  //   items: ruanganListC,
-                                  //   onValueChanged: (value) {
-                                  //   },
-                                  // );
 
                                   // if (gedung == gedungList[0]) {
                                   //   return MipokaCustomDropdown(

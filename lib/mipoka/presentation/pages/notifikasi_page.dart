@@ -46,7 +46,7 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
         },
       ),
 
-      drawer: const MobileCustomPenggunaDrawerWidget(),
+      // drawer: const MobileCustomPenggunaDrawerWidget(),
 
       body: SingleChildScrollView(
         child: Padding(

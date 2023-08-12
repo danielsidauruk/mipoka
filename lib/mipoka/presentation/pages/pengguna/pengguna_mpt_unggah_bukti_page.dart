@@ -268,7 +268,7 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                                   );
                                                 }
 
-                                                await Future.delayed(const Duration(seconds: 1));
+                                                await Future.delayed(const Duration(milliseconds: 500));
                                                 if(context.mounted) {
                                                   Navigator.pop(
                                                     context,

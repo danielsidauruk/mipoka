@@ -329,6 +329,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                           width: 24,
                                                         ),
                                                       ),
+
                                                       InkWell(
                                                         onTap: () async {
                                                           if(context.mounted) {

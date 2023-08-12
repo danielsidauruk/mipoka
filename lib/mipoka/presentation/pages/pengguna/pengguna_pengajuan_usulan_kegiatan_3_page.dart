@@ -551,7 +551,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                           CreateNotifikasiEvent(
                                             notifikasi: Notifikasi(
                                               idNotifikasi: uniqueId,
-                                              teksNotifikasi: "${usulanKegiatan.mipokaUser.namaLengkap} telah melakukan pengajuan Usulan Kegiatan",
+                                              teksNotifikasi: "${usulanKegiatan.mipokaUser.namaLengkap} telah melakukan pengajuan Usulan Kegiatan berjudul ${usulanKegiatan.namaKegiatan}",
                                               tglNotifikasi: DateTime.now().toString(),
                                               createdAt: currentDate,
                                               createdBy: user?.email ?? "unknown",
@@ -561,7 +561,7 @@ class _PenggunaPengajuanUsulanKegiatan3State
                                           ),
                                         );
 
-                                        await Future.delayed(const Duration(seconds: 1));
+                                        await Future.delayed(const Duration(milliseconds: 500));
                                         if(context.mounted) {
                                           context.read<UsulanKegiatanBloc>().add(
                                             SaveAndSendLastPageEvent(

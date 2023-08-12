@@ -1,14 +1,19 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/domain/utils/url_utils.dart';
+import 'package:mipoka/mipoka/domain/entities/notifikasi.dart';
 import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
 import 'package:mipoka/mipoka/presentation/bloc/jenis_kegiatan_mpt/jenis_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/nama_kegaitan_mpt_bloc/nama_kegiatan_mpt_bloc.dart';
+import 'package:mipoka/mipoka/presentation/bloc/notifikasi_bloc/notifikasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/periode_mpt_bloc/periode_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/riwayat_kegiatan_mpt_bloc/riwayat_kegiatan_mpt_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_add_button.dart';
@@ -70,6 +75,8 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
     _jenisKegiatanStream.close();
     super.dispose();
   }
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -478,10 +485,33 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                                               const SizedBox(width: 8.0,),
 
                                               InkWell(
-                                                onTap: () {
-                                                  context.read<RiwayatKegiatanMptBloc>().add(
-                                                      UpdateRiwayatKegiatanMptEvent(
-                                                          riwayatKegiatanMpt: riwayatKegiatanMpt.copyWith(statusMpt: disetujui)));
+                                                onTap: () async {
+                                                  int uniqueId = UniqueIdGenerator.generateUniqueId();
+                                                  String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                                                  User? user = FirebaseAuth.instance.currentUser;
+
+                                                  if(context.mounted) {
+                                                    context.read<NotifikasiBloc>().add(
+                                                      CreateNotifikasiEvent(
+                                                        notifikasi: Notifikasi(
+                                                          idNotifikasi: uniqueId,
+                                                          teksNotifikasi: "Riwayat Kegiatan MPT dengan ID ${riwayatKegiatanMpt.idRiwayatKegiatanMpt} telah disetujui",
+                                                          tglNotifikasi: DateTime.now().toString(),
+                                                          createdAt: currentDate,
+                                                          createdBy: user?.email ?? "unknown",
+                                                          updatedAt: currentDate,
+                                                          updatedBy: user?.email ?? "unknown",
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+
+                                                  await Future.delayed(const Duration(milliseconds: 500));
+                                                  if(context.mounted) {
+                                                    context.read<RiwayatKegiatanMptBloc>().add(
+                                                        UpdateRiwayatKegiatanMptEvent(
+                                                            riwayatKegiatanMpt: riwayatKegiatanMpt.copyWith(statusMpt: disetujui)));
+                                                  }
                                                   mipokaCustomToast("Riwayat kegiatan MPT telah $disetujui");
                                                 },
                                                 child: Image.asset(
@@ -493,10 +523,34 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                                               const SizedBox(width: 8.0,),
 
                                               InkWell(
-                                                onTap: () {
+                                                onTap: () async {
+                                                  int uniqueId = UniqueIdGenerator.generateUniqueId();
+                                                  String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                                                  User? user = FirebaseAuth.instance.currentUser;
+
+                                                  if(context.mounted) {
+                                                    context.read<NotifikasiBloc>().add(
+                                                      CreateNotifikasiEvent(
+                                                        notifikasi: Notifikasi(
+                                                          idNotifikasi: uniqueId,
+                                                          teksNotifikasi: "Riwayat Kegiatan MPT dengan ID ${riwayatKegiatanMpt.idRiwayatKegiatanMpt} telah dihapus",
+                                                          tglNotifikasi: DateTime.now().toString(),
+                                                          createdAt: currentDate,
+                                                          createdBy: user?.email ?? "unknown",
+                                                          updatedAt: currentDate,
+                                                          updatedBy: user?.email ?? "unknown",
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+
+                                                  await Future.delayed(const Duration(milliseconds: 500));
+                                                  if(context.mounted) {
+                                                    context.read<RiwayatKegiatanMptBloc>().add(
+                                                        DeleteRiwayatMptEvent(idRiwayatKegiatanMpt: riwayatKegiatanMpt.idRiwayatKegiatanMpt));
+                                                  }
+
                                                   mipokaCustomToast("Riwayat Kegiatan telah dihapus");
-                                                  context.read<RiwayatKegiatanMptBloc>().add(
-                                                      DeleteRiwayatMptEvent(idRiwayatKegiatanMpt: riwayatKegiatanMpt.idRiwayatKegiatanMpt));
                                                 },
                                                 child: Image.asset(
                                                   'assets/icons/delete.png',
