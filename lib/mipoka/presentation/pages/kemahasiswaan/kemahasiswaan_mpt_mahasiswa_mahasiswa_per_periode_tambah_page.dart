@@ -160,7 +160,10 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                       String filePath = snapshot.data ?? "";
                       return MipokaExcelUploader(
                         onTap: () async {
-                          result = await FilePicker.platform.pickFiles();
+                          result = await FilePicker.platform.pickFiles(
+                            type: FileType.custom,
+                            allowedExtensions: ['pdf'],
+                          );
                           if (result != null){
                             PlatformFile file = result!.files.first;
                             _processMahasiswaPerPeriode(file);

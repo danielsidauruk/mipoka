@@ -348,7 +348,10 @@ class _KemahasiswaanEditOrmawaEditPageState
                       String filePath = snapshot.data ?? "";
                       return MipokaExcelUploader(
                         onTap: () async {
-                          excelResult = await FilePicker.platform.pickFiles();
+                          excelResult = await FilePicker.platform.pickFiles(
+                            type: FileType.custom,
+                            allowedExtensions: ['pdf'],
+                          );
                           if (excelResult != null){
                             _excelFileStream.add(excelResult?.files.first.name);
                             PlatformFile? file = excelResult?.files.first;
