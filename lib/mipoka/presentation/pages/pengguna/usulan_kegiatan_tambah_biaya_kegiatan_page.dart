@@ -29,7 +29,7 @@ class UsulanKegiatanTambahBiayaKegiatanPage extends StatefulWidget {
 
 class _UsulanKegiatanTambahBiayaKegiatanPageState extends State<UsulanKegiatanTambahBiayaKegiatanPage> {
   final TextEditingController _namaBiayaKegiatanController = TextEditingController();
-  final TextEditingController _kuantitiController = TextEditingController();
+  final TextEditingController _kuantitasController = TextEditingController();
   final TextEditingController _hargaSatuanController = TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
 
@@ -58,10 +58,10 @@ class _UsulanKegiatanTambahBiayaKegiatanPageState extends State<UsulanKegiatanTa
                     controller: _namaBiayaKegiatanController,
                   ),
                   const CustomFieldSpacer(),
-                  buildTitle('Qty'),
+                  buildTitle('Kuantitas'),
                   CustomTextField(
                     textInputType: TextInputType.number,
-                    controller: _kuantitiController,
+                    controller: _kuantitasController,
                   ),
                   const CustomFieldSpacer(),
                   buildTitle('Harga Satuan'),
@@ -86,47 +86,45 @@ class _UsulanKegiatanTambahBiayaKegiatanPageState extends State<UsulanKegiatanTa
                       const SizedBox(width: 8.0),
                       CustomMipokaButton(
                         onTap: () {
-                          if (_namaBiayaKegiatanController.text.isNotEmpty &&
-                              _kuantitiController.text.isNotEmpty &&
-                              _hargaSatuanController.text.isNotEmpty &&
-                              _keteranganController.text.isNotEmpty) {
-                            try {
-                              final kuantiti = int.tryParse(_kuantitiController.text);
-                              final hargaSatuan = int.tryParse(_hargaSatuanController.text);
-                              if (kuantiti != null && hargaSatuan != null) {
+                          final kuantitas = int.tryParse(_kuantitasController.text);
+                          final hargaSatuan = int.tryParse(_hargaSatuanController.text);
 
-                                int uniqueId = UniqueIdGenerator.generateUniqueId();
-                                String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
-                                Navigator.pop(
-                                  context,
-                                  widget.usulanKegiatan.copyWith(
-                                      biayaKegiatan: [
-                                        ...widget.usulanKegiatan.biayaKegiatan,
-                                        BiayaKegiatan(
-                                          idBiayaKegiatan: uniqueId,
-                                          namaBiayaKegiatan: _namaBiayaKegiatanController.text,
-                                          kuantiti: kuantiti,
-                                          hargaSatuan: hargaSatuan,
-                                          total: kuantiti * hargaSatuan,
-                                          keterangan: _keteranganController.text,
-                                          createdAt: currentDate,
-                                          createdBy: user?.email ?? "unknown",
-                                          updatedAt: currentDate,
-                                          updatedBy: user?.email ?? "unknown",
-                                        ),
-                                      ]
-                                  ),
-                                );
-
-                              } else {
-                                mipokaCustomToast(dataTypeErrorMessage);
-                              }
-                            } catch (e) {
-                              mipokaCustomToast(dataTypeErrorMessage);
-                            }
+                          if (_namaBiayaKegiatanController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Nama Biaya Kegiatan"));
+                          } else if (_kuantitasController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Kuantitas"));
+                          } else if (kuantitas == null) {
+                            mipokaCustomToast(dataTypeFalsePrompt("Kuantitas"));
+                          } else if (_hargaSatuanController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Harga Satuan"));
+                          } else if (hargaSatuan == null) {
+                            mipokaCustomToast(dataTypeFalsePrompt("Harga Satuan"));
+                          } else if (_keteranganController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Keterangan"));
                           } else {
-                            mipokaCustomToast(emptyFieldMessage);
+                            int uniqueId = UniqueIdGenerator.generateUniqueId();
+                            String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
+                            Navigator.pop(
+                              context,
+                              widget.usulanKegiatan.copyWith(
+                                  biayaKegiatan: [
+                                    ...widget.usulanKegiatan.biayaKegiatan,
+                                    BiayaKegiatan(
+                                      idBiayaKegiatan: uniqueId,
+                                      namaBiayaKegiatan: _namaBiayaKegiatanController.text,
+                                      kuantiti: kuantitas,
+                                      hargaSatuan: hargaSatuan,
+                                      total: kuantitas * hargaSatuan,
+                                      keterangan: _keteranganController.text,
+                                      createdAt: currentDate,
+                                      createdBy: user?.email ?? "unknown",
+                                      updatedAt: currentDate,
+                                      updatedBy: user?.email ?? "unknown",
+                                    ),
+                                  ]
+                              ),
+                            );
                           }
                         },
                         text: 'Tambahkan',

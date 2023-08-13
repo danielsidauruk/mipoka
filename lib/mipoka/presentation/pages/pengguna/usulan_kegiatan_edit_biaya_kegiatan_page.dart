@@ -26,14 +26,14 @@ class UsulanKegiatanEditBiayaKegiatanPage extends StatefulWidget {
 
 class _UsulanKegiatanEditBiayaKegiatanPageState extends State<UsulanKegiatanEditBiayaKegiatanPage> {
   final TextEditingController _namaBiayaKegiatanController = TextEditingController();
-  final TextEditingController _kuantitiController = TextEditingController();
+  final TextEditingController _kuantitasController = TextEditingController();
   final TextEditingController _hargaSatuanController = TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
 
   @override
   void initState() {
     _namaBiayaKegiatanController.text = widget.biayaKegiatanArgs.usulanKegiatan.biayaKegiatan[widget.biayaKegiatanArgs.index].namaBiayaKegiatan;
-    _kuantitiController.text = widget.biayaKegiatanArgs.usulanKegiatan.biayaKegiatan[widget.biayaKegiatanArgs.index].kuantiti.toString();
+    _kuantitasController.text = widget.biayaKegiatanArgs.usulanKegiatan.biayaKegiatan[widget.biayaKegiatanArgs.index].kuantiti.toString();
     _hargaSatuanController.text = widget.biayaKegiatanArgs.usulanKegiatan.biayaKegiatan[widget.biayaKegiatanArgs.index].hargaSatuan.toString();
     _keteranganController.text = widget.biayaKegiatanArgs.usulanKegiatan.biayaKegiatan[widget.biayaKegiatanArgs.index].keterangan.toString();
     super.initState();
@@ -62,10 +62,10 @@ class _UsulanKegiatanEditBiayaKegiatanPageState extends State<UsulanKegiatanEdit
                     controller: _namaBiayaKegiatanController,
                   ),
                   const CustomFieldSpacer(),
-                  buildTitle('Qty'),
+                  buildTitle('Kuantitas'),
                   CustomTextField(
                     textInputType: TextInputType.number,
-                    controller: _kuantitiController,
+                    controller: _kuantitasController,
                   ),
                   const CustomFieldSpacer(),
                   buildTitle('Harga Satuan'),
@@ -90,42 +90,43 @@ class _UsulanKegiatanEditBiayaKegiatanPageState extends State<UsulanKegiatanEdit
                       const SizedBox(width: 8.0),
                       CustomMipokaButton(
                         onTap: () {
-                          if (_namaBiayaKegiatanController.text.isNotEmpty &&
-                              _kuantitiController.text.isNotEmpty &&
-                              _hargaSatuanController.text.isNotEmpty &&
-                              _keteranganController.text.isNotEmpty) {
-                            try {
-                              final kuantiti = int.tryParse(_kuantitiController.text);
-                              final hargaSatuan = int.tryParse(_hargaSatuanController.text);
+                          final kuantitas = int.tryParse(_kuantitasController.text);
+                          final hargaSatuan = int.tryParse(_hargaSatuanController.text);
 
-                              if (kuantiti != null && hargaSatuan != null) {
+                          if (_namaBiayaKegiatanController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Nama Biaya Kegiatan"));
+                          } else if (_kuantitasController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Kuantitas"));
+                          } else if (kuantitas == null) {
+                            mipokaCustomToast(dataTypeFalsePrompt("Kuantitas"));
+                          } else if (_hargaSatuanController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Harga Satuan"));
+                          } else if (hargaSatuan == null) {
+                            mipokaCustomToast(dataTypeFalsePrompt("Harga Satuan"));
+                          } else if (_keteranganController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Keterangan"));
+                          } else {
 
-                                final usulanKegiatan = widget.biayaKegiatanArgs.usulanKegiatan;
-                                final biayaKegiatan = usulanKegiatan.biayaKegiatan[widget.biayaKegiatanArgs.index];
+                            final usulanKegiatan = widget.biayaKegiatanArgs.usulanKegiatan;
+                            final biayaKegiatan = usulanKegiatan.biayaKegiatan[widget.biayaKegiatanArgs.index];
 
-                                final newBiayaKegiatan = biayaKegiatan.copyWith(
-                                  namaBiayaKegiatan: _namaBiayaKegiatanController.text,
-                                  kuantiti: kuantiti,
-                                  hargaSatuan: hargaSatuan,
-                                  total: kuantiti * hargaSatuan,
-                                  keterangan: _keteranganController.text,
-                                );
+                            final newBiayaKegiatan = biayaKegiatan.copyWith(
+                              namaBiayaKegiatan: _namaBiayaKegiatanController.text,
+                              kuantiti: kuantitas,
+                              hargaSatuan: hargaSatuan,
+                              total: kuantitas * hargaSatuan,
+                              keterangan: _keteranganController.text,
+                            );
 
-                                usulanKegiatan.biayaKegiatan[widget.biayaKegiatanArgs.index] = BiayaKegiatanModel.fromEntity(newBiayaKegiatan);
+                            usulanKegiatan.biayaKegiatan[widget.biayaKegiatanArgs.index] = BiayaKegiatanModel.fromEntity(newBiayaKegiatan);
 
-                                Navigator.pop(
-                                  context,
-                                  usulanKegiatan.copyWith(
-                                    biayaKegiatan: usulanKegiatan.biayaKegiatan,
-                                  ),
-                                );
+                            Navigator.pop(
+                              context,
+                              usulanKegiatan.copyWith(
+                                biayaKegiatan: usulanKegiatan.biayaKegiatan,
+                              ),
+                            );
 
-                              } else {
-                                mipokaCustomToast(dataTypeErrorMessage);
-                              }
-                            } catch (e) {
-                              mipokaCustomToast(dataTypeErrorMessage);
-                            }
                           }
                         },
                         text: 'Simpan',
