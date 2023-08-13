@@ -1,8 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
-import 'package:mipoka/domain/utils/multiple_args.dart';
-import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
+import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/mipoka/domain/entities/partisipan.dart';
+import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
+import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegiatan_bloc.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
@@ -13,37 +18,34 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.d
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
-class EditDataPesertaLuarKotaPage extends StatefulWidget {
-  const EditDataPesertaLuarKotaPage({
+class TambahDataPesertaLuarKotaPage extends StatefulWidget {
+  const TambahDataPesertaLuarKotaPage({
     super.key,
-    required this.partisipanArgs,
+    required this.usulanKegiatan,
   });
 
-  final PartisipanArgs partisipanArgs;
+  final UsulanKegiatan usulanKegiatan;
 
   @override
-  State<EditDataPesertaLuarKotaPage> createState() => _EditDataPesertaLuarKotaPageState();
+  State<TambahDataPesertaLuarKotaPage> createState() => _TambahDataPesertaLuarKotaPageState();
 }
 
-class _EditDataPesertaLuarKotaPageState extends State<EditDataPesertaLuarKotaPage> {
+class _TambahDataPesertaLuarKotaPageState extends State<TambahDataPesertaLuarKotaPage> {
+
   final TextEditingController _noIndukController = TextEditingController();
   final TextEditingController _namaPartisipanController = TextEditingController();
   final TextEditingController _nikController = TextEditingController();
   final TextEditingController _tempatLahirController = TextEditingController();
-  final TextEditingController _peranPartisipanController = TextEditingController();
+  final TextEditingController _peranController = TextEditingController();
   final TextEditingController _dasarPengirimanController = TextEditingController();
   final TextEditingController _tglLahirController = TextEditingController();
 
+  User? user = FirebaseAuth.instance.currentUser;
+
   @override
-  void initState() {
-    _noIndukController.text = widget.partisipanArgs.usulanKegiatan.partisipan[widget.partisipanArgs.index].noInduk;
-    _namaPartisipanController.text = widget.partisipanArgs.usulanKegiatan.partisipan[widget.partisipanArgs.index].namaPartisipan;
-    _nikController.text = widget.partisipanArgs.usulanKegiatan.partisipan[widget.partisipanArgs.index].nik;
-    _tempatLahirController.text = widget.partisipanArgs.usulanKegiatan.partisipan[widget.partisipanArgs.index].tempatLahir;
-    _peranPartisipanController.text = widget.partisipanArgs.usulanKegiatan.partisipan[widget.partisipanArgs.index].peranPartisipan;
-    _dasarPengirimanController.text = widget.partisipanArgs.usulanKegiatan.partisipan[widget.partisipanArgs.index].dasarPengiriman;
-    _tglLahirController.text = widget.partisipanArgs.usulanKegiatan.partisipan[widget.partisipanArgs.index].tglLahir;
-    super.initState();
+  void dispose() {
+    context.read<UsulanKegiatanBloc>().close();
+    super.dispose();
   }
 
   @override
@@ -65,14 +67,13 @@ class _EditDataPesertaLuarKotaPageState extends State<EditDataPesertaLuarKotaPag
               CustomContentBox(
                 children: [
 
-                  customBoxTitle('Data Peserta'),
+                  customBoxTitle('Data Partisipan'),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('NIM/NIP'),
                   CustomTextField(
                     controller: _noIndukController,
-                    textInputType: TextInputType.number,
                   ),
 
                   const CustomFieldSpacer(),
@@ -100,7 +101,7 @@ class _EditDataPesertaLuarKotaPageState extends State<EditDataPesertaLuarKotaPag
                   const CustomFieldSpacer(),
 
                   buildTitle('Peran'),
-                  CustomTextField(controller: _peranPartisipanController),
+                  CustomTextField(controller: _peranController),
 
                   const CustomFieldSpacer(),
 
@@ -121,39 +122,49 @@ class _EditDataPesertaLuarKotaPageState extends State<EditDataPesertaLuarKotaPag
 
                       CustomMipokaButton(
                         onTap: () {
-
-                          if (_noIndukController.text.isNotEmpty && _namaPartisipanController.text.isNotEmpty
-                              && _nikController.text.isNotEmpty && _tempatLahirController.text.isNotEmpty
-                              && _tglLahirController.text.isNotEmpty && _peranPartisipanController.text.isNotEmpty
-                              && _dasarPengirimanController.text.isNotEmpty) {
-
-                            final usulanKegiatan = widget.partisipanArgs.usulanKegiatan;
-                            final partisipan = usulanKegiatan.partisipan[widget.partisipanArgs.index];
-
-                            final newPartisipan = partisipan.copyWith(
-                              noInduk: _noIndukController.text,
-                              namaPartisipan: _namaPartisipanController.text,
-                              nik: _nikController.text,
-                              tempatLahir: _tempatLahirController.text,
-                              tglLahir: _tglLahirController.text,
-                              peranPartisipan: _peranPartisipanController.text,
-                              dasarPengiriman: _dasarPengirimanController.text,
-                            );
-
-                            usulanKegiatan.partisipan[widget.partisipanArgs.index] = PartisipanModel.fromEntity(newPartisipan);
+                          if (_noIndukController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("NIM/NIP"));
+                          } else if (_namaPartisipanController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Nama Partisipan"));
+                          } else if (_nikController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("NIK"));
+                          } else if (_tempatLahirController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Tempat Lahir"));
+                          } else if (_tglLahirController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Tanggal Lahir"));
+                          } else if (_peranController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Peran"));
+                          } else if (_dasarPengirimanController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Dasar Pengiriman"));
+                          } else {
+                            int uniqueId = UniqueIdGenerator.generateUniqueId();
+                            String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                             Navigator.pop(
                               context,
-                              usulanKegiatan.copyWith(
-                                partisipan: usulanKegiatan.partisipan,
+                              widget.usulanKegiatan.copyWith(
+                                  partisipan: [
+                                    ...widget.usulanKegiatan.partisipan,
+                                    Partisipan(
+                                      idPartisipan: uniqueId,
+                                      noInduk: _noIndukController.text,
+                                      namaPartisipan: _namaPartisipanController.text,
+                                      nik: _nikController.text,
+                                      tempatLahir: _tempatLahirController.text,
+                                      tglLahir: _tglLahirController.text,
+                                      peranPartisipan: _peranController.text,
+                                      dasarPengiriman: _dasarPengirimanController.text,
+                                      createdAt: currentDate,
+                                      createdBy: user?.email ?? "unknown",
+                                      updatedAt: currentDate,
+                                      updatedBy: user?.email ?? "unknown",
+                                    ),
+                                  ]
                               ),
                             );
-
-                          } else {
-                            mipokaCustomToast(emptyFieldMessage);
                           }
-                        },
-                        text: 'Simpan',
+                         },
+                        text: 'Tambahkan Partisipan',
                       ),
                     ],
                   ),

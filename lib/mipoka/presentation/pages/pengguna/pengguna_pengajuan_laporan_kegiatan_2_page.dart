@@ -486,13 +486,14 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                   CustomMipokaButton(
                                     onTap: () async {
 
-                                      final realisasi = laporan.rincianBiayaKegiatan
-                                          .map((rincianBiayaKegiatan) => rincianBiayaKegiatan.realisasiAnggaran)
-                                          .toList();
+                                      // final realisasi = laporan.rincianBiayaKegiatan
+                                      //     .map((rincianBiayaKegiatan) => rincianBiayaKegiatan.realisasiAnggaran)
+                                      //     .toList();
+                                      //
+                                      // if (realisasi.contains(0)) {
+                                      //   mipokaCustomToast("Mohon Lengkapi Realisasi Anggaran.");
+                                      // } else {
 
-                                      if (realisasi.contains(0)) {
-                                        mipokaCustomToast("Mohon Lengkapi Realisasi Anggaran.");
-                                      } else {
                                         if (_isShowTable) {
                                           final result = await Navigator.pushNamed(
                                             context,
@@ -515,7 +516,7 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                             ),
                                           );
                                         }
-                                      }
+                                      // }
                                     },
                                     text: 'Berikutnya',
                                   ),

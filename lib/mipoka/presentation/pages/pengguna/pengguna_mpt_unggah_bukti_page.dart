@@ -58,6 +58,7 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
   @override
   void dispose() {
     context.read<RiwayatKegiatanMptBloc>().close();
+    _fileSertifikatMptStream.close();
     super.dispose();
   }
 
@@ -98,7 +99,10 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                             String text = snapshot.data ?? "";
                             return CustomFilePickerButton(
                               onTap: () async {
-                                result = await FilePicker.platform.pickFiles();
+                                result = await FilePicker.platform.pickFiles(
+                                  type: FileType.custom,
+                                  allowedExtensions: ['pdf'],
+                                );
                                 _fileSertifikatMptStream.add(result?.names.first ?? "");
                               },
                               onDelete: () {
@@ -215,6 +219,7 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                   return CustomMipokaButton(
                                     onTap: () async {
                                       if (_keteranganController.text.isNotEmpty) {
+
                                         try {
                                           final result = this.result;
                                           if (result != null) {
@@ -257,7 +262,7 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                                     CreateNotifikasiEvent(
                                                       notifikasi: Notifikasi(
                                                         idNotifikasi: uniqueId,
-                                                        teksNotifikasi: "${state.mipokaUser.namaLengkap} telah mengunggah bukti MPT",
+                                                        teksNotifikasi: "${state.mipokaUser.namaLengkap} telah mengunggah bukti MPT pada kegiatan ${widget.kegiatanPerPeriodeMpt.namaKegiatanMpt}",
                                                         tglNotifikasi: DateTime.now().toString(),
                                                         createdAt: currentDate,
                                                         createdBy: user?.email ?? "unknown",

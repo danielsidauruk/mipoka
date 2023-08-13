@@ -72,16 +72,22 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
       Excel excel = Excel.decodeBytes(bytes);
       Sheet? sheet = excel.tables[excel.tables.keys.first];
 
-      for (var i = 1; i < sheet!.rows.length; i++) {
-        var row = sheet.rows[i];
-        var nim = row[0]?.value;
-        var peran = row[1]?.value;
+      try {
+        for (var i = 1; i < sheet!.rows.length; i++) {
+          var row = sheet.rows[i];
+          var nim = row[0]?.value;
+          var peran = row[1]?.value;
 
-        if (nim != null && peran != null) {
-          nimList.add(nim.toString());
-          peranList.add(peran.toString());
+          if (nim != null && peran != null) {
+            nimList.add(nim.toString());
+            peranList.add(peran.toString());
+          }
         }
+      } catch(e) {
+        mipokaCustomToast("File Excel yang dimasukkan salah");
+
       }
+
       print("NimList  : $nimList");
       print("Peran    : $peranList");
 
@@ -123,7 +129,10 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                       String filePath = snapshot.data ?? "";
                       return MipokaExcelUploader(
                         onTap: () async {
-                          result = await FilePicker.platform.pickFiles();
+                          result = await FilePicker.platform.pickFiles(
+                            type: FileType.custom,
+                            allowedExtensions: ['xlsx'],
+                          );
                           if (result != null){
                             _excelFileStream.add(result?.files.first.name);
                             _processUploadedFile(result!.files.first);
@@ -167,7 +176,6 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                         text: 'Proses',
                         onTap: () async {
                           mipokaCustomToast("Memproses Data");
-
                           if (result != null) {
                             for (var index = 0; index < nimList.length; index++) {
                               this.index = index;

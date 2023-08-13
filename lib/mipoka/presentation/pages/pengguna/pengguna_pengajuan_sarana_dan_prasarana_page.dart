@@ -186,7 +186,6 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                                   return
                                   gedung == "A" ?
                                   MipokaCustomDropdown(
-                                    initialItem: ruanganListA[0],
                                     items: ruanganListA,
                                     onValueChanged: (value) {
                                       _ruangController.text = value ?? "";
@@ -194,14 +193,12 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                                   ) :
                                   gedung == "B" ?
                                   MipokaCustomDropdown2(
-                                    initialItem: ruanganListB[0],
                                     items: ruanganListB,
                                     onValueChanged: (value) {
                                       _ruangController.text = value ?? "";
                                     },
                                   ) :
                                   MipokaCustomDropdown3(
-                                    initialItem: ruanganListC[0],
                                     items: ruanganListC,
                                     onValueChanged: (value) {
                                       _ruangController.text = value ?? "";

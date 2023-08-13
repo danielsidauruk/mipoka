@@ -50,7 +50,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
   final StreamController<Uint8List> _signatureDataStream = StreamController<Uint8List>.broadcast();
 
   final GlobalKey<SfSignaturePadState> _signaturePadKey = GlobalKey<SfSignaturePadState>();
-
   User? user = FirebaseAuth.instance.currentUser;
 
   void _showPopup() {

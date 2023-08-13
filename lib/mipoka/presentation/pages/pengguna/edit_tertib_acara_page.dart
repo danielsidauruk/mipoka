@@ -106,9 +106,16 @@ class _EditTertibAcaraPageState extends State<EditTertibAcaraPage> {
 
                       CustomMipokaButton(
                         onTap: () {
-                          if (_waktuMulaiController.text.isNotEmpty && _waktuSelesaiController.text.isNotEmpty
-                              && _aktivitasController.text.isNotEmpty && _keteranganController.text.isNotEmpty)
-                          {
+                          if (_waktuMulaiController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Waktu Mulai"));
+                          } else if (_waktuSelesaiController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Waktu Selesai"));
+                          } else if (_aktivitasController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Aktivitas"));
+                          } else if (_keteranganController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Keterangan"));
+                          } else {
+
                             final usulanKegiatan = widget.tertibAcaraArgs.usulanKegiatan;
                             final tertibAcara = usulanKegiatan.tertibAcara[widget.tertibAcaraArgs.index];
                             String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
@@ -130,9 +137,6 @@ class _EditTertibAcaraPageState extends State<EditTertibAcaraPage> {
                                 tertibAcara: usulanKegiatan.tertibAcara,
                               ),
                             );
-
-                          } else {
-                            mipokaCustomToast(emptyFieldMessage);
                           }
                         },
                         text: 'Simpan',

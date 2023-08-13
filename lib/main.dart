@@ -91,8 +91,8 @@ import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_u
 import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_2_dk_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_2_lk_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pemeriksa/pemeriksa_pengajuan_usulan_kegiatan_3_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_data_peserta_dalam_kota_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_data_peserta_luar_kota_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_data_partisipan_dalam_kota_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_data_partisipan_luar_kota_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/edit_tertib_acara_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/laporan_kegiatan_edit_biaya_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/berita_detail_page.dart';
@@ -112,10 +112,10 @@ import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usu
 import 'package:mipoka/mipoka/presentation/pages/pengguna/usulan_kegiatan_edit_biaya_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/usulan_kegiatan_tambah_biaya_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_dk_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/pengguna/tambah_data_peserta_dalam_kota_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/tambah_data_partisipan_dalam_kota_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_2_lk_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_daftar_pengajuan_usulan_kegiatan_page.dart';
-import 'package:mipoka/mipoka/presentation/pages/pengguna/tambah_data_peserta_luar_kota_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/pengguna/tambah_data_partisipan_luar_kota_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_beranda_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/pengguna_pengajuan_usulan_kegiatan_3_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/pengguna/tambah_tertib_acara_page.dart';

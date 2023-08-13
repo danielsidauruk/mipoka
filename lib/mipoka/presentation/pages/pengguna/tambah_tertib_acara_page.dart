@@ -99,9 +99,16 @@ class _TambahTertibAcaraPageState extends State<TambahTertibAcaraPage> {
 
                       CustomMipokaButton(
                         onTap: () {
-                          if (_waktuMulaiController.text.isNotEmpty && _waktuSelesaiController.text.isNotEmpty
-                              && _aktivitasController.text.isNotEmpty && _keteranganController.text.isNotEmpty)
-                          {
+                          if (_waktuMulaiController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Waktu Mulai"));
+                          } else if (_waktuSelesaiController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Waktu Selesai"));
+                          } else if (_aktivitasController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Aktivitas"));
+                          } else if (_keteranganController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Keterangan"));
+                          } else {
+
                             int uniqueId = UniqueIdGenerator.generateUniqueId();
                             String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
@@ -124,9 +131,6 @@ class _TambahTertibAcaraPageState extends State<TambahTertibAcaraPage> {
                                 ],
                               ),
                             );
-
-                          } else {
-                            mipokaCustomToast(emptyFieldMessage);
                           }
                         },
                         text: 'Tambahkan Tertib Acara',

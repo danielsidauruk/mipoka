@@ -91,7 +91,7 @@ class _PenggunaPengajuanUsulanKegiatan2LKState extends State<PenggunaPengajuanUs
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              buildTitle('Data Peserta Kegiatan (Luar Kota)'),
+                              buildTitle('Data Partisipan Kegiatan (Luar Kota)'),
 
                               if (widget.usulanArgs.isRevisiUsulan == true
                                   && state.usulanKegiatan.revisiUsulan?.revisiPartisipan != "")

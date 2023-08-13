@@ -30,7 +30,7 @@ class TambahDataPesertaDalamKota extends StatefulWidget {
 class _TambahDataPesertaDalamKotaState extends State<TambahDataPesertaDalamKota> {
   final TextEditingController _noIndukController = TextEditingController();
   final TextEditingController _namaPartisipanController = TextEditingController();
-  final TextEditingController _peranPartisipanController = TextEditingController();
+  final TextEditingController _peranController = TextEditingController();
   final TextEditingController _dasarPengirimanController = TextEditingController();
 
   User? user = FirebaseAuth.instance.currentUser;
@@ -73,7 +73,7 @@ class _TambahDataPesertaDalamKotaState extends State<TambahDataPesertaDalamKota>
                   const CustomFieldSpacer(),
 
                   buildTitle('Peran'),
-                  CustomTextField(controller: _peranPartisipanController),
+                  CustomTextField(controller: _peranController),
 
                   const CustomFieldSpacer(),
 
@@ -94,8 +94,15 @@ class _TambahDataPesertaDalamKotaState extends State<TambahDataPesertaDalamKota>
 
                       CustomMipokaButton(
                         onTap: () {
-                          if (_noIndukController.text.isNotEmpty && _namaPartisipanController.text.isNotEmpty
-                              && _peranPartisipanController.text.isNotEmpty && _dasarPengirimanController.text.isNotEmpty) {
+                          if (_noIndukController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("NIM/NIP"));
+                          } else if (_namaPartisipanController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Nama Partisipan"));
+                          } else if (_peranController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Peran"));
+                          } else if (_dasarPengirimanController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Dasar Pengiriman"));
+                          } else {
 
                             int uniqueId = UniqueIdGenerator.generateUniqueId();
                             String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
@@ -110,7 +117,7 @@ class _TambahDataPesertaDalamKotaState extends State<TambahDataPesertaDalamKota>
                                   nik: "",
                                   tempatLahir: "",
                                   tglLahir: "",
-                                  peranPartisipan: _peranPartisipanController.text,
+                                  peranPartisipan: _peranController.text,
                                   dasarPengiriman: _dasarPengirimanController.text,
                                   createdAt: currentDate,
                                   createdBy: user?.email ?? "unknown",
@@ -121,11 +128,9 @@ class _TambahDataPesertaDalamKotaState extends State<TambahDataPesertaDalamKota>
                             );
 
                             Navigator.pop(context, newUsulanKegiatan);
-                          } else {
-                            mipokaCustomToast(emptyFieldMessage);
                           }
                         },
-                        text: 'Tambahkan Peserta',
+                        text: 'Tambahkan Partisipan',
                       ),
                     ],
                   ),

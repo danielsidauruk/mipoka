@@ -122,6 +122,7 @@ class _LaporanKegiatanTambahBiayaKegiatanPageState extends State<LaporanKegiatan
                           int? realisasiAnggaran = int.tryParse(_realisasiAnggaranController.text);
                           int? kuantitas = int.tryParse(_kuantitasController.text);
                           int? hargaSatuan = int.tryParse(_hargaSatuanController.text);
+                          int? selisih;
 
                           if (_namaBiayaKegiatanController.text.isEmpty) {
                             mipokaCustomToast(emptyFieldPrompt("Nama Biaya Kegiatan"));
@@ -145,11 +146,11 @@ class _LaporanKegiatanTambahBiayaKegiatanPageState extends State<LaporanKegiatan
                             mipokaCustomToast(emptyFieldPrompt("Keterangan"));
                           } else {
 
-                            int? selisih;
-
-                            selisih = usulanAnggaran > realisasiAnggaran
-                                ? usulanAnggaran - realisasiAnggaran
-                                : realisasiAnggaran - usulanAnggaran;
+                            if (usulanAnggaran > realisasiAnggaran) {
+                              selisih = usulanAnggaran - realisasiAnggaran;
+                            } else {
+                              selisih = realisasiAnggaran - usulanAnggaran;
+                            }
 
                             String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
                             int uniqueId = UniqueIdGenerator.generateUniqueId();

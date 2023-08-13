@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/data/models/rincian_biaya_kegiatan_model.dart';
@@ -11,6 +12,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class LaporanKegiatanEditBiayaKegiatanPage extends StatefulWidget {
   const LaporanKegiatanEditBiayaKegiatanPage({
@@ -25,8 +27,6 @@ class LaporanKegiatanEditBiayaKegiatanPage extends StatefulWidget {
 }
 
 class _LaporanKegiatanEditBiayaKegiatanPageState extends State<LaporanKegiatanEditBiayaKegiatanPage> {
-  int? selisih;
-
   final TextEditingController _namaBiayaKegiatanController = TextEditingController();
   final TextEditingController _kuantitasController = TextEditingController();
   final TextEditingController _hargaSatuanController = TextEditingController();
@@ -128,45 +128,63 @@ class _LaporanKegiatanEditBiayaKegiatanPageState extends State<LaporanKegiatanEd
 
                       CustomMipokaButton(
                         onTap: () {
+                          int? kuantitas = int.tryParse(_kuantitasController.text);
+                          int? hargaSatuan = int.tryParse(_hargaSatuanController.text);
+                          int? usulanAnggaran = int.tryParse(_usulanAnggaranController.text);
+                          int? realisasiAnggaran = int.tryParse(_realisasiAnggaranController.text);
+                          int? selisih;
 
-                          if (_usulanAnggaranController.text.isNotEmpty && _realisasiAnggaranController.text.isNotEmpty) {
-                            int? usulanAnggaran = int.tryParse(_usulanAnggaranController.text);
-                            int? realisasiAnggaran = int.tryParse(_realisasiAnggaranController.text);
+                          if (_kuantitasController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Kuantitas"));
+                          } else if (kuantitas == null) {
+                            mipokaCustomToast(dataTypeFalsePrompt("Kuantitas"));
+                          } else if (_hargaSatuanController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Harga Satuan"));
+                          } else if (hargaSatuan == null) {
+                            mipokaCustomToast(dataTypeFalsePrompt("Harga Satuan"));
+                          } else if (_usulanAnggaranController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Usulan Anggaran"));
+                          } else if (usulanAnggaran == null) {
+                            mipokaCustomToast(dataTypeFalsePrompt("Usulan Anggaran"));
+                          } else if (_realisasiAnggaranController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Realisasi Anggaran"));
+                          } else if (realisasiAnggaran == null) {
+                            mipokaCustomToast(dataTypeFalsePrompt("Realisasi Anggaran"));
+                          } else {
 
-                            if (usulanAnggaran != null && realisasiAnggaran != null) {
-                              selisih = usulanAnggaran > realisasiAnggaran
-                                  ? usulanAnggaran - realisasiAnggaran
-                                  : realisasiAnggaran - usulanAnggaran;
+                            if (usulanAnggaran > realisasiAnggaran) {
+                              selisih = usulanAnggaran - realisasiAnggaran;
+                            } else {
+                              selisih = realisasiAnggaran - usulanAnggaran;
                             }
+
+                            String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
+                            final laporan = widget.rincianBiayaKegiatanArgs.laporan;
+                            final rincianBiayaKegiatan = laporan.rincianBiayaKegiatan[widget.rincianBiayaKegiatanArgs.index];
+
+                            final newRincianBiaya = rincianBiayaKegiatan.copyWith(
+                              namaBiaya: _namaBiayaKegiatanController.text,
+                              keterangan: _keteranganController.text,
+                              kuantitas: kuantitas,
+                              hargaSatuan: hargaSatuan,
+                              usulanAnggaran: usulanAnggaran,
+                              realisasiAnggaran: realisasiAnggaran,
+                              selisih: selisih,
+                              updatedAt: currentDate,
+                              updatedBy: user?.email ?? "unknown",
+                            );
+
+                            laporan.rincianBiayaKegiatan[widget.rincianBiayaKegiatanArgs.index] =
+                                RincianBiayaKegiatanModel.fromEntity(newRincianBiaya);
+
+                            Navigator.pop(
+                              context,
+                              laporan.copyWith(
+                                rincianBiayaKegiatan: laporan.rincianBiayaKegiatan,
+                              ),
+                            );
                           }
-
-                          String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
-                          final laporan = widget.rincianBiayaKegiatanArgs.laporan;
-                          final rincianBiayaKegiatan = laporan.rincianBiayaKegiatan[widget.rincianBiayaKegiatanArgs.index];
-
-                          final newRincianBiaya = rincianBiayaKegiatan.copyWith(
-                            namaBiaya: _namaBiayaKegiatanController.text,
-                            keterangan: _keteranganController.text,
-                            kuantitas: int.parse(_kuantitasController.text),
-                            hargaSatuan: int.parse(_hargaSatuanController.text),
-                            usulanAnggaran: int.parse(_usulanAnggaranController.text),
-                            realisasiAnggaran: int.parse(_realisasiAnggaranController.text),
-                            selisih: selisih ?? 0,
-                            updatedAt: currentDate,
-                            updatedBy: user?.email ?? "unknown",
-                          );
-
-                          laporan.rincianBiayaKegiatan[widget.rincianBiayaKegiatanArgs.index] =
-                              RincianBiayaKegiatanModel.fromEntity(newRincianBiaya);
-
-                          Navigator.pop(
-                            context,
-                            laporan.copyWith(
-                              rincianBiayaKegiatan: laporan.rincianBiayaKegiatan,
-                            ),
-                          );
-
                         },
                         text: 'Tambahkan Peserta',
                       ),

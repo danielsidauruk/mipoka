@@ -181,7 +181,11 @@ class _PenggunaPengajuanLaporanKegiatan1State
 
                                 CustomMipokaButton(
                                   onTap: () {
-                                    if (_pencapaianController.text.isNotEmpty && _usulanKegiatan != null) {
+                                    if (_pencapaianController.text.isEmpty) {
+                                      mipokaCustomToast(emptyFieldPrompt("Pencapaian"));
+                                    } else if (_usulanKegiatan == null) {
+                                      mipokaCustomToast(emptyFieldPrompt("Nama Kegiatan"));
+                                    } else {
                                       String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
                                       final biayaKegiatan = _usulanKegiatan?.biayaKegiatan;
@@ -242,10 +246,8 @@ class _PenggunaPengajuanLaporanKegiatan1State
                                           ),
                                         ),
                                       );
-
-                                    } else {
-                                      mipokaCustomToast(emptyFieldMessage);
                                     }
+
                                   },
                                   text: 'Berikutnya',
                                 ),

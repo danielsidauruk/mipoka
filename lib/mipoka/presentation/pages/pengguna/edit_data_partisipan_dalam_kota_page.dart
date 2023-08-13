@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/multiple_args.dart';
 import 'package:mipoka/mipoka/data/models/partisipan_model.dart';
@@ -9,6 +10,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 
 class EditDataPesertaDalamKota extends StatefulWidget {
   const EditDataPesertaDalamKota({
@@ -58,7 +60,7 @@ class _EditDataPesertaDalamKotaState extends State<EditDataPesertaDalamKota> {
               CustomContentBox(
                 children: [
 
-                  customBoxTitle('Data Peserta'),
+                  customBoxTitle('Data Partisipan'),
 
                   const CustomFieldSpacer(),
 
@@ -97,9 +99,15 @@ class _EditDataPesertaDalamKotaState extends State<EditDataPesertaDalamKota> {
 
                       CustomMipokaButton(
                         onTap: () {
-
-                          if (_noIndukController.text.isNotEmpty && _namaPartisipanController.text.isNotEmpty &&
-                              _peranPartisipanController.text.isNotEmpty && _dasarPengirimanController.text.isNotEmpty) {
+                          if(_noIndukController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("NIM/NIP"));
+                          } else if (_namaPartisipanController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Nama Partisipan"));
+                          } else if (_peranPartisipanController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Peran"));
+                          } else if (_dasarPengirimanController.text.isEmpty) {
+                            mipokaCustomToast(emptyFieldPrompt("Dasar Pengiriman"));
+                          } else {
 
                             final usulanKegiatan = widget.partisipanArgs.usulanKegiatan;
                             final partisipan = usulanKegiatan.partisipan[widget.partisipanArgs.index];
