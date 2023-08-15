@@ -10,6 +10,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/domain/utils/url_utils.dart';
 import 'package:mipoka/mipoka/domain/entities/ormawa.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
@@ -350,7 +351,7 @@ class _KemahasiswaanEditOrmawaEditPageState
                         onTap: () async {
                           excelResult = await FilePicker.platform.pickFiles(
                             type: FileType.custom,
-                            allowedExtensions: ['pdf'],
+                            allowedExtensions: ['xlsx'],
                           );
                           if (excelResult != null){
                             _excelFileStream.add(excelResult?.files.first.name);
@@ -370,7 +371,7 @@ class _KemahasiswaanEditOrmawaEditPageState
                       onPressed: () {
                         downloadFileWithDio(
                           url: nimTemplate,
-                          fileName: "anggota_ormawa_template.xlsx",
+                          fileName: getFileNameFromUrl(nimTemplate),
                         );
                       }
                   ),

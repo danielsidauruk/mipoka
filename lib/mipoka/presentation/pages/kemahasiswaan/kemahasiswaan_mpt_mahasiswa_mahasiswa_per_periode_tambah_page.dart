@@ -162,7 +162,7 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                         onTap: () async {
                           result = await FilePicker.platform.pickFiles(
                             type: FileType.custom,
-                            allowedExtensions: ['pdf'],
+                            allowedExtensions: ['xlsx'],
                           );
                           if (result != null){
                             PlatformFile file = result!.files.first;
@@ -181,8 +181,8 @@ class _KemahasiswaanMPTMahasiswaMahasiswaPerPeriodeTambahPageState
                     text: 'Export Template',
                     onPressed: () {
                       downloadFileWithDio(
-                        url: mhsPerPeriodeTemplate,
-                        fileName: getFileNameFromUrl(mhsPerPeriodeTemplate),
+                        url: nimTemplate,
+                        fileName: getFileNameFromUrl(nimTemplate),
                       );
                     }
                   ),
