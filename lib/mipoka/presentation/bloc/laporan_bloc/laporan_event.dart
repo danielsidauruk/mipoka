@@ -139,3 +139,12 @@ class AddDataPesertaKegiatanEvent extends LaporanEvent {
   @override
   List<Object?> get props => [laporan];
 }
+
+class AddReviseToLaporanEvent extends LaporanEvent {
+  final Laporan laporan;
+
+  const AddReviseToLaporanEvent({required this.laporan});
+
+  @override
+  List<Object?> get props => [laporan];
+}

@@ -107,7 +107,7 @@ class LaporanModel extends Laporan {
 
   Map<String, dynamic> toJson() => {
     "id_laporan": idLaporan,
-    "revisi_usulan": revisiLaporanModel?.toJson(),
+    "revisi_laporan": revisiLaporanModel?.toJson(),
     "usulan": usulanKegiatanModel?.toJson(),
     "pencapaian": pencapaian,
     "peserta_kegiatan_laporan": List<dynamic>.from(pesertaKegiatanLaporanModel.map((x) => x.toJson())),

@@ -289,6 +289,7 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                               penggunaPengajuanLaporanKegiatanPage1Route,
                                               arguments: LaporanArgs(
                                                 idLaporan: laporan.idLaporan,
+                                                isRevisiLaporan: true,
                                               ),
                                             ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent())),
                                             child: Align(

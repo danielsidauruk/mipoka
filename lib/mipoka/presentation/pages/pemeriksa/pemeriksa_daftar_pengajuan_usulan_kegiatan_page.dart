@@ -35,7 +35,6 @@ class PemeriksaDaftarPengajuanKegiatanPage extends StatefulWidget {
 
 class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPengajuanKegiatanPage> {
   String? filter;
-  int uniqueId = UniqueIdGenerator.generateUniqueId();
   User? user = FirebaseAuth.instance.currentUser;
   RevisiUsulan? revisiUsulan;
 
@@ -102,20 +101,15 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                     listenWhen: (prev, current) =>
                     prev.runtimeType != current.runtimeType,
                     listener: (context, state) async {
-
-                      if (state is AddReviseToUsulanSuccess) {
-
+                      if (state is UpdateUsulanKegiatanSuccess) {
+                      context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
+                      } else if (state is AddReviseToUsulanSuccess) {
                         Navigator.pushNamed(
                           context,
                           pemeriksaPengajuanUsulanKegiatan1PageRoute,
                           arguments: idUsulan,
                         ).then((_) => context.read<UsulanKegiatanBloc>().add(
                             const ReadAllUsulanKegiatanEvent()));
-
-                      } else if (state is UpdateUsulanKegiatanSuccess) {
-
-                        context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
-
                       } else if (state is UsulanKegiatanError) {
                         mipokaCustomToast(state.message);
                       }
@@ -133,6 +127,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                               final mipokaUser = state.mipokaUser;
 
                               String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                              int uniqueId = UniqueIdGenerator.generateUniqueId();
 
                               revisiUsulan = RevisiUsulan(
                                 idRevisiUsulan: uniqueId,
@@ -271,7 +266,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                 Align(
                                                   alignment: Alignment.center,
                                                   child: Text(
-                                                    usulanKegiatan.mipokaUser.namaLengkap ?? "",
+                                                    usulanKegiatan.mipokaUser.namaLengkap,
                                                   ),
                                                 ),
                                               ),
@@ -350,6 +345,7 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                       InkWell(
                                                         onTap: () async {
                                                           if(context.mounted) {
+                                                            int uniqueId = UniqueIdGenerator.generateUniqueId();
                                                             context.read<NotifikasiBloc>().add(
                                                               CreateNotifikasiEvent(
                                                                 notifikasi: Notifikasi(

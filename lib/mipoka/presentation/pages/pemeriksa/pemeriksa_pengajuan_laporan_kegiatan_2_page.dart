@@ -65,7 +65,7 @@ class _PemeriksaPengajuanLaporanKegiatan2PageState
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const CustomMobileTitle(
-                text: 'Pemeriksa - Kegiatan - Usulan Kegiatan'),
+                text: 'Pemeriksa - Kegiatan - Laporan Kegiatan'),
             const CustomFieldSpacer(),
             Expanded(
               child: BlocConsumer<LaporanBloc, LaporanState>(

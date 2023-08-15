@@ -70,3 +70,5 @@ class UpdateLaporanReviseFirstPageSuccess extends LaporanState {}
 class UpdateLaporanReviseSecondPageSuccess extends LaporanState {}
 
 class UpdateLaporanReviseLastPageSuccess extends LaporanState {}
+
+class AddReviseToLaporanSuccess extends LaporanState {}

@@ -133,53 +133,80 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                           controller: _revisiPenutupController,
                         ),
                         const CustomFieldSpacer(),
-                        CustomCommentForTable(
-                          title: 'Postingan Kegiatan',
-                          description: 'Catatan (Berisi file yang harus direvisi)',
-                          controller: _revisiFotoDokumenasiKegiatanController,
-                        ),
-                        MipokaCustomLoadImage(
-                          stream: _fotoDokumentasiStream,
-                          imageUrl: laporan.fotoDokumentasiKegiatan[0],
-                        ),
 
-                        const CustomFieldSpacer(),
+                        laporan.fotoDokumentasiKegiatan != "" ?
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomCommentForTable(
+                                title: 'Postingan Kegiatan',
+                                description: 'Catatan (Berisi file yang harus direvisi)',
+                                controller: _revisiFotoDokumenasiKegiatanController,
+                              ),
+                              MipokaCustomLoadImage(
+                                stream: _fotoDokumentasiStream,
+                                imageUrl: laporan.fotoDokumentasiKegiatan,
+                              ),
+                              const CustomFieldSpacer(),
+                            ],
+                        ) :
+                        const SizedBox(),
 
-                        CustomCommentForTable(
-                          title: 'Dokumentasi Kegiatan',
-                          description: 'Catatan (Berisi file yang harus direvisi)',
-                          controller: _revisiFotoPostinganKegiatanController,
-                        ),
-                        MipokaCustomLoadImage(
-                          stream: _fotoPostinganStream,
-                          imageUrl: laporan.fotoPostinganKegiatan,
-                        ),
+                        laporan.fotoPostinganKegiatan != "" ?
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomCommentForTable(
+                              title: 'Dokumentasi Kegiatan',
+                              description: 'Catatan (Berisi file yang harus direvisi)',
+                              controller: _revisiFotoPostinganKegiatanController,
+                            ),
+                            MipokaCustomLoadImage(
+                              stream: _fotoPostinganStream,
+                              imageUrl: laporan.fotoPostinganKegiatan,
+                            ),
 
-                        const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
+                          ],
+                        ) :
+                        const SizedBox(),
 
-                        CustomCommentForTable(
-                          title: 'Tabulasi Hasil',
-                          description: 'Catatan (Berisi file yang harus direvisi)',
-                          controller: _revisiFotoTabulasiHasilController,
-                        ),
-                        MipokaCustomLoadImage(
-                          stream: _fotoTabulasiHasilStream,
-                          imageUrl: laporan.fotoTabulasiHasil,
-                        ),
+                        laporan.fotoTabulasiHasil != "" ?
+                        Column(
+                          children: [
+                            CustomCommentForTable(
+                              title: 'Tabulasi Hasil',
+                              description: 'Catatan (Berisi file yang harus direvisi)',
+                              controller: _revisiFotoTabulasiHasilController,
+                            ),
+                            MipokaCustomLoadImage(
+                              stream: _fotoTabulasiHasilStream,
+                              imageUrl: laporan.fotoTabulasiHasil,
+                            ),
+                            const CustomFieldSpacer(),
+                          ],
+                        ) :
+                        const SizedBox(),
 
-                        const CustomFieldSpacer(),
+                        laporan.fotoFakturPembayaran != "" ?
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomCommentForTable(
+                              title: 'Faktur Pembayaran',
+                              description: 'Catatan (Berisi file yang harus direvisi)',
+                              controller: _revisiFotofakturpembayaranController,
+                            ),
+                            MipokaCustomLoadImage(
+                              stream: _fotoFakturPembayaranStream,
+                              imageUrl: laporan.fotoFakturPembayaran,
+                            ),
 
-                        CustomCommentForTable(
-                          title: 'Faktur Pembayaran',
-                          description: 'Catatan (Berisi file yang harus direvisi)',
-                          controller: _revisiFotofakturpembayaranController,
-                        ),
-                        MipokaCustomLoadImage(
-                          stream: _fotoFakturPembayaranStream,
-                          imageUrl: laporan.fotoFakturPembayaran,
-                        ),
+                            const CustomFieldSpacer(),
+                          ],
+                        ) :
+                        const SizedBox(),
 
-                        const CustomFieldSpacer(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -215,8 +242,6 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                               onTap: () {
                                 String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
-                                mipokaCustomToast("Revisi Telah dikirim.");
-
                                 context.read<LaporanBloc>().add(
                                   UpdateLaporanReviseLastPageEvent(
                                     laporan: laporan.copyWith(
@@ -231,12 +256,15 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                                         updatedAt: currentDate,
                                         updatedBy: user?.email ?? "unknown",
                                       ),
-                                      penutup: "",
+                                      validasiPembina: ditolak,
+                                      statusLaporan: ditolak,
                                     ),
                                   ),
                                 );
+
+                                mipokaCustomToast("Revisi Telah dikirim.");
                               },
-                              text: 'Tolak',
+                              text: 'Kirim Revisi',
                             ),
 
                             const SizedBox(width: 4.0),

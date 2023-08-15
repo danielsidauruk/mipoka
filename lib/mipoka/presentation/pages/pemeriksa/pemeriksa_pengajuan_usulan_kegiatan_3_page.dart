@@ -333,51 +333,79 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
 
                         const CustomFieldSpacer(height: 4.0),
 
-                        CustomCommentForTable(
-                          title: "Postingan Kegiatan",
-                          controller: _postingKegiatanController,
-                        ),
+                        usulanKegiatan.fotoPostinganKegiatan != "" ?
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomCommentForTable(
+                              title: "Postingan Kegiatan",
+                              controller: _postingKegiatanController,
+                            ),
 
-                        MipokaCustomLoadImage(
-                          stream: _postinganKegiatanStream,
-                          imageUrl: usulanKegiatan.fotoPostinganKegiatan,
-                        ),
+                            MipokaCustomLoadImage(
+                              stream: _postinganKegiatanStream,
+                              imageUrl: usulanKegiatan.fotoPostinganKegiatan,
+                            ),
 
-                        const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
+                          ],
+                        ) :
+                        const SizedBox(),
 
-                        CustomCommentForTable(
-                          title: "Surat Undangan Kegiatan",
-                          controller: _suratUndanganController,
-                        ),
+                        usulanKegiatan.fotoSuratUndanganKegiatan != "" ?
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomCommentForTable(
+                              title: "Surat Undangan Kegiatan",
+                              controller: _suratUndanganController,
+                            ),
 
-                        MipokaCustomLoadImage(
-                          stream: _suratUndanganStream,
-                          imageUrl: usulanKegiatan.fotoSuratUndanganKegiatan,
-                        ),
+                            MipokaCustomLoadImage(
+                              stream: _suratUndanganStream,
+                              imageUrl: usulanKegiatan.fotoSuratUndanganKegiatan,
+                            ),
 
-                        const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
+                          ],
+                        ) :
+                        const SizedBox(),
 
-                        CustomCommentForTable(
-                          title: "Linimasa Kegiatan",
-                          controller: _linimasaKegiatanController,
-                        ),
-                        MipokaCustomLoadImage(
-                          stream: _linimasaKegiatanStream,
-                          imageUrl: usulanKegiatan.fotoLinimasaKegiatan,
-                        ),
+                        usulanKegiatan.fotoLinimasaKegiatan != "" ?
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomCommentForTable(
+                              title: "Linimasa Kegiatan",
+                              controller: _linimasaKegiatanController,
+                            ),
+                            MipokaCustomLoadImage(
+                              stream: _linimasaKegiatanStream,
+                              imageUrl: usulanKegiatan.fotoLinimasaKegiatan,
+                            ),
 
-                        const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
+                          ],
+                        ) :
+                        const SizedBox(),
 
-                        CustomCommentForTable(
-                          title: "Tempat Kegiatan",
-                          controller: _tempatKegiatanController,
-                        ),
-                        MipokaCustomLoadImage(
-                          stream: _fotoTempatKegiatanStream,
-                          imageUrl: usulanKegiatan.fotoTempatKegiatan,
-                        ),
+                        usulanKegiatan.fotoTempatKegiatan != "" ?
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomCommentForTable(
+                              title: "Tempat Kegiatan",
+                              controller: _tempatKegiatanController,
+                            ),
+                            MipokaCustomLoadImage(
+                              stream: _fotoTempatKegiatanStream,
+                              imageUrl: usulanKegiatan.fotoTempatKegiatan,
+                            ),
 
-                        const CustomFieldSpacer(),
+                            const CustomFieldSpacer(),
+                          ],
+                        ) :
+                        const SizedBox(),
 
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
