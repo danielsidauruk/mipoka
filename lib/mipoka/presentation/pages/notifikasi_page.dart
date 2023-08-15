@@ -70,6 +70,7 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
 
                         return ListView.builder(
                           shrinkWrap: true,
+                          physics: const ScrollPhysics(),
                           itemCount: notifikasiList.length,
                           itemBuilder: (context, index) {
                             return Container(

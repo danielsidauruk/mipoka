@@ -190,16 +190,27 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                                             ),
                                           ),
                                         ),
+
+                                        usulanKegiatan.fileUsulanKegiatan != "" ?
                                         DataCell(
-                                          Center(
-                                            child: InkWell(
-                                              onTap: () => downloadFileWithDio(
-                                                  url: usulanKegiatan.fileUsulanKegiatan,
-                                                  fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan)),
-                                              child: Image.asset(
-                                                'assets/icons/pdf.png',
-                                                width: 24,
-                                              ),
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/pdf.png',
+                                              width: 24,
+                                            ),
+                                          ),
+                                          onTap: () => downloadFileWithDio(
+                                            url: usulanKegiatan.fileUsulanKegiatan,
+                                            fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan),
+                                          ),
+                                        ) :
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/document.png',
+                                              width: 24,
                                             ),
                                           ),
                                         ),

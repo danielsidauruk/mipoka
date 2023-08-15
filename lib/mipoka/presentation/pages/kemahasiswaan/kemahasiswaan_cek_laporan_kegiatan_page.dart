@@ -173,6 +173,8 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                               child: Text(laporan.usulanKegiatan?.namaKegiatan ?? ""),
                                             )
                                         ),
+
+                                        laporan.fileLaporanKegiatan != "" ?
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
@@ -184,6 +186,15 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                           onTap: () => downloadFileWithDio(
                                             url: laporan.fileLaporanKegiatan,
                                             fileName: getFileNameFromUrl(laporan.fileLaporanKegiatan),
+                                          ),
+                                        ) :
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/document.png',
+                                              width: 24,
+                                            ),
                                           ),
                                         ),
 

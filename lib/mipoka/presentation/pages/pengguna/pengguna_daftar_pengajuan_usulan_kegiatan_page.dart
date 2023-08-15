@@ -249,17 +249,83 @@ class _PenggunaDaftarPengajuanKegiatanState
                                             ),
                                           ),
                                         ),
+
+                                        // usulanKegiatan.statusUsulan == ditolak ?
+                                        // InkWell(
+                                        //   onTap: () {
+                                        //     Navigator.pushNamed(
+                                        //       context,
+                                        //       penggunaPengajuanUsulanKegiatanPage1Route,
+                                        //       arguments: UsulanArgs(
+                                        //         idUsulan: usulanKegiatan.idUsulan,
+                                        //         isRevisiUsulan: true,
+                                        //       ),
+                                        //     ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                        //       const ReadAllUsulanKegiatanEvent()));
+                                        //   },
+                                        //   child: Text(
+                                        //     usulanKegiatan.namaKegiatan,
+                                        //     style: const TextStyle(color: Colors.red),
+                                        //   ),
+                                        // ) :
+                                        // usulanKegiatan.fileUsulanKegiatan == "" ?
+                                        // InkWell(
+                                        //   onTap: () {
+                                        //     Navigator.pushNamed(
+                                        //       context,
+                                        //       penggunaPengajuanUsulanKegiatanPage1Route,
+                                        //       arguments: UsulanArgs(
+                                        //         idUsulan: usulanKegiatan.idUsulan,
+                                        //       ),
+                                        //     ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                        //         const ReadAllUsulanKegiatanEvent()));
+                                        //   },
+                                        //   child: Text(
+                                        //     "${usulanKegiatan.namaKegiatan} (lanjut mengedit)",
+                                        //     style: const TextStyle(color: Colors.orange),
+                                        //   ),
+                                        // )
+
+                                        usulanKegiatan.statusUsulan == disetujui ?
                                         DataCell(
-                                          onTap: () {
-                                            Navigator.pushNamed(
-                                              context,
-                                              penggunaPengajuanUsulanKegiatanPage1Route,
-                                              arguments: UsulanArgs(
-                                                idUsulan: usulanKegiatan.idUsulan,
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: InkWell(
+                                              child: Image.asset(
+                                                'assets/icons/pdf.png',
+                                                width: 24,
                                               ),
-                                            ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                                const ReadAllUsulanKegiatanEvent()));
-                                          },
+                                              onTap: () => downloadFileWithDio(
+                                                url: usulanKegiatan.fileUsulanKegiatan,
+                                                fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan),
+                                              ),
+                                            ),
+                                          ),
+                                        ) :
+                                        usulanKegiatan.statusUsulan == ditolak ?
+                                        DataCell(
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.pushNamed(
+                                                context,
+                                                penggunaPengajuanUsulanKegiatanPage1Route,
+                                                arguments: UsulanArgs(
+                                                  idUsulan: usulanKegiatan.idUsulan,
+                                                  isRevisiUsulan: true,
+                                                ),
+                                              ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                                  const ReadAllUsulanKegiatanEvent()));
+                                            },
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: Image.asset(
+                                                'assets/icons/document.png',
+                                                width: 24,
+                                              ),
+                                            ),
+                                          ),
+                                        ) :
+                                        DataCell(
                                           Align(
                                             alignment: Alignment.center,
                                             child: Image.asset(
@@ -268,6 +334,26 @@ class _PenggunaDaftarPengajuanKegiatanState
                                             ),
                                           ),
                                         ),
+
+                                        // DataCell(
+                                        //   onTap: () {
+                                        //     Navigator.pushNamed(
+                                        //       context,
+                                        //       penggunaPengajuanUsulanKegiatanPage1Route,
+                                        //       arguments: UsulanArgs(
+                                        //         idUsulan: usulanKegiatan.idUsulan,
+                                        //       ),
+                                        //     ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                        //         const ReadAllUsulanKegiatanEvent()));
+                                        //   },
+                                        //   Align(
+                                        //     alignment: Alignment.center,
+                                        //     child: Image.asset(
+                                        //       'assets/icons/document.png',
+                                        //       width: 24,
+                                        //     ),
+                                        //   ),
+                                        // ),
 
                                         DataCell(
                                           usulanKegiatan.validasiPembina == disetujui ?
@@ -427,7 +513,7 @@ class _PenggunaDaftarPengajuanKegiatanState
             ],
           ),
         ),
-      )
+      ),
     );
   }
 }

@@ -216,19 +216,37 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                           // }
                                         ),
 
+                                        laporan.fileLaporanKegiatan == "" ?
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Image.asset(
-                                              'assets/icons/document.png',
-                                              width: 24,
+                                            child: InkWell(
+                                              child: Image.asset(
+                                                'assets/icons/document.png',
+                                                width: 24,
+                                              ),
+                                              onTap: () => Navigator.pushNamed(
+                                                context,
+                                                pemeriksaPengajuanLaporanKegiatan1PageRoute,
+                                                arguments: laporan.idLaporan,
+                                              ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent())),
                                             ),
                                           ),
-                                          onTap: () => Navigator.pushNamed(
-                                            context,
-                                            pemeriksaPengajuanLaporanKegiatan1PageRoute,
-                                            arguments: laporan.idLaporan,
-                                          ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent())),
+                                        ) :
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: InkWell(
+                                              child: Image.asset(
+                                                'assets/icons/pdf.png',
+                                                width: 24,
+                                              ),
+                                              onTap: () => downloadFileWithDio(
+                                                url: laporan.fileLaporanKegiatan,
+                                                fileName: getFileNameFromUrl(laporan.fileLaporanKegiatan),
+                                              ),
+                                            ),
+                                          ),
                                         ),
 
                                         DataCell(

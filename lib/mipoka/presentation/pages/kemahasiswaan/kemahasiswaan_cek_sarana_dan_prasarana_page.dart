@@ -199,7 +199,7 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Text(formatDateIndonesia(session.tanggalMulai)),
+                                            child: Text(formatDateIndonesia(session.createdAt)),
                                           ),
                                         ),
                                         DataCell(
@@ -221,6 +221,7 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                                 .parse(session.tanggalMulai))} / ${session.tanggalMulai}"),
                                           ),
                                         ),
+
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
@@ -234,26 +235,28 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                           ),
                                         ),
 
+                                        session.fileSession != "" ?
                                         DataCell(
                                           onTap: () => downloadFileWithDio(
                                             url: session.fileSession,
                                             fileName: getFileNameFromUrl(session.fileSession),
                                           ),
-                                          session.fileSession.contains(".pdf") ?
                                           Align(
                                             alignment: Alignment.center,
                                             child: Image.asset(
                                               'assets/icons/pdf.png',
                                               width: 24,
                                             ),
-                                          ) :
+                                          ),
+                                        ) :
+                                        DataCell(
                                           Align(
                                             alignment: Alignment.center,
                                             child: Image.asset(
-                                              'assets/icons/word.png',
+                                              'assets/icons/document.png',
                                               width: 24,
                                             ),
-                                          )
+                                          ),
                                         ),
 
                                         DataCell(

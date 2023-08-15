@@ -193,9 +193,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Text(
-                                              session.createdAt,
-                                            ),
+                                            child: Text(formatDateIndonesia(session.createdAt)),
                                           ),
                                         ),
                                         DataCell(
@@ -245,15 +243,22 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                             ),
                                           ),
                                         ),
+
+                                        session.fileSession != "" ?
                                         DataCell(
-                                          onTap: () => downloadFileWithDio(
-                                            url: session.fileSession,
-                                            fileName: getFileNameFromUrl(session.fileSession),
-                                          ),
                                           Align(
                                             alignment: Alignment.center,
                                             child: Image.asset(
-                                              'assets/icons/word.png',
+                                              'assets/icons/pdf.png',
+                                              width: 24,
+                                            ),
+                                          ),
+                                        ) :
+                                        DataCell(
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              'assets/icons/document.png',
                                               width: 24,
                                             ),
                                           ),
@@ -267,8 +272,7 @@ class _PenggunaDaftarPengajuanSaranaDanPrasaranaState extends State<PenggunaDaft
                                               'assets/icons/approve.png',
                                               width: 24,
                                             ),
-                                          )
-                                              :
+                                          ) :
                                           session.status == ditolak ?
                                           Align(
                                             alignment: Alignment.center,

@@ -284,30 +284,47 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                 ),
                                               ),
 
+                                              usulanKegiatan.fileUsulanKegiatan == "" ?
                                               DataCell(
                                                 Align(
                                                   alignment: Alignment.center,
-                                                  child: Image.asset(
-                                                    'assets/icons/document.png',
-                                                    width: 24,
+                                                  child: InkWell(
+                                                    child: Image.asset(
+                                                      'assets/icons/document.png',
+                                                      width: 24,
+                                                    ),
+                                                    onTap: () {
+                                                      idUsulan = usulanKegiatan.idUsulan;
+
+                                                      context.read<UsulanKegiatanBloc>().add(
+                                                        AddReviseToUsulanEvent(
+                                                          usulanKegiatan: usulanKegiatan.copyWith(
+                                                            revisiUsulan: revisiUsulan,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
                                                   ),
                                                 ),
-                                                onTap: () {
-                                                  idUsulan = usulanKegiatan.idUsulan;
-
-                                                  context.read<UsulanKegiatanBloc>().add(
-                                                    AddReviseToUsulanEvent(
-                                                      usulanKegiatan: usulanKegiatan.copyWith(
-                                                        revisiUsulan: revisiUsulan,
-                                                      ),
+                                              ) :
+                                              DataCell(
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: InkWell(
+                                                    child: Image.asset(
+                                                      'assets/icons/pdf.png',
+                                                      width: 24,
                                                     ),
-                                                  );
-                                                  // downloadFileWithDio(
-                                                  //   url: usulanKegiatan.fileUsulanKegiatan,
-                                                  //   fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan),
-                                                  // );
-                                                },
+                                                    onTap: () {
+                                                      downloadFileWithDio(
+                                                        url: usulanKegiatan.fileUsulanKegiatan,
+                                                        fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
                                               ),
+
                                               DataCell(
                                                 Align(
                                                   alignment: Alignment.center,
