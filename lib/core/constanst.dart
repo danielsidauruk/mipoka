@@ -6,7 +6,6 @@ const listNamaOrmawa = ['Ormawa A', 'Ormawa B', 'Ormawa C', 'Ormawa D', 'Ormawa 
 
 const listNamaOrmawa2 = ['Semua', 'Ormawa A', 'Ormawa B', 'Ormawa C', 'Ormawa D', 'Ormawa E'];
 
-
 const roleList = [kemahasiswaan, pembina, mahasiswa, mipokaAdmin];
 
 const String kemahasiswaan = "Kemahasiswaan";
@@ -44,6 +43,7 @@ const riwayatKegiatanTemplate = "https://firebasestorage.googleapis.com/v0/b/mip
 const pesertaKegiatanTemplate = "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/template-file%2Fpeserta_kegiatan_template%20(1).xlsx?alt=media&token=870b8327-60e4-4363-a4fa-db903242c6c6";
 
 const String apiUrl = 'https://oafish-eggnog-production.up.railway.app';
+// const String apiUrl = "https://mipoka-production.up.railway.app";
 
 const statusUsulan = ["Semua", disetujui, ditolak, tertunda];
 

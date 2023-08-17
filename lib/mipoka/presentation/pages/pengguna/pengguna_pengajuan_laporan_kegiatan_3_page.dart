@@ -407,113 +407,114 @@ class _PenggunaPengajuanLaporanKegiatan3State
                                     } else if (_penutupController.text.isEmpty) {
                                       mipokaCustomToast(emptyFieldPrompt("Penutup"));
                                     } else {
-                                        final postinganKegiatanResult = _postinganKegiatanResult;
-                                        if (postinganKegiatanResult != null) {
-                                          PlatformFile file = postinganKegiatanResult.files.first;
-                                          Uint8List? bytes;
+                                      mipokaCustomToast(savingDataMessage);
 
-                                          if (kIsWeb) {
-                                            bytes = file.bytes;
-                                          } else if (Platform.isAndroid) {
-                                            bytes = await File(file.path!).readAsBytes();
-                                          }
+                                      final postinganKegiatanResult = _postinganKegiatanResult;
+                                      if (postinganKegiatanResult != null) {
+                                        PlatformFile file = postinganKegiatanResult.files.first;
+                                        Uint8List? bytes;
 
-                                          if (bytes != null) {
-                                            int newId = UniqueIdGenerator.generateUniqueId();
-                                            _postinganKegiatanController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
-                                          }
+                                        if (kIsWeb) {
+                                          bytes = file.bytes;
+                                        } else if (Platform.isAndroid) {
+                                          bytes = await File(file.path!).readAsBytes();
                                         }
 
-                                        final dokumentasiKegiatanResult = _dokumentasiKegiatanResult;
-                                        if (dokumentasiKegiatanResult != null) {
-                                          PlatformFile file = dokumentasiKegiatanResult.files.first;
-                                          Uint8List? bytes;
+                                        if (bytes != null) {
+                                          int newId = UniqueIdGenerator.generateUniqueId();
+                                          _postinganKegiatanController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
+                                        }
+                                      }
 
-                                          if (kIsWeb) {
-                                            bytes = file.bytes;
-                                          } else if (Platform.isAndroid) {
-                                            bytes = await File(file.path!).readAsBytes();
-                                          }
+                                      final dokumentasiKegiatanResult = _dokumentasiKegiatanResult;
+                                      if (dokumentasiKegiatanResult != null) {
+                                        PlatformFile file = dokumentasiKegiatanResult.files.first;
+                                        Uint8List? bytes;
 
-                                          if (bytes != null) {
-                                            int newId = UniqueIdGenerator.generateUniqueId();
-                                            _dokumentasiKegiatanController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
-                                          }
+                                        if (kIsWeb) {
+                                          bytes = file.bytes;
+                                        } else if (Platform.isAndroid) {
+                                          bytes = await File(file.path!).readAsBytes();
                                         }
 
-                                        final tabulasiHasilKegiatanResult = _tabulasiHasilKegiatanResult;
-                                        if (tabulasiHasilKegiatanResult != null) {
-                                          PlatformFile file = tabulasiHasilKegiatanResult.files.first;
-                                          Uint8List? bytes;
+                                        if (bytes != null) {
+                                          int newId = UniqueIdGenerator.generateUniqueId();
+                                          _dokumentasiKegiatanController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
+                                        }
+                                      }
 
-                                          if (kIsWeb) {
-                                            bytes = file.bytes;
-                                          } else if (Platform.isAndroid) {
-                                            bytes = await File(file.path!).readAsBytes();
-                                          }
+                                      final tabulasiHasilKegiatanResult = _tabulasiHasilKegiatanResult;
+                                      if (tabulasiHasilKegiatanResult != null) {
+                                        PlatformFile file = tabulasiHasilKegiatanResult.files.first;
+                                        Uint8List? bytes;
 
-                                          if (bytes != null) {
-                                            int newId = UniqueIdGenerator.generateUniqueId();
-                                            _tabulasiHasilKegiatanController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
-                                          }
+                                        if (kIsWeb) {
+                                          bytes = file.bytes;
+                                        } else if (Platform.isAndroid) {
+                                          bytes = await File(file.path!).readAsBytes();
                                         }
 
-                                        final fakturPembayaranResult = _fakturPembayaranResult;
-                                        if (fakturPembayaranResult != null) {
-                                          PlatformFile file = fakturPembayaranResult.files.first;
-                                          Uint8List? bytes;
+                                        if (bytes != null) {
+                                          int newId = UniqueIdGenerator.generateUniqueId();
+                                          _tabulasiHasilKegiatanController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
+                                        }
+                                      }
 
-                                          if (kIsWeb) {
-                                            bytes = file.bytes;
-                                          } else if (Platform.isAndroid) {
-                                            bytes = await File(file.path!).readAsBytes();
-                                          }
+                                      final fakturPembayaranResult = _fakturPembayaranResult;
+                                      if (fakturPembayaranResult != null) {
+                                        PlatformFile file = fakturPembayaranResult.files.first;
+                                        Uint8List? bytes;
 
-                                          if (bytes != null) {
-                                            int newId = UniqueIdGenerator.generateUniqueId();
-                                            _fakturPembayaranController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
-                                          }
+                                        if (kIsWeb) {
+                                          bytes = file.bytes;
+                                        } else if (Platform.isAndroid) {
+                                          bytes = await File(file.path!).readAsBytes();
                                         }
 
-                                        int uniqueId = UniqueIdGenerator.generateUniqueId();
-                                        String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                                        if (bytes != null) {
+                                          int newId = UniqueIdGenerator.generateUniqueId();
+                                          _fakturPembayaranController = await uploadBytesToFirebase(bytes, "$newId${file.name}");
+                                        }
+                                      }
 
-                                        if(context.mounted) {
-                                          context.read<NotifikasiBloc>().add(
-                                            CreateNotifikasiEvent(
-                                              notifikasi: Notifikasi(
-                                                idNotifikasi: uniqueId,
-                                                teksNotifikasi: "${laporan.usulanKegiatan?.mipokaUser.namaLengkap} telah melakukan pengajuan Laporan Kegiatan berjudul ${laporan.usulanKegiatan?.mipokaUser.namaLengkap}",
-                                                tglNotifikasi: DateTime.now().toString(),
-                                                createdAt: currentDate,
-                                                createdBy: user?.email ?? "unknown",
-                                                updatedAt: currentDate,
-                                                updatedBy: user?.email ?? "unknown",
-                                              ),
+                                      int uniqueId = UniqueIdGenerator.generateUniqueId();
+                                      String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
+                                      if(context.mounted) {
+                                        context.read<NotifikasiBloc>().add(
+                                          CreateNotifikasiEvent(
+                                            notifikasi: Notifikasi(
+                                              idNotifikasi: uniqueId,
+                                              teksNotifikasi: "${laporan.usulanKegiatan?.mipokaUser.namaLengkap} telah melakukan pengajuan Laporan Kegiatan berjudul ${laporan.usulanKegiatan?.mipokaUser.namaLengkap}",
+                                              tglNotifikasi: DateTime.now().toString(),
+                                              createdAt: currentDate,
+                                              createdBy: user?.email ?? "unknown",
+                                              updatedAt: currentDate,
+                                              updatedBy: user?.email ?? "unknown",
                                             ),
-                                          );
-                                        }
+                                          ),
+                                        );
+                                      }
 
-                                        await Future.delayed(const Duration(milliseconds: 500));
+                                      await Future.delayed(const Duration(milliseconds: 500));
 
-                                        if (context.mounted) {
-                                          mipokaCustomToast(savingDataMessage);
-                                          context.read<LaporanBloc>().add(
-                                            UpdateLaporanAndSendEvent(
-                                              laporan: laporan.copyWith(
-                                                latarBelakang: _latarBelakangController.text,
-                                                hasilKegiatan: _hasilKegiatanController.text,
-                                                penutup: _penutupController.text,
-                                                fotoPostinganKegiatan: _postinganKegiatanController,
-                                                fotoDokumentasiKegiatan: _dokumentasiKegiatanController,
-                                                fotoTabulasiHasil: _tabulasiHasilKegiatanController,
-                                                fotoFakturPembayaran: _fakturPembayaranController,
-                                                validasiPembina: tertunda,
-                                                statusLaporan: tertunda,
-                                              ),
+                                      if (context.mounted) {
+                                        context.read<LaporanBloc>().add(
+                                          UpdateLaporanAndSendEvent(
+                                            laporan: laporan.copyWith(
+                                              latarBelakang: _latarBelakangController.text,
+                                              hasilKegiatan: _hasilKegiatanController.text,
+                                              penutup: _penutupController.text,
+                                              fotoPostinganKegiatan: _postinganKegiatanController,
+                                              fotoDokumentasiKegiatan: _dokumentasiKegiatanController,
+                                              fotoTabulasiHasil: _tabulasiHasilKegiatanController,
+                                              fotoFakturPembayaran: _fakturPembayaranController,
+                                              validasiPembina: tertunda,
+                                              statusLaporan: tertunda,
                                             ),
-                                          );
-                                        }
+                                          ),
+                                        );
+                                      }
                                     }
                                   },
 

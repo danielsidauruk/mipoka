@@ -236,7 +236,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                   const CustomFieldSpacer(height: 12),
 
 
-                  customBoxTitle('Kegiatan yang Belum Diklaim'),
+                  customBoxTitle("Kegiatan MPT yang Belum Dilaporkan"),
                   const CustomFieldSpacer(),
                   BlocBuilder<KegiatanPerPeriodeMptBloc, KegiatanPerPeriodeMptState>(
                     builder: (context, state) {
