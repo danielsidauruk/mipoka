@@ -290,9 +290,10 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                       if (state is RiwayatKegiatanMptSuccess) {
                         context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
 
-                      } else if (state is RiwayatKegiatanMptError) {
-                        mipokaCustomToast(state.message);
                       }
+                      // else if (state is RiwayatKegiatanMptError) {
+                      //   // mipokaCustomToast(state.message);
+                      // }
                     },
 
                     builder: (context, state) {

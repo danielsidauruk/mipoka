@@ -217,20 +217,20 @@ class _KemahasiswaanCekUsulanKegiatanPageState
 
                                         DataCell(
                                           Center(
-                                              child: usulanKegiatan.validasiPembina == disetujui ?
-                                              Image.asset(
-                                                'assets/icons/approve.png',
-                                                width: 24,
-                                              ) :
-                                              usulanKegiatan.validasiPembina == ditolak ?
-                                              Image.asset(
-                                                'assets/icons/close.png',
-                                                width: 24,
-                                              ) :
-                                              Image.asset(
-                                                'assets/icons/time.png',
-                                                width: 24,
-                                              )
+                                            child: usulanKegiatan.validasiPembina == disetujui ?
+                                            Image.asset(
+                                              'assets/icons/approve.png',
+                                              width: 24,
+                                            ) :
+                                            usulanKegiatan.validasiPembina == ditolak ?
+                                            Image.asset(
+                                              'assets/icons/close.png',
+                                              width: 24,
+                                            ) :
+                                            Image.asset(
+                                              'assets/icons/time.png',
+                                              width: 24,
+                                            ),
                                           ),
                                         ),
 

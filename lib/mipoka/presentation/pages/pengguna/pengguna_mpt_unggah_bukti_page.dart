@@ -285,7 +285,7 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                                       fileSertifikatMpt: _fileSertifikatMptController.text,
                                                       hash: _shaController.text,
                                                       keteranganMhs: _keteranganController.text,
-                                                      keteranganSa: tertunda,
+                                                      keteranganSa: "-",
                                                       createdAt: currentDate,
                                                       createdBy: user?.email ?? "unknown",
                                                       updatedAt: currentDate,
@@ -313,7 +313,8 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                 } else if (state is MipokaUserError) {
                                   return Text(state.message);
                                 } else {
-                                  return const Text("MipokaUser Hasn't been triggered yet");
+                                  return const SizedBox();
+                                  // return const Text("MipokaUser Hasn't been triggered yet");
                                 }
                               },
                             ),
@@ -341,7 +342,8 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
               } else if (riwayatKegiatanState is RiwayatKegiatanMptError) {
                 return Text(riwayatKegiatanState.message);
               } else {
-                return const Text("RiwayatKegiatan hasn't been triggered");
+                // return const Text("RiwayatKegiatan hasn't been triggered");
+                return const SizedBox();
               }
             },
           ),

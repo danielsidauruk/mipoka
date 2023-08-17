@@ -60,7 +60,8 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
               const CustomFieldSpacer(),
               CustomContentBox(
                 children: [
-                  customBoxTitle('Kegiatan yang Sudah Diklaim'),
+                  // customBoxTitle('Kegiatan yang Sudah Diklaim'),
+                  customBoxTitle('Kegiatan MPT yang Sudah Dilaporkan'),
                   const CustomFieldSpacer(),
                   BlocConsumer<RiwayatKegiatanMptBloc, RiwayatKegiatanMptState>(
                     listenWhen: (prev, current) =>
@@ -71,7 +72,8 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                         context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
 
                       } else if (state is RiwayatKegiatanMptError) {
-                        mipokaCustomToast(state.message);
+                        // mipokaCustomToast(state.message);
+                        mipokaCustomToast(savingDataMessage);
                       }
                     },
                     builder: (context, state) {
@@ -91,6 +93,13 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                 DataColumn(
                                   label: Text(
                                     'No.',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: Text(
+                                    'Nama yang klaim',
                                     style: TextStyle(fontWeight: FontWeight.bold),
                                     textAlign: TextAlign.center,
                                   ),
@@ -123,6 +132,13 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
+                                DataColumn(
+                                  label: Text(
+                                    'Status MPT',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
                               ],
                               rows: List<DataRow>.generate(riwayatKegiatanMptList.length, (int index) {
                                 final riwayatMpt = riwayatKegiatanMptList[index];
@@ -142,22 +158,29 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                         ),
                                       ),
                                     ),
-
                                     DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            riwayatMpt.kegiatanPerPeriodeMpt.namaKegiatanMpt.namaKegiatan,
-                                          ),
-                                        )
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          riwayatMpt.mipokaUser.namaLengkap,
+                                        ),
+                                      ),
                                     ),
                                     DataCell(
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                              riwayatMpt.kegiatanPerPeriodeMpt.namaKegiatanMpt.jenisKegiatanMpt.namaJenisKegiatanMpt
-                                          ),
-                                        )
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          riwayatMpt.kegiatanPerPeriodeMpt.namaKegiatanMpt.namaKegiatan,
+                                        ),
+                                      ),
+                                    ),
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                            riwayatMpt.kegiatanPerPeriodeMpt.namaKegiatanMpt.jenisKegiatanMpt.namaJenisKegiatanMpt
+                                        ),
+                                      ),
                                     ),
                                     DataCell(
                                       Align(
@@ -175,6 +198,25 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                         ),
                                       ),
                                     ),
+                                    DataCell(
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: riwayatMpt.statusMpt == disetujui ?
+                                        Image.asset(
+                                          'assets/icons/approve.png',
+                                          width: 24,
+                                        ) :
+                                        riwayatMpt.statusMpt == ditolak ?
+                                        Image.asset(
+                                          'assets/icons/close.png',
+                                          width: 24,
+                                        ) :
+                                        Image.asset(
+                                          'assets/icons/time.png',
+                                          width: 24,
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 );
                               }),
@@ -184,7 +226,8 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                       } else if (state is RiwayatKegiatanMptError) {
                         return Text(state.message);
                       } else {
-                        return const Text("RiwayatMptBloc hasn't been triggered");
+                        return const SizedBox();
+                        // return const Text("RiwayatMptBloc hasn't been triggered");
                       }
                     },
                   ),
@@ -345,6 +388,7 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                       } else if (state is KegiatanPerPeriodeMptError) {
                         return Text(state.message);
                       } else {
+                        return const SizedBox();
                         return const Text("ReadAllKegiatanPerPeriodeMptEvent hasn't been triggered");
                       }
                     },

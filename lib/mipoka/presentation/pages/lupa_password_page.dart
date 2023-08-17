@@ -66,7 +66,9 @@ class _LupaPasswordPageState extends State<LupaPasswordPage> {
                       try {
                         await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
                         mipokaCustomToast("Password reset email sent.");
-                        Navigator.pushNamed(context, loginPageRoute);
+                        if (context.mounted) {
+                          Navigator.pushNamed(context, loginPageRoute);
+                        }
                       } catch (e) {
                         final errorMessage = e.toString();
                         final int startIndex;

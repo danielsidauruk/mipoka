@@ -87,8 +87,13 @@ class _GantiPasswordPageState extends State<GantiPasswordPage> {
                                 user.updatePassword(_kataSandiBaruController.text)
                                     .then((_) {
                                   mipokaCustomToast("Perubahan password berhasil disimpan.");
-                                  Navigator.pushNamed(context, penggunaBerandaPageRoute);})
-                                    .catchError(
+                                  // Navigator.pushNamed(context, penggunaBerandaPageRoute);
+                                  Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    penggunaBerandaPageRoute,
+                                        (route) => false,
+                                  );
+                                    }).catchError(
                                       (error) {
                                     final errorMessage = error.toString();
                                     final int startIndex;

@@ -11,6 +11,7 @@ import 'package:mipoka/core/constanst.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
+import 'package:mipoka/domain/utils/url_utils.dart';
 import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/peserta_kegiatan_laporan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_by_nim_bloc/mipoka_user_by_nim_bloc.dart';
@@ -72,20 +73,15 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
       Excel excel = Excel.decodeBytes(bytes);
       Sheet? sheet = excel.tables[excel.tables.keys.first];
 
-      try {
-        for (var i = 1; i < sheet!.rows.length; i++) {
-          var row = sheet.rows[i];
-          var nim = row[0]?.value;
-          var peran = row[1]?.value;
+      for (var i = 1; i < sheet!.rows.length; i++) {
+        var row = sheet.rows[i];
+        var nim = row[0]?.value;
+        var peran = row[1]?.value;
 
-          if (nim != null && peran != null) {
-            nimList.add(nim.toString());
-            peranList.add(peran.toString());
-          }
+        if (nim != null && peran != null) {
+          nimList.add(nim.toString());
+          peranList.add(peran.toString());
         }
-      } catch(e) {
-        mipokaCustomToast("File Excel yang dimasukkan salah");
-
       }
 
       print("NimList  : $nimList");
@@ -150,8 +146,8 @@ class _ImportPesertaLaporanPageState extends State<ImportPesertaLaporanPage> {
                     children: [
                       CustomMipokaButton(
                         onTap: () async => downloadFileWithDio(
-                            url: nimTemplate,
-                            fileName: "pesertaKegiatan.xlsx"
+                            url: pesertaKegiatanTemplate,
+                            fileName: getFileNameFromUrl(pesertaKegiatanTemplate),
                         ),
                         text: 'Unduh Templat',
                       ),
