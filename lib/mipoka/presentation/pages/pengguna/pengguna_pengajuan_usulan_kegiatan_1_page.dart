@@ -763,7 +763,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                                   ? _tanggalKeberangkatanController.text : "-",
                                               tanggalKepulangan: _tempatKegiatanSwitchController == true
                                                   ?  _tanggalKepulanganController.text : "-",
-                                              kategoriJumlahPartisipan: _jumlahParsitipanSwitchController == true ? "Orang" : "Dll",
+                                              kategoriJumlahPartisipan: _jumlahParsitipanSwitchController == true ? "Orang" : "Tim",
                                               jumlahPartisipan: _jumlahParsitipanController.text,
                                               targetKegiatan: _targetKegiatanController.text,
                                               kategoriTotalPendanaan: _totalPendanaanSwitchController == false ? "Uang" : "Dll",

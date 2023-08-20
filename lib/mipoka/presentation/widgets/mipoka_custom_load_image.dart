@@ -7,12 +7,10 @@ import 'open_file_picker_method.dart';
 class MipokaCustomLoadImage extends StatelessWidget {
   final StreamController<bool> stream;
   final String imageUrl;
-  final VoidCallback? onDelete;
 
   const MipokaCustomLoadImage({super.key,
     required this.stream,
     required this.imageUrl,
-    this.onDelete,
   });
 
   @override
@@ -27,6 +25,7 @@ class MipokaCustomLoadImage extends StatelessWidget {
             stream.add(!isLoaded);
           },
           child: Container(
+            constraints: const BoxConstraints(maxWidth: 500),
             alignment: Alignment.center,
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
@@ -53,7 +52,20 @@ class MipokaCustomLoadImage extends StatelessWidget {
 
                 const CustomFieldSpacer(),
 
-                Image.network(imageUrl),
+                // Image.network(imageUrl),
+                Image.network(
+                  imageUrl,
+                  loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    } else {
+                      return const Text(
+                        "Loading ...",
+                        textAlign: TextAlign.center,
+                      );
+                    }
+                  },
+                ),
               ],
             ),
           ),

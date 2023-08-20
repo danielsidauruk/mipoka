@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
@@ -10,6 +11,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/show_image_widget.dart';
 
 class KemahasiswaanUsulanKegiatan extends StatefulWidget {
   final UsulanKegiatan usulanKegiatan;
@@ -26,11 +28,6 @@ class KemahasiswaanUsulanKegiatan extends StatefulWidget {
 class _KemahasiswaanUsulanKegiatanState
     extends State<KemahasiswaanUsulanKegiatan> {
   User? user = FirebaseAuth.instance.currentUser;
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -742,6 +739,54 @@ class _KemahasiswaanUsulanKegiatanState
                   customKemahasiswaanField(usulanKegiatan.penutup),
 
                   const CustomFieldSpacer(),
+
+                  if ( usulanKegiatan.fotoPostinganKegiatan != "" ||
+                      usulanKegiatan.fotoSuratUndanganKegiatan != "" ||
+                      usulanKegiatan.fotoLinimasaKegiatan != "" ||
+                      usulanKegiatan.fotoTempatKegiatan != ""
+                  )
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        buildTitle('Lampiran - Lampiran'),
+
+                        const CustomFieldSpacer(height: 4.0),
+
+                        usulanKegiatan.fotoPostinganKegiatan != "" ?
+                        showImageWidget(
+                          context,
+                          usulanKegiatan.fotoPostinganKegiatan,
+                          "Postingan Kegiatan",
+                        ) :
+                        const SizedBox(),
+
+                        usulanKegiatan.fotoSuratUndanganKegiatan != "" ?
+                        showImageWidget(
+                          context,
+                          usulanKegiatan.fotoSuratUndanganKegiatan,
+                          "Surat Undangan Kegiatan",
+                        ) :
+                        const SizedBox(),
+
+                        usulanKegiatan.fotoLinimasaKegiatan != "" ?
+                        showImageWidget(
+                          context,
+                          usulanKegiatan.fotoLinimasaKegiatan,
+                          "Linimasa Kegiatan",
+                        ) :
+                        const SizedBox(),
+
+                        usulanKegiatan.fotoTempatKegiatan != "" ?
+                        showImageWidget(
+                          context,
+                          usulanKegiatan.fotoTempatKegiatan,
+                          "Tempat Kegiatan",
+                        ):
+                        const SizedBox(),
+
+                        const CustomFieldSpacer(),
+                      ],
+                    ),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
