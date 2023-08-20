@@ -73,3 +73,28 @@ Widget customDisplayField(String text) {
     child: Text(text),
   );
 }
+
+Widget customKemahasiswaanField(String text) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Text(
+      text,
+      style: const TextStyle(fontSize: 16),
+    ),
+  );
+}
+
+// Widget customKemahasiswaanField(String text) {
+//   return Container(
+//     decoration: BoxDecoration(
+//       border: Border.all(color: Colors.white),
+//     ),
+//     child: Padding(
+//       padding: const EdgeInsets.all(8.0),
+//       child: Text(
+//         text,
+//         style: const TextStyle(fontSize: 16),
+//       ),
+//     ),
+//   );
+// }

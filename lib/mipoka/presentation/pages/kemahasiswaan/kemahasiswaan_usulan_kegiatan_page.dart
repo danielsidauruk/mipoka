@@ -1,0 +1,764 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
+import 'package:mipoka/core/theme.dart';
+import 'package:mipoka/domain/utils/format_date_indonesia.dart';
+import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
+import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+
+class KemahasiswaanUsulanKegiatan extends StatefulWidget {
+  final UsulanKegiatan usulanKegiatan;
+  const KemahasiswaanUsulanKegiatan({
+    super.key,
+    required this.usulanKegiatan,
+  });
+
+  @override
+  State<KemahasiswaanUsulanKegiatan> createState() =>
+      _KemahasiswaanUsulanKegiatanState();
+}
+
+class _KemahasiswaanUsulanKegiatanState
+    extends State<KemahasiswaanUsulanKegiatan> {
+  User? user = FirebaseAuth.instance.currentUser;
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final usulanKegiatan = widget.usulanKegiatan;
+
+    return Scaffold(
+      appBar: const MipokaMobileAppBar(),
+
+      drawer: const MobileCustomPenggunaDrawerWidget(),
+
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const CustomMobileTitle(
+                  text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
+
+              const CustomFieldSpacer(),
+
+              CustomContentBox(
+                children: [
+                  buildTitle('Nama Ormawa'),
+                  customKemahasiswaanField(usulanKegiatan.ormawa?.namaOrmawa ?? ""),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Pembiayaan'),
+                  customKemahasiswaanField(usulanKegiatan.pembiayaan),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Nama Kegiatan'),
+                  customKemahasiswaanField(usulanKegiatan.namaKegiatan),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Bentuk Kegiatan'),
+                  customKemahasiswaanField("${usulanKegiatan.bentukKegiatan} (${usulanKegiatan.kategoriBentukKegiatan})"),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Deskripsi Kegiatan'),
+                  customKemahasiswaanField(usulanKegiatan.deskripsiKegiatan),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Tanggal Kegiatan'),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Table(
+                      defaultColumnWidth: const IntrinsicColumnWidth(),
+                      border: TableBorder.all(color: Colors.white),
+                      children: [
+                        TableRow(
+                          children: [
+                            TableCell(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: customKemahasiswaanField("Tanggal Mulai Kegiatan"),
+                                ),
+                              ),
+                            ),
+                            TableCell(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: customKemahasiswaanField("Tanggal Selesai Kegiatan"),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            TableCell(
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Center(
+                                  child: Text(formatDateIndonesia(usulanKegiatan.tanggalMulaiKegiatan)),
+                                ),
+                              ),
+                            ),
+                            TableCell(
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Center(
+                                  child: Text(formatDateIndonesia(usulanKegiatan.tanggalSelesaiKegiatan)),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Waktu Kegiatan'),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Table(
+                      defaultColumnWidth: const IntrinsicColumnWidth(),
+                      border: TableBorder.all(color: Colors.white),
+                      children: [
+                        TableRow(
+                          children: [
+                            TableCell(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: customKemahasiswaanField("Waktu Mulai Kegiatan"),
+                                ),
+                              ),
+                            ),
+                            TableCell(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: customKemahasiswaanField("Waktu Selesai Kegiatan"),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            TableCell(
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Center(
+                                  child: Text("${usulanKegiatan.waktuMulaiKegiatan} WIB"),
+                                ),
+                              ),
+                            ),
+                            TableCell(
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Center(
+                                  child: Text("${usulanKegiatan.waktuSelesaiKegiatan} WIB"),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Tempat Kegiatan'),
+                  customKemahasiswaanField(usulanKegiatan.tempatKegiatan),
+
+                  const CustomFieldSpacer(),
+
+                  widget.usulanKegiatan.tanggalKeberangkatan != "-" && widget.usulanKegiatan.tanggalKeberangkatan != "" ?
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          buildTitle('Tanggal Keberangkatan & Kepulangan'),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Table(
+                              defaultColumnWidth: const IntrinsicColumnWidth(),
+                              border: TableBorder.all(color: Colors.white),
+                              children: [
+                                TableRow(
+                                  children: [
+                                    TableCell(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Center(
+                                          child: customKemahasiswaanField("Tanggal Keberangkatan"),
+                                        ),
+                                      ),
+                                    ),
+                                    TableCell(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Center(
+                                          child: customKemahasiswaanField("Tanggal Kepulangan"),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                TableRow(
+                                  children: [
+                                    TableCell(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Center(
+                                          child: Text(usulanKegiatan.tanggalKeberangkatan),
+                                        ),
+                                      ),
+                                    ),
+                                    TableCell(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Center(
+                                          child: Text(usulanKegiatan.tanggalKepulangan),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ) :
+                  const SizedBox(),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Jumlah Partisipan'),
+                  customKemahasiswaanField("${usulanKegiatan.jumlahPartisipan} ${usulanKegiatan.kategoriJumlahPartisipan}"),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Target Kegiatan'),
+                  customKemahasiswaanField(usulanKegiatan.targetKegiatan),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Total Pendanaan'),
+                  customKemahasiswaanField(usulanKegiatan.totalPendanaan),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Keterangan'),
+                  customKemahasiswaanField(usulanKegiatan.keterangan),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Data Peserta Kegiatan'),
+
+                  usulanKegiatan.tanggalKeberangkatan == ""
+                      || usulanKegiatan.tanggalKeberangkatan == "-" ?
+
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: DataTable(
+                        columnSpacing: 40,
+                        border: TableBorder.all(color: Colors.white),
+                        columns: const [
+                          DataColumn(
+                            label: Text(
+                              'No.',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'NIM/NIP',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Nama Lengkap',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Peran',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Dasar Pengiriman',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                        rows: List<DataRow>.generate(usulanKegiatan.partisipan.length, (int index) {
+                          final partisipan = usulanKegiatan.partisipan[index];
+
+                          return DataRow(
+                            cells: [
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    '${index + 1}',
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(partisipan.noInduk),
+                                ),
+                              ),
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(partisipan.namaPartisipan),
+                                ),
+                              ),
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(partisipan.peranPartisipan),
+                                ),
+                              ),
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(partisipan.dasarPengiriman),
+                                ),
+                              ),
+                            ],
+                          );
+                        }),
+                      ),
+                    ),
+                  ) :
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: DataTable(
+                        columnSpacing: 40,
+                        border: TableBorder.all(color: Colors.white),
+                        columns: const [
+                          DataColumn(
+                            label: Text(
+                              'No.',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'NIM/NIP',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Nama Lengkap',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'NIK',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Tempat/Tanggal Lahir',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Peran',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Dasar Pengiriman',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                        rows: List<DataRow>.generate(usulanKegiatan.partisipan.length, (int index) {
+                          final partisipan = usulanKegiatan.partisipan[index];
+
+                          return DataRow(
+                            cells: [
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    '${index + 1}',
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(partisipan.noInduk),
+                                ),
+                              ),
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(partisipan.namaPartisipan),
+                                ),
+                              ),
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(partisipan.nik),
+                                ),
+                              ),
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text("${partisipan.tempatLahir}/${partisipan.tglLahir}"),
+                                ),
+                              ),
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(partisipan.peranPartisipan),
+                                ),
+                              ),
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(partisipan.dasarPengiriman),
+                                ),
+                              ),
+                            ],
+                          );
+                        }),
+                      ),
+                    ),
+                  ),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Biaya Kegiatan'),
+                  usulanKegiatan.biayaKegiatan.isNotEmpty ?
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: DataTable(
+                          columnSpacing: 40,
+                          border: TableBorder.all(color: Colors.white),
+                          columns: const [
+                            DataColumn(
+                              label: Text(
+                                'No.',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                'Nama Biaya',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                'Kuantitas',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                'Harga Satuan',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                'Total',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                'Keterangan',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
+                          rows: List.generate(usulanKegiatan.biayaKegiatan.length, (int index) {
+                            final biayaKegiatan = usulanKegiatan.biayaKegiatan[index];
+
+                            return DataRow(
+                              cells: [
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text("${index + 1}"),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(biayaKegiatan.namaBiayaKegiatan),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text("${biayaKegiatan.kuantiti}"),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text("${biayaKegiatan.hargaSatuan}"),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text("${biayaKegiatan.total}"),
+                                  ),
+                                ),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(biayaKegiatan.keterangan),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }),
+                        ),
+                      ),
+                    ),
+                  ) :
+                  customKemahasiswaanField("Tidak ada Biaya Kegiatan"),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Tertib Acara'),
+                  usulanKegiatan.tertibAcara.isNotEmpty ?
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: DataTable(
+                        columnSpacing: 40,
+                        border: TableBorder.all(color: Colors.white),
+                        columns: const [
+                          DataColumn(
+                            label: Text(
+                              'No.',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Aktivitas',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Waktu Mulai',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Waktu Selesai',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Keterangan',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                        rows: List<DataRow>.generate(usulanKegiatan.tertibAcara.length, (int index) {
+                          final tertibAcara = usulanKegiatan.tertibAcara[index];
+                          return DataRow(
+                            cells: [
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    '${index + 1}',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                InkWell(
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      tertibAcara.aktivitas,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    tertibAcara.waktuMulai,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    tertibAcara.waktuSelesai,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    tertibAcara.keterangan,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        }),
+                      ),
+                    ),
+                  ) :
+                  customKemahasiswaanField("Tidak ada Tertib Acara"),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Latar Belakang'),
+                  customKemahasiswaanField(usulanKegiatan.latarBelakang),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Tujuan Kegiatan'),
+                  customKemahasiswaanField(usulanKegiatan.tujuanKegiatan),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Manfaat Kegiatan'),
+                  customKemahasiswaanField(usulanKegiatan.manfaatKegiatan),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Bentuk Pelaksanaan Kegiatan'),
+                  customKemahasiswaanField(usulanKegiatan.bentukPelaksanaanKegiatan),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Target Pencapaian Kegiatan'),
+                  customKemahasiswaanField(usulanKegiatan.targetPencapaianKegiatan),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Waktu dan Tempat Pelaksanaan'),
+                  customKemahasiswaanField(usulanKegiatan.waktuDanTempatPelaksanaan),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Rencana Anggaran Kegiatan'),
+                  customKemahasiswaanField(usulanKegiatan.rencanaAnggaranKegiatan),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Perlengkapan dan Peralatan'),
+                  customKemahasiswaanField(usulanKegiatan.perlengkapanDanPeralatan),
+
+                  const CustomFieldSpacer(),
+
+                  buildTitle('Penutup'),
+                  customKemahasiswaanField(usulanKegiatan.penutup),
+
+                  const CustomFieldSpacer(),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomMipokaButton(onTap: () {}, text: "Tolak"),
+
+                      const SizedBox(width: 8.0),
+
+                      CustomMipokaButton(onTap: () {}, text: "Terima"),
+                    ],
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

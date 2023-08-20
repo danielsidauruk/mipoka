@@ -38,8 +38,6 @@ class PemeriksaPengajuanLaporanKegiatan1Page extends StatefulWidget {
 
 class _PemeriksaPengajuanLaporanKegiatan1PageState
     extends State<PemeriksaPengajuanLaporanKegiatan1Page> {
-  final TextEditingController _commentNamaKegiatanController =
-  TextEditingController();
   final TextEditingController _revisiPencapaianController =
   TextEditingController();
   // int? idRevisiLaporan;

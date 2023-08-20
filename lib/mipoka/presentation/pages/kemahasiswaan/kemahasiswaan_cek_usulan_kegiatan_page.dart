@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mipoka/core/constanst.dart';
+import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
@@ -191,20 +192,29 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                                           ),
                                         ),
 
-                                        usulanKegiatan.fileUsulanKegiatan != "" ?
-                                        DataCell(
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Image.asset(
-                                              'assets/icons/pdf.png',
-                                              width: 24,
-                                            ),
-                                          ),
-                                          onTap: () => downloadFileWithDio(
-                                            url: usulanKegiatan.fileUsulanKegiatan,
-                                            fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan),
-                                          ),
-                                        ) :
+                                        // usulanKegiatan.fileUsulanKegiatan != "" ?
+                                        // DataCell(
+                                        //   Align(
+                                        //     alignment: Alignment.center,
+                                        //     child: Image.asset(
+                                        //       'assets/icons/pdf.png',
+                                        //       width: 24,
+                                        //     ),
+                                        //   ),
+                                        //   onTap: () => downloadFileWithDio(
+                                        //     url: usulanKegiatan.fileUsulanKegiatan,
+                                        //     fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan),
+                                        //   ),
+                                        // ) :
+                                        // DataCell(
+                                        //   Align(
+                                        //     alignment: Alignment.center,
+                                        //     child: Image.asset(
+                                        //       'assets/icons/document.png',
+                                        //       width: 24,
+                                        //     ),
+                                        //   ),
+                                        // ),
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
@@ -212,6 +222,11 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                                               'assets/icons/document.png',
                                               width: 24,
                                             ),
+                                          ),
+                                          onTap: () => Navigator.pushNamed(
+                                            context,
+                                            kemahasiswaanUsulanKegiatanRoute,
+                                            arguments: usulanKegiatan,
                                           ),
                                         ),
 

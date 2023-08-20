@@ -91,7 +91,8 @@ const pemeriksaPengajuanLaporanKegiatan2PageRoute =
 const pemeriksaPengajuanLaporanKegiatan3PageRoute =
     '/pemeriksaPengajuanLaporanKegiatan3PageRoute';
 
-// mobile routes - kemahasiswaan
+//routes - kemahasiswaan
+const kemahasiswaanUsulanKegiatanRoute = '/kemahasiswaanUsulanKegiatanRoute';
 const kemahasiswaanBerandaPageRoute = '/kemahasiswaanBerandaPageRoute';
 const kemahasiswaanBeritaPageRoute = '/kemahasiswaanBeritaPageRoute';
 const kemahasiswaanBerandaTambahBeritaPageRoute =
