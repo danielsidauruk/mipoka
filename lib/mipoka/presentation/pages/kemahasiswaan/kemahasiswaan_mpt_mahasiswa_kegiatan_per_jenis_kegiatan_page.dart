@@ -52,7 +52,7 @@ class _MPTMahasiswaKegiatanPerJenisKegiatanPageState extends State<MPTMahasiswaK
           },
         ),
 
-        drawer: const MobileCustomKemahasiswaanDrawer(),
+        drawer: const CustomKemahasiswaanDrawer(),
 
         body: SingleChildScrollView(
           child: Padding(

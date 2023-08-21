@@ -55,7 +55,7 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
         },
       ),
 
-      drawer: const MobileCustomKemahasiswaanDrawer(),
+      drawer: const CustomKemahasiswaanDrawer(),
 
       body: SingleChildScrollView(
         child: Padding(

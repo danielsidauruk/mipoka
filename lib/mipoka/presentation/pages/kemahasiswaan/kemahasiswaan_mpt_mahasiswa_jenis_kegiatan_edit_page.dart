@@ -43,7 +43,7 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanEditPageState extends State<Kemahas
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
 
-      drawer: const MobileCustomKemahasiswaanDrawer(),
+      drawer: const CustomKemahasiswaanDrawer(),
 
       body: SingleChildScrollView(
         child: Padding(

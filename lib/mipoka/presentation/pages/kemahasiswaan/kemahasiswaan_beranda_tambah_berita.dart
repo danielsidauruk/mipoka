@@ -42,7 +42,7 @@ class _KemahasiswaanBerandaBeritaPageState extends State<KemahasiswaanBerandaBer
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
 
-      drawer: const MobileCustomKemahasiswaanDrawer(),
+      drawer: const CustomKemahasiswaanDrawer(),
 
       body: SingleChildScrollView(
         child: Padding(

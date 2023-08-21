@@ -123,7 +123,7 @@ class _KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPageState extends State<Kem
         },
       ),
 
-      drawer: const MobileCustomKemahasiswaanDrawer(),
+      drawer: const CustomKemahasiswaanDrawer(),
 
       body: SingleChildScrollView(
         child: Padding(

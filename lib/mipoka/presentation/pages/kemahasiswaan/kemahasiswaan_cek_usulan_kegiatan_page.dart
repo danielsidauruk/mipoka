@@ -59,7 +59,7 @@ class _KemahasiswaanCekUsulanKegiatanPageState
           },
         ),
 
-        drawer: const MobileCustomKemahasiswaanDrawer(),
+        drawer: const CustomKemahasiswaanDrawer(),
 
         body: Padding(
         padding: const EdgeInsets.all(16.0),

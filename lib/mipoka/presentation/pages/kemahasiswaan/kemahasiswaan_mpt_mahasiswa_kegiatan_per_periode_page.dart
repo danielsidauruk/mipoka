@@ -65,7 +65,7 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodePageState
         },
       ),
 
-      drawer: const MobileCustomKemahasiswaanDrawer(),
+      drawer: const CustomKemahasiswaanDrawer(),
 
       body: SingleChildScrollView(
           child: Padding(

@@ -9,16 +9,16 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_text_field.dart';
 import '../custom_drawer.dart';
 import '../mipoka_custom_toast.dart';
 
-class MobileCustomKemahasiswaanDrawer extends StatefulWidget {
-  const MobileCustomKemahasiswaanDrawer({super.key});
+class CustomKemahasiswaanDrawer extends StatefulWidget {
+  const CustomKemahasiswaanDrawer({super.key});
 
   @override
-  State<MobileCustomKemahasiswaanDrawer> createState() =>
-      _MobileCustomKemahasiswaanDrawerState();
+  State<CustomKemahasiswaanDrawer> createState() =>
+      _CustomKemahasiswaanDrawerState();
 }
 
-class _MobileCustomKemahasiswaanDrawerState
-    extends State<MobileCustomKemahasiswaanDrawer> {
+class _CustomKemahasiswaanDrawerState
+    extends State<CustomKemahasiswaanDrawer> {
   final TextEditingController _queryController = TextEditingController();
   User? user = FirebaseAuth.instance.currentUser;
 

@@ -38,7 +38,7 @@ class _KemahasiswaanBeritaPageState extends State<KemahasiswaanBeritaPage> {
               .add(const ReadAllBeritaEvent());
         },
       ),
-      drawer: const MobileCustomKemahasiswaanDrawer(),
+      drawer: const CustomKemahasiswaanDrawer(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

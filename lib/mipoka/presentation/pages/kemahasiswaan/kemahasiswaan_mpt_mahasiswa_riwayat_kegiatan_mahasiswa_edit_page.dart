@@ -64,7 +64,7 @@ class _MahasiswaRiwayatKegiatanMahasiswaEditPageState extends State<MahasiswaRiw
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
 
-      drawer: const MobileCustomKemahasiswaanDrawer(),
+      drawer: const CustomKemahasiswaanDrawer(),
 
       body: SingleChildScrollView(
         child: Padding(

@@ -10,6 +10,7 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_field_spacer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mipoka_mobile_appbar.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
+import 'package:mipoka/mipoka/presentation/widgets/kemahasiswaan/kemahasiswaan_custom_drawer.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/show_image_widget.dart';
 
@@ -36,7 +37,7 @@ class _KemahasiswaanUsulanKegiatanState
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
 
-      drawer: const MobileCustomPenggunaDrawerWidget(),
+      drawer: const CustomKemahasiswaanDrawer(),
 
       body: SingleChildScrollView(
         child: Padding(
@@ -77,108 +78,12 @@ class _KemahasiswaanUsulanKegiatanState
                   const CustomFieldSpacer(),
 
                   buildTitle('Tanggal Kegiatan'),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Table(
-                      defaultColumnWidth: const IntrinsicColumnWidth(),
-                      border: TableBorder.all(color: Colors.white),
-                      children: [
-                        TableRow(
-                          children: [
-                            TableCell(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Center(
-                                  child: customKemahasiswaanField("Tanggal Mulai Kegiatan"),
-                                ),
-                              ),
-                            ),
-                            TableCell(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Center(
-                                  child: customKemahasiswaanField("Tanggal Selesai Kegiatan"),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        TableRow(
-                          children: [
-                            TableCell(
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Center(
-                                  child: Text(formatDateIndonesia(usulanKegiatan.tanggalMulaiKegiatan)),
-                                ),
-                              ),
-                            ),
-                            TableCell(
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Center(
-                                  child: Text(formatDateIndonesia(usulanKegiatan.tanggalSelesaiKegiatan)),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                  customKemahasiswaanField("${formatDateIndonesia(usulanKegiatan.tanggalMulaiKegiatan)} s.d. ${formatDateIndonesia(usulanKegiatan.tanggalSelesaiKegiatan)}"),
 
                   const CustomFieldSpacer(),
 
                   buildTitle('Waktu Kegiatan'),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Table(
-                      defaultColumnWidth: const IntrinsicColumnWidth(),
-                      border: TableBorder.all(color: Colors.white),
-                      children: [
-                        TableRow(
-                          children: [
-                            TableCell(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Center(
-                                  child: customKemahasiswaanField("Waktu Mulai Kegiatan"),
-                                ),
-                              ),
-                            ),
-                            TableCell(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Center(
-                                  child: customKemahasiswaanField("Waktu Selesai Kegiatan"),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        TableRow(
-                          children: [
-                            TableCell(
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Center(
-                                  child: Text("${usulanKegiatan.waktuMulaiKegiatan} WIB"),
-                                ),
-                              ),
-                            ),
-                            TableCell(
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Center(
-                                  child: Text("${usulanKegiatan.waktuSelesaiKegiatan} WIB"),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                  customKemahasiswaanField("${usulanKegiatan.waktuMulaiKegiatan} s.d. ${usulanKegiatan.waktuSelesaiKegiatan} WIB"),
 
                   const CustomFieldSpacer(),
 
@@ -188,61 +93,13 @@ class _KemahasiswaanUsulanKegiatanState
                   const CustomFieldSpacer(),
 
                   widget.usulanKegiatan.tanggalKeberangkatan != "-" && widget.usulanKegiatan.tanggalKeberangkatan != "" ?
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          buildTitle('Tanggal Keberangkatan & Kepulangan'),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Table(
-                              defaultColumnWidth: const IntrinsicColumnWidth(),
-                              border: TableBorder.all(color: Colors.white),
-                              children: [
-                                TableRow(
-                                  children: [
-                                    TableCell(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Center(
-                                          child: customKemahasiswaanField("Tanggal Keberangkatan"),
-                                        ),
-                                      ),
-                                    ),
-                                    TableCell(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Center(
-                                          child: customKemahasiswaanField("Tanggal Kepulangan"),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                TableRow(
-                                  children: [
-                                    TableCell(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(16.0),
-                                        child: Center(
-                                          child: Text(usulanKegiatan.tanggalKeberangkatan),
-                                        ),
-                                      ),
-                                    ),
-                                    TableCell(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(16.0),
-                                        child: Center(
-                                          child: Text(usulanKegiatan.tanggalKepulangan),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ) :
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      buildTitle('Tanggal Keberangkatan & Kepulangan'),
+                      customKemahasiswaanField("${formatDateIndonesia(usulanKegiatan.tanggalKeberangkatan)} s.d. ${formatDateIndonesia(usulanKegiatan.tanggalKepulangan)}"),
+                    ],
+                  ) :
                   const SizedBox(),
 
                   const CustomFieldSpacer(),

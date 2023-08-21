@@ -47,7 +47,7 @@ class _KemahasiswaanMPTMahasiswaPeriodePageState
         },
       ),
 
-      drawer: const MobileCustomKemahasiswaanDrawer(),
+      drawer: const CustomKemahasiswaanDrawer(),
 
       body: SingleChildScrollView(
         child: Padding(

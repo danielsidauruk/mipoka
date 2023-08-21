@@ -58,7 +58,7 @@ class _KemahasiswaanMPTMahasiswaPeriodeEditPageState extends State<Kemahasiswaan
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
 
-      drawer: const MobileCustomKemahasiswaanDrawer(),
+      drawer: const CustomKemahasiswaanDrawer(),
 
       body: SingleChildScrollView(
         child: Padding(
