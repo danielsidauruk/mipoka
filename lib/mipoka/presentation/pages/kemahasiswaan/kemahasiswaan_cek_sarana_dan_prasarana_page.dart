@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mipoka/core/constanst.dart';
+import 'package:mipoka/core/routes.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/download_file_with_dio.dart';
 import 'package:mipoka/domain/utils/format_date_indonesia.dart';
@@ -11,6 +12,7 @@ import 'package:mipoka/domain/utils/signature_dialog_session_utils.dart';
 import 'package:mipoka/domain/utils/uniqe_id_generator.dart';
 import 'package:mipoka/domain/utils/url_utils.dart';
 import 'package:mipoka/mipoka/domain/entities/notifikasi.dart';
+import 'package:mipoka/mipoka/domain/entities/session.dart';
 import 'package:mipoka/mipoka/presentation/bloc/mipoka_user_bloc/mipoka_user_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/notifikasi_bloc/notifikasi_bloc.dart';
 import 'package:mipoka/mipoka/presentation/bloc/ormawa_bloc/ormawa_bloc.dart';
@@ -91,7 +93,7 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                     prev.runtimeType != current.runtimeType,
                     listener: (context, state) async {
 
-                      if (state is SessionSuccess ) {
+                      if (state is SessionSuccess) {
                         context.read<SessionBloc>().add(const ReadAllSessionEvent());
 
                       } else if (state is SessionError) {
@@ -235,20 +237,20 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                           ),
                                         ),
 
-                                        session.fileSession != "" ?
-                                        DataCell(
-                                          onTap: () => downloadFileWithDio(
-                                            url: session.fileSession,
-                                            fileName: getFileNameFromUrl(session.fileSession),
-                                          ),
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Image.asset(
-                                              'assets/icons/pdf.png',
-                                              width: 24,
-                                            ),
-                                          ),
-                                        ) :
+                                        // session.fileSession != "" ?
+                                        // DataCell(
+                                        //   onTap: () => downloadFileWithDio(
+                                        //     url: session.fileSession,
+                                        //     fileName: getFileNameFromUrl(session.fileSession),
+                                        //   ),
+                                        //   Align(
+                                        //     alignment: Alignment.center,
+                                        //     child: Image.asset(
+                                        //       'assets/icons/pdf.png',
+                                        //       width: 24,
+                                        //     ),
+                                        //   ),
+                                        // ) :
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
@@ -257,65 +259,84 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                               width: 24,
                                             ),
                                           ),
+                                          onTap: () async {
+                                            final result = await Navigator.pushNamed(
+                                              context,
+                                              kemahasiswaanSaranaDanPrasaranaRoute,
+                                              arguments: session,
+                                            );
+
+                                            if (result is Session && context.mounted) {
+                                              context.read<SessionBloc>().add(
+                                                UpdateSessionEvent(session: result)
+                                              );
+                                            }
+                                          },
                                         ),
 
                                         DataCell(
                                           session.status == tertunda ?
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              InkWell(
-                                                onTap: () {
-                                                  SignatureDialogUtils.showPopup(context, session);
-                                                },
-                                                child: Image.asset(
-                                                  'assets/icons/approve.png',
-                                                  width: 24,
-                                                ),
-                                              ),
-
-                                              const SizedBox(width: 8.0,),
-
-                                              InkWell(
-                                                onTap: () async {
-                                                  String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-                                                  User? user = FirebaseAuth.instance.currentUser;
-
-                                                  if (context.mounted) {
-                                                    int uniqueId = UniqueIdGenerator.generateUniqueId();
-                                                    context.read<NotifikasiBloc>().add(
-                                                      CreateNotifikasiEvent(
-                                                        notifikasi: Notifikasi(
-                                                          idNotifikasi: uniqueId,
-                                                          teksNotifikasi: "Kemahasiswaan telah menolak Pengajuan Peminjaman Sarana & Prasarana yang diajukan oleh ${session.mipokaUser.namaLengkap}",
-                                                          tglNotifikasi: DateTime.now().toString(),
-                                                          createdAt: currentDate,
-                                                          createdBy: user?.email ?? "unknown",
-                                                          updatedAt: currentDate,
-                                                          updatedBy: user?.email ?? "unknown",
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-
-                                                  await Future.delayed(const Duration(milliseconds: 500));
-                                                  if (context.mounted) {
-                                                    context.read<SessionBloc>().add(
-                                                      UpdateSessionEvent(
-                                                        session: session.copyWith(
-                                                          status: ditolak,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-                                                  mipokaCustomToast("Sarana dan Prasarana ditolak.");
-                                                },
-                                                child: Image.asset(
-                                                  'assets/icons/close.png',
-                                                  width: 24,
-                                                ),
-                                              ),
-                                            ],
+                                          // Row(
+                                          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          //   children: [
+                                          //     InkWell(
+                                          //       onTap: () {
+                                          //         SignatureDialogUtils.showPopup(context, session);
+                                          //       },
+                                          //       child: Image.asset(
+                                          //         'assets/icons/approve.png',
+                                          //         width: 24,
+                                          //       ),
+                                          //     ),
+                                          //
+                                          //     const SizedBox(width: 8.0,),
+                                          //
+                                          //     InkWell(
+                                          //       onTap: () async {
+                                          //         String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                                          //         User? user = FirebaseAuth.instance.currentUser;
+                                          //
+                                          //         if (context.mounted) {
+                                          //           int uniqueId = UniqueIdGenerator.generateUniqueId();
+                                          //           context.read<NotifikasiBloc>().add(
+                                          //             CreateNotifikasiEvent(
+                                          //               notifikasi: Notifikasi(
+                                          //                 idNotifikasi: uniqueId,
+                                          //                 teksNotifikasi: "Kemahasiswaan telah menolak Pengajuan Peminjaman Sarana & Prasarana yang diajukan oleh ${session.mipokaUser.namaLengkap}",
+                                          //                 tglNotifikasi: DateTime.now().toString(),
+                                          //                 createdAt: currentDate,
+                                          //                 createdBy: user?.email ?? "unknown",
+                                          //                 updatedAt: currentDate,
+                                          //                 updatedBy: user?.email ?? "unknown",
+                                          //               ),
+                                          //             ),
+                                          //           );
+                                          //         }
+                                          //
+                                          //         await Future.delayed(const Duration(milliseconds: 500));
+                                          //         if (context.mounted) {
+                                          //           context.read<SessionBloc>().add(
+                                          //             UpdateSessionEvent(
+                                          //               session: session.copyWith(
+                                          //                 status: ditolak,
+                                          //               ),
+                                          //             ),
+                                          //           );
+                                          //         }
+                                          //         mipokaCustomToast("Sarana dan Prasarana ditolak.");
+                                          //       },
+                                          //       child: Image.asset(
+                                          //         'assets/icons/close.png',
+                                          //         width: 24,
+                                          //       ),
+                                          //     ),
+                                          //   ],
+                                          // )
+                                          Center(
+                                            child: Image.asset(
+                                              'assets/icons/document.png',
+                                              width: 24,
+                                            ),
                                           ) :
                                           session.status == disetujui ?
                                           Center(

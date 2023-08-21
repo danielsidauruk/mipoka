@@ -46,7 +46,7 @@ class _KemahasiswaanLaporanKegiatanState
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const CustomMobileTitle(
-                  text: 'Pengajuan - Kegiatan - Usulan Kegiatan'),
+                  text: 'Cek Pengajuan - Kegiatan - Usulan Kegiatan'),
 
               const CustomFieldSpacer(),
 

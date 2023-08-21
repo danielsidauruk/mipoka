@@ -17,6 +17,7 @@ import 'package:mipoka/mipoka/domain/entities/periode_mpt.dart';
 import 'package:mipoka/mipoka/domain/entities/prestasi.dart';
 import 'package:mipoka/mipoka/domain/entities/rincian_biaya_kegiatan.dart';
 import 'package:mipoka/mipoka/domain/entities/riwayat_kegiatan_mpt.dart';
+import 'package:mipoka/mipoka/domain/entities/session.dart';
 import 'package:mipoka/mipoka/domain/entities/tertib_acara.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/bloc/admin_bloc/admin_bloc.dart';
@@ -78,6 +79,7 @@ import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_periode_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_riwayat_kegiatan_mahasiswa_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_prestasi_mahasiswa_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_sarana_dan_prasarana_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_usulan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/lupa_password_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/mipoka_admin_dashboard.dart';
@@ -542,6 +544,10 @@ class MyApp extends StatelessWidget {
               final laporan = settings.arguments as Laporan;
               return MaterialPageRoute(
                   builder: (_) => KemahasiswaanLaporanKegiatan(laporan: laporan));
+            case kemahasiswaanSaranaDanPrasaranaRoute:
+              final session = settings.arguments as Session;
+              return MaterialPageRoute(
+                  builder: (_) => KemahasiswaanSaranaDanPrasarana(session: session));
             case kemahasiswaanCekLaporanKegiatanPageRoute:
               return MaterialPageRoute(
                   builder: (_) => const KemahasiswaanCekLaporanKegiatanPage());
