@@ -33,9 +33,9 @@ Widget showImageWidget(BuildContext context, String imageUrl, String title) {
                   )
                 ],
               ),
-              content: FittedBox(
+              content: Image.network(
                 fit: BoxFit.scaleDown,
-                child: Image.network(imageUrl),
+                imageUrl,
               ),
             );
           },
