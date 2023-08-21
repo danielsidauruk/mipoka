@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mipoka/core/constanst.dart';
 import 'package:mipoka/core/theme.dart';
 import 'package:mipoka/domain/utils/format_date_indonesia.dart';
+import 'package:mipoka/mipoka/domain/entities/laporan.dart';
 import 'package:mipoka/mipoka/domain/entities/usulan_kegiatan.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_button.dart';
 import 'package:mipoka/mipoka/presentation/widgets/custom_content_box.dart';
@@ -13,25 +14,25 @@ import 'package:mipoka/mipoka/presentation/widgets/custom_mobile_title.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/show_image_widget.dart';
 
-class KemahasiswaanUsulanKegiatan extends StatefulWidget {
-  final UsulanKegiatan usulanKegiatan;
-  const KemahasiswaanUsulanKegiatan({
+class KemahasiswaanLaporanKegiatan extends StatefulWidget {
+  final Laporan laporan;
+  const KemahasiswaanLaporanKegiatan({
     super.key,
-    required this.usulanKegiatan,
+    required this.laporan,
   });
 
   @override
-  State<KemahasiswaanUsulanKegiatan> createState() =>
-      _KemahasiswaanUsulanKegiatanState();
+  State<KemahasiswaanLaporanKegiatan> createState() =>
+      _KemahasiswaanLaporanKegiatanState();
 }
 
-class _KemahasiswaanUsulanKegiatanState
-    extends State<KemahasiswaanUsulanKegiatan> {
+class _KemahasiswaanLaporanKegiatanState
+    extends State<KemahasiswaanLaporanKegiatan> {
   User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
-    final usulanKegiatan = widget.usulanKegiatan;
+    final usulanKegiatan = widget.laporan;
 
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
@@ -187,7 +188,7 @@ class _KemahasiswaanUsulanKegiatanState
 
                   const CustomFieldSpacer(),
 
-                  widget.usulanKegiatan.tanggalKeberangkatan != "-" && widget.usulanKegiatan.tanggalKeberangkatan != "" ?
+                  widget.laporan.tanggalKeberangkatan != "-" && widget.laporan.tanggalKeberangkatan != "" ?
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

@@ -49,6 +49,7 @@ import 'package:mipoka/mipoka/presentation/bloc/usulan_kegiatan_bloc/usulan_kegi
 import 'package:mipoka/mipoka/presentation/pages/ganti_password_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_berita_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_edit_ormawa_edit_page.dart';
+import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_laporan_kegiatan_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_jenis_kegiatan_edit_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_jenis_kegiatan_edit_page.dart';
 import 'package:mipoka/mipoka/presentation/pages/kemahasiswaan/kemahasiswaan_mpt_mahasiswa_kegiatan_per_periode_edit_page.dart';
@@ -537,6 +538,10 @@ class MyApp extends StatelessWidget {
               final usulanKegiatan = settings.arguments as UsulanKegiatan;
               return MaterialPageRoute(
                   builder: (_) => KemahasiswaanUsulanKegiatan(usulanKegiatan: usulanKegiatan));
+            case kemahasiswaanLaporanKegiatanRoute:
+              final laporan = settings.arguments as Laporan;
+              return MaterialPageRoute(
+                  builder: (_) => KemahasiswaanLaporanKegiatan(laporan: laporan));
             case kemahasiswaanCekLaporanKegiatanPageRoute:
               return MaterialPageRoute(
                   builder: (_) => const KemahasiswaanCekLaporanKegiatanPage());

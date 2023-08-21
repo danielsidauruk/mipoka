@@ -363,8 +363,7 @@ class _PenggunaDaftarPengajuanKegiatanState
                                               'assets/icons/approve.png',
                                               width: 24,
                                             ),
-                                          )
-                                              :
+                                          ) :
                                           usulanKegiatan.validasiPembina == ditolak ?
                                           Align(
                                             alignment: Alignment.center,
