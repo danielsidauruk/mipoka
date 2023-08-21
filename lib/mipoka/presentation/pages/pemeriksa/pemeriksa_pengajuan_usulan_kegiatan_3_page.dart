@@ -412,26 +412,6 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                           children: [
                             CustomMipokaButton(
                               onTap: () {
-                                // context.read<UsulanKegiatanBloc>().add(
-                                //   SaveAndGoBackLastPageEvent(
-                                //     usulanKegiatan: usulanKegiatan.copyWith(
-                                //       revisiUsulan: usulanKegiatan.revisiUsulan?.copyWith(
-                                //         revisiLatarBelakang: _latarBelakangController.text,
-                                //         revisiTujuanKegiatan: _tujuanKegiatanController.text,
-                                //         revisiManfaatKegiatan: _manfaatKegiatanController.text,
-                                //         revisiBentukPelaksanaanKegiatan: _bentukPelaksanaanKegiatanController.text,
-                                //         revisiTargetPencapaianKegiatan: _targetPencapaianKegiatanController.text,
-                                //         revisiWaktuDanTempatPelaksanaan: _waktuDanTempatPelaksanaanKegiatanController.text,
-                                //         revisiRencanaAnggaranKegiatan: _rencanaAnggaranKegiatanController.text,
-                                //         revisiPerlengkapanDanPeralatan: _perlengkapanDanPeralatanController.text,
-                                //         revisiPenutup: _penutupController.text,
-                                //         revisiIdTertibAcara: _tertibAcaraController.text,
-                                //         updatedBy: user?.email ?? "unknown",
-                                //         updatedAt: currentDate,
-                                //       ),
-                                //     ),
-                                //   ),
-                                // );
                                 Navigator.pop(context);
                               },
                               text: "Kembali",
@@ -481,13 +461,19 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                         //   },
                         //   text: 'Terima',
                         // ),
+
                         CustomMipokaButton(
                           onTap: () {
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              pemeriksaDaftarUsulanKegiatanPageRoute,
-                                  (route) => false,
-                            );
+                            if (context.mounted) {
+                              context.read<UsulanKegiatanBloc>().add(
+                                SaveReviseLastPageEvent(
+                                  usulanKegiatan: usulanKegiatan.copyWith(
+                                    validasiPembina: disetujui,
+                                    // fileUsulanKegiatan: docxUrl,
+                                  ),
+                                ),
+                              );
+                            }
                           },
                           text: "Selesai",
                         ),
@@ -496,7 +482,8 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                   } else if (state is UsulanKegiatanError) {
                     return Text(state.message);
                   } else {
-                    return const Text("UsulanKegiatanBloc Page 3 hasn't been triggered yet.");
+                    print("UsulanKegiatanBloc Page 3 hasn't been triggered yet.");
+                    return const SizedBox();
                   }
                 },
               ),

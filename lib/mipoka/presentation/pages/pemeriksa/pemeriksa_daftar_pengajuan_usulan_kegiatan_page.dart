@@ -328,13 +328,44 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                     children: [
                                                       InkWell(
-                                                        onTap: () {
-                                                          SignatureDialogUtils.showPopup(
-                                                            context,
-                                                            usulanKegiatan.copyWith(
-                                                              revisiUsulan: revisiUsulan,
-                                                            ),
-                                                          );
+                                                        onTap: () async {
+                                                          // SignatureDialogUtils.showPopup(
+                                                          //   context,
+                                                          //   usulanKegiatan.copyWith(
+                                                          //     revisiUsulan: revisiUsulan,
+                                                          //   ),
+                                                          // );
+                                                          if(context.mounted) {
+                                                            String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+                                                            User? user = FirebaseAuth.instance.currentUser;
+
+                                                            context.read<NotifikasiBloc>().add(
+                                                              CreateNotifikasiEvent(
+                                                                notifikasi: Notifikasi(
+                                                                  idNotifikasi: uniqueId,
+                                                                  teksNotifikasi: "${usulanKegiatan.revisiUsulan?.mipokaUser.namaLengkap} (pembina) telah menerima usulan kegiatan berjudul ${usulanKegiatan.namaKegiatan}",
+                                                                  tglNotifikasi: DateTime.now().toString(),
+                                                                  createdAt: currentDate,
+                                                                  createdBy: user?.email ?? "unknown",
+                                                                  updatedAt: currentDate,
+                                                                  updatedBy: user?.email ?? "unknown",
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
+
+                                                          await Future.delayed(const Duration(milliseconds: 500));
+
+                                                          if (context.mounted) {
+                                                            context.read<UsulanKegiatanBloc>().add(
+                                                              UpdateUsulanKegiatanEvent(
+                                                                usulanKegiatan: usulanKegiatan.copyWith(
+                                                                  validasiPembina: disetujui,
+                                                                  // fileUsulanKegiatan: docxUrl,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
                                                         },
                                                         child: Image.asset(
                                                           'assets/icons/approve.png',

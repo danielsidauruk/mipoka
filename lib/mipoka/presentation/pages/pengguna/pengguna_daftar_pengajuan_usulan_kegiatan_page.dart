@@ -295,9 +295,19 @@ class _PenggunaDaftarPengajuanKegiatanState
                                                 'assets/icons/pdf.png',
                                                 width: 24,
                                               ),
-                                              onTap: () => downloadFileWithDio(
-                                                url: usulanKegiatan.fileUsulanKegiatan,
-                                                fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan),
+                                              onTap: () =>
+                                              //   downloadFileWithDio(
+                                              // url: usulanKegiatan.fileUsulanKegiatan,
+                                              // fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan),
+                                              Navigator.pushNamed(
+                                                context,
+                                                penggunaPengajuanUsulanKegiatanPage1Route,
+                                                arguments: UsulanArgs(
+                                                  idUsulan: usulanKegiatan.idUsulan,
+                                                  isRevisiUsulan: true,
+                                                ),
+                                              ).then((_) => context.read<UsulanKegiatanBloc>().add(
+                                                  const ReadAllUsulanKegiatanEvent()),
                                               ),
                                             ),
                                           ),
