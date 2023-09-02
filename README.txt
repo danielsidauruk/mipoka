@@ -16,3 +16,13 @@ flutter pub get
 flutter run
 ```
 Setelah menjalankan aplikasi, pilih emulator atau perangkat yang terhubung untuk meluncurkan aplikasi.
+
+
+### Akun Kemahasiswaan :
+email    : tommychristian24@gmail.com
+password : qwerty
+
+### Akun Mahasiswa :
+Anda dapat mendaftarkan akun anda sendiri, atau menggunakan akun dibawah ini :
+email    : sfdaniel25@gmail.com 
+password : qwerty
