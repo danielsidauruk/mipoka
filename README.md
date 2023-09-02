@@ -1,16 +1,23 @@
 # mipoka
 
-A new Flutter project.
+MIPOKA dibuat menggunakan Framework Flutter dan Language Dart, dan dapat dijalankan baik di Web & Mobile (Android)
 
-## Getting Started
+**Apa yang dibutuhkan untuk memulai:**
 
-This project is a starting point for a Flutter application.
+- Flutter: [Flutter Installation Guide](https://flutter.dev/docs/get-started/install)
+- Dart: [Dart Installation Guide](https://dart.dev/get-dart)
 
-A few resources to get you started if this is your first Flutter project:
+**Step 1:**
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Buka root proyek dan jalankan perintah berikut di konsol untuk mendapatkan dependensi yang diperlukan: 
+```
+flutter pub get 
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Step 2:**
+
+Jalankan aplikasi dengan perintah berikut:
+```
+flutter run
+```
+Setelah menjalankan aplikasi, pilih emulator atau perangkat yang terhubung untuk meluncurkan aplikasi.
