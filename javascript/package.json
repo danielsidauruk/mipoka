@@ -1,0 +1,29 @@
+{
+  "name": "mipoka-docx-templater",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "scripts": {
+    "start": "node src/index.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielsidauruk/mipoka-docx-template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielsidauruk/mipoka-docx-template/issues"
+  },
+  "homepage": "https://github.com/danielsidauruk/mipoka-docx-template#readme",
+  "dependencies": {
+    "@google-cloud/storage": "^6.11.0",
+    "axios": "^1.4.0",
+    "easy-template-x": "^3.2.0",
+    "express": "^4.18.2",
+    "image-size": "^1.0.2",
+    "jimp": "^0.22.8",
+    "libreoffice-convert": "^1.4.1",
+    "mime-types": "^2.1.35"
+  }
+}
