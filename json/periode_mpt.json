@@ -1,0 +1,11 @@
+{
+  "id_periode_mpt": 11111,
+  "tahun_periode_mpt": "2023",
+  "periode_mengulang_mpt": true,
+  "tanggal_mulai_periode_mpt": "1-1-2023",
+  "tanggal_berakhir_periode_mpt": "1-1-2023",
+  "created_at": "15-1-2023",
+  "created_by": "John Doe",
+  "updated_at": "15-1-2023",
+  "updated_by": "Jane Smith"
+}

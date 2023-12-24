@@ -1,0 +1,76 @@
+[
+  {
+    "id_kegiatan_per_periode_mpt": 11111,
+    "periode_mpt": {
+      "id_periode_mpt": 11111,
+      "tahun_periode_mpt": "2023",
+      "periode_mengulang_mpt": true,
+      "tanggal_mulai_periode_mpt": "1-1-2023",
+      "tanggal_berakhir_periode_mpt": "1-1-2023",
+      "created_at": "15-1-2023",
+      "created_by": "John Doe",
+      "updated_at": "15-1-2023",
+      "updated_by": "Jane Smith"
+    },
+    "nama_kegiatan_mpt": {
+      "id_nama_kegiatan_mpt": 1111,
+      "nama_kegiatan": "bercocok tanam",
+      "jenis_kegiatan_mpt": {
+        "id_jenis_kegiatan_mpt": 11111,
+        "nama_jenis_kegiatan_mpt": "Pelayanan Masyarakat",
+        "created_at": "26-1-2023",
+        "created_by": "Jane Smith",
+        "updated_at": "26-1-2023",
+        "updated_by": "John Doe"
+      },
+      "created_at": "26-1-2023",
+      "created_by": "John Doe",
+      "updated_at": "26-1-2023",
+      "updated_by": "Jane Smith"
+    },
+    "tanggal_mulai_kegiatan_per_periode_mpt": "26-1-2023",
+    "tanggal_selesai_kegiatan_per_periode_mpt": "26-1-2023",
+    "point_mpt_diperoleh": 5,
+    "created_at": "26-1-2023",
+    "created_by": "John Doe",
+    "updated_at": "26-1-2023",
+    "updated_by": "Jane Smith"
+  },
+  {
+    "id_kegiatan_per_periode_mpt": 2222,
+    "periode_mpt": {
+      "id_periode_mpt": 11111,
+      "tahun_periode_mpt": "2023",
+      "periode_mengulang_mpt": true,
+      "tanggal_mulai_periode_mpt": "1-1-2023",
+      "tanggal_berakhir_periode_mpt": "1-1-2023",
+      "created_at": "15-1-2023",
+      "created_by": "John Doe",
+      "updated_at": "15-1-2023",
+      "updated_by": "Jane Smith"
+    },
+    "nama_kegiatan_mpt": {
+      "id_nama_kegiatan_mpt": 1111,
+      "nama_kegiatan": "bercocok tanam",
+      "jenis_kegiatan_mpt": {
+        "id_jenis_kegiatan_mpt": 11111,
+        "nama_jenis_kegiatan_mpt": "Pelayanan Masyarakat",
+        "created_at": "26-1-2023",
+        "created_by": "Jane Smith",
+        "updated_at": "26-1-2023",
+        "updated_by": "John Doe"
+      },
+      "created_at": "26-1-2023",
+      "created_by": "John Doe",
+      "updated_at": "26-1-2023",
+      "updated_by": "Jane Smith"
+    },
+    "tanggal_mulai_kegiatan_per_periode_mpt": "26-1-2023",
+    "tanggal_selesai_kegiatan_per_periode_mpt": "26-1-2023",
+    "point_mpt_diperoleh": 5,
+    "created_at": "26-1-2023",
+    "created_by": "John Doe",
+    "updated_at": "26-1-2023",
+    "updated_by": "Jane Smith"
+  }
+]
