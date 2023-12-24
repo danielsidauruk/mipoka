@@ -110,7 +110,6 @@ class _KemahasiswaanMPTMahasiswaJenisKegiatanPageState
                               child: SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child: DataTable(
-                                  // columnSpacing: 40,
                                   border: TableBorder.all(color: Colors.white),
                                   columns: const [
                                     DataColumn(

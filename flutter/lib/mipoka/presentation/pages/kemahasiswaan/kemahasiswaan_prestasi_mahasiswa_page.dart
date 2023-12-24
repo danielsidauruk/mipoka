@@ -88,65 +88,6 @@ class _KemahasiswaanPrestasiMahasiswaPageState extends State<KemahasiswaanPresta
                   ),
 
                   const CustomFieldSpacer(),
-                  //
-                  // buildTitle('Nama Ormawa'),
-                  // BlocBuilder<OrmawaBloc, OrmawaState>(
-                  //   builder: (context, state) {
-                  //     if (state is OrmawaLoading) {
-                  //       return const Text("Loading ....");
-                  //     } else if (state is AllOrmawaHasData) {
-                  //
-                  //       List<String> ormawaList = state.ormawaList.map(
-                  //               (ormawa) => ormawa.namaOrmawa).toList();
-                  //       ormawaList.insert(0, "Semua");
-                  //
-                  //       List<int> idOrmawaList = state.ormawaList.map(
-                  //               (ormawa) => ormawa.idOrmawa).toList();
-                  //       idOrmawaList.insert(0, 0);
-                  //
-                  //       return MipokaCustomDropdown(
-                  //           items: ormawaList,
-                  //           onValueChanged: (value) {
-                  //             int index = ormawaList.indexOf(value!);
-                  //             int idOrmawa = idOrmawaList[index];
-                  //
-                  //             _idOrmawaController = idOrmawa;
-                  //           }
-                  //       );
-                  //     } else if (state is OrmawaError) {
-                  //       return Text(state.message);
-                  //     } else {
-                  //       print("OrmawaBloc hasn't been triggered yet.");
-                  //       return const SizedBox();
-                  //
-                  //     }
-                  //   },
-                  // ),
-                  //
-                  // const CustomFieldSpacer(),
-                  //
-                  // buildTitle('Tahun'),
-                  // MipokaCustomDropdown(
-                  //   items: years2,
-                  //   onValueChanged: (value) => _tahun = value,
-                  // ),
-                  //
-                  // const CustomFieldSpacer(),
-                  //
-                  // buildTitle('Tingkat'),
-                  // MipokaCustomDropdown(
-                  //   items: listTingkat2,
-                  //   onValueChanged: (value) => _tingkat = value,
-                  // ),
-                  //
-                  // const CustomFieldSpacer(),
-                  //
-                  // CustomFilterButton(
-                  //   text: 'Filter',
-                  //   onPressed: () => context.read<PrestasiBloc>().add(ReadAllPrestasiEvent()),
-                  // ),
-                  //
-                  // const CustomFieldSpacer(),
 
                   BlocConsumer<PrestasiBloc, PrestasiState>(
                     listenWhen: (prev, current) =>

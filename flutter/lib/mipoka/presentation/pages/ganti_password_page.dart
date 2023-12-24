@@ -87,7 +87,6 @@ class _GantiPasswordPageState extends State<GantiPasswordPage> {
                                 user.updatePassword(_kataSandiBaruController.text)
                                     .then((_) {
                                   mipokaCustomToast("Perubahan password berhasil disimpan.");
-                                  // Navigator.pushNamed(context, penggunaBerandaPageRoute);
                                   Navigator.pushNamedAndRemoveUntil(
                                     context,
                                     penggunaBerandaPageRoute,
@@ -113,7 +112,6 @@ class _GantiPasswordPageState extends State<GantiPasswordPage> {
                                 } else {
                                   mipokaCustomToast(errorMessage);
                                 }
-                                // mipokaCustomToast(error.toString());
                               });
                             } else {
                               mipokaCustomToast("Password baru dan Ulang password baru harus sama.");

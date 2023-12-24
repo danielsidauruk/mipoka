@@ -104,10 +104,8 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   width: 450,
                   child: LoginButton(
-                    // title: 'Log in - Pengguna',
                     title: 'Log in',
                     onTap:() async {
-                      // Navigator.pushNamed(context, penggunaBerandaPageRoute);
                       String email = _emailController.text;
                       String password = _passwordController.text;
 
@@ -123,32 +121,6 @@ class _LoginPageState extends State<LoginPage> {
                           if (context.mounted) {
                             context.read<MipokaUserBloc>().add(
                                 ReadMipokaUserEvent(idMipokaUser: userCredential.user!.uid));
-
-                            // if (email == "mipoka.admin@gmail.com") {
-                            //   Navigator.pushNamedAndRemoveUntil(
-                            //     context,
-                            //     mipokaAdminDashboardRoute,
-                            //         (route) => false,
-                            //   );
-                            // } else  if (email == "tommychristian24@gmail.com") {
-                            //   Navigator.pushNamedAndRemoveUntil(
-                            //     context,
-                            //     kemahasiswaanBerandaPageRoute,
-                            //         (route) => false,
-                            //   );
-                            // } else if (email == "hafizsritonga08@gmail.com") {
-                            //   Navigator.pushNamedAndRemoveUntil(
-                            //     context,
-                            //     pemeriksaDaftarUsulanKegiatanPageRoute,
-                            //         (route) => false,
-                            //   );
-                            // } else {
-                            //     Navigator.pushNamedAndRemoveUntil(
-                            //       context,
-                            //       penggunaBerandaPageRoute,
-                            //           (route) => false,
-                            //     );
-                            // }
                           }
                         } catch (e) {
                           mipokaCustomToast(
@@ -192,30 +164,12 @@ class _LoginPageState extends State<LoginPage> {
                             context,
                             penggunaBerandaPageRoute,
                                 (route) => false);
-                        // Navigator.pushNamed(context, penggunaBerandaPageRoute);
                       }
                     } else if (state is MipokaUserError) {
                       mipokaCustomToast(state.message);
                     }
                   },
                   child: const SizedBox(),
-                  // builder: (context, state) {
-                  //   if (state is MipokaUserHasData) {
-                  //     final mipokaUser = state.mipokaUser;
-                  //
-                  //     if (mipokaUser.role == kemahasiswaan) {
-                  //       return const KemahasiswaanBerandaPage();
-                  //     } else if (mipokaUser.role == pembina) {
-                  //       return const PemeriksaDaftarPengajuanKegiatanPage();
-                  //     } else if (mipokaUser.role == mipokaAdmin) {
-                  //       return const MipokaAdminDashboard();
-                  //     } else {
-                  //       return const PenggunaBerandaPage();
-                  //     }
-                  //   } else {
-                  //     return const LoginPage();
-                  //   }
-                  // },
                 ),
 
                 const CustomFieldSpacer(height: 8.0),
@@ -233,29 +187,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
-
-                // const SizedBox(height: 80),
-                //
-                // Container(
-                //   width: 250,
-                //   decoration:
-                //   BoxDecoration(border: Border.all(color: Colors.white)),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //     children: [
-                //       Switch(
-                //         value: darkMode,
-                //         onChanged: (value) {
-                //           setState(() => darkMode = value);
-                //         },
-                //       ),
-                //       const Text(
-                //         'Dark Mode',
-                //         style: TextStyle(fontWeight: FontWeight.bold),
-                //       ),
-                //     ],
-                //   ),
-                // ),
               ],
             ),
           ),

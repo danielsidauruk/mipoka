@@ -77,16 +77,6 @@ class _PenggunaDaftarPengajuanKegiatanState
               const CustomFieldSpacer(),
               CustomContentBox(
                 children: [
-                  // customBoxTitle('Status'),
-                  // const CustomFieldSpacer(height: 4.0),
-                  // MipokaCustomDropdown(
-                  //   items: listStatus,
-                  //   onValueChanged: (value) {
-                  //     _filter = value;
-                  //   },
-                  // ),
-                  // const CustomFieldSpacer(),
-
                   BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
                     listenWhen: (prev, current) =>
                     prev.runtimeType != current.runtimeType,
@@ -209,82 +199,11 @@ class _PenggunaDaftarPengajuanKegiatanState
                                           Align(
                                             alignment: Alignment.center,
                                             child:
-                                            // usulanKegiatan.statusUsulan == ditolak ?
-                                            // InkWell(
-                                            //   onTap: () {
-                                            //     Navigator.pushNamed(
-                                            //       context,
-                                            //       penggunaPengajuanUsulanKegiatanPage1Route,
-                                            //       arguments: UsulanArgs(
-                                            //         idUsulan: usulanKegiatan.idUsulan,
-                                            //         isRevisiUsulan: true,
-                                            //       ),
-                                            //     ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                            //       const ReadAllUsulanKegiatanEvent()));
-                                            //   },
-                                            //   child: Text(
-                                            //     usulanKegiatan.namaKegiatan,
-                                            //     style: const TextStyle(color: Colors.red),
-                                            //   ),
-                                            // ) :
-                                            // usulanKegiatan.fileUsulanKegiatan == "" ?
-                                            // InkWell(
-                                            //   onTap: () {
-                                            //     Navigator.pushNamed(
-                                            //       context,
-                                            //       penggunaPengajuanUsulanKegiatanPage1Route,
-                                            //       arguments: UsulanArgs(
-                                            //         idUsulan: usulanKegiatan.idUsulan,
-                                            //       ),
-                                            //     ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                            //         const ReadAllUsulanKegiatanEvent()));
-                                            //   },
-                                            //   child: Text(
-                                            //     "${usulanKegiatan.namaKegiatan} (lanjut mengedit)",
-                                            //     style: const TextStyle(color: Colors.orange),
-                                            //   ),
-                                            // ) :
                                             Text(
                                               usulanKegiatan.namaKegiatan,
                                             ),
                                           ),
                                         ),
-
-                                        // usulanKegiatan.statusUsulan == ditolak ?
-                                        // InkWell(
-                                        //   onTap: () {
-                                        //     Navigator.pushNamed(
-                                        //       context,
-                                        //       penggunaPengajuanUsulanKegiatanPage1Route,
-                                        //       arguments: UsulanArgs(
-                                        //         idUsulan: usulanKegiatan.idUsulan,
-                                        //         isRevisiUsulan: true,
-                                        //       ),
-                                        //     ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                        //       const ReadAllUsulanKegiatanEvent()));
-                                        //   },
-                                        //   child: Text(
-                                        //     usulanKegiatan.namaKegiatan,
-                                        //     style: const TextStyle(color: Colors.red),
-                                        //   ),
-                                        // ) :
-                                        // usulanKegiatan.fileUsulanKegiatan == "" ?
-                                        // InkWell(
-                                        //   onTap: () {
-                                        //     Navigator.pushNamed(
-                                        //       context,
-                                        //       penggunaPengajuanUsulanKegiatanPage1Route,
-                                        //       arguments: UsulanArgs(
-                                        //         idUsulan: usulanKegiatan.idUsulan,
-                                        //       ),
-                                        //     ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                        //         const ReadAllUsulanKegiatanEvent()));
-                                        //   },
-                                        //   child: Text(
-                                        //     "${usulanKegiatan.namaKegiatan} (lanjut mengedit)",
-                                        //     style: const TextStyle(color: Colors.orange),
-                                        //   ),
-                                        // )
 
                                         usulanKegiatan.statusUsulan == disetujui ?
                                         DataCell(
@@ -296,9 +215,6 @@ class _PenggunaDaftarPengajuanKegiatanState
                                                 width: 24,
                                               ),
                                               onTap: () =>
-                                              //   downloadFileWithDio(
-                                              // url: usulanKegiatan.fileUsulanKegiatan,
-                                              // fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan),
                                               Navigator.pushNamed(
                                                 context,
                                                 penggunaPengajuanUsulanKegiatanPage1Route,
@@ -344,26 +260,6 @@ class _PenggunaDaftarPengajuanKegiatanState
                                             ),
                                           ),
                                         ),
-
-                                        // DataCell(
-                                        //   onTap: () {
-                                        //     Navigator.pushNamed(
-                                        //       context,
-                                        //       penggunaPengajuanUsulanKegiatanPage1Route,
-                                        //       arguments: UsulanArgs(
-                                        //         idUsulan: usulanKegiatan.idUsulan,
-                                        //       ),
-                                        //     ).then((_) => context.read<UsulanKegiatanBloc>().add(
-                                        //         const ReadAllUsulanKegiatanEvent()));
-                                        //   },
-                                        //   Align(
-                                        //     alignment: Alignment.center,
-                                        //     child: Image.asset(
-                                        //       'assets/icons/document.png',
-                                        //       width: 24,
-                                        //     ),
-                                        //   ),
-                                        // ),
 
                                         DataCell(
                                           usulanKegiatan.validasiPembina == disetujui ?

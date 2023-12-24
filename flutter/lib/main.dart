@@ -142,7 +142,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
     final user = FirebaseAuth.instance.currentUser;
 
     return MultiBlocProvider(
@@ -176,10 +175,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<OrmawaDropDownBloc>()),
       ],
       child: MaterialApp(
-        // initialRoute: loginPageRoute,
-        // routes: "/",
-
-        // navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
         title: 'mipoka',
         theme: ThemeData(
@@ -209,15 +204,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         home:
-        // user == null ?
         const LoginPage(),
-        // const PenggunaDaftarPengajuanKegiatan(),
-
-        // const PemeriksaDaftarPengajuanKegiatanPage(),
-
-        // : const PemeriksaDaftarLaporanKegiatanPage(),
-        // : const KemahasiswaanMPTMahasiswaKegiatanPerPeriodePage(),
-        // :const KemahasiswaanMPTMahasiswaPeriodePage(),
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
@@ -315,11 +302,6 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) => PenggunaPengajuanUsulanKegiatan3(
                     usulanArgs: usulanArgs));
-            // case penggunaPengajuanUsulanKegiatan3TertibAcaraPageRoute:
-            //   final idUsulanKegiatan = settings.arguments as int;
-            //   return MaterialPageRoute(
-            //       builder: (_) =>
-            //           PenggunaPengajuanUsulanKegiatan3TertibAcara(idUsulanKegiatan: idUsulanKegiatan));
             case tambahTertibAcaraPageRoute:
               final usulanKegiatan = settings.arguments as UsulanKegiatan;
               return MaterialPageRoute(
@@ -505,7 +487,6 @@ class MyApp extends StatelessWidget {
                   builder: (_) =>
                       const KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPage());
             case kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute:
-              // final idRiwayatKegiatan = settings.arguments as int;
               return MaterialPageRoute(
                   builder: (_) => const KemahasiswaanMPTRiwayatKegiatanMahasiswaTambahPage());
             case mptMahasiswaRiwayatKegiatanMahasiswaEditPageRoute:

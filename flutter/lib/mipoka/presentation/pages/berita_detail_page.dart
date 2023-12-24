@@ -25,8 +25,6 @@ class _BeritaDetailPageState extends State<BeritaDetailPage> {
     return Scaffold(
       appBar: const MipokaMobileAppBar(),
 
-      // drawer: const MobileCustomPenggunaDrawerWidget(),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

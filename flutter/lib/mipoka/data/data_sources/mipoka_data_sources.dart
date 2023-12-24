@@ -662,15 +662,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<OrmawaModel> readOrmawa(int idOrmawa) async {
-    // print("");
-    // final String response =
-    // await rootBundle.loadString('assets/json_file/ormawa.json');
-    // dynamic jsonDecode = json.decode(response);
-    //
-    // OrmawaModel result = OrmawaModel.fromJson(jsonDecode);
-    //
-    // return result;
-
     try {
       final response = await DioUtil().dio.get("$ormawaPath/$idOrmawa");
       final result = OrmawaModel.fromJson(response.data);
@@ -1109,13 +1100,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<RiwayatMptModel> readRiwayatMpt(int idRiwayatMpt) async {
-    // final String response =
-    // await rootBundle.loadString('assets/json_file/riwayat_kegiatan_mpt.json');
-    // dynamic jsonDecode = json.decode(response);
-    //
-    // RiwayatMptModel result = RiwayatMptModel.fromJson(jsonDecode);
-    //
-    // return result;
     try {
       final response = await DioUtil().dio.get("$riwayatMptPath/$idRiwayatMpt");
       print(response.data);
@@ -1207,13 +1191,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
 
   @override
   Future<SessionModel> readSession(int idSession) async {
-    // final String response =
-    // await rootBundle.loadString('assets/json_file/session.json');
-    // dynamic jsonDecode = json.decode(response);
-    //
-    // SessionModel result = SessionModel.fromJson(jsonDecode);
-    //
-    // return result;
     try {
       final response = await DioUtil().dio.get("$sessionPath/$idSession");
       final result = SessionModel.fromJson(response.data);
@@ -1337,13 +1314,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       }
       rethrow;
     }
-    // final String response =
-    // await rootBundle.loadString('assets/json_file/mipoka_user.json');
-    // dynamic jsonDecode = json.decode(response);
-    //
-    // MipokaUserModel result = MipokaUserModel.fromJson(jsonDecode);
-    //
-    // return result;
   }
 
   @override
@@ -1359,17 +1329,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       }
       rethrow;
     }
-    // final String response =
-    // await rootBundle.loadString('assets/json_file/mipoka_user.json');
-    // dynamic jsonDecode = json.decode(response);
-    //
-    // MipokaUserModel result = MipokaUserModel.fromJson(jsonDecode);
-    //
-    // if (kDebugMode) {
-    //   print(nim);
-    // }
-    //
-    // return result;
   }
 
   @override
@@ -1387,20 +1346,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
         print(e);
       }
     }
-
-    // try {
-    //   final response = await DioUtil().dio.put(
-    //     '$sessionPath/${sessionModel.idSession}',
-    //     data: sessionModel.toJson(),
-    //   );
-    //   if (kDebugMode) {
-    //     print(response.data);
-    //   }
-    // } on DioException catch (e) {
-    //   if (kDebugMode) {
-    //     print(e);
-    //   }
-    // }
   }
 
 
@@ -1438,9 +1383,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
         print(e);
       }
     }
-    // if (kDebugMode) {
-    //   print("UsulanKegiatan with id $idUsulan has been deleted.");
-    // }
   }
 
   @override
@@ -1464,19 +1406,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       }
       return [];
     }
-    // final String response =
-    // await rootBundle.loadString('assets/json_file/usulan_kegiatan_list.json');
-    // List<dynamic> resultList = json.decode(response);
-    //
-    // List<UsulanKegiatanModel> result =
-    // resultList.map((resultMap) => UsulanKegiatanModel.fromJson(resultMap))
-    //     .toList();
-    //
-    // if (kDebugMode) {
-    //   print(filter);
-    // }
-    //
-    // return result;
   }
 
   @override
@@ -1733,20 +1662,6 @@ class MipokaDataSourcesImpl implements MipokaDataSources {
       }
       return [];
     }
-
-    // final String response =
-    // await rootBundle.loadString('assets/json_file/notifikasi_list.json');
-    // List<dynamic> resultList = json.decode(response);
-    //
-    // List<NotifikasiModel> result =
-    // resultList.map((resultMap) => NotifikasiModel.fromJson(resultMap))
-    //     .toList();
-    //
-    // if (kDebugMode) {
-    //   print(filter);
-    // }
-    //
-    // return result;
   }
 
   @override

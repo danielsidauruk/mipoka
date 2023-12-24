@@ -47,7 +47,6 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
 
   @override
   void initState() {
-    // context.read<SessionBloc>().add(ReadSessionEvent(idSession: widget.idSession));
     context.read<OrmawaBloc>().add(ReadAllOrmawaEvent());
     context.read<MipokaUserBloc>().add(ReadMipokaUserEvent(idMipokaUser: user?.uid ?? ""));
     super.initState();
@@ -83,7 +82,6 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
 
   List<Ormawa> _ormawaList = [];
   Ormawa? _ormawa;
-  // ormawa ??= _ormawaList.first;
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +155,6 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
 
                               MipokaCustomDropdown(
                                 items: gedungList,
-                                // items: const ["A"],
                                 onValueChanged: (value) {
                                   _gedungController.text = value ?? "";
                                   _gedungStream.add(value);
@@ -173,16 +170,6 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                                 stream: _gedungStream.stream,
                                 builder: (context, snapshot) {
                                   final gedung = snapshot.data;
-
-                                  // return MipokaCustomDropdown(
-                                  //   items: ruanganListA,
-                                  //   onValueChanged: (value) {
-                                  //     _ruangController.text = value ?? "";
-                                  //   },
-                                  // );
-
-                                  print(gedung);
-
                                   return
                                   gedung == "A" ?
                                   MipokaCustomDropdown(
@@ -204,29 +191,6 @@ class _PenggunaPengajuanSaranaDanPrasaranaState
                                       _ruangController.text = value ?? "";
                                     },
                                   );
-
-                                  // if (gedung == gedungList[0]) {
-                                  //   return MipokaCustomDropdown(
-                                  //     items: ruanganListA,
-                                  //     onValueChanged: (value) {
-                                  //       // _ruangController.text = value ?? "";
-                                  //     },
-                                  //   );
-                                  // } else if (gedung == gedungList[1]) {
-                                  //   return MipokaCustomDropdown(
-                                  //     items: ruanganListB,
-                                  //     onValueChanged: (value) {
-                                  //       // _ruangController.text = value ?? "";
-                                  //     },
-                                  //   );
-                                  // } else {
-                                  //   return MipokaCustomDropdown(
-                                  //     items: ruanganListC,
-                                  //     onValueChanged: (value) {
-                                  //       // _ruangController.text = value ?? "";
-                                  //     },
-                                  //   );
-                                  // }
                                 },
                               ),
 

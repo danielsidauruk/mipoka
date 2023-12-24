@@ -164,14 +164,6 @@ class _PenggunaPengajuanLaporanKegiatan1State
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                // widget.laporanArgs.isRevisiLaporan == false ?
-                                // CustomMipokaButton(
-                                //   onTap: () {
-                                //     context.read<LaporanBloc>().add(
-                                //         DeleteLaporanEvent(idLaporan: widget.laporanArgs.idLaporan));
-                                //   },
-                                //   text: 'Batal',
-                                // ) :
                                 CustomMipokaButton(
                                   onTap: () => Navigator.pop(context, true),
                                   text: 'Batal',

@@ -106,27 +106,9 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                       } else if (state is AllBeritaHasData) {
                         final beritaList = state.allBerita;
 
-                        // List<String> penulisList = beritaList.map((berita) => berita.penulis).toSet().toList();
-                        // penulisList.insert(0, "Semua");
-
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // buildTitle('Penulis'),
-                            //
-                            // MipokaCustomDropdown(
-                            //   initialItem: _filter,
-                            //   items: penulisList,
-                            //   onValueChanged: (value) {
-                            //     _filter = value;
-                            //     context.read<BeritaBloc>().add(
-                            //         ReadAllBeritaEvent(filter: _filter ?? "")
-                            //     );
-                            //   },
-                            // ),
-                            //
-                            // const CustomFieldSpacer(),
-
                             MipokaCountText(total: beritaList.length),
 
                             const CustomFieldSpacer(),
@@ -228,13 +210,6 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                                                   }
                                                 },
 
-                                                //     .then((_) {
-                                                //   context.read<BeritaBloc>().add(
-                                                //       ReadAllBeritaEvent(filter: _filter ?? ""));
-                                                //   if (_filter == berita.penulis) {
-                                                //     _filter = "";
-                                                //   }
-                                                // }),
                                                 child: Image.asset(
                                                   'assets/icons/edit.png',
                                                   width: 24,
@@ -257,23 +232,6 @@ class _KemahasiswaanBerandaPageState extends State<KemahasiswaanBerandaPage> {
                                                   width: 24,
                                                 ),
                                               ),
-
-                                              // InkWell(
-                                              //   onTap: () {
-                                              //     context.read<BeritaBloc>().add(DeleteBeritaEvent(berita.idBerita));
-                                              //     if (_filter == berita.penulis) {
-                                              //       _filter = "";
-                                              //     }
-                                              //     Future.delayed(
-                                              //       const Duration(milliseconds: 500), () =>
-                                              //         context.read<BeritaBloc>().add(ReadAllBeritaEvent(filter: _filter ?? "")),
-                                              //     );
-                                              //   },
-                                              //   child: Image.asset(
-                                              //     'assets/icons/delete.png',
-                                              //     width: 24,
-                                              //   ),
-                                              // ),
                                             ],
                                           ),
                                         ),

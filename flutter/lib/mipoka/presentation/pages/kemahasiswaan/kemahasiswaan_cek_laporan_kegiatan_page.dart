@@ -66,16 +66,6 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
               const CustomFieldSpacer(),
               CustomContentBox(
                 children: [
-                  // buildTitle('Status'),
-                  //
-                  // MipokaCustomDropdown(
-                  //   items: listStatus,
-                  //   onValueChanged: (value) => context.read<LaporanBloc>()
-                  //       .add(ReadAllLaporanEvent(filter: value ?? "semua")),
-                  // ),
-                  //
-                  // const CustomFieldSpacer(),
-
                   BlocConsumer<LaporanBloc, LaporanState>(
                     listenWhen: (prev, current) =>
                     prev.runtimeType != current.runtimeType,
@@ -176,30 +166,6 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                             )
                                         ),
 
-                                        // laporan.fileLaporanKegiatan != "" ?
-                                        // DataCell(
-                                        //   Align(
-                                        //     alignment: Alignment.center,
-                                        //     child: Image.asset(
-                                        //       'assets/icons/pdf.png',
-                                        //       width: 24,
-                                        //     ),
-                                        //   ),
-                                        //   onTap: () => downloadFileWithDio(
-                                        //     url: laporan.fileLaporanKegiatan,
-                                        //     fileName: getFileNameFromUrl(laporan.fileLaporanKegiatan),
-                                        //   ),
-                                        // ) :
-                                        // DataCell(
-                                        //   Align(
-                                        //     alignment: Alignment.center,
-                                        //     child: Image.asset(
-                                        //       'assets/icons/document.png',
-                                        //       width: 24,
-                                        //     ),
-                                        //   ),
-                                        // ),
-
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
@@ -261,112 +227,6 @@ class _KemahasiswaanCekLaporanKegiatanPageState extends State<KemahasiswaanCekLa
                                               )
                                           ),
                                         ),
-                                        // DataCell(
-                                        //   laporan.validasiPembina == tertunda ?
-                                        //   Center(
-                                        //     child: Image.asset(
-                                        //       'assets/icons/time.png',
-                                        //       width: 24,
-                                        //     ),
-                                        //   ) :
-                                        //   laporan.statusLaporan == tertunda ?
-                                        //   Row(
-                                        //     mainAxisAlignment:
-                                        //     MainAxisAlignment.spaceEvenly,
-                                        //     children: [
-                                        //       InkWell(
-                                        //         onTap: () async {
-                                        //           String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-                                        //           User? user = FirebaseAuth.instance.currentUser;
-                                        //           int uniqueId = UniqueIdGenerator.generateUniqueId();
-                                        //
-                                        //           context.read<NotifikasiBloc>().add(
-                                        //             CreateNotifikasiEvent(
-                                        //               notifikasi: Notifikasi(
-                                        //                 idNotifikasi: uniqueId,
-                                        //                 teksNotifikasi: "Kemahasiswaan telah menerima laporan kegiatan berjudul ${laporan.usulanKegiatan?.namaKegiatan}",
-                                        //                 tglNotifikasi: DateTime.now().toString(),
-                                        //                 createdAt: currentDate,
-                                        //                 createdBy: user?.email ?? "unknown",
-                                        //                 updatedAt: currentDate,
-                                        //                 updatedBy: user?.email ?? "unknown",
-                                        //               ),
-                                        //             ),
-                                        //           );
-                                        //
-                                        //           await Future.delayed(const Duration(milliseconds: 500));
-                                        //           if (context.mounted) {
-                                        //             context.read<LaporanBloc>().add(
-                                        //               UpdateLaporanFirstPageEvent(
-                                        //                 laporan: laporan.copyWith(
-                                        //                   statusLaporan: disetujui,
-                                        //                 ),
-                                        //               ),
-                                        //             );
-                                        //           }
-                                        //           mipokaCustomToast("Usulan Kegiatan telah diterima.");
-                                        //         },
-                                        //         child: Image.asset(
-                                        //           'assets/icons/approve.png',
-                                        //           width: 24,
-                                        //         ),
-                                        //       ),
-                                        //       const SizedBox(
-                                        //         width: 8.0,
-                                        //       ),
-                                        //       InkWell(
-                                        //         onTap: () async {
-                                        //           String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-                                        //           User? user = FirebaseAuth.instance.currentUser;
-                                        //           int uniqueId = UniqueIdGenerator.generateUniqueId();
-                                        //
-                                        //           context.read<NotifikasiBloc>().add(
-                                        //             CreateNotifikasiEvent(
-                                        //               notifikasi: Notifikasi(
-                                        //                 idNotifikasi: uniqueId,
-                                        //                 teksNotifikasi: "Kemahasiswaan telah menolak laporan kegiatan berjudul ${laporan.usulanKegiatan?.namaKegiatan}",
-                                        //                 tglNotifikasi: DateTime.now().toString(),
-                                        //                 createdAt: currentDate,
-                                        //                 createdBy: user?.email ?? "unknown",
-                                        //                 updatedAt: currentDate,
-                                        //                 updatedBy: user?.email ?? "unknown",
-                                        //               ),
-                                        //             ),
-                                        //           );
-                                        //
-                                        //           await Future.delayed(const Duration(milliseconds: 500));
-                                        //
-                                        //           if(context.mounted) {
-                                        //             context.read<LaporanBloc>().add(
-                                        //               UpdateLaporanFirstPageEvent(
-                                        //                 laporan: laporan.copyWith(
-                                        //                   statusLaporan: ditolak,
-                                        //                 ),
-                                        //               ),
-                                        //             );
-                                        //           }
-                                        //
-                                        //           mipokaCustomToast("Usulan Kegiatan telah ditolak.");
-                                        //         },
-                                        //         child: Image.asset(
-                                        //           'assets/icons/close.png',
-                                        //           width: 24,
-                                        //         ),
-                                        //       ),
-                                        //     ],
-                                        //   ) :
-                                        //   Center(
-                                        //     child: laporan.statusLaporan == disetujui ?
-                                        //     Image.asset(
-                                        //       'assets/icons/approve.png',
-                                        //       width: 24,
-                                        //     ) :
-                                        //     Image.asset(
-                                        //       'assets/icons/close.png',
-                                        //       width: 24,
-                                        //     ),
-                                        //   ),
-                                        // ),
                                       ],
                                     );
                                   }),

@@ -268,7 +268,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       if (state is MipokaUserSuccess) {
 
                         mipokaCustomToast('Akun anda telah terdaftar');
-                        // Navigator.pushNamed(context, penggunaBerandaPageRoute);
                         Navigator.pushNamedAndRemoveUntil(
                           context,
                           penggunaBerandaPageRoute,

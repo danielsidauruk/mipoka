@@ -73,16 +73,6 @@ class _KemahasiswaanCekUsulanKegiatanPageState
               const CustomFieldSpacer(),
               CustomContentBox(
                 children: [
-                  // buildTitle('Status'),
-                  // MipokaCustomDropdown(
-                  //   items: listStatus,
-                  //   onValueChanged: (value) {
-                  //     context.read<UsulanKegiatanBloc>().add(
-                  //         const ReadAllUsulanKegiatanEvent());
-                  //   },
-                  // ),
-                  // const CustomFieldSpacer(),
-
                   BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
                     listenWhen: (prev, current) =>
                     prev.runtimeType != current.runtimeType,
@@ -142,7 +132,6 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                                     ),
                                     DataColumn(
                                       label: Text(
-                                        // 'File Proposal',
                                         'Form Proposal',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
@@ -194,29 +183,6 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                                           ),
                                         ),
 
-                                        // usulanKegiatan.fileUsulanKegiatan != "" ?
-                                        // DataCell(
-                                        //   Align(
-                                        //     alignment: Alignment.center,
-                                        //     child: Image.asset(
-                                        //       'assets/icons/pdf.png',
-                                        //       width: 24,
-                                        //     ),
-                                        //   ),
-                                        //   onTap: () => downloadFileWithDio(
-                                        //     url: usulanKegiatan.fileUsulanKegiatan,
-                                        //     fileName: getFileNameFromUrl(usulanKegiatan.fileUsulanKegiatan),
-                                        //   ),
-                                        // ) :
-                                        // DataCell(
-                                        //   Align(
-                                        //     alignment: Alignment.center,
-                                        //     child: Image.asset(
-                                        //       'assets/icons/document.png',
-                                        //       width: 24,
-                                        //     ),
-                                        //   ),
-                                        // ),
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
@@ -279,116 +245,6 @@ class _KemahasiswaanCekUsulanKegiatanPageState
                                             ),
                                           ),
                                         ),
-
-                                        // DataCell(
-                                        //   usulanKegiatan.validasiPembina == tertunda ?
-                                        //   Center(
-                                        //     child: Image.asset(
-                                        //       'assets/icons/time.png',
-                                        //       width: 24,
-                                        //     ),
-                                        //   ) :
-                                        //   usulanKegiatan.statusUsulan == tertunda ?
-                                        //   Row(
-                                        //     mainAxisAlignment:
-                                        //     MainAxisAlignment.spaceEvenly,
-                                        //     children: [
-                                        //       InkWell(
-                                        //         onTap: () async {
-                                        //           String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-                                        //           User? user = FirebaseAuth.instance.currentUser;
-                                        //
-                                        //           if (context.mounted) {
-                                        //             int uniqueId = UniqueIdGenerator.generateUniqueId();
-                                        //             context.read<NotifikasiBloc>().add(
-                                        //               CreateNotifikasiEvent(
-                                        //                 notifikasi: Notifikasi(
-                                        //                   idNotifikasi: uniqueId,
-                                        //                   teksNotifikasi: "Kemahasiswaan telah menerima usulan kegiatan berjudul ${usulanKegiatan.namaKegiatan}",
-                                        //                   tglNotifikasi: DateTime.now().toString(),
-                                        //                   createdAt: currentDate,
-                                        //                   createdBy: user?.email ?? "unknown",
-                                        //                   updatedAt: currentDate,
-                                        //                   updatedBy: user?.email ?? "unknown",
-                                        //                 ),
-                                        //               ),
-                                        //             );
-                                        //           }
-                                        //
-                                        //           await Future.delayed(const Duration(milliseconds: 500));
-                                        //           if (context.mounted) {
-                                        //             context.read<UsulanKegiatanBloc>().add(
-                                        //               UpdateUsulanKegiatanEvent(
-                                        //                 usulanKegiatan: usulanKegiatan.copyWith(
-                                        //                   statusUsulan: disetujui,
-                                        //                 ),
-                                        //               ),
-                                        //             );
-                                        //           }
-                                        //           mipokaCustomToast("Usulan Kegiatan telah diterima.");
-                                        //         },
-                                        //         child: Image.asset(
-                                        //           'assets/icons/approve.png',
-                                        //           width: 24,
-                                        //         ),
-                                        //       ),
-                                        //       const SizedBox(
-                                        //         width: 8.0,
-                                        //       ),
-                                        //       InkWell(
-                                        //         onTap: () async {
-                                        //           String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-                                        //           User? user = FirebaseAuth.instance.currentUser;
-                                        //
-                                        //           if (context.mounted) {
-                                        //             int uniqueId = UniqueIdGenerator.generateUniqueId();
-                                        //             context.read<NotifikasiBloc>().add(
-                                        //               CreateNotifikasiEvent(
-                                        //                 notifikasi: Notifikasi(
-                                        //                   idNotifikasi: uniqueId,
-                                        //                   teksNotifikasi: "Kemahasiswaan telah menolak usulan kegiatan berjudul ${usulanKegiatan.namaKegiatan}",
-                                        //                   tglNotifikasi: DateTime.now().toString(),
-                                        //                   createdAt: currentDate,
-                                        //                   createdBy: user?.email ?? "unknown",
-                                        //                   updatedAt: currentDate,
-                                        //                   updatedBy: user?.email ?? "unknown",
-                                        //                 ),
-                                        //               ),
-                                        //             );
-                                        //           }
-                                        //
-                                        //           await Future.delayed(const Duration(milliseconds: 500));
-                                        //           if(context.mounted) {
-                                        //             context.read<UsulanKegiatanBloc>().add(
-                                        //               UpdateUsulanKegiatanEvent(
-                                        //                 usulanKegiatan: usulanKegiatan.copyWith(
-                                        //                   statusUsulan: ditolak,
-                                        //                 ),
-                                        //               ),
-                                        //             );
-                                        //           }
-                                        //
-                                        //           mipokaCustomToast("Usulan Kegiatan telah ditolak.");
-                                        //         },
-                                        //         child: Image.asset(
-                                        //           'assets/icons/close.png',
-                                        //           width: 24,
-                                        //         ),
-                                        //       ),
-                                        //     ],
-                                        //   ) :
-                                        //   Center(
-                                        //     child: usulanKegiatan.statusUsulan == disetujui ?
-                                        //     Image.asset(
-                                        //       'assets/icons/approve.png',
-                                        //       width: 24,
-                                        //     ) :
-                                        //     Image.asset(
-                                        //       'assets/icons/close.png',
-                                        //       width: 24,
-                                        //     ),
-                                        //   ),
-                                        // ),
                                       ],
                                     );
                                   }),

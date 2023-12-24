@@ -53,8 +53,6 @@ class UpdateLaporanSecondPageSuccess extends LaporanState {}
 
 class UpdateRincianBiayaSuccess extends LaporanState {}
 
-// class UpdateDataPesertaSuccess extends LaporanState {}
-
 class DeleteDataPesertaSuccess extends LaporanState {}
 
 class UpdateLaporanLastPageSuccess extends LaporanState {}

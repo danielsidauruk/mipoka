@@ -59,9 +59,6 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
 
     Future.microtask(() {
       context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
-      // context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
-      // context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
-      // context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
     });
     super.initState();
   }
@@ -69,9 +66,6 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
   @override
   void dispose() {
     context.read<RiwayatKegiatanMptBloc>().close();
-    // context.read<PeriodeMptBloc>().close();
-    // context.read<JenisKegiatanMptBloc>().close();
-    // context.read<NamaKegiatanMptBloc>().close();
     _jenisKegiatanStream.close();
     super.dispose();
   }
@@ -87,9 +81,6 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
         onRefresh: () {
           mipokaCustomToast(refreshMessage);
           context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
-          // context.read<PeriodeMptBloc>().add(ReadAllPeriodeMptEvent());
-          // context.read<JenisKegiatanMptBloc>().add(const ReadAllJenisKegiatanMptEvent());
-          // context.read<NamaKegiatanMptBloc>().add(const ReadAllNamaKegiatanMptEvent());
         },
       ),
 
@@ -108,181 +99,9 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
 
               CustomContentBox(
                 children: [
-
-                  // Column(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                  //   children: [
-                  //     CustomAddButton(
-                  //       buttonText: 'Tambah',
-                  //       onPressed: () async {
-                  //         final result = await Navigator.pushNamed(
-                  //           context,
-                  //           kemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaTambahPageRoute,
-                  //         );
-                  //
-                  //         if (result == true && context.mounted) {
-                  //           context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
-                  //         }
-                  //       }
-                  //     ),
-                  //
-                  //     const CustomFieldSpacer(),
-                  //
-                  //     buildTitle('Periode Kegiatan'),
-                  //     BlocBuilder<PeriodeMptBloc, PeriodeMptState>(
-                  //       builder: (context, state) {
-                  //         if (state is PeriodeMptLoading) {
-                  //           return const Text("Loading ....");
-                  //         } else if (state is AllPeriodeMptHasData) {
-                  //
-                  //           List<String> tahunPeriodeMptList = state.periodeMptList.map(
-                  //                   (periodeMptList) => periodeMptList.periodeMengulangMpt == true ?
-                  //               "${periodeMptList.tahunPeriodeMpt} (ulang)" :
-                  //               periodeMptList.tahunPeriodeMpt).toList();
-                  //           tahunPeriodeMptList.insert(0, "Semua");
-                  //
-                  //           List<int> idTahunPeriodeList = state.periodeMptList.map(
-                  //                   (periodeMptList) => periodeMptList.idPeriodeMpt).toList();
-                  //           idTahunPeriodeList.insert(0, 0);
-                  //
-                  //           return MipokaCustomDropdown(
-                  //               items: tahunPeriodeMptList,
-                  //               onValueChanged: (value) {
-                  //                 int index = tahunPeriodeMptList.indexOf(value!);
-                  //                 int idPeriodeMpt = idTahunPeriodeList[index];
-                  //
-                  //                 _idPeriodeKegiatanMpt = idPeriodeMpt;
-                  //               }
-                  //           );
-                  //         } else if (state is PeriodeMptError) {
-                  //           return Text(state.message);
-                  //         } else {
-                  //           return const Text("PeriodeMptBloc hasn't been triggered yet.");
-                  //         }
-                  //       },
-                  //     ),
-                  //
-                  //     const CustomFieldSpacer(),
-                  //
-                  //     buildTitle('Jenis Kegiatan'),
-                  //     BlocBuilder<JenisKegiatanMptBloc, JenisKegiatanMptState>(
-                  //       builder: (context, state) {
-                  //         if (state is JenisKegiatanMptLoading) {
-                  //           return const Text("Loading ...");
-                  //         } else if (state is AllJenisKegiatanMptHasData) {
-                  //
-                  //           List<String> jenisKegiatanList = state.jenisKegiatanMptList.map(
-                  //                   (jenisKegiatanList) => jenisKegiatanList.namaJenisKegiatanMpt).toList();
-                  //           jenisKegiatanList.insert(0, "Semua");
-                  //
-                  //           List<int> idJenisKegiatanList = state.jenisKegiatanMptList.map(
-                  //                   (jenisKegiatanMptList) => jenisKegiatanMptList.idJenisKegiatanMpt).toList();
-                  //           idJenisKegiatanList.insert(0, 0);
-                  //
-                  //           return MipokaCustomDropdown(
-                  //             items: jenisKegiatanList,
-                  //             onValueChanged: (value) {
-                  //               int index = jenisKegiatanList.indexOf(value ?? "");
-                  //               _idJenisKegiatan = idJenisKegiatanList[index];
-                  //             },
-                  //           );
-                  //
-                  //         } else if (state is JenisKegiatanMptError) {
-                  //           return Text(state.message);
-                  //         } else {
-                  //           return const Text("NamaKegiatanBloc hasn't been triggered yet.");
-                  //         }
-                  //       },
-                  //     ),
-                  //
-                  //     const CustomFieldSpacer(),
-                  //
-                  //     buildTitle('Nama Kegiatan'),
-                  //     BlocBuilder<NamaKegiatanMptBloc, NamaKegiatanMptState>(
-                  //       builder: (context, state) {
-                  //         if (state is NamaKegiatanMptLoading) {
-                  //           return const Text("Loading ...");
-                  //         } else if (state is AllNamaKegiatanMptHasData) {
-                  //           List<String> namaKegiatanList = state.namaKegiatanMptList.map(
-                  //                   (namaKegiatanList) => namaKegiatanList.namaKegiatan).toList();
-                  //           namaKegiatanList.insert(0, "Semua");
-                  //
-                  //           List<int> idKegiatanList = state.namaKegiatanMptList.map(
-                  //                   (namaKegiatanMptList) => namaKegiatanMptList.idNamaKegiatanMpt).toList();
-                  //           idKegiatanList.insert(0, 0);
-                  //
-                  //           _idNamaKegiatan = idKegiatanList[0];
-                  //
-                  //           return MipokaCustomDropdown(
-                  //             items: namaKegiatanList,
-                  //             onValueChanged: (value) {
-                  //               int index = namaKegiatanList.indexOf(value ?? "");
-                  //               _idNamaKegiatan = idKegiatanList[index];
-                  //
-                  //             },
-                  //           );
-                  //         } else if (state is NamaKegiatanMptError) {
-                  //           return Text(state.message);
-                  //         } else {
-                  //           return const Text("NamaKegiatanBloc hasn't been triggered yet.");
-                  //         }
-                  //       },
-                  //     ),
-                  //
-                  //     const CustomFieldSpacer(),
-                  //
-                  //     buildTitle('Status'),
-                  //     MipokaCustomDropdown(
-                  //       items: listStatus,
-                  //       onValueChanged: (value) => _status = value,
-                  //     ),
-                  //   ],
-                  // ),
-                  //
-                  // const CustomFieldSpacer(),
-                  //
-                  // buildTitle('NIM'),
-                  // CustomTextField(
-                  //   textFieldWidth: 300,
-                  //   controller: _nimController,
-                  // ),
-                  //
-                  // const CustomFieldSpacer(),
-                  //
-                  // buildTitle('Kelompok Berdasarkan'),
-                  // Row(
-                  //   children: [
-                  //     StreamBuilder<bool?>(
-                  //       initialData: false,
-                  //       stream: _jenisKegiatanStream.stream,
-                  //       builder: (context, snapshot) {
-                  //         bool isChecked = snapshot.data ?? false;
-                  //         return Checkbox(
-                  //           checkColor: Colors.black,
-                  //           value: isChecked,
-                  //           onChanged: (value) {
-                  //             _jenisKegiatanStream.add(value);
-                  //             _isCheckedJenisKegiatan = value;
-                  //           },
-                  //         );
-                  //       },
-                  //     ),
-                  //
-                  //     const Text('Jenis Kegiatan'),
-                  //   ],
-                  // ),
-                  //
-                  // CustomFilterButton(
-                  //   text: 'Filter',
-                  //   onPressed: () => context.read<RiwayatKegiatanMptBloc>().add(
-                  //     ReadAllRiwayatKegiatanMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idJenisKegiatan/$_idNamaKegiatan/$_status/${_nimController.text}/$_isCheckedJenisKegiatan")),
-                  // ),
-
                   const CustomFieldSpacer(),
 
                   BlocConsumer<RiwayatKegiatanMptBloc, RiwayatKegiatanMptState>(
-                      // RiwayatKegiatanMptSuccess
                     listenWhen: (prev, current) =>
                     prev.runtimeType != current.runtimeType,
                     listener: (context, state) async {
@@ -291,9 +110,6 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                         context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
 
                       }
-                      // else if (state is RiwayatKegiatanMptError) {
-                      //   // mipokaCustomToast(state.message);
-                      // }
                     },
 
                     builder: (context, state) {
@@ -570,12 +386,6 @@ class _KemahasiswaanMPTMahasiswaRiwayatKegiatanMahasiswaPageState extends State<
                           ],
                         );
                       }
-                      // else if (state is RiwayatKegiatanMptSuccess) {
-                      //   context.read<RiwayatKegiatanMptBloc>().add(
-                      //       ReadAllRiwayatKegiatanMptEvent(filter: "$_idPeriodeKegiatanMpt/$_idJenisKegiatan/$_idNamaKegiatan/$_status/${_nimController.text}/$_isCheckedJenisKegiatan"));
-                      //
-                      //   return const SizedBox();
-                      // }
                       else if (state is RiwayatKegiatanMptError) {
                         return Text(state.message);
                       } else {

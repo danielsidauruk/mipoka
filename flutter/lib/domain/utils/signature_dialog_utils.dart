@@ -122,7 +122,6 @@ class SignatureDialogUtils {
 
     Uint8List? data;
     String? tandaTanganPembina;
-    // String? docxUrl;
     int uniqueId = UniqueIdGenerator.generateUniqueId();
 
     if (kIsWeb) {
@@ -139,14 +138,6 @@ class SignatureDialogUtils {
 
     mipokaCustomToast("Menyimpan data ...");
     tandaTanganPembina = await uploadBytesToFirebase(data!, "signature$uniqueId.png");
-    // docxUrl = await generateUsulanDocx(
-    //   UsulanKegiatanModel.fromEntity(
-    //     usulanKegiatan.copyWith(
-    //       tandaTanganPembina: tandaTanganPembina,
-    //       validasiPembina: disetujui,
-    //     ),
-    //   ),
-    // );
 
     if(context.mounted) {
       String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
@@ -179,10 +170,7 @@ class SignatureDialogUtils {
         ),
       );
 
-      // Future.delayed(const Duration(seconds: 2));
-
       if (isPop) {
-        // context.read<UsulanKegiatanBloc>().add(const ReadAllUsulanKegiatanEvent());
         Navigator.pop(context);
       } else {
         Navigator.pushNamedAndRemoveUntil(

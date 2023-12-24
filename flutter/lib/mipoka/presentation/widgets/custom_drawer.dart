@@ -79,30 +79,6 @@ class _MobileCustomPenggunaDrawerWidgetState
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              // CustomTextField(controller: _queryController),
-              // const CustomFieldSpacer(),
-              // const Divider(
-              //   color: Colors.grey,
-              //   thickness: 1,
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: [
-              //     Switch(
-              //       value: darkMode,
-              //       onChanged: (value) {},
-              //     ),
-              //     const Text(
-              //       'Dark Mode',
-              //       style: TextStyle(fontWeight: FontWeight.bold),
-              //     ),
-              //   ],
-              // ),
-              // const Divider(
-              //   color: Colors.grey,
-              //   thickness: 1,
-              // ),
-              // const CustomFieldSpacer(),
               Expanded(
                 child: ListView(
                   children: [
@@ -172,73 +148,6 @@ class _MobileCustomPenggunaDrawerWidgetState
                       onTap: () => Navigator.pushNamed(
                           context, penggunaBerandaPageRoute),
                     ),
-                    // ExpansionTile(
-                    //   title: const Text(
-                    //     'Pengajuan',
-                    //     style: TextStyle(
-                    //       fontSize: 20,
-                    //       fontWeight: FontWeight.bold,
-                    //     ),
-                    //   ),
-                    //   children: [
-                    //     ExpansionTile(
-                    //       title: const Text(
-                    //         'Kegiatan',
-                    //         style: TextStyle(
-                    //           fontSize: 18,
-                    //           fontWeight: FontWeight.bold,
-                    //         ),
-                    //       ),
-                    //       children: [
-                    //         ListTile(
-                    //           title: const Text(
-                    //             'Usulan Kegiatan',
-                    //             style: TextStyle(
-                    //               fontSize: 18,
-                    //               fontWeight: FontWeight.bold,
-                    //             ),
-                    //           ),
-                    //           onTap: () => Navigator.pushNamed(context,
-                    //               penggunaDaftarPengajuanKegiatanPageRoute),
-                    //         ),
-                    //         ListTile(
-                    //           title: const Text(
-                    //             'Laporan Kegiatan',
-                    //             style: TextStyle(
-                    //               fontSize: 18,
-                    //               fontWeight: FontWeight.bold,
-                    //             ),
-                    //           ),
-                    //           onTap: () => Navigator.pushNamed(context,
-                    //               penggunaDaftarLaporanKegiatanPageRoute),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //     ListTile(
-                    //       title: const Text(
-                    //         'Sarana & Prasarana',
-                    //         style: TextStyle(
-                    //           fontSize: 18,
-                    //           fontWeight: FontWeight.bold,
-                    //         ),
-                    //       ),
-                    //       onTap: () => Navigator.pushNamed(context,
-                    //           penggunaDaftarPengajuanSaranaDanPrasaranaPageRoute),
-                    //     ),
-                    //   ],
-                    // ),
-                    // ListTile(
-                    //   title: const Text(
-                    //     'Profile',
-                    //     style: TextStyle(
-                    //       fontSize: 18,
-                    //       fontWeight: FontWeight.bold,
-                    //     ),
-                    //   ),
-                    //   onTap: () {},
-                    //   // onTap: () => Navigator.pushNamed(context,
-                    //   //     penggunaDaftarPengajuanKegiatanPageRoute),
-                    // ),
                     ListTile(
                       title: const Text(
                         'MPT',
@@ -250,64 +159,6 @@ class _MobileCustomPenggunaDrawerWidgetState
                       onTap: () =>
                           Navigator.pushNamed(context, penggunaMPTPageRoute),
                     ),
-                    // ExpansionTile(
-                    //   title: const Text(
-                    //     'MPT',
-                    //     style: TextStyle(
-                    //       fontSize: 20,
-                    //       fontWeight: FontWeight.bold,
-                    //     ),
-                    //   ),
-                    //   children: [
-                    //     ListTile(
-                    //       title: const Text(
-                    //         'Profile',
-                    //         style: TextStyle(
-                    //           fontSize: 18,
-                    //           fontWeight: FontWeight.bold,
-                    //         ),
-                    //       ),
-                    //       onTap: () {},
-                    //       // onTap: () => Navigator.pushNamed(context,
-                    //       //     penggunaDaftarPengajuanKegiatanPageRoute),
-                    //     ),
-                    //   ],
-                    // ),
-                    // ExpansionTile(
-                    //   title: const Text(
-                    //     'Ormawa',
-                    //     style: TextStyle(
-                    //       fontSize: 20,
-                    //       fontWeight: FontWeight.bold,
-                    //     ),
-                    //   ),
-                    //   children: [
-                    //     ListTile(
-                    //       title: const Text(
-                    //         'UKM',
-                    //         style: TextStyle(
-                    //           fontSize: 18,
-                    //           fontWeight: FontWeight.bold,
-                    //         ),
-                    //       ),
-                    //       onTap: () => Navigator.pushNamed(
-                    //           context, penggunaOrmawaUKMPageRoute),
-                    //     ),
-                    //   ],
-                    // ),
-                    // ListTile(
-                    //   title: const Text(
-                    //     'Prestasi',
-                    //     style: TextStyle(
-                    //       fontSize: 20,
-                    //       fontWeight: FontWeight.bold,
-                    //     ),
-                    //   ),
-                    //   onTap: () => Navigator.pushNamed(
-                    //       context, penggunaPrestasiPageRoute),
-                    // ),
-
-
                   ],
                 ),
               ),

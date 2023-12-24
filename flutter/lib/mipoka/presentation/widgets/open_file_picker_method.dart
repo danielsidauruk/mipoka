@@ -27,9 +27,7 @@ Future<void> deleteFileFromFirebase(String fileUrl) async {
     if (kDebugMode) {
       print("File Deleted Successfully.");
     }
-    // mipokaCustomToast("File deleted successfully.");
   } catch (error) {
-    // mipokaCustomToast("Failed to delete file.");
     if (kDebugMode) {
       print(error);
     }

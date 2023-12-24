@@ -53,8 +53,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
 
   MipokaRepositoriesImpl({required this.mipokaDataSources});
 
-
-// TODO: => Berita Repositories
   @override
   Future<Either<Failure, void>> createBerita(Berita berita) async {
     try {
@@ -103,8 +101,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
     }
   }
 
-
-// TODO: => Berita Repositories
   @override
   Future<Either<Failure, void>> createAdmin(Admin admin) async {
     try {
@@ -144,7 +140,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-// TODO: => BiayaKegiatan Repositories
   @override
   Future<Either<Failure, void>> createBiayaKegiatan({
     required int idUsulanKegiatan,
@@ -179,7 +174,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-  // * => JenisKegiatanMpt Repositories
   @override
   Future<Either<Failure, void>> createJenisKegiatanMpt(JenisKegiatanMpt jenisKegiatanMpt) async {
     try {
@@ -226,7 +220,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-// * => KegiatanMpt Repositories
   @override
   Future<Either<Failure, void>> createKegiatanPerPeriodeMpt(KegiatanPerPeriodeMpt kegiatanMpt) async {
     try {
@@ -273,7 +266,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-// TODO: => KegiatanMpt Repositories
   @override
   Future<Either<Failure, void>> createLaporan(Laporan laporan) async {
     try {
@@ -320,7 +312,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-// => Ormawa Repositories
   @override
   Future<Either<Failure, void>> createOrmawa(Ormawa ormawa) async {
     try {
@@ -367,7 +358,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-// TODO: => Partisipan Repositories
   @override
   Future<Either<Failure, void>> createPartisipan({required int idUsulanKegiatan, required Partisipan partisipan}) async {
     try {
@@ -398,7 +388,7 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
     }
   }
 
-// TODO: => PeriodeMpt Repositories
+
   @override
   Future<Either<Failure, void>> createPeriodeMpt(PeriodeMpt periodeMpt) async {
     try {
@@ -444,7 +434,7 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
     }
   }
 
-// TODO: => PesertaKegiatanMpt Repositories
+
   @override
   Future<Either<Failure, void>> createPesertaKegiatanLaporan({required int idLaporan, required PesertaKegiatanLaporan pesertaKegiatanLaporan}) async {
     try {
@@ -476,7 +466,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-// TODO: => Prestasi Repositories
   @override
   Future<Either<Failure, void>> createPrestasi(Prestasi prestasi) async {
     try {
@@ -523,7 +512,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-// TODO: => RevisiLaporan Repositories
   @override
   Future<Either<Failure, void>> createRevisiLaporan(RevisiLaporan revisiLaporan) async {
     try {
@@ -561,7 +549,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-// TODO: => RevisiUsulan Repositories
   @override
   Future<Either<Failure, void>> createRevisiUsulan(RevisiUsulan revisiUsulan) async {
     try {
@@ -599,7 +586,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-// TODO: => RincianBiayaKegiatan Repositories
   @override
   Future<Either<Failure, void>> createRincianBiayaKegiatan({required int idLaporan, required RincianBiayaKegiatan rincianBiayaKegiatan}) async {
     try {
@@ -631,7 +617,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-// TODO: => RiwayatMpt Repositories
   @override
   Future<Either<Failure, void>> createRiwayatKegiatanMpt(RiwayatKegiatanMpt riwayatKegiatanMpt) async {
     try {
@@ -678,7 +663,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-// TODO: => Session Repositories
   @override
   Future<Either<Failure, void>> createSession(Session session) async {
     try {
@@ -725,7 +709,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-// TODO: => TertibAcara Repositories
   @override
   Future<Either<Failure, void>> createTertibAcara({required int idUsulanKegiatan, required TertibAcara tertibAcara}) async {
     try {
@@ -757,7 +740,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-// TODO: => MipokaUser Repositories
   @override
   Future<Either<Failure, void>> createMipokaUser(MipokaUser mipokaUser) async {
     try {
@@ -813,7 +795,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-// TODO: => UsulanKegiatan Repositories
   @override
   Future<Either<Failure, void>> createUsulanKegiatan(UsulanKegiatan usulanKegiatan) async {
     try {
@@ -860,7 +841,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-  // * => MhsPerPeriodeMpt Repositories
   @override
   Future<Either<Failure, void>> createMhsPerPeriodeMpt(MhsPerPeriodeMpt mhsPerPeriodeMpt) async {
     try {
@@ -908,7 +888,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-  // * => NamaKegiatanMpt Repositories
   @override
   Future<Either<Failure, void>> createNamaKegiatanMpt(NamaKegiatanMpt namaKegiatanMpt) async {
     try {
@@ -955,7 +934,6 @@ class MipokaRepositoriesImpl implements MipokaRepositories {
   }
 
 
-  // * => Notifikasi Repositories
   @override
   Future<Either<Failure, void>> createNotifikasi(Notifikasi notifikasi) async {
     try {

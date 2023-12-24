@@ -29,21 +29,12 @@ const listPembiayaan = ['Mandiri', 'Didanai'];
 const listBentukKegiatan = ['Bakti Sosial', 'Festival', 'Kebaktian', 'Kompetisi', 'Latihan',
   'Loka Karya', 'Pelantikan', 'Perkumpulan', 'Pertunjukan', 'Rapat', 'Seminar', 'Turnamen'];
 
-// const listNamaKegiatan = [
-//   'Chou Starlight Tournament',
-//   'Vexana Starlight Tournament - MEL Mar 2023 Vexana Starlight Tournament - MEL Mar 2023 Vexana Starlight Tournament - MEL Mar 2023',
-//   'Yuzhong Starlight Tournament - MEL Mar 2023',
-//   'Lancelot Starlight Tournament - MEL Mar 2023',
-// ];
-
-// const nimTemplate = "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/template-file%2Fnim.xlsx?alt=media&token=1dab9dcc-615e-45b0-bf6b-b69efe35750c";
 const nimTemplate = "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/template-file%2Fnim.xlsx?alt=media&token=1dab9dcc-615e-45b0-bf6b-b69efe35750c";
 const mhsPerPeriodeTemplate = "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/mhs_per_periode_template.xlsx?alt=media&token=8430b6e0-4500-41a1-84d6-a88b8c868d31";
 const riwayatKegiatanTemplate = "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/riwayat_kegiatan_template.xlsx?alt=media&token=1628cb15-f8b1-4d68-9390-5a50ef98e72f";
 const pesertaKegiatanTemplate = "https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/template-file%2Fpeserta_kegiatan_template%20(1).xlsx?alt=media&token=870b8327-60e4-4363-a4fa-db903242c6c6";
 
 const String apiUrl = 'https://oafish-eggnog-production.up.railway.app';
-// const String apiUrl = "https://mipoka-production.up.railway.app";
 
 const statusUsulan = ["Semua", disetujui, ditolak, tertunda];
 
@@ -72,9 +63,3 @@ final List<String> years = List.generate(10, (index) =>
 
 const listProdi = ['Teknik Informatika', 'Manajemen', 'Akuntansi', 'Sistem Informasi'];
 const listJumlahPoint = ['Semua', '<= 100', '> 100 <= 200', '> 200',];
-
-// int newId = DateTime.now().microsecondsSinceEpoch;
-// int newId = UniqueIdGenerator.generateUniqueId();
-// User? user = FirebaseAuth.instance.currentUser;
-// String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-// int randomId = Random().nextInt(9999999);

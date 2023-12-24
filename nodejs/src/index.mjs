@@ -191,8 +191,6 @@ app.post('/usulan-kegiatan', async (req, res) => {
   try {
     const usulan_kegiatan_data = req.body;
 
-    // const templateFile = fs.readFileSync('templates/Usulan Kegiatan (nama_kegiatan) - (tanggal_mulai_kegiatan).docx');
-    // const templateFile = await fetchTemplateFile(usulan_kegiatan_template_LK_url);
     const logo_ormawa_url = await getLogoSize(usulan_kegiatan_data.ormawa.logo_ormawa, 188);    
     const namaPembina = usulan_kegiatan_data.revisi_usulan?.user?.nama_lengkap;
 
@@ -617,17 +615,6 @@ app.post('/session', async (req, res) => {
       selesai: session_data.waktu_selesai_penggunaan,
       kegiatan: session_data.kegiatan,
 
-      // lines: [
-      //   { is_proyektor: session_data.proyektor !== 0 },
-      //   { is_laptop: session_data.laptop !== 0 },
-      //   { is_mikrofon: session_data.mikrofon !== 0 },
-      //   { is_speaker: session_data.speaker !== 0 },
-      //   { is_meja: session_data.meja !== 0 },
-      //   { is_kursi: session_data.kursi !== 0 },
-      //   { is_papan_tulis: session_data.papan_tulis !== 0 },
-      //   { is_spidol: session_data.spidol !== 0 },
-      // ],
-
       is_proyektor: session_data.proyektor !== 0,
       is_laptop: session_data.laptop !== 0,
       is_mikrofon: session_data.mikrofon !== 0,
@@ -658,7 +645,6 @@ app.post('/session', async (req, res) => {
       done: {
           _type: 'image',
           source: await convertImageToPNG("https://firebasestorage.googleapis.com/v0/b/mipoka.appspot.com/o/template-file%2Ficons8-done-26.png?alt=media&token=5fbb0328-ead3-4c02-bdb8-9e9757e37961"),
-          // source: fs.readFileSync("/Users/macbook/Desktop/mipoka-docx-templater/assets/done_icon.png"),
           format: mime.lookup('.png'),
           width: 20,
           height: 20,
@@ -667,7 +653,6 @@ app.post('/session', async (req, res) => {
     };
 
     const doc = await handler.process(await fetchTemplateFile(session_template_url), data);
-    // const doc = await handler.process(fs.readFileSync("/Users/macbook/Desktop/mipoka-docx-templater/assets/session_template_03.docx"), data);
 
     const uploadOptions = {}
 

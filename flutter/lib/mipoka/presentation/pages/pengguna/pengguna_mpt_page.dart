@@ -60,7 +60,6 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
               const CustomFieldSpacer(),
               CustomContentBox(
                 children: [
-                  // customBoxTitle('Kegiatan yang Sudah Diklaim'),
                   customBoxTitle('Kegiatan MPT yang Sudah Dilaporkan'),
                   const CustomFieldSpacer(),
                   BlocConsumer<RiwayatKegiatanMptBloc, RiwayatKegiatanMptState>(
@@ -72,7 +71,6 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                         context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
 
                       } else if (state is RiwayatKegiatanMptError) {
-                        // mipokaCustomToast(state.message);
                         mipokaCustomToast(savingDataMessage);
                       }
                     },
@@ -142,11 +140,6 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                               ],
                               rows: List<DataRow>.generate(riwayatKegiatanMptList.length, (int index) {
                                 final riwayatMpt = riwayatKegiatanMptList[index];
-
-                                // context.read<KegiatanPerPeriodeMptBloc>().add(
-                                //     ReadKegiatanPerPeriodeMptEvent(idKegiatanPerPeriodeMpt: riwayatMpt.idKegiatanPerPeriodeMpt));
-                                // context.read<NamaKegiatanMptBloc>().add(
-                                //   ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: riwayatMpt.idKegiatanPerPeriodeMpt));
 
                                 return DataRow(
                                   cells: [
@@ -227,7 +220,6 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                         return Text(state.message);
                       } else {
                         return const SizedBox();
-                        // return const Text("RiwayatMptBloc hasn't been triggered");
                       }
                     },
                   ),
@@ -308,9 +300,6 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                               rows: List.generate(kegiatanPerPeriodeList.length, (int index) {
                                 final kegiatanPerPeriode = kegiatanPerPeriodeList[index];
 
-                                // context.read<NamaKegiatanMptBloc>().add(
-                                //     ReadNamaKegiatanMptEvent(idNamaKegiatanMpt: kegiatanPerPeriode.idNamaKegiatanMpt));
-
                                 return DataRow(
                                   cells: [
                                     DataCell(
@@ -368,8 +357,6 @@ class _PenggunaMPTPageState extends State<PenggunaMPTPage> {
                                             ),
                                           );
                                         }
-                                          // context.read<KegiatanPerPeriodeMptBloc>().add(const ReadAllKegiatanPerPeriodeMptEvent());
-                                          // context.read<RiwayatKegiatanMptBloc>().add(const ReadAllRiwayatKegiatanMptEvent());
                                       },
                                       Align(
                                         alignment: Alignment.center,

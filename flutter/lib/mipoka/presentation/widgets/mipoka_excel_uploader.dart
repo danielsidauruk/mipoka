@@ -35,7 +35,6 @@ class _MipokaExcelUploaderState extends State<MipokaExcelUploader> {
           children: [
             Expanded(
               child: Text(
-                // Uri.parse(widget.text).pathSegments.last,
                 widget.text,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

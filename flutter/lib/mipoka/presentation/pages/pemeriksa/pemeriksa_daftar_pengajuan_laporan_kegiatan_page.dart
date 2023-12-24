@@ -79,19 +79,6 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
 
               CustomContentBox(
                 children: [
-                  // buildTitle('Status'),
-                  // MipokaCustomDropdown(
-                  //   items: listStatus,
-                  //   onValueChanged: (value) {
-                  //     filter = value;
-                  //
-                  //     context.read<LaporanBloc>().add(
-                  //         const ReadAllLaporanEvent());
-                  //   },
-                  // ),
-                  //
-                  // const CustomFieldSpacer(),
-
                   BlocConsumer<LaporanBloc, LaporanState>(
                     listenWhen: (prev, current) =>
                     prev.runtimeType != current.runtimeType,
@@ -243,18 +230,8 @@ class _PemeriksaDaftarLaporanKegiatanPageState extends State<PemeriksaDaftarLapo
                                                   alignment: Alignment.center,
                                                   child: Text(
                                                     laporan.usulanKegiatan?.namaKegiatan ?? "",
-                                                    // style: const TextStyle(
-                                                    //   // color: Colors.blue,
-                                                    // ),
                                                   ),
                                                 ),
-                                                // onTap: () async {
-                                                //   Navigator.pushNamed(
-                                                //     context,
-                                                //     pemeriksaPengajuanLaporanKegiatan1PageRoute,
-                                                //     arguments: laporan.idLaporan,
-                                                //   ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent()));
-                                                // }
                                               ),
 
                                               laporan.fileLaporanKegiatan == "" ?

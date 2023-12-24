@@ -9,7 +9,6 @@ class CustomMipokaWebAppBar extends StatefulWidget implements PreferredSizeWidge
   State<CustomMipokaWebAppBar> createState() => _CustomMipokaWebAppBarState();
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(56.0);
 }
 
@@ -38,7 +37,6 @@ class _CustomMipokaWebAppBarState extends State<CustomMipokaWebAppBar> {
               padding: const EdgeInsets.all(8.0),
               width: 400,
               height: 30,
-              // constraints: const BoxConstraints(minHeight: 35.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.0),
                 border: Border.all(color: Colors.white),

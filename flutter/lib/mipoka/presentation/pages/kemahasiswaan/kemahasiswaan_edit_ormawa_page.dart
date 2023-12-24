@@ -52,7 +52,6 @@ class _KemahasiswaanEditOrmawaPageState
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CustomMobileTitle(
@@ -74,7 +73,6 @@ class _KemahasiswaanEditOrmawaPageState
                     );
                     mipokaCustomToast("Ormawa telah ditambah.");
                   }
-                  // then((_) => context.read<OrmawaBloc>().add(ReadAllOrmawaEvent()));
                 },
               ),
 
@@ -210,7 +208,6 @@ class _KemahasiswaanEditOrmawaPageState
                                                     mipokaCustomToast("Ormawa telah diupdate.");
                                                   }
                                                 },
-                                                    // .then((_) => context.read<OrmawaBloc>().add(ReadAllOrmawaEvent())),
                                                 child: Image.asset(
                                                   'assets/icons/edit.png',
                                                   width: 24,

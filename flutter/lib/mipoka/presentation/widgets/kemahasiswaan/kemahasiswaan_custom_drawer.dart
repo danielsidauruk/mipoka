@@ -97,7 +97,6 @@ class _CustomKemahasiswaanDrawerState
                               Expanded(
                                 child: InkWell(
                                   onTap: () => _showAlertDialog(context),
-                                  // onTap: () => Navigator.pushNamed(context, mobileAkunPageRoute),
                                   child: Text(
                                     '${user?.email}',
                                     style:
@@ -249,60 +248,6 @@ class _CustomKemahasiswaanDrawerState
                             ),
                           ],
                         ),
-
-                        // ListTile(
-                        //   title: const Text(
-                        //     'Edit Ormawa',
-                        //     style: TextStyle(
-                        //       fontSize: 18,
-                        //       fontWeight: FontWeight.bold,
-                        //     ),
-                        //   ),
-                        //   onTap: () => Navigator.pushNamed(context, kemahasiswaanEditOrmawaPageRoute),
-                        // ),
-                        //
-                        // ListTile(
-                        //   title: const Text(
-                        //     'Prestasi Mahasiswa',
-                        //     style: TextStyle(
-                        //       fontSize: 18,
-                        //       fontWeight: FontWeight.bold,
-                        //     ),
-                        //   ),
-                        //   onTap: () => Navigator.pushNamed(context, kemahasiswaanPrestasiMahasiswaPageRoute),
-                        // ),
-
-                        // ListTile(
-                        //   title: const Text(
-                        //     'Cek Usulan Kegiatan',
-                        //     style: TextStyle(
-                        //       fontSize: 18,
-                        //       fontWeight: FontWeight.bold,
-                        //     ),
-                        //   ),
-                        //   onTap: () => Navigator.pushNamed(context, kemahasiswaanCekUsulanKegiatanPageRoute),
-                        // ),
-                        // ListTile(
-                        //   title: const Text(
-                        //     'Verifikasi Sarana & Prasarana',
-                        //     style: TextStyle(
-                        //       fontSize: 18,
-                        //       fontWeight: FontWeight.bold,
-                        //     ),
-                        //   ),
-                        //   onTap: () => Navigator.pushNamed(context, kemahasiswaanCekSaranaDanPrasaranaPageRoute),
-                        // ),
-                        // ListTile(
-                        //   title: const Text(
-                        //     'Cek Laporan Kegiatan',
-                        //     style: TextStyle(
-                        //       fontSize: 18,
-                        //       fontWeight: FontWeight.bold,
-                        //     ),
-                        //   ),
-                        //   onTap: () => Navigator.pushNamed(context, kemahasiswaanCekLaporanKegiatanPageRoute),
-                        // ),
-
                       ],
                     ),
                   ],

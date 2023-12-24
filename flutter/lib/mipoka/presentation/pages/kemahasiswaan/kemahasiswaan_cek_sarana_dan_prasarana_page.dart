@@ -76,18 +76,6 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
               const CustomFieldSpacer(),
               CustomContentBox(
                 children: [
-                  // buildTitle('Status'),
-                  //
-                  // MipokaCustomDropdown(
-                  //   items: listStatus,
-                  //   onValueChanged: (value) {
-                  //     filter = value ?? filter;
-                  //     context.read<SessionBloc>().add(ReadAllSessionEvent(filter: filter));
-                  //   },
-                  // ),
-                  //
-                  // const CustomFieldSpacer(),
-
                   BlocConsumer<SessionBloc, SessionState>(
                     listenWhen: (prev, current) =>
                     prev.runtimeType != current.runtimeType,
@@ -236,21 +224,6 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
                                             child: Text(session.lainLain),
                                           ),
                                         ),
-
-                                        // session.fileSession != "" ?
-                                        // DataCell(
-                                        //   onTap: () => downloadFileWithDio(
-                                        //     url: session.fileSession,
-                                        //     fileName: getFileNameFromUrl(session.fileSession),
-                                        //   ),
-                                        //   Align(
-                                        //     alignment: Alignment.center,
-                                        //     child: Image.asset(
-                                        //       'assets/icons/pdf.png',
-                                        //       width: 24,
-                                        //     ),
-                                        //   ),
-                                        // ) :
                                         DataCell(
                                           Align(
                                             alignment: Alignment.center,
@@ -276,62 +249,6 @@ class _KemahasiswaanCekSaranaDanPrasaranaPageState extends State<KemahasiswaanCe
 
                                         DataCell(
                                           session.status == tertunda ?
-                                          // Row(
-                                          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          //   children: [
-                                          //     InkWell(
-                                          //       onTap: () {
-                                          //         SignatureDialogUtils.showPopup(context, session);
-                                          //       },
-                                          //       child: Image.asset(
-                                          //         'assets/icons/approve.png',
-                                          //         width: 24,
-                                          //       ),
-                                          //     ),
-                                          //
-                                          //     const SizedBox(width: 8.0,),
-                                          //
-                                          //     InkWell(
-                                          //       onTap: () async {
-                                          //         String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-                                          //         User? user = FirebaseAuth.instance.currentUser;
-                                          //
-                                          //         if (context.mounted) {
-                                          //           int uniqueId = UniqueIdGenerator.generateUniqueId();
-                                          //           context.read<NotifikasiBloc>().add(
-                                          //             CreateNotifikasiEvent(
-                                          //               notifikasi: Notifikasi(
-                                          //                 idNotifikasi: uniqueId,
-                                          //                 teksNotifikasi: "Kemahasiswaan telah menolak Pengajuan Peminjaman Sarana & Prasarana yang diajukan oleh ${session.mipokaUser.namaLengkap}",
-                                          //                 tglNotifikasi: DateTime.now().toString(),
-                                          //                 createdAt: currentDate,
-                                          //                 createdBy: user?.email ?? "unknown",
-                                          //                 updatedAt: currentDate,
-                                          //                 updatedBy: user?.email ?? "unknown",
-                                          //               ),
-                                          //             ),
-                                          //           );
-                                          //         }
-                                          //
-                                          //         await Future.delayed(const Duration(milliseconds: 500));
-                                          //         if (context.mounted) {
-                                          //           context.read<SessionBloc>().add(
-                                          //             UpdateSessionEvent(
-                                          //               session: session.copyWith(
-                                          //                 status: ditolak,
-                                          //               ),
-                                          //             ),
-                                          //           );
-                                          //         }
-                                          //         mipokaCustomToast("Sarana dan Prasarana ditolak.");
-                                          //       },
-                                          //       child: Image.asset(
-                                          //         'assets/icons/close.png',
-                                          //         width: 24,
-                                          //       ),
-                                          //     ),
-                                          //   ],
-                                          // )
                                           Center(
                                             child: Image.asset(
                                               'assets/icons/document.png',

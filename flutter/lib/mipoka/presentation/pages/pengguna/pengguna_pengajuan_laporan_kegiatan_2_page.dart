@@ -236,11 +236,6 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                                 ],
                                                 rows: List<DataRow>.generate(laporan.pesertaKegiatanLaporan.length, (int index) {
                                                   final pesertaKegiatanLaporan = laporan.pesertaKegiatanLaporan[index];
-                                                  //
-                                                  // if(pesertaKegiatanLaporan.namaLengkap == "") {
-                                                  //   context.read<MipokaUserByNimBloc>().add(
-                                                  //       ReadMipokaUserByNimEvent(nim: pesertaKegiatanLaporan.nim));
-                                                  // }
                                                   
                                                   return DataRow(
                                                     cells: [
@@ -485,15 +480,6 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                   const SizedBox(width: 8.0),
                                   CustomMipokaButton(
                                     onTap: () async {
-
-                                      // final realisasi = laporan.rincianBiayaKegiatan
-                                      //     .map((rincianBiayaKegiatan) => rincianBiayaKegiatan.realisasiAnggaran)
-                                      //     .toList();
-                                      //
-                                      // if (realisasi.contains(0)) {
-                                      //   mipokaCustomToast("Mohon Lengkapi Realisasi Anggaran.");
-                                      // } else {
-
                                         if (_isShowTable) {
                                           final result = await Navigator.pushNamed(
                                             context,
@@ -516,7 +502,6 @@ class _PenggunaPengajuanLaporanKegiatan2State extends State<PenggunaPengajuanLap
                                             ),
                                           );
                                         }
-                                      // }
                                     },
                                     text: 'Berikutnya',
                                   ),

@@ -70,14 +70,6 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
 
                   buildTitle('Nama Ormawa'),
 
-                  // MipokaCustomDropdown(
-                  //   items: listNamaOrmawa,
-                  //   onValueChanged: (value) {
-                  //     context.read<OrmawaBloc>().add(
-                  //       const ReadOrmawaEvent(idOrmawa: 1111),
-                  //     );
-                  //   },
-                  // ),
                   BlocBuilder<OrmawaDropDownBloc, OrmawaDropDownState>(
                     builder: (context, state) {
                       if (state is OrmawaDropDownLoading) {
@@ -92,25 +84,11 @@ class _PenggunaOrmawaUKMPageState extends State<PenggunaOrmawaUKMPage> {
                           List<String> namaOrmawaList = state.ormawaList.map(
                                   (ormawa) => ormawa.namaOrmawa).toList();
 
-                          // List<int> idOrmawaList = state.ormawaList.map(
-                          //         (ormawa) => ormawa.idOrmawa).toList();
-
-
-                          // if (_idOrmawaController == null) {
-                          //   context.read<OrmawaBloc>().add(ReadOrmawaEvent(idOrmawa: _idOrmawaController ?? idOrmawaList[0]));
-                          //   _idOrmawaController ??= idOrmawaList[0];
-                          // }
-
                           return MipokaCustomDropdown(
                               items: namaOrmawaList,
                               onValueChanged: (value) {
                                 int index = namaOrmawaList.indexOf(value!);
                                 _ormawaStream.add(state.ormawaList[index]);
-                                // int idOrmawa = idOrmawaList[index];
-
-                                // _idOrmawaController = idOrmawa;
-
-                                // context.read<OrmawaBloc>().add(ReadOrmawaEvent(idOrmawa: _idOrmawaController ?? idOrmawaList[0]));
                               }
                           );
                         }

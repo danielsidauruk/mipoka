@@ -130,87 +130,6 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
 
                             const SizedBox(width: 8.0),
 
-                            // BlocBuilder<MipokaUserBloc, MipokaUserState>(
-                            //   builder: (context, state) {
-                            //     if(state is MipokaUserLoading) {
-                            //       return const Text("Loading ...");
-                            //     } else if (state is MipokaUserHasData) {
-                            //       return CustomMipokaButton(
-                            //         onTap: () async {
-                            //           if (_keteranganController.text.isNotEmpty) {
-                            //             try {
-                            //               final result = this.result;
-                            //               if (result != null) {
-                            //                 PlatformFile file = result.files.first;
-                            //
-                            //                 Uint8List? bytes;
-                            //                 String? fileHash;
-                            //
-                            //                 if (kIsWeb) {
-                            //                   bytes = file.bytes!;
-                            //                   List<int> convertedList = bytes.toList();
-                            //                   fileHash = sha256.convert(convertedList).toString();
-                            //                 } else if (Platform.isAndroid) {
-                            //                   bytes = await File(file.path!).readAsBytes();
-                            //                   fileHash = sha256.convert(bytes).toString();
-                            //                 }
-                            //
-                            //                 List<String> hashList = riwayatKegiatanState.riwayatKegiatanMptList.map(
-                            //                         (sha256) => sha256.hash).toList();
-                            //
-                            //                 if (hashList.contains(fileHash) == true) {
-                            //                   mipokaCustomToast("Tidak dapat mengunggah file yang sama");
-                            //                 } else {
-                            //                   mipokaCustomToast('Sedang menyimpan file ...');
-                            //                   print (fileHash);
-                            //                   String? downloadUrl = await uploadBytesToFirebase(bytes!, "${user?.uid ?? ""}${file.name}");
-                            //                   _shaController.text = fileHash ?? "";
-                            //                   _fileSertifikatMptController.text = downloadUrl ?? "";
-                            //
-                            //                   if (context.mounted) {
-                            //                     context.read<RiwayatKegiatanMptBloc>().add(
-                            //                       CreateRiwayatKegiatanMptEvent(
-                            //                         riwayatKegiatanMpt: RiwayatKegiatanMpt(
-                            //                           kegiatanPerPeriodeMpt: widget.kegiatanPerPeriodeMpt,
-                            //                           idRiwayatKegiatanMpt: newId,
-                            //                           mipokaUser: state.mipokaUser,
-                            //                           statusMpt: tertunda,
-                            //                           fileSertifikatMpt: _fileSertifikatMptController.text,
-                            //                           hash: _shaController.text,
-                            //                           keteranganMhs: _keteranganController.text,
-                            //                           keteranganSa: "",
-                            //                           createdAt: currentDate,
-                            //                           createdBy: user?.email ?? "unknown",
-                            //                           updatedAt: currentDate,
-                            //                           updatedBy: user?.email ?? "unknown",
-                            //                         ),
-                            //                       ),
-                            //                     );
-                            //                   }
-                            //                 }
-                            //               } else {
-                            //                 mipokaCustomToast("Harap unggah file.");
-                            //               }
-                            //             } catch (error) {
-                            //               if (kDebugMode) {
-                            //                 print (error);
-                            //               }
-                            //               // mipokaCustomToast(error.toString());
-                            //               mipokaCustomToast("Fitur belum tersedia.");
-                            //             }
-                            //           } else {
-                            //             mipokaCustomToast(emptyFieldMessage);
-                            //           }
-                            //         },
-                            //         text: "Tambah",
-                            //       );
-                            //     } else if (state is MipokaUserError) {
-                            //       return Text(state.message);
-                            //     } else {
-                            //       return const Text("MipokaUser Hasn't been triggered yet");
-                            //     }
-                            //   },
-                            // ),
                             BlocBuilder<MipokaUserBloc, MipokaUserState>(
                               builder: (context, state) {
                                 if (state is MipokaUserLoading) {
@@ -314,25 +233,9 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
                                   return Text(state.message);
                                 } else {
                                   return const SizedBox();
-                                  // return const Text("MipokaUser Hasn't been triggered yet");
                                 }
                               },
                             ),
-
-
-                            // BlocListener<RiwayatKegiatanMptBloc, RiwayatKegiatanMptState>(
-                            //   listenWhen: (prev, current) =>
-                            //   prev.runtimeType != current.runtimeType,
-                            //   listener: (context, state) {
-                            //     if (state is RiwayatKegiatanMptSuccess) {
-                            //       mipokaCustomToast('File Berhasil di Upload');
-                            //       Navigator.pop(context);
-                            //     } else if (state is RiwayatKegiatanMptError) {
-                            //       mipokaCustomToast(state.message);
-                            //     }
-                            //   },
-                            //   child: const SizedBox(),
-                            // ),
                           ],
                         ),
                       ],
@@ -342,7 +245,6 @@ class _PenggunaMPTUnggahBuktiPageState extends State<PenggunaMPTUnggahBuktiPage>
               } else if (riwayatKegiatanState is RiwayatKegiatanMptError) {
                 return Text(riwayatKegiatanState.message);
               } else {
-                // return const Text("RiwayatKegiatan hasn't been triggered");
                 return const SizedBox();
               }
             },

@@ -55,7 +55,6 @@ class _KemahasiswaanEditOrmawaTambahPageState
   final TextEditingController _namaBendaharaController = TextEditingController();
   String? _fotoBendaharaUrlController;
   List<String> _nimList = [];
-  // List<String> newNimList = [];
 
   final StreamController<String?> _logoUrlStream = StreamController<String?>.broadcast();
   final StreamController<String?> _fotoPembinaUrlStream = StreamController<String?>.broadcast();
@@ -120,7 +119,6 @@ class _KemahasiswaanEditOrmawaTambahPageState
     nimListLength = _nimList.length;
 
     print (_nimList);
-    // newNimList = nimList;
   }
 
 
@@ -326,105 +324,6 @@ class _KemahasiswaanEditOrmawaTambahPageState
 
                   const CustomFieldSpacer(),
 
-                  // CustomFilterButton(
-                  //   text: "Proses File Excel",
-                  //   onPressed: () async {
-                  //     if (
-                  //     _namaOrmawaController.text.isNotEmpty && _namaSingkatanController.text.isNotEmpty
-                  //         && _namaPembinaController.text.isNotEmpty && _namaKetuaController.text.isNotEmpty
-                  //         && _namaWakilKetuaController.text.isNotEmpty && _namaSekretarisController.text.isNotEmpty
-                  //         && _namaBendaharaController.text.isNotEmpty && nimList.isNotEmpty
-                  //         && excelResult != null && logoOrmawaResult != null && fotoPembinaResult != null
-                  //         && fotoKetuaResult != null && fotoWakilKetuaResult != null && fotoSekretarisResult != null
-                  //         && fotoBendaharaResult != null
-                  //     )
-                  //     {
-                  //       Uint8List? logoOrmawaBytes;
-                  //       Uint8List? fotoPembinaBytes;
-                  //       Uint8List? fotoKetuaBytes;
-                  //       Uint8List? fotoWakilKetuaBytes;
-                  //       Uint8List? fotoSekretarisBytes;
-                  //       Uint8List? fotoBendaharaBytes;
-                  //
-                  //       if (kIsWeb) {
-                  //         logoOrmawaBytes = logoOrmawaResult?.files.first.bytes;
-                  //         fotoPembinaBytes = fotoPembinaResult?.files.first.bytes;
-                  //         fotoKetuaBytes = fotoKetuaResult?.files.first.bytes;
-                  //         fotoWakilKetuaBytes = fotoWakilKetuaResult?.files.first.bytes;
-                  //         fotoSekretarisBytes = fotoSekretarisResult?.files.first.bytes;
-                  //         fotoBendaharaBytes = fotoBendaharaResult?.files.first.bytes;
-                  //       } else if (Platform.isAndroid) {
-                  //         logoOrmawaBytes = await File(logoOrmawaResult!.files.first.path!).readAsBytes();
-                  //         fotoPembinaBytes = await File(fotoPembinaResult!.files.first.path!).readAsBytes();
-                  //         fotoKetuaBytes = await File(fotoKetuaResult!.files.first.path!).readAsBytes();
-                  //         fotoWakilKetuaBytes = await File(fotoWakilKetuaResult!.files.first.path!).readAsBytes();
-                  //         fotoSekretarisBytes = await File(fotoSekretarisResult!.files.first.path!).readAsBytes();
-                  //         fotoBendaharaBytes = await File(fotoBendaharaResult!.files.first.path!).readAsBytes();
-                  //       }
-                  //
-                  //       // mipokaCustomToast(savingDataMessage);
-                  //
-                  //       if (logoOrmawaBytes != null) {
-                  //         int uniqueId = UniqueIdGenerator.generateUniqueId();
-                  //         _logoUrlController = await uploadBytesToFirebase(logoOrmawaBytes, "$uniqueId${logoOrmawaResult!.files.first.name}");
-                  //       }
-                  //       if (fotoPembinaBytes != null) {
-                  //         int uniqueId = UniqueIdGenerator.generateUniqueId();
-                  //         _fotoPembinaUrlController = await uploadBytesToFirebase(fotoPembinaBytes, "$uniqueId${fotoPembinaResult!.files.first.name}");
-                  //       }
-                  //       if (fotoKetuaBytes != null) {
-                  //         int uniqueId = UniqueIdGenerator.generateUniqueId();
-                  //         _fotoKetuaUrlController = await uploadBytesToFirebase(fotoKetuaBytes, "$uniqueId${fotoKetuaResult!.files.first.name}");
-                  //       }
-                  //       if (fotoWakilKetuaBytes != null) {
-                  //         int uniqueId = UniqueIdGenerator.generateUniqueId();
-                  //         _fotoWakilKetuaUrlController = await uploadBytesToFirebase(fotoWakilKetuaBytes, "$uniqueId${fotoWakilKetuaResult!.files.first.name}");
-                  //       }
-                  //       if (fotoSekretarisBytes != null) {
-                  //         int uniqueId = UniqueIdGenerator.generateUniqueId();
-                  //         _fotoSekretarisUrlController = await uploadBytesToFirebase(fotoSekretarisBytes, "$uniqueId${fotoSekretarisResult!.files.first.name}");
-                  //       }
-                  //       if (fotoBendaharaBytes != null) {
-                  //         int uniqueId = UniqueIdGenerator.generateUniqueId();
-                  //         _fotoBendaharaUrlController = await uploadBytesToFirebase(fotoBendaharaBytes, "$uniqueId${fotoBendaharaResult!.files.first.name}");
-                  //       }
-                  //
-                  //       _ormawa = Ormawa(
-                  //         idOrmawa: uniqueId,
-                  //         namaOrmawa: '_namaOrmawaController.text',
-                  //         namaSingkatanOrmawa: '_namaSingkatanController.text',
-                  //         logoOrmawa: '_logoUrlController ?? ""',
-                  //         listAnggota: nimList,
-                  //         pembina: '_namaPembinaController.text',
-                  //         ketua:' _namaKetuaController.text',
-                  //         wakil: '_namaWakilKetuaController.text',
-                  //         sekretaris: '_namaSekretarisController.text',
-                  //         bendahara: '_namaBendaharaController.text',
-                  //         jumlahAnggota: nimList.length,
-                  //         fotoPembina: '_fotoPembinaUrlController ?? ""',
-                  //         fotoKetua: '_fotoKetuaUrlController ?? ""',
-                  //         fotoWakil: '_fotoWakilKetuaUrlController ?? ""',
-                  //         fotoSekretaris: '_fotoSekretarisUrlController ?? ""',
-                  //         fotoBendahara: '_fotoBendaharaUrlController ?? ""',
-                  //         createdAt: currentDate,
-                  //         createdBy: user?.email ?? "unknown",
-                  //         updatedBy: currentDate,
-                  //         updatedAt: user?.email ?? "unknown",
-                  //       );
-                  //
-                  //       if (context.mounted) {
-                  //         context.read<OrmawaBloc>().add(
-                  //           CreateOrmawaEvent(
-                  //             ormawa: _ormawa!,
-                  //           ),
-                  //         );
-                  //       }
-                  //     } else {
-                  //       mipokaCustomToast(emptyFieldMessage);
-                  //     }
-                  //   },
-                  // ),
-
                   const CustomFieldSpacer(),
 
                   CustomFilterButton(
@@ -432,7 +331,6 @@ class _KemahasiswaanEditOrmawaTambahPageState
                       onPressed: () {
                         downloadFileWithDio(
                           url: nimTemplate,
-                            // "anggota_ormawa_template.xlsx"
                           fileName: getFileNameFromUrl(nimTemplate),
                         );
                       }
@@ -452,21 +350,6 @@ class _KemahasiswaanEditOrmawaTambahPageState
 
                       CustomMipokaButton(
                         onTap: () async {
-                          // if(nimList != newNimList) {
-                          //   List<String> combinedList = [..._ormawa!.listAnggota, ...newNimList];
-                          //   List<String> finalNimList = combinedList.toSet().toList();
-                          //
-                          //   context.read<OrmawaBloc>().add(
-                          //     UpdateOrmawaEvent(
-                          //       ormawa: _ormawa!.copyWith(
-                          //         listAnggota: finalNimList,
-                          //         jumlahAnggota: finalNimList.length,
-                          //       ),
-                          //     ),
-                          //   );
-                          //
-                          //   print("$finalNimList : ${finalNimList.length}");
-                          // }
 
                           if (_namaOrmawaController.text.isEmpty) {
                             mipokaCustomToast(emptyFieldPrompt("Nama Ormawa"));

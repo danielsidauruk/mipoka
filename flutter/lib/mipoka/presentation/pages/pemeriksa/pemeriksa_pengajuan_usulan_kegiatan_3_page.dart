@@ -260,7 +260,6 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                                           Navigator.pushNamed(
                                             context,
                                             editTertibAcaraPageRoute,
-                                            // arguments: usulanKegiatan,
                                           );
                                         },
                                         child: Align(
@@ -455,13 +454,6 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
 
                         const CustomFieldSpacer(),
 
-                        // CustomMipokaButton(
-                        //   onTap: () {
-                        //     SignatureDialogUtils.showPopup(context, usulanKegiatan, isPop: false);
-                        //   },
-                        //   text: 'Terima',
-                        // ),
-
                         CustomMipokaButton(
                           onTap: () {
                             if (context.mounted) {
@@ -469,7 +461,6 @@ class _PemeriksaPengajuanUsulanKegiatan3PageState
                                 SaveReviseLastPageEvent(
                                   usulanKegiatan: usulanKegiatan.copyWith(
                                     validasiPembina: disetujui,
-                                    // fileUsulanKegiatan: docxUrl,
                                   ),
                                 ),
                               );

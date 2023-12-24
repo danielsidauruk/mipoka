@@ -89,9 +89,6 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                         ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent()));
 
                       }
-                      // else if (state is DeleteLaporanSuccess) {
-                      //   context.read<LaporanBloc>().add(const ReadAllLaporanEvent());
-                      // }
                       else if (state is LaporanError) {
                         mipokaCustomToast(state.message);
                       }
@@ -104,18 +101,6 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            // customBoxTitle('Status'),
-                            //
-                            // const CustomFieldSpacer(height: 4.0),
-                            //
-                            // MipokaCustomDropdown(
-                            //   items: listStatus,
-                            //   onValueChanged: (value) {
-                            //     _filter = value;
-                            //     context.read<LaporanBloc>().add(
-                            //         ReadAllLaporanEvent(filter: _filter ?? "Semua"));
-                            //   },
-                            // ),
                             MipokaCountText(total: laporanState.laporanList.length),
 
                             const CustomFieldSpacer(),
@@ -209,62 +194,11 @@ class _PenggunaDaftarLaporanKegiatanState extends State<PenggunaDaftarLaporanKeg
                                           Align(
                                             alignment: Alignment.center,
                                             child:
-                                            // laporan.statusLaporan == ditolak ?
-                                            // InkWell(
-                                            //   onTap: () {
-                                            //     Navigator.pushNamed(
-                                            //       context,
-                                            //       penggunaPengajuanLaporanKegiatanPage1Route,
-                                            //       arguments: LaporanArgs(
-                                            //         idLaporan: laporan.idLaporan,
-                                            //         isRevisiLaporan: true,
-                                            //       ),
-                                            //     ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent()));
-                                            //   },
-                                            //   child: Text(
-                                            //     laporan.usulanKegiatan?.namaKegiatan ?? "",
-                                            //     style: const TextStyle(color: Colors.red),
-                                            //   ),
-                                            // ) :
-                                            // laporan.fileLaporanKegiatan == "" ?
-                                            // InkWell(
-                                            //   onTap: () {
-                                            //     Navigator.pushNamed(
-                                            //       context,
-                                            //       penggunaPengajuanLaporanKegiatanPage1Route,
-                                            //       arguments: LaporanArgs(
-                                            //         idLaporan: laporan.idLaporan,
-                                            //       ),
-                                            //     ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent()));
-                                            //   },
-                                            //   child: Text(
-                                            //     "${laporan.usulanKegiatan?.namaKegiatan ?? ""} (lanjut mengedit)",
-                                            //     style: const TextStyle(color: Colors.orange),
-                                            //   ),
-                                            // ) :
                                             Text(
                                               laporan.usulanKegiatan?.namaKegiatan ?? "",
                                             ),
                                           )
                                         ),
-
-                                        // DataCell(
-                                        //   onTap: () => Navigator.pushNamed(
-                                        //     context,
-                                        //     penggunaPengajuanLaporanKegiatanPage1Route,
-                                        //     arguments: LaporanArgs(
-                                        //       idLaporan: laporan.idLaporan,
-                                        //     ),
-                                        //   ).then((_) => context.read<LaporanBloc>().add(const ReadAllLaporanEvent())),
-                                        //
-                                        //   Align(
-                                        //     alignment: Alignment.center,
-                                        //     child: Image.asset(
-                                        //       'assets/icons/document.png',
-                                        //       width: 24,
-                                        //     ),
-                                        //   ),
-                                        // ),
                                         laporan.statusLaporan == disetujui ?
                                         DataCell(
                                           Align(

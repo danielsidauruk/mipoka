@@ -94,11 +94,6 @@ class _KemahasiswaanMPTMahasiswaKegiatanPerPeriodeEditPageState extends State<Ke
                         List<String> namaKegiatanDropDownList = namaKegiatanMptList.map(
                                 (namaKegiatan) => namaKegiatan.namaKegiatan).toList();
 
-                        // int indexOfNamaKegiatanMpt = namaKegiatanMptList.indexOf(_namaKegiatanMpt!);
-                        // String namaKegiatanController = indexOfNamaKegiatanMpt < 0
-                        //     ? namaKegiatanDropDownList[0]
-                        //     : namaKegiatanDropDownList[indexOfNamaKegiatanMpt];
-
                         return MipokaCustomDropdown(
                           items: namaKegiatanDropDownList,
                           initialItem: _namaKegiatanMpt?.namaKegiatan,

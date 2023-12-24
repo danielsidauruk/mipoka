@@ -28,8 +28,7 @@ import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_switch.dart';
 import 'package:mipoka/mipoka/presentation/widgets/mipoka_custom_toast.dart';
 import 'package:mipoka/mipoka/presentation/widgets/open_file_picker_method.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
-// import '../../../../domain/utils/mobile_image_converter.dart'
-// if (dart.library.html) '../../../../domain/utils/web_image_converter.dart';
+
 
 class PenggunaPengajuanUsulanKegiatan1 extends StatefulWidget {
   final UsulanArgs usulanArgs;
@@ -46,126 +45,7 @@ class PenggunaPengajuanUsulanKegiatan1 extends StatefulWidget {
 class _PenggunaPengajuanUsulanKegiatan1State
     extends State<PenggunaPengajuanUsulanKegiatan1> {
 
-  // Uint8List? _signatureData;
-  // final StreamController<Uint8List> _signatureDataStream = StreamController<Uint8List>.broadcast();
-  // final GlobalKey<SfSignaturePadState> _signaturePadKey = GlobalKey<SfSignaturePadState>();
   User? user = FirebaseAuth.instance.currentUser;
-
-  // void _showPopup() {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return StatefulBuilder(
-  //         builder: (BuildContext context, void Function(void Function()) setState) {
-  //           return AlertDialog(
-  //             insetPadding: const EdgeInsets.all(12.0),
-  //             title: Row(
-  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //               children: [
-  //                 const Text(
-  //                   'Tanda Tangan Ormawa',
-  //                 ),
-  //                 InkWell(
-  //                   //ignore: sdk_version_set_literal
-  //                   onTap: () {
-  //                     Navigator.pop(context);
-  //                   },
-  //                   child: const Icon(
-  //                     Icons.clear,
-  //                     color: Color.fromRGBO(0, 0, 0, 0.54),
-  //                     size: 24.0,
-  //                   ),
-  //                 )
-  //               ],
-  //             ),
-  //             titlePadding: const EdgeInsets.all(16.0),
-  //             content: SingleChildScrollView(
-  //               child: SizedBox(
-  //                 width: MediaQuery.of(context).size.width < 306
-  //                     ? MediaQuery.of(context).size.width
-  //                     : 306,
-  //                 child: Column(
-  //                   mainAxisAlignment: MainAxisAlignment.center,
-  //                   children: <Widget>[
-  //                     Container(
-  //                       width: MediaQuery.of(context).size.width < 300
-  //                           ? MediaQuery.of(context).size.width
-  //                           : 300,
-  //                       height: 170,
-  //                       decoration: BoxDecoration(
-  //                         border: Border.all(color: Colors.grey[350]!),
-  //                       ),
-  //                       child: SfSignaturePad(
-  //                         backgroundColor: Colors.white,
-  //                         strokeColor: Colors.black,
-  //                         minimumStrokeWidth: 1.0,
-  //                         maximumStrokeWidth: 4.0,
-  //                         key: _signaturePadKey,
-  //                       ),
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //             ),
-  //             contentPadding: const EdgeInsets.symmetric(horizontal: 12.0),
-  //             actionsPadding: const EdgeInsets.all(8.0),
-  //             buttonPadding: EdgeInsets.zero,
-  //             actions: [
-  //               TextButton(
-  //                 onPressed: _handleClearButtonPressed,
-  //                 child: const Text(
-  //                   'Clear',
-  //                   style: TextStyle(
-  //                     fontWeight: FontWeight.w500,
-  //                     color: Colors.black,
-  //                   ),
-  //                 ),
-  //               ),
-  //               const SizedBox(width: 8.0),
-  //               TextButton(
-  //                 onPressed: () {
-  //                   _handleSaveButtonPressed();
-  //                   Navigator.pop(context);
-  //                 },
-  //                 child: const Text(
-  //                   'Save',
-  //                   style: TextStyle(
-  //                     fontWeight: FontWeight.w500,
-  //                     color: Colors.black,
-  //                   ),
-  //                 ),
-  //               )
-  //             ],
-  //           );
-  //         },
-  //       );
-  //     },
-  //   );
-  // }
-
-  // void _handleClearButtonPressed() {
-  //   _signaturePadKey.currentState!.clear();
-  // }
-  //
-  // Future<void> _handleSaveButtonPressed() async {
-  //   late Uint8List data;
-  //
-  //   if (kIsWeb) {
-  //     final RenderSignaturePad renderSignaturePad =
-  //     _signaturePadKey.currentState!.context.findRenderObject()!
-  //     as RenderSignaturePad;
-  //     data = await ImageConverter.toImage(renderSignaturePad: renderSignaturePad);
-  //   } else {
-  //     final ui.Image imageData = await _signaturePadKey.currentState!.toImage(pixelRatio: 3.0);
-  //     final ByteData? bytes = await imageData.toByteData(format: ui.ImageByteFormat.png);
-  //     if (bytes != null) {
-  //       data = bytes.buffer.asUint8List();
-  //     }
-  //   }
-  //
-  //   _signatureData = data;
-  //   _signatureDataStream.add(_signatureData!);
-  // }
 
   @override
   void initState() {
@@ -177,7 +57,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
   @override
   void dispose() {
     context.read<UsulanKegiatanBloc>().close();
-    // _signatureDataStream.close();
     _tempatKegiatanSwitchStream.close();
     super.dispose();
   }
@@ -187,7 +66,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
   final TextEditingController _namaKegiatanController = TextEditingController();
   String? _bentukKegiatanController;
   bool? _bentukKegiatanSwitchController;
-  // _bentukKegiatanController ?? "Luring" : "Daring"
   final TextEditingController _deskripsiKegiatanController = TextEditingController();
   final TextEditingController _tanggalMulaiController = TextEditingController();
   final TextEditingController _tanggalSelesaiController = TextEditingController();
@@ -196,14 +74,11 @@ class _PenggunaPengajuanUsulanKegiatan1State
   final TextEditingController _tanggalKeberangkatanController = TextEditingController();
   final TextEditingController _tanggalKepulanganController = TextEditingController();
   bool? _tempatKegiatanSwitchController;
-  // _tempatKegiatanSwitchController ?? "Luar Kota" : "Dalam Kota"
   final TextEditingController _tempatKegiatanController = TextEditingController();
   final TextEditingController _targetKegiatanController = TextEditingController();
   bool? _jumlahParsitipanSwitchController;
-  // _jumlahParsitipanSwitchController ?? "Orang" : "Tim"
   final TextEditingController _jumlahParsitipanController = TextEditingController();
   bool? _totalPendanaanSwitchController;
-  // _totalPendanaanSwitchController ?? "Uang" : "Dll"
   final TextEditingController _totalPendanaanController = TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
   String? _ormawaSignatureController;
@@ -212,7 +87,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
   @override
   Widget build(BuildContext context) {
-    // final size = MediaQuery.of(context).size;
     if (kDebugMode) {
       print('Page 1 reloaded');
     }
@@ -250,7 +124,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                         final Object? result;
 
                         if (_tempatKegiatanSwitchController == false) {
-                          // result = await Navigator.pushNamed(
                           Navigator.pushNamed(
                             context,
                             penggunaPengajuanUsulanKegiatan2DKPageRoute,
@@ -265,11 +138,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                           ).then((_) => context.read<UsulanKegiatanBloc>()
                               .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan)));
                         }
-
-                        // if (result != null && result == true && context.mounted) {
-                        //   context.read<UsulanKegiatanBloc>()
-                        //       .add(ReadUsulanKegiatanEvent(idUsulanKegiatan: widget.usulanArgs.idUsulan));
-                        // }
 
                       } else if (state is UsulanKegiatanDeleted) {
 
@@ -320,20 +188,13 @@ class _PenggunaPengajuanUsulanKegiatan1State
                             : _totalPendanaanSwitchController = false;
 
                         print (usulanKegiatan.totalPendanaan);
-                        // kategoriTotalPendanaan: _totalPendanaanSwitchController == false ? "Uang" : "Dll",
 
                         _keteranganController.text = usulanKegiatan.keterangan;
-                        // _ormawaSignatureController = usulanKegiatan.tandaTanganOrmawa;
-
-                        // _tanggalKeberangkatanController.text.isNotEmpty ?
-                        // _tempatKegiatanSwitchController = true :
-                        // _tempatKegiatanSwitchController = false;
 
                         List<String> ormawaList = usulanKegiatan.mipokaUser.ormawa
                             .map((ormawa) => ormawa.namaOrmawa).toList();
 
                         _ormawa = usulanKegiatan.ormawa;
-                        // usulanKegiatan.mipokaUser.ormawa[0];
 
                         if (_bentukKegiatanController == null || _bentukKegiatanController == "") {
                           _bentukKegiatanController = listBentukKegiatan[0];
@@ -341,7 +202,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                         if (usulanKegiatan.pembiayaan == "") {
                           _pembiayaanController = listPembiayaan[0];
                         }
-                        // _pembiayaanController == "" ? listPembiayaan[0] : _pembiayaanController;
 
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -355,7 +215,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                               initialItem: _ormawa?.namaOrmawa,
                               onValueChanged: (value) {
                                 int index = ormawaList.indexOf(value!);
-                                // int idOrmawa = idOrmawaList[index];
 
                                 _ormawa = usulanKegiatan.mipokaUser.ormawa[index];
                               },
@@ -569,83 +428,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                               buildRevisiText(usulanKegiatan.revisiUsulan?.revisiKeterangan ?? ""),
                             CustomTextField(controller: _keteranganController),
 
-                            // const CustomFieldSpacer(),
-                            // buildTitle('Tanda Tangan Ormawa'),
-                            //
-                            // if (widget.usulanArgs.isRevisiUsulan == true
-                            //     && usulanKegiatan.revisiUsulan?.revisiTandaTanganOrmawa != "")
-                            //   buildRevisiText(usulanKegiatan.revisiUsulan?.revisiTandaTanganOrmawa ?? ""),
-
-                            // BlocProvider<SignatureCubit>(
-                            //   create: (context) => SignatureCubit(),
-                            //   child: BlocBuilder<SignatureCubit, SignatureState>(
-                            //     builder: (context, state) {
-                            //
-                            //       return StreamBuilder<Uint8List>(
-                            //         stream: _signatureDataStream.stream,
-                            //         initialData: Uint8List(0),
-                            //         builder: (context, snapshot) {
-                            //           final signatureData = snapshot.data;
-                            //
-                            //           return InkWell(
-                            //             onTap: () => context.read<SignatureCubit>().toggleSignature(),
-                            //             child: Container(
-                            //               width: 500,
-                            //               // width: size.width < 501 ? double.infinity : 500,
-                            //               alignment: Alignment.center,
-                            //               padding: const EdgeInsets.all(8.0),
-                            //               decoration: BoxDecoration(
-                            //                 borderRadius: BorderRadius.circular(5.0),
-                            //                 border: Border.all(color: Colors.white),
-                            //               ),
-                            //               child: Column(
-                            //                 mainAxisSize: MainAxisSize.min,
-                            //                 children: [
-                            //                   _ormawaSignatureController == "" ?
-                            //                   InkWell(
-                            //                     onTap: () => _showPopup(),
-                            //                     child: signatureData!.isNotEmpty
-                            //                         ? Image.memory(signatureData)
-                            //                         : const Text(
-                            //                       'Tekan untuk tanda tangan',
-                            //                       style: TextStyle(
-                            //                         color: Colors.white,
-                            //                         fontSize: 16,
-                            //                       ),
-                            //                     ),
-                            //                   ) :
-                            //                   Column(
-                            //                     children: [
-                            //                       Image.network(_ormawaSignatureController ?? ""),
-                            //
-                            //                       const CustomFieldSpacer(),
-                            //
-                            //                       InkWell(
-                            //                         onTap: () {
-                            //                           context.read<SignatureCubit>().toggleSignature();
-                            //                           deleteFileFromFirebase(_ormawaSignatureController ?? "");
-                            //                           _ormawaSignatureController = "";
-                            //                         },
-                            //                         child: const Text(
-                            //                           'Hapus',
-                            //                           style: TextStyle(
-                            //                             color: Colors.white,
-                            //                             fontSize: 16,
-                            //                           ),
-                            //                         ),
-                            //                       ),
-                            //                     ],
-                            //                   ),
-                            //                 ],
-                            //               ),
-                            //             ),
-                            //           );
-                            //         },
-                            //       );
-                            //     },
-                            //   ),
-                            // ),
-
                             const CustomFieldSpacer(),
 
                             Row(
@@ -666,25 +448,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
 
                                 CustomMipokaButton(
                                   onTap: () async {
-                                    // print("1. Ormawa : ${_ormawa != null}");
-                                    // print("2. Pembaiayaan : ${_pembiayaanController != ""}");
-                                    // print("3. Nama Kegiatan : ${_namaKegiatanController.text != ""}");
-                                    // print("4. Bentuk Kegiatan : ${_bentukKegiatanController != null}");
-                                    // print("5. Deskripsi Kegiatan : ${_deskripsiKegiatanController.text != ""}");
-                                    // print("6. Tanggal Mulai : ${_tanggalMulaiController.text != ""}");
-                                    // print("7. Tanggal Selesai : ${_tanggalSelesaiController.text != ""}");
-                                    // print("8. Waktu Mulai : ${_waktuMulaiController.text != ""}");
-                                    // print ("9. Waktu Selesai : ${_waktuSelesaiController.text != ""}");
-                                    // print ("10. Tempat Kegiatan : ${_tempatKegiatanController.text != ""}");
-                                    // print("11. Jumlah Partisipan : ${_jumlahParsitipanController.text != ""}");
-                                    // print ("12. Target Kegiatan : ${_targetKegiatanController.text != ""}");
-                                    // print ("13. Total pendanaan : ${_totalPendanaanController.text != ""}");
-                                    // print ("14. Keterangan : ${_keteranganController.text != " "}");
-                                    // print ("15. Ormawa Signature : ${_ormawaSignatureController != "" || _signatureData != null}");
-
-                                    // print (_waktuMulaiController.text);
-
-
+                              
                                     if (_ormawa == null) {
                                       mipokaCustomToast(emptyFieldPrompt("Ormawa"));
                                     } else if (_pembiayaanController == "") {
@@ -717,9 +481,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                     } else if (_keteranganController.text == "") {
                                       mipokaCustomToast(emptyFieldPrompt("Keterangan"));
                                     }
-                                    // else if (_ormawaSignatureController == "" && _signatureData == null) {
-                                    //   mipokaCustomToast(emptyFieldPrompt("Tanda Tangan Ormawa"));
-                                    // }
                                     else if (int.tryParse(_jumlahParsitipanController.text) == null) {
                                       mipokaCustomToast(dataTypeFalsePrompt("Jumlah Partisipan"));
                                     } else if (_tempatKegiatanSwitchController == true
@@ -729,12 +490,7 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                         && (_tanggalKepulanganController.text == "-" || _tanggalKepulanganController.text == "")) {
                                       mipokaCustomToast(emptyFieldPrompt("Tanggal Kepulangan"));
                                     } else {
-                                      // int uniqueId = UniqueIdGenerator.generateUniqueId();
-
                                       mipokaCustomToast(savingDataMessage);
-                                      // if (_ormawaSignatureController == "") {
-                                      //   _ormawaSignatureController = await uploadBytesToFirebase(_signatureData!, "signature$uniqueId.png");
-                                      // }
 
                                       if(_tempatKegiatanSwitchController == false) {
                                         _tanggalKeberangkatanController.text = "-";
@@ -770,7 +526,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                               kategoriTotalPendanaan: _totalPendanaanSwitchController == false ? "Uang" : "Dll",
                                               totalPendanaan: _totalPendanaanController.text,
                                               keterangan: _keteranganController.text,
-                                              // tandaTanganOrmawa: _ormawaSignatureController,
                                               updatedAt: currentDate,
                                               updatedBy: user?.email ?? "unknown",
                                             ),
@@ -778,9 +533,6 @@ class _PenggunaPengajuanUsulanKegiatan1State
                                         );
                                       }
                                     }
-                                    // else {
-                                    //   mipokaCustomToast(emptyFieldMessage);
-                                    // }
                                   },
                                   text: 'Berikutnya',
                                 ),

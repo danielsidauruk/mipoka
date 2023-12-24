@@ -99,38 +99,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
     super.dispose();
   }
 
-  // Future<String?> generateUsulanDocx(UsulanKegiatanModel usulanKegiatanModel) async {
-  //   const String localUrl = "http://192.168.43.183:3000/usulan-kegiatan";
-  //
-  //   try {
-  //     final response = await http.post(
-  //       Uri.parse(localUrl),
-  //       headers: {"Content-Type": "application/json"},
-  //       body: jsonEncode(usulanKegiatanModel.toJson()),
-  //     );
-  //
-  //     if (response.statusCode == 200) {
-  //       // Request berhasil, lakukan sesuatu dengan response
-  //       if (kDebugMode) {
-  //         print(response.body);
-  //       }
-  //       return response.body;
-  //     } else {
-  //       // Jika request tidak berhasil, tampilkan pesan error
-  //       if (kDebugMode) {
-  //         print("HTTP Error ${response.statusCode}: ${response.reasonPhrase}");
-  //       }
-  //     }
-  //   } catch (e) {
-  //     // Tangani kesalahan ketika melakukan request
-  //     if (kDebugMode) {
-  //       print("Error: $e");
-  //     }
-  //   }
-  //
-  //   return null;
-  // }
-
   @override
   Widget build(BuildContext context) {
     print('Page 3 Reloaded');
@@ -604,21 +572,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
                       }
                     },
                   ),
-
-                  // BlocListener<NotifikasiBloc, NotifikasiState>(
-                  //   listenWhen: (prev, current) =>
-                  //   prev.runtimeType != current.runtimeType,
-                  //   listener: (context, state) {
-                  //     if(state is NotifikasiSuccess) {
-                  //       context.read<UsulanKegiatanBloc>().add(
-                  //         SaveAndSendLastPageEvent(
-                  //           usulanKegiatan: updatedUsulanKegiatan!,
-                  //         ),
-                  //       );
-                  //     }
-                  //   },
-                  //   child: const SizedBox(),
-                  // ),
                 ],
               ),
             ],
@@ -630,7 +583,6 @@ class _PenggunaPengajuanUsulanKegiatan3State
 }
 
 Future<String?> generateUsulanDocx(UsulanKegiatanModel usulanKegiatanModel) async {
-  // const String localUrl = "http://localhost:3000/usulan-kegiatan";
   const String localUrl = "http://192.168.43.183:3000/usulan-kegiatan";
 
   print("generateUsulan triggered");

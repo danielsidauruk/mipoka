@@ -16,26 +16,21 @@ Future<void> downloadFileWithDio({
     } else if (Platform.isAndroid) {
       Map<Permission, PermissionStatus> statuses = await [
         Permission.storage,
-        // Add more permissions to request here.
       ].request();
 
       if (statuses[Permission.storage]!.isGranted) {
         var dir = await DownloadsPathProvider.downloadsDirectory;
         if (dir != null) {
-          // String fileName = url.split('/').last;
           String fileName = Uri.parse(url).pathSegments.last;
           String savePath = "${dir.path}/$fileName";
           print(savePath);
-          // Output: /storage/emulated/0/Download/file.pdf
 
           await Dio().download(
             url,
             savePath,
             onReceiveProgress: (received, total) {
               if (total != -1) {
-                // print("${(received / total * 100).toStringAsFixed(0)}%");
                 return mipokaCustomToast("${(received / total * 100).toStringAsFixed(0)}%");
-                // You can build a progress bar feature too.
               }
             },
           );

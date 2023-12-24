@@ -98,7 +98,6 @@ class _MobileCustomPemeriksaDrawerState
                               Expanded(
                                 child: InkWell(
                                   onTap: () => _showAlertDialog(context),
-                                  // onTap: () => Navigator.pushNamed(context, mobileAkunPageRoute),
                                   child: Text(
                                     '${user?.email}',
                                     style:

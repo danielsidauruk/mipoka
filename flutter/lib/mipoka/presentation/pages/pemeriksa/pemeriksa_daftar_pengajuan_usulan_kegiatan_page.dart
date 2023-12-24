@@ -81,22 +81,6 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
 
               CustomContentBox(
                 children: [
-                  // customBoxTitle('Status'),
-                  //
-                  // const CustomFieldSpacer(height: 4.0),
-                  //
-                  // MipokaCustomDropdown(
-                  //   items: listStatus,
-                  //   onValueChanged: (value) {
-                  //     filter = value;
-                  //
-                  //     // context.read<UsulanKegiatanBloc>().add(
-                  //     //     ReadAllUsulanKegiatanEvent(filter: value ?? "semua"));
-                  //   },
-                  // ),
-                  //
-                  // const CustomFieldSpacer(),
-
                   BlocConsumer<UsulanKegiatanBloc, UsulanKegiatanState>(
                     listenWhen: (prev, current) =>
                     prev.runtimeType != current.runtimeType,
@@ -329,12 +313,6 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                     children: [
                                                       InkWell(
                                                         onTap: () async {
-                                                          // SignatureDialogUtils.showPopup(
-                                                          //   context,
-                                                          //   usulanKegiatan.copyWith(
-                                                          //     revisiUsulan: revisiUsulan,
-                                                          //   ),
-                                                          // );
                                                           if(context.mounted) {
                                                             String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
                                                             User? user = FirebaseAuth.instance.currentUser;
@@ -361,7 +339,6 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                               UpdateUsulanKegiatanEvent(
                                                                 usulanKegiatan: usulanKegiatan.copyWith(
                                                                   validasiPembina: disetujui,
-                                                                  // fileUsulanKegiatan: docxUrl,
                                                                 ),
                                                               ),
                                                             );
@@ -398,7 +375,6 @@ class _PemeriksaDaftarPengajuanKegiatanPageState extends State<PemeriksaDaftarPe
                                                             context.read<UsulanKegiatanBloc>().add(
                                                               UpdateUsulanKegiatanEvent(
                                                                 usulanKegiatan: usulanKegiatan.copyWith(
-                                                                  // revisiUsulan: revisiUsulan,
                                                                   validasiPembina: ditolak,
                                                                   statusUsulan: ditolak,
                                                                 ),

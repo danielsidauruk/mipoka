@@ -52,7 +52,6 @@ class MipokaCustomLoadImage extends StatelessWidget {
 
                 const CustomFieldSpacer(),
 
-                // Image.network(imageUrl),
                 Image.network(
                   imageUrl,
                   loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {

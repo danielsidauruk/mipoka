@@ -38,7 +38,6 @@ class _CustomFilePickerButtonState extends State<CustomFilePickerButton> {
           children: [
             Expanded(
               child: Text(
-                // Uri.parse(widget.text).pathSegments.last,
                 widget.text,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

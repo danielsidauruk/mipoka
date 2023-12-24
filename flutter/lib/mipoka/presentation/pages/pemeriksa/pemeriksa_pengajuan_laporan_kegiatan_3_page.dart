@@ -213,24 +213,6 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                             CustomMipokaButton(
                               onTap: () {
                                 String currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
-                                // context.read<LaporanBloc>().add(
-                                //   UpdateLaporanFirstPageEvent(
-                                //     laporan: laporan.copyWith(
-                                //       revisiLaporan: laporan.revisiLaporan?.copyWith(
-                                //         revisiLatarBelakang: _revisiLatarBelakangController.text,
-                                //         revisiHasilKegiatan: _revisiHasilKegiatanController.text,
-                                //         revisiPenutup: _revisiPenutupController.text,
-                                //         revisiFotoDokumentasiKegiatan: _revisiFotoDokumenasiKegiatanController.text,
-                                //         revisiFotoPostinganKegiatan: _revisiFotoPostinganKegiatanController.text,
-                                //         revisiFotoTabulasiHasil: _revisiFotoTabulasiHasilController.text,
-                                //         revisiFotoFakturPembayaran: _revisiFotofakturpembayaranController.text,
-                                //         updatedAt: currentDate,
-                                //         updatedBy: user?.email ?? "unknown",
-                                //       ),
-                                //     ),
-                                //   ),
-                                // );
                                 Navigator.pop(context);
                               },
                               text: 'Sebelumnya',
@@ -268,21 +250,6 @@ class _PemeriksaPengajuanLaporanKegiatan3PageState
                             ),
 
                             const SizedBox(width: 4.0),
-
-                          //   CustomMipokaButton(
-                          //     onTap: () {
-                          //       mipokaCustomToast("Laporan diterima.");
-                          //
-                          //       context.read<LaporanBloc>().add(
-                          //         UpdateLaporanReviseLastPageEvent(
-                          //           laporan: laporan.copyWith(
-                          //             validasiPembina: disetujui,
-                          //           ),
-                          //         ),
-                          //       );
-                          //     },
-                          //     text: 'Terima',
-                          //   ),
 
                             CustomMipokaButton(
                               onTap: () {

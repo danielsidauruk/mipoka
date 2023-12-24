@@ -40,7 +40,6 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
     extends State<PemeriksaPengajuanLaporanKegiatan1Page> {
   final TextEditingController _revisiPencapaianController =
   TextEditingController();
-  // int? idRevisiLaporan;
 
   User? user = FirebaseAuth.instance.currentUser;
   int newId = UniqueIdGenerator.generateUniqueId();
@@ -110,17 +109,8 @@ class _PemeriksaPengajuanLaporanKegiatan1PageState
                   } else if (state is LaporanHasData) {
                     final laporan = state.laporan;
 
-                    // idRevisiLaporan = newId ;
                     return CustomContentBox(
                       children: [
-
-                        // CustomCommentWidget(
-                        //   title: "Nama Kegiatan",
-                        //   mainText: laporan.usulanKegiatan?.namaKegiatan ?? "",
-                        //   controller: _commentNamaKegiatanController,
-                        // ),
-                        //
-                        // const CustomFieldSpacer(),
 
                         CustomCommentWidget(
                           title: 'Pencapaian',

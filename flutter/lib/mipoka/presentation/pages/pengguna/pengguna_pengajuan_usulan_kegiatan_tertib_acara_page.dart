@@ -227,7 +227,6 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                                           onTap: () {
                                             final tertibAcaraList = usulanKegiatan.tertibAcara;
                                             tertibAcaraList.removeAt(index);
-                                            // mipokaCustomToast("Tertib Acara telah dihapus");
 
                                             context.read<UsulanKegiatanBloc>().add(
                                               ManageTertibAcaraEvent(
@@ -296,7 +295,6 @@ class _PenggunaPengajuanUsulanKegiatanTertibAcaraState extends State<PenggunaPen
                           ),
                         ),
                       );
-                      // return const Text("UsulanKegiatan hasn't been triggered");
                     }
                   },
                 ),

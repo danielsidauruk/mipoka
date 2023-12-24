@@ -46,8 +46,6 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
         },
       ),
 
-      // drawer: const MobileCustomPenggunaDrawerWidget(),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -90,48 +88,6 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
                         print("Notifikasi hasn't been triggered yet.");
                         return const SizedBox();
                       }
-                      // return Column(
-                      //   mainAxisAlignment: MainAxisAlignment.start,
-                      //   children: [
-                      //
-                      //
-                      //
-                      //     CustomFieldSpacer(),
-                      //
-                      //     CustomNotifikasiTile(
-                      //       text: 'Sio Jurnalis Pipin telah memberikan validasi mengenai Usulan Kegiatan yang diajukan oleh Tommy Christian Siregar',
-                      //       time: '11.00 AM',
-                      //     ),
-                      //
-                      //     CustomFieldSpacer(),
-                      //
-                      //     CustomNotifikasiTile(
-                      //       text: 'Tashia Taslim telah memberikan persetujuan mengenai Usulan Kegiatan yang diajukan oleh Tommy Christian Siregar',
-                      //       time: '03.00 PM',
-                      //     ),
-                      //
-                      //     CustomFieldSpacer(),
-                      //
-                      //     CustomNotifikasiTile(
-                      //       text: 'Tommy Christian Siregar telah melakukan pengajuan Usulan Kegiatan',
-                      //       time: 'Senin',
-                      //     ),
-                      //
-                      //     CustomFieldSpacer(),
-                      //
-                      //     CustomNotifikasiTile(
-                      //       text: 'Sio Jurnalis Pipin telah memberikan validasi mengenai Usulan Kegiatan yang diajukan oleh Tommy Christian Siregar',
-                      //       time: '11.00 AM',
-                      //     ),
-                      //
-                      //     CustomFieldSpacer(),
-                      //
-                      //     CustomNotifikasiTile(
-                      //       text: 'Tashia Taslim telah memberikan persetujuan mengenai Usulan Kegiatan yang diajukan oleh Tommy Christian Siregar',
-                      //       time: '03.00 PM',
-                      //     ),
-                      //   ],
-                      // );
                     },
                   ),
                 ],

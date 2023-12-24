@@ -341,16 +341,6 @@ class _PemeriksaPengajuanUsulanKegiatan2LKPageState
                                 children: [
                                   CustomMipokaButton(
                                     onTap: () {
-                                      // context.read<UsulanKegiatanBloc>().add(
-                                      //   ManagePartisipanEvent(
-                                      //     usulanKegiatan: usulanKegiatan.copyWith(
-                                      //       revisiUsulan: usulanKegiatan.revisiUsulan?.copyWith(
-                                      //         revisiPartisipan: _revisiPartisipanController.text,
-                                      //         revisiRincianBiayaKegiatan: _revisiRincianBiayaKegiatanController.text,
-                                      //       ),
-                                      //     ),
-                                      //   ),
-                                      // );
                                       Navigator.pop(context, true);
                                     },
                                     text: 'Sebelumnya',
@@ -370,12 +360,6 @@ class _PemeriksaPengajuanUsulanKegiatan2LKPageState
                                           ),
                                         ),
                                       );
-
-                                      // Navigator.pushNamed(
-                                      //   context,
-                                      //   pemeriksaPengajuanUsulanKegiatan3PageRoute,
-                                      //   arguments: widget.idUsulan,
-                                      // );
                                     },
                                     text: 'Berikutnya',
                                   ),

@@ -250,7 +250,6 @@ class _PemeriksaPengajuanUsulanKegiatan1PageState
 
                             CustomCommentWidget(
                               title: 'Jumlah Parsitipan',
-                              // mainText: '15 Orang',
                               mainText: "${usulanKegiatan.jumlahPartisipan} ${usulanKegiatan.kategoriJumlahPartisipan}",
                               controller: _revisiJumlahParsitipanController,
                             ),

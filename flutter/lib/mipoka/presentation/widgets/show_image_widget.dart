@@ -12,21 +12,18 @@ Widget showImageWidget(BuildContext context, String imageUrl, String title) {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              // backgroundColor: Colors.black,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     title,
                     style: const TextStyle(
-                      // color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   InkWell(
                     onTap: () => Navigator.pop(context),
                     child: const Icon(
-                      // color: Colors.black,
                       Icons.clear,
                       size: 24.0,
                     ),

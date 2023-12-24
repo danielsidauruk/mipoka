@@ -124,7 +124,6 @@ class SignatureDialogUtils {
 
     Uint8List? data;
     String? tandaTangan;
-    // String? docxUrl;
     int uniqueId = UniqueIdGenerator.generateUniqueId();
 
     if (kIsWeb) {

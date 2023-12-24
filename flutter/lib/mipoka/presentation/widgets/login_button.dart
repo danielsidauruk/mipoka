@@ -34,7 +34,6 @@ class LoginButton extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
-            // const Icon(Icons.arrow_forward_ios),
             const Icon(Icons.arrow_forward_ios),
           ],
         ),
