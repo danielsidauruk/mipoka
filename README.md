@@ -1,3 +1,3 @@
 # MIPOKA
 
-The final project is developed using Flutter, Node.js, and Java.
+The final project built using Flutter, Node.js, and Java.
