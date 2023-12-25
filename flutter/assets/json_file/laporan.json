@@ -4,7 +4,34 @@
     "id_revisi_laporan": 54353,
     "user": {
       "id_user": "24313sfa1",
-      "ormawa": [],
+      "ormawa": [
+        {
+          "id_ormawa": 1111,
+          "nama_ormawa": "Mikroskil Esport",
+          "nama_singkatan_ormawa": "ME",
+          "logo_ormawa": "link_photo",
+          "list_anggota": [
+            "2222",
+            "3333",
+            "4444"
+          ],
+          "pembina": "Pembina Ormawa",
+          "ketua": "Ketua Ormawa",
+          "wakil": "Wakil Ketua Ormawa",
+          "sekretaris": "Sekretaris Ormawa",
+          "bendahara": "Bendahara Ormawa",
+          "jumlah_anggota": 50,
+          "foto_pembina": "link_foto_pembina",
+          "foto_ketua": "link_foto_ketua",
+          "foto_wakil": "link_foto_wakil",
+          "foto_sekretaris": "link_foto_sekretaris",
+          "foto_bendahara": "link_foto_bendahara",
+          "created_at": "26-6-2023",
+          "created_by": "John Doe",
+          "updated_at": "26-6-2023",
+          "updated_by": "Jane Smith"
+        }
+      ],
       "email": "john.doe@example.com",
       "nama_lengkap": "John Doe",
       "nim": "123456789",
@@ -16,8 +43,8 @@
       "periode_mpt": "2023-2024",
       "status_mpt": "Aktif",
       "prodi": "Teknik Informatika",
-      "created_at": "2023-06-25T12:00:00",
-      "updated_at": "2023-06-26T10:30:00",
+      "created_at": "20-1-2023",
+      "updated_at": "20-1-2023",
       "created_by": "Admin001",
       "updated_by": "Admin002"
     },
@@ -31,9 +58,9 @@
     "revisi_foto_dokumentasi_kegiatan": "http://example.com/foto-dokumentasi.jpg",
     "revisi_foto_tabulasi_hasil": "http://example.com/foto-tabulasi.jpg",
     "revisi_foto_faktur_pembayaran": "http://example.com/foto-faktur.jpg",
-    "created_at": "2023-06-26",
+    "created_at": "20-1-2023",
     "created_by": "John Doe",
-    "updated_at": "2023-06-26",
+    "updated_at": "20-1-2023",
     "updated_by": "Jane Smith"
   },
   "usulan": {
@@ -321,8 +348,7 @@
     "updated_at": "26-6-2023",
     "created_by": "Admin001",
     "updated_by": "Admin002"
-  }
-  ,
+  },
   "pencapaian": "Lorem ipsum dolor sit amet",
   "peserta_kegiatan_laporan": [
     {
@@ -331,9 +357,9 @@
       "nim": "1234567890",
       "nama_lengkap": "John Doe",
       "peran": "Peserta",
-      "created_at": "2023-06-26",
+      "created_at": "20-6-2026",
       "created_by": "Jane Smith",
-      "updated_at": "2023-06-26",
+      "updated_at": "20-6-2026",
       "updated_by": "John Doe"
     },
     {
@@ -342,9 +368,9 @@
       "nim": "1234567890",
       "nama_lengkap": "John Doe",
       "peran": "Peserta",
-      "created_at": "2023-06-26",
+      "created_at": "20-6-2026",
       "created_by": "Jane Smith",
-      "updated_at": "2023-06-26",
+      "updated_at": "20-6-2026",
       "updated_by": "John Doe"
     }
   ],
@@ -359,9 +385,9 @@
       "usulan_anggaran": 500000,
       "realisasi_anggaran": 450000,
       "selisih": 50000,
-      "created_at": "2023-06-26",
+      "created_at": "20-6-2026",
       "created_by": "Jane Smith",
-      "updated_at": "2023-06-26",
+      "updated_at": "20-6-2026",
       "updated_by": "John Doe"
     }
   ],
@@ -380,8 +406,8 @@
   "file_laporan_kegiatan": "http://example.com/file-laporan.pdf",
   "validasi_pembina": "true",
   "status_laporan": "Ditolak",
-  "created_at": "2023-06-26",
+  "created_at": "20-6-2026",
   "created_by": "John Doe",
-  "updated_at": "2023-06-26",
+  "updated_at": "20-6-2026",
   "updated_by": "Jane Smith"
 }
